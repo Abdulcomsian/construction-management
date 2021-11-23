@@ -204,32 +204,17 @@
                         <div class="col-md-6">
                             <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement">
 							<!--begin::Label-->
-							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-								<span class="required">Design Requirement for:</span>
-							</label>
+							<input type="text" placeholder="Design Requirement" readonly>
 							<!--end::Label-->
 							</div>
                             <div class="d-flex modalDiv">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span class="required">Description of Temporary Works Required</span>
-								</label>
-								<!--end::Label-->
+                                <input type="text" placeholder="Description of Temporary Works Required">	
 							</div>
-                            <div class="d-flex modalDiv">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span class="required">Scope of Design Output Required fronm the Temporary Works Engineer:</span>
-								</label>
-								<!--end::Label-->
+                            <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#scope-of-design">
+                                <input type="text" placeholder="Scope of Design Output Required fronm the Temporary Works Engineer:" readonly>
 							</div>
-                            <div class="d-flex modalDiv">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span class="required">Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)</span>
-
-								</label>
-								<!--end::Label-->
+                            <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
 							</div>
                         </div>
                     </div>

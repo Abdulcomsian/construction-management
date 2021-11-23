@@ -1,4 +1,5 @@
 @extends('layouts.dashboard.master',['title' => 'Users'])
+
 @section('styles')
 <style>
     .newDesignBtn {
@@ -201,40 +202,19 @@
 							</div>
                         </div>
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement">
 							<!--begin::Label-->
-							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-								<span class="required">Design Requirement for:</span>
-							</label>
+							<input type="text" placeholder="Design Requirement" readonly>
 							<!--end::Label-->
-								<input readonly type="text" class="form-control form-control-solid" placeholder="000" name="target_title">
 							</div>
-                            <div class="d-flex inputDiv">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span class="required">Description of Temporary Works Required</span>
-
-								</label>
-								<!--end::Label-->
-							    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" name="target_title">
+                            <div class="d-flex modalDiv">
+                                <input type="text" placeholder="Description of Temporary Works Required">	
 							</div>
-                            <div class="d-flex inputDiv">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span class="required">Scope of Design Output Required fronm the Temporary Works Engineer:</span>
-
-								</label>
-								<!--end::Label-->
-							    <input readonly type="text" class="form-control form-control-solid" placeholder="Date" name="target_title">
+                            <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#scope-of-design">
+                                <input type="text" placeholder="Scope of Design Output Required fronm the Temporary Works Engineer:" readonly>
 							</div>
-                            <div class="d-flex inputDiv">
-								<!--begin::Label-->
-								<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-									<span class="required">Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)</span>
-
-								</label>
-								<!--end::Label-->
-							    <input readonly type="text" class="form-control form-control-solid" placeholder="Design Required by Date" name="target_title">
+                            <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
 							</div>
                         </div>
                     </div>
@@ -250,4 +230,5 @@
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
+@include('layouts.modal.design-relief-modals')
 @endsection

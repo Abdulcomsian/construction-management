@@ -8,3 +8,6 @@
 <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
 <!--end::Global Stylesheets Bundle-->
+<!--begin::Custom Style -->
+<link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css"/>
+<!--end::Custom Stylesheets Bundle-->

@@ -20,6 +20,7 @@ License: -->
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+    
 {{--    begin::Global style files--}}
     @include('layouts.dashboard.styles')
     @toastr_css

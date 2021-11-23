@@ -30,6 +30,9 @@ Route::get('/addUser', function () {
 Route::get('/temporaryWorks', function () {
     return view('dashboard/screens/temporary-works');
 });
+Route::get('/temporaryWork', function () {
+    return view('dashboard/admin/screens/temporary-work');
+});
 Route::get('/designRelief', function () {
     return view('dashboard/screens/new-design-relief');
 });

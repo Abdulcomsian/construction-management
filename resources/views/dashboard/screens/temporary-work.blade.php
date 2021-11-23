@@ -48,7 +48,7 @@
     table thead th{
         color: #fff !important;
         text-align: center;
-        transform: rotate(-90deg);
+        transform: rotate(-60deg);
         border-bottom: 0px !important;
         vertical-align: middle;
         font-size: 12px !important;
@@ -56,6 +56,27 @@
     }
     tbody tr:nth-child(odd) {background-color: #fff;}
     tbody tr:nth-child(even) {background-color: #f2f2f2;}
+    .card>.card-header{
+        align-items: center;
+    }
+    .dataTables_filter input{
+        border-radius: 8px;
+    }
+    thead tr{
+        height: 110px !important;
+    }
+    table {
+        margin-top: 20px;
+        border-collapse: separate;
+        background-color: red;
+    }
+    .dataTables_length label,
+    #DataTables_Table_0_filter label{
+        color: #fff;
+    }
+    .page-item.active .page-link{
+        background-color: #000 !important;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -92,39 +113,39 @@
                         <h2>Temporary Work Register</h2>
                     </div>
                     <!--begin::Card toolbar-->
-
+                    <a href="" class="newDesignBtn">New Design Relief</a>
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
-                <a href="" class="newDesignBtn">New Design Relief</a>
+                
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <div class="table-responsive">
-                        <table class="table align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
+                        <table class="cell-border datatable table align-middle table-row-dashed fs-6 gy-5 table-responsive">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px">TW ID. No.</th>
-                                    <th class="min-w-100px">Company</th>
-                                    <th class="min-w-100px">Project Name</th>
-                                    <th class="min-w-100px">Description of TWS</th>
-                                    <th class="min-w-100px">Design Check CAT (0,1,2,3)</th>
-                                    <th class="min-w-100px">Implimentation Risk Class (VL,L,M,H)</th>
-                                    <th class="min-w-100px">Issue Date of Design Brief</th>
-                                    <th class="min-w-100px">Required Date of Design</th>
-                                    <th class="min-w-100px">Comments</th>
-                                    <th class="min-w-100px">Comments</th>
-                                    <th class="min-w-100px">TW designer (designer name and company)</th>
-                                    <th class="min-w-100px">Date Design Returned</th>
-                                    <th class="min-w-100px">TW designer (designer name and company)</th>
-                                    <th class="min-w-100px">Date Design / Check Returned</th>
-                                    <th class="min-w-100px">Drawings</th>
-                                    <th class="min-w-100px">Design Check Certificate</th>
-                                    <th class="min-w-100px">Permit to Load</th>
-                                    <th class="min-w-100px">Permit to Unload</th>
-                                    <th class="min-w-100px">RAMS</th>
+                                    <th class="min-w-50px">TW ID. No.</th>
+                                    <th class="min-w-50px">Company</th>
+                                    <th class="min-w-50px">Project<br> Name</th>
+                                    <th class="min-w-50px">Description of TWS</th>
+                                    <th class="min-w-50px">Design Check CAT (0,1,2,3)</th>
+                                    <th class="min-w-50px">Implimentation Risk Class (VL,L,M,H)</th>
+                                    <th class="min-w-50px">Issue Date of Design Brief</th>
+                                    <th class="min-w-50px">Required Date of Design</th>
+                                    <th class="min-w-50px">Comments</th>
+                                    <th class="min-w-50px">Comments</th>
+                                    <th class="min-w-50px">TW designer (designer name and company)</th>
+                                    <th class="min-w-50px">Date Design Returned</th>
+                                    <th class="min-w-50px">TW designer (designer name and company)</th>
+                                    <th class="min-w-50px">Date Design / Check Returned</th>
+                                    <th class="min-w-50px">Drawings</th>
+                                    <th class="min-w-50px">Design Check Certificate</th>
+                                    <th class="min-w-50px">Permit to Load</th>
+                                    <th class="min-w-50px">Permit to Unload</th>
+                                    <th class="min-w-50px">RAMS</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -168,5 +189,6 @@
 </div>
 @endsection
 @section('scripts')
-@include('layouts.sweetalert.sweetalert_js')
+    @include('layouts.sweetalert.sweetalert_js')
+    @include('layouts.datatables.datatables_js')
 @endsection

@@ -43,23 +43,31 @@
             data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu"
             data-kt-scroll-offset="0">
             <!--begin::Menu-->
-           
+
             <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                 <span class="menu-link">
                     <span class="menu-icon">
                         <i class="bi bi-people fs-3"></i>
                     </span>
-                    <span class="menu-title">Admin</span>
+                    <span class="menu-title">Companies & Projects</span>
                     <span class="menu-arrow"></span>
                 </span>
                 <div class="menu-sub menu-sub-accordion">
                     <div class="menu-item">
-                        <a class="menu-link" href="/addProject">
+                        <a class="menu-link" href="{{route('projects.create')}}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Project</span>
+                            <span class="menu-title">Projects</span>
                         </a>
+                    </div>
+                    <div class="menu-item">
+                            <a class="menu-link" href="{{ route('users.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Companies</span>
+                            </a>
                     </div>
                     <div class="menu-item">
                             <a class="menu-link" href="{{ route('users.index') }}">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -21,22 +22,23 @@ Route::get('/', function () {
 });
 
 Route::get('/addProject', function () {
-    return view('dashboard/admin/project/add-project');
+    return view('dashboard/projects/create');
 });
 Route::get('/addUser', function () {
-    return view('dashboard/users/add-user');
+    return view('dashboard/users/create');
 });
 Route::get('/temporaryWorks', function () {
-    return view('dashboard/admin/screens/temporary-works');
+    return view('dashboard/screens/temporary-works');
 });
 Route::get('/designRelief', function () {
-    return view('dashboard/admin/screens/new-design-relief');
+    return view('dashboard/screens/new-design-relief');
 });
 Route::group(['middleware' => ['auth']], function() {
     //All Resource Controller
     Route::resources([
-        'roles' => RoleController::class, //Roles and permissions
+//        'roles' => RoleController::class, //Roles and permissions
         'users' => UserController::class, //Clients
+        'projects' => ProjectController::class, //Projects
     ]);
 });
 

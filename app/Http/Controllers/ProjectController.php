@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Utils\Validations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -47,8 +48,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        Validations::storeProject($request);
+        if ($request->has('id')){
 
+        }
+        try {
+            $all_fields  = $request->all();
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
             return Redirect::back();

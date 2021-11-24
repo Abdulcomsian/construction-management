@@ -1,4 +1,4 @@
-<div class="modal fade" id="project" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="project_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -24,31 +24,24 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="kt_modal_new_target_form" class="form" action="#">
+                <form id="kt_modal_new_target_form" class="form project_details_form" action="{{ route('projects.store') }}" method="post">
+                    @csrf
                     <!--begin::Heading-->
-                    <div class="mb-13 text-center">
+                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+                        <div class="mb-13 text-center">
                         <!--begin::Title-->
                         <h1 class="mb-3">Project Details</h1>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">Target Title</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter Target Title" name="target_title" />
-                    </div>
-                    <!--end::Input group-->
+
                     <!--begin::Input group-->
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-bold mb-2">No</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Enter Project No" name="no" />
+                            <input type="number" class="form-control form-control-solid" placeholder="Enter Project No" name="no" />
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
@@ -58,10 +51,36 @@
                         </div>
                         <!--end::Col-->
                     </div>
+                    <div class="row g-9 mb-8">
+                        <!--begin::Col-->
+                        <div class="col-md-6">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+                                <span class="required">Status</span>
+                            </label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-8 d-flex align-items-center fw-bold fs-6">
+                                <!--begin:Input-->
+                                <span class="form-check form-check-custom form-check-solid me-20">
+                                            {{\App\HelperFunction\Status::Active}}
+                                            <input checked class="form-check-input m-2" type="radio" name="status" value="{{\App\HelperFunction\Status::Active}}" />
+                                        </span>
+                                &nbsp;&nbsp;&nbsp;
+                                <span class="form-check form-check-custom form-check-solid">
+                                            {{\App\HelperFunction\Status::Inactive}}
+                                            <input class="form-check-input m-2" type="radio" name="status" value="{{\App\HelperFunction\Status::Inactive}}" />
+                                        </span>
+                                <!--end:Input-->
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
                     <!--end::Input group-->
                     <!--begin::Actions-->
                     <div class="text-center">
-                        <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-white me-3">Cancel</button>
+                        <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-white me-3" >Reset</button>
                         <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...

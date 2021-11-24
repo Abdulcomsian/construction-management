@@ -133,7 +133,7 @@
                             <h2>Projects</h2>
                         </div>
                         <!--begin::Card toolbar-->
-                        <button value="add" href="" class="newDesignBtn" data-bs-toggle="modal" data-bs-target="#project">New Project</button>
+                        <button value="add" class="newDesignBtn btn project_details">New Project</button>
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->
@@ -160,7 +160,7 @@
                                     <td>2345234</td>
                                     <td>Accrual Group</td>
                                     <td>
-                                        <button value="edit" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                        <button value="edit" data-id="1" class="project_details btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                             <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                             <span class="svg-icon svg-icon-3">
 																			<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -204,4 +204,27 @@
 @section('scripts')
     @include('layouts.sweetalert.sweetalert_js')
     @include('layouts.datatables.datatables_js')
+    <script>
+        $(document).ready(function () {
+            @if ($errors->any())
+                console.log('Validation error');
+                $('#project_modal_id').modal('show');
+            @endif
+            $('.project_details').click(function () {
+                console.log('Here in project details click');
+                console.log($(this).attr('value'));
+                let type  = $(this).attr('value');
+                $('.project_details_form').trigger("reset");
+
+                if(type == 'add'){
+                    $('#project_modal_id').modal('show');
+                }else if(type == 'edit'){
+                    let id = $(this).data('id');
+                    $('.project_details_form').append(`<input name="id" value="${id}">`);
+                    console.log(id);
+                    $('#project_modal_id').modal('show');
+                }
+            });
+        });
+    </script>
 @endsection

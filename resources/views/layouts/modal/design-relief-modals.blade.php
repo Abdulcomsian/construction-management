@@ -49,6 +49,7 @@
                                 <input type="text" vlaue="" class="requirment-second-value">
                                 <div class="list-div">
                                     <ul>
+                                        <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                         <li data-id="Trench">Trench Sheeting</li>
                                         <li data-id="Manhole">Manhole / Trench Boxes</li>
                                         <li data-id="Cofferdams">Cofferdams</li>
@@ -56,13 +57,6 @@
                                         <li data-id="Capping">Capping Beam Support</li>
                                         <li data-id="Temporary">Temporary Slopes</li>
                                         <li data-id="Headings">Headings/ Tunnel Support</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="common-requirment requirment-third">
-                                <input type="text" vlaue="" class="requirment-third-value">
-                                <div class="list-div">
-                                    <ul>
                                         <li data-id="Underpinning">Underpinning</li>
                                         <li data-id="Stockpiles">Stockpiles</li>
                                         <li data-id="PCC">PCC L Shape Wall</li>
@@ -72,7 +66,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="submit-requirment" data-bs-dismiss="modal">
                                 <button disabled="disabled">Save</button>
@@ -457,8 +450,11 @@
                             </div>
                             
                         </div>
-                        <div class="submit-requirment" data-bs-dismiss="modal">
-                                <button disabled="disabled">Save</button>
+                        <div class="submit-requirment" >
+                                <button data-bs-dismiss="modal" disabled="disabled">Save</button>
+                                <div class="uploadDiv">
+                                    <input type="file">
+                                </div>
                             </div>
 					</div>
 					<!--end::Modal body-->

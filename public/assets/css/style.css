@@ -1,3 +1,9 @@
+/*Using this for show validation error in red color*/
+.text-red-600 {
+    --tw-text-opacity: 1;
+    color: rgba(220, 38, 38, var(--tw-text-opacity));
+}
+
 input:focus{
     box-shadow: none;
     border: none;
@@ -13,7 +19,8 @@ input:focus{
     margin: 20px 0px 0px;
     border: none;
 }
-.modalDiv input::placeholder{
+.modalDiv input::placeholder,
+.requirment-second li input::placeholder{
     color: #fff;
 }
 .modalDiv label{
@@ -22,14 +29,30 @@ input:focus{
 .multi-list{
     display: flex;
 }
+#scope-of-design .list-div ul li{
+    height: 58px;
+    display: flex;
+}
+#design-requirement .requirment-second li:nth-child(1):after{
+    content: none !important;
+}
 .requirment-first-value,
 .requirment-second-value,
 .requirment-third-value,
 .requirment-second,
-.requirment-third{
+.requirment-third,
+.other-input{
     display: none;
 }
-#scope-of-design .common-requirment{
+.requirment-second li input{
+    width: 100%;
+    background-color: #2B2727;
+    border-color: #2B2727 !important;
+    color: #fff !important;
+    border: none;
+}
+#scope-of-design .common-requirment,
+#design-requirement .common-requirment{
     width: 50%;
 }
 #attachment-of-design .requirment-first{
@@ -43,9 +66,19 @@ input:focus{
     justify-content: space-between;
 }
 .submit-requirment{
-    width: 20%;
+    width: 50%;
     margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.submit-requirment button{
     opacity: .5;
+    width: 100%;
+    margin-right: 20px !important;
+}
+.submit-requirment .uploadDiv{
+    width: 100%;
 }
 .disabled{
     pointer-events: none;

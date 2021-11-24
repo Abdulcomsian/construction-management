@@ -1,11 +1,20 @@
-.modalDiv{
+input:focus{
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+.modalDiv input{
     width: 100%;
-    background-color: #2B2727 !important;
+    background-color: #2B2727;
     border-color: #2B2727 !important;
     color: #fff !important;
     padding: 4;
     padding: 11px 15px;
-    margin: 20px 0px;
+    margin: 20px 0px 0px;
+    border: none;
+}
+.modalDiv input::placeholder{
+    color: #fff;
 }
 .modalDiv label{
     margin: 0px !important;
@@ -17,17 +26,41 @@
 .requirment-second-value,
 .requirment-third-value,
 .requirment-second,
-.requirment-third,
-.submit-requirment{
+.requirment-third{
     display: none;
+}
+#scope-of-design .common-requirment{
+    width: 50%;
+}
+#attachment-of-design .requirment-first{
+    width: 70%;
+}
+#attachment-of-design .requirment-second{
+    width: 30%;
+}
+.multi-Radio{
+    display: flex;
+    justify-content: space-between;
+}
+.submit-requirment{
+    width: 20%;
+    margin: auto;
+    opacity: .5;
+}
+.disabled{
+    pointer-events: none;
 }
 .common-requirment{
     width: 24%;
     margin: 0px 10px;
 }
-.list-div ul{
+.list-div ul,
+.list-check-div ul{
     padding: 0px;
     list-style: none;
+    max-height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 .list-div ul li{
     padding: 10px;
@@ -36,6 +69,38 @@
     color: #fff !important;
     margin: 10px 0px;
     cursor: pointer;
+    position: relative;
+    width: 100%;
+}
+.list-check-div ul li{
+    padding: 10px;
+    background-color: #2B2727;
+    border-color: #2B2727 !important;
+    color: #fff !important;
+    margin: 10px 0px;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+}
+#scope-of-design .common-requirment input{
+    background-color: #2B2727;
+    border-color: #2B2727 !important;
+    color: #fff !important;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    border: none;
+}
+.list-div ul li:after {
+    content: "\f0da";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    top: 7px;
+}
+.active{
+    background-color: red !important;
 }
 .submit-requirment button{
     width: 100%;

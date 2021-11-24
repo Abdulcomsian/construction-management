@@ -65,6 +65,12 @@
     .inputDiv{
         margin: 20px 0px;
     }
+    .card-title{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -99,13 +105,14 @@
                     <!--begin::Card title-->
                     <div class="card-title">
                         <h2>Temporary Work Register</h2>
+                        <a style="width: 190px;" href="" class="newDesignBtn">New Design Relief</a>
                     </div>
                     <!--begin::Card toolbar-->
 
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
-                <a href="" class="newDesignBtn">New Design Relief</a>
+                
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <div class="row">
@@ -215,6 +222,38 @@
 							</div>
                             <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                 <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
+							</div>
+                            <div class="d-flex inputDiv">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Name::</span>
+							</label>
+							<!--end::Label-->
+								<input type="text" class="form-control form-control-solid" placeholder="Name" name="target_title">
+							</div>
+                            <div class="d-flex inputDiv">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Job title:</span>
+							</label>
+							<!--end::Label-->
+								<input type="text" class="form-control form-control-solid" placeholder="Job title" name="target_title">
+							</div>
+                            <div class="d-flex inputDiv">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Company: </span>
+							</label>
+							<!--end::Label-->
+								<input type="text" class="form-control form-control-solid" placeholder="Company" name="target_title">
+							</div>
+                            <div class="d-flex inputDiv">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Date:</span>
+							</label>
+							<!--end::Label-->
+								<input type="date" class="form-control form-control-solid" placeholder="000" name="target_title">
 							</div>
                         </div>
                     </div>

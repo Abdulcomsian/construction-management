@@ -56,6 +56,32 @@
     }
     tbody tr:nth-child(odd) {background-color: #fff;}
     tbody tr:nth-child(even) {background-color: #f2f2f2;}
+   
+        .table{
+            border-color: red;
+            border-style: solid;
+        }
+        .table.table-row-dashed tr{
+            height: 120px;
+        }
+        td{
+            border: 1px solid red !important;
+        }
+        .dataTables_length label,
+        #DataTables_Table_0_filter label,
+        .dataTables_filter label{
+            color: #fff;
+        }
+        .page-item.active .page-link{
+            background-color: #000 !important;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: separate;
+            background-color: red !important;
+            border-color: red !important;
+            border-style: solid !important;
+        }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -87,21 +113,20 @@
             <div class="card">
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2>Temporary Work Register</h2>
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>Temporary Work Register</h2>
+                        </div>
+                        <!--begin::Card toolbar-->
+                        <a href="temporary-works/create" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
+                        <!--end::Card toolbar-->
                     </div>
-                    <!--begin::Card toolbar-->
-
-                    <!--end::Card toolbar-->
-                </div>
                 <!--end::Card header-->
-                <a href="" class="newDesignBtn">New Design Relief</a>
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <div class="table-responsive">
-                        <table class="table align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
+                        <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
@@ -169,4 +194,5 @@
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
+@include('layouts.datatables.datatables_js')
 @endsection

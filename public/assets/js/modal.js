@@ -4,7 +4,7 @@ $(document).ready(function(){
         $(this).addClass("active")
         val=$(this);
         $(".submit-requirment button").attr("disabled","disabled")
-        $(".submit-requirment").css("opacity",".5")
+        $(".submit-requirment button").css("opacity",".5")
     })
     $("#design-requirement .requirment-first ul li").click(function(){
         $(".requirment-first ul li").removeClass("active")
@@ -22,7 +22,7 @@ $(document).ready(function(){
             $(".requirment-second-value").val(val);
             $("#design-requirement .requirment-second ul li.active input").addClass("active");
             $(".submit-requirment button").removeAttr("disabled")
-            $(".submit-requirment").css("opacity","1")
+            $(".submit-requirment button").css("opacity","1")
     })
     $('.otherInput').on('input',function(e){
         otherVal=$(this).val();
@@ -49,7 +49,7 @@ $(document).ready(function(){
         $("#scope-of-design .requirment-second ul li.active input").addClass("active");
         $("#scope-of-design .requirment-second").css("display","block");
         $("#scope-of-design .submit-requirment button").removeAttr("disabled")
-        $("#scope-of-design .submit-requirment").css("opacity","1")
+        $("#scope-of-design .submit-requirment button").css("opacity","1")
     })
     $("#scope-of-design .submit-requirment button").click(function(){
         var val_first= $("#scope-of-design .requirment-first-value").val();

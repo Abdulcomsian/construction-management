@@ -450,8 +450,11 @@
                             </div>
                             
                         </div>
-                        <div class="submit-requirment" data-bs-dismiss="modal">
-                                <button disabled="disabled">Save</button>
+                        <div class="submit-requirment" >
+                                <button data-bs-dismiss="modal" disabled="disabled">Save</button>
+                                <div class="uploadDiv">
+                                    <input type="file">
+                                </div>
                             </div>
 					</div>
 					<!--end::Modal body-->

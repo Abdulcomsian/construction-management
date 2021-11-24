@@ -52,7 +52,7 @@ require __DIR__.'/auth.php';
 
 //For local, not for production
 //Run fresh migration and seeder
-if (env('EnableMigrationAndOptimizeClearRoutes') == true){
+if (env('Enable_Migration_Optimize_Clear_Routes') == true){
     Route::get('run-migrations', function(){Artisan::call('migrate:fresh --seed');dd('migration and seeder done');});
     Route::get('optimize', function(){Artisan::call('optimize:clear');dd('optimize done');});
 }

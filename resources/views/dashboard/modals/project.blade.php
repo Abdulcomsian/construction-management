@@ -41,36 +41,27 @@
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-bold mb-2">No</label>
-                            <input type="number" class="form-control form-control-solid" placeholder="Enter Project No" name="no" />
+                            <input type="number" class="form-control form-control-solid" placeholder="Enter Project No" name="no" value="{{old('no')}}"/>
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Name</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Enter Project Name" name="name" />
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter Project Name" name="name" value="{{old('name')}}"/>
                         </div>
                         <!--end::Col-->
                     </div>
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
-                                <span class="required">Status</span>
+                                <span class="required">Address</span>
                             </label>
                             <!--begin::Label-->
                             <!--begin::Label-->
-                            <div class="col-lg-8 d-flex align-items-center fw-bold fs-6">
-                                <!--begin:Input-->
-                                <span class="form-check form-check-custom form-check-solid me-20">
-                                            {{\App\HelperFunction\Status::Active}}
-                                            <input checked class="form-check-input m-2" type="radio" name="status" value="{{\App\HelperFunction\Status::Active}}" />
-                                        </span>
-                                &nbsp;&nbsp;&nbsp;
-                                <span class="form-check form-check-custom form-check-solid">
-                                            {{\App\HelperFunction\Status::Inactive}}
-                                            <input class="form-check-input m-2" type="radio" name="status" value="{{\App\HelperFunction\Status::Inactive}}" />
-                                        </span>
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                                <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Enter Project Address" name="address">{{old('address')}}</textarea>
                                 <!--end:Input-->
                             </div>
                             <!--begin::Label-->

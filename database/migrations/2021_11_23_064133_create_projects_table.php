@@ -17,7 +17,8 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('no')->unique();
             $table->string('name');
-            $table->string('status');
+            $table->longText('address')->nullable();
+            $table->string('status')->default(\App\HelperFunction\Status::Active);
             $table->softDeletes();
             $table->timestamps();
         });

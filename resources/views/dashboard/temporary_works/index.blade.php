@@ -194,5 +194,5 @@
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-@include('layouts.datatables.datatables_js')
+ <!-- @include('layouts.datatables.datatables_js')  -->
 @endsection

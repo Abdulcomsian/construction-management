@@ -122,8 +122,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        dd('show');
         try {
-
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
             return Redirect::back();
@@ -185,10 +185,9 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         try {
-            dd($project);
             $project->delete();
             toastSuccess('Project deleted successfully!');
-            Redirect::back();
+            return Redirect::back();
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
             return Redirect::back();

@@ -211,6 +211,7 @@
 
 
                 if(type == 'add'){
+                    $("textarea[name='address']").text('');
                     $('#project_modal_id').modal('show');
                 }else if(type == 'edit'){
                     let id = $(this).data('id');

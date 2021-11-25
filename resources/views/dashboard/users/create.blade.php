@@ -1,57 +1,57 @@
 @extends('layouts.dashboard.master',['title' => 'Users'])
 @section('styles')
-<style>
-    .addBtn{
-        border-radius:8px;
-        float: right;
-    }
-</style>
-@include('layouts.sweetalert.sweetalert_css')
+    <style>
+        .addBtn {
+            border-radius: 8px;
+            float: right;
+        }
+    </style>
+    @include('layouts.sweetalert.sweetalert_css')
 @endsection
 @section('content')
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Toolbar-->
-    <div class="toolbar" id="kt_toolbar">
-        <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-            <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend"
-                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
-                <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Add User</h1>
-                <!--end::Title-->
-                <!--begin::Separator-->
-                <span class="h-20px border-gray-200 border-start mx-4"></span>
-                <!--end::Separator-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">
-                        <a href="" class="text-muted text-hover-primary">Admin</a>
-                    </li>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item">
-                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
-                    </li>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">User</li>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item">
-                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
-                    </li>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item text-dark">Add User</li>
-                    <!--end::Item-->
-                </ul>
-                <!--end::Breadcrumb-->
-            </div>
-            <!--end::Page title-->
-            <!--begin::Actions-->
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Toolbar-->
+        <div class="toolbar" id="kt_toolbar">
+            <!--begin::Container-->
+            <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                <!--begin::Page title-->
+                <div data-kt-place="true" data-kt-place-mode="prepend"
+                     data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                     class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
+                    <!--begin::Title-->
+                    <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Add User</h1>
+                    <!--end::Title-->
+                    <!--begin::Separator-->
+                    <span class="h-20px border-gray-200 border-start mx-4"></span>
+                    <!--end::Separator-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">
+                            <a href="" class="text-muted text-hover-primary">Admin</a>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">User</li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-dark">Add User</li>
+                        <!--end::Item-->
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page title-->
+                <!--begin::Actions-->
             {{--                <div class="d-flex align-items-center py-1">--}}
             {{--                    <!--begin::Wrapper-->--}}
             {{--                    <div class="me-4">--}}
@@ -169,87 +169,96 @@
             {{--                    <!--end::Button-->--}}
             {{--                </div>--}}
             <!--end::Actions-->
-        </div>
-        <!--end::Container-->
-    </div>
-    <!--end::Toolbar-->
-    <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <!--begin::Container-->
-        <div id="kt_content_container" class="container">
-            <!--begin::Card-->
-            <div class="card">
-                <!--begin::Card header-->
-                <div class="card-header border-0 pt-6">
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2>Add User</h2>
-                    </div>
-                    <!--begin::Card toolbar-->
-                    <!--end::Card toolbar-->
-                </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
-                <div class="card-body pt-0">
-                    <form action="">
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-solid"
-                                        placeholder="User Name" name="target_title">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-solid" placeholder="User Email"
-                                        name="target_title">
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-solid" placeholder="Password" name="target_title">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-solid" name="target_title" placeholder="Confirm Password">
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                            <div class="row">
-                            <div class="col-md-6 fv-row fv-plugins-icon-container">
-															<select class="form-select form-select-solid select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select a Project" name="target_assign" data-select2-id="select2-data-10-ym3b" tabindex="-1" aria-hidden="true">
-																<option value="" data-select2-id="select2-data-12-yh7h">Select user...</option>
-																<option value="1">Karina Clark</option>
-																<option value="2">Robert Doe</option>
-																<option value="3">Niel Owen</option>
-																<option value="4">Olivia Wild</option>
-																<option value="5">Sean Bean</option>
-															</select>
-														<div class="fv-plugins-message-container invalid-feedback"></div></div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-solid" name="target_title" placeholder="Company Name">
-                                </div>
-
-                            </div>
-                        </div>
-                        
-                        <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
-                            Add User
-                        </button>
-                        
-                    </form>
-                </div>
-                <!--end::Card body-->
             </div>
-            <!--end::Card-->
+            <!--end::Container-->
         </div>
-        <!--end::Container-->
+        <!--end::Toolbar-->
+        <!--begin::Post-->
+        <div class="post d-flex flex-column-fluid" id="kt_post">
+            <!--begin::Container-->
+            <div id="kt_content_container" class="container">
+                <!--begin::Card-->
+                <div class="card">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0 pt-6">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>Add User</h2>
+                        </div>
+                        <!--begin::Card toolbar-->
+                        <!--end::Card toolbar-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+                        <form action="">
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="User Name" name="target_title">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="User Email"
+                                               name="target_title">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="Password" name="target_title">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control form-control-solid" name="target_title"
+                                               placeholder="Confirm Password">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                                <div class="row">
+                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                        <select class="form-select form-select-solid select2-hidden-accessible"
+                                                data-control="select2" data-hide-search="true"
+                                                data-placeholder="Select a Project" name="target_assign"
+                                                data-select2-id="select2-data-10-ym3b" tabindex="-1" aria-hidden="true">
+                                            <option value="" data-select2-id="select2-data-12-yh7h">Select user...
+                                            </option>
+                                            <option value="1">Karina Clark</option>
+                                            <option value="2">Robert Doe</option>
+                                            <option value="3">Niel Owen</option>
+                                            <option value="4">Olivia Wild</option>
+                                            <option value="5">Sean Bean</option>
+                                        </select>
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control form-control-solid" name="target_title"
+                                               placeholder="Company Name">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
+                                Add User
+                            </button>
+
+                        </form>
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end::Container-->
+        </div>
+        <!--end::Post-->
     </div>
-    <!--end::Post-->
-</div>
 @endsection
 @section('scripts')
-@include('layouts.sweetalert.sweetalert_js')
+    @include('layouts.sweetalert.sweetalert_js')
 @endsection

@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\User;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
-use function GuzzleHttp\Promise\all;
 
-class ProjectController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +23,10 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         try {
+            $projects = Project::select('id','no','name')->latest()->get();
             if ($request->ajax()) {
-                $data = Project::latest()->get();
+                $data = User::role('company')->latest()->get();
+
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->editColumn('address',function ($data){
@@ -29,7 +34,7 @@ class ProjectController extends Controller
                     })
                     ->addColumn('action', function($data){
                         $btn = '<div class="d-flex">
-                                <button value="edit" data-id="'. $data->id .'" class="project_details btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                <a href="'.route('companies.edit', $data->id ).'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -38,8 +43,8 @@ class ProjectController extends Controller
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <form method="POST" action="'. route('projects.destroy',$data->id).'"  id="form_'.$data->id.'" >
+                                </a>
+                                <form method="POST" action="'. route('companies.destroy',$data->id).'"  id="form_'.$data->id.'" >
                                     '.method_field('Delete'). csrf_field().'
 
                                     <button type="submit" id="'. $data->id .'" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
@@ -54,7 +59,7 @@ class ProjectController extends Controller
                     ->make(true);
             }
 
-            return view('dashboard.projects.index');
+            return view('dashboard.companies.index',compact('projects'));
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
             return Redirect::back();
@@ -68,12 +73,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        try {
-            return view('dashboard.projects.create');
-        }catch (\Exception $exception){
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+//        try {
+//        }catch (\Exception $exception){
+//            toastError('Something went wrong, try again');
+//            return Redirect::back();
+//        }
     }
 
     /**
@@ -84,28 +88,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        Validations::storeProject($request);
-        if ($request->has('id')){
-            Validations::updateProjectId($request);
-        }
+        Validations::storeCompany($request);
         try {
             $all_inputs  = $request->except('_token');
-            if ($request->has('id')) {
-                try {
-                    unset($all_inputs['id']);
-                    Project::where('id',$request->id)
-                        ->update($all_inputs);
-                    $message = 'updated';
-                }catch (DecryptException $decryptException){
-                    toastError('Something went wrong,try again');
-                    return Redirect::back();
-                }
-            }else{
-                Project::create($all_inputs);
-                $message = 'added';
-            }
+            $all_inputs['password'] = Hash::make('password');
+            $user = User::create($all_inputs);
+            $user->assignRole('company');
+            $user->companyProjects()->sync($all_inputs['projects']);
 
-            toastSuccess('Project successfully '.$message.'!');
+            toastSuccess('Project successfully added!');
             return Redirect::back();
         }catch (\Exception $exception){
             dd($exception->getMessage());
@@ -122,12 +113,12 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        dd('show');
-        try {
-        }catch (\Exception $exception){
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+//        dd('show');
+//        try {
+//        }catch (\Exception $exception){
+//            toastError('Something went wrong, try again');
+//            return Redirect::back();
+//        }
     }
 
     /**
@@ -136,23 +127,15 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
         try {
-            if (!empty($project)){
-                $data = [
-                    'status' => true,
-                    'project' => $project
-                ];
-                return response()->json($data);
-            }else{
-                $data = [
-                    'status' => false,
-                    'project' => null
-                ];
-                return response()->json($data);
-            }
+            $projects = Project::select('id','no','name')->latest()->get();
+            $company = User::with('companyProjects')->where('id',$id)->first();
+            $project_ids = $company->companyProjects->pluck('id')->toArray();
+            unset($company['companyProjects']);
 
+            return view('dashboard.companies.edit',compact('company','projects','project_ids'));
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
             return Redirect::back();
@@ -166,12 +149,18 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
         try {
+            $all_inputs = $request->except('_token','_method');
+            $user = User::find($id);
+            $user->update($all_inputs);
+            $user->companyProjects()->sync($all_inputs['projects']);
 
-        }catch (\Exception $exception){
-            toastError('Something went wrong, try again');
+            toastSuccess('Project successfully updated!');
+            return redirect()->route('companies.index');
+        }catch (DecryptException $decryptException){
+            toastError('Something went wrong,try again');
             return Redirect::back();
         }
     }

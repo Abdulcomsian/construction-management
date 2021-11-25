@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Projects'])
+@extends('layouts.dashboard.master',['title' => 'Companies'])
 @section('styles')
     <style>
         .newDesignBtn {
@@ -135,7 +135,7 @@
                             <h2>Company</h2>
                         </div>
                         <!--begin::Card toolbar-->
-                        <button value="add" class="newDesignBtn btn company_add">Add Company</button>
+                        <button value="add" class="newDesignBtn btn company">Add Company</button>
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->
@@ -182,12 +182,12 @@
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
         },
-        {data: 'no', name: 'no',defaultContent: '-'},
         {data: 'name', name: 'name',defaultContent: '-'},
+        {data: 'email', name: 'email',defaultContent: '-'},
         {data: 'address', name: 'address',defaultContent: '-'},
         {data: 'action', name: 'action', orderable: false, searchable: false},
     ]";
-    $url = route('projects.index');
+    $url = route('companies.index');
     $data = [
         'columns' => $columns,
         'url' => $url,
@@ -204,35 +204,13 @@
                 $('#company_modal_id').modal('show');
             @endif
 
-            $(document).on('click','.company_add',function(){
+            $(document).on('click','.company',function(){
                 let type  = $(this).attr('value');
                 $('.project_details_form').trigger("reset");
                 $('#error_div').remove();
-                $('input[name="id"]').remove();
-
 
                 if(type == 'add'){
                     $('#company_modal_id').modal('show');
-                }else if(type == 'edit'){
-                    let id = $(this).data('id');
-                    let edit_url = "{{ route('projects.edit',':id') }}";
-                    edit_url = edit_url.replace(':id',id);
-                    $('.project_details_form').append(`<input name="id" value="${id}" type="hidden">`);
-                    $.ajax({
-                        type: 'GET',
-                        url: edit_url,
-                        success: function (data) {
-                            if(data.status == true){
-                                data = data.project;
-                                $("input[name='no']").val(data.no);
-                                $("input[name='name']").val(data.name);
-                                $("textarea[name='address']").text(data.address);
-                                $('#project_modal_id').modal('show');
-                            }else{
-                                alert('Something went wrong,try again');
-                            }
-                        }
-                    });
                 }
             });
         });

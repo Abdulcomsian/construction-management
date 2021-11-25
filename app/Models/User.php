@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'status',
         'image',
+        'address',
     ];
 
     /**
@@ -44,4 +45,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function companyProjects()
+    {
+        return $this->belongsToMany(Project::class, 'companies_has_projects', 'company_id', 'project_id');
+    }
+
+     public function userProjects()
+    {
+        return $this->belongsToMany(Project::class, 'companies_has_projects', 'user_id', 'project_id');
+    }
 }

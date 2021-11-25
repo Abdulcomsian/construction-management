@@ -62,7 +62,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                            <a class="menu-link" href="{{ route('users.index') }}">
+                            <a class="menu-link" href="/company/index">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

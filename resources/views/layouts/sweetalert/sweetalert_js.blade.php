@@ -7,19 +7,25 @@
             let form_id = '';
             let link = '';
             if($(event.target).is('button')){
+                console.log('Button clicked');
                 form_id = '#form_'+ $(this).attr('id');
             }else if($(event.target).is('span')){
+                console.log('span clicked');
                 form_id = '#form_'+ $(this).closest('button').attr('id');
             }else if($(event.target).is('svg')){
                 form_id = '#form_'+ $(this).closest('button').attr('id');
+                console.log('svg clicked');
+
             }
             else if($(event.target).is('i')){
-                form_id = '#form_'+ $(this).attr('id');
+                form_id = '#form_'+ $(this).closest('button').attr('id');
+                console.log('i clicked');
+
             }else{
                 link = $(this).attr('href');
             }
-            console.log(form_id);
-            console.log(link);
+            console.log('form_id',form_id);
+            console.log('link',link);
             swal({
                     title: "Are you sure?",
                     // text: "You will not be able to recover this record!",

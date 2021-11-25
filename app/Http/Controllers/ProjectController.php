@@ -25,7 +25,7 @@ class ProjectController extends Controller
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->editColumn('address',function ($data){
-                        return strlen($data->address) > 30 ? substr($data->address,0,30)."..." : $data->address ?: '-';
+                        return strlen($data->address) > 30 ? substr($data->address,0,30)."..." : $data->address;
                     })
                     ->addColumn('action', function($data){
                         $btn = '<div class="d-flex">

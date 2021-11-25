@@ -89,7 +89,7 @@
             cursor: pointer;
             * cursor: hand;
         }
-        
+
         table td {
             border: 1px solid red !important;
             padding: 3px 10px;

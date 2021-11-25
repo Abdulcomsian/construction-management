@@ -27,6 +27,8 @@ Route::get('/addProject', function () {
 Route::get('/addUser', function () {
     return view('dashboard/users/create');
 });
+Route::view('/company/index','dashboard/company/index');
+Route::view('/company/create','dashboard/company/create');
 Route::view('/temporary-works/index','dashboard/temporary_works/index');
 Route::view('/temporary-works/create','dashboard/temporary_works/create');
 Route::get('/temporaryWork', function () {

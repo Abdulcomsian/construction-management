@@ -114,7 +114,7 @@
                      class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
                      style="width: 100%; text-align: center;">
                     <!--begin::Title-->
-                    <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Users</h1>
+                    <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Company</h1>
                     <!--end::Title-->
                 </div>
                 <!--end::Page title-->
@@ -132,10 +132,10 @@
                     <div class="card-header border-0 pt-6">
                         <!--begin::Card title-->
                         <div class="card-title">
-                            <h2>Users</h2>
+                            <h2>Company</h2>
                         </div>
                         <!--begin::Card toolbar-->
-                        <a href="/addUser" value="add" class="newDesignBtn btn">Add User</a>
+                        <button value="add" class="newDesignBtn btn company_add">Add Company</button>
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->
@@ -149,11 +149,11 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-125px">User Name</th>
-                                    <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Project Name</th>
-                                    <th class="min-w-125px">Company Name</th>
-                                    <th class="min-w-125px">Actions</th>
+                                    <th class="min-w-50px">S.No</th>
+                                    <th class="min-w-50px">Company Name</th>
+                                    <th class="min-w-50px">Company Email</th>
+                                    <th class="min-w-50px">Company Address</th>
+                                    <th class="min-w-50px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
                                 </thead>
@@ -174,7 +174,7 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('dashboard.modals.project')
+    @include('dashboard.modals.company')
 @endsection
 @php
     $columns = "[
@@ -201,10 +201,10 @@
         $(document).ready(function () {
             //When validation error occur
             @if ($errors->any())
-                $('#project_modal_id').modal('show');
+                $('#company_modal_id').modal('show');
             @endif
 
-            $(document).on('click','.project_details',function(){
+            $(document).on('click','.company_add',function(){
                 let type  = $(this).attr('value');
                 $('.project_details_form').trigger("reset");
                 $('#error_div').remove();
@@ -212,7 +212,7 @@
 
 
                 if(type == 'add'){
-                    $('#project_modal_id').modal('show');
+                    $('#company_modal_id').modal('show');
                 }else if(type == 'edit'){
                     let id = $(this).data('id');
                     let edit_url = "{{ route('projects.edit',':id') }}";

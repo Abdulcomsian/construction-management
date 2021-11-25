@@ -8,6 +8,7 @@
             padding: 10px 15px;
             color: #000;
             margin: 0px 29px;
+            margin-right: 0px;
         }
 
         /*.newDesignBtn:hover {*/

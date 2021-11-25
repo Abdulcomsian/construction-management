@@ -89,7 +89,7 @@
             cursor: pointer;
             * cursor: hand;
         }
-        
+
         table td {
             border: 1px solid red !important;
             padding: 3px 10px;
@@ -211,6 +211,7 @@
 
 
                 if(type == 'add'){
+                    $("textarea[name='address']").text('');
                     $('#project_modal_id').modal('show');
                 }else if(type == 'edit'){
                     let id = $(this).data('id');

@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function() {
         'projects' => ProjectController::class, //Projects
         'companies' => CompanyController::class, //Companies
     ]);
+
+    Route::get('company/projects',[CompanyController::class,'companyProjects'])->name('company.projects');
 });
 
 Route::get('/dashboard', function () {

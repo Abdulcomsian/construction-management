@@ -51,124 +51,7 @@
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page title-->
-                <!--begin::Actions-->
-            {{--                <div class="d-flex align-items-center py-1">--}}
-            {{--                    <!--begin::Wrapper-->--}}
-            {{--                    <div class="me-4">--}}
-            {{--                        <!--begin::Menu-->--}}
-            {{--                        <a href="#" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"--}}
-            {{--                           data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"--}}
-            {{--                           data-kt-menu-flip="top-end">--}}
-            {{--                            <!--begin::Svg Icon | path: icons/duotone/Text/Filter.svg-->--}}
-            {{--                            <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">--}}
-            {{--											<svg xmlns="http://www.w3.org/2000/svg"--}}
-            {{--                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"--}}
-            {{--                                                 viewBox="0 0 24 24" version="1.1">--}}
-            {{--												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">--}}
-            {{--													<rect x="0" y="0" width="24" height="24"/>--}}
-            {{--													<path--}}
-            {{--                                                        d="M5,4 L19,4 C19.2761424,4 19.5,4.22385763 19.5,4.5 C19.5,4.60818511 19.4649111,4.71345191 19.4,4.8 L14,12 L14,20.190983 C14,20.4671254 13.7761424,20.690983 13.5,20.690983 C13.4223775,20.690983 13.3458209,20.6729105 13.2763932,20.6381966 L10,19 L10,12 L4.6,4.8 C4.43431458,4.5790861 4.4790861,4.26568542 4.7,4.1 C4.78654809,4.03508894 4.89181489,4 5,4 Z"--}}
-            {{--                                                        fill="#000000"/>--}}
-            {{--												</g>--}}
-            {{--											</svg>--}}
-            {{--										</span>--}}
-            {{--                            <!--end::Svg Icon-->Filter</a>--}}
-            {{--                        <!--begin::Menu 1-->--}}
-            {{--                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true">--}}
-            {{--                            <!--begin::Header-->--}}
-            {{--                            <div class="px-7 py-5">--}}
-            {{--                                <div class="fs-5 text-dark fw-bolder">Filter Options</div>--}}
-            {{--                            </div>--}}
-            {{--                            <!--end::Header-->--}}
-            {{--                            <!--begin::Menu separator-->--}}
-            {{--                            <div class="separator border-gray-200"></div>--}}
-            {{--                            <!--end::Menu separator-->--}}
-            {{--                            <!--begin::Form-->--}}
-            {{--                            <div class="px-7 py-5">--}}
-            {{--                                <!--begin::Input group-->--}}
-            {{--                                <div class="mb-10">--}}
-            {{--                                    <!--begin::Label-->--}}
-            {{--                                    <label class="form-label fw-bold">Status:</label>--}}
-            {{--                                    <!--end::Label-->--}}
-            {{--                                    <!--begin::Input-->--}}
-            {{--                                    <div>--}}
-            {{--                                        <select class="form-select form-select-solid" data-kt-select2="true"--}}
-            {{--                                                data-placeholder="Select option" data-allow-clear="true">--}}
-            {{--                                            <option></option>--}}
-            {{--                                            <option value="1">Approved</option>--}}
-            {{--                                            <option value="2">Pending</option>--}}
-            {{--                                            <option value="2">In Process</option>--}}
-            {{--                                            <option value="2">Rejected</option>--}}
-            {{--                                        </select>--}}
-            {{--                                    </div>--}}
-            {{--                                    <!--end::Input-->--}}
-            {{--                                </div>--}}
-            {{--                                <!--end::Input group-->--}}
-            {{--                                <!--begin::Input group-->--}}
-            {{--                                <div class="mb-10">--}}
-            {{--                                    <!--begin::Label-->--}}
-            {{--                                    <label class="form-label fw-bold">Member Type:</label>--}}
-            {{--                                    <!--end::Label-->--}}
-            {{--                                    <!--begin::Options-->--}}
-            {{--                                    <div class="d-flex">--}}
-            {{--                                        <!--begin::Options-->--}}
-            {{--                                        <label--}}
-            {{--                                            class="form-check form-check-sm form-check-custom form-check-solid me-5">--}}
-            {{--                                            <input class="form-check-input" type="checkbox" value="1"/>--}}
-            {{--                                            <span class="form-check-label">Author</span>--}}
-            {{--                                        </label>--}}
-            {{--                                        <!--end::Options-->--}}
-            {{--                                        <!--begin::Options-->--}}
-            {{--                                        <label--}}
-            {{--                                            class="form-check form-check-sm form-check-custom form-check-solid">--}}
-            {{--                                            <input class="form-check-input" type="checkbox" value="2"--}}
-            {{--                                                   checked="checked"/>--}}
-            {{--                                            <span class="form-check-label">Customer</span>--}}
-            {{--                                        </label>--}}
-            {{--                                        <!--end::Options-->--}}
-            {{--                                    </div>--}}
-            {{--                                    <!--end::Options-->--}}
-            {{--                                </div>--}}
-            {{--                                <!--end::Input group-->--}}
-            {{--                                <!--begin::Input group-->--}}
-            {{--                                <div class="mb-10">--}}
-            {{--                                    <!--begin::Label-->--}}
-            {{--                                    <label class="form-label fw-bold">Notifications:</label>--}}
-            {{--                                    <!--end::Label-->--}}
-            {{--                                    <!--begin::Switch-->--}}
-            {{--                                    <div--}}
-            {{--                                        class="form-check form-switch form-switch-sm form-check-custom form-check-solid">--}}
-            {{--                                        <input class="form-check-input" type="checkbox" value=""--}}
-            {{--                                               name="notifications" checked="checked"/>--}}
-            {{--                                        <label class="form-check-label">Enabled</label>--}}
-            {{--                                    </div>--}}
-            {{--                                    <!--end::Switch-->--}}
-            {{--                                </div>--}}
-            {{--                                <!--end::Input group-->--}}
-            {{--                                <!--begin::Actions-->--}}
-            {{--                                <div class="d-flex justify-content-end">--}}
-            {{--                                    <button type="reset"--}}
-            {{--                                            class="btn btn-sm btn-white btn-active-light-primary me-2"--}}
-            {{--                                            data-kt-menu-dismiss="true">Reset--}}
-            {{--                                    </button>--}}
-            {{--                                    <button type="submit" class="btn btn-sm btn-primary"--}}
-            {{--                                            data-kt-menu-dismiss="true">Apply--}}
-            {{--                                    </button>--}}
-            {{--                                </div>--}}
-            {{--                                <!--end::Actions-->--}}
-            {{--                            </div>--}}
-            {{--                            <!--end::Form-->--}}
-            {{--                        </div>--}}
-            {{--                        <!--end::Menu 1-->--}}
-            {{--                        <!--end::Menu-->--}}
-            {{--                    </div>--}}
-            {{--                    <!--end::Wrapper-->--}}
-            {{--                    <!--begin::Button-->--}}
-            {{--                    <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"--}}
-            {{--                       data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Create</a>--}}
-            {{--                    <!--end::Button-->--}}
-            {{--                </div>--}}
-            <!--end::Actions-->
+
             </div>
             <!--end::Container-->
         </div>
@@ -179,29 +62,21 @@
             <div id="kt_content_container" class="container">
                 <!--begin::Card-->
                 <div class="card">
-                    <!--begin::Card header-->
-                    <div class="card-header border-0 pt-6">
-                        <!--begin::Card title-->
-                        <div class="card-title">
-                            <h2>Add User</h2>
-                        </div>
-                        <!--begin::Card toolbar-->
-                        <!--end::Card toolbar-->
-                    </div>
-                    <!--end::Card header-->
+
                     <!--begin::Card body-->
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-7">
                         <form action="">
                             <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="User Name" name="target_title">
+                                        <label class="required fs-6 fw-bold mb-2">User Name</label>
+                                        <input type="text" class="form-control form-control-solid" placeholder="User Name"
+                                               name="name" value="{{old('name')}}"/>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="User Email"
-                                               name="target_title">
+                                        <label class="required fs-6 fw-bold mb-2">User Email</label>
+                                        <input type="email" class="form-control form-control-solid" placeholder="User Email"
+                                               name="email" value="{{old('email')}}"/>
                                     </div>
 
                                 </div>
@@ -209,12 +84,14 @@
                             <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="Password" name="target_title">
+                                        <label class="required fs-6 fw-bold mb-2">Password</label>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Password"
+                                               name="password"/>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control form-control-solid" name="target_title"
-                                               placeholder="Confirm Password">
+                                        <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Confirm Password"
+                                               name="password_confirmation"/>
                                     </div>
 
                                 </div>
@@ -222,23 +99,30 @@
                             <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                                 <div class="row">
                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                        <select class="form-select form-select-solid select2-hidden-accessible"
-                                                data-control="select2" data-hide-search="true"
-                                                data-placeholder="Select a Project" name="target_assign"
-                                                data-select2-id="select2-data-10-ym3b" tabindex="-1" aria-hidden="true">
-                                            <option value="" data-select2-id="select2-data-12-yh7h">Select user...
-                                            </option>
-                                            <option value="1">Karina Clark</option>
-                                            <option value="2">Robert Doe</option>
-                                            <option value="3">Niel Owen</option>
-                                            <option value="4">Olivia Wild</option>
-                                            <option value="5">Sean Bean</option>
+                                        <label class="required fs-6 fw-bold mb-2">Select Project</label>
+                                        <select id="company_id" name="company_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                            @php
+                                                $old = old('company_id');
+                                            @endphp
+                                            @forelse($companies as $item)
+                                                <option value="{{$item->id}}"  @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name}}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control form-control-solid" name="target_title"
-                                               placeholder="Company Name">
+                                        <label class="required fs-6 fw-bold mb-2">Select Company</label>
+                                        <select id="projects" name="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                            @php
+                                                $old = old('projects');
+                                            @endphp
+                                            @forelse($companies as $item)
+                                                <option value="{{$item->id}}"  @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name}}</option>
+                                            @empty
+                                            @endforelse
+                                        </select>
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
 
                                 </div>
@@ -260,5 +144,26 @@
     </div>
 @endsection
 @section('scripts')
-    @include('layouts.sweetalert.sweetalert_js')
+    <script>
+        $(document).ready(function()
+        {
+            $("#company_id").change(function()
+            {
+                console.log('Here in id changes');
+                let id= $(this).val();
+                $.ajax
+                ({
+                    type: "GET",
+                    url: "{{ route('company.projects') }}",
+                    data: {id : id},
+                    success: function(data)
+                    {
+                        console.log(data); // I get error and success function does not execute
+                    }
+                });
+
+            });
+
+        });
+    </script>
 @endsection

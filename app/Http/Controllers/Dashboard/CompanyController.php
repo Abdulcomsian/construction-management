@@ -108,7 +108,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
@@ -124,9 +124,10 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         try {
@@ -146,7 +147,7 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -169,7 +170,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(Project $project)
@@ -181,6 +182,17 @@ class CompanyController extends Controller
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
             return Redirect::back();
+        }
+    }
+
+    //For getting projects of companies using company id
+    public function companyProjects(Request $request){
+        try {
+            $company = User::find($request->id)->first();
+            $projects = $company->companyProjects;
+            return response()->json($projects);
+        }catch (\Exception $exception){
+
         }
     }
 }

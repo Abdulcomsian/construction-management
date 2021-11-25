@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\User;
 use App\Utils\HelperFunctions;
 use Illuminate\Http\Request;
@@ -36,8 +37,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+        abort_if(! $user->hasAnyRole(['admin']),403);
         try {
-            return view('users.create');
+            $companies = User::role('company')->latest()->get();
+            return view('dashboard.users.create',compact('companies'));
         }catch (\Exception $exception){
 
         }

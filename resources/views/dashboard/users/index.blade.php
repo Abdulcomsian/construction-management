@@ -135,7 +135,7 @@
                             <h2>Users</h2>
                         </div>
                         <!--begin::Card toolbar-->
-                        <a href="/addUser" value="add" class="newDesignBtn btn">Add User</a>
+                        <a href="{{ route('users.create') }}" value="add" class="newDesignBtn btn">Add User</a>
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->

@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CompanyController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Dashboard\ProjectController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +28,8 @@ Route::get('/addProject', function () {
 Route::get('/addUser', function () {
     return view('dashboard/users/create');
 });
-Route::view('/company/index','dashboard/company/index');
-Route::view('/company/create','dashboard/company/create');
+Route::view('/companies/index','dashboard/companies/index');
+Route::view('/companies/create','dashboard/companies/create');
 Route::view('/temporary-works/index','dashboard/temporary_works/index');
 Route::view('/temporary-works/create','dashboard/temporary_works/create');
 Route::get('/temporaryWork', function () {
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth']], function() {
 //        'roles' => RoleController::class, //Roles and permissions
         'users' => UserController::class, //Clients
         'projects' => ProjectController::class, //Projects
+        'companies' => CompanyController::class, //Companies
     ]);
 });
 

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -122,12 +123,12 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        dd('show');
-        try {
-        }catch (\Exception $exception){
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+//        dd('show');
+//        try {
+//        }catch (\Exception $exception){
+//            toastError('Something went wrong, try again');
+//            return Redirect::back();
+//        }
     }
 
     /**

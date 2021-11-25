@@ -62,12 +62,12 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                            <a class="menu-link" href="/company/index">
+                        <a class="menu-link" href="{{ route('companies.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Companies</span>
-                            </a>
+                            <span class="menu-title">Companies</span>
+                        </a>
                     </div>
                     <div class="menu-item">
                             <a class="menu-link" href="{{ route('users.index') }}">

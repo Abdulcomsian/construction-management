@@ -42,7 +42,7 @@ class UserTableSeeder extends Seeder
                 $admin->assignRole('admin');
             }else{
                 $user = User::create($user);
-                $user->assignRole('user');
+                $user->assignRole('company');
             }
         }
     }

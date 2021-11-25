@@ -26,19 +26,19 @@ class Validations
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'projects.*' => ['required', 'exists:projects,id'],
+            'projects' => ['required', 'array','min:1',],
         ],[
-            'projects.*' => 'The project field is required.',
+            'projects' => 'The project field is required.',
         ]);
     }
 
-    public static function updateCompanyId($request){
+    public static function updateCompany($request,$id){
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'projects.*' => ['required', 'exists:projects,id'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+            'projects' => ['required', 'array','min:1',],
         ],[
-            'projects.*' => 'The project field is required.',
+            'projects' => 'The project field is required.',
         ]);
     }
 }

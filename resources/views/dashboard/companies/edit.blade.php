@@ -67,6 +67,8 @@
                     <form action="{{ route('companies.update',$company->id) }}" method="post">
                         @method('PUT')
                         @csrf
+                        <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+
                         <div class="row g-9 mb-8">
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
@@ -110,7 +112,7 @@
                         </div>
 
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
-                            Edit Company
+                            Update Company
                         </button>
 
                     </form>

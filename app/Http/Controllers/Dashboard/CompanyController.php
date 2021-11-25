@@ -151,6 +151,7 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Validations::updateCompany($request,$id);
         try {
             $all_inputs = $request->except('_token','_method');
             $user = User::find($id);

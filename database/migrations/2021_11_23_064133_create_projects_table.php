@@ -1,5 +1,6 @@
 <?php
 
+use App\Utils\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,7 @@ class CreateProjectsTable extends Migration
             $table->string('no')->unique();
             $table->string('name');
             $table->longText('address')->nullable();
-            $table->string('status')->default(\App\HelperFunction\Status::Active);
+            $table->string('status')->default(Status::Active);
             $table->softDeletes();
             $table->timestamps();
         });

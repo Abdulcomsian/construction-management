@@ -42,10 +42,12 @@ Route::group(['middleware' => ['auth']], function() {
     //All Resource Controller
     Route::resources([
 //        'roles' => RoleController::class, //Roles and permissions
-        'users' => UserController::class, //Clients
+        'users' => UserController::class, //Company users
         'projects' => ProjectController::class, //Projects
         'companies' => CompanyController::class, //Companies
     ]);
+
+    Route::get('company/projects',[CompanyController::class,'companyProjects'])->name('company.projects');
 });
 
 Route::get('/dashboard', function () {

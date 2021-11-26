@@ -47,8 +47,4 @@
                 });
         });
     });
-
-$(document).ready( function () {
-    $('#myTable').DataTable();
-} );
 </script>

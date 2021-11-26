@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\HelperFunction;
+namespace App\Utils;
 
 
 class Status

@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class ProjectTableSeeder extends Seeder
 {
@@ -45,5 +47,65 @@ class ProjectTableSeeder extends Seeder
         foreach ($projects as $item){
             Project::create($item);
         }
+
+        $faker = \Faker\Factory::create();
+        $companies = [
+            [
+                'name' => 'Balfour Beatty Plc',
+                'email' => 'company_a1@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],  [
+                'name' => 'Kier Group Plc',
+                'email' => 'company_a2@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],  [
+                'name' => 'Interserve Plc',
+                'email' => 'company_a3@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],  [
+                'name' => 'Morgan Sindall Group Plc',
+                'email' => 'company_a4@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],  [
+                'name' => '	Wates Group Ltd',
+                'email' => 'company_a5@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],  [
+                'name' => 'Willmott Dixon Holdings Ltd',
+                'email' => 'company_a6@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],  [
+                'name' => 'VolkerWessels UK Ltd',
+                'email' => 'company_a7@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],  [
+                'name' => 'J Murphy & Sons Ltd',
+                'email' => 'company_a8@example.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'address' => $faker->address,
+            ],
+        ];
+
+        foreach ($companies as $item){
+            $company = User::create($item);
+            $company->assignRole('company');
+            $company->companyProjects()->sync([rand(1,8)]);
+        }
+
     }
 }

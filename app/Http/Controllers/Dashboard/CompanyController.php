@@ -96,7 +96,7 @@ class CompanyController extends Controller
             $user->assignRole('company');
             $user->companyProjects()->sync($all_inputs['projects']);
 
-            toastSuccess('Project successfully added!');
+            toastSuccess('Company successfully added!');
             return Redirect::back();
         }catch (\Exception $exception){
             dd($exception->getMessage());
@@ -108,10 +108,10 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(User $user)
     {
 //        dd('show');
 //        try {
@@ -124,9 +124,10 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         try {
@@ -146,7 +147,7 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -158,7 +159,7 @@ class CompanyController extends Controller
             $user->update($all_inputs);
             $user->companyProjects()->sync($all_inputs['projects']);
 
-            toastSuccess('Project successfully updated!');
+            toastSuccess('Company successfully updated!');
             return redirect()->route('companies.index');
         }catch (DecryptException $decryptException){
             toastError('Something went wrong,try again');
@@ -169,18 +170,44 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
         try {
-            $project->delete();
-            toastSuccess('Project deleted successfully!');
+            $user = User::role('company')->where('id',$id)->first();
+            $user->delete();
+            toastSuccess('Company deleted successfully!');
             return Redirect::back();
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
             return Redirect::back();
+        }
+    }
+
+    //For getting projects of companies using company id
+    public function companyProjects(Request $request){
+        try {
+            $id = $request->id;
+            $company = User::where('id',$id)->first();
+            $projects = $company->companyProjects;
+            if (!empty($projects)){
+                $data = [
+                    'status' => true,
+                    'projects' => $projects
+                ];
+            }else{
+                $data = [
+                    'status' => false,
+                ];
+            }
+            return response()->json($data);
+        }catch (\Exception $exception){
+            $data = [
+                'status' => false,
+            ];
+            return response()->json($data);
         }
     }
 }

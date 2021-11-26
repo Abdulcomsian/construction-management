@@ -1,5 +1,6 @@
 <?php
 
+use App\Utils\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('status')->default(\App\HelperFunction\Status::Active);
+            $table->string('status')->default(Status::Active);
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

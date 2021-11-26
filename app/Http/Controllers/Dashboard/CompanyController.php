@@ -23,7 +23,7 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         try {
-            $projects = Project::select('id','no','name')->latest()->get();
+            $projects = Project::WhereDoesntHave('company')->select('id','no','name')->latest()->get();
             if ($request->ajax()) {
                 $data = User::role('company')->latest()->get();
 
@@ -92,9 +92,12 @@ class CompanyController extends Controller
         try {
             $all_inputs  = $request->except('_token');
             $all_inputs['password'] = Hash::make('password');
+            $all_inputs['email_verified_at'] = now();
+
             $user = User::create($all_inputs);
             $user->assignRole('company');
-            $user->companyProjects()->sync($all_inputs['projects']);
+            $projects = Project::whereIn('id',$all_inputs['projects'])->get();
+            $user->companyProjects()->saveMany($projects);
 
             toastSuccess('Company successfully added!');
             return Redirect::back();
@@ -131,13 +134,16 @@ class CompanyController extends Controller
     public function edit($id)
     {
         try {
-            $projects = Project::select('id','no','name')->latest()->get();
+            $projects = Project::WhereDoesntHave('company')->select('id','no','name')->latest()->get();
+
             $company = User::with('companyProjects')->where('id',$id)->first();
+            $company_projects = $company->companyProjects;
             $project_ids = $company->companyProjects->pluck('id')->toArray();
             unset($company['companyProjects']);
-
+            $projects =  $projects->merge($company_projects);
             return view('dashboard.companies.edit',compact('company','projects','project_ids'));
         }catch (\Exception $exception){
+            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -157,7 +163,9 @@ class CompanyController extends Controller
             $all_inputs = $request->except('_token','_method');
             $user = User::find($id);
             $user->update($all_inputs);
-            $user->companyProjects()->sync($all_inputs['projects']);
+            $user->companyProjects()->update(['company_id' => null]);
+            $projects = Project::whereIn('id',$all_inputs['projects'])->get();
+            $user->companyProjects()->saveMany($projects);
 
             toastSuccess('Company successfully updated!');
             return redirect()->route('companies.index');

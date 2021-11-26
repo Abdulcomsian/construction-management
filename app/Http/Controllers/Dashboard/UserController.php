@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
+use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
@@ -29,6 +30,9 @@ class UserController extends Controller
 
                 return Datatables::of($data)
                     ->removeColumn('id')
+                    ->editColumn('company_id', function($data) {
+                        return $data->userCompany->name;
+                    })
                     ->addColumn('action', function($data){
                         $btn = '<div class="d-flex">
                                 <a href="'.route('users.edit', $data->id ).'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -52,7 +56,7 @@ class UserController extends Controller
                                 </form></div>';
                         return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['company_id','action'])
                     ->make(true);
             }
 
@@ -96,13 +100,13 @@ class UserController extends Controller
                 $all_inputs['image'] = HelperFunctions::saveFile(null,$request->file('image'),$filePath);
             }
             $all_inputs['password'] = Hash::make($request->password);
+            $all_inputs['email_verified_at'] = now();
 
             $user = User::create($all_inputs);
             //Assigned role to user. role is already created during seeder
             $user->assignRole('user');
             //Add projects for user
-//            $user->userProjects()->sync($all_inputs['projects'], ['company_id', $request->company_id]);
-            $user->userProjects()->syncWithPivotValues($all_inputs['projects'], ['company_id' => $request->company_id]);
+            $user->userProjects()->sync($all_inputs['projects']);
 
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
@@ -134,11 +138,17 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
         try {
+            $user = User::role('user')
+                ->with(['userProjects','userCompany'])
+                ->where('id',$id)
+                ->first();
+            $company_projects = $user->userCompany->companyProjects;
+            $user_projects = $user->userProjects->pluck('id')->toarray();
             $companies = User::role('company')->latest()->get();
-            return view('dashboard.users.edit',compact('user','companies'));
+            return view('dashboard.users.edit',compact('user_projects','user','companies','company_projects'));
         }catch (\Exception $exception){
             toastError('Something went wrong, try again!');
             return back();
@@ -154,21 +164,19 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'status' => ['required', 'string', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-        ]);
+        Validations::updateUser($request,$user->id);
         try {
-            $all_inputs = $request->except('_token','_method','email');
-            if ($request->file('image')){
-                $filePath = HelperFunctions::profileImagePath($user);
-                $all_inputs['image'] = HelperFunctions::saveFile($user->image,$request->file('image'),$filePath);
-            }
-            $user->update($all_inputs);
+            $all_inputs = $request->except('_token','_method');
+            $user->update([
+                'name' => $all_inputs['name'],
+                'email' => $all_inputs['email'],
+                'company_id' => $all_inputs['company_id']
+                ]);
+            $user->userProjects()->sync($all_inputs['projects']);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
         }catch (\Exception $exception){
-
+            dd($exception->getMessage());
         }
     }
 
@@ -184,6 +192,22 @@ class UserController extends Controller
             @unlink($user->image);
             $user->delete();
             toastSuccess('User deleted successfully');
+            return Redirect::back();
+        }catch (\Exception $exception){
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    public function updatePassword(Request $request, User $user)
+    {
+        Validations::updateUserPassword($request,$user->id);
+        try {
+            $all_inputs['password'] = Hash::make($request->password);
+            $user->update([
+                'password' => $all_inputs['password'],
+            ]);
+            toastSuccess('Password updated successfully');
             return Redirect::back();
         }catch (\Exception $exception){
             toastError('Something went wrong, try again!');

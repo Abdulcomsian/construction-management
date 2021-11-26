@@ -19,7 +19,7 @@
                      data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Add User</h1>
+                    <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Edit User</h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
                     <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -45,7 +45,7 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-dark">Add User</li>
+                        <li class="breadcrumb-item text-dark">Edit User</li>
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
@@ -62,11 +62,11 @@
             <div id="kt_content_container" class="container">
                 <!--begin::Card-->
                 <div class="card">
-
                     <!--begin::Card body-->
                     <div class="card-body pt-7">
-                        <form method="post" action="{{ route('users.store') }}" >
+                        <form method="post" action="{{ route('users.update',$user->id) }}" >
                             @csrf
+                            @method('PUT')
                             <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
                             <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
@@ -74,12 +74,12 @@
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">User Name</label>
                                         <input type="text" class="form-control form-control-solid" placeholder="User Name"
-                                               name="name" value="{{old('name')}}"/>
+                                               name="name" value="{{old('name') ?: $user->name}}"/>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">User Email</label>
                                         <input type="email" class="form-control form-control-solid" placeholder="User Email"
-                                               name="email" value="{{old('email')}}"/>
+                                               name="email" value="{{old('email')  ?: $user->email}}"/>
                                     </div>
 
                                 </div>
@@ -105,7 +105,7 @@
                                         <label class="required fs-6 fw-bold mb-2">Select Company</label>
                                         <select id="company_id" name="company_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                             @forelse($companies as $item)
-                                                <option value="{{$item->id}}"  {{ $item->id == old('company_id') ? 'selected' : '' }}>{{$item->name}}</option>
+                                                <option value="{{$item->id}}"  {{ $item->id == $user->company_id ? 'selected' : '' }}  {{ $item->id == old('company_id') ? 'selected' : '' }}>{{$item->name}}</option>
                                             @empty
                                             @endforelse
                                         </select>
@@ -113,7 +113,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Select Project</label>
+                                        @php
+                                        @endphp
                                         <select id="projects" multiple="multiple" name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                            @forelse($company_projects as $item)
+                                                <option value="{{$item->id}}" @isset($user_projects) {{ in_array($item->id,$user_projects) ? 'selected' : '' }} @endisset>{{$item->name}}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
@@ -122,12 +128,40 @@
                             </div>
 
                             <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
-                                Add User
+                                Update User
                             </button>
 
                         </form>
                     </div>
                     <!--end::Card body-->
+                    <hr>
+                    <div class="card-body pt-7">
+                        <form method="post" action="{{ route('users.updatePassword',$user->id) }}" >
+                            @csrf
+                            @method('PUT')
+
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="required fs-6 fw-bold mb-2">New Password</label>
+                                        <input type="password" class="form-control form-control-solid" placeholder="Password"
+                                               name="password"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="required fs-6 fw-bold mb-2">Confirm New Password</label>
+                                        <input type="password" class="form-control form-control-solid" placeholder="Confirm Password"
+                                               name="password_confirmation"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
+                                Update Password
+                            </button>
+
+                        </form>
+                    </div>
                 </div>
                 <!--end::Card-->
             </div>

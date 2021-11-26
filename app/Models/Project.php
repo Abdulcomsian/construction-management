@@ -12,9 +12,14 @@ class Project extends Model
 
     protected $guarded = [];
 
-    public function companies()
+//    public function companies()
+//    {
+//        return $this->belongsToMany(User::class, 'companies_has_projects', 'project_id', 'company_id');
+//    }
+
+    public function company()
     {
-        return $this->belongsToMany(User::class, 'companies_has_projects', 'project_id', 'company_id');
+        return $this->belongsTo(User::class);
     }
 
     public function users()

@@ -16,6 +16,10 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('users');
+
             $table->string('no')->unique();
             $table->string('name');
             $table->longText('address')->nullable();

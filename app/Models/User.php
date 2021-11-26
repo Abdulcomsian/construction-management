@@ -26,6 +26,7 @@ class User extends Authenticatable
         'status',
         'image',
         'address',
+        'company_id',
     ];
 
     /**
@@ -49,16 +50,16 @@ class User extends Authenticatable
 
     public function companyProjects()
     {
-        return $this->belongsToMany(Project::class, 'companies_has_projects', 'company_id', 'project_id');
+        return $this->hasMany(Project::class,'company_id');
     }
 
      public function userProjects()
     {
-        return $this->belongsToMany(Project::class, 'companies_has_projects', 'user_id', 'project_id')->withPivot('company_id');
+        return $this->belongsToMany(Project::class, 'companies_has_projects', 'user_id', 'project_id');
     }
 
-    public function userCompanies()
+    public function userCompany()
     {
-        return $this->belongsToMany(Project::class, 'companies_has_projects', 'user_id', 'company_id');
+        return $this->belongsTo(User::class, 'company_id');
     }
 }

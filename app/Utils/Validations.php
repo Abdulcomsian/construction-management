@@ -55,4 +55,25 @@ class Validations
             'company_id.*' => 'The company name field is required.',
         ]);
     }
+
+    public static function updateUser($request,$id){
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+            'company_id' => ['required','min:1',],
+            'projects' => ['required', 'array','min:1',],
+
+        ],[
+            'projects.*' => 'The project name field is required.',
+            'company_id.*' => 'The company name field is required.',
+        ]);
+    }
+
+    public static function updateUserPassword($request){
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
+
 }

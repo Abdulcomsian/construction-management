@@ -152,8 +152,7 @@
                                     <th class="min-w-125px">S.No</th>
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
-{{--                                    <th class="min-w-125px">Company Name</th>--}}
-{{--                                    <th class="min-w-125px">Projects Name</th>--}}
+                                    <th class="min-w-125px">Company Name</th>
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -185,6 +184,7 @@
         },
         {data: 'name', name: 'name',defaultContent: '-'},
         {data: 'email', name: 'email',defaultContent: '-'},
+        {data: 'company_id', name:'company_id', defaultContent: '-'},
         {data: 'action', name: 'action', orderable: false, searchable: false},
     ]";
     $url = route('users.index');

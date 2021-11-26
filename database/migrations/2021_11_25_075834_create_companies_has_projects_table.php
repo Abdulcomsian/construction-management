@@ -16,10 +16,8 @@ class CreateCompaniesHasProjectsTable extends Migration
         Schema::create('companies_has_projects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->foreign('company_id')->references('id')->on('users');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

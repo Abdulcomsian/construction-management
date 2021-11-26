@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth']], function() {
     ]);
 
     Route::get('company/projects',[CompanyController::class,'companyProjects'])->name('company.projects');
+    Route::put('user/update/password',[UserController::class,'updatePassword'])->name('users.updatePassword');
 });
 
 Route::get('/dashboard', function () {

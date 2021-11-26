@@ -101,11 +101,12 @@ class ProjectTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($companies as $item){
-            $company = User::create($item);
-            $company->assignRole('company');
-            $company->companyProjects()->sync([rand(1,8)]);
-        }
+//        foreach ($companies as $item){
+//            $company = User::create($item);
+//            $company->assignRole('company');
+//            $p = Project::WhereDoesntHave('company')->inRandomOrder()->first();
+//            $company->companyProjects()->save($p);
+//        }
 
     }
 }

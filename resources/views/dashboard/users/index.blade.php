@@ -149,10 +149,11 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                    <th class="min-w-125px">S.No</th>
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Project Name</th>
-                                    <th class="min-w-125px">Company Name</th>
+{{--                                    <th class="min-w-125px">Company Name</th>--}}
+{{--                                    <th class="min-w-125px">Projects Name</th>--}}
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -182,12 +183,11 @@
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
         },
-        {data: 'no', name: 'no',defaultContent: '-'},
         {data: 'name', name: 'name',defaultContent: '-'},
-        {data: 'address', name: 'address',defaultContent: '-'},
+        {data: 'email', name: 'email',defaultContent: '-'},
         {data: 'action', name: 'action', orderable: false, searchable: false},
     ]";
-    $url = route('projects.index');
+    $url = route('users.index');
     $data = [
         'columns' => $columns,
         'url' => $url,

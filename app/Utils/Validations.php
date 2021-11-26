@@ -28,7 +28,7 @@ class Validations
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'projects' => ['required', 'array','min:1',],
         ],[
-            'projects' => 'The project field is required.',
+            'projects' => 'The project name field is required.',
         ]);
     }
 
@@ -38,7 +38,21 @@ class Validations
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'projects' => ['required', 'array','min:1',],
         ],[
-            'projects' => 'The project field is required.',
+            'projects' => 'The project name field is required.',
+        ]);
+    }
+
+    public static function storeUser($request){
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'company_id' => ['required','min:1',],
+            'projects' => ['required', 'array','min:1',],
+
+        ],[
+            'projects.*' => 'The project name field is required.',
+            'company_id.*' => 'The company name field is required.',
         ]);
     }
 }

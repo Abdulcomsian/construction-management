@@ -65,7 +65,10 @@
 
                     <!--begin::Card body-->
                     <div class="card-body pt-7">
-                        <form action="">
+                        <form method="post" action="{{ route('users.store') }}" >
+                            @csrf
+                            <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+
                             <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -85,12 +88,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Password</label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Password"
+                                        <input type="password" class="form-control form-control-solid" placeholder="Password"
                                                name="password"/>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Confirm Password"
+                                        <input type="password" class="form-control form-control-solid" placeholder="Confirm Password"
                                                name="password_confirmation"/>
                                     </div>
 
@@ -99,28 +102,18 @@
                             <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                                 <div class="row">
                                     <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2">Select Project</label>
+                                        <label class="required fs-6 fw-bold mb-2">Select Company</label>
                                         <select id="company_id" name="company_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
-                                            @php
-                                                $old = old('company_id');
-                                            @endphp
                                             @forelse($companies as $item)
-                                                <option value="{{$item->id}}"  @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name}}</option>
+                                                <option value="{{$item->id}}"  {{ $item->id == old('company_id') ? 'selected' : '' }}>{{$item->name}}</option>
                                             @empty
                                             @endforelse
                                         </select>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="required fs-6 fw-bold mb-2">Select Company</label>
-                                        <select id="projects" name="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
-                                            @php
-                                                $old = old('projects');
-                                            @endphp
-                                            @forelse($companies as $item)
-                                                <option value="{{$item->id}}"  @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name}}</option>
-                                            @empty
-                                            @endforelse
+                                        <label class="required fs-6 fw-bold mb-2">Select Project</label>
+                                        <select id="projects" multiple="multiple" name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                         </select>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
@@ -158,7 +151,15 @@
                     data: {id : id},
                     success: function(data)
                     {
-                        console.log(data); // I get error and success function does not execute
+                        console.log(data);
+                        if(data.status == true){
+                            let projects = data.projects;
+                            $('#projects').empty();
+                            $.each( projects, function( key, item ) {
+                                $('#projects').append(`<option value="${item.id}">${item.name}</option>`);
+                            });
+
+                        }
                     }
                 });
 

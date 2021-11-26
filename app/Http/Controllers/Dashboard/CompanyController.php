@@ -96,7 +96,7 @@ class CompanyController extends Controller
             $user->assignRole('company');
             $user->companyProjects()->sync($all_inputs['projects']);
 
-            toastSuccess('Project successfully added!');
+            toastSuccess('Company successfully added!');
             return Redirect::back();
         }catch (\Exception $exception){
             dd($exception->getMessage());
@@ -111,7 +111,7 @@ class CompanyController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(User $user)
     {
 //        dd('show');
 //        try {
@@ -159,7 +159,7 @@ class CompanyController extends Controller
             $user->update($all_inputs);
             $user->companyProjects()->sync($all_inputs['projects']);
 
-            toastSuccess('Project successfully updated!');
+            toastSuccess('Company successfully updated!');
             return redirect()->route('companies.index');
         }catch (DecryptException $decryptException){
             toastError('Something went wrong,try again');
@@ -173,11 +173,12 @@ class CompanyController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
         try {
-            $project->delete();
-            toastSuccess('Project deleted successfully!');
+            $user = User::role('company')->where('id',$id)->first();
+            $user->delete();
+            toastSuccess('Company deleted successfully!');
             return Redirect::back();
         }catch (\Exception $exception){
             toastError('Something went wrong, try again');
@@ -188,11 +189,25 @@ class CompanyController extends Controller
     //For getting projects of companies using company id
     public function companyProjects(Request $request){
         try {
-            $company = User::find($request->id)->first();
+            $id = $request->id;
+            $company = User::where('id',$id)->first();
             $projects = $company->companyProjects;
-            return response()->json($projects);
+            if (!empty($projects)){
+                $data = [
+                    'status' => true,
+                    'projects' => $projects
+                ];
+            }else{
+                $data = [
+                    'status' => false,
+                ];
+            }
+            return response()->json($data);
         }catch (\Exception $exception){
-
+            $data = [
+                'status' => false,
+            ];
+            return response()->json($data);
         }
     }
 }

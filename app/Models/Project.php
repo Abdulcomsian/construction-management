@@ -14,7 +14,7 @@ class Project extends Model
 
 //    public function companies()
 //    {
-//        return $this->belongsToMany(User::class, 'companies_has_projects', 'project_id', 'company_id');
+//        return $this->belongsToMany(User::class, 'users_has_projects', 'project_id', 'company_id');
 //    }
 
     public function company()
@@ -24,6 +24,6 @@ class Project extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'companies_has_projects', 'project_id', 'user_id');
+        return $this->belongsToMany(User::class, 'users_has_projects', 'project_id', 'user_id');
     }
 }

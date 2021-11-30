@@ -62,7 +62,6 @@ class Validations
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'company_id' => ['required','min:1',],
             'projects' => ['required', 'array','min:1',],
-
         ],[
             'projects.*' => 'The project name field is required.',
             'company_id.*' => 'The company name field is required.',
@@ -75,5 +74,22 @@ class Validations
         ]);
     }
 
+    public static function storeTemporaryWork($request){
+        $request->validate([
+            'project_id' => ['required', 'max:255','exists:projects,id'],
+            'design_required_by_date' => ['required'],
+            'designer_company_name' => ['required'],
+            'designer_company_email' => ['required'],
+            'twc_name' => ['required'],
+            'twc_email' => ['required'],
+            'tw_category' => ['required'],
+            'tw_risk_class' => ['required'],
+            'design_requirement_text' => ['required'],
+            'description_temporary_work_required' => ['required'],
+            'name' => ['required'],
+            'job_title' => ['required'],
+            'company' => ['required'],
+        ]);
+    }
 
 }

@@ -13,7 +13,7 @@ class CreateCompaniesHasProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies_has_projects', function (Blueprint $table) {
+        Schema::create('users_has_projects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('user_id')->nullable();
@@ -29,6 +29,6 @@ class CreateCompaniesHasProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies_has_projects');
+        Schema::dropIfExists('users_has_projects');
     }
 }

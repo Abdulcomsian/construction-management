@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Users'])
+@extends('layouts.dashboard.master',['title' => 'Temporary Works'])
 @section('styles')
 <style>
     .newDesignBtn {
@@ -56,7 +56,7 @@
     }
     tbody tr:nth-child(odd) {background-color: #fff;}
     tbody tr:nth-child(even) {background-color: #f2f2f2;}
-   
+
         .table{
             border-color: red;
             border-style: solid;
@@ -118,7 +118,7 @@
                             <h2>Temporary Work Register</h2>
                         </div>
                         <!--begin::Card toolbar-->
-                        <a href="temporary-works/create" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
+                        <a href="{{ route('temporary_works.create') }}" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
                         <!--end::Card toolbar-->
                     </div>
                 <!--end::Card header-->
@@ -139,7 +139,6 @@
                                     <th class="min-w-100px">Implimentation Risk Class (VL,L,M,H)</th>
                                     <th class="min-w-100px">Issue Date of Design Brief</th>
                                     <th class="min-w-100px">Required Date of Design</th>
-                                    <th class="min-w-100px">Comments</th>
                                     <th class="min-w-100px">Comments</th>
                                     <th class="min-w-100px">TW designer (designer name and company)</th>
                                     <th class="min-w-100px">Date Design Returned</th>
@@ -170,6 +169,26 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td>Drag and drop folders/ pdf drawings</td>
+                                    <td>Drag and drop folders/ pdf drawings</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Drag and drop folders/ pdf drawings</td>
+                                </tr>
+                                @forelse($temporary_works as $item)
+                                <tr>
+                                    <td>{{ $item->id ?: '-' }}</td>
+                                    <td>{{ $item->company ?: '-' }}</td>
+                                    <td>{{ $item->project->name ?: '-' }}</td>
+                                    <td>A10</td>
+                                    <td>{{ $item->tw_category ?: '-' }}</td>
+                                    <td>{{ $item->tw_risk_class ?: '-' }}</td>
+                                    <td>{{ $item->design_issued_date ?: '-' }}</td>
+                                    <td>{{ $item->design_required_by_date ?: '-' }}</td>
+                                    <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
+                                    <td>{{ $item->designer_company_name ?: '-' }}</td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td>Drag and drop folders/ pdf drawings</td>
                                     <td>Drag and drop folders/ pdf drawings</td>
@@ -177,6 +196,8 @@
                                     <td></td>
                                     <td>Drag and drop folders/ pdf drawings</td>
                                 </tr>
+                                @empty
+                                @endforelse
                             </tbody>
                             <!--end::Table body-->
                         </table>
@@ -194,5 +215,5 @@
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
- 
+
 @endsection

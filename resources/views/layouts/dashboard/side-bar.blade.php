@@ -89,7 +89,7 @@
                 </span>
                 <div class="menu-sub menu-sub-accordion">
                     <div class="menu-item">
-                        <a class="menu-link" href="temporary-works/index">
+                        <a class="menu-link" href="{{ route('temporary_works.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -97,7 +97,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                            <a class="menu-link" href="temporary-works/create">
+                            <a class="menu-link" href="{{ route('temporary_works.create') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

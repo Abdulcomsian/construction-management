@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CompanyController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProjectController;
+use App\Http\Controllers\TemporaryWorkController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,7 @@ Route::group(['middleware' => ['auth']], function() {
         'users' => UserController::class, //Company users
         'projects' => ProjectController::class, //Projects
         'companies' => CompanyController::class, //Companies
+        'temporary_works' => TemporaryWorkController::class, //Temporary Works
     ]);
 
     Route::get('company/projects',[CompanyController::class,'companyProjects'])->name('company.projects');

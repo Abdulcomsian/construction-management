@@ -4,15 +4,15 @@
     color: rgba(220, 38, 38, var(--tw-text-opacity));
 }
 
-input:focus{
+input:focus {
     box-shadow: none;
     border: none;
     outline: none;
 }
-.modalDiv input{
+.modalDiv input {
     width: 100%;
-    background-color: #2B2727;
-    border-color: #2B2727 !important;
+    background-color: #2b2727;
+    border-color: #2b2727 !important;
     color: #fff !important;
     padding: 4;
     padding: 11px 15px;
@@ -20,20 +20,22 @@ input:focus{
     border: none;
 }
 .modalDiv input::placeholder,
-.requirment-second li input::placeholder{
+.requirment-second li input::placeholder {
     color: #fff;
 }
-.modalDiv label{
+.modalDiv label {
     margin: 0px !important;
 }
-.multi-list{
+.multi-list {
     display: flex;
+    max-height: 400px;
+    overflow: scroll;
 }
-#scope-of-design .list-div ul li{
+#scope-of-design .list-div ul li {
     height: 58px;
     display: flex;
 }
-#design-requirement .requirment-second li:nth-child(1):after{
+#design-requirement .requirment-second li:nth-child(1):after {
     content: none !important;
 }
 .requirment-first-value,
@@ -41,83 +43,83 @@ input:focus{
 .requirment-third-value,
 .requirment-second,
 .requirment-third,
-.other-input{
+.other-input {
     display: none;
 }
-.requirment-second li input{
+.requirment-second li input {
     width: 100%;
-    background-color: #2B2727;
-    border-color: #2B2727 !important;
+    background-color: #2b2727;
+    border-color: #2b2727 !important;
     color: #fff !important;
     border: none;
 }
 #scope-of-design .common-requirment,
-#design-requirement .common-requirment{
+#design-requirement .common-requirment {
     width: 50%;
 }
-#attachment-of-design .requirment-first{
+#attachment-of-design .requirment-first {
     width: 70%;
 }
-#attachment-of-design .requirment-second{
+#attachment-of-design .requirment-second {
     width: 30%;
 }
-.multi-Radio{
+.multi-Radio {
     display: flex;
     justify-content: space-between;
 }
-.submit-requirment{
+.submit-requirment {
     width: 50%;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.submit-requirment button{
-    opacity: .5;
+.submit-requirment button {
+    opacity: 0.5;
     width: 100%;
     margin-right: 20px !important;
 }
-.submit-requirment .uploadDiv{
+.submit-requirment .uploadDiv {
     width: 100%;
 }
-.disabled{
+.disabled {
     pointer-events: none;
 }
-.common-requirment{
+.common-requirment {
     width: 24%;
     margin: 0px 10px;
 }
 .list-div ul,
-.list-check-div ul{
+.list-check-div ul {
     padding: 0px;
     list-style: none;
-    max-height: 400px;
-    overflow: scroll;
+    /* max-height: 400px;
+    overflow: scroll; */
     overflow-x: hidden;
 }
-.list-div ul li{
+.list-div ul li {
     padding: 10px;
-    background-color: #2B2727;
-    border-color: #2B2727 !important;
+    background-color: #2b2727;
+    border-color: #2b2727 !important;
     color: #fff !important;
     margin: 10px 0px;
     cursor: pointer;
     position: relative;
     width: 100%;
 }
-.list-check-div ul li{
+.list-check-div ul li {
     padding: 10px;
-    background-color: #2B2727;
-    border-color: #2B2727 !important;
+    background-color: #2b2727;
+    border-color: #2b2727 !important;
     color: #fff !important;
     margin: 10px 0px;
     cursor: pointer;
     position: relative;
     width: 100%;
 }
-#scope-of-design .common-requirment input{
-    background-color: #2B2727;
-    border-color: #2B2727 !important;
+#scope-of-design .common-requirment input {
+    background-color: #2b2727;
+    border-color: #2b2727 !important;
     color: #fff !important;
     cursor: pointer;
     position: relative;
@@ -132,10 +134,10 @@ input:focus{
     font-size: 18px;
     top: 7px;
 }
-.active{
+.active {
     background-color: red !important;
 }
-.submit-requirment button{
+.submit-requirment button {
     width: 100%;
     padding: 8px;
     border: none;

@@ -111,9 +111,13 @@
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css"> -->
+    <link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/signature.css')}}"/>
+
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">

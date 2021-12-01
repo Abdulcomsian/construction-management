@@ -12,7 +12,7 @@ $(document).ready(function(){
         $(".requirment-second").css("display","block");
         var val=$(this).text();
         $(".requirment-first-value").val(val);
-        
+
     })
     $("#design-requirement .requirment-second ul li").click(function(){
             $(".requirment-second ul li").removeClass("active")
@@ -66,6 +66,7 @@ $(document).ready(function(){
         $("#scope-of-design .requirment-second-value").val(date);
     })
     $("#attachment-of-design .requirment-first ul li").click(function(){
+        $("#attachment-of-design .submit-requirment button").removeAttr("disabled")
         $("#attachment-of-design .requirment-first ul li").removeClass("active")
         $(this).addClass("active")
         $("#attachment-of-design .requirment-second").css("display","block");

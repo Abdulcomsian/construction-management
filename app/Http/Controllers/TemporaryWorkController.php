@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Folder;
 use App\Models\Project;
+use App\Models\ScopeOfDesign;
 use App\Models\TemporaryWork;
 use App\Utils\Validations;
+use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+use function GuzzleHttp\Promise\all;
 
 class TemporaryWorkController extends Controller
 {
@@ -52,9 +57,32 @@ class TemporaryWorkController extends Controller
     {
         Validations::storeTemporaryWork($request);
         try {
+            $scope_of_design = [];
+            foreach ($request->keys() as $key){
+                if (Str::contains($key, 'sod')){
+                    $data = null;
+                    $data = [
+                      Str::replace('_sod','',$key) => $request->$key
+                    ];
+                    $scope_of_design = array_merge($scope_of_design,$data);
+                    unset($request[$key]);
+                }
+            }
+            $folder_attachements = [];
+            foreach ($request->keys() as $key){
+                if (Str::contains($key, 'folder')){
+                    $data = null;
+                    $data = [
+                        Str::replace('_folder','',$key) => $request->$key
+                    ];
+                    $folder_attachements = array_merge($folder_attachements,$data);
+                    unset($request[$key]);
+                }
+            }
             $all_inputs  = $request->except('_token');
-
-            TemporaryWork::create($all_inputs);
+            $temporary_work = TemporaryWork::create($all_inputs);
+            ScopeOfDesign::create(array_merge($scope_of_design,['temporary_work_id' => $temporary_work->id]));
+            Folder::create(array_merge($folder_attachements,['temporary_work_id' => $temporary_work->id]));
 
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');

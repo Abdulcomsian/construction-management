@@ -342,6 +342,7 @@
                                 </div>
                             </div>
                         </div>
+                        @include('dashboard.modals.design-relief-modals')
                         <button type="submit" class="btn btn-primary float-end">Submit</button>
                     </form>
                 </div>
@@ -353,7 +354,6 @@
     </div>
     <!--end::Post-->
 </div>
-@include('dashboard.modals.design-relief-modals')
 @endsection
 @section('scripts')
     <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>

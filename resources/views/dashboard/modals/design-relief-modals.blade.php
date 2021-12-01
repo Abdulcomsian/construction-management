@@ -15,17 +15,13 @@
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-                                       fill="#000000">
-										<rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"/>
-										<rect fill="#000000" opacity="0.5"
-                                              transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
-                                              x="0" y="7" width="16" height="2" rx="1"/>
-									</g>
-								</svg>
-							</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                            </g>
+                        </svg>
+                    </span>
                     <!--end::Svg Icon-->
                 </div>
                 <!--end::Close-->
@@ -38,14 +34,17 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <li data-id="Excavation">Excavation/ Earthworks</li>
+                                @foreach($desogmreqlevlone as $req)
+                                <li data-id='{{$req->id}}'>{{$req->name}}</li>
+                                @endforeach
+                                <!-- <li data-id="Excavation">Excavation/ Earthworks</li>
                                 <li data-id="Formwork">Formwork / Falsework</li>
                                 <li data-id="Equipment">Equipment and Plant</li>
                                 <li data-id="Establishment">Site Establishment</li>
                                 <li data-id="Scaffolding">Access / Scaffolding</li>
                                 <li data-id="Structure">Structure</li>
                                 <li data-id="Stability">Structural Stability</li>
-                                <li data-id="Permanent">Permanent Works</li>
+                                <li data-id="Permanent">Permanent Works</li> -->
                             </ul>
                         </div>
                     </div>
@@ -98,17 +97,13 @@
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-                                       fill="#000000">
-										<rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"/>
-										<rect fill="#000000" opacity="0.5"
-                                              transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
-                                              x="0" y="7" width="16" height="2" rx="1"/>
-									</g>
-								</svg>
-							</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                            </g>
+                        </svg>
+                    </span>
                     <!--end::Svg Icon-->
                 </div>
                 <!--end::Close-->
@@ -152,35 +147,36 @@
                     <div class="common-requirment requirment-second">
                         <input type="text" vlaue="" class="requirment-second-value">
                         <div class="list-div">
+
                             <ul>
-                                <li>
+                                <li class="d-none Preliminary-Sketches">
                                     <input type="date" name="preliminary_sketches_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Construction-Drawings">
                                     <input type="date" name="construction_rawings_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Design-Calculations">
                                     <input type="date" name="design_calculations_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Check-Certificate">
                                     <input type="date" name="design_check_certificate_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Loading-Criteria">
                                     <input type="date" name="loading_criteria_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Construction-Erection">
                                     <input type="date" name="construction_erection_sequence_information_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Inspection-Checklist">
                                     <input type="date" name="inspection_checklist_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Monitoring-Requirements">
                                     <input type="date" name="monitoring_requirements_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Specifications">
                                     <input type="date" name="specifications_date_sod">
                                 </li>
-                                <li>
+                                <li class="d-none Design-Inspection">
                                     <input type="date" name="design_inspection_test_plans_date_sod">
                                 </li>
 
@@ -216,17 +212,13 @@
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-                                       fill="#000000">
-										<rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"/>
-										<rect fill="#000000" opacity="0.5"
-                                              transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
-                                              x="0" y="7" width="16" height="2" rx="1"/>
-									</g>
-								</svg>
-							</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                            </g>
+                        </svg>
+                    </span>
                     <!--end::Svg Icon-->
                 </div>
                 <!--end::Close-->
@@ -265,245 +257,128 @@
                     <div class="common-requirment requirment-second">
                         <div class="list-check-div">
                             <ul>
-                                <li>
+                                <li class="d-none List-Attachment">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="list_of_attachments_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="list_of_attachments_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="d-none Report-Site">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="reports_including_site_investigations_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="reports_including_site_investigations_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="d-none Exsisting-Ground">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="existing_ground_conditions_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="existing_ground_conditions_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class=" d-none System-Type">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="preferred_non_preferred_methods_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="preferred_non_preferred_methods_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="d-none Limitations">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="access_limitations_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="access_limitations_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="d-none Back-Propping">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="back_propping_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="back_propping_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="d-none Temporary-Work">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="limitations_on_temporary_works_design_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="limitations_on_temporary_works_design_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="d-none Hazard-Risk">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="details_of_any_hazards_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="details_of_any_hazards_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li class="d-none Party-Requirements">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="3rd_party_requirements_folder"
-                                                id="flexRadioDefault1"
-                                                value="yes"
-                                            />
+                                            <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault1" value="yes" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="3rd_party_requirements_folder"
-                                                id="flexRadioDefault2"
-                                                value="no"
-                                                checked
-                                            />
+                                            <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault2" value="no" checked />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>

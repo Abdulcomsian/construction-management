@@ -6,6 +6,7 @@ use App\Models\Folder;
 use App\Models\Project;
 use App\Models\ScopeOfDesign;
 use App\Models\TemporaryWork;
+use App\Models\DesignRequirementLevelOne;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -24,8 +25,8 @@ class TemporaryWorkController extends Controller
     {
         try {
             $temporary_works = TemporaryWork::with('project')->latest()->get();
-            return view('dashboard.temporary_works.index',compact('temporary_works'));
-        }catch (\Exception $exception){
+            return view('dashboard.temporary_works.index', compact('temporary_works'));
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -40,8 +41,9 @@ class TemporaryWorkController extends Controller
     {
         try {
             $projects = Project::latest()->get();
-            return view('dashboard.temporary_works.create',compact('projects'));
-        }catch (\Exception $exception){
+            $desogmreqlevlone = DesignRequirementLevelOne::get();
+            return view('dashboard.temporary_works.create', compact('projects', 'desogmreqlevlone'));
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -55,38 +57,40 @@ class TemporaryWorkController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];
-            foreach ($request->keys() as $key){
-                if (Str::contains($key, 'sod')){
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'sod')) {
                     $data = null;
                     $data = [
-                      Str::replace('_sod','',$key) => $request->$key
+                        Str::replace('_sod', '', $key) => $request->$key
                     ];
-                    $scope_of_design = array_merge($scope_of_design,$data);
+                    $scope_of_design = array_merge($scope_of_design, $data);
                     unset($request[$key]);
                 }
             }
+            dd($scope_of_design);
             $folder_attachements = [];
-            foreach ($request->keys() as $key){
-                if (Str::contains($key, 'folder')){
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'folder')) {
                     $data = null;
                     $data = [
-                        Str::replace('_folder','',$key) => $request->$key
+                        Str::replace('_folder', '', $key) => $request->$key
                     ];
-                    $folder_attachements = array_merge($folder_attachements,$data);
+                    $folder_attachements = array_merge($folder_attachements, $data);
                     unset($request[$key]);
                 }
             }
             $all_inputs  = $request->except('_token');
             $temporary_work = TemporaryWork::create($all_inputs);
-            ScopeOfDesign::create(array_merge($scope_of_design,['temporary_work_id' => $temporary_work->id]));
-            Folder::create(array_merge($folder_attachements,['temporary_work_id' => $temporary_work->id]));
+            ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
+            Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
 
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -102,8 +106,7 @@ class TemporaryWorkController extends Controller
     public function show(TemporaryWork $temporaryWork)
     {
         try {
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -118,8 +121,7 @@ class TemporaryWorkController extends Controller
     public function edit(TemporaryWork $temporaryWork)
     {
         try {
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -135,8 +137,7 @@ class TemporaryWorkController extends Controller
     public function update(Request $request, TemporaryWork $temporaryWork)
     {
         try {
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -151,8 +152,7 @@ class TemporaryWorkController extends Controller
     public function destroy(TemporaryWork $temporaryWork)
     {
         try {
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

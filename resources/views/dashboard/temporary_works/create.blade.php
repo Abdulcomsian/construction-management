@@ -18,65 +18,93 @@
     .card>.card-body {
         padding: 32px;
     }
-    table{
+
+    table {
         margin-top: 20px;
         border-collapse: separate;
         background-color: red;
     }
+
     .wrapper,
-    .page{
+    .page {
         background-image: url({{asset("assets/media/images/temporaryBg.png")}})
     }
-    #kt_toolbar_container h1{
+
+    #kt_toolbar_container h1 {
         font-size: 35px !important;
         color: red !important;
     }
+
     .content,
     .card,
-    .toolbar-fixed .toolbar{
+    .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
     }
-    .card-title h2{
+
+    .card-title h2 {
         color: rgba(254, 242, 242, 0.66);
     }
-    table tbody td{
-        text-align:center;
+
+    table tbody td {
+        text-align: center;
     }
-    table thead{
+
+    table thead {
         background-color: #000;
     }
-    table thead th{
+
+    table thead th {
         color: #fff !important;
         text-align: center;
     }
-    tbody tr:nth-child(odd) {background-color: #fff;}
-    tbody tr:nth-child(even) {background-color: #f2f2f2;}
-    .inputDiv input{
+
+    tbody tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .inputDiv input {
         width: 100%;
         background-color: #2B2727 !important;
         border-color: #2B2727 !important;
         color: #fff !important;
     }
-    .inputDiv select{
+
+    .inputDiv select {
         width: 100%;
         background-color: #2B2727 !important;
         border-color: #2B2727 !important;
         color: #fff !important;
     }
-    .inputDiv label{
+
+    .inputDiv label {
         width: 50%;
         color: #fff;
     }
-    .inputDiv{
+
+    .inputDiv {
         margin: 20px 0px;
     }
-    .card-title{
+
+    .card-title {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+        .kbw-signature {
+            width: 100%;
+            height: 200px;
+        }
+
+        #sig canvas {
+            width: 100% !important;
+            height: auto;
+        }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -87,10 +115,7 @@
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend"
-                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
-                style="width: 100%; text-align: center;">
+            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
                 <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Temporary Works</h1>
                 <!--end::Title-->
@@ -123,7 +148,7 @@
                 <div class="card-body pt-0">
                     <form action="{{ route('temporary_works.store') }}" method="post">
                         @csrf
-                        <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row">
                             <div class="col-md-6">
@@ -134,7 +159,7 @@
                                     <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                         <option value="">Select Option</option>
                                         @forelse($projects as $item)
-                                            <option value="{{$item->id}}"  @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
                                         @empty
                                         @endforelse
                                     </select>
@@ -171,7 +196,8 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date">
-                                </div><div class="d-flex inputDiv">
+                                </div>
+                                <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project Address:</span>
@@ -221,11 +247,11 @@
                                         <span class="required">TW Category</span>
 
                                     </label>
-                                {{--								<!--end::Label-->--}}
-                                {{--							    <div class="checkBoxDiv">--}}
+                                    {{-- <!--end::Label-->--}}
+                                    {{-- <div class="checkBoxDiv">--}}
 
-                                {{--                                </div>--}}
-                                <!--begin::Radio group-->
+                                    {{-- </div>--}}
+                                    <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid">
                                         <!--begin::Option-->
                                         <label>
@@ -259,11 +285,11 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TW Risk Class</span>
                                     </label>
-                                {{--								<!--end::Label-->--}}
-                                {{--							    <div class="checkBoxDiv">--}}
+                                    {{-- <!--end::Label-->--}}
+                                    {{-- <div class="checkBoxDiv">--}}
 
-                                {{--                                </div>--}}
-                                <!--begin::Radio group-->
+                                    {{-- </div>--}}
+                                    <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid">
                                         <!--begin::Option-->
                                         <label>
@@ -340,9 +366,23 @@
                                     <!--end::Label-->
                                     <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                 </div>
+                                 <div class="d-flex inputDiv">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Signature:</span>
+                                    </label>
+                                    <br/>
+                                    <div id="sig" ></div>
+                                    <br/>
+                                    <textarea id="signature64" name="signed" style="display: none"></textarea>
+
+                                </div>
+                                <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
+
                             </div>
                         </div>
+                          <br>
                         @include('dashboard.modals.design-relief-modals')
+
                         <button type="submit" class="btn btn-primary float-end">Submit</button>
                     </form>
                 </div>
@@ -356,20 +396,23 @@
 </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
-    <script>
-        var projects = {!! $projects !!};
-        $('#projects').change(function () {
-            let id = $(this).val();
-            let project = projects.filter(function(p){return p.id == id;});
-            if (project){
-                $('#no').val('').val(project[0].no);
-                $('#name').val('').val(project[0].name);
-                $('#date').val('').val(project[0].created_at);
-                $('#address').val('').val(project[0].address ? project[0].address : 'Not Set');
-            }
-            console.log(project);
+<script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
+<script>
+    var projects = {!!$projects!!};
+    $('#projects').change(function() {
+        let id = $(this).val();
+        let project = projects.filter(function(p) {
+            return p.id == id;
         });
-    </script>
-@endsection
+        if (project) {
+            $('#no').val('').val(project[0].no);
+            $('#name').val('').val(project[0].name);
+            $('#date').val('').val(project[0].created_at);
+            $('#address').val('').val(project[0].address ? project[0].address : 'Not Set');
+        }
+        console.log(project);
+    });
+</script>
 
+
+@endsection

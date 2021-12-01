@@ -30,12 +30,12 @@ class UserController extends Controller
 
                 return Datatables::of($data)
                     ->removeColumn('id')
-                    ->editColumn('company_id', function($data) {
+                    ->editColumn('company_id', function ($data) {
                         return $data->userCompany->name;
                     })
-                    ->addColumn('action', function($data){
+                    ->addColumn('action', function ($data) {
                         $btn = '<div class="d-flex">
-                                <a href="'.route('users.edit', $data->id ).'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                <a href="' . route('users.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -45,10 +45,10 @@ class UserController extends Controller
                                     </span>
                                     <!--end::Svg Icon-->
                                 </a>
-                                <form method="POST" action="'. route('users.destroy',$data->id).'"  id="form_'.$data->id.'" >
-                                    '.method_field('Delete'). csrf_field().'
+                                <form method="POST" action="' . route('users.destroy', $data->id) . '"  id="form_' . $data->id . '" >
+                                    ' . method_field('Delete') . csrf_field() . '
 
-                                    <button type="submit" id="'. $data->id .'" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                    <button type="submit" id="' . $data->id . '" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                         <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
                                       <i class="fa fa-trash" aria-hidden="true"></i>
                                         <!--end::Svg Icon-->
@@ -56,12 +56,12 @@ class UserController extends Controller
                                 </form></div>';
                         return $btn;
                     })
-                    ->rawColumns(['company_id','action'])
+                    ->rawColumns(['company_id', 'action'])
                     ->make(true);
             }
 
             return view('dashboard.users.index');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -75,12 +75,11 @@ class UserController extends Controller
     public function create()
     {
         $user = auth()->user();
-        abort_if(! $user->hasAnyRole(['admin']),403);
+        abort_if(!$user->hasAnyRole(['admin']), 403);
         try {
             $companies = User::role('company')->latest()->get();
-            return view('dashboard.users.create',compact('companies'));
-        }catch (\Exception $exception){
-
+            return view('dashboard.users.create', compact('companies'));
+        } catch (\Exception $exception) {
         }
     }
 
@@ -95,9 +94,9 @@ class UserController extends Controller
         Validations::storeUser($request);
         try {
             $all_inputs = $request->except('_token');
-            if ($request->file('image')){
+            if ($request->file('image')) {
                 $filePath = HelperFunctions::profileImagePath();
-                $all_inputs['image'] = HelperFunctions::saveFile(null,$request->file('image'),$filePath);
+                $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
             }
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
@@ -110,7 +109,7 @@ class UserController extends Controller
 
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
@@ -126,9 +125,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         try {
-
-        }catch (\Exception $exception){
-
+        } catch (\Exception $exception) {
         }
     }
 
@@ -142,14 +139,14 @@ class UserController extends Controller
     {
         try {
             $user = User::role('user')
-                ->with(['userProjects','userCompany'])
-                ->where('id',$id)
+                ->with(['userProjects', 'userCompany'])
+                ->where('id', $id)
                 ->first();
             $company_projects = $user->userCompany->companyProjects;
             $user_projects = $user->userProjects->pluck('id')->toarray();
             $companies = User::role('company')->latest()->get();
-            return view('dashboard.users.edit',compact('user_projects','user','companies','company_projects'));
-        }catch (\Exception $exception){
+            return view('dashboard.users.edit', compact('user_projects', 'user', 'companies', 'company_projects'));
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return back();
         }
@@ -164,18 +161,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        Validations::updateUser($request,$user->id);
+        Validations::updateUser($request, $user->id);
         try {
-            $all_inputs = $request->except('_token','_method');
+            $all_inputs = $request->except('_token', '_method');
             $user->update([
                 'name' => $all_inputs['name'],
                 'email' => $all_inputs['email'],
                 'company_id' => $all_inputs['company_id']
-                ]);
+            ]);
             $user->userProjects()->sync($all_inputs['projects']);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             dd($exception->getMessage());
         }
     }
@@ -193,7 +190,7 @@ class UserController extends Controller
             $user->delete();
             toastSuccess('User deleted successfully');
             return Redirect::back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -201,7 +198,7 @@ class UserController extends Controller
 
     public function updatePassword(Request $request, User $user)
     {
-        Validations::updateUserPassword($request,$user->id);
+        Validations::updateUserPassword($request, $user->id);
         try {
             $all_inputs['password'] = Hash::make($request->password);
             $user->update([
@@ -209,7 +206,7 @@ class UserController extends Controller
             ]);
             toastSuccess('Password updated successfully');
             return Redirect::back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

@@ -135,7 +135,9 @@
                             <h2>Projects</h2>
                         </div>
                         <!--begin::Card toolbar-->
+                        @if(\Auth::user()->hasAnyRole(['admin', 'company']))
                         <button value="add" class="newDesignBtn btn project_details">New Project</button>
+                        @endif
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->

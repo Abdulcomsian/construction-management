@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
+use DB;
 
 class ProjectController extends Controller
 {
@@ -21,28 +22,28 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-        abort_if(! $user->hasAnyRole(['admin', 'company']),403);
+        abort_if(!$user->hasAnyRole(['admin', 'company', 'user']), 403);
         try {
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
                     $data = Project::latest()->get();
-                }
-                elseif($user->hasRole('company')){
+                } elseif ($user->hasRole('company')) {
                     $data = auth()->companyProjects();
-                }else{
-                    $data = [];
+                } else {
+                    $data = DB::table('projects')
+                        ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.project_id')
+                        ->where('users_has_projects.user_id', auth()->user()->id)
+                        ->get();
                 }
-
-
                 return Datatables::of($data)
                     ->removeColumn('id')
-                    ->editColumn('address',function ($data){
-                        return strlen($data->address) > 30 ? substr($data->address,0,30)."..." : $data->address;
+                    ->editColumn('address', function ($data) {
+                        return strlen($data->address) > 30 ? substr($data->address, 0, 30) . "..." : $data->address;
                     })
-                    ->addColumn('action', function($data) use ($user){
+                    ->addColumn('action', function ($data) use ($user) {
                         if ($user->hasRole('admin')) {
                             $btn = '<div class="d-flex">
-                                    <button value="edit" data-id="'. $data->id .'" class="project_details btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <button value="edit" data-id="' . $data->id . '" class="project_details btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                         <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -52,29 +53,28 @@ class ProjectController extends Controller
                                         </span>
                                         <!--end::Svg Icon-->
                                     </button>
-                                    <form method="POST" action="'. route('projects.destroy',$data->id).'"  id="form_'.$data->id.'" >
-                                        '.method_field('Delete'). csrf_field().'
+                                    <form method="POST" action="' . route('projects.destroy', $data->id) . '"  id="form_' . $data->id . '" >
+                                        ' . method_field('Delete') . csrf_field() . '
 
-                                        <button type="submit" id="'. $data->id .'" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                        <button type="submit" id="' . $data->id . '" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                             <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
                                           <i class="fa fa-trash" aria-hidden="true"></i>
                                             <!--end::Svg Icon-->
                                         </button>
                                     </form>
                                 </div>';
-                        }
-                        else{
+                        } else {
                             $btn = '';
                         }
 
                         return $btn;
                     })
-                    ->rawColumns(['address','action'])
+                    ->rawColumns(['address', 'action'])
                     ->make(true);
             }
 
             return view('dashboard.projects.index');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -89,7 +89,7 @@ class ProjectController extends Controller
     {
         try {
             return view('dashboard.projects.create');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -103,10 +103,10 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        abort_if(! auth()->user()->hasRole(['admin']),403);
+        abort_if(!auth()->user()->hasRole(['admin']), 403);
 
         Validations::storeProject($request);
-        if ($request->has('id')){
+        if ($request->has('id')) {
             Validations::updateProjectId($request);
         }
         try {
@@ -114,21 +114,21 @@ class ProjectController extends Controller
             if ($request->has('id')) {
                 try {
                     unset($all_inputs['id']);
-                    Project::where('id',$request->id)
+                    Project::where('id', $request->id)
                         ->update($all_inputs);
                     $message = 'updated';
-                }catch (DecryptException $decryptException){
+                } catch (DecryptException $decryptException) {
                     toastError('Something went wrong,try again');
                     return Redirect::back();
                 }
-            }else{
+            } else {
                 Project::create($all_inputs);
                 $message = 'added';
             }
 
-            toastSuccess('Project successfully '.$message.'!');
+            toastSuccess('Project successfully ' . $message . '!');
             return Redirect::back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
@@ -143,12 +143,12 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-//        dd('show');
-//        try {
-//        }catch (\Exception $exception){
-//            toastError('Something went wrong, try again');
-//            return Redirect::back();
-//        }
+        //        dd('show');
+        //        try {
+        //        }catch (\Exception $exception){
+        //            toastError('Something went wrong, try again');
+        //            return Redirect::back();
+        //        }
     }
 
     /**
@@ -160,21 +160,20 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         try {
-            if (!empty($project)){
+            if (!empty($project)) {
                 $data = [
                     'status' => true,
                     'project' => $project
                 ];
                 return response()->json($data);
-            }else{
+            } else {
                 $data = [
                     'status' => false,
                     'project' => null
                 ];
                 return response()->json($data);
             }
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -189,12 +188,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-//        try {
-//
-//        }catch (\Exception $exception){
-//            toastError('Something went wrong, try again');
-//            return Redirect::back();
-//        }
+        //        try {
+        //
+        //        }catch (\Exception $exception){
+        //            toastError('Something went wrong, try again');
+        //            return Redirect::back();
+        //        }
     }
 
     /**
@@ -205,12 +204,12 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        abort_if(! auth()->user()->hasRole(['admin']),403);
+        abort_if(!auth()->user()->hasRole(['admin']), 403);
         try {
             $project->delete();
             toastSuccess('Project deleted successfully!');
             return Redirect::back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }

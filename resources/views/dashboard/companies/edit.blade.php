@@ -1,8 +1,8 @@
 @extends('layouts.dashboard.master',['title' => 'Users'])
 @section('styles')
 <style>
-    .addBtn{
-        border-radius:8px;
+    .addBtn {
+        border-radius: 8px;
         float: right;
     }
 </style>
@@ -15,9 +15,7 @@
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend"
-                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
+            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
                 <!--begin::Title-->
                 <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Edit Company</h1>
                 <!--end::Title-->
@@ -67,29 +65,34 @@
                     <form action="{{ route('companies.update',$company->id) }}" method="post">
                         @method('PUT')
                         @csrf
-                        <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row g-9 mb-8">
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
                                 <label class="required fs-6 fw-bold mb-2">Company Name</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Company Name"
-                                       name="name" value="{{old('name') ?: $company->name }}"/>
+                                <input type="text" class="form-control form-control-solid" placeholder="Company Name" name="name" value="{{old('name') ?: $company->name }}" />
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
                                 <label class="required fs-6 fw-bold mb-2">Company Email</label>
-                                <input type="email" class="form-control form-control-solid" placeholder="Company Email"
-                                       name="email" value="{{old('email') ?: $company->email }}"/>
+                                <input type="email" class="form-control form-control-solid" placeholder="Company Email" name="email" value="{{old('email') ?: $company->email }}" />
                             </div>
+                        </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-12 fv-row">
+                                <label class="required fs-6 fw-bold mb-2">Job Title</label>
+                                <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title') ?: $company->job_title }}" />
+                            </div>
+                            <!--end::Col-->
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-12 fv-row">
                                 <label class="required fs-6 fw-bold mb-2">Select Project</label>
                                 <select name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
                                     @forelse($projects as $item)
-                                        <option value="{{$item->id}}"  @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                    <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
                                     @empty
                                     @endforelse
                                 </select>
@@ -100,9 +103,7 @@
                             <!--begin::Col-->
                             <div class="col-md-12 fv-row">
                                 <label class="required fs-6 fw-bold mb-2">Address</label>
-                                <textarea class="form-control form-control-solid mb-8" rows="3"
-                                          placeholder="Enter Company Address"
-                                          name="address">{{old('address') ?: $company->address }}</textarea>
+                                <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Enter Company Address" name="address">{{old('address') ?: $company->address }}</textarea>
                             </div>
                             <!--end::Col-->
                         </div>

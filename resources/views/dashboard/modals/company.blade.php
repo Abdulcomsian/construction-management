@@ -74,6 +74,14 @@
                         <!--end::Col-->
                     </div>
                     <div class="row g-9 mb-8">
+                        <div class="col-md-12 fv-row">
+                            <label class="required fs-6 fw-bold mb-2">Job Title</label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Job title"
+                                   name="job_title" value="{{old('job_title')}}"/>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-12 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Address</label>

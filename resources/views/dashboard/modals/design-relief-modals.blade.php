@@ -34,24 +34,21 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                @foreach($desogmreqlevlone as $req)
-                                <li data-id='{{$req->id}}'>{{$req->name}}</li>
-                                @endforeach
-                                <!-- <li data-id="Excavation">Excavation/ Earthworks</li>
+                                <li data-id="Excavation">Excavation/ Earthworks</li>
                                 <li data-id="Formwork">Formwork / Falsework</li>
                                 <li data-id="Equipment">Equipment and Plant</li>
                                 <li data-id="Establishment">Site Establishment</li>
                                 <li data-id="Scaffolding">Access / Scaffolding</li>
                                 <li data-id="Structure">Structure</li>
                                 <li data-id="Stability">Structural Stability</li>
-                                <li data-id="Permanent">Permanent Works</li> -->
+                                <li data-id="Permanent">Permanent Works</li>
                             </ul>
                         </div>
                     </div>
                     <div class="common-requirment requirment-second">
                         <input type="text" vlaue="" class="requirment-second-value">
                         <div class="list-div">
-                            <ul>
+                            <ul class="d-none Excavation">
                                 <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li data-id="Trench">Trench Sheeting</li>
                                 <li data-id="Manhole">Manhole / Trench Boxes</li>
@@ -66,6 +63,103 @@
                                 <li data-id="Embankment">Embankment Bunds</li>
                                 <li data-id="Dewatering">Dewatering</li>
                                 <li data-id="State">Other Please State</li>
+                            </ul>
+                            <!-- **************** Framework / Falsework **************  -->
+                            <ul class="d-none Formwork">
+                                <li>Foundation / Formwork</li>
+                                <li>Walls / Formwork</li>
+                                <li>Columns / Formwork</li>
+                                <li>Slab / Soffit - Falsework</li>
+                                <li>Beams / Falsework</li>
+                                <li>Back Propping</li>
+                                <li>Edge Protection</li>
+                                <li>Support Systems</li>
+                                <li>Twin Wall Design & Support</li>
+                                <li>Push Pulls for Precast Walls and Columns</li>
+                                <li>Precast Stairs</li>
+                                <li>Crash Decks</li>
+                                <li>Metal Decking & Back Proppig</li>
+                                <li>Screen Protection</li>
+                                <li>Other Please State:</li>
+                            </ul>
+                            <!-- **************** Equipment and Plant **************  -->
+                            <ul class="d-none Equipment">
+                                <li>Piling Mat & Working Platform</li>
+                                <li>Crane Platform</li>
+                                <li>Crane Support & Foundations</li>
+                                <li>Tower Crane Base</li>
+                                <li>Access Platform for Machines and Temporary Ramps </li>
+                                <li>Concrete Pump Working Platform</li>
+                                <li>Hoist Ties & Foundations</li>
+                                <li>Mast Climbers & Foundations</li>
+                                <li>Chute Support</li>
+                                <li>Loading Bay</li>
+                                <li>Canti Deck</li>
+                                <li>Soil Bases</li>
+                                <li>Lifting / Handling Devices</li>
+                                <li>Other Please State:</li>
+                            </ul>
+                            <!-- **************** Site Establishment **************  -->
+                            <ul class="d-none Establishment">
+                                <li>Temporary Offices / Cabins</li>
+                                <li>Hoarding / Tower Crane Hoarding</li>
+                                <li>Access / Scaffolding</li>
+                                <li>Access Gantries / Platform</li>
+                                <li>Access Bridges</li>
+                                <li>Barriers</li>
+                                <li>Sign Boards</li>
+                                <li>Fuel Storage</li>
+                                <li>Welfare Facilities</li>
+                                <li>Precast Facilities</li>
+                                <li>Wheel Wash Base</li>
+                                <li>Permanent Works</li>
+                                <li>Other Please State:</li>
+                            </ul>
+                            <!-- **************** Access / Scaffolding **************  -->
+                            <ul class="d-none Scaffolding">
+                                <li>Tube & Fitting</li>
+                                <li>System Scaffolding </li>
+                                <li>System Staircase</li>
+                                <li>Temporary Roof</li>
+                                <li>Loading Bay</li>
+                                <li>Cute Support</li>
+                                <li>Mobile Tower</li>
+                                <li>Pedestrain Walkway Cover</li>
+                                <li>Suspension System</li>
+                                <li>Pontoon</li>
+                                <li>Protection Shield (steel Shield to Cover Railway While Working with a Crane Above)</li>
+                                <li></li>
+                                <li>Other Please State:</li>
+                            </ul>
+                            <!-- **************** Structure **************  -->
+                            <ul class="d-none Structure">
+                                <li>Propping</li>
+                                <li>Back Propping</li>
+                                <li>Shoring</li>
+                                <li>Scaffolding</li>
+                                <li>Working Platform</li>
+                                <li>Formwork</li>
+                                <li>Falsework</li>
+                                <li>Other Please State:</li>
+                            </ul>
+                            <!-- **************** Structural Stability **************  -->
+                            <ul class="d-none Stability">
+                                <li>Existing Structures During Construction</li>
+                                <li>New Structures During Construction</li>
+                                <li>Structural Steelwork Erection</li>
+                                <li>Needling</li>
+                                <li>Temporary Underpinning</li>
+                                <li>Cut and Carve Beam and Slab Support</li>
+                                <li>Facade System</li>
+                                <li>Party Wall Propping</li>
+                                <li>Butresses</li>
+                                <li>Other Please State:</li>
+                            </ul>
+                            <!-- **************** Permanent Works **************  -->
+                            <ul class="d-none Permanent">
+                                <li>Partial / Permanent Support Conditions</li>
+                                <li>Demolition</li>
+                                <li>Other Please State:</li>
                             </ul>
                         </div>
                     </div>
@@ -391,7 +485,7 @@
                 <div class="submit-requirment">
                     <button data-bs-dismiss="modal">Save</button>
                     <div class="uploadDiv">
-                        <input type="file">
+                        <input type="file" multiple name="file[]">
                     </div>
                 </div>
             </div>

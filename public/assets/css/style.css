@@ -145,3 +145,17 @@ input:focus {
     background-color: red;
     margin: 10px 0px;
 }
+
+/* obaid css */
+.form-check .form-check-label {
+    cursor: pointer;
+    padding-top: 4px;
+}
+.requirment-second li input {
+    width: 65% !important;
+    border: none;
+}
+.form-check .form-check-input {
+    float: left;
+    margin-left: -2rem !important;
+}

@@ -9,7 +9,13 @@ $(document).ready(function () {
     $("#design-requirement .requirment-first ul li").click(function () {
         $(".requirment-first ul li").removeClass("active");
         $(this).addClass("active");
+        id = $(this).attr("data-id");
         $(".requirment-second").css("display", "block");
+        $("ul.show").hide();
+        $("ul." + id + "")
+            .removeClass("d-none")
+            .addClass("show")
+            .css("display", "block");
         var val = $(this).text();
         $(".requirment-first-value").val(val);
     });

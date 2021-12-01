@@ -6,6 +6,7 @@ use App\Models\Folder;
 use App\Models\Project;
 use App\Models\ScopeOfDesign;
 use App\Models\TemporaryWork;
+use App\Models\TemporayWorkImage;
 use App\Models\DesignRequirementLevelOne;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;
+use App\Utils\HelperFunctions;
 
 class TemporaryWorkController extends Controller
 {
@@ -57,7 +59,6 @@ class TemporaryWorkController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];
@@ -71,7 +72,6 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            dd($scope_of_design);
             $folder_attachements = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'folder')) {
@@ -83,11 +83,32 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token');
+            $all_inputs  = $request->except('_token', 'signed', 'file');
+            //upload signature here
+            $folderPath = public_path('temporary/signature/');
+            $image = explode(";base64,", $request->signed);
+            $image_type = explode("image/", $image[0]);
+            $image_type_png = $image_type[1];
+            $image_base64 = base64_decode($image[1]);
+            $image_name = uniqid() . '.' . $image_type_png;
+            $file = $folderPath . $image_name;
+            file_put_contents($file, $image_base64);
+            $all_inputs['signature'] = $image_name;
             $temporary_work = TemporaryWork::create($all_inputs);
             ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
             Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
-
+            //work for upload images here
+            if ($request->file('file')) {
+                $filePath = HelperFunctions::temporaryworkImagePath();
+                $files = $request->file('file');
+                foreach ($files  as $key => $file) {
+                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    $model = new TemporayWorkImage();
+                    $model->image = $imagename;
+                    $model->temporary_work_id = $temporary_work->id;
+                    $model->save();
+                }
+            }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {

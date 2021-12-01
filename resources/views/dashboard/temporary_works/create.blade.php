@@ -105,8 +105,15 @@
             width: 100% !important;
             height: auto;
         }
+        .modalDiv{
+            width:100% ;
+        }
 </style>
+
 @include('layouts.sweetalert.sweetalert_css')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -136,7 +143,7 @@
                     <!--begin::Card title-->
                     <div class="card-title">
                         <h2>Temporary Work Register</h2>
-                        <a style="width: 190px;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Relief</a>
+                        <a style="width: 190px;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
                     </div>
                     <!--begin::Card toolbar-->
 
@@ -146,13 +153,13 @@
 
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <form action="{{ route('temporary_works.store') }}" method="post">
+                    <form action="{{ route('temporary_works.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div clatemss="d-flex inputDiv">
+                                <div class="d-flex inputDiv">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Select Project:</span>
                                     </label>
@@ -320,27 +327,51 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement">
-                                    <!--begin::Label-->
-                                    <input type="text" placeholder="Design Requirement" readonly name="design_requirement_text">
-                                    <!--end::Label-->
-                                </div>
-                                <div class="d-flex modalDiv">
-                                    <input type="text" placeholder="Description of Temporary Works Required" name="description_temporary_work_required">
-                                </div>
-                                <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#scope-of-design">
-                                    <input type="text" placeholder="Scope of Design Output Required fronm the Temporary Works Engineer:" readonly>
-                                </div>
-                                <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
-                                    <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
-                                </div>
+                                <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
+                                        <!--begin::Label-->
+                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           Design Requirement:
+                                        </label>
+                                        <br>
+                                        <input type="text" placeholder="Design Requirement" readonly name="design_requirement_text">
+                                        <!--end::Label-->
+                                    </div>
+                                 </div>
+                                  <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                              Description :
+                                            </label>
+                                        <input type="text" placeholder="Description of Temporary Works Required" name="description_temporary_work_required">
+                                    </div>
+                                 </div>
+                                  <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#scope-of-design">
+                                         <!--begin::Label-->
+                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                              Scope of Design:
+                                            </label>
+                                        <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly>
+                                    </div>
+                                  </div>
+                                   <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                        <!--begin::Label-->
+                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                              Attachments / Spec:
+                                            </label>
+                                        <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
+                                    </div>
+                                  </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -356,7 +387,7 @@
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Company" name="company">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Company" name="company" value="{{\Auth::user()->userCompany->name ?? ''}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -371,10 +402,9 @@
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <div id="sig" ></div>
+                                    <div id="sig"></div>
                                     <br/>
-                                    <textarea id="signature64" name="signed" style="display: none"></textarea>
-
+                                   <textarea id="signature" name="signed" style="display: none"></textarea>
                                 </div>
                                 <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
 

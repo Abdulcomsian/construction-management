@@ -348,9 +348,7 @@
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
-                                            <textarea name="description_temporary_work_required" rows="2" cols="70" style="background: #2B2727">
-                                                
-                                            </textarea>
+                                            <textarea name="description_temporary_work_required" rows="2" cols="70" style="background: #2B2727;color:white"></textarea>
                                        <!--  <input type="text" placeholder="Description of Temporary Works Required" name="description_temporary_work_required"> -->
                                     </div>
                                  </div>
@@ -410,9 +408,9 @@
                                         <span class="required">Signature Type:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="checkbox" id="flexCheckChecked" checked style="width: 12px;margin-top:5px">
-                                      <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="1">
-                                     <span style="padding-left:3px;color:white">Do you want to name signature?</span>
+                                     <input  type="checkbox" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                      <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
+                                     <span style="padding-left:3px;color:white">Do you want name signature?</span>
                                 </div>
                                 <div class="d-flex inputDiv" id="namesign" style="display: none !important">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -469,15 +467,17 @@
         if($(this).is(':checked'))
         {
             $("#signtype").val(1);
-            $("#sign").addClass('d-flex').show();
-            $("#namesign").removeClass('d-flex').hide();
-            $("#clear").show();
+            $("#namesign").addClass('d-flex').show();
+             $("#clear").hide();
+              $("#sign").removeClass('d-flex').hide();
+           
         }
         else{
             $("#signtype").val(0);
-             $("#namesign").addClass('d-flex').show();
-             $("#clear").hide();
-              $("#sign").removeClass('d-flex').hide();
+             $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("#clear").show();
+             
         }
     })
 </script>

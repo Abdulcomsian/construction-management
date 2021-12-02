@@ -17,35 +17,43 @@
     .card>.card-body {
         padding: 32px;
     }
-    table{
+
+    table {
         margin-top: 20px;
         border-collapse: separate;
         background-color: red;
     }
+
     .wrapper,
-    .page{
+    .page {
         background-image: url({{asset("assets/media/images/temporaryBg.png")}})
     }
-    #kt_toolbar_container h1{
+
+    #kt_toolbar_container h1 {
         font-size: 35px !important;
         color: red !important;
     }
+
     .content,
     .card,
-    .toolbar-fixed .toolbar{
+    .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
     }
-    .card-title h2{
+
+    .card-title h2 {
         color: rgba(254, 242, 242, 0.66);
     }
-    table tbody td{
-        text-align:center;
+
+    table tbody td {
+        text-align: center;
     }
-    table thead{
+
+    table thead {
         background-color: #000;
     }
-    table thead th{
+
+    table thead th {
         color: #fff !important;
         text-align: center;
         transform: rotate(-90deg);
@@ -54,34 +62,45 @@
         font-size: 12px !important;
         font-weight: 900 !important;
     }
-    tbody tr:nth-child(odd) {background-color: #fff;}
-    tbody tr:nth-child(even) {background-color: #f2f2f2;}
 
-        .table{
-            border-color: red;
-            border-style: solid;
-        }
-        .table.table-row-dashed tr{
-            height: 120px;
-        }
-        td{
-            border: 1px solid red !important;
-        }
-        .dataTables_length label,
-        #DataTables_Table_0_filter label,
-        .dataTables_filter label{
-            color: #fff;
-        }
-        .page-item.active .page-link{
-            background-color: #000 !important;
-        }
-        table {
-            margin-top: 20px;
-            border-collapse: separate;
-            background-color: red !important;
-            border-color: red !important;
-            border-style: solid !important;
-        }
+    tbody tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .table {
+        border-color: red;
+        border-style: solid;
+    }
+
+    .table.table-row-dashed tr {
+        height: 120px;
+    }
+
+    td {
+        border: 1px solid red !important;
+    }
+
+    .dataTables_length label,
+    #DataTables_Table_0_filter label,
+    .dataTables_filter label {
+        color: #fff;
+    }
+
+    .page-item.active .page-link {
+        background-color: #000 !important;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: separate;
+        background-color: red !important;
+        border-color: red !important;
+        border-style: solid !important;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -92,10 +111,7 @@
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend"
-                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
-                style="width: 100%; text-align: center;">
+            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
                 <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Temporary Works</h1>
                 <!--end::Title-->
@@ -113,14 +129,14 @@
             <div class="card">
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
-                        <!--begin::Card title-->
-                        <div class="card-title">
-                            <h2>Temporary Work Register</h2>
-                        </div>
-                        <!--begin::Card toolbar-->
-                        <a href="{{ route('temporary_works.create') }}" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
-                        <!--end::Card toolbar-->
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2>Temporary Work Register</h2>
                     </div>
+                    <!--begin::Card toolbar-->
+                    <a href="{{ route('temporary_works.create') }}" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
+                    <!--end::Card toolbar-->
+                </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">

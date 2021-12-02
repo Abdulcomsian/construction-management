@@ -405,7 +405,7 @@
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                        <span class="required">Signature Type:</span>
+                                        <span class="required">Name signature:</span>
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
@@ -481,6 +481,13 @@
         }
     })
 </script>
-
+<script>
+    $(".addfile").on("click", function(event){
+     $(this).after(`<div class="row mt-3"><div class="col-md-4"> <input type="file" multiple name="file[]"></div><div class="col-md-6" style="text-align:left"><span class="fa fa-minus removefile"></span></div></div>`);
+});
+    $(document).on('click','.removefile',function(){
+        $(this).parent().parent().remove();
+    })
+</script>
 
 @endsection

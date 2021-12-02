@@ -22,19 +22,19 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        // try {
-            $projects = Project::WhereDoesntHave('company')->select('id','no','name')->latest()->get();
+        try {
+            $projects = Project::WhereDoesntHave('company')->select('id', 'no', 'name')->latest()->get();
             if ($request->ajax()) {
                 $data = User::role('company')->latest()->get();
 
                 return Datatables::of($data)
                     ->removeColumn('id')
-                    ->editColumn('address',function ($data){
-                        return strlen($data->address) > 30 ? substr($data->address,0,30)."..." : $data->address;
+                    ->editColumn('address', function ($data) {
+                        return strlen($data->address) > 30 ? substr($data->address, 0, 30) . "..." : $data->address;
                     })
-                    ->addColumn('action', function($data){
+                    ->addColumn('action', function ($data) {
                         $btn = '<div class="d-flex">
-                                <a href="'.route('companies.edit', $data->id ).'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                <a href="' . route('companies.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -44,10 +44,10 @@ class CompanyController extends Controller
                                     </span>
                                     <!--end::Svg Icon-->
                                 </a>
-                                <form method="POST" action="'. route('companies.destroy',$data->id).'"  id="form_'.$data->id.'" >
-                                    '.method_field('Delete'). csrf_field().'
+                                <form method="POST" action="' . route('companies.destroy', $data->id) . '"  id="form_' . $data->id . '" >
+                                    ' . method_field('Delete') . csrf_field() . '
 
-                                    <button type="submit" id="'. $data->id .'" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                    <button type="submit" id="' . $data->id . '" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                         <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
                                       <i class="fa fa-trash" aria-hidden="true"></i>
                                         <!--end::Svg Icon-->
@@ -55,12 +55,12 @@ class CompanyController extends Controller
                                 </form></div>';
                         return $btn;
                     })
-                    ->rawColumns(['address','action'])
+                    ->rawColumns(['address', 'action'])
                     ->make(true);
             }
 
-            return view('dashboard.companies.index',compact('projects'));
-        }catch (\Exception $exception){
+            return view('dashboard.companies.index', compact('projects'));
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -73,11 +73,11 @@ class CompanyController extends Controller
      */
     public function create()
     {
-//        try {
-//        }catch (\Exception $exception){
-//            toastError('Something went wrong, try again');
-//            return Redirect::back();
-//        }
+        //        try {
+        //        }catch (\Exception $exception){
+        //            toastError('Something went wrong, try again');
+        //            return Redirect::back();
+        //        }
     }
 
     /**
@@ -96,12 +96,12 @@ class CompanyController extends Controller
 
             $user = User::create($all_inputs);
             $user->assignRole('company');
-            $projects = Project::whereIn('id',$all_inputs['projects'])->get();
+            $projects = Project::whereIn('id', $all_inputs['projects'])->get();
             $user->companyProjects()->saveMany($projects);
 
             toastSuccess('Company successfully added!');
             return Redirect::back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
@@ -116,12 +116,12 @@ class CompanyController extends Controller
      */
     public function show(User $user)
     {
-//        dd('show');
-//        try {
-//        }catch (\Exception $exception){
-//            toastError('Something went wrong, try again');
-//            return Redirect::back();
-//        }
+        //        dd('show');
+        //        try {
+        //        }catch (\Exception $exception){
+        //            toastError('Something went wrong, try again');
+        //            return Redirect::back();
+        //        }
     }
 
     /**
@@ -134,15 +134,15 @@ class CompanyController extends Controller
     public function edit($id)
     {
         try {
-            $projects = Project::WhereDoesntHave('company')->select('id','no','name')->latest()->get();
+            $projects = Project::WhereDoesntHave('company')->select('id', 'no', 'name')->latest()->get();
 
-            $company = User::with('companyProjects')->where('id',$id)->first();
+            $company = User::with('companyProjects')->where('id', $id)->first();
             $company_projects = $company->companyProjects;
             $project_ids = $company->companyProjects->pluck('id')->toArray();
             unset($company['companyProjects']);
             $projects =  $projects->merge($company_projects);
-            return view('dashboard.companies.edit',compact('company','projects','project_ids'));
-        }catch (\Exception $exception){
+            return view('dashboard.companies.edit', compact('company', 'projects', 'project_ids'));
+        } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
@@ -158,18 +158,18 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Validations::updateCompany($request,$id);
+        Validations::updateCompany($request, $id);
         try {
-            $all_inputs = $request->except('_token','_method');
+            $all_inputs = $request->except('_token', '_method');
             $user = User::find($id);
             $user->update($all_inputs);
             $user->companyProjects()->update(['company_id' => null]);
-            $projects = Project::whereIn('id',$all_inputs['projects'])->get();
+            $projects = Project::whereIn('id', $all_inputs['projects'])->get();
             $user->companyProjects()->saveMany($projects);
 
             toastSuccess('Company successfully updated!');
             return redirect()->route('companies.index');
-        }catch (DecryptException $decryptException){
+        } catch (DecryptException $decryptException) {
             toastError('Something went wrong,try again');
             return Redirect::back();
         }
@@ -184,34 +184,35 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         try {
-            $user = User::role('company')->where('id',$id)->first();
+            $user = User::role('company')->where('id', $id)->first();
             $user->delete();
             toastSuccess('Company deleted successfully!');
             return Redirect::back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
     }
 
     //For getting projects of companies using company id
-    public function companyProjects(Request $request){
+    public function companyProjects(Request $request)
+    {
         try {
             $id = $request->id;
-            $company = User::where('id',$id)->first();
+            $company = User::where('id', $id)->first();
             $projects = $company->companyProjects;
-            if (!empty($projects)){
+            if (!empty($projects)) {
                 $data = [
                     'status' => true,
                     'projects' => $projects
                 ];
-            }else{
+            } else {
                 $data = [
                     'status' => false,
                 ];
             }
             return response()->json($data);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $data = [
                 'status' => false,
             ];

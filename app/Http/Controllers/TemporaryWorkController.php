@@ -140,6 +140,10 @@ class TemporaryWorkController extends Controller
                     $model->save();
                 }
             }
+            // pdf work 
+            $path = public_path('pdf');
+            $fileName =  'temporarywork' .  $temporary_work->id . '.' . 'pdf';
+            $pdf = PDF::loadView('layouts.pdf.design_breif', $request->all())->save($path . '/' . $fileName);
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {

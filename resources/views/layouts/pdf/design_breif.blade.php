@@ -3,9 +3,10 @@
 
 <head>
     <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Outfit', sans-serif;
@@ -45,7 +46,7 @@
             width: 50%;
         }
 
-        .width40 .inputLabelDiv{
+        .width40 .inputLabelDiv {
             width: 45%;
         }
 
@@ -75,7 +76,6 @@
             font-size: 14px;
             font-weight: 700;
         }
-
     </style>
 </head>
 

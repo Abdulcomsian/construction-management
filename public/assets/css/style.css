@@ -153,9 +153,14 @@ input:focus {
 }
 .requirment-second li input {
     width: 65% !important;
+    background-color: #fff !important;
     border: none;
 }
 .form-check .form-check-input {
     float: left;
     margin-left: -2rem !important;
+}
+.form-check-input:checked {
+    background-color: #009ef7 !important;
+    border-color: #009ef7 !important;
 }

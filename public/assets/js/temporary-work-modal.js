@@ -49,8 +49,8 @@ $(document).ready(function () {
         $(this).addClass("active");
         id = $(this).attr("data-id");
         $("#scope-of-design .requirment-second").css("display", "block");
-        $("li.d-none." + id + "")
-            .removeClass("d-none")
+        $("li.invisible." + id + "")
+            .removeClass("invisible")
             .css("display", "block");
 
         var val = $(this).text();
@@ -98,8 +98,8 @@ $(document).ready(function () {
         $(this).addClass("active");
         id = $(this).attr("data-id");
         $("#attachment-of-design .requirment-second").css("display", "block");
-        $("li.d-none." + id + "")
-            .removeClass("d-none")
+        $("li.invisible." + id + "")
+            .removeClass("invisible")
             .css("display", "block");
         var val = $(this).text();
         $("#attachment-of-design .requirment-first-value").val(val);

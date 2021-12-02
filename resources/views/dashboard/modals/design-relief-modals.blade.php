@@ -49,7 +49,7 @@
                         <input type="text" vlaue="" class="requirment-second-value">
                         <div class="list-div">
                             <ul class="d-none Excavation">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
+
                                 <li data-id="Trench">Trench Sheeting</li>
                                 <li data-id="Manhole">Manhole / Trench Boxes</li>
                                 <li data-id="Cofferdams">Cofferdams</li>
@@ -63,10 +63,10 @@
                                 <li data-id="Embankment">Embankment Bunds</li>
                                 <li data-id="Dewatering">Dewatering</li>
                                 <li data-id="State">Other Please State</li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Framework / Falsework **************  -->
                             <ul class="d-none Formwork">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Foundation / Formwork</li>
                                 <li>Walls / Formwork</li>
                                 <li>Columns / Formwork</li>
@@ -81,10 +81,10 @@
                                 <li>Crash Decks</li>
                                 <li>Metal Decking & Back Proppig</li>
                                 <li>Screen Protection</li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Equipment and Plant **************  -->
                             <ul class="d-none Equipment">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Piling Mat & Working Platform</li>
                                 <li>Crane Platform</li>
                                 <li>Crane Support & Foundations</li>
@@ -98,10 +98,10 @@
                                 <li>Canti Deck</li>
                                 <li>Soil Bases</li>
                                 <li>Lifting / Handling Devices</li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Site Establishment **************  -->
                             <ul class="d-none Establishment">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Temporary Offices / Cabins</li>
                                 <li>Hoarding / Tower Crane Hoarding</li>
                                 <li>Access / Scaffolding</li>
@@ -114,10 +114,10 @@
                                 <li>Precast Facilities</li>
                                 <li>Wheel Wash Base</li>
                                 <li>Permanent Works</li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Access / Scaffolding **************  -->
                             <ul class="d-none Scaffolding">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Tube & Fitting</li>
                                 <li>System Scaffolding </li>
                                 <li>System Staircase</li>
@@ -129,11 +129,10 @@
                                 <li>Suspension System</li>
                                 <li>Pontoon</li>
                                 <li>Protection Shield (steel Shield to Cover Railway While Working with a Crane Above)</li>
-                                <li></li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Structure **************  -->
                             <ul class="d-none Structure">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Propping</li>
                                 <li>Back Propping</li>
                                 <li>Shoring</li>
@@ -141,10 +140,10 @@
                                 <li>Working Platform</li>
                                 <li>Formwork</li>
                                 <li>Falsework</li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Structural Stability **************  -->
                             <ul class="d-none Stability">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Existing Structures During Construction</li>
                                 <li>New Structures During Construction</li>
                                 <li>Structural Steelwork Erection</li>
@@ -154,12 +153,13 @@
                                 <li>Facade System</li>
                                 <li>Party Wall Propping</li>
                                 <li>Butresses</li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Permanent Works **************  -->
                             <ul class="d-none Permanent">
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Partial / Permanent Support Conditions</li>
                                 <li>Demolition</li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                         </div>
                     </div>
@@ -360,7 +360,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -374,7 +374,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -388,7 +388,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -402,7 +402,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -416,7 +416,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -430,7 +430,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -444,7 +444,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -458,7 +458,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -472,7 +472,7 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault2" value="no" checked />
+                                            <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault2" value="no" />
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -482,12 +482,15 @@
                     </div>
 
                 </div>
-                <div class="submit-requirment">
-                    <button data-bs-dismiss="modal">Save</button>
-                    <div class="uploadDiv">
-                        <input type="file" multiple name="file[]">
-                    </div>
+                <div class="uploadDiv" style="padding-left: 10px;">
+                    <input type="file" multiple name="file[]">
+                    <input type="button" class="btn btn-sm btn-primary addfile" style="width: 10%;" value="Add">
                 </div>
+                <div class="submit-requirment" style="width:100%;padding-left:10px;">
+                    <button data-bs-dismiss="modal" style="width: 10%;">Save</button>
+
+                </div>
+
             </div>
             <!--end::Modal body-->
         </div>

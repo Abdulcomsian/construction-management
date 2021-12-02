@@ -83,17 +83,21 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'signed', 'file');
+            $all_inputs  = $request->except('_token', 'signed', 'file', 'namesign', 'signtype');
             //upload signature here
-            $folderPath = public_path('temporary/signature/');
-            $image = explode(";base64,", $request->signed);
-            $image_type = explode("image/", $image[0]);
-            $image_type_png = $image_type[1];
-            $image_base64 = base64_decode($image[1]);
-            $image_name = uniqid() . '.' . $image_type_png;
-            $file = $folderPath . $image_name;
-            file_put_contents($file, $image_base64);
-            $all_inputs['signature'] = $image_name;
+            if (isset($request->namesign) && $request->namesign != '') {
+                $all_inputs['signature'] = $request->namesign;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+                $all_inputs['signature'] = $image_name;
+            }
             $temporary_work = TemporaryWork::create($all_inputs);
             ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
             Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));

@@ -22,7 +22,7 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        try {
+        // try {
             $projects = Project::WhereDoesntHave('company')->select('id','no','name')->latest()->get();
             if ($request->ajax()) {
                 $data = User::role('company')->latest()->get();

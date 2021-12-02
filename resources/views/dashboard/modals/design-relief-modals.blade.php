@@ -243,34 +243,34 @@
                         <div class="list-div">
 
                             <ul>
-                                <li class="d-none Preliminary-Sketches">
+                                <li class="invisible Preliminary-Sketches">
                                     <input type="date" name="preliminary_sketches_date_sod">
                                 </li>
-                                <li class="d-none Construction-Drawings">
+                                <li class="invisible Construction-Drawings">
                                     <input type="date" name="construction_rawings_date_sod">
                                 </li>
-                                <li class="d-none Design-Calculations">
+                                <li class="invisible Design-Calculations">
                                     <input type="date" name="design_calculations_date_sod">
                                 </li>
-                                <li class="d-none Check-Certificate">
+                                <li class="invisible Check-Certificate">
                                     <input type="date" name="design_check_certificate_date_sod">
                                 </li>
-                                <li class="d-none Loading-Criteria">
+                                <li class="invisible Loading-Criteria">
                                     <input type="date" name="loading_criteria_date_sod">
                                 </li>
-                                <li class="d-none Construction-Erection">
+                                <li class="invisible Construction-Erection">
                                     <input type="date" name="construction_erection_sequence_information_date_sod">
                                 </li>
-                                <li class="d-none Inspection-Checklist">
+                                <li class="invisible Inspection-Checklist">
                                     <input type="date" name="inspection_checklist_date_sod">
                                 </li>
-                                <li class="d-none Monitoring-Requirements">
+                                <li class="invisible Monitoring-Requirements">
                                     <input type="date" name="monitoring_requirements_date_sod">
                                 </li>
-                                <li class="d-none Specifications">
+                                <li class="invisible Specifications">
                                     <input type="date" name="specifications_date_sod">
                                 </li>
-                                <li class="d-none Design-Inspection">
+                                <li class="invisible Design-Inspection">
                                     <input type="date" name="design_inspection_test_plans_date_sod">
                                 </li>
 
@@ -351,7 +351,7 @@
                     <div class="common-requirment requirment-second">
                         <div class="list-check-div">
                             <ul>
-                                <li class="d-none List-Attachment">
+                                <li class="invisible List-Attachment">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
@@ -365,7 +365,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none Report-Site">
+                                <li class="invisible Report-Site">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
@@ -379,7 +379,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none Exsisting-Ground">
+                                <li class="invisible Exsisting-Ground">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault1" value="yes" />
@@ -393,7 +393,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class=" d-none System-Type">
+                                <li class="invisible System-Type">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault1" value="yes" />
@@ -407,7 +407,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none Limitations">
+                                <li class="invisible Limitations">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
@@ -421,7 +421,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none Back-Propping">
+                                <li class="invisible Back-Propping">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
@@ -435,7 +435,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none Temporary-Work">
+                                <li class="invisible Temporary-Work">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" />
@@ -449,7 +449,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none Hazard-Risk">
+                                <li class="invisible Hazard-Risk">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" />
@@ -463,7 +463,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none Party-Requirements">
+                                <li class="invisible Party-Requirements">
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault1" value="yes" />

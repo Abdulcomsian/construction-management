@@ -24,17 +24,23 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $user = auth()->user();
+        abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
         try {
             if ($request->ajax()) {
-                $data = User::role('user')->latest()->get();
-
+                if ($user->hasRole('admin')) {
+                    $data = User::role('user')->latest()->get();
+                } elseif ($user->hasRole('company')) {
+                    $data = User::role('user')->where('company_id', auth()->user()->id)->get();
+                }
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->editColumn('company_id', function ($data) {
                         return $data->userCompany->name;
                     })
-                    ->addColumn('action', function ($data) {
-                        $btn = '<div class="d-flex">
+                    ->addColumn('action', function ($data) use ($user) {
+                        if ($user->hasRole('admin')) {
+                            $btn = '<div class="d-flex">
                                 <a href="' . route('users.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                     <span class="svg-icon svg-icon-3">
@@ -54,6 +60,9 @@ class UserController extends Controller
                                         <!--end::Svg Icon-->
                                     </button>
                                 </form></div>';
+                        } else {
+                            $btn = '';
+                        }
                         return $btn;
                     })
                     ->rawColumns(['company_id', 'action'])

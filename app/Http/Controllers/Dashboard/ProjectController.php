@@ -28,7 +28,7 @@ class ProjectController extends Controller
                 if ($user->hasRole('admin')) {
                     $data = Project::latest()->get();
                 } elseif ($user->hasRole('company')) {
-                    $data = auth()->companyProjects();
+                    $data = Project::where('company_id', $user->id)->get();
                 } else {
                     $data = DB::table('projects')
                         ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.project_id')

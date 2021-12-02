@@ -28,15 +28,12 @@ class CreateTemporaryWorksTable extends Migration
             $table->tinyInteger('tw_category')->nullable();
             $table->string('tw_risk_class')->nullable();
             $table->longText('description_temporary_work_required')->nullable();
-
             $table->string('name')->nullable();
             $table->string('job_title')->nullable();
             $table->string('company')->nullable();
             $table->string('signature')->nullable();
-
             $table->longText('design_requirement_text')->nullable();
-
-
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

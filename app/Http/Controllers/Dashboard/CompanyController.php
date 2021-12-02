@@ -22,18 +22,25 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
+        $user = auth()->user();
+        abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
         try {
             $projects = Project::WhereDoesntHave('company')->select('id', 'no', 'name')->latest()->get();
             if ($request->ajax()) {
-                $data = User::role('company')->latest()->get();
-
+                if ($user->hasRole('admin')) {
+                    $data = User::role('company')->latest()->get();
+                }
+                if ($user->hasRole('company')) {
+                    $data = User::role('company')->where('id', $user->id)->get();
+                }
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->editColumn('address', function ($data) {
                         return strlen($data->address) > 30 ? substr($data->address, 0, 30) . "..." : $data->address;
                     })
-                    ->addColumn('action', function ($data) {
-                        $btn = '<div class="d-flex">
+                    ->addColumn('action', function ($data)  use ($user) {
+                        if ($user->hasRole('admin')) {
+                            $btn = '<div class="d-flex">
                                 <a href="' . route('companies.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                     <span class="svg-icon svg-icon-3">
@@ -53,6 +60,9 @@ class CompanyController extends Controller
                                         <!--end::Svg Icon-->
                                     </button>
                                 </form></div>';
+                        } else {
+                            $btn = '';
+                        }
                         return $btn;
                     })
                     ->rawColumns(['address', 'action'])

@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;
 use App\Utils\HelperFunctions;
 use DB;
+use PDF;
 
 class TemporaryWorkController extends Controller
 {

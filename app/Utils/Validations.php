@@ -97,7 +97,7 @@ class Validations
             'name' => ['required'],
             'job_title' => ['required'],
             'company' => ['required'],
-            'sign' => 'required_if:signtype,0',
+            'signed' => 'required_if:signtype,0',
             'namesign' => 'required_if:signtype,1',
         ]);
     }

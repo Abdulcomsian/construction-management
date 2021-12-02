@@ -66,6 +66,7 @@
                             </ul>
                             <!-- **************** Framework / Falsework **************  -->
                             <ul class="d-none Formwork">
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Foundation / Formwork</li>
                                 <li>Walls / Formwork</li>
                                 <li>Columns / Formwork</li>
@@ -80,10 +81,10 @@
                                 <li>Crash Decks</li>
                                 <li>Metal Decking & Back Proppig</li>
                                 <li>Screen Protection</li>
-                                <li>Other Please State:</li>
                             </ul>
                             <!-- **************** Equipment and Plant **************  -->
                             <ul class="d-none Equipment">
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Piling Mat & Working Platform</li>
                                 <li>Crane Platform</li>
                                 <li>Crane Support & Foundations</li>
@@ -97,10 +98,10 @@
                                 <li>Canti Deck</li>
                                 <li>Soil Bases</li>
                                 <li>Lifting / Handling Devices</li>
-                                <li>Other Please State:</li>
                             </ul>
                             <!-- **************** Site Establishment **************  -->
                             <ul class="d-none Establishment">
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Temporary Offices / Cabins</li>
                                 <li>Hoarding / Tower Crane Hoarding</li>
                                 <li>Access / Scaffolding</li>
@@ -113,10 +114,10 @@
                                 <li>Precast Facilities</li>
                                 <li>Wheel Wash Base</li>
                                 <li>Permanent Works</li>
-                                <li>Other Please State:</li>
                             </ul>
                             <!-- **************** Access / Scaffolding **************  -->
                             <ul class="d-none Scaffolding">
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Tube & Fitting</li>
                                 <li>System Scaffolding </li>
                                 <li>System Staircase</li>
@@ -129,10 +130,10 @@
                                 <li>Pontoon</li>
                                 <li>Protection Shield (steel Shield to Cover Railway While Working with a Crane Above)</li>
                                 <li></li>
-                                <li>Other Please State:</li>
                             </ul>
                             <!-- **************** Structure **************  -->
                             <ul class="d-none Structure">
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Propping</li>
                                 <li>Back Propping</li>
                                 <li>Shoring</li>
@@ -140,10 +141,10 @@
                                 <li>Working Platform</li>
                                 <li>Formwork</li>
                                 <li>Falsework</li>
-                                <li>Other Please State:</li>
                             </ul>
                             <!-- **************** Structural Stability **************  -->
                             <ul class="d-none Stability">
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Existing Structures During Construction</li>
                                 <li>New Structures During Construction</li>
                                 <li>Structural Steelwork Erection</li>
@@ -153,13 +154,12 @@
                                 <li>Facade System</li>
                                 <li>Party Wall Propping</li>
                                 <li>Butresses</li>
-                                <li>Other Please State:</li>
                             </ul>
                             <!-- **************** Permanent Works **************  -->
                             <ul class="d-none Permanent">
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other Input"></li>
                                 <li>Partial / Permanent Support Conditions</li>
                                 <li>Demolition</li>
-                                <li>Other Please State:</li>
                             </ul>
                         </div>
                     </div>
@@ -232,9 +232,9 @@
                                 <li data-id="Monitoring-Requirements">Monitoring Requirements</li>
                                 <li data-id="Specifications">Specifications</li>
                                 <li data-id="Design-Inspection">Design Inspection and Test Plans (ITP’s)</li>
-                                <li data-id="user-input">
+                                <!-- <li data-id="user-input">
                                     <input type="text" placeholder="Other STATE">
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>

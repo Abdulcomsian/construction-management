@@ -46,6 +46,7 @@
                             <span class="menu-title">Projects</span>
                         </a>
                     </div>
+                    @if(\Auth::user()->hasAnyRole(['admin', 'company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('companies.index') }}">
                             <span class="menu-bullet">
@@ -54,6 +55,7 @@
                             <span class="menu-title">Companies</span>
                         </a>
                     </div>
+                    @endif
                     @if(\Auth::user()->hasAnyRole(['admin', 'company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('users.index') }}">

@@ -103,6 +103,7 @@
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -185,7 +186,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
+                                    <td class="uploadfile">Drag and drop folders/ pdf drawings</td>
                                     <td>Drag and drop folders/ pdf drawings</td>
                                     <td></td>
                                     <td></td>
@@ -206,11 +207,40 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
+                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1">Drag and drop folders/ pdf drawings</p><br>
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==1)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">D{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+                                    </td>
+                                    <td >
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="2">Drag and drop folders/ pdf drawings</p>
+                                        <br>
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==2)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+
+                                    </td>
                                     <td></td>
                                     <td></td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
+                                    <td  data-type="2">
+                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
+                                        <br>
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==3)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+                                    </td>
                                 </tr>
                                 @empty
                                 @endforelse
@@ -228,8 +258,60 @@
     </div>
     <!--end::Post-->
 </div>
+@include('dashboard.modals.upload-file')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<script>
+    $(".uploadfile").on('click',function(){
+        $("#tempworkid").val($(this).attr('data-id'));
+        $("#type").val($(this).attr('data-type'));
+        $("#upload_file_id").modal('show');
 
+    })
+</script>
+<script type="text/javascript">
+        Dropzone.options.dropzone =
+         {
+            maxFilesize: 12,
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+               return time+file.name;
+            },
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 50000,
+            removedfile: function(file) 
+            {
+                var name = file.upload.filename;
+                $.ajax({
+                    headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            },
+                    type: 'POST',
+                    url: '{{ url("image/delete") }}',
+                    data: {filename: name},
+                    success: function (data){
+                        console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
+                    var fileRef;
+                    return (fileRef = file.previewElement) != null ? 
+                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
+            },
+       
+            success: function(file, response) 
+            {
+                console.log(response);
+            },
+            error: function(file, response)
+            {
+               return false;
+            }
+};
+</script>
 @endsection

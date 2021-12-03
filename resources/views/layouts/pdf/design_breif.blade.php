@@ -1,237 +1,364 @@
-<!DOCTYPE html>
-<html>
+<style type="text/css">
+    @font-face {
+        font-family: "myFirstFont";
+        src: url("/public/fonts/Calibri.ttf")format("truetype");
+    }
 
-<head>
-    <title>Page Title</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="{{ ltrim('assets/css/app.css') }}" />
-    <style type="text/css" media="all">
-        body {
-            font-family: 'Outfit', sans-serif;
-        }
+    table {
+        font-size: 12px;
+        line-height: 16px;
+        font-family: "myFirstFont";
+    }
 
-        .width100 {
-            width: 100%;
-            margin-bottom: 20px;
-        }
+    table.page_header {
+        width: 100%;
+        border: none;
+        background-color: #ffffff;
+        border-bottom: solid 1mm #fff;
+        padding: 2mm
+    }
 
-        .inputLabelDiv label {
-            display: flex;
-            justify-content: center;
-        }
+    table.page_footer {
+        width: 100%;
+        border: none;
+        background-color: #ffffff;
+        border-top: solid 1mm #fff;
+        padding: 2mm
+    }
 
-        .width50 {
-            width: 45%;
-        }
+    p {
+        margin: 0 0 8px;
+    }
 
-        .d-flex {
-            display: flex;
-            align-items: center;
-        }
+    input {
+        background: transparent;
+        border: none;
+    }
+</style>
 
-        .contentDiv {
-            width: 100%;
-            max-width: 60%;
-            margin: auto;
-        }
 
-        .inputDiv {
-            display: flex;
-            align-items: center;
-        }
+<page pageset="old">
+    <center><strong style="margin-left:20px;">Design Brief:</strong></center>
+    <table style="width: 100%; margin:0 auto; padding-top: 50px;">
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> Project No.:</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
 
-        .inputDiv label {
-            width: 50%;
-        }
+            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            </td>
 
-        .width40 .inputLabelDiv {
-            width: 45%;
-        }
+            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> Date:</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                123
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> Project Name:</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
 
-        input {
-            width: 95%;
-            border: 1px solid rgba(0, 0, 0, 0.28);
-            padding: 10px;
-            border-radius: 3px;
-            background-color: #F4F4F4;
-            font-family: 'Outfit', sans-serif;
-        }
+            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            </td>
 
-        .justify-content {
-            justify-content: space-between;
-        }
+            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> Required by Date:</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                123
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> Project Address:</strong>
+            </td>
+            <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> Designer Company Name:</strong>
+            </td>
+            <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> Designer Email Address: </strong>
+            </td>
+            <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> TWC Email Address:</strong>
+            </td>
+            <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
 
-        .width40 {
-            width: 40%;
-        }
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong>TW Category</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
 
-        .width60 {
-            width: 55%;
-        }
+            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            </td>
 
-        label {
-            color: #C5BCBC;
-            font-size: 14px;
-            font-weight: 700;
-        }
-    </style>
-</head>
+            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong> TTW Risk Class</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                123
+            </td>
+        </tr>
 
-<body>
-    <section id="pdf_section">
-        <div class="contentDiv">
-            <h3>Design Brief</h3>
-            <div class="width100 d-flex justify-content">
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Project No.:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Date:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
-            <div class="width100 d-flex justify-content">
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Project Name:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Required by Date:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
-            <div class="width100">
-                <div class="inputDiv">
-                    <label style="width: 16.5%;" for="">Project Address:</label>
-                    <input type="text" readonly value="100">
-                </div>
-            </div>
-            <div class="width100">
-                <div class="inputDiv">
-                    <label style="width: 16.5%;" for="">Designer Company Name:</label>
-                    <input type="text" readonly value="100">
-                </div>
-            </div>
-            <div class="width100">
-                <div class="inputDiv">
-                    <label style="width: 16.5%;" for="">Designer Email Address:</label>
-                    <input type="text" readonly value="100">
-                </div>
-            </div>
-            <div class="width100">
-                <div class="inputDiv">
-                    <label style="width: 16.5%;" for="">TWC Email Address:</label>
-                    <input type="text" readonly value="100">
-                </div>
-            </div>
-            <div class="width100 d-flex justify-content">
-                <div class="width40 d-flex justify-content">
-                    <div class="inputLabelDiv">
-                        <label for="">TW Category:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                    <div class="inputLabelDiv">
-                        <label for="">TTW Risk Class:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-                <div class="width60">
-                    <div class="inputLabelDiv">
-                        <label for="">Design Requirement for:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
 
-            </div>
-            <div class="width100 d-flex justify-content">
-                <div class="width40 d-flex justify-content">
-                    <label for="">Description of Temporary Works Required</label>
-                </div>
-                <div class="width60">
-                    <div class="inputLabelDiv">
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
 
-            </div>
-            <div class="width100">
-                <label for="">Scope of Design Output and date Required fronm the Temporary Works Engineer</label>
-                <div class="width100 d-flex justify-content">
-                    <div class="inputDiv width50">
-                        <input type="text" readonly value="100">
-                    </div>
-                    <div class="inputDiv width50">
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
-            <div class="width100">
-                <div class="width100 d-flex justify-content">
-                    <div class="inputDiv width50">
-                        <input type="text" readonly value="100">
-                    </div>
-                    <div class="inputDiv width50">
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
-            <div class="width100">
-                <label for="">Attachments / Spec / Existing Designs and Existing Site Conditions (folders to
-                    upload)</label>
-                <div class="width100 d-flex justify-content">
-                    <div class="inputDiv width100">
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
-            <div class="width100 d-flex justify-content">
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Name:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Signiture:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
-            <div class="width100 d-flex justify-content">
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Job Title:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
-            <div class="width100 d-flex justify-content">
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Company:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-                <div class="width50">
-                    <div class="inputDiv">
-                        <label for="">Date:</label>
-                        <input type="text" readonly value="100">
-                    </div>
-                </div>
-            </div>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="5" border="1" style="width: 100%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong>Design Required for</strong><br>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding:  10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
 
-        </div>
-    </section>
-</body>
+        <tr>
+            <td colspan="2" border="1" style="width: 25%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong>Description of Temporary Works Required </strong>
+            </td>
+            <td colspan="4" border="1" style="width: 80%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
 
-</html>
+                234
+
+            </td>
+        </tr>
+
+
+        <!-- <tr><td style="width: 30%;text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">noo</td></tr> -->
+        <tr>
+            <!-- <tr>
+            <td  border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong>TW Category:</strong><br>
+                <table><tr><td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">123</td></tr></table>
+            </td>
+            <td  border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong>TTW Risk Class:</strong><br>
+                <table style="width: 30%;"><tr><td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">123</td></tr></table>
+            </td>
+           
+        </tr> -->
+
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td colspan="3" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong></strong>Scope of Design Output and date Required fronm the Temporary Works Engineer</strong>
+                <table style="width: 83%;">
+                    <tr>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                    </tr>
+                </table>
+
+            </td>
+
+            <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                    </tr>
+                </table>
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td colspan="3" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <table style="width: 83%;">
+                    <tr>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                    </tr>
+                </table>
+
+            </td>
+
+            <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                    </tr>
+                </table>
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong></strong>Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload) </strong>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 100%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+
+
+
+        <!-- <td  border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong>TW Category:</strong><br>
+                <table style="width: 30%;"><tr><td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">123</td></tr></table>
+            </td> -->
+
+        </tr>
+        <tr>
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+                font-weight: 700;">
+                <strong> Name</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
+
+            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            </td>
+
+            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
+                font-weight: 700;">
+                <strong>Signature</strong>
+            </td>
+
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
+
+
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+                    font-weight: 700;">
+                <strong>Job Title</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                234
+            </td>
+
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+
+        <tr>
+            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+                    font-weight: 700;">
+                <strong> Company</strong>
+            </td>
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+
+            </td>
+
+            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            </td>
+
+            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
+                    font-weight: 700;">
+                <strong> Date:</strong>
+            </td>
+
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                Date
+            </td>
+
+        </tr>
+
+
+
+        </tr>
+
+    </table>
+</page>

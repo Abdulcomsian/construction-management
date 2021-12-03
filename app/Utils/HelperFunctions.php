@@ -41,7 +41,16 @@ class HelperFunctions
         if ($user) {
             $path = 'uploads/' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
         } else {
-            $path  = 'temporywork/images/';
+            $path  = 'temporarywork/images/';
+        }
+        return $path;
+    }
+    public static function  temporaryworkuploadPath($user = null)
+    {
+        if ($user) {
+            $path = 'uploads/' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
+        } else {
+            $path  = 'temporarywork/images/drawings/';
         }
         return $path;
     }

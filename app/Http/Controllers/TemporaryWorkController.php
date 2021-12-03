@@ -19,6 +19,8 @@ use App\Utils\HelperFunctions;
 use DB;
 use PDF;
 
+
+
 class TemporaryWorkController extends Controller
 {
     /**
@@ -141,11 +143,9 @@ class TemporaryWorkController extends Controller
                 }
             }
             // pdf work 
+            $pdf = PDF::loadView('layouts.pdf.design_breif');
             $path = public_path('pdf');
-            $fileName =  'temporarywork' .  $temporary_work->id . '.' . 'pdf';
-            $pdf = PDF::loadView('layouts.pdf.design_breif')->save($path . '/' . $fileName);
-
-            // $pdf = PDF::loadView('layouts.pdf.design_breif', $request->all())->save($path . '/' . $fileName);
+            $pdf = PDF::loadView('layouts.pdf.design_breif')->setPaper('a4', 'landscape')->save($path . '/obaid.pdf');
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {

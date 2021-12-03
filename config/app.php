@@ -165,6 +165,7 @@ return [
         Yoeunes\Toastr\ToastrServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -233,6 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class
+
 
     ],
 

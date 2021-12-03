@@ -376,7 +376,7 @@
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -384,7 +384,7 @@
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -392,7 +392,7 @@
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Company" name="company" value="{{\Auth::user()->userCompany->name ?? ''}}">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Company" name="company" value="{{\Auth::user()->userCompany->name ?? ''}}" readonly="readonly">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->

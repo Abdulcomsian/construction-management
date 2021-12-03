@@ -9,6 +9,7 @@ use App\Models\TemporaryWork;
 use App\Models\TemporayWorkImage;
 use App\Models\DesignRequirementLevelOne;
 use App\Models\User;
+use App\Models\TempWorkUploadFiles;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -18,6 +19,8 @@ use function GuzzleHttp\Promise\all;
 use App\Utils\HelperFunctions;
 use DB;
 use PDF;
+
+
 
 class TemporaryWorkController extends Controller
 {
@@ -31,7 +34,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project')->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -39,9 +42,9 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project')->whereIn('created_by', $ids)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile')->whereIn('created_by', $ids)->latest()->get();
             } else {
-                $temporary_works = TemporaryWork::with('project')->where('created_by', $user->id)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile')->where('created_by', $user->id)->latest()->get();
             }
             return view('dashboard.temporary_works.index', compact('temporary_works'));
         } catch (\Exception $exception) {
@@ -85,6 +88,7 @@ class TemporaryWorkController extends Controller
      */
     public function store(Request $request)
     {
+
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];
@@ -140,12 +144,10 @@ class TemporaryWorkController extends Controller
                     $model->save();
                 }
             }
-            // pdf work 
+            $pdf = PDF::loadView('layouts.pdf.design_breif');
             $path = public_path('pdf');
-            $fileName =  'temporarywork' .  $temporary_work->id . '.' . 'pdf';
-            $pdf = PDF::loadView('layouts.pdf.design_breif')->save($path . '/' . $fileName);
-
-            // $pdf = PDF::loadView('layouts.pdf.design_breif', $request->all())->save($path . '/' . $fileName);
+            $filename = rand() . '' . $temporary_work->id . '.pdf';
+            $pdf = PDF::loadView('layouts.pdf.design_breif')->save($path . '/' . $filename);
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
@@ -213,6 +215,25 @@ class TemporaryWorkController extends Controller
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
+        }
+    }
+
+    //upload file and drawings
+    public function temp_file_uplaod(Request $request)
+    {
+        try {
+            $filePath = HelperFunctions::temporaryworkuploadPath();
+            $file = $request->file('file');
+            $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            $model = new TempWorkUploadFiles();
+            $model->file_name = $imagename;
+            $model->file_type = $request->type;
+            $model->temporary_work_id = $request->tempworkid;
+            if ($model->save()) {
+                return response()->json(['success' =>  $imagename]);
+            }
+        } catch (\Exception $exception) {
+            return response()->json(['error' =>  $imagename]);
         }
     }
 }

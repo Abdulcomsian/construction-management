@@ -243,7 +243,7 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td><a href="#" class="btn btn-primary">QR Code</a></td>
+                                    <td><a href="{{url('qr-code-g')}}" class="btn btn-primary">QR Code</a></td>
                                 </tr>
                                 @empty
                                 @endforelse

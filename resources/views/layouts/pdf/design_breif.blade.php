@@ -46,7 +46,7 @@
                 <strong> Project No.:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['projno']}}
             </td>
 
             <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
@@ -57,7 +57,7 @@
                 <strong> Date:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                123
+                {{$data['design_issued_date']}}
             </td>
         </tr>
         <tr>
@@ -69,7 +69,7 @@
                 <strong> Project Name:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['projname']}}
             </td>
 
             <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
@@ -80,7 +80,7 @@
                 <strong> Required by Date:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                123
+                {{$data['design_required_by_date']}}
             </td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@
                 <strong> Project Address:</strong>
             </td>
             <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['projaddress']}}
             </td>
         </tr>
         <tr>
@@ -104,7 +104,7 @@
                 <strong> Designer Company Name:</strong>
             </td>
             <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['designer_company_name']}}
             </td>
         </tr>
         <tr>
@@ -116,7 +116,7 @@
                 <strong> Designer Email Address: </strong>
             </td>
             <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['designer_company_email']}}
             </td>
         </tr>
         <tr>
@@ -128,7 +128,7 @@
                 <strong> TWC Email Address:</strong>
             </td>
             <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['twc_email']}}
             </td>
         </tr>
         <tr>
@@ -141,7 +141,7 @@
                 <strong>TW Category</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['tw_category']}}
             </td>
 
             <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
@@ -152,7 +152,7 @@
                 <strong> TTW Risk Class</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                123
+                {{$data['tw_risk_class']}}
             </td>
         </tr>
 
@@ -168,7 +168,7 @@
                 <strong>Design Required for</strong><br>
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding:  10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding:  10px;border-radius: 3px;background-color: #F4F4F4;">{{$data['design_requirement_text']}}</td>
                     </tr>
                 </table>
             </td>
@@ -183,33 +183,12 @@
                 <strong>Description of Temporary Works Required </strong>
             </td>
             <td colspan="4" border="1" style="width: 80%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-
-                234
-
+                {{$data['description_temporary_work_required']}}
             </td>
         </tr>
-
-
-        <!-- <tr><td style="width: 30%;text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">noo</td></tr> -->
-        <tr>
-            <!-- <tr>
-            <td  border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong>TW Category:</strong><br>
-                <table><tr><td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">123</td></tr></table>
-            </td>
-            <td  border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong>TTW Risk Class:</strong><br>
-                <table style="width: 30%;"><tr><td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">123</td></tr></table>
-            </td>
-           
-        </tr> -->
-
         <tr>
             <td>&nbsp;</td>
         </tr>
-
         <tr>
             <td colspan="3" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
@@ -280,16 +259,6 @@
         <tr>
             <td>&nbsp;</td>
         </tr>
-
-
-
-
-        <!-- <td  border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong>TW Category:</strong><br>
-                <table style="width: 30%;"><tr><td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">123</td></tr></table>
-            </td> -->
-
         </tr>
         <tr>
         <tr>
@@ -298,67 +267,57 @@
                 <strong> Name</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['name']}}
             </td>
-
             <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
             </td>
-
             <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
                 font-weight: 700;">
                 <strong>Signature</strong>
             </td>
-
+            @if($data['signtype']=='1')
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['namesign']}}
             </td>
+            @else
+            <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
+                @php $sign=\App\Models\TemporaryWork::find($image_name);@endphp
+                <img src="temporary/signature/{{$sign->signature}}" width="40px" height="40px">
 
-
+            </td>
+            @endif
         <tr>
             <td>&nbsp;</td>
         </tr>
-
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
                     font-weight: 700;">
                 <strong>Job Title</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                234
+                {{$data['job_title']}}
             </td>
-
         <tr>
             <td>&nbsp;</td>
         </tr>
-
         <tr>
-
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
                     font-weight: 700;">
                 <strong> Company</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-
+                {{$data['company']}}
             </td>
-
             <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
             </td>
-
             <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
                     font-weight: 700;">
                 <strong> Date:</strong>
             </td>
-
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
                 Date
             </td>
-
         </tr>
-
-
-
-        </tr>
-
     </table>
 </page>

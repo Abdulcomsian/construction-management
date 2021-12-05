@@ -483,8 +483,9 @@
 
                 </div>
                 <div class="uploadDiv" style="padding-left: 10px;">
-                    <input type="file" multiple name="file[]">
-                    <input type="button" class="btn btn-sm btn-primary addfile" style="width: 10%;" value="Add">
+                    <div class="input-images"></div>
+                    <!-- <input type="file" multiple name="file[]">
+                    <input type="button" class="btn btn-sm btn-primary addfile" style="width: 10%;" value="Add"> -->
                 </div>
                 <div class="submit-requirment" style="width:100%;padding-left:10px;">
                     <button data-bs-dismiss="modal" style="width: 10%;">Save</button>

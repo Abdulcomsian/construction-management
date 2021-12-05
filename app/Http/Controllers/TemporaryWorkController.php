@@ -88,7 +88,6 @@ class TemporaryWorkController extends Controller
      */
     public function store(Request $request)
     {
-
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];
@@ -113,9 +112,10 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'signed', 'file', 'namesign', 'signtype');
+            $all_inputs  = $request->except('_token', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
-            if (isset($request->namesign) && $request->namesign != '') {
+            $image_name = '';
+            if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
             } else {
                 $folderPath = public_path('temporary/signature/');
@@ -133,9 +133,9 @@ class TemporaryWorkController extends Controller
             ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
             Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
             //work for upload images here
-            if ($request->file('file')) {
+            if ($request->file('images')) {
                 $filePath = HelperFunctions::temporaryworkImagePath();
-                $files = $request->file('file');
+                $files = $request->file('images');
                 foreach ($files  as $key => $file) {
                     $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                     $model = new TemporayWorkImage();
@@ -144,10 +144,10 @@ class TemporaryWorkController extends Controller
                     $model->save();
                 }
             }
-            $pdf = PDF::loadView('layouts.pdf.design_breif');
+            $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id]);
             $path = public_path('pdf');
-            $filename = rand() . '' . $temporary_work->id . '.pdf';
-            $pdf = PDF::loadView('layouts.pdf.design_breif')->save($path . '/' . $filename);
+            $filename = rand() . '.pdf';
+            $pdf->save($path . '/' . $filename);
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {

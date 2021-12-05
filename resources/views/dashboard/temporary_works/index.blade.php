@@ -1,4 +1,5 @@
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+@php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
     .newDesignBtn {
@@ -201,7 +202,7 @@
                                     <td>{{ $item->tw_category ?: '-' }}</td>
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
-                                    <td>{{ $item->design_required_by_date ?: '-' }}</td>
+                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}}">{{$item->design_required_by_date ?: '-' }} </td>
                                     <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
                                     <td>{{ $item->designer_company_name ?: '-' }}</td>
                                     <td></td>

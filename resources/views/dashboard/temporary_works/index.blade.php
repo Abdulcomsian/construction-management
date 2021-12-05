@@ -167,6 +167,7 @@
                                     <th class="min-w-100px">Permit to Load</th>
                                     <th class="min-w-100px">Permit to Unload</th>
                                     <th class="min-w-100px">RAMS</th>
+                                    <th class="min-w-100px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -242,6 +243,7 @@
                                         @endif
                                         @endforeach
                                     </td>
+                                    <td><a href="#" class="btn btn-primary">QR Code</a></td>
                                 </tr>
                                 @empty
                                 @endforelse

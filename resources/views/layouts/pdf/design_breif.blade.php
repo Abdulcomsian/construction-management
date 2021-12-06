@@ -190,18 +190,25 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="3" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            <td colspan="6" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
-                <strong></strong>Scope of Design Output and date Required fronm the Temporary Works Engineer</strong>
+                <strong></strong>Scope of Design Output and date required from the Temporary work Engineer</strong>
+                @if(isset($scopdesg) && count($scopdesg)>0)
+                @php $i=1; @endphp
+                @foreach($scopdesg as $key=> $desg)
+                @if($desg)
+                @if($i%2==1)
+        <tr>
+            <td colspan="3" border="1" style="width: 50%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
                 <table style="width: 83%;">
                     <tr>
-                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">{{$key}} {{$desg}}</td>
                     </tr>
                 </table>
 
             </td>
-
-            <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            <!-- <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
                 <table style="width: 100%;">
                     <tr>
@@ -209,48 +216,43 @@
                     </tr>
                 </table>
 
-            </td>
-
-        </tr>
-
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td colspan="3" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            </td> -->
+            @else
+            <td colspan="3" border="1" style="width: 50%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
                 <table style="width: 83%;">
                     <tr>
-                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">{{$key}} {{$desg}}</td>
                     </tr>
                 </table>
 
             </td>
-
-            <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
-                    </tr>
-                </table>
-
-            </td>
-
         </tr>
+        @endif
+        @endif
+        @php
+        $i++;
+        @endphp
+        @endforeach
 
-        <tr>
-            <td>&nbsp;</td>
+        @endif
+        </td>
         </tr>
-
         <tr>
             <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
                 <strong></strong>Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload) </strong>
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 100%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">123</td>
+                        <td style="width: 100%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4;">
+                            @foreach($imagelinks as $links)
+                            <a href="{{asset($links)}}">{{asset($links)}}</a><br>
+                            @endforeach
+                            <br>
+                            @foreach($folderattac as $key => $folder)
+                            <strong>{{$key}}:{{$folder}}</strong><br>
+                            @endforeach
+                        </td>
                     </tr>
                 </table>
 

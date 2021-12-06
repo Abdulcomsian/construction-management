@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectQrCode;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -53,6 +54,9 @@ class ProjectController extends Controller
                                         </span>
                                         <!--end::Svg Icon-->
                                     </button>
+                                     <button value="genqrcode" data-id="' . $data->id . '" class="project_details btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                        <i class="fa fa-qrcode" aria-hidden="true"></i>
+                                    </button>
                                     <form method="POST" action="' . route('projects.destroy', $data->id) . '"  id="form_' . $data->id . '" >
                                         ' . method_field('Delete') . csrf_field() . '
 
@@ -62,6 +66,9 @@ class ProjectController extends Controller
                                             <!--end::Svg Icon-->
                                         </button>
                                     </form>
+                                    <a href="' . route('projects.qrcode', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
                                 </div>';
                         } else {
                             $btn = '';
@@ -213,5 +220,47 @@ class ProjectController extends Controller
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
+    }
+
+    public function gen_qrcode(Request $request)
+    {
+        try {
+            //check if already qr code
+            $check = ProjectQrCode::where('project_id', $request->projectid)->orderBy('id', 'desc')->first();
+            if ($check) {
+                $j = $check->tempid;
+            }
+            for ($i = 1; $i <= $request->qrcodeno; $i++) {
+                if ($check) {
+                    $j = $j + 1;
+                } else {
+                    $j = $i;
+                }
+                \QrCode::size(500)
+                    ->format('png')
+                    ->generate(route('qrlink', $request->projectid . '?temp=' .  $j . ''), public_path('qrcode/projects/qrcode' . $request->projectid .  $j . '.png'));
+                $model = new ProjectQrCode();
+                $model->project_id = $request->projectid;
+                $model->tempid =  $j;
+                $model->qrcode = 'qrcode' . $request->projectid .  $j . '.png';
+                $model->save();
+            }
+            toastSuccess('Qr code generated successfully!');
+            return  Redirect::back();
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
+    }
+    public function proj_qrcode(Request $request, $id)
+    {
+        if (isset($request->tempstart)) {
+            $start = $request->tempstart;
+            $end = $request->tempend;
+            $qrcodes = ProjectQrCode::where('project_id', $id)->where('tempid', '>=', $start)->where('tempid', '<=', $end)->get();
+        } else {
+            $qrcodes = ProjectQrCode::where('project_id', $id)->get();
+        }
+        return view('qrcode.index', compact('qrcodes', 'id'));
     }
 }

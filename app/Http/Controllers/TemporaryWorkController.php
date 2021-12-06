@@ -104,16 +104,35 @@ class TemporaryWorkController extends Controller
                 }
             }
             $folder_attachements = [];
+            $folder_attachements_pdf = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'folder')) {
                     $data = null;
+                    $data1 = null;
                     $data = [
                         Str::replace('_folder', '', $key) => $request->$key
                     ];
+                    $mykey = Str::replace('_folder', '', $key);
+                    if (isset($request->$mykey)) {
+                        $data1 = [
+                            $request->$mykey => $request->$key
+                        ];
+                        $folder_attachements_pdf = array_merge($folder_attachements_pdf, $data1);
+                    }
                     $folder_attachements = array_merge($folder_attachements, $data);
                     unset($request[$key]);
                 }
             }
+            //unset all keys 
+            unset($request['list_of_attachments']);
+            unset($request['reports_including_site_investigations']);
+            unset($request['existing_ground_conditions']);
+            unset($request['preferred_non_preferred_methods']);
+            unset($request['access_limitations']);
+            unset($request['back_propping']);
+            unset($request['limitations_on_temporary_works_design']);
+            unset($request['details_of_any_hazards']);
+            unset($request['3rd_party_requirements']);
             $all_inputs  = $request->except('_token', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
             $image_name = '';
@@ -136,6 +155,7 @@ class TemporaryWorkController extends Controller
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 //work for upload images here
+                $image_links = [];
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -145,9 +165,10 @@ class TemporaryWorkController extends Controller
                         $model->image = $imagename;
                         $model->temporary_work_id = $temporary_work->id;
                         $model->save();
+                        $image_links[] = $imagename;
                     }
                 }
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id]);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' =>  $folder_attachements_pdf, 'imagelinks' => $image_links]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
@@ -165,6 +186,7 @@ class TemporaryWorkController extends Controller
                     'action_url' => '',
                 ];
                 Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
                 //Notification::send($admin, new TemporaryWorkNotification($notify_admins_msg));
             }
             toastSuccess('Temporary Work successfully added!');

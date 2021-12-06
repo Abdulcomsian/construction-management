@@ -1,4 +1,5 @@
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+@php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
     .newDesignBtn {
@@ -166,6 +167,7 @@
                                     <th class="min-w-100px">Permit to Load</th>
                                     <th class="min-w-100px">Permit to Unload</th>
                                     <th class="min-w-100px">RAMS</th>
+                                    <th class="min-w-100px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -201,7 +203,7 @@
                                     <td>{{ $item->tw_category ?: '-' }}</td>
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
-                                    <td>{{ $item->design_required_by_date ?: '-' }}</td>
+                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}}">{{$item->design_required_by_date ?: '-' }} </td>
                                     <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
                                     <td>{{ $item->designer_company_name ?: '-' }}</td>
                                     <td></td>
@@ -241,6 +243,7 @@
                                         @endif
                                         @endforeach
                                     </td>
+                                    <td><a href="{{url('qr-code-g')}}" class="btn btn-primary">QR Code</a></td>
                                 </tr>
                                 @empty
                                 @endforelse

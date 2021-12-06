@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;
+use Notification;
+use App\Notifications\TemporaryWorkNotification;
 use App\Utils\HelperFunctions;
 use DB;
 use PDF;
@@ -88,7 +90,6 @@ class TemporaryWorkController extends Controller
      */
     public function store(Request $request)
     {
-
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];
@@ -113,9 +114,10 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'signed', 'file', 'namesign', 'signtype');
+            $all_inputs  = $request->except('_token', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
-            if (isset($request->namesign) && $request->namesign != '') {
+            $image_name = '';
+            if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
             } else {
                 $folderPath = public_path('temporary/signature/');
@@ -130,24 +132,41 @@ class TemporaryWorkController extends Controller
             }
             $all_inputs['created_by'] = auth()->user()->id;
             $temporary_work = TemporaryWork::create($all_inputs);
-            ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
-            Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
-            //work for upload images here
-            if ($request->file('file')) {
-                $filePath = HelperFunctions::temporaryworkImagePath();
-                $files = $request->file('file');
-                foreach ($files  as $key => $file) {
-                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-                    $model = new TemporayWorkImage();
-                    $model->image = $imagename;
-                    $model->temporary_work_id = $temporary_work->id;
-                    $model->save();
+            if ($temporary_work) {
+                ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
+                Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
+                //work for upload images here
+                if ($request->file('images')) {
+                    $filePath = HelperFunctions::temporaryworkImagePath();
+                    $files = $request->file('images');
+                    foreach ($files  as $key => $file) {
+                        $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                        $model = new TemporayWorkImage();
+                        $model->image = $imagename;
+                        $model->temporary_work_id = $temporary_work->id;
+                        $model->save();
+                    }
                 }
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id]);
+                $path = public_path('pdf');
+                $filename = rand() . '.pdf';
+                $pdf->save($path . '/' . $filename);
+
+                //send mail to admin
+                $notify_admins_msg = [
+                    'greeting' => 'Temporary Work Pdf',
+                    'subject' => 'Temporary Work PDF',
+                    'body' => [
+                        'booking' => 'Temporary Work Details',
+                        'filename' => $filename,
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                //Notification::send($admin, new TemporaryWorkNotification($notify_admins_msg));
             }
-            $pdf = PDF::loadView('layouts.pdf.design_breif');
-            $path = public_path('pdf');
-            $filename = rand() . '' . $temporary_work->id . '.pdf';
-            $pdf = PDF::loadView('layouts.pdf.design_breif')->save($path . '/' . $filename);
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
@@ -156,6 +175,7 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
 
     /**
      * Display the specified resource.

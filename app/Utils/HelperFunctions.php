@@ -54,4 +54,34 @@ class HelperFunctions
         }
         return $path;
     }
+
+    public function check_date($desingdate, $array)
+    {
+        if (!isset($array[0])) {
+            $current =  \Carbon\Carbon::now();
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
+            $diff_in_days = $to->diffInDays($current);
+            $result =  $current->gt($to);
+            if ($result) {
+                $class = "background:red";
+            } elseif ($diff_in_days >= 7) {
+                $class = "background:green";
+            } elseif ($diff_in_days <= 7 && $diff_in_days > 1) {
+                $class = "background:yellow";
+            }
+        } else {
+            $current = $array[0]->created_at;
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
+            $diff_in_days = $to->diffInDays($current);
+            $result =  $current->gt($to);
+            if ($result) {
+                $class = "color:red";
+            } elseif ($diff_in_days >= '7') {
+                $class = "color:green";
+            } elseif ($diff_in_days <= 7 && $diff_in_days > 1) {
+                $class = "color:yellow";
+            }
+        }
+        return $class;
+    }
 }

@@ -22,6 +22,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('qr-code-g', function () {
+
+    \QrCode::size(500)
+        ->format('png')
+        ->generate('ItSolutionStuff.com', public_path('qrcode/qrcode.png'));
+
+    return view('qrCode');
+});
 
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');

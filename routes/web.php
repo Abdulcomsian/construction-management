@@ -22,14 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('qr-code-g', function () {
-
-    \QrCode::size(500)
-        ->format('png')
-        ->generate('ItSolutionStuff.com', public_path('qrcode/qrcode.png'));
-
-    return view('qrCode');
-});
+Route::get('project/{id}', function () {
+})->name('qrlink');
 
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
@@ -61,6 +55,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('user/update/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');
+    //rout for genereate qr code
+    Route::post('project/genqrcode', [ProjectController::class, 'gen_qrcode'])->name('projects.genqrcode');
+    Route::get('project/qrcode/{id}', [ProjectController::class, 'proj_qrcode'])->name('projects.qrcode');
 });
 
 Route::get('/dashboard', function () {

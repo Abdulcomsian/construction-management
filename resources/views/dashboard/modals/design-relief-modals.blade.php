@@ -355,6 +355,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="list_of_attachments" value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -369,6 +370,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports including Site Investigations- relevant boreholes/ trial pits/ site investigation. Any Existing or proposed services above or below the groundwhere appropriate minimum clearances and protection are required to be maintained." />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -383,6 +385,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="existing_ground_conditions" value="Existing Ground conditions:" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -397,6 +400,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="preferred_non_preferred_methods" value="Preferred/non-preferred methods, systems or types of equipment:" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -411,6 +415,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="access_limitations" value="Access limitations or edge protection requirements:" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -425,6 +430,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="back_propping" value="Back Propping / Re-Propping Sequence: (please attach)" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -439,6 +445,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="limitations_on_temporary_works_design" value="Limitations on Temporary Works Design:" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -453,12 +460,14 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="details_of_any_hazards" value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" />
+
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
@@ -467,6 +476,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="3rd_party_requirements" value="3rd Party Requirements:" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 

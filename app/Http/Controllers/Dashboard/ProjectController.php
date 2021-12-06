@@ -224,7 +224,7 @@ class ProjectController extends Controller
 
     public function gen_qrcode(Request $request)
     {
-//         try {
+       try {
             //check if already qr code
             $check = ProjectQrCode::where('project_id', $request->projectid)->orderBy('id', 'desc')->first();
             if ($check) {
@@ -247,10 +247,10 @@ class ProjectController extends Controller
             }
             toastSuccess('Qr code generated successfully!');
             return  Redirect::back();
-//        // } catch (\Exception $exception) {
-//             toastError('Something went wrong, try again');
-//             return Redirect::back();
-//      //   }
+      } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
     public function proj_qrcode(Request $request, $id)
     {

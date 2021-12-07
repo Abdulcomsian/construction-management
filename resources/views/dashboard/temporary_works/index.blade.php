@@ -186,7 +186,7 @@
                                     <td>A11 Drag and Drop emails</td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <!-- <td></td> -->
                                     <td></td>
                                     <td class="uploadfile">Drag and drop folders/ pdf drawings</td>
                                     <td>Drag and drop folders/ pdf drawings</td>
@@ -218,9 +218,23 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $item->designer_company_name ?: '-' }}</td>
-                                    <td></td>
+                                    <td> 
+                                        @foreach($item->uploadfile as $file)
+                                          @if($file->file_type==1)
+                                           {{$file->created_at}}
+                                            @break
+                                          @endif
+                                        @endforeach
+                                    </td>
                                    <!--  <td></td> -->
-                                    <td></td>
+                                    <td>
+                                        @foreach($item->uploadfile as $file)
+                                          @if($file->file_type==2)
+                                           {{$file->created_at}}
+                                            @break
+                                          @endif
+                                        @endforeach
+                                    </td>
                                     <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1">Drag and drop folders/ pdf drawings</p><br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)

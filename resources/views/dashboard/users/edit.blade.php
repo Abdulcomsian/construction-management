@@ -97,7 +97,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label class="required fs-6 fw-bold mb-2">Job Title</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title" />
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title" value="{{old('job_title')  ?: $user->job_title}}"/>
                                 </div>
 
                             </div>

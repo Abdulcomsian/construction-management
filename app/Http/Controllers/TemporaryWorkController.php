@@ -293,7 +293,7 @@ class TemporaryWorkController extends Controller
     public function load_scan_temporarywork(Request $request, $id)
     {
         $tempid = Crypt::decryptString($request->temp);
-        $temporary_works = TemporaryWork::with('project', 'uploadfile')->where(['project_id' => $id, 'tempid' => $tempid])->first();
+        $temporary_works = TemporaryWork::with('project', 'uploadfile')->where(['project_id' => $id, 'tempid' => $tempid])->get();
         return view('dashboard.temporary_works.index_user', compact('temporary_works'));
     }
 

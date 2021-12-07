@@ -160,7 +160,7 @@
                                     <th class="min-w-100px">Comments</th>
                                     <th class="min-w-100px">TW designer (designer name and company)</th>
                                     <th class="min-w-100px">Date Design Returned</th>
-                                    <th class="min-w-100px">TW designer (designer name and company)</th>
+                                 <!--    <th class="min-w-100px">TW designer (designer name and company)</th> -->
                                     <th class="min-w-100px">Date Design / Check Returned</th>
                                     <th class="min-w-100px">DRAWINGS and DESIGNS</th>
                                     <th class="min-w-100px">Design Check Certificate</th>
@@ -196,7 +196,7 @@
                                 </tr>
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td>{{ $item->id ?: '-' }}</td>
+                                    <td>{{ $item->project->no.''. substr($item->designer_company_name, 0, 2).'0'.$loop->iteration}}</td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
@@ -204,10 +204,22 @@
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}}">{{$item->design_required_by_date ?: '-' }} </td>
-                                    <td class="addcomment cursor-pointer">All Drag And Drog emails</td>
+                                    <td >
+                                        <p class="addcomment cursor-pointer" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <hr style="color:red;border:1px solid red">
+                                       <h3 class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="4">All Drag And Drog emails</h3>
+                                       <br>
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==4)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+                                    </td>
                                     <td>{{ $item->designer_company_name ?: '-' }}</td>
                                     <td></td>
-                                    <td></td>
+                                   <!--  <td></td> -->
                                     <td></td>
                                     <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1">Drag and drop folders/ pdf drawings</p><br>
                                         @php $i=0;@endphp
@@ -277,6 +289,17 @@
 </script>
 <script type="text/javascript">
     $(".addcomment").on('click',function(){
+      $("#temp_work_id").val($(this).attr('data-id'));
+      var userid={{\Auth::user()->id}}
+      $.ajax({
+        url:"{{route('temporarywork.get-comments')}}",
+        method:"get",
+        data:{id:userid},
+        success:function(res)
+        {
+           $("#commenttable").html(res);
+        }
+      })
       $("#comment_modal_id").modal('show');
     })
 </script>

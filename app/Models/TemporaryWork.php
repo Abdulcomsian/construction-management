@@ -18,4 +18,8 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(TempWorkUploadFiles::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(TemporaryWorkComment::class);
+    }
 }

@@ -38,7 +38,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile')->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -46,9 +46,9 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile')->whereIn('created_by', $ids)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments')->whereIn('created_by', $ids)->latest()->get();
             } else {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile')->where('created_by', $user->id)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments')->where('created_by', $user->id)->latest()->get();
             }
             return view('dashboard.temporary_works.index', compact('temporary_works'));
         } catch (\Exception $exception) {
@@ -300,10 +300,10 @@ class TemporaryWorkController extends Controller
     //save comments against temp work
     public function temp_savecomment(Request $request)
     {
-        Validations::storeProject($request);
+        Validations::storeComment($request);
         try {
             $model = new TemporaryWorkComment();
-            $model->comments = $request->comment;
+            $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
             $model->user_id = auth()->user()->id;
             if ($model->save()) {
@@ -314,5 +314,18 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
+    }
+    //get commetns
+    public function get_comments(Request $request)
+    {
+        $commetns = TemporaryWorkComment::where('user_id', $request->id)->get();
+        $table = '<table class="table table-hover"><thead style="height:80px"><tr><th>S-no</th><th>Comment</th></tr></thead><tbody>';
+        $i = 1;
+        foreach ($commetns as $comment) {
+            $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td></tr>';
+            $i++;
+        }
+        $table .= '</tbody></table>';
+        echo $table;
     }
 }

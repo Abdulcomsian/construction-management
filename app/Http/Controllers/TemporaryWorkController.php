@@ -180,7 +180,6 @@ class TemporaryWorkController extends Controller
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
-
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',

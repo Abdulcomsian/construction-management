@@ -127,16 +127,11 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
+            $count = TemporaryWork::where('project_id', $request->project_id)->count();
+            $count = $count + 1;
+            $twc_id_no = $request->projno . '-' . ucfirst(substr($request->company, 0, 2)) . '-00' . $count;
             //unset all keys 
-            unset($request['list_of_attachments']);
-            unset($request['reports_including_site_investigations']);
-            unset($request['existing_ground_conditions']);
-            unset($request['preferred_non_preferred_methods']);
-            unset($request['access_limitations']);
-            unset($request['back_propping']);
-            unset($request['limitations_on_temporary_works_design']);
-            unset($request['details_of_any_hazards']);
-            unset($request['3rd_party_requirements']);
+            $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
             $image_name = '';
@@ -162,10 +157,6 @@ class TemporaryWorkController extends Controller
                 $j = 1;
             }
             $all_inputs['tempid'] = $j;
-            //generate twc_id_no
-            $count = TemporaryWork::where('project_id', $request->project_id)->count();
-            $count = $count + 1;
-            $twc_id_no = $request->projno . '-' . ucfirst(substr($request->company, 0, 2)) . '-00' . $count;
             $all_inputs['twc_id_no'] = $twc_id_no;
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
@@ -189,7 +180,6 @@ class TemporaryWorkController extends Controller
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
-
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
@@ -197,6 +187,7 @@ class TemporaryWorkController extends Controller
                     'body' => [
                         'booking' => 'Temporary Work Details',
                         'filename' => $filename,
+                        'links' => $image_links,
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -330,7 +321,7 @@ class TemporaryWorkController extends Controller
             $table = '<table class="table table-hover"><thead style="height:80px"><tr><th>S-no</th><th>Comment</th><th>Date</th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
-                $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $comment->created_at . '</td></tr>';
+                $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $comment->created_at->todatestring()  . '</td></tr>';
                 $i++;
             }
             $table .= '</tbody></table>';
@@ -354,5 +345,19 @@ class TemporaryWorkController extends Controller
             }
         }
         echo $list;
+    }
+
+    public function Unset($request)
+    {
+        unset($request['list_of_attachments']);
+        unset($request['reports_including_site_investigations']);
+        unset($request['existing_ground_conditions']);
+        unset($request['preferred_non_preferred_methods']);
+        unset($request['access_limitations']);
+        unset($request['back_propping']);
+        unset($request['limitations_on_temporary_works_design']);
+        unset($request['details_of_any_hazards']);
+        unset($request['3rd_party_requirements']);
+        return $request;
     }
 }

@@ -174,7 +174,7 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                <tr>
+                                <!-- <tr>
                                     <td></td>
                                     <td>A16</td>
                                     <td>A2</td>
@@ -186,14 +186,14 @@
                                     <td>A11 Drag and Drop emails</td>
                                     <td></td>
                                     <td></td>
-                                    <!-- <td></td> -->
+                                    <td></td> 
                                     <td></td>
                                     <td class="uploadfile">Drag and drop folders/ pdf drawings</td>
                                     <td>Drag and drop folders/ pdf drawings</td>
                                     <td></td>
                                     <td></td>
                                     <td>Drag and drop folders/ pdf drawings</td>
-                                </tr>
+                                </tr> -->
                                 @forelse($temporary_works as $item)
                                 <tr>
                                     <td>{{$item->twc_id_no}}</td>
@@ -270,7 +270,11 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td><img src="{{asset('qrcode/projects/qrcode'.$item->project->id.''.$item->tempid.'.png')}}" width="100px" height="100px"></td>
+                                    <td>
+                                        @if(file_exists(public_path('qrcode/projects/qrcode'.$item->project->id.''.$item->tempid.'.png')))
+                                        <img class="p-2" src="{{asset('qrcode/projects/qrcode'.$item->project->id.''.$item->tempid.'.png')}}" width="100px" height="100px">
+                                        @endif
+                                    </td>
                                 </tr>
                                 @empty
                                 @endforelse

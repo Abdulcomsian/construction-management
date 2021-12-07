@@ -50,7 +50,8 @@ class TemporaryWorkController extends Controller
             } else {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments')->where('created_by', $user->id)->latest()->get();
             }
-            return view('dashboard.temporary_works.index', compact('temporary_works'));
+            $temporary_works_count = TemporaryWork::count();
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'temporary_works_count'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -67,12 +68,13 @@ class TemporaryWorkController extends Controller
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
-                $projects = Project::latest()->get();
+                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
             } elseif ($user->hasRole(['company'])) {
-                $projects = Project::where('company_id', $user->id)->get();
+                $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
                 $projects = DB::table('projects')
                     ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.project_id')
+                    ->join('users', 'users.company_id', '=', 'projects.company_id')
                     ->where('users_has_projects.user_id', auth()->user()->id)
                     ->get();
             }
@@ -160,6 +162,11 @@ class TemporaryWorkController extends Controller
                 $j = 1;
             }
             $all_inputs['tempid'] = $j;
+            //generate twc_id_no
+            $count = TemporaryWork::where('project_id', $request->project_id)->count();
+            $count = $count + 1;
+            $twc_id_no = $request->projno . '-' . ucfirst(substr($request->company, 0, 2)) . '-00' . $count;
+            $all_inputs['twc_id_no'] = $twc_id_no;
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -331,5 +338,21 @@ class TemporaryWorkController extends Controller
         } else {
             echo '';
         }
+    }
+    //get file dates upload 
+    public function file_upload_dates(Request $request)
+    {
+        $filetype = $request->file_type;
+        $tempid = $request->tempid;
+        $data = TempWorkUploadFiles::where(['file_type' => $filetype, 'temporary_work_id' => $tempid])->get();
+        $list = '';
+        if (count($data) > 0) {
+            $i = 1;
+            foreach ($data as $d) {
+                $list .= '<tr><td>' . $i . '</td><td>' . $d->created_at->todatestring() . '</td></tr>';
+                $i++;
+            }
+        }
+        echo $list;
     }
 }

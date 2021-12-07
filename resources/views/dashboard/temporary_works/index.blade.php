@@ -196,7 +196,7 @@
                                 </tr>
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td>{{ $item->project->no.''. substr($item->designer_company_name, 0, 2).'0'.$loop->iteration}}</td>
+                                    <td>{{$item->twc_id_no}}</td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
@@ -221,7 +221,8 @@
                                     <td> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
-                                           {{$file->created_at}}
+                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2"> {{$file->created_at->todatestring()}}
+                                          </p>
                                             @break
                                           @endif
                                         @endforeach
@@ -230,7 +231,7 @@
                                     <td>
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
-                                           {{$file->created_at}}
+                                           <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{$file->created_at->todatestring()}}</p>
                                             @break
                                           @endif
                                         @endforeach
@@ -289,6 +290,7 @@
 </div>
 @include('dashboard.modals.upload-file')
 @include('dashboard.modals.comments')
+@include('dashboard.modals.datemodal')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -317,6 +319,23 @@
       });
      
     });
+</script>
+<script type="text/javascript">
+    $(".dateclick").on('click',function(){
+        var file_type=$(this).attr('data-type');
+        var tempid=$(this).attr('data-id');
+        $.ajax({
+        url:"{{route('temporarywork.file-upload-dates')}}",
+        method:"get",
+        data:{file_type:file_type,tempid:tempid},
+        success:function(res)
+        {
+            $("#tablebody").html(res);
+            $("#date_modal_id").modal('show');
+        }
+      });
+      
+    })
 </script>
 <script type="text/javascript">
         Dropzone.options.dropzone =

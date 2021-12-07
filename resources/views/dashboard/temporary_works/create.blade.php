@@ -389,7 +389,7 @@
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Company" name="company" value="{{\Auth::user()->userCompany->name ?? ''}}" >
+                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -457,6 +457,8 @@
             $('#name').val('').val(project[0].name);
             $('#date').val('').val(project[0].created_at);
             $('#address').val('').val(project[0].address ? project[0].address : 'Not Set');
+            console.log(project[0].company.name);
+            $("#companyadmin").val(project[0].company.name);
         }
         console.log(project);
     });

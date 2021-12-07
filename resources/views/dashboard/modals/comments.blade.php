@@ -54,7 +54,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">
-                            <span class="indicator-label">Submit</span>
+                            Submit
                         </button>
                     </div>
                     <!--end::Actions-->

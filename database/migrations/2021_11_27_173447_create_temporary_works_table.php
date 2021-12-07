@@ -23,6 +23,7 @@ class CreateTemporaryWorksTable extends Migration
             $table->date('design_required_by_date')->nullable();
             $table->string('designer_company_name')->nullable();
             $table->string('designer_company_email')->nullable();
+            $table->string('twc_id_no')->nullable();
             $table->string('twc_name')->nullable();
             $table->string('twc_email')->nullable();
             $table->tinyInteger('tw_category')->nullable();

@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
     Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
     Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
+    Route::get('file-upload-date', [TemporaryWorkController::class, 'file_upload_dates'])->name('temporarywork.file-upload-dates');
 
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');
     //rout for genereate qr code

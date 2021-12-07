@@ -33,6 +33,7 @@ class CreateTemporaryWorksTable extends Migration
             $table->string('company')->nullable();
             $table->string('signature')->nullable();
             $table->longText('design_requirement_text')->nullable();
+            $table->string('tempid')->nullable();
             $table->integer('created_by')->nullable();
             $table->timestamps();
         });

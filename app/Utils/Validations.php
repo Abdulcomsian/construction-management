@@ -17,6 +17,14 @@ class Validations
         ]);
     }
 
+    //store comment
+    public static function storeComment($request)
+    {
+        $request->validate([
+            'comment' => ['required', 'string'],
+        ]);
+    }
+
     public static function updateProjectId($request)
     {
         $request->validate([

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
+use Illuminate\Support\Facades\Crypt;
 use DB;
 
 class ProjectController extends Controller
@@ -224,7 +225,7 @@ class ProjectController extends Controller
 
     public function gen_qrcode(Request $request)
     {
-       try {
+        try {
             //check if already qr code
             $check = ProjectQrCode::where('project_id', $request->projectid)->orderBy('id', 'desc')->first();
             if ($check) {
@@ -238,7 +239,7 @@ class ProjectController extends Controller
                 }
                 \QrCode::size(500)
                     ->format('png')
-                    ->generate(route('qrlink', $request->projectid . '?temp=' .  $j . ''), public_path('qrcode/projects/qrcode' . $request->projectid .  $j . '.png'));
+                    ->generate(route('qrlink', $request->projectid . '?temp=' .  Crypt::encryptString($j) . ''), public_path('qrcode/projects/qrcode' . $request->projectid .  $j . '.png'));
                 $model = new ProjectQrCode();
                 $model->project_id = $request->projectid;
                 $model->tempid =  $j;
@@ -247,7 +248,7 @@ class ProjectController extends Controller
             }
             toastSuccess('Qr code generated successfully!');
             return  Redirect::back();
-      } catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
         }

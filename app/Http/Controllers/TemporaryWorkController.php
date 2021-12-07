@@ -319,13 +319,17 @@ class TemporaryWorkController extends Controller
     public function get_comments(Request $request)
     {
         $commetns = TemporaryWorkComment::where('user_id', $request->id)->get();
-        $table = '<table class="table table-hover"><thead style="height:80px"><tr><th>S-no</th><th>Comment</th><th>Date</th></tr></thead><tbody>';
-        $i = 1;
-        foreach ($commetns as $comment) {
-            $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $comment->created_at . '</td></tr>';
-            $i++;
+        if (count($commetns) > 0) {
+            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th>S-no</th><th>Comment</th><th>Date</th></tr></thead><tbody>';
+            $i = 1;
+            foreach ($commetns as $comment) {
+                $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $comment->created_at . '</td></tr>';
+                $i++;
+            }
+            $table .= '</tbody></table>';
+            echo $table;
+        } else {
+            echo '';
         }
-        $table .= '</tbody></table>';
-        echo $table;
     }
 }

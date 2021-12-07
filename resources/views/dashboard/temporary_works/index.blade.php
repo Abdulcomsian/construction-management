@@ -312,10 +312,11 @@
         success:function(res)
         {
            $("#commenttable").html(res);
+           $("#comment_modal_id").modal('show');
         }
-      })
-      $("#comment_modal_id").modal('show');
-    })
+      });
+     
+    });
 </script>
 <script type="text/javascript">
         Dropzone.options.dropzone =

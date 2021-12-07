@@ -59,10 +59,10 @@
                     </div>
                     <!--end::Actions-->
                 </form>
+                <!--end:Form-->
                 <div id="commenttable">
 
                 </div>
-                <!--end:Form-->
             </div>
             <!--end::Modal body-->
         </div>

@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable , HasRoles ,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +27,7 @@ class User extends Authenticatable
         'image',
         'address',
         'company_id',
+        'job_title',
     ];
 
     /**
@@ -50,10 +51,10 @@ class User extends Authenticatable
 
     public function companyProjects()
     {
-        return $this->hasMany(Project::class,'company_id');
+        return $this->hasMany(Project::class, 'company_id');
     }
 
-     public function userProjects()
+    public function userProjects()
     {
         return $this->belongsToMany(Project::class, 'users_has_projects', 'user_id', 'project_id');
     }

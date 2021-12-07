@@ -10,12 +10,14 @@ use App\Models\TemporayWorkImage;
 use App\Models\DesignRequirementLevelOne;
 use App\Models\User;
 use App\Models\TempWorkUploadFiles;
+use App\Models\TemporaryWorkComment;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;
+use Illuminate\Support\Facades\Crypt;
 use Notification;
 use App\Notifications\TemporaryWorkNotification;
 use App\Utils\HelperFunctions;
@@ -150,6 +152,14 @@ class TemporaryWorkController extends Controller
                 $all_inputs['signature'] = $image_name;
             }
             $all_inputs['created_by'] = auth()->user()->id;
+            //work for qrcode
+            $check = TemporaryWork::where('project_id', $request->project_id)->orderBy('id', 'desc')->first();
+            if ($check) {
+                $j = $check->tempid + 1;
+            } else {
+                $j = 1;
+            }
+            $all_inputs['tempid'] = $j;
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -276,6 +286,33 @@ class TemporaryWorkController extends Controller
             }
         } catch (\Exception $exception) {
             return response()->json(['error' =>  $imagename]);
+        }
+    }
+
+    //load scan file against temporary work
+    public function load_scan_temporarywork(Request $request, $id)
+    {
+        $tempid = Crypt::decryptString($request->temp);
+        $temporary_works = TemporaryWork::with('project', 'uploadfile')->where(['project_id' => $id, 'tempid' => $tempid])->first();
+        return view('dashboard.temporary_works.index_user', compact('temporary_works'));
+    }
+
+    //save comments against temp work
+    public function temp_savecomment(Request $request)
+    {
+        Validations::storeProject($request);
+        try {
+            $model = new TemporaryWorkComment();
+            $model->comments = $request->comment;
+            $model->temporary_work_id = $request->temp_work_id;
+            $model->user_id = auth()->user()->id;
+            if ($model->save()) {
+                toastSuccess('Comment Save sucessfully!');
+                return Redirect::back();
+            }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
         }
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master_user',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
@@ -136,7 +136,6 @@
                         <h2>Temporary Work Register</h2>
                     </div>
                     <!--begin::Card toolbar-->
-                    <a href="{{ route('temporary_works.create') }}" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
@@ -162,54 +161,35 @@
                                     <th class="min-w-100px">Date Design Returned</th>
                                     <th class="min-w-100px">TW designer (designer name and company)</th>
                                     <th class="min-w-100px">Date Design / Check Returned</th>
-                                    <th class="min-w-100px">DRAWINGS and DESIGNS</th>
+                                    <th class="min-w-100px">Drawings</th>
                                     <th class="min-w-100px">Design Check Certificate</th>
                                     <th class="min-w-100px">Permit to Load</th>
                                     <th class="min-w-100px">Permit to Unload</th>
                                     <th class="min-w-100px">RAMS</th>
-                                    <th class="min-w-100px">Qrcode</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                <tr>
-                                    <td></td>
-                                    <td>A16</td>
-                                    <td>A2</td>
-                                    <td>A10</td>
-                                    <td>0</td>
-                                    <td>H3</td>
-                                    <td>A3</td>
-                                    <td>A4</td>
-                                    <td>A11 Drag and Drop emails</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="uploadfile">Drag and drop folders/ pdf drawings</td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
-                                </tr>
+                                @if($temporary_works)
                                 @forelse($temporary_works as $item)
                                 <tr>
                                     <td>{{ $item->id ?: '-' }}</td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
-                                    <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
+                                    <td>A10</td>
                                     <td>{{ $item->tw_category ?: '-' }}</td>
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}}">{{$item->design_required_by_date ?: '-' }} </td>
-                                    <td class="addcomment cursor-pointer">All Drag And Drog emails</td>
+                                    <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
                                     <td>{{ $item->designer_company_name ?: '-' }}</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1">Drag and drop folders/ pdf drawings</p><br>
+                                    <td>
+                                        <p class="cursor-pointer" data-id="{{$item->id}}" data-type="1">Drag and drop folders/ pdf drawings</p><br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -218,8 +198,8 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td >
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="2">Drag and drop folders/ pdf drawings</p>
+                                    <td>
+                                        <p class="cursor-pointer" data-id="{{$item->id}}" data-type="2">Drag and drop folders/ pdf drawings</p>
                                         <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -232,8 +212,8 @@
                                     </td>
                                     <td></td>
                                     <td></td>
-                                    <td  data-type="2">
-                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
+                                    <td data-type="2">
+                                        <p class="cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
                                         <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -243,10 +223,12 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td><img src="{{asset('qrcode/projects/qrcode'.$item->project->id.''.$item->tempid.'.png')}}" width="100px" height="100px"></td>
                                 </tr>
                                 @empty
                                 @endforelse
+                                @else
+                                <tr><td colspan="12"><h3>No record Found</h3></td><td colspan="7"></td></tr>
+                                @endif
                             </tbody>
                             <!--end::Table body-->
                         </table>
@@ -261,66 +243,7 @@
     </div>
     <!--end::Post-->
 </div>
-@include('dashboard.modals.upload-file')
-@include('dashboard.modals.comments')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
-<script>
-    $(".uploadfile").on('click',function(){
-        $("#tempworkid").val($(this).attr('data-id'));
-        $("#type").val($(this).attr('data-type'));
-        $("#upload_file_id").modal('show');
-
-    })
-</script>
-<script type="text/javascript">
-    $(".addcomment").on('click',function(){
-      $("#comment_modal_id").modal('show');
-    })
-</script>
-<script type="text/javascript">
-        Dropzone.options.dropzone =
-         {
-            maxFilesize: 12,
-            renameFile: function(file) {
-                var dt = new Date();
-                var time = dt.getTime();
-               return time+file.name;
-            },
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
-            timeout: 50000,
-            removedfile: function(file) 
-            {
-                var name = file.upload.filename;
-                $.ajax({
-                    headers: {
-                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                            },
-                    type: 'POST',
-                    url: '{{ url("image/delete") }}',
-                    data: {filename: name},
-                    success: function (data){
-                        console.log("File has been successfully removed!!");
-                    },
-                    error: function(e) {
-                        console.log(e);
-                    }});
-                    var fileRef;
-                    return (fileRef = file.previewElement) != null ? 
-                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
-            },
-       
-            success: function(file, response) 
-            {
-                console.log(response);
-            },
-            error: function(file, response)
-            {
-               return false;
-            }
-};
-</script>
 @endsection

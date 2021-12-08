@@ -175,7 +175,7 @@
                                 @if($temporary_works)
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td>{{ $item->id ?: '-' }}</td>
+                                    <td>{{$item->twc_id_no}}</td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td>A10</td>

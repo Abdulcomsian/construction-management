@@ -355,7 +355,8 @@
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                        <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly>
+                                            <textarea id="scopofdesign" rows="2" cols="70" style="background: #2B2727;color:white"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
+                                       <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                   </div>
                                    <div class="d-flex inputDiv">

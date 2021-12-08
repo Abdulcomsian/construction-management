@@ -11,6 +11,7 @@ use App\Models\DesignRequirementLevelOne;
 use App\Models\User;
 use App\Models\TempWorkUploadFiles;
 use App\Models\TemporaryWorkComment;
+use App\Models\PermitLoad;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -176,7 +177,7 @@ class TemporaryWorkController extends Controller
                         $image_links[] = $imagename;
                     }
                 }
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' =>  $folder_attachements_pdf, 'imagelinks' => $image_links]);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
@@ -359,5 +360,90 @@ class TemporaryWorkController extends Controller
         unset($request['details_of_any_hazards']);
         unset($request['3rd_party_requirements']);
         return $request;
+    }
+
+    //load permit to laod view
+    public function permit_load(Request $request)
+    {
+        $tempid = \Crypt::decrypt($request->temp_work_id);
+        try {
+            $user = auth()->user();
+            if ($user->hasRole(['admin'])) {
+                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+            } elseif ($user->hasRole(['company'])) {
+                $projects = Project::with('company')->where('company_id', $user->id)->get();
+            } else {
+                $projects = DB::table('projects')
+                    ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.project_id')
+                    ->join('users', 'users.company_id', '=', 'projects.company_id')
+                    ->where('users_has_projects.user_id', auth()->user()->id)
+                    ->get();
+            }
+            return view('dashboard.temporary_works.permit', compact('projects', 'tempid'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+    //save permit
+    public function permit_save(Request $request)
+    {
+        Validations::storepermitload($request);
+        try {
+            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date');
+            $all_inputs['created_by'] = auth()->user()->id;
+            $image_name1 = '';
+            if ($request->principle_contractor == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed1);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name1 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+                $all_inputs['signature1'] = $image_name1;
+            }
+            //for 2
+            $image_name = '';
+            $folderPath = public_path('temporary/signature/');
+            $image = explode(";base64,", $request->signed);
+            $image_type = explode("image/", $image[0]);
+            $image_type_png = $image_type[1];
+            $image_base64 = base64_decode($image[1]);
+            $image_name = uniqid() . '.' . $image_type_png;
+            $file = $folderPath . $image_name;
+            file_put_contents($file, $image_base64);
+            $all_inputs['signature'] = $image_name;
+
+            $permitload = PermitLoad::create($all_inputs);
+            if ($permitload) {
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
+                $path = public_path('pdf');
+                $filename = rand() . '.pdf';
+                $pdf->save($path . '/' . $filename);
+                // $notify_admins_msg = [
+                //     'greeting' => 'Permit  Load Pdf',
+                //     'subject' => 'Permit Load PDF',
+                //     'body' => [
+                //         'booking' => 'Permit Load Details',
+                //         'filename' => $filename,
+                //         'links' => '',
+                //     ],
+                //     'thanks_text' => 'Thanks For Using our site',
+                //     'action_text' => '',
+                //     'action_url' => '',
+                // ];
+                // Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                toastSuccess('Permit Load save sucessfully!');
+                return Redirect::back();
+            }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+        }
+    }
+    public function scaffolding_load()
+    {
+        return view('dashboard.temporary_works.scaffolding');
     }
 }

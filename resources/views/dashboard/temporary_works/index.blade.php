@@ -195,6 +195,7 @@
                                     <td>Drag and drop folders/ pdf drawings</td>
                                 </tr> -->
                                 @forelse($temporary_works as $item)
+
                                 <tr>
                                     <td>{{$item->twc_id_no}}</td>
                                     <td>{{ $item->company ?: '-' }}</td>
@@ -221,7 +222,7 @@
                                     <td> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
-                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2"> {{$file->created_at->todatestring()}}
+                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{$file->created_at->todatestring()}}
                                           </p>
                                             @break
                                           @endif
@@ -257,7 +258,7 @@
                                         @endforeach
 
                                     </td>
-                                    <td></td>
+                                    <td><p class="permit-to-load cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p></td>
                                     <td></td>
                                     <td  data-type="2">
                                         <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
@@ -295,6 +296,7 @@
 @include('dashboard.modals.upload-file')
 @include('dashboard.modals.comments')
 @include('dashboard.modals.datemodal')
+@include('dashboard.modals.permit_to_load');
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -340,6 +342,14 @@
       });
       
     })
+</script>
+<script type="text/javascript">
+    $(".permit-to-load").on('click',function(){
+         id=$(this).attr('data-id');
+         $(".temp_work_id").val(id);
+         $("#permit_modal_id").modal('show');
+    })
+   
 </script>
 <script type="text/javascript">
         Dropzone.options.dropzone =

@@ -38,7 +38,7 @@
 
 
 <page pageset="old">
-    <center><strong style="margin-left:20px;">Design Brief:</strong></center>
+    <center><strong style="margin-left:20px;">Design Brief:{{ $twc_id_no}}</strong></center>
     <table style="width: 100%; margin:0 auto; padding-top: 50px;">
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
@@ -192,7 +192,8 @@
         <tr>
             <td colspan="6" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
-                <strong></strong>Scope of Design Output and date required from the Temporary work Engineer</strong>
+                <strong></strong>Scope of Design Output and date required from the Temporary work Engineer
+                </strong>
                 @if(isset($scopdesg) && count($scopdesg)>0)
                 @php $i=1; @endphp
                 @foreach($scopdesg as $key=> $desg)

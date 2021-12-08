@@ -91,6 +91,17 @@ License: -->
     <script src="{{ asset('js/signature.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
     <script type="text/javascript">
+        var sig1 = $('#sig1').signature({
+            syncField: '#signature1',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature").val('');
+        });
+    </script>
+     <script type="text/javascript">
         var sig = $('#sig').signature({
             syncField: '#signature',
             syncFormat: 'PNG'

@@ -26,7 +26,7 @@
 
     .wrapper,
     .page {
-        background-image: url(https://construction.accrualhub.com/assets/media/images/temporaryBg.png)
+        background-image: url({{asset("assets/media/images/temporaryBg.png")}})
     }
 
     #kt_toolbar_container h1 {

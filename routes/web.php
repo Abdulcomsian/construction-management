@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('file-upload-date', [TemporaryWorkController::class, 'file_upload_dates'])->name('temporarywork.file-upload-dates');
     Route::get('permit-to-load', [TemporaryWorkController::class, 'permit_load'])->name('permit.load');
     Route::post('permit-save', [TemporaryWorkController::class, 'permit_save'])->name('permit.save');
+    Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
+
     Route::get('scaffolding-to-load', [TemporaryWorkController::class, 'scaffolding_load'])->name('scaffolding.load');
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');
     //rout for genereate qr code

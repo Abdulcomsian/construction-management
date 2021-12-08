@@ -418,9 +418,12 @@ class TemporaryWorkController extends Controller
 
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
+                $model = PermitLoad::find($permitload->id);
+                $model->ped_url = $filename;
+                $model->save();
                 $pdf->save($path . '/' . $filename);
                 $notify_admins_msg = [
                     'greeting' => 'Permit  Load Pdf',
@@ -442,6 +445,19 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+    public function permit_get(Request $request)
+    {
+        $tempid = \Crypt::decrypt($request->id);
+        $permited = PermitLoad::where('temporary_work_id', $tempid)->get();
+        $list = '';
+        if (count($permited) > 0) {
+            foreach ($permited as $permit) {
+                $list .= '<tr><td><a href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td><a href="pdf/' . $permit->ped_url . '">Pdf Link</a></td></tr>';
+            }
+        }
+        echo $list;
     }
     public function scaffolding_load()
     {

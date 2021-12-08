@@ -38,6 +38,18 @@
                         <button type="submit" class="btn btn-primary" id="permiturl">Permit</button>
                     </form>
                 </div>
+                <div class="d-flex text-center">
+                    <table class="table table-hover">
+                        <thead style="height: 60px;">
+                            <tr>
+                                <th>Pdf Link</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="permitbody"></tbody>
+                    </table>
+                </div>
             </div>
             <!--end::Modal body-->
         </div>

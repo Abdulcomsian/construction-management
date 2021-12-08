@@ -388,7 +388,7 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
-     //   Validations::storepermitload($request);
+       Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date');
             $all_inputs['created_by'] = auth()->user()->id;

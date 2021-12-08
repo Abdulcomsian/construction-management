@@ -109,4 +109,24 @@ class Validations
             'namesign' => 'required_if:signtype,1',
         ]);
     }
+
+    public static function storepermitload($request)
+    {
+        $request->validate([
+            'project_id' => ['required', 'max:255', 'exists:projects,id'],
+            'twc_name' => ['required'],
+            'drawing_no' => ['required'],
+            'permit_no' => ['required'],
+            'drawing_title' => ['required'],
+            'tws_name' => ['required'],
+            'ms_ra_no' => ['required'],
+            'name1' => 'required_if:principle_contractor,1',
+            'job_title1' => 'required_if:principle_contractor,1',
+            'signed1' => 'required_if:principle_contractor,1',
+            'name' => ['required'],
+            'job_title' => ['required'],
+            'company' => ['required'],
+            'signed' => ['required'],
+        ]);
+    }
 }

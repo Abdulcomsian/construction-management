@@ -43,7 +43,7 @@ $(document).ready(function () {
         var full_val = val_first + " - " + val_second;
         val.attr("value", full_val);
     });
-
+    var show_val = "";
     $("#scope-of-design .requirment-first ul li").click(function () {
         $("#scope-of-design .requirment-first ul li").removeClass("active");
         $(this).addClass("active");
@@ -73,6 +73,8 @@ $(document).ready(function () {
         var val_first = $("#scope-of-design .requirment-first-value").val();
         var val_second = $("#scope-of-design .requirment-second-value").val();
         var full_val = val_first + " - " + val_second;
+        show_val += val_first.substring(0, 12) + " - " + val_second + "\n";
+        $("#scopofdesign").val(show_val);
         console.log($("#scope-of-design .requirment-first-value").val());
         val.val(full_val);
         $(".requirment-first-value").val(null);

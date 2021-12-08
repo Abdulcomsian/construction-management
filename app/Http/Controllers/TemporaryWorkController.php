@@ -440,6 +440,7 @@ class TemporaryWorkController extends Controller
             }
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
+            return Redirect::back();
         }
     }
     public function scaffolding_load()

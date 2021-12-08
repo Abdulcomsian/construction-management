@@ -422,19 +422,7 @@ class TemporaryWorkController extends Controller
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
-                // $notify_admins_msg = [
-                //     'greeting' => 'Permit  Load Pdf',
-                //     'subject' => 'Permit Load PDF',
-                //     'body' => [
-                //         'booking' => 'Permit Load Details',
-                //         'filename' => $filename,
-                //         'links' => '',
-                //     ],
-                //     'thanks_text' => 'Thanks For Using our site',
-                //     'action_text' => '',
-                //     'action_url' => '',
-                // ];
-                // Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                //Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
                 toastSuccess('Permit Load save sucessfully!');
                 return Redirect::back();
             }

@@ -388,7 +388,7 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
-       Validations::storepermitload($request);
+        Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date');
             $all_inputs['created_by'] = auth()->user()->id;
@@ -400,7 +400,7 @@ class TemporaryWorkController extends Controller
                 $image_type_png = $image_type[1];
                 $image_base64 = base64_decode($image[1]);
                 $image_name1 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name;
+                $file = $folderPath . $image_name1;
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature1'] = $image_name1;
             }
@@ -418,16 +418,29 @@ class TemporaryWorkController extends Controller
 
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
-                //Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                $notify_admins_msg = [
+                    'greeting' => 'Permit  Load Pdf',
+                    'subject' => 'Permit Load PDF',
+                    'body' => [
+                        'booking' => 'Permit Load Details',
+                        'filename' => $filename,
+                        'links' => '',
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
                 toastSuccess('Permit Load save sucessfully!');
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
+            return Redirect::back();
         }
     }
     public function scaffolding_load()

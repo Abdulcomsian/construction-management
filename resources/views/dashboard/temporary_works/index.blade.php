@@ -259,7 +259,9 @@
 
                                     </td>
                                     <td><p class="permit-to-load cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p></td>
-                                    <td></td>
+                                    <td>
+                                        <p>Permit to Unload</p>
+                                    </td>
                                     <td  data-type="2">
                                         <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
                                         <br>

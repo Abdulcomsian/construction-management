@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\TempWorkUploadFiles;
 use App\Models\TemporaryWorkComment;
 use App\Models\PermitLoad;
+use App\Models\PermitLoadImages;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -382,7 +383,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid');
+            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
@@ -416,6 +417,8 @@ class TemporaryWorkController extends Controller
                     PermitLoad::find($request->permitid)->update(['status' => 0]);
                     $msg = "Renew";
                 }
+                //save permit images
+                $image_links = $this->permitfiles($request, $permitload->id);
                 $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
@@ -429,7 +432,7 @@ class TemporaryWorkController extends Controller
                     'body' => [
                         'booking' => 'Permit Load Details',
                         'filename' => $filename,
-                        'links' => '',
+                        'links' =>  $image_links,
                         'name' => 'PermitLoad',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
@@ -518,7 +521,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid');
+            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
@@ -549,6 +552,8 @@ class TemporaryWorkController extends Controller
             if ($permitload) {
                 //make status 0 if permit is 
                 PermitLoad::find($request->permitid)->update(['status' => 3]);
+                //upload permit unload files
+                $image_links = $this->permitfiles($request, $permitload->id);
                 $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
@@ -562,7 +567,7 @@ class TemporaryWorkController extends Controller
                     'body' => [
                         'booking' => 'Permit UnLoad Details',
                         'filename' => $filename,
-                        'links' => '',
+                        'links' => $image_links,
                         'name' => 'PermitUnload',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
@@ -577,6 +582,24 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+    //save permit files
+    public function permitfiles($request, $id)
+    {
+        $image_links = [];
+        if ($request->file('images')) {
+            $filePath = HelperFunctions::temporaryworkImagePath();
+            $files = $request->file('images');
+            foreach ($files  as $key => $file) {
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model = new PermitLoadImages();
+                $model->fileName = $imagename;
+                $model->permit_load_id = $id;
+                $model->save();
+                $image_links[] = $imagename;
+            }
+        }
+        return $image_links;
     }
     public function scaffolding_load()
     {

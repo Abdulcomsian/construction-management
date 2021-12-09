@@ -119,7 +119,11 @@
         position: absolute;
         right:10px;
     }
+    .image-uploader .upload-text span{
+        color:white;
+    }
 </style>
+<link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
 @section('content')
 <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -525,9 +529,16 @@
                                     <!--end::Label-->
                                     <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                 </div>
-                                <br>
-                                <button type="submit" class="btn btn-primary float-end">Submit</button>
+                               
                             </div>
+                            
+                        </div>
+                        <div class="col-md-12">
+                         <div class="uploadDiv" style="padding-left: 10px;">
+                           <div class="input-images"></div>
+                         </div>
+                         <br>
+                        <button type="submit" class="btn btn-primary float-end">Submit</button>
                         </div>
                     </form>
     </div>

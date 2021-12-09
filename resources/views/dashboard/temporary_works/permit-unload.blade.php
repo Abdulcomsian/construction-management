@@ -117,7 +117,11 @@
             background: black !important;
             border:none !important;
         }
+     .image-uploader .upload-text span{
+        color:white;
+    }
 </style>
+<link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
 @section('content')
  <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -242,7 +246,7 @@
                                     </label>
                                     <textarea name="location_temp_work" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
-                            </div>
+                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
@@ -272,12 +276,7 @@
                             4.  Risk Assessment, Method Statement and or associated Task Sheets in place                      
                                 
                                     <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                            </div>                            
-                   
-                            </div>
-                          </div>
+                        </div>
                             <div class="container" >
                                       
                                     <table class="table table-bordered">
@@ -335,6 +334,7 @@
                                 <span class="required">Principle Contractor approved required?</span>
 
                             </label>
+                            </div>
                             <!--begin::Radio group-->
                             <div class="nav-group nav-group-fluid d-none">
                                 <!--begin::Option-->
@@ -356,8 +356,7 @@
 
                                 <!--end::Option-->
                             </div>
-                            <!--end::Radio group-->
-                        </div>     
+                            <!--end::Radio group-->     
                             <div class="d-flex inputDiv"  >
                              <div class="col-md-6">
                                 <div class="d-flex inputDiv">
@@ -434,17 +433,23 @@
                                     <!--end::Label-->
                                     <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                 </div>
-                                <br>
-                                <button type="submit" class="btn btn-primary float-end">Submit</button>
+                               
                             </div>
                            </div>
+                            <div class="col-md-12">
+                             <div class="uploadDiv" style="padding-left: 10px;">
+                               <div class="input-images"></div>
+                             </div>
+                             <br>
+                            <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </form>
                     </div>
                 </div>
-             
-            </div>
-            <!--end::Modal body-->
-        </div>
-        <!--end::Modal content-->
     </div>
+    <
     @endsection
 

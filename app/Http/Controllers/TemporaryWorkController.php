@@ -447,7 +447,7 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-        $permited = PermitLoad::where('temporary_work_id', $tempid)->get();
+        $permited = PermitLoad::where('temporary_work_id', $tempid)->latest()->get();
         $list = '';
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();
@@ -461,10 +461,12 @@ class TemporaryWorkController extends Controller
                 $status = '';
                 if ($permit->status == 1) {
                     $status = "Open";
+                    $button = '<a class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                 } elseif ($permit->status == 0) {
-                    $status = "Close";
+                    $button = '';
+                    $status = "Closed";
                 }
-                $list .= '<tr style="' . $class . '"><td><a href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>' .  $status . '</td><td><a class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '">Renew</a></td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;

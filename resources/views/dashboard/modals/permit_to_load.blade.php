@@ -44,6 +44,7 @@
                             <tr style="background: black;color:white;">
                                 <td><b>Pdf Link</b></td>
                                 <td><b>Date</b></td>
+                                <td><b>Type</b></td>
                                 <td><b>Status</b></td>
                                 <td><b>Action</b></td>
                             </tr>

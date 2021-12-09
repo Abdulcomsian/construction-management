@@ -12,10 +12,10 @@ class Project extends Model
 
     protected $guarded = [];
 
-//    public function companies()
-//    {
-//        return $this->belongsToMany(User::class, 'users_has_projects', 'project_id', 'company_id');
-//    }
+    //    public function companies()
+    //    {
+    //        return $this->belongsToMany(User::class, 'users_has_projects', 'project_id', 'company_id');
+    //    }
 
     public function company()
     {
@@ -25,5 +25,10 @@ class Project extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'users_has_projects', 'project_id', 'user_id');
+    }
+
+    public function temporarywork()
+    {
+        return $this->hasMany(TemporaryWork::class);
     }
 }

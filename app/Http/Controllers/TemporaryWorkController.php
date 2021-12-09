@@ -367,19 +367,10 @@ class TemporaryWorkController extends Controller
     {
         $tempid = \Crypt::decrypt($request->temp_work_id);
         try {
-            $user = auth()->user();
-            if ($user->hasRole(['admin'])) {
-                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
-            } elseif ($user->hasRole(['company'])) {
-                $projects = Project::with('company')->where('company_id', $user->id)->get();
-            } else {
-                $projects = DB::table('projects')
-                    ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.project_id')
-                    ->join('users', 'users.company_id', '=', 'projects.company_id')
-                    ->where('users_has_projects.user_id', auth()->user()->id)
-                    ->get();
-            }
-            return view('dashboard.temporary_works.permit', compact('projects', 'tempid'));
+            $tempdata = TemporaryWork::find($tempid);
+            $twc_id_no = $tempdata->twc_id_no;
+            $project = Project::with('company')->where('id', $tempdata->project_id)->first();
+            return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -390,7 +381,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date');
+            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
@@ -418,6 +409,12 @@ class TemporaryWorkController extends Controller
 
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
+                //make status 0 if permit is 
+                $msg = "Load";
+                if (isset($request->type)) {
+                    PermitLoad::find($request->permitid)->update(['status' => 0]);
+                    $msg = "Renew";
+                }
                 $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
@@ -438,8 +435,8 @@ class TemporaryWorkController extends Controller
                     'action_url' => '',
                 ];
                 Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
-                toastSuccess('Permit Load save sucessfully!');
-                return Redirect::back();
+                toastSuccess('Permit ' . $msg . ' sucessfully!');
+                return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
@@ -453,11 +450,36 @@ class TemporaryWorkController extends Controller
         $permited = PermitLoad::where('temporary_work_id', $tempid)->get();
         $list = '';
         if (count($permited) > 0) {
+            $current =  \Carbon\Carbon::now();
             foreach ($permited as $permit) {
-                $list .= '<tr><td><a href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td><a href="pdf/' . $permit->ped_url . '">Pdf Link</a></td></tr>';
+                $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                $diff_in_days = $to->diffInDays($current);
+                $class = '';
+                if ($diff_in_days > 7) {
+                    $class = "background:gray";
+                }
+                $status = '';
+                if ($permit->status == 1) {
+                    $status = "Open";
+                } elseif ($permit->status == 0) {
+                    $status = "Close";
+                }
+                $list .= '<tr style="' . $class . '"><td><a href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>' .  $status . '</td><td><a class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '">Renew</a></td></tr>';
             }
         }
         echo $list;
+    }
+
+    //permit renew
+    public function permit_renew($id)
+    {
+        $permitid =  \Crypt::decrypt($id);
+        $permitdata = PermitLoad::find($permitid);
+        $tempid = $permitdata->temporary_work_id;
+        $tempdata = TemporaryWork::find($tempid);
+        $twc_id_no = $tempdata->twc_id_no;
+        $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+        return view('dashboard.temporary_works.permit-renew', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
     }
     public function scaffolding_load()
     {

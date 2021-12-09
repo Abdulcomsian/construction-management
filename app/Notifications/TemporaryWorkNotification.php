@@ -41,8 +41,8 @@ class TemporaryWorkNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting("hello")
-            ->subject("Temporary Work PDF")
+            ->greeting($this->offerData['greeting'])
+            ->subject($this->offerData['subject'])
             ->view('mail.temporaryworkmail', ['details' => $this->offerData])
             ->attach(public_path('pdf/' . $this->offerData['body']['filename']), [
                 'as' => 'Temporarywork.pdf',

@@ -495,7 +495,7 @@
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company">
+                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-md-6">

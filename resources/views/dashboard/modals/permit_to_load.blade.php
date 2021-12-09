@@ -40,14 +40,14 @@
                 </div>
                 <div class="d-flex text-center">
                     <table class="table table-hover">
-                        <tdead style="height: 60px;">
-                            <tr>
-                                <td>Pdf Link</td>
-                                <td>Date</td>
-                                <td>Status</td>
-                                <td>Action</td>
+                        <thead style="height: 60px;">
+                            <tr style="background: black;color:white;">
+                                <td><b>Pdf Link</b></td>
+                                <td><b>Date</b></td>
+                                <td><b>Status</b></td>
+                                <td><b>Action</b></td>
                             </tr>
-                        </tdead>
+                        </thead>
                         <tbody id="permitbody"></tbody>
                     </table>
                 </div>

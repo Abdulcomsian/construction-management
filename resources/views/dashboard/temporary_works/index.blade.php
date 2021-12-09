@@ -346,8 +346,18 @@
 <script type="text/javascript">
     $(".permit-to-load").on('click',function(){
          id=$(this).attr('data-id');
-         $(".temp_work_id").val(id);
-         $("#permit_modal_id").modal('show');
+            $.ajax({
+            url:"{{route('permit.get')}}",
+            method:"get",
+            data:{id:id},
+            success:function(res)
+            {
+                $("#permitbody").html(res);
+               $(".temp_work_id").val(id);
+               $("#permit_modal_id").modal('show');
+            }
+          });
+         
     })
    
 </script>

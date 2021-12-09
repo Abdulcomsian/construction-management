@@ -44,6 +44,7 @@ class CreatePermitLoadsTable extends Migration
             $table->string('signature')->nullable();
             $table->string('signature1')->nullable();
             $table->integer('created_by')->nullable();
+            $table->string('ped_url')->nullable();
             $table->timestamps();
         });
     }

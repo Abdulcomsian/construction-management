@@ -43,9 +43,11 @@
             <td colspan="3" border="1" style="width: 15%; font-size: 18px; font-weight: 700; text-align: left; padding: 5px 10px;color: #000000;font-size: 14px;
             font-weight: 700;">
                 <strong>
-                    <h1>Permit to Load</h1>
+                    <h1>Permit to UnLoad</h1>
                 </strong>
             </td>
+
+
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -59,8 +61,7 @@
                 {{$data['projno']}}
             </td>
 
-            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td>
+
 
             <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
@@ -82,8 +83,8 @@
                 {{$data['projname']}}
             </td>
 
-            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td>
+            <!-- <td  border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            </td> -->
 
             <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
@@ -105,8 +106,8 @@
                 {{$data['drawing_no']}}
             </td>
 
-            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td>
+            <!-- <td  border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            </td> -->
 
             <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
@@ -128,9 +129,9 @@
                 {{$data['twc_name']}}
             </td>
 
-            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
+            <!-- <td  border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
             </td>
-
+ -->
             <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
                 <strong> TWS Name:</strong>
@@ -175,128 +176,89 @@
                 {{$data['ms_ra_no']}}
             </td>
         </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Equipment/materials used as specified/fit for purpose</strong>
-            </td>
-            <td border="1" style="text-align: right;;padding: 0px;border-radius: 3px;">
-                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 25px;">Y</button>
-                <!-- <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;">N</button> -->
-            </td>
 
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, checked)</strong>
-            </td>
-            <td border="1" style="text-align: right;;padding: 0px;border-radius: 3px;">
-                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 25px;">Y</button>
-                <!-- <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;">N</button> -->
-            </td>
 
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> TW checked to drawings/design output</strong>
-            </td>
-            <td border="1" style="text-align: right;;padding: 0px;border-radius: 3px;">
-                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 25px;">Y</button>
-                <!-- <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;">N</button> -->
-            </td>
 
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong>Loading /use limitations understood e.g. Rate of pour, sequence of loading, access/plant loading</strong>
-            </td>
-            <td border="1" style="text-align: right;;padding: 0px;border-radius: 3px;">
-                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 25px;">Y</button>
-                <!-- <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;">N</button> -->
-            </td>
-
-        </tr>
-
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong>Approval by Temp Works Coordinator Required?<br>
-                    completed Other criteria specified (e.g. strength of supporting structure, any back propping,<br>
-                    ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)</strong>
-            </td>
-            <td border="1" style="text-align: right;;padding: 0px;border-radius: 3px;">
-                @if($data['works_coordinator']==1)
-                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 25px;">Y</button>
-                @else
-                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;">N</button>
-                @endif
-            </td>
-
-        </tr>
-        <tr>
-            @if($data['works_coordinator']==1)
-            <td colspan="8" border="1" style=" width: 15%; padding: 20px 10px; border:1px solid #000000;border-radius: 3px;background-color: #F4F4F4; font-weight: 700; font-family: Noto Serif Malayalam;">
-                {{$data['description_approval_temp_works']}}
-            </td>
-            @endif
-        </tr>
 
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #000000;font-size: 14px;font-weight: bold;">
-                <strong>PERMIT TO LOAD / USE <br>
-                    I confirm that I have inspected the above temporary structure and I am satisfied that it conforms to the above <br>
-                    I consider that the temporary structure is ready to be loaded and taken into use. <br>
-                    I confirm that I am authorised to issue a Permit to Load for this temporary structure.
+                <strong>Permit to unload/Strike <br>
+                    1. Permanent Works supported by the above item of Temporary Works have gained sufficient strength to support the loading/use permitted (See concrete cube results below – or state any other PW design requirements if applicable) <br>
+                    2. Sequence of removal of TW, where specified by the TWD, is understood by the supervisor. <br>
+                    3. All standard safety measures executed i.e., holes covered and protected, leading edge protection etc <br>
+                    4. Risk Assessment, Method Statement and or associated Task Sheets in place
                 </strong>
             </td>
 
         </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
 
+            <td style="width:25%;"> CONCRETE CUBE RESULTS (OR OVER-WRITE WITH STRENGTH BY MATURITY CURVE DATA)</td>
+            <td style="width:20%; ;"></td>
+            <td style="width:30%;width:10%;"></td>
+        </tr>
+        <tr>
+            <td style="width:15%; border:1px solid black;">Mix Design Details</td>
+            <td style="width:15%; border:1px solid black;">Unique Cube Ref No.</td>
+            <td style="width:15%; border:1px solid black;">Age of Cube</td>
+            <td style="width:15%; border:1px solid black;">Compressive Strength N/mm2</td>
+            <td style="width:50%; border:1px solid black;">Method of Curing</td>
+        </tr>
+
+        <tr style=" border:1px solid black;">
+            <td style=" border:1px solid black;">{{$data['mix_design_detail']}}</td>
+            <td style=" border:1px solid black;">{{$data['unique_ref_no']}}</td>
+            <td style=" border:1px solid black;">{{$data['age_cube']}}</td>
+            <td style=" border:1px solid black;">{{$data['compressive_strength']}}</td>
+            <td style=" border:1px solid black;">{{$data['method_curing']}}</td>
+        </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
-                <strong>Principal Contractor approval required?</strong>
+                <strong>TWC to define the extents, limits and controls for this PTS (where applicable)</strong>
             </td>
-            <td border="1" style="text-align: right;;padding: 0px;border-radius: 3px;">
-                @if($data['principle_contractor']==1)
-                <button type="button" style="color: #164615; background-color: red;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 25px;">Y</button>
-                @else
-                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;">N</button>
-                @endif
-            </td>
-
         </tr>
-
+        <tr>
+            <td colspan="8" border="1" style=" width: 15%; padding: 20px 10px; border:1px solid #000000;border-radius: 3px;background-color: #F4F4F4; font-weight: 700; font-family: Noto Serif Malayalam;">
+                {{$data['twc_control_pts']}}
+            </td>
+        </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
+        <tr>
+            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
+            font-weight: 700;">
+                <strong>Back-propping and additional requirements; limitations and exclusions; explanatory sketches refrences - if applicable</strong>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" border="1" style=" width: 15%; padding: 20px 10px; border:1px solid #000000;border-radius: 3px;background-color: #F4F4F4; font-weight: 700; font-family: Noto Serif Malayalam;">
+                {{$data['back_propping']}}
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #000000;font-size: 14px;font-weight: bold;">
+                <p>I hereby authorise the Temporary Works to be struck out/removed in accordance with the specified/approved unloading & striking method, subject to observing the extents, limits and controls listed above.
+                </p>
+            </td>
 
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
         <tr>
             @if($data['principle_contractor']==1)
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;

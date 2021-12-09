@@ -45,7 +45,15 @@ class CreatePermitLoadsTable extends Migration
             $table->string('signature1')->nullable();
             $table->integer('created_by')->nullable();
             $table->string('ped_url')->nullable();
+            $table->string('mix_design_detail')->nullable();
+            $table->string('unique_ref_no')->nullable();
+            $table->string('age_cube')->nullable();
+            $table->string('compressive_strength')->nullable();
+            $table->string('method_curing')->nullable();
+            $table->string('twc_control_pts')->nullable();
+            $table->string('back_propping')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

@@ -33,7 +33,7 @@
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
                         <button type="submit" class="btn btn-primary">Scaffolding</button>
                     </form>
-                    <form method="get" action="{{route('permit.load')}}" style="margin-left:200px">
+                    <form method="get" action="{{route('permit.load')}}" style="margin-left:332px">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
                         <button type="submit" class="btn btn-primary" id="permiturl">Permit</button>
                     </form>

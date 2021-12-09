@@ -200,11 +200,11 @@
                                     <td>{{$item->twc_id_no}}</td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
-                                    <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">{{ substr($item->description_temporary_work_required ?: '-',0,40).'.......' }}</td>
                                     <td>{{ $item->tw_category ?: '-' }}</td>
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
-                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}}">{{$item->design_required_by_date ?: '-' }} </td>
+                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};color:black">{{$item->design_required_by_date ?: '-' }} </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <hr style="color:red;border:1px solid red">
@@ -260,6 +260,14 @@
                                     </td>
                                     <td>
                                         <p class="permit-to-load cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p>
+                                        @php
+                                        $openpermit=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->count();
+                                        @endphp
+                                        @if($openpermit>0)
+                                        <button class="btn btn-info">Live</button>
+                                        @else
+                                        <button class="btn btn-success">Closed</button>
+                                        @endif
                                     </td>
                                     <td>
                                          <p class="permit-to-unload cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to Unload</p>

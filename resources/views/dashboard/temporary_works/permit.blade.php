@@ -211,7 +211,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                              <span class="required">Permit Number :</span>
                                         </label>
-                                         <input  type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}">
+                                         <input  type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">

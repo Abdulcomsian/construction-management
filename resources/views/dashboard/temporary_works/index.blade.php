@@ -258,9 +258,11 @@
                                         @endforeach
 
                                     </td>
-                                    <td><p class="permit-to-load cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p></td>
                                     <td>
-                                        <p>Permit to Unload</p>
+                                        <p class="permit-to-load cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p>
+                                    </td>
+                                    <td>
+                                         <p class="permit-to-unload cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to Unload</p>
                                     </td>
                                     <td  data-type="2">
                                         <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
@@ -354,12 +356,31 @@
             data:{id:id},
             success:function(res)
             {
-                $("#permitbody").html(res);
+               $("#permitheading").html('Permit To Load');
+               $("#permitloadbutton").addClass('d-flex').show();
+               $("#permitbody").html(res);
                $(".temp_work_id").val(id);
                $("#permit_modal_id").modal('show');
             }
           });
          
+    })
+
+    //permit to unload
+    $(".permit-to-unload").on('click',function(){
+         id=$(this).attr('data-id');
+            $.ajax({
+            url:"{{route('permit.get')}}",
+            method:"get",
+            data:{id:id,type:'unload'},
+            success:function(res)
+            {
+               $("#permitheading").html('Permit To Unload');
+               $("#permitloadbutton").removeClass('d-flex').hide();
+               $("#permitbody").html(res);
+               $("#permit_modal_id").modal('show');
+            }
+          });
     })
    
 </script>

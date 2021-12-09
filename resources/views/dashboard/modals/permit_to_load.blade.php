@@ -25,10 +25,10 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <div class="mb-13 text-center">
                     <!--begin::Title-->
-                    <h1 class="mb-3">Permit To Load</h1>
+                    <h1 class="mb-3" id="permitheading">Permit To Load</h1>
                     <!--end::Title-->
                 </div>
-                <div class="d-flex text-center">
+                <div class="d-flex text-center" id="permitloadbutton">
                     <form method="get" action="{{route('scaffolding.load')}}">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
                         <button type="submit" class="btn btn-primary">Scaffolding</button>

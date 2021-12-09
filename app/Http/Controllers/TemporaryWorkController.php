@@ -447,7 +447,11 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-        $permited = PermitLoad::where('temporary_work_id', $tempid)->latest()->get();
+        if (isset($request->type)) {
+            $permited = PermitLoad::where(['temporary_work_id' => $tempid, 'status' => 1])->latest()->get();
+        } else {
+            $permited = PermitLoad::where('temporary_work_id', $tempid)->latest()->get();
+        }
         $list = '';
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();
@@ -462,6 +466,9 @@ class TemporaryWorkController extends Controller
                 if ($permit->status == 1) {
                     $status = "Open";
                     $button = '<a class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
+                    if (isset($request->type)) {
+                        $button = '<a class="btn btn-primary" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
+                    }
                 } elseif ($permit->status == 0) {
                     $button = '';
                     $status = "Closed";
@@ -482,6 +489,24 @@ class TemporaryWorkController extends Controller
         $twc_id_no = $tempdata->twc_id_no;
         $project = Project::with('company')->where('id', $permitdata->project_id)->first();
         return view('dashboard.temporary_works.permit-renew', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
+    }
+
+    //permit unlaod
+    public function permit_unload($id)
+    {
+        try {
+            $permitid =  \Crypt::decrypt($id);
+            $permitid =  \Crypt::decrypt($id);
+            $permitdata = PermitLoad::find($permitid);
+            $tempid = $permitdata->temporary_work_id;
+            $tempdata = TemporaryWork::find($tempid);
+            $twc_id_no = $tempdata->twc_id_no;
+            $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+            return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
     public function scaffolding_load()
     {

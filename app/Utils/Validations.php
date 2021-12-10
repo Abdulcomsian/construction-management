@@ -149,4 +149,22 @@ class Validations
             'signed' => ['required'],
         ]);
     }
+
+    //validation scafffolding
+    public static function storescaffolding($request)
+    {
+        $request->validate([
+            'project_id' => ['required', 'max:255', 'exists:projects,id'],
+            'twc_name' => ['required'],
+            'drawing_no' => ['required'],
+            'permit_no' => ['required'],
+            'drawing_title' => ['required'],
+            'tws_name' => ['required'],
+            'ms_ra_no' => ['required'],
+            'equipment_materials_comment' => 'required_if:equipment_materials_radio,2',
+            'workmanship_comment' => 'required_if:workmanship_radio,2',
+            'drawings_design_comment' => 'required_if:drawings_design_radio,2',
+            'loading_limit_comment' => 'required_if:loading_limit_radio,2',
+        ]);
+    }
 }

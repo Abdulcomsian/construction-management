@@ -24,12 +24,6 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Welcome to the online Temporary Works Portal. Attached is a PDF design created for (company, site and address are as stated in the design brief). Relevant attachments for the design brief are also included.</p>
-                                                                    @if(isset($details['body']['links']) && count($details['body']['links'])>0)
-                                                                    <h2>Images:</h2>
-                                                                    @foreach($details['body']['links'] as $link)
-                                                                    <a href="{{asset($link)}}">{{$link}}</a>
-                                                                    @endforeach
-                                                                    @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>Construction Management</p>
                                                                 </span>
                                                             </td>

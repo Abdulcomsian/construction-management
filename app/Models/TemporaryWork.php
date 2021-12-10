@@ -22,4 +22,9 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(TemporaryWorkComment::class);
     }
+
+    public function permits() //this relation for open permit check in table
+    {
+        return $this->hasOne(PermitLoad::class)->where('status', '=', 1);
+    }
 }

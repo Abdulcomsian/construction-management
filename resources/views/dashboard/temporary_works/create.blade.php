@@ -421,7 +421,7 @@
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <div id="sig"></div>
+                                    <div id="sig" ontouchmove="event.preventDefault();"></div>
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                 </div>
@@ -482,12 +482,6 @@
     })
 </script>
 <script>
-    $(".addfile").on("click", function(event){
-     $(this).after(`<div class="row mt-3"><div class="col-md-4"> <input type="file" multiple name="file[]"></div><div class="col-md-6" style="text-align:left"><span class="fa fa-minus removefile"></span></div></div>`);
-});
-    $(document).on('click','.removefile',function(){
-        $(this).parent().parent().remove();
-    })
-</script>
+    
 
 @endsection

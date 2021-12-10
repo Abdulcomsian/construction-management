@@ -260,10 +260,7 @@
                                     </td>
                                     <td>
                                         <p class="permit-to-load cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p>
-                                        @php
-                                        $openpermit=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->count();
-                                        @endphp
-                                        @if($openpermit>0)
+                                        @if(isset($item->permits->id))
                                         <button class="btn btn-info">Live</button>
                                         @else
                                         <button class="btn btn-success">Closed</button>

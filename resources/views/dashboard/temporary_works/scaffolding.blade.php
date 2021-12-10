@@ -26,7 +26,7 @@
 
     .wrapper,
     .page {
-        background-image: url(https://construction.accrualhub.com/assets/media/images/temporaryBg.png)
+         background-image: url({{asset("assets/media/images/temporaryBg.png")}})
     }
 
     #kt_toolbar_container h1 {
@@ -141,240 +141,175 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form action="https://construction.accrualhub.com/temporary_works" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="_token" value="KYtCMOU8ufOlGP3QPYhG6VJzge5LnJ3mj93r8p8N">
+                <form action="{{route('scaffolding.store')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <div class="row">
-
-
                         <div class="col-md-6">
+                             <div class="d-flex inputDiv">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Select Project:</span>
+                                </label>
+                                <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
+                                    <option value="">Select Option</option>
+                                    <option value="{{$project->id}}" selected="selected">{{$project->name .' - '. $project->no}}</option>
+                                </select>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Project No :
+                                        <span class="required">Project No :</span>
                                     </label>
-                                    <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-
+                                   <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
                                 </div>
                             </div>
-
-
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Project Name :
+                                         <span class="required">Project Name :</span>
                                     </label>
-                                    <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
                                 </div>
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Drawing Number:
+                                         <span class="required">Drawing Number:</span>
                                     </label>
-                                    <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-
+                                     <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no">
                                 </div>
                             </div>
-
-
-                            <div class="d-flex inputDiv">
+                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        TWC Name :
+                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name">
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-md-6">
-
-
                             <div class="col-md-12">
-
                                 <div class="d-flex inputDiv">
                                     <div class="d-flex modalDiv">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
                                         </label>
-                                        <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-
+                                         <input  type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date">
+                                    </div>
+                                </div>
+                                 <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <span class="required">Permit Number :</span>
+                                        </label>
+                                         <input  type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
+                                    </div>
+                                </div>
+                                 <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <span class="required">Drawing title :</span>
+                                        </label>
+                                         <input  type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <div class="d-flex modalDiv">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            Permit Number :
+                                             <span class="required">  TWS or competent Scaffolder Name:</span>
                                         </label>
-                                        <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-
+                                         <input  type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name">
                                     </div>
                                 </div>
-
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            Drawing title :
-                                        </label>
-                                        <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-                                    </div>
-                                </div>
-
-
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            TWS or competent Scaffolder Name:
-                                        </label>
-                                        <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
-
-                                    </div>
-                                </div>
-
-                                <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name Signature:</span>
-                                    </label>
-                                    <input type="text" name="namesign" class="form-control form-control-solid">
-                                </div>
-
-
                             </div>
                         </div>
-
-
-
                         <div class="col-md-12">
-
-
-                            <div class="d-flex inputDiv">
+                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea name="description_temporary_work_required" rows="2" cols="170" style="background: #2B2727;color:white"></textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Location of the Temporary Works (Area):"></textarea>
                                 </div>
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea name="description_temporary_work_required" rows="2" cols="170" style="background: #2B2727;color:white"></textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Description of Structure which is ready for use:"></textarea>
                                 </div>
                             </div>
-
-
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        MS/RA Number
+                                         <span class="required">MS/RA Number</span>
                                     </label>
-                                    <textarea name="description_temporary_work_required" rows="2" cols="170" style="background: #2B2727;color:white"></textarea>
+                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no">
                                 </div>
                             </div>
-
-
-
-
                             <div class="col-md-12 mt-20">
-
                                 <div class="d-flex inputDiv" style=" height: 87px;">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Equipment/materials used as a specified/fit for purpose</span>
-
-
                                     </label>
-
-
-
-
                                     <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid" style="margin-top: 32px;height: 50px;">
                                         <!--begin::Option-->
-
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                            <input type="radio" class="btn-check" name="equipment_materials_radio" value="1" checked/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                            <input type="radio" class="btn-check" name="equipment_materials_radio" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
-                                        <!--begin::Option-->
-
-                                        <!--end::Option-->
-
                                     </div>
-
                                     <!--end::Radio group-->
-
                                     <div style="margin-left: 10px; text-align:center;">
                                         <h3 style="color: white;">Comments</h3>
-
-                                        <textarea name="description_temporary_work_required" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
-
+                                        <textarea name="equipment_materials_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
-
                                 </div>
-
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Workmanship checked </span>
-
                                     </label>
-
-
-
-
                                     <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid">
                                         <!--begin::Option-->
-
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                            <input type="radio" class="btn-check" name="workmanship_radio" value="1" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                            <input type="radio" class="btn-check" name="workmanship_radio" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-
                                         <!--end::Option-->
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-
-                                        <textarea name="description_temporary_work_required" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
-
+                                        <textarea name="workmanship_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
 
 
@@ -386,10 +321,6 @@
                                         <span class="required">TW checked to drawings/design output</span>
 
                                     </label>
-
-
-
-
                                     <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid">
                                         <!--begin::Option-->
@@ -397,13 +328,13 @@
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                            <input type="radio" class="btn-check" name="drawings_design_radio" value="1" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                            <input type="radio" class="btn-check" name="drawings_design_radio" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
@@ -415,24 +346,16 @@
 
                                     <div style="margin-left: 10px; text-align:center;">
 
-                                        <textarea name="description_temporary_work_required" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea name="drawings_design_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
 
                                     </div>
-
-
-
                                 </div>
 
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Loading /use limitations understood e.g. sequence of loading, access/plant loading</span>
-
                                     </label>
-
-
-
-
                                     <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid">
                                         <!--begin::Option-->
@@ -440,13 +363,13 @@
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                            <input type="radio" class="btn-check" name="loading_limit_radio" value="1" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                            <input type="radio" class="btn-check" name="loading_limit_radio" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
@@ -456,21 +379,13 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="description_temporary_work_required" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
-
+                                        <textarea name="loading_limit_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
                                 </div>
                                 <p style="color: white;">Inspect each of the following items & tick off in the box provided if installed correctly as per the design. Where actions are required, identify with a number & detail comments in the space provided below.</p>
 
                             </div>
                         </div>
-
-
-
-
-
-
-
 
                         <div class="col-md-12 ">
 
@@ -481,10 +396,6 @@
                                     <span class="required">Even, stable ground?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -2129,113 +2040,13 @@
                                             </div>
 
                                         </div>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
                             </div>
+                        </form>
                         </div>
-
-
-
-
-
-                        <!------ Design Requiremnts Modal ---->
-
-                        <!-- **************** Framework / Falsework **************  -->
-                        <ul class="d-none Formwork">
-                            <li>Foundation / Formwork</li>
-                            <li>Walls / Formwork</li>
-                            <li>Columns / Formwork</li>
-                            <li>Slab / Soffit - Falsework</li>
-                            <li>Beams / Falsework</li>
-                            <li>Back Propping</li>
-                            <li>Edge Protection</li>
-                            <li>Support Systems</li>
-                            <li>Twin Wall Design & Support</li>
-                            <li>Push Pulls for Precast Walls and Columns</li>
-                            <li>Precast Stairs</li>
-                            <li>Crash Decks</li>
-                            <li>Metal Decking & Back Proppig</li>
-                            <li>Screen Protection</li>
-                            <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                        </ul>
-                        <!-- **************** Equipment and Plant **************  -->
-                        <ul class="d-none Equipment">
-                            <li>Piling Mat & Working Platform</li>
-                            <li>Crane Platform</li>
-                            <li>Crane Support & Foundations</li>
-                            <li>Tower Crane Base</li>
-                            <li>Access Platform for Machines and Temporary Ramps </li>
-                            <li>Concrete Pump Working Platform</li>
-                            <li>Hoist Ties & Foundations</li>
-                            <li>Mast Climbers & Foundations</li>
-                            <li>Chute Support</li>
-                            <li>Loading Bay</li>
-                            <li>Canti Deck</li>
-                            <li>Soil Bases</li>
-                            <li>Lifting / Handling Devices</li>
-                            <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                        </ul>
-                        <!-- **************** Site Establishment **************  -->
-                        <ul class="d-none Establishment">
-                            <li>Temporary Offices / Cabins</li>
-                            <li>Hoarding / Tower Crane Hoarding</li>
-                            <li>Access / Scaffolding</li>
-                            <li>Access Gantries / Platform</li>
-                            <li>Access Bridges</li>
-                            <li>Barriers</li>
-                            <li>Sign Boards</li>
-                            <li>Fuel Storage</li>
-                            <li>Welfare Facilities</li>
-                            <li>Precast Facilities</li>
-                            <li>Wheel Wash Base</li>
-                            <li>Permanent Works</li>
-                            <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                        </ul>
-                        <!-- **************** Access / Scaffolding **************  -->
-                        <ul class="d-none Scaffolding">
-                            <li>Tube & Fitting</li>
-                            <li>System Scaffolding </li>
-                            <li>System Staircase</li>
-                            <li>Temporary Roof</li>
-                            <li>Loading Bay</li>
-                            <li>Cute Support</li>
-                            <li>Mobile Tower</li>
-                            <li>Pedestrain Walkway Cover</li>
-                            <li>Suspension System</li>
-                            <li>Pontoon</li>
-                            <li>Protection Shield (steel Shield to Cover Railway While Working with a Crane Above)</li>
-                            <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                        </ul>
-                        <!-- **************** Structure **************  -->
-                        <ul class="d-none Structure">
-                            <li>Propping</li>
-                            <li>Back Propping</li>
-                            <li>Shoring</li>
-                            <li>Scaffolding</li>
-                            <li>Working Platform</li>
-                            <li>Formwork</li>
-                            <li>Falsework</li>
-                            <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                        </ul>
-                        <!-- **************** Structural Stability **************  -->
-                        <ul class="d-none Stability">
-                            <li>Existing Structures During Construction</li>
-                            <li>New Structures During Construction</li>
-                            <li>Structural Steelwork Erection</li>
-                            <li>Needling</li>
-                            <li>Temporary Underpinning</li>
-                            <li>Cut and Carve Beam and Slab Support</li>
-                            <li>Facade System</li>
-                            <li>Party Wall Propping</li>
-                            <li>Butresses</li>
-                            <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                        </ul>
-                        <!-- **************** Permanent Works **************  -->
-                        <ul class="d-none Permanent">
-                            <li>Partial / Permanent Support Conditions</li>
-                            <li>Demolition</li>
-                            <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                        </ul>
                     </div>
             </div>
         </div>

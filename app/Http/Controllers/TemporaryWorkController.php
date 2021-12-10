@@ -40,7 +40,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments')->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -48,12 +48,11 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments')->whereIn('created_by', $ids)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->latest()->get();
             } else {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments')->where('created_by', $user->id)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->latest()->get();
             }
-            $temporary_works_count = TemporaryWork::count();
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'temporary_works_count'));
+            return view('dashboard.temporary_works.index', compact('temporary_works'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -187,9 +186,9 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Temporary Work Pdf',
                     'subject' => 'Temporary Work PDF',
                     'body' => [
-                        'booking' => 'Temporary Work Details',
+                        'bodytext' => 'Temporary Work Details',
                         'filename' => $filename,
-                        'links' => $image_links,
+                        'links' => '',
                         'name' => 'TemporaryWork',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
@@ -503,10 +502,9 @@ class TemporaryWorkController extends Controller
     {
         try {
             $permitid =  \Crypt::decrypt($id);
-            $permitid =  \Crypt::decrypt($id);
             $permitdata = PermitLoad::find($permitid);
             $tempid = $permitdata->temporary_work_id;
-            $tempdata = TemporaryWork::find($tempid);
+            $tempdata = TemporaryWork::select('twc_id_no')->find($tempid);
             $twc_id_no = $tempdata->twc_id_no;
             $project = Project::with('company')->where('id', $permitdata->project_id)->first();
             return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
@@ -601,8 +599,23 @@ class TemporaryWorkController extends Controller
         }
         return $image_links;
     }
-    public function scaffolding_load()
+    public function scaffolding_load(Request $request)
     {
-        return view('dashboard.temporary_works.scaffolding');
+        $tempid = \Crypt::decrypt($request->temp_work_id);
+        try {
+            $tempdata = TemporaryWork::find($tempid);
+            $twc_id_no = $tempdata->twc_id_no;
+            $project = Project::with('company')->where('id', $tempdata->project_id)->first();
+            return view('dashboard.temporary_works.scaffolding', compact('project', 'tempid', 'twc_id_no'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    //save scaffolding
+    public function scaffolding_save(Request $request)
+    {
+        Validations::storescaffolding($request);
     }
 }

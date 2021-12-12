@@ -567,7 +567,7 @@ class TemporaryWorkController extends Controller
             $file = $folderPath . $image_name;
             file_put_contents($file, $image_base64);
             $all_inputs['signature'] = $image_name;
-            $all_inputs['status'] = 4;
+            $all_inputs['status'] = 0;
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {

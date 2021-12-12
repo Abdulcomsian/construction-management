@@ -144,6 +144,7 @@
                 <form action="{{route('scaffolding.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                      <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
                     <div class="row">
                         <div class="col-md-6">
                              <div class="d-flex inputDiv">
@@ -270,13 +271,13 @@
                                     <div class="nav-group nav-group-fluid" style="margin-top: 32px;height: 50px;">
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials_radio" value="1" checked/>
+                                            <input type="radio" class="btn-check" name="equipment_materials" value="1" checked/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials_radio" value="2" />
+                                            <input type="radio" class="btn-check" name="equipment_materials" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
@@ -284,7 +285,7 @@
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
                                         <h3 style="color: white;">Comments</h3>
-                                        <textarea name="equipment_materials_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea name="equipment_materials_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -296,20 +297,20 @@
                                     <div class="nav-group nav-group-fluid">
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="workmanship_radio" value="1" />
+                                            <input type="radio" class="btn-check" name="workmanship" value="1" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="workmanship_radio" value="2" />
+                                            <input type="radio" class="btn-check" name="workmanship" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="workmanship_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea name="workmanship_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
 
 
@@ -328,13 +329,13 @@
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="drawings_design_radio" value="1" />
+                                            <input type="radio" class="btn-check" name="drawings_design" value="1" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="drawings_design_radio" value="2" />
+                                            <input type="radio" class="btn-check" name="drawings_design" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
@@ -346,7 +347,7 @@
 
                                     <div style="margin-left: 10px; text-align:center;">
 
-                                        <textarea name="drawings_design_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea name="drawings_design_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
 
                                     </div>
                                 </div>
@@ -363,13 +364,13 @@
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="loading_limit_radio" value="1" />
+                                            <input type="radio" class="btn-check" name="loading_limit" value="1" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="loading_limit_radio" value="2" />
+                                            <input type="radio" class="btn-check" name="loading_limit" value="2" />
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
@@ -379,7 +380,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="loading_limit_comment" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea name="loading_limit_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
                                 </div>
                                 <p style="color: white;">Inspect each of the following items & tick off in the box provided if installed correctly as per the design. Where actions are required, identify with a number & detail comments in the space provided below.</p>
@@ -403,17 +404,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="even_stable_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="even_stable_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="even_stable_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -424,24 +425,15 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
+                                    <textarea name="even_stable_comment" rows="2" cols="100
                                                 " style="background: #2B2727;color:white"></textarea>
-
                                 </div>
-
-
                             </div>
-
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Base Plates?</span>
-
                                 </label>
-
-
-
 
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
@@ -450,17 +442,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -470,25 +462,15 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="base_Plates_comment" rows="2" cols="100"style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Sole boards?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -496,17 +478,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="sole_boards_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="sole_boards_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="sole_boards_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -517,22 +499,14 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="sole_boards_comment" rows="2" cols="100"style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Undermined?</span>
-
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -540,17 +514,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="undermined_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="undermined_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="undermined_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -561,24 +535,15 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="undermined_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Plumb?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -586,17 +551,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="Plumb_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="Plumb_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="Plumb_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -607,24 +572,14 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="Plumb_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Staggered joints?</span>
-
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -632,17 +587,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -652,13 +607,8 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="staggered_joints_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
 
                             <div class="d-flex inputDiv">
@@ -667,10 +617,6 @@
                                     <span class="required">Wrong spacing?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -678,17 +624,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -698,15 +644,11 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="wrong_spacing_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
 
 
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -714,9 +656,6 @@
 
                                 </label>
 
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -724,17 +663,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="damaged_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="damaged_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="damaged_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -744,71 +683,16 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
+                                    <textarea name="damaged_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
 
                                 </div>
-
-
                             </div>
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Damaged?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Trap boards?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -816,17 +700,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -837,12 +721,9 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
+                                    <textarea name="trap_boards_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
 
                                 </div>
-
-
                             </div>
 
                             <div class="d-flex inputDiv">
@@ -851,10 +732,6 @@
                                     <span class="required">Incomplete boarding?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -862,17 +739,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -882,13 +759,8 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="incomplete_boarding_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
 
                             <div class="d-flex inputDiv">
@@ -897,10 +769,6 @@
                                     <span class="required">Insufficient supports / ties?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -908,17 +776,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -928,13 +796,8 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="supports_ties_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
 
                             <div class="d-flex inputDiv">
@@ -943,10 +806,6 @@
                                     <span class="required">Insufficient length?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -954,17 +813,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="insufficient_length_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="insufficient_length_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="insufficient_length_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -975,14 +834,10 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
+                                    <textarea name="insufficient_length_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
 
                                 </div>
-
-
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -1000,17 +855,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1021,12 +876,9 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
+                                    <textarea name="missing_loose_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
 
                                 </div>
-
-
                             </div>
 
                             <div class="d-flex inputDiv">
@@ -1035,10 +887,6 @@
                                     <span class="required">Wrong fittings?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -1046,17 +894,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1067,42 +915,29 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="wrong_fittings_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Not level?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="not_level_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="not_level_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="not_level_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1112,26 +947,14 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="not_level_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Joined in same bays?</span>
-
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -1139,63 +962,43 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="joined_same_bays_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Loose or damaged?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1205,26 +1008,15 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="loose_damaged_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Wrong height?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -1232,17 +1024,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1252,170 +1044,15 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="wrong_height_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Any missing or loose?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
-
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Damaged?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
-
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Wrong fittings?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
-
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Some missing?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -1423,17 +1060,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="some_missing_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="some_missing_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="some_missing_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1443,202 +1080,10 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="some_missing_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
-
                             </div>
-
-
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Loose or damaged?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Wrong fittings?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Some missing?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Loose or damaged?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
+                           
 
 
                             <div class="d-flex inputDiv">
@@ -1658,17 +1103,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1678,72 +1123,18 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
+                                    <textarea name="partially_removed_comment" rows="2" cols="100
                                                             " style="background: #2B2727;color:white"></textarea>
-
                                 </div>
 
 
                             </div>
-
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Some missing?</span>
-
-                                </label>
-
-
-
-
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
-                                </div>
-
-
-                            </div>
-
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Loose/ damaged or broken?</span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid">
                                     <!--begin::Option-->
@@ -1751,17 +1142,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1772,16 +1163,9 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="loose_damaged_broken_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
-
                             </div>
-
-
-
-
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -1790,24 +1174,16 @@
                                     </span>
 
                                 </label>
-
-
-
-
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid" style="height: 48px;">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                        <input type="radio" class="btn-check" name="other_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                        <input type="radio" class="btn-check" name="other_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -1820,17 +1196,10 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 70px; ">
-
-                                    <textarea name="description_temporary_work_required" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
-
+                                    <textarea name="other_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
-
-
-                            <div class="container">
-
-
+                            <div class="contain<input type="text" name="" class="form-control"/>
                                 <table style="width:100%">
 
                                     <tr>
@@ -1849,60 +1218,49 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Emil</td>
-                                        <td>Tobias</td>
-                                        <td>Linus</td>
+                                        <td><input type="text" name="no[]" class="form-control"/></td>
+                                        <td><input type="text" name="desc_actions[]" class="form-control"/></td>
+                                        <td><input type="date" name="action_date[]" class="form-control"/></td>
                                     </tr>
 
                                     <tr>
-                                        <td>Emil</td>
-                                        <td>Tobias</td>
-                                        <td>Linus</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td>Tobias</td>
-                                        <td>Tobias</td>
-                                        <td>Tobias</td>
+                                        <td><input type="tno[]ext" name="no[]" class="form-control"/></td>
+                                        <td><input type="text" name="desc_actions[]" class="form-control"/></td>
+                                        <td><input type="date" name="action_date[]" class="form-control"/></td>
                                     </tr>
 
 
                                     <tr>
-                                        <td>Emil</td>
-                                        <td>Tobias</td>
-                                        <td>Linus</td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td>Emil</td>
-                                        <td>Tobias</td>
-                                        <td>Linus</td>
+                                        <td><input type="text" name="no[]" class="form-control"/></td>
+                                        <td><input type="text" name="desc_actions[]" class="form-control"/></td>
+                                        <td><input type="date" name="action_date[]" class="form-control"/></td>
                                     </tr>
 
 
                                     <tr>
-                                        <td>Emil</td>
-                                        <td>Tobias</td>
-                                        <td>Linus</td>
+                                        <td><input type="text" name="no[]" class="form-control"/></td>
+                                        <td><input type="text" name="desc_actions[]" class="form-control"/></td>
+                                        <td><input type="date" name="action_date[]" class="form-control"/></td>
                                     </tr>
-
+                                    <tr>
+                                        <td><input type="text" name="no[]" class="form-control"/></td>
+                                        <td><input type="text" name="desc_actions[]" class="form-control"/></td>
+                                        <td><input type="date" name="action_date[]" class="form-control"/></td>
+                                    </tr>
 
 
                                     <tr>
-                                        <td>Emil</td>
-                                        <td>Tobias</td>
-                                        <td>Linus</td>
+                                        <td><input type="text" name="no[]" class="form-control"/></td>
+                                        <td><input type="text" name="desc_actions[]" class="form-control"/></td>
+                                        <td><input type="date" name="action_date[]" class="form-control"/></td>
                                     </tr>
-
-
-
+                                    <tr>
+                                        <td><input type="text" name="no[]" class="form-control"/></td>
+                                        <td><input type="text" name="desc_actions[]" class="form-control"/></td>
+                                        <td><input type="date" name="action_date[]" class="form-control"/></td>
+                                    </tr>
                                 </table>
-
                                 <p>To undestand the example better, we have added borders to the table.</p>
-
                             </div>
                             <div class="container">
                                 <div class="row">
@@ -1913,19 +1271,17 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Inspected by: :
                                                 </label>
-                                                <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
+                                                 <input  type="text" class="form-control form-control-solid" placeholder="Inspected By" name="inspected_by">
 
                                             </div>
                                         </div>
-
-
                                         <div class="d-flex inputDiv">
                                             <div class="d-flex modalDiv">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Job Title: :
                                                 </label>
-                                                <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
+                                                <input  type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title">
 
                                             </div>
                                         </div>
@@ -1936,7 +1292,7 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Company:
                                                 </label>
-                                                <textarea name="description_temporary_work_required" rows="1" cols="70" style="background: #2B2727;color:white"></textarea>
+                                                <input  type="text" class="form-control form-control-solid" placeholder="Company" name="company">
 
                                             </div>
                                         </div>
@@ -1947,7 +1303,7 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Signature:
                                                 </label>
-                                                <textarea name="description_temporary_work_required" rows="3" cols="70" style="background: #2B2727;color:white"></textarea>
+                                                <input  type="text" class="form-control form-control-solid" placeholder="Signature" name="signature">
 
                                             </div>
                                         </div>
@@ -1967,13 +1323,13 @@
                                                     <!--end::Option-->
                                                     <!--begin::Option-->
                                                     <label>
-                                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                                        <input type="radio" class="btn-check" name="Scaff_tag_signed" value="1" />
                                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                     </label>
                                                     <!--end::Option-->
                                                     <!--begin::Option-->
                                                     <label>
-                                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                                        <input type="radio" class="btn-check" name="Scaff_tag_signed" value="2" />
                                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                     </label>
 
@@ -1983,13 +1339,8 @@
                                                     <!--end::Option-->
                                                 </div>
                                                 <!--end::Radio group-->
-
-
-
                                             </div>
-
                                         </div>
-
                                         <div class="d-flex inputDiv">
                                             <div class="d-flex modalDiv">
                                                 <!--begin::Label-->
@@ -2003,13 +1354,13 @@
                                                     <!--end::Option-->
                                                     <!--begin::Option-->
                                                     <label>
-                                                        <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                                        <input type="radio" class="btn-check" name="carry_out_inspection" value="1" />
                                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                     </label>
                                                     <!--end::Option-->
                                                     <!--begin::Option-->
                                                     <label>
-                                                        <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                                        <input type="radio" class="btn-check" name="carry_out_inspection" value="2" />
                                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                     </label>
                                                     <label>
@@ -2034,7 +1385,7 @@
                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                         Date :
                                                     </label>
-                                                    <textarea name="description_temporary_work_required" rows="2" cols="70" style="background: #2B2727;color:white"></textarea>
+                                                    <input  type="date" class="form-control" placeholder="Date" name="date">
 
                                                 </div>
                                             </div>

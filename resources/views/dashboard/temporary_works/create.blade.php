@@ -164,7 +164,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Select Project:</span>
                                     </label>
-                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
                                         <option value="">Select Option</option>
                                         @forelse($projects as $item)
                                         <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
@@ -178,7 +178,7 @@
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -187,7 +187,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -195,7 +195,7 @@
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="design_issued_date">
+                                    <input readonly type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -203,7 +203,7 @@
                                         <span class="required">Design Required by Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date">
+                                    <input type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -212,7 +212,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -220,7 +220,7 @@
                                         <span class="required">Designer Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" name="designer_company_name">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -229,7 +229,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email Address" name="designer_company_email">
+                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email Address" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -238,7 +238,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name">
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{old('twc_name')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -247,7 +247,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" name="twc_email">
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" name="twc_email" value="{{old('twc_email')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -335,7 +335,7 @@
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" placeholder="Design Requirement" readonly name="design_requirement_text">
+                                        <input type="text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
                                  </div>
@@ -345,8 +345,7 @@
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
-                                            <textarea name="description_temporary_work_required" rows="2" cols="70" style="background: #2B2727;color:white"></textarea>
-                                       <!--  <input type="text" placeholder="Description of Temporary Works Required" name="description_temporary_work_required"> -->
+                                            <textarea name="description_temporary_work_required" rows="2" cols="70" style="background: #2B2727;color:white" required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv">
@@ -374,7 +373,7 @@
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -382,7 +381,7 @@
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -390,7 +389,7 @@
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company">
+                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -468,14 +467,16 @@
         {
             $("#signtype").val(1);
             $("#namesign").addClass('d-flex').show();
-             $("#clear").hide();
-              $("#sign").removeClass('d-flex').hide();
+            $("input[name='namesign']").attr('required','required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
            
         }
         else{
             $("#signtype").val(0);
-             $("#sign").addClass('d-flex').show();
+            $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
             $("#clear").show();
              
         }

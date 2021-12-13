@@ -197,14 +197,15 @@
                                 @forelse($temporary_works as $item)
 
                                 <tr>
-                                    <td>{{$item->twc_id_no}}</td>
+                                    <td><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">{{ substr($item->description_temporary_work_required ?: '-',0,40).'.......' }}</td>
                                     <td>{{ $item->tw_category ?: '-' }}</td>
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
-                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};color:black">{{$item->design_required_by_date ?: '-' }} </td>
+                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
+                                        <p style="background: #6a6969;border: 1px solid black;width: 103%;">{{$item->design_required_by_date ?: '-' }}</p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <hr style="color:red;border:1px solid red">
@@ -292,6 +293,9 @@
                             <!--end::Table body-->
                         </table>
                     </div>
+                    <div class="d-flex justify-content-center">
+                        {!! $temporary_works->links() !!}
+                    </div>
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->
@@ -310,7 +314,18 @@
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<script type="text/javascript">
+    Dropzone.options.dropzoneForm = {
+    init: function () {
+        // Set up any event handlers
+       this.on("queuecomplete", function (file) {
+          location.reload();
+      });
+    }
+};
+</script>
 <script>
+   
     $(".uploadfile").on('click',function(){
         $("#tempworkid").val($(this).attr('data-id'));
         $("#type").val($(this).attr('data-type'));

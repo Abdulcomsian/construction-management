@@ -180,7 +180,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">Drawing Number:</span>
                                     </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no">
+                                     <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no')}}"  required>
                                 </div>
                             </div>
                              <div class="d-flex inputDiv">
@@ -189,7 +189,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name">
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{old('twc_name')}}"  required>
                                 </div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                              <span class="required">Drawing title :</span>
                                         </label>
-                                         <input  type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title">
+                                         <input  type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{old('drawing_title')}}"  required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -228,7 +228,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                              <span class="required">  TWS or competent Scaffolder Name:</span>
                                         </label>
-                                         <input  type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name">
+                                         <input  type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name" value="{{old('tws_name')}}"  required>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Location of the Temporary Works (Area):"></textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -249,7 +249,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Description of Structure which is ready for use:"></textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -258,7 +258,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">MS/RA Number</span>
                                     </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no">
+                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no"  value="{{old('ms_ra_no')}}"  required>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-20">
@@ -271,13 +271,13 @@
                                     <div class="nav-group nav-group-fluid" style="margin-top: 32px;height: 50px;">
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials" value="1" checked/>
+                                            <input type="radio" class="btn-check" name="equipment_materials" value="1" {{ old('equipment_materials') == '1' ? 'checked' : '' }}/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials" value="2" />
+                                            <input type="radio" class="btn-check" name="equipment_materials" value="2" {{ old('equipment_materials') == '2' ? 'checked' : '' }}/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
@@ -297,7 +297,7 @@
                                     <div class="nav-group nav-group-fluid">
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="workmanship" value="1" />
+                                            <input type="radio" class="btn-check" name="workmanship" value="1" checked/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
@@ -329,7 +329,7 @@
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="drawings_design" value="1" />
+                                            <input type="radio" class="btn-check" name="drawings_design" value="1" checked/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
@@ -364,7 +364,7 @@
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="loading_limit" value="1" />
+                                            <input type="radio" class="btn-check" name="loading_limit" value="1" checked/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
@@ -1271,7 +1271,7 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Inspected by: :
                                                 </label>
-                                                 <input  type="text" class="form-control form-control-solid" placeholder="Inspected By" name="inspected_by">
+                                                 <input  type="text" class="form-control form-control-solid" placeholder="Inspected By" name="inspected_by" required>
 
                                             </div>
                                         </div>
@@ -1281,7 +1281,7 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Job Title: :
                                                 </label>
-                                                <input  type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title">
+                                                <input  type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title"  value="{{\Auth::user()->job_title ?? ''}}" required>
 
                                             </div>
                                         </div>
@@ -1292,7 +1292,7 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Company:
                                                 </label>
-                                                <input  type="text" class="form-control form-control-solid" placeholder="Company" name="company">
+                                                <input  type="text" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" required>
 
                                             </div>
                                         </div>
@@ -1385,7 +1385,7 @@
                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                         Date :
                                                     </label>
-                                                    <input  type="date" class="form-control" placeholder="Date" name="date">
+                                                    <input  type="date" class="form-control"  value="{{ date('Y-m-d') }}" placeholder="Date" name="date">
 
                                                 </div>
                                             </div>

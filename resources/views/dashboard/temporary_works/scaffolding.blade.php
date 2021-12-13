@@ -271,13 +271,13 @@
                                     <div class="nav-group nav-group-fluid" style="margin-top: 32px;height: 50px;">
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials" value="1" {{ old('equipment_materials') == '1' ? 'checked' : '' }}/>
+                                            <input type="radio" class="btn-check" name="equipment_materials" value="1" checked/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials" value="2" {{ old('equipment_materials') == '2' ? 'checked' : '' }}/>
+                                            <input type="radio" class="btn-check" name="equipment_materials" value="2"/>
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                         </label>
                                         <!--end::Option-->
@@ -285,7 +285,7 @@
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
                                         <h3 style="color: white;">Comments</h3>
-                                        <textarea name="equipment_materials_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea  name="equipment_materials_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -310,7 +310,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="workmanship_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea  name="workmanship_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
 
 
@@ -380,7 +380,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="loading_limit_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
+                                        <textarea  name="loading_limit_desc" rows="2" cols="50" style="background: #2B2727;color:white"></textarea>
                                     </div>
                                 </div>
                                 <p style="color: white;">Inspect each of the following items & tick off in the box provided if installed correctly as per the design. Where actions are required, identify with a number & detail comments in the space provided below.</p>
@@ -404,7 +404,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="even_stable_radio" value="1" />
+                                        <input type="radio" class="btn-check" name="even_stable_radio" value="1" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
@@ -423,10 +423,8 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
-
-                                    <textarea name="even_stable_comment" rows="2" cols="100
-                                                " style="background: #2B2727;color:white"></textarea>
+                                <div  style="margin-left: 10px; text-align:center;">
+                                    <textarea class="d-none" name="even_stable_comment" rows="2" cols="90" style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -442,7 +440,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="1" />
+                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="1" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
@@ -452,7 +450,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -462,7 +460,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="base_Plates_comment" rows="2" cols="100"style="background: #2B2727;color:white"></textarea>
+                                    <textarea  class="d-none" name="base_Plates_comment" rows="2" cols="90" style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -478,7 +476,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="sole_boards_radio" value="1" />
+                                        <input type="radio" class="btn-check" name="sole_boards_radio" value="1" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
@@ -499,7 +497,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="sole_boards_comment" rows="2" cols="100"style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="sole_boards_comment" rows="2" cols="90" style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -520,7 +518,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="undermined_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="undermined_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -535,7 +533,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="undermined_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="undermined_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -551,7 +549,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="Plumb_radio" value="1" />
+                                        <input type="radio" class="btn-check" name="Plumb_radio" value="1" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
@@ -561,7 +559,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="Plumb_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="Plumb_radio" value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -572,7 +570,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="Plumb_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="Plumb_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -587,13 +585,13 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="1" />
+                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="1" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="2"/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -607,7 +605,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="staggered_joints_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="staggered_joints_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
 
@@ -630,7 +628,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -644,7 +642,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="wrong_spacing_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="wrong_spacing_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
 
 
@@ -669,7 +667,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="damaged_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="damaged_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -683,7 +681,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="damaged_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="damaged_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
 
                                 </div>
                             </div>
@@ -700,7 +698,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="1" />
+                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="1" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
@@ -721,7 +719,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="trap_boards_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="trap_boards_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
 
                                 </div>
                             </div>
@@ -745,7 +743,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -759,7 +757,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="incomplete_boarding_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="incomplete_boarding_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
 
@@ -782,7 +780,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -796,7 +794,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="supports_ties_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="supports_ties_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
 
@@ -819,7 +817,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="insufficient_length_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="insufficient_length_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -834,7 +832,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="insufficient_length_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="insufficient_length_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
 
                                 </div>
                             </div>
@@ -861,7 +859,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -876,7 +874,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="missing_loose_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="missing_loose_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
 
                                 </div>
                             </div>
@@ -900,7 +898,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -915,7 +913,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="wrong_fittings_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="wrong_fittings_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -933,7 +931,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="not_level_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="not_level_radio" value="2" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -947,7 +945,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="not_level_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="not_level_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -968,7 +966,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="2" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -978,7 +976,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="joined_same_bays_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="joined_same_bays_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -994,7 +992,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="2" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -1008,7 +1006,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="loose_damaged_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="loose_damaged_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1030,7 +1028,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="2" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -1044,7 +1042,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="wrong_height_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="wrong_height_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1066,7 +1064,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="some_missing_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="some_missing_radio" value="2" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -1080,7 +1078,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="some_missing_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="some_missing_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                            
@@ -1109,7 +1107,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="2" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -1123,8 +1121,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea name="partially_removed_comment" rows="2" cols="100
-                                                            " style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="partially_removed_comment" rows="2" cols="90" style="background: #2B2727;color:white"></textarea>
                                 </div>
 
 
@@ -1148,7 +1145,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -1163,7 +1160,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea name="loose_damaged_broken_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="loose_damaged_broken_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1183,7 +1180,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="other_radio" value="2" />
+                                        <input type="radio" class="btn-check" name="other_radio" value="2" checked/>
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                     </label>
                                     <label>
@@ -1196,7 +1193,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 70px; ">
-                                    <textarea name="other_comment" rows="2" cols="100" style="background: #2B2727;color:white"></textarea>
+                                    <textarea class="d-none" name="other_comment" rows="2" cols="90"  style="background: #2B2727;color:white"></textarea>
                                 </div>
                             </div>
                             <div class="contain<input type="text" name="" class="form-control"/>
@@ -1296,17 +1293,32 @@
 
                                             </div>
                                         </div>
-
-                                        <div class="d-flex inputDiv">
-                                            <div class="d-flex modalDiv">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    Signature:
-                                                </label>
-                                                <input  type="text" class="form-control form-control-solid" placeholder="Signature" name="signature">
-
-                                            </div>
+                                         <div class="d-flex inputDiv">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                                <span class="required">Name signature:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                             <input  type="checkbox" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                              <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
+                                             <span style="padding-left:3px;color:white">Do you want name signature?</span>
                                         </div>
+                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Name Signature:</span>
+                                            </label>
+                                            <input type="text" name="namesign" class="form-control form-control-solid">
+                                        </div>
+                                        <div class="d-flex inputDiv" id="sign">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Signature:</span>
+                                            </label>
+                                            <br/>
+                                            <div id="sig" ontouchmove="event.preventDefault();"></div>
+                                            <br/>
+                                           <textarea id="signature" name="signed" style="opacity:0" required></textarea>
+                                        </div>
+                                         <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
                                     </div>
 
                                     <div class="col-md-6">
@@ -1323,7 +1335,7 @@
                                                     <!--end::Option-->
                                                     <!--begin::Option-->
                                                     <label>
-                                                        <input type="radio" class="btn-check" name="Scaff_tag_signed" value="1" />
+                                                        <input type="radio" class="btn-check" name="Scaff_tag_signed" value="1" checked/>
                                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                     </label>
                                                     <!--end::Option-->
@@ -1354,7 +1366,7 @@
                                                     <!--end::Option-->
                                                     <!--begin::Option-->
                                                     <label>
-                                                        <input type="radio" class="btn-check" name="carry_out_inspection" value="1" />
+                                                        <input type="radio" class="btn-check" name="carry_out_inspection" value="1" checked/>
                                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                     </label>
                                                     <!--end::Option-->
@@ -1391,10 +1403,11 @@
                                             </div>
 
                                         </div>
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        
                                     </div>
                                 </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                         </div>
@@ -1405,4 +1418,312 @@
     </div>
     <!--end::Modal body-->
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+    $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#signtype").val(1);
+            $("#namesign").addClass('d-flex').show();
+            $("input[name='namesign']").attr('required','required');
+             $("input[name='sign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(0);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='sign']").attr('required');
+            $("#clear").show();
+             
+        }
+    })
+
+
+    $('input[name="even_stable_radio"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="even_stable_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="even_stable_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+     $('input[name="base_Plates_radio"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="base_Plates_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="base_Plates_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+     $('input[name="sole_boards_radio"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="sole_boards_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="sole_boards_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+     $('input[name="undermined_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="undermined_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="undermined_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+      $('input[name="Plumb_radio"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="Plumb_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="Plumb_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+       $('input[name="staggered_joints_radio"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="staggered_joints_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="staggered_joints_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+       $('input[name="wrong_spacing_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="wrong_spacing_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="wrong_spacing_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+       $('input[name="damaged_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="damaged_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="damaged_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+        $('input[name="trap_boards_radio"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="trap_boards_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="trap_boards_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+        $('input[name="incomplete_boarding_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="incomplete_boarding_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="incomplete_boarding_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+        $('input[name="supports_ties_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="supports_ties_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="supports_ties_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+        $('input[name="insufficient_length_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="insufficient_length_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="insufficient_length_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+        $('input[name="missing_loose_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="missing_loose_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="missing_loose_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+        $('input[name="wrong_fittings_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="wrong_fittings_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="wrong_fittings_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+              
+
+
+    $('input[name="not_level_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="not_level_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="not_level_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+
+
+
+    $('input[name="joined_same_bays_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="joined_same_bays_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="joined_same_bays_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+
+
+
+
+    $('input[name="loose_damaged_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="loose_damaged_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="loose_damaged_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+
+    $('input[name="wrong_height_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="wrong_height_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="wrong_height_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+
+
+    $('input[name="some_missing_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="some_missing_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="some_missing_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+    $('input[name="partially_removed_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="partially_removed_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="partially_removed_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+    $('input[name="loose_damaged_broken_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="loose_damaged_broken_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="loose_damaged_broken_comment"]').addClass('d-none').removeAttr('required');
+        }
+    })
+
+    $('input[name="other_radio"]').change(function(){
+        if($(this).val()==1)
+        {
+            $('textarea[name="other_comment"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="other_comment"]').addClass('d-none').removeAttr('required');
+        }
+    }) 
+
+
+
+
+        $('input[name="equipment_materials"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="equipment_materials_desc"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="equipment_materials_desc"]').removeAttr('required');
+        }
+    }) 
+
+
+        $('input[name="workmanship"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="workmanship_desc"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="workmanship_desc"]').removeAttr('required');
+        }
+    }) 
+
+              $('input[name="loading_limit"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="loading_limit_desc"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="loading_limit_desc"]').removeAttr('required');
+        }
+    })
+
+
+              $('input[name="drawings_design"]').change(function(){
+        if($(this).val()==2)
+        {
+            $('textarea[name="drawings_design_desc"]').removeClass('d-none').attr('required','required');
+        }
+        else{
+             $('textarea[name="drawings_design_desc"]').removeAttr('required');
+        }
+    })
+
+
+
+
+</script>
 @endsection

@@ -389,34 +389,46 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
+
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images');
+            $all_inputs  = $request->except('_token', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed1);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name1 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name1;
-                file_put_contents($file, $image_base64);
-                $all_inputs['signature1'] = $image_name1;
+                $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                if ($request->signtype1 == 1) {
+                    $all_inputs['signature1'] = $request->namesign1;
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed1);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name1 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name1;
+                    file_put_contents($file, $image_base64);
+                    $all_inputs['signature1'] = $image_name1;
+                }
             }
             //for 2
             $image_name = '';
-            $folderPath = public_path('temporary/signature/');
-            $image = explode(";base64,", $request->signed);
-            $image_type = explode("image/", $image[0]);
-            $image_type_png = $image_type[1];
-            $image_base64 = base64_decode($image[1]);
-            $image_name = uniqid() . '.' . $image_type_png;
-            $file = $folderPath . $image_name;
-            file_put_contents($file, $image_base64);
-            $all_inputs['signature'] = $image_name;
+            if ($request->signtype == 1) {
+                $all_inputs['signature'] = $request->namesign;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+                $all_inputs['signature'] = $image_name;
+            }
             $all_inputs['created_by'] = auth()->user()->id;
+
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
                 //make status 0 if permit is 
@@ -434,6 +446,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+
                 $notify_admins_msg = [
                     'greeting' => 'Scaffolding Pdf',
                     'subject' => 'Scaffold PDF',
@@ -460,8 +473,8 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-        $permited = PermitLoad::where(['temporary_work_id' => $tempid, 'status' => 1])->latest()->get();
-        $scaffold = Scaffolding::where(['temporary_work_id' => $tempid, 'status' => 1])->latest()->get();
+        $permited = PermitLoad::where(['temporary_work_id' => $tempid])->latest()->get();
+        $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         $list = '';
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();
@@ -671,7 +684,21 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $all_inputs  = $request->except('_token', 'signtype', 'sign', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            if ($request->signtype == 1) {
+                $all_inputs['signature'] = $request->namesign;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+                $all_inputs['signature'] = $image_name;
+            }
+
             $all_inputs['created_by'] = auth()->user()->id;
             //save data in scaffolign model
             $scaffolding = Scaffolding::create($all_inputs);

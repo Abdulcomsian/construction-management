@@ -185,7 +185,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">Drawing Number:</span>
                                     </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no">
+                                     <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no"  value="{{old('drawing_no')}}" required>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -194,7 +194,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name">
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{old('twc_name')}}" required>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
                                         </label>
-                                         <input  type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date">
+                                         <input  type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date" value="{{old('date')}}">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -224,7 +224,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                              <span class="required">Drawing title :</span>
                                         </label>
-                                         <input  type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title">
+                                         <input  type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{old('drawing_title')}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -233,7 +233,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                              <span class="required">TWS Name :</span>
                                         </label>
-                                         <input  type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name">
+                                         <input  type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name"  value="{{old('tws_name')}}" required>
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +245,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Location of the Temporary Works (Area):"></textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -254,7 +254,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Description of Structure which is ready for use:"></textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -263,7 +263,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">MS/RA Number</span>
                                     </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no">
+                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -409,7 +409,7 @@
                         </div>
                          <div class="d-flex inputDiv">
                             <div class="d-flex modalDiv">
-                                    <textarea name="description_approval_temp_works" rows="2" cols="155" style="background: #2B2727;color:white"></textarea>
+                                    <textarea name="description_approval_temp_works" rows="2" cols="155" style="background: #2B2727;color:white">{{old('description_approval_temp_works')}}</textarea>
                             </div>
                          </div>
                             <h5 style="color: white">Permit to unload/Use</h5>
@@ -458,8 +458,13 @@
                         </div>     
                         <div class="d-flex inputDiv">
                             <!--begin::Label-->
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv">
+                            
+                            
+                            <div class="col-md-12">
+                                <div class="row" id="first_member">
+                                <div class="col">
+                                 
+                                        <div class="d-flex inputDiv">
                                 </div>
                                <div class="d-flex inputDiv principleno">
                                                     <!--begin::Label-->
@@ -467,7 +472,7 @@
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name1">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name1" value="{{old('name1')}}">
                                 </div>
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->
@@ -475,34 +480,26 @@
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" >
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" value="{{old('job_title1')}}">
                                 </div>
-                                <div class="d-flex inputDiv ">
-                                                    <!--begin::Label-->
+                                   
+                                </div>
+
+                                <div class="col">
+                                    <div class="d-flex inputDiv" style="margin-left:40px">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                            <span class="required">Name/signature:</span>
+                                        </label>
+                                         <input  type="checkbox" id="flexCheckChecked1"  style="width: 12px;margin-top:5px">
+                                          <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="0">
+                                         <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                   </div>
+                                   <div class="d-flex inputDiv" id="namesign1" style="display: none !important;margin-left:40px">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name::</span>
+                                        <span class="required">Name Signature:</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" >
+                                    <input type="text" name="namesign1" class="form-control form-control-solid">
                                 </div>
-                                <div class="d-flex inputDiv " >
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Job title:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" >
-                                </div>
-                                  <div class="d-flex inputDiv ">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Company: </span>
-                                    </label>
-                                    <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                <div class="d-flex inputDiv principleno" id="sign1" style="margin-left:40px">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
@@ -510,26 +507,80 @@
                                     <br/>
                                     <div id="sig1" style="width:40%;height: 100px"></div>
                                     <br/>
-                                   <textarea id="signature1" name="signed1" style="display: none"></textarea>
+                                   <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                 </div>
-                                <div class="d-flex inputDiv " id="sign"  style="margin-left:40px">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                </div>
+                            </div>
+
+                            <!-- Second person -->
+
+
+                             <div class="row" id="second_member">
+                                <div class="col">
+                                 
+                                        <div class="d-flex inputDiv">
+                                </div>
+                               <div class="d-flex inputDiv principleno">
+                                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name::</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{old('name')}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Job title:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title')}}">
+                                </div>
+                                <div class="d-flex inputDiv ">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Company: </span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                </div>
+                                 <div class="d-flex inputDiv "> 
+                                    <!--begin::Label-->
+                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                        <span class="required">Date:</span>
+                                    </label> 
+                                    <!--end::Label-->
+                                     <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                 </div>
+                                   
+                                </div>
+
+                                <div class="col">
+                                   <div class="d-flex inputDiv" style="margin-left:40px">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                            <span class="required">Name/signature:</span>
+                                        </label>
+                                         <input  type="checkbox" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                          <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
+                                         <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                   </div>
+                                   <div class="d-flex inputDiv" id="namesign" style="display: none !important;margin-left:40px">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign" class="form-control form-control-solid">
+                                </div>
+                               <div class="d-flex inputDiv principleno" id="sign" style="margin-left:40px">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <div id="sig"  style="width:40%;height: 100px;"></div>
+                                    <div id="sig" style="width:40%;height: 100px"></div>
                                     <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
+                                   <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                                 </div>
-                                <div class="d-flex inputDiv " style="margin-left:40px">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                        <span class="required">Date:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                 </div>
-                               
+                            </div>    
                             </div>
                             
                         </div>
@@ -540,33 +591,23 @@
                          <br>
                         <button type="submit" class="btn btn-primary float-end">Submit</button>
                         </div>
-                    </form>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
 @section('scripts')
 <script>
-    $("#flexCheckChecked").change(function() {
-        if ($(this).is(':checked')) {
-            $("#signtype").val(1);
-            $("#namesign").addClass('d-flex').show();
-            $("#clear").hide();
-            $("#sign").removeClass('d-flex').hide();
-
-        } else {
-            $("#signtype").val(0);
-            $("#sign").addClass('d-flex').show();
-            $("#namesign").removeClass('d-flex').hide();
-            $("#clear").show();
-
-        }
-    })
+    
     $("input[name='principle_contractor']").change(function(){
        if ($(this).val()==1){
-          $(".principleno").addClass('d-flex').show();
+
+         $("#first_member").show();
+
        }
        else{
-          $(".principleno").removeClass('d-flex').hide()
+          $("#first_member").hide();
         
        }
     })
@@ -581,5 +622,43 @@
        }
     })
     
+
+     $("#flexCheckChecked1").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#signtype1").val(1);
+            $("#namesign1").addClass('d-flex').show();
+            $("input[name='namesign1']").attr('required','required');
+             $("#signature1").removeAttr('required','required');
+            $("#clear1").hide();
+            $("#sign1").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype1").val(0);
+            $("#sign1").addClass('d-flex').show();
+            $("#namesign1").removeClass('d-flex').hide();
+            $("input[name='namesign1']").removeAttr('required');
+            $("#signature1").attr('required','required');
+            $("#clear1").show();
+        }
+    })
+
+      $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#signtype").val(1);
+            $("#namesign").addClass('d-flex').show();
+            $("input[name='namesign']").attr('required','required');
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(0);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+        }
+    })
 </script>
 @endsection

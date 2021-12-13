@@ -13,6 +13,10 @@ use App\Models\TempWorkUploadFiles;
 use App\Models\TemporaryWorkComment;
 use App\Models\PermitLoad;
 use App\Models\PermitLoadImages;
+use App\Models\Scaffolding;
+use App\Models\CheckAndComment;
+use App\Models\CommentsAction;
+use App\Notifications\PermitNotification;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -186,7 +190,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Temporary Work Pdf',
                     'subject' => 'Temporary Work PDF',
                     'body' => [
-                        'bodytext' => 'Temporary Work Details',
+                        'company' => $request->company,
                         'filename' => $filename,
                         'links' => '',
                         'name' => 'TemporaryWork',
@@ -426,19 +430,19 @@ class TemporaryWorkController extends Controller
                 $model->save();
                 $pdf->save($path . '/' . $filename);
                 $notify_admins_msg = [
-                    'greeting' => 'Permit  Load Pdf',
-                    'subject' => 'Permit Load PDF',
+                    'greeting' => 'Scaffolding Pdf',
+                    'subject' => 'Scaffold PDF',
                     'body' => [
-                        'booking' => 'Permit Load Details',
+                        'text' => 'A Permit to ' . $msg . ' has been completed for the temporary works as per the attached document.',
                         'filename' => $filename,
-                        'links' =>  $image_links,
-                        'name' => 'PermitLoad',
+                        'links' =>  '',
+                        'name' => 'scaffold',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Permit ' . $msg . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -451,11 +455,8 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-        if (isset($request->type)) {
-            $permited = PermitLoad::where(['temporary_work_id' => $tempid, 'status' => 1])->latest()->get();
-        } else {
-            $permited = PermitLoad::where('temporary_work_id', $tempid)->where('status', '!=', 4)->latest()->get();
-        }
+        $permited = PermitLoad::where(['temporary_work_id' => $tempid, 'status' => 1])->latest()->get();
+        $scaffold = Scaffolding::where(['temporary_work_id' => $tempid, 'status' => 1])->latest()->get();
         $list = '';
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();
@@ -480,6 +481,28 @@ class TemporaryWorkController extends Controller
                     $status = "Unloaded";
                 }
                 $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+            }
+        }
+        if (count($scaffold) > 0) {
+            foreach ($scaffold as $permit) {
+                $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                $diff_in_days = $to->diffInDays($current);
+                $class = '';
+                if ($diff_in_days > 7) {
+                    $class = "background:gray";
+                }
+                $status = '';
+                $button = '';
+                if ($permit->status == 1) {
+                    $status = "Open";
+                    $button = '<a class="btn btn-primary" href="#"><span class="fa fa-plus-square"></span>Unload</a>';
+                    if (isset($request->type)) {
+                        $button = '<a class="btn btn-primary" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
+                    }
+                } elseif ($permit->status == 0) {
+                    $status = "Closed";
+                }
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -544,7 +567,7 @@ class TemporaryWorkController extends Controller
             $file = $folderPath . $image_name;
             file_put_contents($file, $image_base64);
             $all_inputs['signature'] = $image_name;
-            $all_inputs['status'] = 4;
+            $all_inputs['status'] = 0;
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
@@ -560,19 +583,19 @@ class TemporaryWorkController extends Controller
                 $model->save();
                 $pdf->save($path . '/' . $filename);
                 $notify_admins_msg = [
-                    'greeting' => 'Permit  UnLoad Pdf',
-                    'subject' => 'Permit UnLoad PDF',
+                    'greeting' => 'Scaffolding Pdf',
+                    'subject' => 'Scaffold PDF',
                     'body' => [
-                        'booking' => 'Permit UnLoad Details',
+                        'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
                         'filename' => $filename,
-                        'links' => $image_links,
-                        'name' => 'PermitUnload',
+                        'links' =>  '',
+                        'name' => 'scaffold',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Permit Unloaded sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -616,6 +639,81 @@ class TemporaryWorkController extends Controller
     //save scaffolding
     public function scaffolding_save(Request $request)
     {
-        Validations::storescaffolding($request);
+        //pdf work here
+
+
+        //Validations::storescaffolding($request);
+        try {
+            $check_radios = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'radio')) {
+                    $data = null;
+                    $data = [
+                        $key => $request->$key
+                    ];
+                    $check_radios = array_merge($check_radios, $data);
+                    unset($request[$key]);
+                }
+            }
+            $check_comments = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'comment')) {
+                    $data = null;
+                    $data = [
+                        $key => $request->$key
+                    ];
+                    $check_comments = array_merge($check_comments, $data);
+                    unset($request[$key]);
+                }
+            }
+            $all_inputs  = $request->except('_token', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $all_inputs['created_by'] = auth()->user()->id;
+            //save data in scaffolign model
+            $scaffolding = Scaffolding::create($all_inputs);
+            if ($scaffolding) {
+                $model = new CheckAndComment();
+                $model->radio_checks = $check_radios;
+                $model->comments = $check_comments;
+                $model->scaffolding_id = $scaffolding->id;
+                $model->save();
+                //end
+                if ($request->no) {
+                    for ($i = 0; $i < count($request->no); $i++) {
+                        $model = new CommentsAction();
+                        $model->scaffolding_id = $scaffolding->id;
+                        $model->no = $request['no'][$i];
+                        $model->comments_actions = $request['desc_actions'][$i];
+                        $model->action_date = $request['action_date'][$i];
+                        $model->save();
+                    }
+                }
+                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'check_radios' => $check_radios, 'check_comments' => $check_comments]);
+                $path = public_path('pdf');
+                $filename = rand() . '.pdf';
+                $model = Scaffolding::find($scaffolding->id);
+                $model->ped_url = $filename;
+                $model->save();
+                $pdf->save($path . '/' . $filename);
+                $notify_admins_msg = [
+                    'greeting' => 'Scaffolding Pdf',
+                    'subject' => 'Scaffold PDF',
+                    'body' => [
+                        'text' => 'A Permit to load has been completed for the scaffolding  as per the attached document.',
+                        'filename' => $filename,
+                        'links' =>  '',
+                        'name' => 'scaffold',
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                toastSuccess('Scaffolding Created Successfully');
+                return Redirect::back();
+            }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 }

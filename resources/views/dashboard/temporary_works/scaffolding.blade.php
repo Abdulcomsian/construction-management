@@ -1427,7 +1427,7 @@
             $("#signtype").val(1);
             $("#namesign").addClass('d-flex').show();
             $("input[name='namesign']").attr('required','required');
-             $("input[name='signed']").removeAttr('required');
+             $("textarea[name='signed']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
            
@@ -1437,7 +1437,7 @@
             $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
-            $("input[name='signed']").attr('required');
+            $("textarea[name='signed']").attr('required');
             $("#clear").show();
              
         }

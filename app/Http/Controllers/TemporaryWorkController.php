@@ -502,6 +502,7 @@ class TemporaryWorkController extends Controller
             }
         }
         if (count($scaffold) > 0) {
+            $current =  \Carbon\Carbon::now();
             foreach ($scaffold as $permit) {
                 $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
                 $diff_in_days = $to->diffInDays($current);
@@ -658,8 +659,6 @@ class TemporaryWorkController extends Controller
     public function scaffolding_save(Request $request)
     {
         //pdf work here
-
-
         Validations::storescaffolding($request);
         try {
             $check_radios = [];
@@ -684,7 +683,8 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'signtype', 'sign', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $all_inputs  = $request->except('_token', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
             } else {
@@ -719,7 +719,7 @@ class TemporaryWorkController extends Controller
                         $model->save();
                     }
                 }
-                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'check_radios' => $check_radios, 'check_comments' => $check_comments]);
+                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = Scaffolding::find($scaffolding->id);
@@ -741,7 +741,7 @@ class TemporaryWorkController extends Controller
                 ];
                 Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Scaffolding Created Successfully');
-                return Redirect::back();
+                return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');

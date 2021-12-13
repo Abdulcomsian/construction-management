@@ -44,7 +44,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -52,10 +52,12 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->latest()->paginate(20);
             } else {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->latest()->get();
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->latest()->paginate(20);
             }
+
+            //work for datatable
             return view('dashboard.temporary_works.index', compact('temporary_works'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
@@ -185,6 +187,9 @@ class TemporaryWorkController extends Controller
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
+                $model = TemporaryWork::find($temporary_work->id);
+                $model->ped_url = $filename;
+                $model->save();
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
@@ -642,7 +647,7 @@ class TemporaryWorkController extends Controller
         //pdf work here
 
 
-        //Validations::storescaffolding($request);
+        Validations::storescaffolding($request);
         try {
             $check_radios = [];
             foreach ($request->keys() as $key) {

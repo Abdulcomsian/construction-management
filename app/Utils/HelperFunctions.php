@@ -63,11 +63,11 @@ class HelperFunctions
             $diff_in_days = $to->diffInDays($current);
             $result =  $current->gt($to);
             if ($result) {
-                $class = "background:red";
+                $class = "background:red;color:black";
             } elseif ($diff_in_days >= 7) {
-                $class = "background:green";
+                $class = "background:green;color:black";
             } elseif ($diff_in_days <= 7 && $diff_in_days >= 1) {
-                $class = "background:yellow";
+                $class = "background:yellow;color:black";
             }
             return $class;
         } else {

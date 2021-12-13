@@ -161,10 +161,10 @@ class Validations
             'tws_name' => ['required'],
             'ms_ra_no' => ['required'],
 
-            'equipment_materials_comments' => 'required_if:equipment_materials,2',
-            'workmanship_comments' => 'required_if:workmanship,2',
-            'drawings_design_comments' => 'required_if:drawings_design,2',
-            'loading_limit_comments' => 'required_if:loading_limit,2',
+            'equipment_materials_desc' => 'required_if:equipment_materials,2',
+            'workmanship_desc' => 'required_if:workmanship,2',
+            'drawings_design_desc' => 'required_if:drawings_design,2',
+            'loading_limit_desc' => 'required_if:loading_limit,2',
 
             'even_stable_comment' => 'required_if:even_stable_radio,2',
             'base_Plates_comment' => 'required_if:base_Plates_radio,2',

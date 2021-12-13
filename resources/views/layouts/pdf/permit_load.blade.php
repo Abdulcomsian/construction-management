@@ -350,7 +350,7 @@
 
             <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
             font-weight: 700;">
-                <strong> Signiture:</strong>
+                <strong> Signature:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
                 <img src="temporary/signature/{{$image_name}}" width="40px" height="40px" />

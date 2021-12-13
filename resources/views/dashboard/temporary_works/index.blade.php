@@ -208,6 +208,7 @@
                                         <p style="background: #6a6969;border: 1px solid black;width: 103%;">{{$item->design_required_by_date ?: '-' }}</p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red">
                                        <h3 class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="4">All Drag And Drog emails</h3>
                                        <br>

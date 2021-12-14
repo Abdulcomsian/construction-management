@@ -104,7 +104,6 @@
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -175,7 +174,7 @@
                                 @if($temporary_works)
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td>{{$item->twc_id_no}}</td>
+                                    <td><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td>A10</td>
@@ -189,7 +188,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <p class="cursor-pointer" data-id="{{$item->id}}" data-type="1">Drag and drop folders/ pdf drawings</p><br>
+                                        <p>Drag and drop folders/ pdf drawings</p><br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -199,7 +198,7 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <p class="cursor-pointer" data-id="{{$item->id}}" data-type="2">Drag and drop folders/ pdf drawings</p>
+                                        <p>Drag and drop folders/ pdf drawings</p>
                                         <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -210,10 +209,19 @@
                                         @endforeach
 
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td data-type="2">
-                                        <p class="cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
+                                    <td>
+                                        <p>Permit to load</p>
+                                        @if(isset($item->permits->id))
+                                        <button class="btn btn-info">Live</button>
+                                        @else
+                                        <button class="btn btn-success">Closed</button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                         <p>Permit to Unload</p>
+                                    </td>
+                                    <td>
+                                        <p>Drag and drop folders/ pdf drawings</p>
                                         <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)

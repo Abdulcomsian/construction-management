@@ -5,7 +5,11 @@ $(document).ready(function () {
         val = $(this);
         $(".submit-requirment button").attr("disabled", "disabled");
         $(".submit-requirment button").css("opacity", ".5");
+        $("#attachment-of-design .submit-requirment button").removeAttr(
+            "disabled"
+        );
     });
+
     $("#design-requirement .requirment-first ul li").click(function () {
         $(".requirment-first ul li").removeClass("active");
         $(this).addClass("active");
@@ -90,6 +94,7 @@ $(document).ready(function () {
         show_val += $(this).attr("name") + " " + date + "\n";
         $("#scopofdesign").val(show_val);
     });
+
     $("#attachment-of-design .requirment-first ul li").click(function () {
         $("#attachment-of-design .submit-requirment button").removeAttr(
             "disabled"

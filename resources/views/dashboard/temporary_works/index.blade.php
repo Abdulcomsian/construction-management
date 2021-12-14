@@ -142,6 +142,17 @@
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
+                     <form class="form-inline" method="get" action="{{route('tempwork.search')}}">
+                        <div class="row">
+                          <div class="form-group mb-2 col-md-2">
+                            <label  class="text-white">Search</label>
+                            <input type="text" class="form-control" name="terms" required="required" />
+                          </div>
+                              <div class="col-md-2 mt-6">
+                                <button type="submit" class="btn btn-primary mb-2"><span class="fa fa-search"></span></button>
+                            </div>
+                        </div>
+                    </form>
                     <!--begin::Table-->
                     <div class="table-responsive">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
@@ -283,8 +294,11 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        @if(file_exists(public_path('qrcode/projects/qrcode'.$item->project->id.''.$item->tempid.'.png')))
-                                        <img class="p-2" src="{{asset('qrcode/projects/qrcode'.$item->project->id.''.$item->tempid.'.png')}}" width="100px" height="100px">
+                                        @php
+                                        $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->id,'project_id'=>$item->project->id])->first();
+                                        @endphp
+                                        @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
+                                        <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
                                         @endif
                                     </td>
                                 </tr>
@@ -337,11 +351,13 @@
 <script type="text/javascript">
     $(".addcomment").on('click',function(){
       $("#temp_work_id").val($(this).attr('data-id'));
+      var temporary_work_id=$(this).attr('data-id');
       var userid={{\Auth::user()->id}}
+       $("#commenttable").html('');
       $.ajax({
         url:"{{route('temporarywork.get-comments')}}",
         method:"get",
-        data:{id:userid},
+        data:{id:userid,temporary_work_id:temporary_work_id},
         success:function(res)
         {
            $("#commenttable").html(res);

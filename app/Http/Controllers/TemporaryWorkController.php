@@ -327,7 +327,7 @@ class TemporaryWorkController extends Controller
     //get commetns
     public function get_comments(Request $request)
     {
-        $commetns = TemporaryWorkComment::where('user_id', $request->id)->get();
+        $commetns = TemporaryWorkComment::where(['user_id' => $request->id, 'temporary_work_id' => $request->temporary_work_id])->get();
         if (count($commetns) > 0) {
             $table = '<table class="table table-hover"><thead style="height:80px"><tr><th>S-no</th><th>Comment</th><th>Date</th></tr></thead><tbody>';
             $i = 1;
@@ -389,7 +389,7 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
-
+        //dd(($request->all()));
         Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
@@ -428,7 +428,6 @@ class TemporaryWorkController extends Controller
                 $all_inputs['signature'] = $image_name;
             }
             $all_inputs['created_by'] = auth()->user()->id;
-
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
                 //make status 0 if permit is 
@@ -438,7 +437,8 @@ class TemporaryWorkController extends Controller
                     $msg = "Renew";
                 }
                 //save permit images
-                $image_links = $this->permitfiles($request, $permitload->id);
+
+                // $image_links = $this->permitfiles($request, $permitload->id);
                 $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
@@ -627,7 +627,7 @@ class TemporaryWorkController extends Controller
     public function permitfiles($request, $id)
     {
         $image_links = [];
-        if ($request->file('images')) {
+        if (isset($request->images) && $request->file('images')) {
             $filePath = HelperFunctions::temporaryworkImagePath();
             $files = $request->file('images');
             foreach ($files  as $key => $file) {
@@ -743,6 +743,33 @@ class TemporaryWorkController extends Controller
                 toastSuccess('Scaffolding Created Successfully');
                 return redirect()->route('temporary_works.index');
             }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    //search tempwork
+    public function tempwork_search(Request $request)
+    {
+        $user = auth()->user();
+        try {
+            if ($user->hasRole('admin')) {
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+            } elseif ($user->hasRole('company')) {
+                $users = User::select('id')->where('company_id', $user->id)->get();
+                $ids = [];
+                foreach ($users as $u) {
+                    $ids[] = $u->id;
+                }
+                $ids[] = $user->id;
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+            } else {
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+            }
+
+            //work for datatable
+            return view('dashboard.temporary_works.index', compact('temporary_works'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

@@ -64,6 +64,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('permit-unload-save', [TemporaryWorkController::class, 'permit_unload_save'])->name('permit.unload.save');
     Route::get('scaffolding-to-load', [TemporaryWorkController::class, 'scaffolding_load'])->name('scaffolding.load');
     Route::post('scaffolding-save', [TemporaryWorkController::class, 'scaffolding_save'])->name('scaffolding.store');
+    Route::get('tempwork-search', [TemporaryWorkController::class, 'tempwork_search'])->name('tempwork.search');
+
 
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');
     //rout for genereate qr code

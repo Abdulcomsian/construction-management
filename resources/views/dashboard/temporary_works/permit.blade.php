@@ -391,13 +391,17 @@
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
-                                    <input type="radio" class="btn-check" name="works_coordinator" value="1" checked="checked" />
+                                    @if(isset($old))
+                                    <input type="radio" class="btn-check" name="works_coordinator" value="1" {{ old('works_coordinator') == '1' ? 'checked' : '' }} />
+                                    @else
+                                     <input type="radio" class="btn-check" name="works_coordinator" value="1" checked/>
+                                    @endif
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
-                                    <input type="radio" class="btn-check" name="works_coordinator" value="2" />
+                                    <input type="radio" class="btn-check" name="works_coordinator" value="2" {{ old('works_coordinator') == '2' ? 'checked' : '' }}/>
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                 </label>
                                 <!--end::Option-->
@@ -440,13 +444,17 @@
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
-                                    <input type="radio" class="btn-check" name="principle_contractor" checked value="1" />
+                                     @if(isset($old))
+                                    <input type="radio" class="btn-check" name="principle_contractor" value="1" {{ old('principle_contractor') == '1' ? 'checked' : '' }}/>
+                                     @else
+                                     <input type="radio" class="btn-check" name="principle_contractor" value="1" checked/>
+                                     @endif
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
-                                    <input type="radio" class="btn-check" name="principle_contractor" value="2" />
+                                    <input type="radio" class="btn-check" name="principle_contractor" value="2" {{ old('principle_contractor') == '2' ? 'checked' : '' }}/>
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                 </label>
                                 <!--end::Option-->
@@ -577,25 +585,28 @@
                                     <br/>
                                     <div id="sig" style="width:40%;height: 100px"></div>
                                     <br/>
-                                   <textarea id="signature" name="signed" style="opacity: 0"></textarea>
+                                   <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
                                 </div>
                                 </div>
                             </div>    
                             </div>
                             
                         </div>
-                        <div class="col-md-12">
+                       
                          <div class="uploadDiv" style="padding-left: 10px;">
                            <div class="input-images"></div>
                          </div>
                          <br>
-                        <button type="submit" class="btn btn-primary float-end">Submit</button>
-                        </div>
+                          <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-</div>
+            </form>
+               </div>
+           </div>
+       </div>
+   </div>
+
 @endsection
 @section('scripts')
 <script>
@@ -604,13 +615,19 @@
        if ($(this).val()==1){
 
          $("#first_member").show();
+         $("input[name='name1']").attr('required','required');
+         $("input[name='job_title1']").attr('required','required');
 
        }
        else{
           $("#first_member").hide();
+          $("input[name='name1']").removeAttr('required');
+          $("input[name='job_title1']").removeAttr('required');
         
        }
     })
+
+
 
     $("input[name='works_coordinator']").change(function(){
        if ($(this).val()==1){
@@ -622,6 +639,7 @@
        }
     })
     
+
 
      $("#flexCheckChecked1").change(function(){
         if($(this).is(':checked'))
@@ -643,13 +661,15 @@
             $("#clear1").show();
         }
     })
+     
 
-      $("#flexCheckChecked").change(function(){
+    $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
         {
             $("#signtype").val(1);
             $("#namesign").addClass('d-flex').show();
             $("input[name='namesign']").attr('required','required');
+            $("#signature").removeAttr('required');
             $("#sign").removeClass('d-flex').hide();
            
         }
@@ -658,6 +678,7 @@
             $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
+            $("#signature").attr('required','required');
         }
     })
 </script>

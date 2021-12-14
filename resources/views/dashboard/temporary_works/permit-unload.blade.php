@@ -334,7 +334,7 @@
                                 <span class="required">Principle Contractor approved required?</span>
 
                             </label>
-                            </div>
+                           
                             <!--begin::Radio group-->
                             <div class="nav-group nav-group-fluid d-none">
                                 <!--begin::Option-->
@@ -356,9 +356,18 @@
 
                                 <!--end::Option-->
                             </div>
+                             </div>
                             <!--end::Radio group-->     
-                            <div class="d-flex inputDiv"  >
-                             <div class="col-md-6">
+                             <div class="d-flex inputDiv">
+                            <!--begin::Label-->
+                            
+                             
+                            <div class="col-md-12">
+                              
+                                <div class="row" id="first_member">
+
+                                <div class="col">
+                                 
                                 <div class="d-flex inputDiv">
                                 </div>
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
@@ -368,7 +377,7 @@
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name1" value="{{old('name1')}}">
                                 </div>
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->
@@ -376,36 +385,27 @@
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" value="{{old('job_title1')}}">
                                 </div>
-                                @endif
-                                <div class="d-flex inputDiv ">
-                                                    <!--begin::Label-->
+                                   @endif
+                                </div>
+
+                                <div class="col">
+                                      @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                                    <div class="d-flex inputDiv" style="margin-left:40px">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                            <span class="required">Name/signature:</span>
+                                        </label>
+                                         <input  type="checkbox" id="flexCheckChecked1"  style="width: 12px;margin-top:5px">
+                                          <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="0">
+                                         <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                   </div>
+                                   <div class="d-flex inputDiv" id="namesign1" style="display: none !important;margin-left:40px">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name::</span>
+                                        <span class="required">Name Signature:</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{$permitdata->name ?? ''}}">
+                                    <input type="text" name="namesign1" class="form-control form-control-solid">
                                 </div>
-                                <div class="d-flex inputDiv " >
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Job title:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{$permitdata->job_title ?? ''}}">
-                                </div>
-                                  <div class="d-flex inputDiv ">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Company: </span>
-                                    </label>
-                                    <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                @if(isset($permitdata) && $permitdata->principle_contractor==1)
                                <div class="d-flex inputDiv principleno" id="sign1" style="margin-left:40px">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
@@ -413,29 +413,86 @@
                                     <br/>
                                     <div id="sig1" style="width:40%;height: 100px"></div>
                                     <br/>
-                                   <textarea id="signature1" name="signed1" style="display: none"></textarea>
+                                   <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                 </div>
-                                @endif
-                                <div class="d-flex inputDiv " id="sign"  style="margin-left:40px">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                  @endif
+                                </div>
+
+                            </div>
+                           
+
+                            <!-- Second person -->
+
+
+                             <div class="row" id="second_member">
+                                <div class="col">
+                                 
+                                        <div class="d-flex inputDiv">
+                                </div>
+                               <div class="d-flex inputDiv principleno">
+                                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name::</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{old('name')}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Job title:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title')}}">
+                                </div>
+                                <div class="d-flex inputDiv ">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Company: </span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                </div>
+                                 <div class="d-flex inputDiv "> 
+                                    <!--begin::Label-->
+                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                        <span class="required">Date:</span>
+                                    </label> 
+                                    <!--end::Label-->
+                                     <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                 </div>
+                                   
+                                </div>
+
+                                <div class="col">
+                                   <div class="d-flex inputDiv" style="margin-left:40px">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                            <span class="required">Name/signature:</span>
+                                        </label>
+                                         <input  type="checkbox" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                          <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
+                                         <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                   </div>
+                                   <div class="d-flex inputDiv" id="namesign" style="display: none !important;margin-left:40px">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign" class="form-control form-control-solid">
+                                </div>
+                               <div class="d-flex inputDiv principleno" id="sign" style="margin-left:40px">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <div id="sig"  style="width:40%;height: 100px;"></div>
+                                    <div id="sig" style="width:40%;height: 100px"></div>
                                     <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
+                                   <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
                                 </div>
-                                <div class="d-flex inputDiv " style="margin-left:40px">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                        <span class="required">Date:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                 </div>
-                               
+                            </div>    
                             </div>
-                           </div>
+                            
+                        </div>
                             <div class="col-md-12">
                              <div class="uploadDiv" style="padding-left: 10px;">
                                <div class="input-images"></div>
@@ -450,6 +507,80 @@
                     </div>
                 </div>
     </div>
-    <
     @endsection
+    @section('scripts')
+<script>
+    
+    $("input[name='principle_contractor']").change(function(){
+       if ($(this).val()==1){
+
+         $("#first_member").show();
+         $("input[name='name1']").attr('required','required');
+         $("input[name='job_title1']").attr('required','required');
+
+       }
+       else{
+          $("#first_member").hide();
+          $("input[name='name1']").removeAttr('required');
+          $("input[name='job_title1']").removeAttr('required');
+        
+       }
+    })
+
+
+
+    $("input[name='works_coordinator']").change(function(){
+       if ($(this).val()==1){
+         $("textarea[name='description_approval_temp_works']").show();
+       }
+       else{
+          $("textarea[name='description_approval_temp_works']").hide();
+        
+       }
+    })
+    
+
+
+     $("#flexCheckChecked1").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#signtype1").val(1);
+            $("#namesign1").addClass('d-flex').show();
+            $("input[name='namesign1']").attr('required','required');
+             $("#signature1").removeAttr('required','required');
+            $("#clear1").hide();
+            $("#sign1").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype1").val(0);
+            $("#sign1").addClass('d-flex').show();
+            $("#namesign1").removeClass('d-flex').hide();
+            $("input[name='namesign1']").removeAttr('required');
+            $("#signature1").attr('required','required');
+            $("#clear1").show();
+        }
+    })
+     
+
+    $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#signtype").val(1);
+            $("#namesign").addClass('d-flex').show();
+            $("input[name='namesign']").attr('required','required');
+            $("#signature").removeAttr('required');
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(0);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#signature").attr('required','required');
+        }
+    })
+</script>
+@endsection
 

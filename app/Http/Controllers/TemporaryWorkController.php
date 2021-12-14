@@ -379,6 +379,13 @@ class TemporaryWorkController extends Controller
         try {
             $tempdata = TemporaryWork::find($tempid);
             $twc_id_no = $tempdata->twc_id_no;
+            $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->where('status', '!=', 4)->orderBy('id', 'desc')->first();
+            if ($permitdata) {
+                $data = explode("-", $permitdata->permit_no);
+                $twc_id_no = $twc_id_no . '-' . ++$data[3];
+            } else {
+                $twc_id_no = $twc_id_no . '-A';
+            }
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
             return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no'));
         } catch (\Exception $exception) {
@@ -389,7 +396,6 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
-        //dd(($request->all()));
         Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
@@ -493,7 +499,7 @@ class TemporaryWorkController extends Controller
                     if (isset($request->type)) {
                         $button = '<a class="btn btn-primary" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
                     }
-                } elseif ($permit->status == 0) {
+                } elseif ($permit->status == 0 || $permit->status == 4) {
                     $status = "Closed";
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
@@ -534,7 +540,17 @@ class TemporaryWorkController extends Controller
         $permitdata = PermitLoad::find($permitid);
         $tempid = $permitdata->temporary_work_id;
         $tempdata = TemporaryWork::find($tempid);
-        $twc_id_no = $tempdata->twc_id_no;
+        $data = explode("-", $permitdata->permit_no);
+        $lastkey = count($data) - 1;
+        $lastindex = end($data);
+        if (preg_match("/[R]/", $lastindex)) {
+            $str = preg_replace('/\D/', '', $lastindex);
+            $str = ++$str;
+            $data[$lastkey] = 'R' . $str;
+            $twc_id_no = implode('-', $data);
+        } else {
+            $twc_id_no = $permitdata->permit_no . '-R1';
+        }
         $project = Project::with('company')->where('id', $permitdata->project_id)->first();
         return view('dashboard.temporary_works.permit-renew', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
     }
@@ -547,7 +563,7 @@ class TemporaryWorkController extends Controller
             $permitdata = PermitLoad::find($permitid);
             $tempid = $permitdata->temporary_work_id;
             $tempdata = TemporaryWork::select('twc_id_no')->find($tempid);
-            $twc_id_no = $tempdata->twc_id_no;
+            $twc_id_no = $permitdata->permit_no;
             $project = Project::with('company')->where('id', $permitdata->project_id)->first();
             return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
         } catch (\Exception $exception) {
@@ -560,11 +576,14 @@ class TemporaryWorkController extends Controller
     public function permit_unload_save(Request $request)
     {
         Validations::storepermitunload($request);
-        try {
-            $all_inputs  = $request->except('_token', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images');
-            $all_inputs['created_by'] = auth()->user()->id;
-            $image_name1 = '';
-            if ($request->principle_contractor == 1) {
+        // try {
+        $all_inputs  = $request->except('_token',  'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
+        $all_inputs['created_by'] = auth()->user()->id;
+        $image_name1 = '';
+        if (isset($request->signtype1)) {
+            if ($request->signtype1 == 1) {
+                $all_inputs['signature1'] = $request->namesign1;
+            } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed1);
                 $image_type = explode("image/", $image[0]);
@@ -575,8 +594,12 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature1'] = $image_name1;
             }
-            //for 2
-            $image_name = '';
+        }
+        //for 2
+        $image_name = '';
+        if ($request->signtype == 1) {
+            $all_inputs['signature'] = $request->namesign;
+        } else {
             $folderPath = public_path('temporary/signature/');
             $image = explode(";base64,", $request->signed);
             $image_type = explode("image/", $image[0]);
@@ -586,42 +609,43 @@ class TemporaryWorkController extends Controller
             $file = $folderPath . $image_name;
             file_put_contents($file, $image_base64);
             $all_inputs['signature'] = $image_name;
-            $all_inputs['status'] = 0;
-            $all_inputs['created_by'] = auth()->user()->id;
-            $permitload = PermitLoad::create($all_inputs);
-            if ($permitload) {
-                //make status 0 if permit is 
-                PermitLoad::find($request->permitid)->update(['status' => 3]);
-                //upload permit unload files
-                $image_links = $this->permitfiles($request, $permitload->id);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
-                $path = public_path('pdf');
-                $filename = rand() . '.pdf';
-                $model = PermitLoad::find($permitload->id);
-                $model->ped_url = $filename;
-                $model->save();
-                $pdf->save($path . '/' . $filename);
-                $notify_admins_msg = [
-                    'greeting' => 'Scaffolding Pdf',
-                    'subject' => 'Scaffold PDF',
-                    'body' => [
-                        'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
-                        'filename' => $filename,
-                        'links' =>  '',
-                        'name' => 'scaffold',
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
-                ];
-                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
-                toastSuccess('Permit Unloaded sucessfully!');
-                return redirect()->route('temporary_works.index');
-            }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
         }
+        $all_inputs['status'] = 4;
+        $all_inputs['created_by'] = auth()->user()->id;
+        $permitload = PermitLoad::create($all_inputs);
+        if ($permitload) {
+            //make status 0 if permit is 
+            PermitLoad::find($request->permitid)->update(['status' => 3]);
+            //upload permit unload files
+            $image_links = $this->permitfiles($request, $permitload->id);
+            $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
+            $path = public_path('pdf');
+            $filename = rand() . '.pdf';
+            $model = PermitLoad::find($permitload->id);
+            $model->ped_url = $filename;
+            $model->save();
+            $pdf->save($path . '/' . $filename);
+            $notify_admins_msg = [
+                'greeting' => 'Scaffolding Pdf',
+                'subject' => 'Scaffold PDF',
+                'body' => [
+                    'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
+                    'filename' => $filename,
+                    'links' =>  '',
+                    'name' => 'scaffold',
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+                'action_text' => '',
+                'action_url' => '',
+            ];
+            Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+            toastSuccess('Permit Unloaded sucessfully!');
+            return redirect()->route('temporary_works.index');
+        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
     //save permit files
     public function permitfiles($request, $id)
@@ -647,6 +671,15 @@ class TemporaryWorkController extends Controller
         try {
             $tempdata = TemporaryWork::find($tempid);
             $twc_id_no = $tempdata->twc_id_no;
+            $permitdata = Scaffolding::where(['temporary_work_id' => $tempid])->orderBy('id', 'desc')->first();
+            if ($permitdata) {
+                $data = explode("-", $permitdata->permit_no);
+                $str = preg_replace('/\D/', '', $data[3]);
+                $str = ++$str;
+                $twc_id_no = $twc_id_no . '-' . $data[3] . $str;
+            } else {
+                $twc_id_no = $twc_id_no . '-S1';
+            }
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
             return view('dashboard.temporary_works.scaffolding', compact('project', 'tempid', 'twc_id_no'));
         } catch (\Exception $exception) {

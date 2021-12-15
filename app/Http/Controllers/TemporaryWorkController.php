@@ -48,13 +48,22 @@ class TemporaryWorkController extends Controller
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
+                $ids[] = 1;
                 foreach ($users as $u) {
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->latest()->paginate(20);
             } else {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->latest()->paginate(20);
+                if ($user->hasRole(['supervisor', 'scaffolder'])) {
+                    $users = User::select('id')->where('company_id', auth()->user()->company_id)->get();
+                    foreach ($users as $u) {
+                        $ids[] = $u->id;
+                    }
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->latest()->paginate(20);
+                } else {
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->latest()->paginate(20);
+                }
             }
 
             //work for datatable
@@ -72,6 +81,7 @@ class TemporaryWorkController extends Controller
      */
     public function create()
     {
+        abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {

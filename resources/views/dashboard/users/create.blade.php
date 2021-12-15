@@ -95,9 +95,18 @@
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Job Title</label>
                                     <input type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="required fs-6 fw-bold mb-2">Select Role</label>
+                                    <select name="role" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                        <option value="">Select Role</option>
+                                        <option value="user">Temporary works co-ordinator</option>
+                                        <option value="supervisor">Temporary works supervisor</option>
+                                        <option value="scaffolder">Scaffolder</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -328,23 +328,50 @@
                                 <li data-id="List-Attachment">List of attachments/sketches/ Photos / Specifications
                                     /Drawings etc.
                                 </li>
+                                <li class="list_of_attach_comment d-none">
+                                    <textarea type="text" style="background: black;color:white;" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="Report-Site">Reports including Site Investigations- relevant boreholes/
                                     trial pits/ site investigation. Any Existing or proposed services above or below the
                                     groundwhere appropriate minimum clearances and protection are required to be
                                     maintained.
                                 </li>
+                                <li class="reports_including_site_investigations_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="Exsisting-Ground">Existing Ground conditions:</li>
+                                <li class="existing_ground_conditions_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="System-Type">Preferred/non-preferred methods, systems or types of
                                     equipment:
                                 </li>
+                                <li class="preferred_non_preferred_methods_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="Limitations">Access limitations or edge protection requirements:</li>
+                                <li class="access_limitations_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="Back-Propping">Back Propping / Re-Propping Sequence: (please attach)</li>
+                                <li class="back_propping_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="Temporary-Work">Limitations on Temporary Works Design:</li>
+                                <li class="limitations_on_temporary_works_design_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="Hazard-Risk">Details of any hazards identified during the risk or hazard
                                     assessment that require action by the Temporary Works Designer to eliminate or
                                     control all risks or hazard
                                 </li>
+                                <li class="details_of_any_hazards_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                                 <li data-id="Party-Requirements">3rd Party Requirements:</li>
+                                <li class="3rd_party_requirements_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="3rd_party_requirements_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -366,6 +393,8 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li class="list_of_attach_comment d-none" style="background: white;height:73px">
+                                </li>
                                 <li class="invisible Report-Site">
                                     <div class="multi-Radio">
                                         <div class="form-check">
@@ -380,6 +409,8 @@
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
+                                </li>
+                                <li class="reports_including_site_investigations_comment d-none" style="background: white;height:73px">
                                 </li>
                                 <li class="invisible Exsisting-Ground">
                                     <div class="multi-Radio">
@@ -396,6 +427,8 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li class="existing_ground_conditions_comment d-none" style="background: white;height:73px">
+                                </li>
                                 <li class="invisible System-Type">
                                     <div class="multi-Radio">
                                         <div class="form-check">
@@ -410,6 +443,8 @@
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
+                                </li>
+                                <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
                                 </li>
                                 <li class="invisible Limitations">
                                     <div class="multi-Radio">
@@ -426,6 +461,8 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li class="access_limitations_comment d-none" style="background: white;height:73px">
+                                </li>
                                 <li class="invisible Back-Propping">
                                     <div class="multi-Radio">
                                         <div class="form-check">
@@ -441,6 +478,8 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li class="back_propping_comment d-none" style="background: white;height:73px">
+                                </li>
                                 <li class="invisible Temporary-Work">
                                     <div class="multi-Radio">
                                         <div class="form-check">
@@ -455,6 +494,8 @@
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
+                                </li>
+                                <li class="limitations_on_temporary_works_design_comment d-none" style="background: white;height:73px">
                                 </li>
                                 <li class="invisible Hazard-Risk">
                                     <div class="multi-Radio">
@@ -472,6 +513,8 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li class="details_of_any_hazards_comment d-none" style="background: white;height:73px">
+                                </li>
                                 <li class="invisible Party-Requirements">
                                     <div class="multi-Radio">
                                         <div class="form-check">
@@ -486,6 +529,8 @@
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
+                                </li>
+                                <li class="3rd_party_requirements_comment d-none" style="background: white;height:73px">
                                 </li>
                             </ul>
                         </div>

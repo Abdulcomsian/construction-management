@@ -27,4 +27,9 @@ class TemporaryWork extends Model
     {
         return $this->hasOne(PermitLoad::class)->where('status', '=', 1);
     }
+
+    public function temp_work_images()
+    {
+        return $this->hasMany(TemporayWorkImage::class);
+    }
 }

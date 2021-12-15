@@ -18,7 +18,6 @@ class HelperFunctions
             }
             $filename = time() . '.' . $newFile->getClientOriginalExtension();
             $newFile->move($public_path, $filename);
-
             return $filePath . $filename;
         } catch (\Exception $exception) {
             return null;

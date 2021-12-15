@@ -89,14 +89,14 @@ class TemporaryWorkController extends Controller
             } elseif ($user->hasRole(['company'])) {
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
-                $projects = DB::table('projects')
-                    ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.project_id')
-                    ->join('users', 'users.company_id', '=', 'projects.company_id')
-                    ->where('users_has_projects.user_id', auth()->user()->id)
-                    ->get();
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+                $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
-            $desogmreqlevlone = DesignRequirementLevelOne::get();
-            return view('dashboard.temporary_works.create', compact('projects', 'desogmreqlevlone'));
+            return view('dashboard.temporary_works.create', compact('projects'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

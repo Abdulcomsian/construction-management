@@ -29,7 +29,7 @@ class UserController extends Controller
         try {
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
-                    $data = User::role(['user', 'supervisor'])->latest()->get();
+                    $data = User::role(['user', 'supervisor', 'scaffolder'])->latest()->get();
                 } elseif ($user->hasRole('company')) {
                     $data = User::role('user')->where('company_id', auth()->user()->id)->get();
                 }
@@ -178,6 +178,7 @@ class UserController extends Controller
                 'email' => $all_inputs['email'],
                 'company_id' => $all_inputs['company_id']
             ]);
+            $user->assignRole($request->role);
             $user->userProjects()->sync($all_inputs['projects']);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();

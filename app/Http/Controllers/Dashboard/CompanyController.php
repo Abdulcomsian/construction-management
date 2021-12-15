@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
+use App\Utils\HelperFunctions;
 
 class CompanyController extends Controller
 {
@@ -101,14 +102,17 @@ class CompanyController extends Controller
         Validations::storeCompany($request);
         try {
             $all_inputs  = $request->except('_token');
-            $all_inputs['password'] = Hash::make('password');
+            if ($request->file('image')) {
+                $filePath = HelperFunctions::profileImagePath();
+                $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
+            }
+            $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
 
             $user = User::create($all_inputs);
             $user->assignRole('company');
             $projects = Project::whereIn('id', $all_inputs['projects'])->get();
             $user->companyProjects()->saveMany($projects);
-
             toastSuccess('Company successfully added!');
             return Redirect::back();
         } catch (\Exception $exception) {
@@ -170,13 +174,16 @@ class CompanyController extends Controller
     {
         Validations::updateCompany($request, $id);
         try {
-            $all_inputs = $request->except('_token', '_method');
+            $all_inputs = $request->except('_token', '_method', 'image');
+            if ($request->file('image')) {
+                $filePath = HelperFunctions::profileImagePath();
+                $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
+            }
             $user = User::find($id);
             $user->update($all_inputs);
             $user->companyProjects()->update(['company_id' => null]);
             $projects = Project::whereIn('id', $all_inputs['projects'])->get();
             $user->companyProjects()->saveMany($projects);
-
             toastSuccess('Company successfully updated!');
             return redirect()->route('companies.index');
         } catch (DecryptException $decryptException) {
@@ -227,6 +234,24 @@ class CompanyController extends Controller
                 'status' => false,
             ];
             return response()->json($data);
+        }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        try {
+            $all_inputs['password'] = Hash::make($request->password);
+            User::where('id', $request->id)->update([
+                'password' => $all_inputs['password'],
+            ]);
+            toastSuccess('Password updated successfully');
+            return Redirect::back();
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
         }
     }
 }

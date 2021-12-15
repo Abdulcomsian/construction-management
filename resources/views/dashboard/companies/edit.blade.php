@@ -62,7 +62,7 @@
             <div class="card">
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
-                    <form action="{{ route('companies.update',$company->id) }}" method="post">
+                    <form action="{{ route('companies.update',$company->id) }}" method="post" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -70,7 +70,7 @@
                         <div class="row g-9 mb-8">
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
-                                <label class="required fs-6 fw-bold mb-2">Company Name</label>
+                                <label class="required fs-6 fw-bold mb-2">Company Representative</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Company Name" name="name" value="{{old('name') ?: $company->name }}" />
                             </div>
                             <!--end::Col-->
@@ -81,9 +81,13 @@
                             </div>
                         </div>
                         <div class="row g-9 mb-8">
-                            <div class="col-md-12 fv-row">
+                            <div class="col-md-6 fv-row fv-plugins-icon-container">
                                 <label class="required fs-6 fw-bold mb-2">Job Title</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title') ?: $company->job_title }}" />
+                            </div>
+                            <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                <label class="fs-6 fw-bold mb-2">Upload Logo</label>
+                                <input type="file" class="form-control form-control-solid" placeholder="Upload Logo" name="image" />
                             </div>
                             <!--end::Col-->
                         </div>
@@ -115,6 +119,32 @@
                     </form>
                 </div>
                 <!--end::Card body-->
+                <!--end::Card body-->
+                <hr>
+                <div class="card-body pt-7">
+                    <form method="post" action="{{ route('company.updatePassword') }}">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$company->id}}" />
+                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="required fs-6 fw-bold mb-2">New Password</label>
+                                    <input type="password" class="form-control form-control-solid" placeholder="Password" name="password" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="required fs-6 fw-bold mb-2">Confirm New Password</label>
+                                    <input type="password" class="form-control form-control-solid" placeholder="Confirm Password" name="password_confirmation" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
+                            Update Password
+                        </button>
+
+                    </form>
+                </div>
             </div>
             <!--end::Card-->
         </div>

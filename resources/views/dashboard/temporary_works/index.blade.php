@@ -330,6 +330,8 @@
 @include('layouts.sweetalert.sweetalert_js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
 <script type="text/javascript">
+    var role="{{ \Auth::user()->roles->pluck('name')[0] }}";
+    console.log(role);
     Dropzone.options.dropzoneForm = {
     init: function () {
         // Set up any event handlers
@@ -342,6 +344,11 @@
 <script>
    
     $(".uploadfile").on('click',function(){
+        if(role=='supervisor' || role=="scaffolder")
+        {
+            alert("You are not allowed to add File");
+            return false;
+        }
         $("#tempworkid").val($(this).attr('data-id'));
         $("#type").val($(this).attr('data-type'));
         $("#upload_file_id").modal('show');
@@ -350,6 +357,11 @@
 </script>
 <script type="text/javascript">
     $(".addcomment").on('click',function(){
+       if(role=='supervisor' || role=="scaffolder")
+        {
+            alert("You are not allowed to add comment");
+            return false;
+        }
       $("#temp_work_id").val($(this).attr('data-id'));
       var temporary_work_id=$(this).attr('data-id');
       var userid={{\Auth::user()->id}}
@@ -369,6 +381,11 @@
 </script>
 <script type="text/javascript">
     $(".dateclick").on('click',function(){
+        if(role=='supervisor' || role=="scaffolder")
+        {
+            alert("You are not allowed to add comment");
+            return false;
+        }
         var file_type=$(this).attr('data-type');
         var tempid=$(this).attr('data-id');
         $.ajax({

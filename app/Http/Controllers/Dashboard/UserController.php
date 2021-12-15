@@ -29,7 +29,7 @@ class UserController extends Controller
         try {
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
-                    $data = User::role('user')->latest()->get();
+                    $data = User::role(['user', 'supervisor'])->latest()->get();
                 } elseif ($user->hasRole('company')) {
                     $data = User::role('user')->where('company_id', auth()->user()->id)->get();
                 }
@@ -102,7 +102,7 @@ class UserController extends Controller
     {
         Validations::storeUser($request);
         try {
-            $all_inputs = $request->except('_token');
+            $all_inputs = $request->except('_token', 'role');
             if ($request->file('image')) {
                 $filePath = HelperFunctions::profileImagePath();
                 $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
@@ -112,10 +112,10 @@ class UserController extends Controller
 
             $user = User::create($all_inputs);
             //Assigned role to user. role is already created during seeder
-            $user->assignRole('user');
+            //$user->assignRole('user');
+            $user->assignRole($request->role);
             //Add projects for user
             $user->userProjects()->sync($all_inputs['projects']);
-
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {
@@ -147,7 +147,7 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::role('user')
+            $user = User::role(['user', 'supervisor'])
                 ->with(['userProjects', 'userCompany'])
                 ->where('id', $id)
                 ->first();

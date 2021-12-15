@@ -18,6 +18,7 @@ use App\Models\Scaffolding;
 use App\Models\CheckAndComment;
 use App\Models\CommentsAction;
 use App\Notifications\PermitNotification;
+use App\Notifications\TempAttachmentNotifications;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -601,76 +602,76 @@ class TemporaryWorkController extends Controller
     public function permit_unload_save(Request $request)
     {
         Validations::storepermitunload($request);
-        // try {
-        $all_inputs  = $request->except('_token',  'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
-        $all_inputs['created_by'] = auth()->user()->id;
-        $image_name1 = '';
-        if (isset($request->signtype1)) {
-            if ($request->signtype1 == 1) {
-                $all_inputs['signature1'] = $request->namesign1;
+        try {
+            $all_inputs  = $request->except('_token',  'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs['created_by'] = auth()->user()->id;
+            $image_name1 = '';
+            if (isset($request->signtype1)) {
+                if ($request->signtype1 == 1) {
+                    $all_inputs['signature1'] = $request->namesign1;
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed1);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name1 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name1;
+                    file_put_contents($file, $image_base64);
+                    $all_inputs['signature1'] = $image_name1;
+                }
+            }
+            //for 2
+            $image_name = '';
+            if ($request->signtype == 1) {
+                $all_inputs['signature'] = $request->namesign;
             } else {
                 $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed1);
+                $image = explode(";base64,", $request->signed);
                 $image_type = explode("image/", $image[0]);
                 $image_type_png = $image_type[1];
                 $image_base64 = base64_decode($image[1]);
-                $image_name1 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name1;
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
-                $all_inputs['signature1'] = $image_name1;
+                $all_inputs['signature'] = $image_name;
             }
+            $all_inputs['status'] = 4;
+            $all_inputs['created_by'] = auth()->user()->id;
+            $permitload = PermitLoad::create($all_inputs);
+            if ($permitload) {
+                //make status 0 if permit is 
+                PermitLoad::find($request->permitid)->update(['status' => 3]);
+                //upload permit unload files
+                $image_links = $this->permitfiles($request, $permitload->id);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
+                $path = public_path('pdf');
+                $filename = rand() . '.pdf';
+                $model = PermitLoad::find($permitload->id);
+                $model->ped_url = $filename;
+                $model->save();
+                $pdf->save($path . '/' . $filename);
+                $notify_admins_msg = [
+                    'greeting' => 'Scaffolding Pdf',
+                    'subject' => 'Scaffold PDF',
+                    'body' => [
+                        'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
+                        'filename' => $filename,
+                        'links' =>  '',
+                        'name' => 'scaffold',
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                toastSuccess('Permit Unloaded sucessfully!');
+                return redirect()->route('temporary_works.index');
+            }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
         }
-        //for 2
-        $image_name = '';
-        if ($request->signtype == 1) {
-            $all_inputs['signature'] = $request->namesign;
-        } else {
-            $folderPath = public_path('temporary/signature/');
-            $image = explode(";base64,", $request->signed);
-            $image_type = explode("image/", $image[0]);
-            $image_type_png = $image_type[1];
-            $image_base64 = base64_decode($image[1]);
-            $image_name = uniqid() . '.' . $image_type_png;
-            $file = $folderPath . $image_name;
-            file_put_contents($file, $image_base64);
-            $all_inputs['signature'] = $image_name;
-        }
-        $all_inputs['status'] = 4;
-        $all_inputs['created_by'] = auth()->user()->id;
-        $permitload = PermitLoad::create($all_inputs);
-        if ($permitload) {
-            //make status 0 if permit is 
-            PermitLoad::find($request->permitid)->update(['status' => 3]);
-            //upload permit unload files
-            $image_links = $this->permitfiles($request, $permitload->id);
-            $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
-            $path = public_path('pdf');
-            $filename = rand() . '.pdf';
-            $model = PermitLoad::find($permitload->id);
-            $model->ped_url = $filename;
-            $model->save();
-            $pdf->save($path . '/' . $filename);
-            $notify_admins_msg = [
-                'greeting' => 'Scaffolding Pdf',
-                'subject' => 'Scaffold PDF',
-                'body' => [
-                    'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
-                    'filename' => $filename,
-                    'links' =>  '',
-                    'name' => 'scaffold',
-                ],
-                'thanks_text' => 'Thanks For Using our site',
-                'action_text' => '',
-                'action_url' => '',
-            ];
-            Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
-            toastSuccess('Permit Unloaded sucessfully!');
-            return redirect()->route('temporary_works.index');
-        }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
     }
     //save permit files
     public function permitfiles($request, $id)
@@ -828,6 +829,22 @@ class TemporaryWorkController extends Controller
 
             //work for datatable
             return view('dashboard.temporary_works.index', compact('temporary_works'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+
+    // Temporary work attachment to send email
+
+    public function tempwork_send_attach($id)
+    {
+        try {
+            $data = TemporaryWork::with('temp_work_images', 'uploadfile')->find($id);
+            Notification::route('mail', 'admin@example.com')->notify(new TempAttachmentNotifications($data));
+            toastSuccess('Attachements sent successfully!');
+            return Redirect::back();
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

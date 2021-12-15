@@ -191,6 +191,7 @@
                                     <th class="min-w-100px">Permit to Unload</th>
                                     <th class="min-w-100px">RAMS</th>
                                     <th class="min-w-100px">Qrcode</th>
+                                    <th>Actions</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -312,6 +313,9 @@
                                         @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
                                         <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
                                         @endif
+                                    </td>
+                                    <td>
+                                        <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
                                     </td>
                                 </tr>
                                 @empty

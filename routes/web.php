@@ -66,6 +66,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('scaffolding-to-load', [TemporaryWorkController::class, 'scaffolding_load'])->name('scaffolding.load');
     Route::post('scaffolding-save', [TemporaryWorkController::class, 'scaffolding_save'])->name('scaffolding.store');
     Route::get('tempwork-search', [TemporaryWorkController::class, 'tempwork_search'])->name('tempwork.search');
+    Route::get('tempwork-send-attach/{id}', [TemporaryWorkController::class, 'tempwork_send_attach'])->name('tempwork.sendattach');
 
 
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');

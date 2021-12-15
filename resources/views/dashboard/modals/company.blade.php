@@ -79,7 +79,7 @@
                     </div>
                     <div class="row g-9 mb-8">
                         <div class="col-md-6 fv-row fv-plugins-icon-container">
-                            <label class="required fs-6 fw-bold mb-2">Job Title</label>
+                            <label class="required fs-6 fw-bold mb-2">Company Representative's Job Title</label>
                             <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title')}}" />
                         </div>
                         <div class="col-md-6 fv-row fv-plugins-icon-container">

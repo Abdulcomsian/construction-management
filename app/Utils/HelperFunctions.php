@@ -83,6 +83,7 @@ class HelperFunctions
                     } elseif ($diff_in_days <= 7 && $diff_in_days >= 1) {
                         $class = "color:yellow";
                     }
+                    dd($class);
                     return $class;
                     break;
                 } else {

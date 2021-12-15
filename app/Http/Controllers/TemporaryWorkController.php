@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttachSpeComment;
 use App\Models\Folder;
 use App\Models\Project;
 use App\Models\ScopeOfDesign;
@@ -144,6 +145,19 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
+            $attachcomments = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'comment')) {
+                    $data = null;
+                    $data1 = null;
+                    $data = [
+                        $key => $request->$key
+                    ];
+                    $attachcomments = array_merge($attachcomments, $data);
+                    unset($request[$key]);
+                }
+            }
+
             $count = TemporaryWork::where('project_id', $request->project_id)->count();
             $count = $count + 1;
             $twc_id_no = $request->projno . '-' . ucfirst(substr($request->company, 0, 2)) . '-00' . $count;
@@ -179,6 +193,7 @@ class TemporaryWorkController extends Controller
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
+                AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
                 //work for upload images here
                 $image_links = [];
                 if ($request->file('images')) {
@@ -312,7 +327,7 @@ class TemporaryWorkController extends Controller
     public function load_scan_temporarywork(Request $request, $id)
     {
         $tempid = Crypt::decryptString($request->temp);
-        $temporary_works = TemporaryWork::with('project', 'uploadfile')->where(['project_id' => $id, 'tempid' => $tempid])->get();
+        $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where(['project_id' => $id, 'tempid' => $tempid])->get();
         return view('dashboard.temporary_works.index_user', compact('temporary_works'));
     }
 

@@ -112,3 +112,91 @@ $(document).ready(function () {
         $("#attachment-of-design .requirment-first-value").val(val);
     });
 });
+
+$("input[name='list_of_attachments_folder']").change(function () {
+    if ($(this).val() == "yes") {
+        $(".list_of_attach_comment").removeClass("d-none").show();
+    } else {
+        $(".list_of_attach_comment").addClass("d-none").hide();
+    }
+});
+
+$("input[name='reports_including_site_investigations_folder']").change(
+    function () {
+        if ($(this).val() == "yes") {
+            $(".reports_including_site_investigations_comment")
+                .removeClass("d-none")
+                .show();
+        } else {
+            $(".reports_including_site_investigations_comment")
+                .removeClass("d-none")
+                .hide();
+        }
+    }
+);
+
+$("input[name='existing_ground_conditions_folder']").change(function () {
+    if ($(this).val() == "yes") {
+        $(".existing_ground_conditions_comment").removeClass("d-none").show();
+    } else {
+        $(".existing_ground_conditions_comment").removeClass("d-none").hide();
+    }
+});
+
+$("input[name='preferred_non_preferred_methods_folder']").change(function () {
+    if ($(this).val() == "yes") {
+        $(".preferred_non_preferred_methods_comment")
+            .removeClass("d-none")
+            .show();
+    } else {
+        $(".preferred_non_preferred_methods_comment")
+            .removeClass("d-none")
+            .hide();
+    }
+});
+
+$("input[name='access_limitations_folder']").change(function () {
+    if ($(this).val() == "yes") {
+        $(".access_limitations_comment").removeClass("d-none").show();
+    } else {
+        $(".access_limitations_comment").removeClass("d-none").hide();
+    }
+});
+
+$("input[name='back_propping_folder']").change(function () {
+    if ($(this).val() == "yes") {
+        $(".back_propping_comment").removeClass("d-none").show();
+    } else {
+        $(".back_propping_comment").removeClass("d-none").hide();
+    }
+});
+
+$("input[name='limitations_on_temporary_works_design_folder']").change(
+    function () {
+        if ($(this).val() == "yes") {
+            $(".limitations_on_temporary_works_design_comment")
+                .removeClass("d-none")
+                .show();
+        } else {
+            $(".limitations_on_temporary_works_design_comment")
+                .removeClass("d-none")
+                .hide();
+        }
+    }
+);
+
+$("input[name='details_of_any_hazards_folder']").change(function () {
+    if ($(this).val() == "yes") {
+        $(".details_of_any_hazards_comment").removeClass("d-none").show();
+    } else {
+        $(".details_of_any_hazards_comment").removeClass("d-none").hide();
+    }
+});
+
+$("input[name='3rd_party_requirements_folder']").change(function () {
+    if ($(this).val() == "yes") {
+        $(".3rd_party_requirements_comment").removeClass("d-none").show();
+    } else {
+        $(".3rd_party_requirements_comment").removeClass("d-none").hide();
+    }
+});

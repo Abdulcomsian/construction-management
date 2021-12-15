@@ -95,9 +95,18 @@
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Job Title</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title" value="{{old('job_title')  ?: $user->job_title}}"/>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title" value="{{old('job_title')  ?: $user->job_title}}" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="required fs-6 fw-bold mb-2">Select Role</label>
+                                    <select name="role" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                        <option value="">Select Role</option>
+                                        <option value="user" @if($user->hasRole('user')==true){{"selected"}}@endif>Temporary works co-ordinator</option>
+                                        <option value="supervisor" @if($user->hasRole('supervisor')==true){{"selected"}}@endif>Temporary works supervisor</option>
+                                        <option value="scaffolder" @if($user->hasRole('scaffolder')==true){{"selected"}}@endif>Scaffolder</option>
+                                    </select>
                                 </div>
 
                             </div>

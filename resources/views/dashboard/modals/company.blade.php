@@ -9,19 +9,13 @@
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
-														<svg xmlns="http://www.w3.org/2000/svg"
-                                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                             height="24px" viewBox="0 0 24 24" version="1.1">
-															<g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-                                                               fill="#000000">
-																<rect fill="#000000" x="0" y="7" width="16" height="2"
-                                                                      rx="1"/>
-																<rect fill="#000000" opacity="0.5"
-                                                                      transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
-                                                                      x="0" y="7" width="16" height="2" rx="1"/>
-															</g>
-														</svg>
-													</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                            </g>
+                        </svg>
+                    </span>
                     <!--end::Svg Icon-->
                 </div>
                 <!--end::Close-->
@@ -30,11 +24,10 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="kt_modal_new_target_form" class="form company_details_form"
-                      action="{{ route('companies.store') }}" method="post">
-                @csrf
-                <!--begin::Heading-->
-                    <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+                <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('companies.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <!--begin::Heading-->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
@@ -46,16 +39,14 @@
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Company Name</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Company Name"
-                                   name="name" value="{{old('name')}}"/>
+                            <label class="required fs-6 fw-bold mb-2">Company Representative</label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Company Name" name="name" value="{{old('name')}}" />
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Company Email</label>
-                            <input type="email" class="form-control form-control-solid" placeholder="Company Email"
-                                   name="email" value="{{old('email')}}"/>
+                            <input type="email" class="form-control form-control-solid" placeholder="Company Email" name="email" value="{{old('email')}}" />
                         </div>
                     </div>
                     <div class="row g-9 mb-8">
@@ -63,21 +54,37 @@
                             <label class="required fs-6 fw-bold mb-2">Project</label>
                             <select name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
                                 @php
-                                    $old = old('projects');
+                                $old = old('projects');
                                 @endphp
                                 @forelse($projects as $item)
-                                    <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
                                 @empty
                                 @endforelse
                             </select>
                         </div>
                         <!--end::Col-->
                     </div>
+                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="required fs-6 fw-bold mb-2">Password</label>
+                                <input type="password" class="form-control form-control-solid" placeholder="Password" name="password" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                                <input type="password" class="form-control form-control-solid" placeholder="Confirm Password" name="password_confirmation" />
+                            </div>
+
+                        </div>
+                    </div>
                     <div class="row g-9 mb-8">
-                        <div class="col-md-12 fv-row">
+                        <div class="col-md-6 fv-row fv-plugins-icon-container">
                             <label class="required fs-6 fw-bold mb-2">Job Title</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Job title"
-                                   name="job_title" value="{{old('job_title')}}"/>
+                            <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title')}}" />
+                        </div>
+                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                            <label class="fs-6 fw-bold mb-2">Upload Logo</label>
+                            <input type="file" class="form-control form-control-solid" placeholder="Upload Logo" name="image" />
                         </div>
                         <!--end::Col-->
                     </div>
@@ -85,9 +92,7 @@
                         <!--begin::Col-->
                         <div class="col-md-12 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Address</label>
-                            <textarea class="form-control form-control-solid mb-8" rows="3"
-                                      placeholder="Enter Company Address"
-                                      name="address">{{old('address')}}
+                            <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Enter Company Address" name="address">{{old('address')}}
                             </textarea>
                         </div>
                         <!--end::Col-->
@@ -99,8 +104,7 @@
                         <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
-                                                        <span
-                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->

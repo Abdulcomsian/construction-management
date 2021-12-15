@@ -457,7 +457,6 @@
             $('#name').val('').val(project[0].name);
             $('#date').val('').val(project[0].created_at);
             $('#address').val('').val(project[0].address ? project[0].address : 'Not Set');
-            console.log(project[0].company.name);
             $("#companyadmin").val(project[0].company.name);
         }
         console.log(project);

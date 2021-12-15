@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('company/projects', [CompanyController::class, 'companyProjects'])->name('company.projects');
     Route::put('user/update/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
+    Route::post('company/update/password', [CompanyController::class, 'updatePassword'])->name('company.updatePassword');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
     Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
     Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');

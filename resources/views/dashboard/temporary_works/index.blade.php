@@ -102,6 +102,9 @@
         border-color: red !important;
         border-style: solid !important;
     }
+    .profileimg{
+        border-radius: 50%;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -133,7 +136,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Temporary Work Register</h2>
+                       
                     </div>
                     <!--begin::Card toolbar-->
                     <a href="{{ route('temporary_works.create') }}" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
@@ -142,17 +145,26 @@
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                     <form class="form-inline" method="get" action="{{route('tempwork.search')}}">
-                        <div class="row">
-                          <div class="form-group mb-2 col-md-2">
-                            <label  class="text-white">Search</label>
-                            <input type="text" class="form-control" name="terms" required="required" />
-                          </div>
-                              <div class="col-md-2 mt-6">
-                                <button type="submit" class="btn btn-primary mb-2"><span class="fa fa-search"></span></button>
-                            </div>
+                    <div class="row"> 
+                        <div class="col-md-6" >
+                            @if(\Auth::user()->hasRole('company'))
+                             <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
+                            @endif
                         </div>
-                    </form>
+                        <div class="col-md-4 offset-md-2">
+                             <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
+                                <div class="row">
+                                      <div class="form-group  col-md-8">
+                                        <label  class="text-white">Search</label>
+                                        <input type="text" class="form-control" name="terms" required="required" />
+                                      </div>
+                                      <div class="col-md-4 mt-6">
+                                        <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <!--begin::Table-->
                     <div class="table-responsive">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">

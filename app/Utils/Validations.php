@@ -38,6 +38,7 @@ class Validations
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'projects' => ['required', 'array', 'min:1',],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [
             'projects' => 'The project name field is required.',
         ]);

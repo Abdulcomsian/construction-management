@@ -390,6 +390,7 @@
                                     </label>
                                     <!--end::Label-->
                                      <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company"  required>
+                                     <input type="hidden" id="company_id"  name="company_id"  >
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -458,6 +459,7 @@
             $('#date').val('').val(project[0].created_at);
             $('#address').val('').val(project[0].address ? project[0].address : 'Not Set');
             $("#companyadmin").val(project[0].company.name);
+            $("#company_id").val(project[0].company.id);
         }
         console.log(project);
     });

@@ -50,7 +50,6 @@ class TemporaryWorkController extends Controller
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
-                $ids[] = 1;
                 foreach ($users as $u) {
                     $ids[] = $u->id;
                 }
@@ -164,7 +163,7 @@ class TemporaryWorkController extends Controller
             $twc_id_no = $request->projno . '-' . ucfirst(substr($request->company, 0, 2)) . '-00' . $count;
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
+            $all_inputs  = $request->except('_token', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -181,6 +180,9 @@ class TemporaryWorkController extends Controller
                 $all_inputs['signature'] = $image_name;
             }
             $all_inputs['created_by'] = auth()->user()->id;
+            if ($user->hasRole('admin')) {
+                $all_inputs['created_by'] = $request->company_id;
+            }
             //work for qrcode
             $check = TemporaryWork::where('project_id', $request->project_id)->orderBy('id', 'desc')->first();
             if ($check) {

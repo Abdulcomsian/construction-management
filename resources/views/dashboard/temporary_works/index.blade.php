@@ -167,7 +167,7 @@ border-radius: 8px;
                 <div class="card-body pt-0">
                     <div class="row"> 
                         <div class="col-md-6" >
-                            @if(\Auth::user()->hasRole('company'))
+                            @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
                         </div>

@@ -70,7 +70,7 @@
                         <div class="row g-9 mb-8">
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
-                                <label class="required fs-6 fw-bold mb-2">Company Representative</label>
+                                <label class="required fs-6 fw-bold mb-2">Company Title</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Company Name" name="name" value="{{old('name') ?: $company->name }}" />
                             </div>
                             <!--end::Col-->

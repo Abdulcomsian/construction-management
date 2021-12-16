@@ -153,7 +153,9 @@
                         <h2>Users</h2>
                     </div>
                     <!--begin::Card toolbar-->
-                    <a href="{{ route('users.create') }}" value="add" class="newDesignBtn btn">Add User</a>
+                     @if(\Auth::user()->hasRole(['admin']))
+                      <a href="{{ route('users.create') }}" value="add" class="newDesignBtn btn">Add User</a>
+                     @endif
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->

@@ -135,7 +135,7 @@
                             <h2>Company</h2>
                         </div>
                         <!--begin::Card toolbar-->
-                         @if(\Auth::user()->hasRole('admin'))
+                        @if(\Auth::user()->hasRole(['admin']))
                         <button value="add" class="newDesignBtn btn company">Add Company</button>
                         @endif
                         <!--end::Card toolbar-->

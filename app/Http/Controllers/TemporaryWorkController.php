@@ -180,7 +180,7 @@ class TemporaryWorkController extends Controller
                 $all_inputs['signature'] = $image_name;
             }
             $all_inputs['created_by'] = auth()->user()->id;
-            if ($user->hasRole('admin')) {
+            if (auth()->user()->hasRole('admin')) {
                 $all_inputs['created_by'] = $request->company_id;
             }
             //work for qrcode

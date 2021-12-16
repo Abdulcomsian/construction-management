@@ -1,14 +1,31 @@
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
-<style>
-    .newDesignBtn {
+<style> 
+  ::-webkit-scrollbar {
+    width: 30px;
+    height: 30px;
+    min-height: 15px;
+}
+
+    .aside-enabled.aside-fixed.header-fixed .header{
+        border-bottom: 1px solid #e4e6ef!important;
+    }
+    .header-fixed.toolbar-fixed .wrapper{
+        padding-top: 60px !important;
+    }
+    .content{
+        padding-top: 0px !important;
+        background-color: #e9edf1 !important;
+    }
+     .newDesignBtn {
         border-radius: 8px;
-        background-color: #F9D413;
+        background-color: #07d564;
         width: 150px;
         padding: 10px 15px;
         color: #000;
         margin: 0px 29px;
+        margin-right: 0px;
     }
 
     .newDesignBtn:hover {
@@ -21,22 +38,25 @@
 
     table {
         margin-top: 20px;
-        border-collapse: separate;
-        background-color: red;
     }
 
-    .wrapper,
-    .page {
-        background-image: url({{asset("assets/media/images/temporaryBg.png")}})
+    #kt_content_container{
+        background-color: #e9edf1;
     }
-
+    #kt_toolbar_container{
+        background-color:#fff;
+        
+        
+    }
     #kt_toolbar_container h1 {
         font-size: 35px !important;
-        color: red !important;
+        color: #000 !important;
+        padding: 15px 0px;
     }
-
-    .content,
-    .card,
+    .card{
+        margin: 30px 0px;
+        border-radius: 10px;    
+    }
     .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
@@ -51,16 +71,15 @@
     }
 
     table thead {
-        background-color: #000;
+        background-color: #f5f8fa;
     }
 
     table thead th {
-        color: #fff !important;
+        color: #000 !important;
         text-align: center;
-        transform: rotate(-90deg);
         border-bottom: 0px !important;
         vertical-align: middle;
-        font-size: 12px !important;
+        font-size: 10px !important;
         font-weight: 900 !important;
     }
 
@@ -72,17 +91,9 @@
         background-color: #f2f2f2;
     }
 
-    .table {
-        border-color: red;
-        border-style: solid;
-    }
 
     .table.table-row-dashed tr {
         height: 120px;
-    }
-
-    td {
-        border: 1px solid red !important;
     }
 
     .dataTables_length label,
@@ -97,14 +108,23 @@
 
     table {
         margin-top: 20px;
-        border-collapse: separate;
-        background-color: red !important;
-        border-color: red !important;
-        border-style: solid !important;
     }
     .profileimg{
         border-radius: 50%;
     }
+    
+.btn.btn-primary{
+    border-color: #07d564 !important;
+background-color: #07d564 !important;
+border-radius: 8px;
+}
+.form-control,.form-control:focus{
+    border:1px solid #b5b5c3;
+    border-radius: 8px;
+}
+.table th:first-child{
+    padding: .75rem .75rem !important;
+}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -172,25 +192,25 @@
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px">TW ID. No.</th>
-                                    <th class="min-w-100px">Company</th>
-                                    <th class="min-w-100px">Project Name</th>
-                                    <th class="min-w-100px">Description of TWS</th>
-                                    <th class="min-w-100px">Design Check CAT (0,1,2,3)</th>
-                                    <th class="min-w-100px">Implimentation Risk Class (VL,L,M,H)</th>
-                                    <th class="min-w-100px">Issue Date of Design Brief</th>
-                                    <th class="min-w-100px">Required Date of Design</th>
-                                    <th class="min-w-100px">Comments</th>
-                                    <th class="min-w-100px">TW designer (designer name and company)</th>
-                                    <th class="min-w-100px">Appointments</th> 
-                                    <th class="min-w-100px">Date Design Returned</th>
-                                    <th class="min-w-100px">Date Design / Check Returned</th>
-                                    <th class="min-w-100px">DRAWINGS and DESIGNS</th>
-                                    <th class="min-w-100px">Design Check Certificate</th>
-                                    <th class="min-w-100px">Permit to Load</th>
-                                    <th class="min-w-100px">Permit to Unload</th>
-                                    <th class="min-w-100px">RAMS</th>
-                                    <th class="min-w-100px">Qrcode</th>
+                                    <th class="">TW ID. No.</th>
+                                    <th class="">Company</th>
+                                    <th class="">Project Name</th>
+                                    <th class="">Description of TWS</th>
+                                    <th class="">Design Check CAT (0,1,2,3)</th>
+                                    <th class="">Implimentation Risk Class (VL,L,M,H)</th>
+                                    <th class="">Issue Date of Design Brief</th>
+                                    <th class="">Required Date of Design</th>
+                                    <th class="">Comments</th>
+                                    <th class="">TW designer (designer name and company)</th>
+                                    <th class="">Appointments</th> 
+                                    <th class="">Date Design Returned</th>
+                                    <th class="">Date Design / Check Returned</th>
+                                    <th class="">DRAWINGS and DESIGNS</th>
+                                    <th class="">Design Check Certificate</th>
+                                    <th class="">Permit to Load</th>
+                                    <th class="">Permit to Unload</th>
+                                    <th class="">RAMS</th>
+                                    <th class="">Qrcode</th>
                                     <th>Actions</th>
                                 </tr>
                                 <!--end::Table row-->

@@ -9,6 +9,7 @@ input:focus {
     border: none;
     outline: none;
 }
+
 .modalDiv input {
     width: 100%;
     background-color: #2b2727;
@@ -19,25 +20,31 @@ input:focus {
     margin: 20px 0px 0px;
     border: none;
 }
+
 .modalDiv input::placeholder,
 .requirment-second li input::placeholder {
     color: #fff;
 }
+
 .modalDiv label {
     margin: 0px !important;
 }
+
 .multi-list {
     display: flex;
     max-height: 400px;
     overflow: scroll;
 }
+
 #scope-of-design .list-div ul li {
     height: 58px;
     display: flex;
 }
+
 #design-requirement .requirment-second li:nth-child(1):after {
     content: none !important;
 }
+
 .requirment-first-value,
 .requirment-second-value,
 .requirment-third-value,
@@ -46,6 +53,7 @@ input:focus {
 .other-input {
     display: none;
 }
+
 .requirment-second li input {
     width: 100%;
     background-color: #2b2727;
@@ -53,20 +61,25 @@ input:focus {
     color: #fff !important;
     border: none;
 }
+
 #scope-of-design .common-requirment,
 #design-requirement .common-requirment {
     width: 50%;
 }
+
 #attachment-of-design .requirment-first {
     width: 70%;
 }
+
 #attachment-of-design .requirment-second {
     width: 30%;
 }
+
 .multi-Radio {
     display: flex;
     justify-content: space-between;
 }
+
 .submit-requirment {
     width: 50%;
     margin: auto;
@@ -74,21 +87,26 @@ input:focus {
     justify-content: space-between;
     align-items: center;
 }
+
 .submit-requirment button {
     opacity: 0.5;
     width: 100%;
     margin-right: 20px !important;
 }
+
 .submit-requirment .uploadDiv {
     width: 100%;
 }
+
 .disabled {
     pointer-events: none;
 }
+
 .common-requirment {
     width: 24%;
     margin: 0px 10px;
 }
+
 .list-div ul,
 .list-check-div ul {
     padding: 0px;
@@ -97,6 +115,7 @@ input:focus {
     overflow: scroll; */
     overflow-x: hidden;
 }
+
 .list-div ul li {
     padding: 10px;
     background-color: #2b2727;
@@ -107,6 +126,7 @@ input:focus {
     position: relative;
     width: 100%;
 }
+
 .list-check-div ul li {
     padding: 10px;
     background-color: #2b2727;
@@ -117,6 +137,7 @@ input:focus {
     position: relative;
     width: 100%;
 }
+
 #scope-of-design .common-requirment input {
     background-color: #2b2727;
     border-color: #2b2727 !important;
@@ -126,6 +147,7 @@ input:focus {
     width: 100%;
     border: none;
 }
+
 .list-div ul li:after {
     content: "\f0da";
     font-family: FontAwesome;
@@ -134,9 +156,11 @@ input:focus {
     font-size: 18px;
     top: 7px;
 }
+
 .active {
     background-color: red !important;
 }
+
 .submit-requirment button {
     width: 100%;
     padding: 8px;
@@ -151,19 +175,23 @@ input:focus {
     cursor: pointer;
     padding-top: 4px;
 }
+
 .requirment-second li input[type="radio"] {
     width: 65% !important;
     background-color: #fff !important;
     border: none;
 }
+
 .form-check .form-check-input {
     float: left;
     margin-left: -2rem !important;
 }
+
 .requirment-second li input[type="radio"]:checked {
     background-color: #009ef7 !important;
     border-color: #009ef7 !important;
 }
+
 /* .form-check-input:checked {
     background-color: #009ef7 !important;
     border-color: #009ef7 !important;
@@ -171,4 +199,49 @@ input:focus {
 .toolbar-fixed .toolbar {
     position: initial !important;
     top: 0px;
+}
+
+
+/******** New CSS *********/
+.aside,
+.aside .aside-logo,
+.aside-menu .menu-item.here>.menu-link,
+.aside-menu .menu-item.show>.menu-link {
+    background-color: transparent;
+}
+
+.header-fixed .header {
+    background-color: #fff !important;
+}
+
+.aside-menu .menu-item.here>.menu-link .menu-title,
+.aside-menu .menu-item.show>.menu-link .menu-title,
+.aside-menu .menu-item.here>.menu-link .menu-icon i,
+.aside-menu .menu-item.show>.menu-link .menu-icon i {
+    color: #07d564;
+}
+
+.aside-menu .menu-item .menu-link:hover:not(.disabled):not(.active),
+.aside-menu .menu-item.hover>.menu-link:not(.disabled):not(.active) {
+    background-color: #07d564;
+}
+
+.aside .aside-toggle svg [fill]:not(.permanent):not(g),
+.btn.btn-active-color-primary:hover:not(.btn-active) .svg-icon svg [fill]:not(.permanent):not(g)
+ {
+    fill: #07d564;
+}
+
+
+
+.header .header-menu .menu>.menu-item>.menu-link,
+.header .header-menu .menu>.menu-item>.menu-link .menu-title {
+    font-weight: 600;
+    color: #07d564;
+}
+
+.card>.card-header .card-title h2,
+.dataTables_length label,
+#DataTables_Table_0_filter label {
+    color: #000 !important;
 }

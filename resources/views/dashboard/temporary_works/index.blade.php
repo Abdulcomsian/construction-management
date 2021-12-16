@@ -340,8 +340,9 @@
                             <!--end::Table body-->
                         </table>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        {!! $temporary_works->links() !!}
+                    <br>
+                    <div class="col-md-6 d-flex" style="margin-bottom:10px">
+                        {{$temporary_works->links("pagination::bootstrap-4")}}
                     </div>
                     <!--end::Table-->
                 </div>

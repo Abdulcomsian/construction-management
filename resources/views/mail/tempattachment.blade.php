@@ -24,17 +24,41 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1>Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                    <h2>Design Upload Documents</h2>
+                                                                    <h3>Design Upload/Drawing/Email/Appointment Documents</h3>
                                                                     @foreach($details->uploadfile as $key => $file)
-                                                                    <a href="{{asset($file->file_name)}}">Design and drawing . {{$key+1}} </a>
+                                                                    @php
+                                                                    if($file->file_type==1)
+                                                                    {
+                                                                    $name='Design and drawing';
+                                                                    }
+                                                                    elseif($file->file_type==2)
+                                                                    {
+                                                                    $name='DESIGN CHECK CERTIFICATE';
+                                                                    }
+                                                                    elseif($file->file_type==3)
+                                                                    {
+                                                                    $name='RAMS';
+                                                                    }
+                                                                    elseif($file->file_type==4)
+                                                                    {
+                                                                    $name='Drap & Drop email';
+                                                                    }
+                                                                    elseif($file->file_type==5){
+                                                                    $name='Appointment';
+                                                                    }
+                                                                    else{
+                                                                    $name='Desing and drawing';
+                                                                    }
+                                                                    @endphp
+                                                                    <a href="{{asset($file->file_name)}}">{{$name}} . {{$key+1}} </a><br>
                                                                     @endforeach
 
-                                                                    <h2>Temporary work Specific attachments</h2>
+                                                                    <h3>Temporary work Specific attachments/images</h3>
                                                                     @foreach($details->temp_work_images as $key => $img)
-                                                                    <a href="{{asset($img->image)}}">attachment specific . {{$key+1}} </a>
+                                                                    <a href="{{asset($img->image)}}">attachment specific . {{$key+1}} </a><br>
                                                                     @endforeach
 
-                                                                    <h2>Temporary work PDF attachments</h2>
+                                                                    <h3>Temporary work PDF attachments/PDF</h3>
 
                                                                     <a href="{{asset('pdf'.'/'.$details->ped_url)}}">PDF </a>
 

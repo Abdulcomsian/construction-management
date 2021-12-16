@@ -182,8 +182,8 @@
                                     <th class="min-w-100px">Required Date of Design</th>
                                     <th class="min-w-100px">Comments</th>
                                     <th class="min-w-100px">TW designer (designer name and company)</th>
+                                    <th class="min-w-100px">Appointments</th> 
                                     <th class="min-w-100px">Date Design Returned</th>
-                                 <!--    <th class="min-w-100px">TW designer (designer name and company)</th> -->
                                     <th class="min-w-100px">Date Design / Check Returned</th>
                                     <th class="min-w-100px">DRAWINGS and DESIGNS</th>
                                     <th class="min-w-100px">Design Check Certificate</th>
@@ -224,7 +224,13 @@
                                     <td><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">{{ substr($item->description_temporary_work_required ?: '-',0,40).'.......' }}</td>
+                                    <td>
+                                        <p>{{$item->design_requirement_text ?? ''}}</p>
+                                        <hr style="color:red;border:1px solid red">
+                                        <p data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
+                                            {{ substr($item->description_temporary_work_required ?: '-',0,40).'.......' }}
+                                        </p>
+                                    </td>
                                     <td>{{ $item->tw_category ?: '-' }}</td>
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
@@ -245,6 +251,16 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $item->designer_company_name ?: '-' }}</td>
+                                    <td>
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==5)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">App{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+                                    </td>
                                     <td> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
@@ -324,8 +340,9 @@
                             <!--end::Table body-->
                         </table>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        {!! $temporary_works->links() !!}
+                    <br>
+                    <div class="col-md-6 d-flex" style="margin-bottom:10px">
+                        {{$temporary_works->links("pagination::bootstrap-4")}}
                     </div>
                     <!--end::Table-->
                 </div>

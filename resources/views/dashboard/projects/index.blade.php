@@ -174,7 +174,7 @@ background-color: #07d564 !important;
                         <h2>Projects</h2>
                     </div>
                     <!--begin::Card toolbar-->
-                    @if(\Auth::user()->hasAnyRole(['admin', 'company']))
+                    @if(\Auth::user()->hasRole(['admin']))
                     <button value="add" class="newDesignBtn btn project_details">New Project</button>
                     @endif
                     <!--end::Card toolbar-->

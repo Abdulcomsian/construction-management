@@ -5,8 +5,62 @@
         border-radius: 8px;
         float: right;
     }
+    .btn.btn-active-color-primary:hover:not(.btn-active),
+    .btn.btn-active-color-primary:hover:not(.btn-active) i{
+    color: #07d564;
+}
+.modal .btn.btn-primary{
+        border-color: #07d564 !important;
+background-color: #07d564 !important;
+    }
+    .card>.card-header {
+        align-items: center;
+    }
+    .card>.card-body {
+        padding: 32px;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: separate;
+    }
+    #kt_content_container{
+        background-color: #e9edf1;
+    }
+    #kt_toolbar_container{
+        background-color:#fff;
+    }
+
+    #kt_toolbar_container h1 {
+        font-size: 35px !important;
+        color: #000 !important;
+        padding: 15px 0px;
+        
+    }
+    .card{
+        margin: 30px 0px;
+        border-radius: 10px;    
+    }
+    .toolbar-fixed .toolbar {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    .card-title h2 {
+        color: rgba(254, 242, 242, 0.66);
+    }
+    .aside-enabled.aside-fixed.header-fixed .header{
+        border-bottom: 1px solid #e4e6ef!important;
+    }
+    .header-fixed.toolbar-fixed .wrapper{
+        padding-top: 60px !important;
+    }
+    .content{
+        padding-top: 0px !important;
+        background-color: #e9edf1 !important;
+    }
 </style>
-@include('layouts.sweetalert.sweetalert_css')
+
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">

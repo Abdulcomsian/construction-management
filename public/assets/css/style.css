@@ -1,3 +1,6 @@
+#kt_content_container{
+max-width:100% !important;
+}
 /*Using this for show validation error in red color*/
 .text-red-600 {
     --tw-text-opacity: 1;

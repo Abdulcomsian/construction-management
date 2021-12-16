@@ -50,7 +50,6 @@ class TemporaryWorkController extends Controller
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
-                $ids[] = 1;
                 foreach ($users as $u) {
                     $ids[] = $u->id;
                 }

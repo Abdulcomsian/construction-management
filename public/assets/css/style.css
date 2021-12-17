@@ -156,7 +156,9 @@ input:focus {
     font-size: 18px;
     top: 7px;
 }
-
+.requirment-second .list-div ul li:after{
+    content: "";
+}
 .submit-requirment button {
     width: 100%;
     padding: 8px;

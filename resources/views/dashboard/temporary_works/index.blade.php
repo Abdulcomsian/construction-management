@@ -192,12 +192,12 @@ border-radius: 8px;
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="">TW ID. No.</th>
+                                    <th style="transform: rotate(-90deg);" class="">TW ID. No.</th>
                                     <th class="">Company</th>
                                     <th class="">Project Name</th>
                                     <th class="">Description of TWS</th>
-                                    <th class="">Design Check CAT (0,1,2,3)</th>
-                                    <th class="">Implimentation Risk Class (VL,L,M,H)</th>
+                                    <th style="transform: rotate(-90deg);" class="">Design Check CAT</th>
+                                    <th style="transform: rotate(-90deg);" class="">Implimentation Risk Class</th>
                                     <th class="">Issue Date of Design Brief</th>
                                     <th class="">Required Date of Design</th>
                                     <th class="">Comments</th>
@@ -241,7 +241,7 @@ border-radius: 8px;
                                 @forelse($temporary_works as $item)
 
                                 <tr>
-                                    <td><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
+                                    <td style="transform: rotate(-90deg);"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td>
@@ -251,11 +251,11 @@ border-radius: 8px;
                                             {{ substr($item->description_temporary_work_required ?: '-',0,40).'.......' }}
                                         </p>
                                     </td>
-                                    <td>{{ $item->tw_category ?: '-' }}</td>
-                                    <td>{{ $item->tw_risk_class ?: '-' }}</td>
+                                    <td style="transform: rotate(-90deg);">{{ $item->tw_category ?: '-' }}</td>
+                                    <td style="transform: rotate(-90deg);">{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
-                                        <p style="background: #6a6969;border: 1px solid black;width: 103%;">{{$item->design_required_by_date ?: '-' }}</p> </td>
+                                        <p style="background: #07d564;border: 1px solid 07d564;width: 103%;">{{$item->design_required_by_date ?: '-' }}</p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>

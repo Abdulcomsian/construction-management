@@ -1,6 +1,7 @@
-#kt_content_container{
-max-width:100% !important;
+#kt_content_container {
+    max-width: 100% !important;
 }
+
 /*Using this for show validation error in red color*/
 .text-red-600 {
     --tw-text-opacity: 1;
@@ -15,18 +16,17 @@ input:focus {
 
 .modalDiv input {
     width: 100%;
-    background-color: #2b2727;
-    border-color: #2b2727 !important;
-    color: #fff !important;
+    color: #000 !important;
     padding: 4;
     padding: 11px 15px;
     margin: 20px 0px 0px;
     border: none;
+    background-color: #f5f8fa;
 }
 
 .modalDiv input::placeholder,
 .requirment-second li input::placeholder {
-    color: #fff;
+    color: #000;
 }
 
 .modalDiv label {
@@ -59,8 +59,7 @@ input:focus {
 
 .requirment-second li input {
     width: 100%;
-    background-color: #2b2727;
-    border-color: #2b2727 !important;
+    background-color: #f5f8fa;
     color: #fff !important;
     border: none;
 }
@@ -81,6 +80,7 @@ input:focus {
 .multi-Radio {
     display: flex;
     justify-content: space-between;
+    margin: 0px 10px;
 }
 
 .submit-requirment {
@@ -121,9 +121,8 @@ input:focus {
 
 .list-div ul li {
     padding: 10px;
-    background-color: #2b2727;
-    border-color: #2b2727 !important;
-    color: #fff !important;
+   background-color: #f5f8fa;
+    color: #000 !important;
     margin: 10px 0px;
     cursor: pointer;
     position: relative;
@@ -132,9 +131,8 @@ input:focus {
 
 .list-check-div ul li {
     padding: 10px;
-    background-color: #2b2727;
-    border-color: #2b2727 !important;
-    color: #fff !important;
+   background-color: #f5f8fa;
+    color: #000 !important;
     margin: 10px 0px;
     cursor: pointer;
     position: relative;
@@ -142,9 +140,8 @@ input:focus {
 }
 
 #scope-of-design .common-requirment input {
-    background-color: #2b2727;
-    border-color: #2b2727 !important;
-    color: #fff !important;
+   background-color: #f5f8fa;
+    color: #000 !important;
     cursor: pointer;
     position: relative;
     width: 100%;
@@ -160,16 +157,12 @@ input:focus {
     top: 7px;
 }
 
-.active {
-    background-color: red !important;
-}
-
 .submit-requirment button {
     width: 100%;
     padding: 8px;
     border: none;
     color: #fff !important;
-    background-color: red;
+    background-color: #07d564;
     margin: 10px 0px;
 }
 
@@ -180,7 +173,7 @@ input:focus {
 }
 
 .requirment-second li input[type="radio"] {
-    width: 65% !important;
+    width: 60% !important;
     background-color: #fff !important;
     border: none;
 }
@@ -230,8 +223,7 @@ input:focus {
 }
 
 .aside .aside-toggle svg [fill]:not(.permanent):not(g),
-.btn.btn-active-color-primary:hover:not(.btn-active) .svg-icon svg [fill]:not(.permanent):not(g)
- {
+.btn.btn-active-color-primary:hover:not(.btn-active) .svg-icon svg [fill]:not(.permanent):not(g) {
     fill: #07d564;
 }
 
@@ -247,4 +239,22 @@ input:focus {
 .dataTables_length label,
 #DataTables_Table_0_filter label {
     color: #000 !important;
+}
+
+.btn-check:checked+.btn.btn-active-primary,
+.btn.btn-primary:hover:not(.btn-active),
+.btn.btn-primary,
+.header .header-menu .menu>.menu-item.hover>.menu-link:not(.disabled):not(.active),
+.header .header-menu .menu>.menu-item>.menu-link:hover:not(.disabled):not(.active),
+.scrolltop {
+    background-color: #07d564;
+    border-color: #07d564;
+}
+
+.form-control[readonly] {
+    background-color: #f5f8fa !important;
+}
+
+.active{
+    background-color: #07d564 !important;
 }

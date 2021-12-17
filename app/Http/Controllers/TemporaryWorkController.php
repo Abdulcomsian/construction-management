@@ -163,7 +163,7 @@ class TemporaryWorkController extends Controller
             $twc_id_no = $request->projno . '-' . ucfirst(substr($request->company, 0, 2)) . '-00' . $count;
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {

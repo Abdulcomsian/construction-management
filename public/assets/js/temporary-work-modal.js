@@ -78,7 +78,7 @@ $(document).ready(function () {
         var val_second = $("#scope-of-design .requirment-second-value").val();
         var full_val = val_first + " - " + val_second;
         console.log($("#scope-of-design .requirment-first-value").val());
-        val.val(full_val);
+        //val.val(full_val);
         $(".requirment-first-value").val(null);
         $(".requirment-second-value").val(null);
     });

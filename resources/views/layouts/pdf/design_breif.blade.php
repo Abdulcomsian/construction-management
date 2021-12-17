@@ -319,7 +319,7 @@
                 <strong> Date:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
-                Date
+                {{$data['date']}}
             </td>
         </tr>
     </table>

@@ -49,7 +49,7 @@ $(selector).signature({color: 'blue', guideline: true}) */
 			@example $.extend($.kbw.signature.options, {guideline: true}) */
 		options: {
 			distance: 0,
-			background: '#fff',
+			background: '#eee',
 			color: '#000',
 			thickness: 2,
 			guideline: false,

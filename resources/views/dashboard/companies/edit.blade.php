@@ -5,6 +5,20 @@
         border-radius: 8px;
         float: right;
     }
+    .aside-enabled.aside-fixed.header-fixed .header{
+        border-bottom: 1px solid #e4e6ef!important;
+    }
+    .header-fixed.toolbar-fixed .wrapper{
+        padding-top: 60px !important;
+    }
+    .content{
+        padding-top: 0px !important;
+        background-color: #e9edf1 !important;
+    }
+    .card{
+        margin: 30px 0px;
+        border-radius: 10px;    
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection

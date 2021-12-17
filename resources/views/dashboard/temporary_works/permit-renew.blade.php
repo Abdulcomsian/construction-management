@@ -1,6 +1,16 @@
 @extends('layouts.dashboard.master',['title' => 'Permit To Load'])
 @section('styles')
 <style>
+    .aside-enabled.aside-fixed.header-fixed .header{
+        border-bottom: 1px solid #e4e6ef!important;
+    }
+    .header-fixed.toolbar-fixed .wrapper{
+        padding-top: 60px !important;
+    }
+    .content{
+        padding-top: 0px !important;
+        background-color: #e9edf1 !important;
+    }
     .newDesignBtn {
         border-radius: 8px;
         background-color: #F9D413;
@@ -10,8 +20,13 @@
         margin: 0px 29px;
     }
 
-    .newDesignBtn:hover {
-        color: rgba(222, 13, 13, 0.66);
+    #kt_content_container{
+        background-color: #e9edf1;
+    }
+    #kt_toolbar_container{
+        background-color:#fff;
+        
+        
     }
 
     .card>.card-body {
@@ -24,19 +39,16 @@
         background-color: red;
     }
 
-    .wrapper,
-    .page {
-        background-image: url({{asset("assets/media/images/temporaryBg.png")}})
-    }
-
     #kt_toolbar_container h1 {
         font-size: 35px !important;
-        color: red !important;
-
+        color: #000 !important;
+        padding: 15px 0px;
+    }
+    .card{
+        margin: 30px 0px;
+        border-radius: 10px;    
     }
 
-    .content,
-    .card,
     .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
@@ -69,21 +81,17 @@
 
     .inputDiv input {
         width: 100%;
-        background-color: #2B2727 !important;
-        border-color: #2B2727 !important;
-        color: #fff !important;
+        color: #000 !important;
     }
 
     .inputDiv select {
         width: 100%;
-        background-color: #2B2727 !important;
-        border-color: #2B2727 !important;
-        color: #fff !important;
+        color: #000 !important;
     }
 
     .inputDiv label {
         width: 50%;
-        color: #fff;
+        color: #000;
     }
 
     .inputDiv {
@@ -249,7 +257,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -258,7 +266,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" style="background: #2B2727;color:white" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -415,7 +423,7 @@
                          <div class="d-flex inputDiv">
                             <div class="d-flex modalDiv">
                                    @if(isset($permitdata) && $permitdata->works_coordinator==1)
-                                    <textarea name="description_approval_temp_works" rows="2" cols="155" style="background: #2B2727;color:white">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
+                                    <textarea name="description_approval_temp_works" rows="2" cols="155">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
                                     @endif
                             </div>
                          </div>

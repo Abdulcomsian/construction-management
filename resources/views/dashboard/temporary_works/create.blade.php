@@ -2,9 +2,19 @@
 
 @section('styles')
 <style>
+    .aside-enabled.aside-fixed.header-fixed .header{
+        border-bottom: 1px solid #e4e6ef!important;
+    }
+    .header-fixed.toolbar-fixed .wrapper{
+        padding-top: 60px !important;
+    }
+    .content{
+        padding-top: 0px !important;
+        background-color: #e9edf1 !important;
+    }
     .newDesignBtn {
         border-radius: 8px;
-        background-color: #F9D413;
+        background-color: #07d564;
         width: 150px;
         padding: 10px 15px;
         color: #000;
@@ -12,11 +22,24 @@
     }
 
     .newDesignBtn:hover {
-        color: rgba(222, 13, 13, 0.66);
+        color: #fff;
     }
 
     .card>.card-body {
         padding: 32px;
+    }
+    #kt_content_container{
+        background-color: #e9edf1;
+    }
+    #kt_toolbar_container{
+        background-color:#fff;
+        
+        
+    }
+    .card{
+        margin: 30px 0px;
+        border-radius: 10px !important;   
+        border: none !important; 
     }
 
     table {
@@ -25,18 +48,12 @@
         background-color: red;
     }
 
-    .wrapper,
-    .page {
-        background-image: url({{asset("assets/media/images/temporaryBg.png")}})
-    }
-
     #kt_toolbar_container h1 {
         font-size: 35px !important;
-        color: red !important;
+        color: #000 !important;
+        padding: 15px 0px;
     }
 
-    .content,
-    .card,
     .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
@@ -69,21 +86,17 @@
 
     .inputDiv input {
         width: 100%;
-        background-color: #2B2727 !important;
-        border-color: #2B2727 !important;
-        color: #fff !important;
+        color: #000 !important;
     }
 
     .inputDiv select {
         width: 100%;
-        background-color: #2B2727 !important;
-        border-color: #2B2727 !important;
-        color: #fff !important;
+        color: #000 !important;
     }
 
     .inputDiv label {
         width: 50%;
-        color: #fff;
+        color: #000;
     }
 
     .inputDiv {
@@ -98,7 +111,7 @@
     }
         .kbw-signature {
             width: 100%;
-            height: 200px;
+            height: 220px;
         }
 
         #sig canvas {
@@ -144,7 +157,7 @@
                     <!--begin::Card title-->
                     <div class="card-title">
                         <h2>Temporary Work Register</h2>
-                        <a style="width: 190px;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
+                        <a style="width: 190px; text-align:center;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
                     </div>
                     <!--begin::Card toolbar-->
 
@@ -345,7 +358,7 @@
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
-                                            <textarea name="description_temporary_work_required" rows="2" cols="70" style="background: #2B2727;color:white" required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea name="description_temporary_work_required" rows="2" cols="70" required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv">
@@ -354,7 +367,7 @@
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea id="scopofdesign" rows="2" cols="70" style="background: #2B2727;color:white"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
+                                            <textarea id="scopofdesign" rows="2" cols="70"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                   </div>

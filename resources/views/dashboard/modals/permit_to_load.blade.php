@@ -41,7 +41,7 @@
                 <div class="d-flex text-center">
                     <table class="table table-hover">
                         <thead style="height: 60px;">
-                            <tr style="background: black;color:white;">
+                            <tr style="background: #f5f8fa;color:#000;">
                                 <td><b>Pdf Link</b></td>
                                 <td><b>Date</b></td>
                                 <td><b>Type</b></td>

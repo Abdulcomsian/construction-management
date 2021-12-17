@@ -31,7 +31,7 @@ class UserController extends Controller
                 if ($user->hasRole('admin')) {
                     $data = User::role(['user', 'supervisor', 'scaffolder'])->latest()->get();
                 } elseif ($user->hasRole('company')) {
-                    $data = User::role('user')->where('company_id', auth()->user()->id)->get();
+                    $data = User::role(['user','supervisor', 'scaffolder'])->where('company_id', auth()->user()->id)->get();
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')

@@ -16,7 +16,7 @@ class HelperFunctions
             if ($oldFile) {
                 @unlink($oldFile);
             }
-            $filename = time() . '.' . $newFile->getClientOriginalExtension();
+            $filename = time() . rand(10000, 99999) . '.' . $newFile->getClientOriginalExtension();
             $newFile->move($public_path, $filename);
             return $filePath . $filename;
         } catch (\Exception $exception) {

@@ -398,7 +398,7 @@
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                 </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->

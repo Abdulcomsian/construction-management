@@ -116,7 +116,7 @@
 
         #sig canvas {
             width: 100% !important;
-            height: auto;
+            max-height: 200px;
         }
         .modalDiv{
             width:100% ;

@@ -157,7 +157,6 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-
             $count = TemporaryWork::where('project_id', $request->project_id)->count();
             $count = $count + 1;
             $twc_id_no = $request->projno . '-' . strtoupper(substr($request->company, 0, 2)) . '-00' . $count;
@@ -211,7 +210,7 @@ class TemporaryWorkController extends Controller
                         $image_links[] = $imagename;
                     }
                 }
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no]);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);

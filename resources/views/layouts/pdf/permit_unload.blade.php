@@ -1,361 +1,298 @@
-<style type="text/css">
-    @font-face {
-        font-family: "myFirstFont";
-        src: url("/public/fonts/Calibri.ttf")format("truetype");
+<style>
+    table,
+    td,
+    th {
+        border: 1px solid black;
     }
 
     table {
-        font-size: 12px;
-        line-height: 16px;
-        font-family: "myFirstFont";
-    }
-
-    table.page_header {
+        border-collapse: collapse;
         width: 100%;
-        border: none;
-        background-color: #ffffff;
-        border-bottom: solid 1mm #fff;
-        padding: 2mm
-    }
-
-    table.page_footer {
-        width: 100%;
-        border: none;
-        background-color: #ffffff;
-        border-top: solid 1mm #fff;
-        padding: 2mm
-    }
-
-    p {
-        margin: 0 0 8px;
-    }
-
-    input {
-        background: transparent;
-        border: none;
     }
 </style>
-
-
 <page pageset="old">
-    <table style="width: 100%; margin:0 auto; padding-top: 80px;">
-        <tr>
-            <td colspan="3" border="1" style="width: 15%; font-size: 18px; font-weight: 700; text-align: left; padding: 5px 10px;color: #000000;font-size: 14px;
-            font-weight: 700;">
-                <strong>
-                    <h1>Permit to UnLoad</h1>
-                </strong>
-            </td>
+    <div style="padding: 30px; width: 100%; max-width: 70%; margin: auto;">
+        <div class="topDiv" style="display: flex; justify-content: space-between;">
+            <div class="logoText">
+                <h3>Permit to UnLoad/Strike</h3>
+            </div>
+            <div class="logo">
 
+            </div>
 
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Project No.:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['projno']}}
-            </td>
+        </div>
+        <div class="tableDiv">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b>
+                                    Project
+                                    Name</b> </label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['projname']}}</td>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b>
+                                    Date</b> </label>
+                        </td>
+                        <td style="width: 200px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
+                                <b> Project Number </b> </label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['projno']}}</td>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b>
+                                    Permit Number </b><label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['permit_no']}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b>Drawing Number</b> </label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['drawing_no']}}</td>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b>
+                                    Drawing Title </b></label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['drawing_title']}}</td>
+                    </tr>
 
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b>TWC Name</b> </label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['twc_name']}}</td>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b>
+                                    TWS Name </b></label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['tws_name']}}</td>
+                    </tr>
 
-
-            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Date:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                <!-- {{$data['date']}} -->
-                {{ date('d-m-Y', strtotime($data['date'])) }}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Project Name:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['projname']}}
-            </td>
-
-            <!-- <td  border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td> -->
-
-            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Permit Number:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['permit_no']}}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Drwaing Number:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['drawing_no']}}
-            </td>
-
-            <!-- <td  border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td> -->
-
-            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Drawing Title:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['drawing_title']}}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> TWC Name:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['twc_name']}}
-            </td>
-
-            <!-- <td  border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td>
- -->
-            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> TWS Name:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['tws_name']}}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Location of the Temporary Works (Area):</strong>
-            </td>
-            <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['location_temp_work']}}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Description of Structure which is ready for use:</strong>
-            </td>
-            <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['description_structure']}}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> MS/RA Number:</strong>
-            </td>
-            <td colspan="4" border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['ms_ra_no']}}
-            </td>
-        </tr>
+                </tbody>
+            </table>
+        </div>
 
 
 
 
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #000000;font-size: 14px;font-weight: bold;">
-                <strong>Permit to unload/Strike <br>
-                    1. Permanent Works supported by the above item of Temporary Works have gained sufficient strength to support the loading/use permitted (See concrete cube results below – or state any other PW design requirements if applicable) <br>
-                    2. Sequence of removal of TW, where specified by the TWD, is understood by the supervisor. <br>
-                    3. All standard safety measures executed i.e., holes covered and protected, leading edge protection etc <br>
-                    4. Risk Assessment, Method Statement and or associated Task Sheets in place
-                </strong>
-            </td>
+        <div class="tableDiv" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 300px;background:gray;color:white;">
+                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b>Location of the Temporary Works (Area)</b> </label>
+                        </td>
+                        <td> {{$data['location_temp_work']}}</td>
 
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
+                    </tr>
 
-            <td style="width:25%;"> CONCRETE CUBE RESULTS (OR OVER-WRITE WITH STRENGTH BY MATURITY CURVE DATA)</td>
-            <td style="width:20%; ;"></td>
-            <td style="width:30%;width:10%;"></td>
-        </tr>
-        <tr>
-            <td style="width:15%; border:1px solid black;">Mix Design Details</td>
-            <td style="width:15%; border:1px solid black;">Unique Cube Ref No.</td>
-            <td style="width:15%; border:1px solid black;">Age of Cube</td>
-            <td style="width:15%; border:1px solid black;">Compressive Strength N/mm2</td>
-            <td style="width:50%; border:1px solid black;">Method of Curing</td>
-        </tr>
+                    <tr>
+                        <td style="width: 300px;background:gray;color:white;">
+                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b>Description
+                                    of the structure which is ready for use</b> </label>
+                        </td>
+                        <td> {{$data['description_structure']}}</td>
 
-        <tr style=" border:1px solid black;">
-            <td style=" border:1px solid black;">{{$data['mix_design_detail']}}</td>
-            <td style=" border:1px solid black;">{{$data['unique_ref_no']}}</td>
-            <td style=" border:1px solid black;">{{$data['age_cube']}}</td>
-            <td style=" border:1px solid black;">{{$data['compressive_strength']}}</td>
-            <td style=" border:1px solid black;">{{$data['method_curing']}}</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong>TWC to define the extents, limits and controls for this PTS (where applicable)</strong>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8" border="1" style=" width: 15%; padding: 20px 10px; border:1px solid #000000;border-radius: 3px;background-color: #F4F4F4; font-weight: 700; font-family: Noto Serif Malayalam;">
-                {{$data['twc_control_pts']}}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong>Back-propping and additional requirements; limitations and exclusions; explanatory sketches refrences - if applicable</strong>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8" border="1" style=" width: 15%; padding: 20px 10px; border:1px solid #000000;border-radius: 3px;background-color: #F4F4F4; font-weight: 700; font-family: Noto Serif Malayalam;">
-                {{$data['back_propping']}}
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4" border="1" style=" text-align: left; padding: 5px 10px;color: #000000;font-size: 14px;font-weight: bold;">
-                <p>I hereby authorise the Temporary Works to be struck out/removed in accordance with the specified/approved unloading & striking method, subject to observing the extents, limits and controls listed above.
-                </p>
-            </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 300px;background:gray;color:white;">
+                            <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b>
+                                    MS/RA number</b> </label>
+                        </td>
+                        <td> {{$data['ms_ra_no']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td></td>
 
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            @if($data['principle_contractor']==1)
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Name:<strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['name1']}}
-            </td>
+                    </tr>
+                    <tr>
+                        <td></td>
 
-            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td>
+                    </tr>
+                    <tr>
+                        <td></td>
 
-            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Signiture:</strong>
-            </td>
-            <td border="1" style="padding: 20%; width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                @if(isset($image_name1) && $image_name1!='')
-                <img src="temporary/signature/{{$image_name1}}" width="40px" height="40px" />
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td rowspan="2" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Job Title:<strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['job_title1']}}
-            </td>
-        </tr>
-        @endif
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Name:<strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['name']}}
-            </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>CONCRETE CUBE RESULTS (OR OVER-WRITE WITH STRENGTH BY MATURITY CURVE DATA)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td>
+            <table>
 
-            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Signiture:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                <img src="temporary/signature/{{$image_name}}" width="40px" height="40px" />
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Job Title:<strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['job_title']}}
-            </td>
+                <thead>
+                    <tr style="background-color: black;color: white;">
+                        <td>Mix Design Details</td>
+                        <td>Unique Cube Ref. No.</td>
+                        <td>Age of Cube</td>
+                        <td>Compressive Strength N/mm2</td>
+                        <td>Method of Curing</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>{{$data['mix_design_detail']}}</td>
+                        <td>{{$data['unique_ref_no']}}</td>
+                        <td>{{$data['age_cube']}}</td>
+                        <td>{{$data['compressive_strength']}}</td>
+                        <td>{{$data['method_curing']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <tr>
+                    <th>TWC to define the extents, limits and controls for this PTS (where applicable)
+                    </th>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>Back-propping and additional requirements; limitations & exclusions; explanatory sketch references - if applicable:</th>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th style="height: 50px;"></th>
+                </tr>
+            </table>
+        </div>
+        <div class="tableDiv" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
+                                <h4 style="text-align: center;">Permit to UNLOAD/STRIKE</h4>
+                                1. Permanent Works supported by the above item of Temporary Works have gained sufficient strength to support the loading/use permitted (See concrete cube results below – or state any other PW design requirements if applicable) <br>
+                                2. Sequence of removal of TW, where specified by the TWD, is understood by the supervisor. <br>
+                                3. All standard safety measures executed i.e., holes covered and protected, leading edge protection etc <br>
+                                4. Risk Assessment, Method Statement and or associated Task Sheets in place
+                            </label>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="multiDiv" style="display: flex; justify-content: space-between; margin: 30px 0px;">
+            <div class="leftDiv" style="width: 100%;">
+                <div class="inputDiv">
+                    <table style="margin-top: -10px;">
+                        <thead style="margin-top: -10px;">
+                            <th>Principal Contractor Approval required</th>
+                            <th>Y</th>
+                        </thead>
+
+                        <tbody style="margin-top: -10px;">
+                            <tr>
+                                <td>Principal Contractor Approval required</td>
+                                <td> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
 
 
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Company:<strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['company']}}
-            </td>
+        <div class="tableDiv" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
+                                <b> Name </b></label>
+                        </td>
+                        <td style="width: 200px;"> @if($data['principle_contractor']==1){{$data['name1']}}@endif</td>
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b>
+                                    Name</b></label></td>
+                        <td style="width: 200px;">{{$data['name']}}</td>
 
-            <td border="0" style="width: 10%; text-align: left; padding: 0px 10px;">
-            </td>
 
-            <td border="1" style="width: 15%; text-align: left; padding: 0px 10px;color: #C5BCBC;font-size: 14px;
-            font-weight: 700;">
-                <strong> Date:</strong>
-            </td>
-            <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                <!-- {{$data['date']}} -->
-                {{ date('d-m-Y', strtotime($data['date'])) }}
-            </td>
-        </tr>
-    </table>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
+                                <b> Job Title </b></label>
+                        </td>
+                        <td style="width: 200px;"> @if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;"><b>
+                                    Job Title </b></label></td>
+                        <td style="width: 200px;">{{$data['job_title']}}</td>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b>
+                                    Company</b></label>
+                        </td>
+                        <td style="width: 200px;"> {{$data['company']}}</td>
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b>
+                                    Company</b></label></td>
+                        <td style="width: 200px;"> {{$data['company']}}</td>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b>
+                                    Signature </b></label>
+                        </td>
+                        <td style="width: 200px;">
+                            @if(isset($image_name1) && $image_name1!='')
+                            <img src="temporary/signature/{{$image_name1}}" width="40px" height="40px" />
+                            @endif
+                        </td>
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black;  margin: 0px;"><b>
+                                    Signature </b></label></td>
+                        <td style="width: 200px;">
+                            <img src="temporary/signature/{{$image_name}}" width="40px" height="40px" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b>
+                                    Date </b></label>
+                        </td>
+                        <td style="width: 200px;">
+                            {{ date('d-m-Y', strtotime($data['date'])) }}
+                        </td>
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b>
+                                    Date </b></label></td>
+                        <td style="width: 200px;">
+                            {{ date('d-m-Y', strtotime($data['date'])) }}
+                        </td>
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </page>

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master-index',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style> 
@@ -6,6 +6,12 @@
     width: 30px;
     height: 30px;
     min-height: 15px;
+}
+.aside-enabled.aside-fixed.header-fixed .header{
+    left: 0px !important;
+}
+.aside-enabled.aside-fixed .wrapper{
+    padding-left: 0px !important;
 }
 
     .aside-enabled.aside-fixed.header-fixed .header{
@@ -72,6 +78,9 @@
 
     table thead {
         background-color: #f5f8fa;
+        position: sticky;
+        top: 0px;
+        z-index: 999999999;
     }
 
     table thead th {
@@ -125,12 +134,99 @@ border-radius: 8px;
 .table th:first-child{
     padding: .75rem .75rem !important;
 }
+.menu-item{
+    display: flex;
+}
+.menu-item .menu-link{
+    flex: 0%;
+}
+.menu-sub-accordion.show, .show:not(.menu-dropdown)>.menu-sub-accordion{
+    display: -webkit-inline-box;
+}
+.topMenu{
+    background-color: #fff;
+    padding: 30px;
+    border:1px solid #e4e6ef!important
+}
+.topMenu a{
+    color: #07d564 !important;
+}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
+
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+<div class="topMenu">
+<div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
+                <span class="menu-link">
+                    <span class="menu-icon">
+                        <i class="bi bi-people fs-3"></i>
+                    </span>
+                    <span class="menu-title">Companies & Projects</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                <div class="menu-sub menu-sub-accordion">
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{route('projects.index')}}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Projects</span>
+                        </a>
+                    </div>
+                    @if(\Auth::user()->hasAnyRole(['admin', 'company']))
+                    <div class="menu-item">
+                        <a class="menu-link"  href="{{ route('companies.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Companies</span>
+                        </a>
+                    </div>
+                    @endif
+                    @if(\Auth::user()->hasAnyRole(['admin', 'company']))
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('users.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Users</span>
+                        </a>
+                    </div>
+                    @endif
+                </div>
+                <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
+                    <span class="menu-link" style="max-width: 40%;">
+                        <span class="menu-icon">
+                            <i class="bi bi-people fs-3"></i>
+                        </span>
+                        <span class="menu-title">Temporary Works</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('temporary_works.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">All Listings</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('temporary_works.create') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Add New Temporary Work</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
@@ -186,7 +282,7 @@ border-radius: 8px;
                         </div>
                     </div>
                     <!--begin::Table-->
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="height: 500px;">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>

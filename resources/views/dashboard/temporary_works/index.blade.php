@@ -195,16 +195,16 @@ border-radius: 8px;
                                     <th style="transform: rotate(-90deg);" class="">TW ID. No.</th>
                                     <th class="">Company</th>
                                     <th class="">Project Name</th>
-                                    <th class="">Description of TWS</th>
+                                    <th class="" style="max-width:210px;">Description of TWS</th>
                                     <th style="transform: rotate(-90deg);" class="">Design Check CAT</th>
                                     <th style="transform: rotate(-90deg);" class="">Implimentation Risk Class</th>
-                                    <th class="">Issue Date of Design Brief</th>
-                                    <th class="">Required Date of Design</th>
+                                    <th class=""  style="transform: rotate(-90deg);">Issue Date of Design Brief</th>
+                                    <th class=""  style="transform: rotate(-90deg);">Required Date of Design</th>
                                     <th class="">Comments</th>
                                     <th class="">TW designer (designer name and company)</th>
-                                    <th class="">Appointments</th> 
-                                    <th class="">Date Design Returned</th>
-                                    <th class="">Date Design / Check Returned</th>
+                                    <!-- <th class="">Appointments</th>  -->
+                                    <th class=""  style="transform: rotate(-90deg);">Date Design Returned</th>
+                                    <th class=""  style="transform: rotate(-90deg);">Date Design / Check Returned</th>
                                     <th class="">DRAWINGS and DESIGNS</th>
                                     <th class="">Design Check Certificate</th>
                                     <th class="">Permit to Load</th>
@@ -244,23 +244,23 @@ border-radius: 8px;
                                     <td style="transform: rotate(-90deg);"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
-                                    <td>
-                                        <p>{{$item->design_requirement_text ?? ''}}</p>
+                                    <td  style="max-width:210px;">
+                                        <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                         <hr style="color:red;border:1px solid red">
                                         <p data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
                                             {{ substr($item->description_temporary_work_required ?: '-',0,40).'.......' }}
                                         </p>
                                     </td>
-                                    <td style="transform: rotate(-90deg);">{{ $item->tw_category ?: '-' }}</td>
-                                    <td style="transform: rotate(-90deg);">{{ $item->tw_risk_class ?: '-' }}</td>
+                                    <td style="">{{ $item->tw_category ?: '-' }}</td>
+                                    <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td>{{ $item->design_issued_date ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
                                         <p style="background: #07d564;border: 1px solid 07d564;width: 103%;">{{$item->design_required_by_date ?: '-' }}</p> </td>
                                     <td >
-                                        <p class="addcomment cursor-pointer" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <p class="addcomment cursor-pointer" style="font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red">
-                                       <h3 class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="4">All Drag And Drog emails</h3>
+                                       <h3 class="uploadfile  cursor-pointer" style="font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">All Drag And Drop emails</h3>
                                        <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -270,8 +270,8 @@ border-radius: 8px;
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td>{{ $item->designer_company_name ?: '-' }}</td>
-                                    <td>
+                                    <td style="transform: rotate(-90deg);">{{ $item->designer_company_name ?: '-' }}</td>
+                                    <!-- <td>
                                         <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -280,8 +280,8 @@ border-radius: 8px;
                                         <span><a href="{{asset($file->file_name)}}" target="_blank">App{{$i}}</a></span>
                                         @endif
                                         @endforeach
-                                    </td>
-                                    <td> 
+                                    </td> -->
+                                    <td style="transform: rotate(-90deg);"> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
                                           <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{$file->created_at->todatestring()}}
@@ -291,7 +291,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                    <!--  <td></td> -->
-                                    <td>
+                                    <td style="transform: rotate(-90deg);">
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
                                            <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{$file->created_at->todatestring()}}</p>
@@ -299,7 +299,7 @@ border-radius: 8px;
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1">Drag and drop folders/ pdf drawings</p><br>
+                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="font-weight: 400;font-size: 14px;">Upload or Drag and drop folders</p><br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -309,7 +309,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td >
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="2">Drag and drop folders/ pdf drawings</p>
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="font-weight: 400;font-size: 14px;" data-type="2">Upload or Drag and drop folders</p>
                                         <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -321,7 +321,7 @@ border-radius: 8px;
 
                                     </td>
                                     <td>
-                                        <p class="permit-to-load cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p>
+                                        <p class="permit-to-load cursor-pointer" style="font-weight: 400;font-size: 14px;" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p>
                                         @if(isset($item->permits->id))
                                         <button class="btn btn-info">Live</button>
                                         @else
@@ -329,10 +329,10 @@ border-radius: 8px;
                                         @endif
                                     </td>
                                     <td>
-                                         <p class="permit-to-unload cursor-pointer" data-id={{Crypt::encrypt($item->id)}}>Permit to Unload</p>
+                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;" data-id={{Crypt::encrypt($item->id)}}>Permit to Unload</p>
                                     </td>
                                     <td  data-type="2">
-                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-type="3">Drag and drop folders/ pdf drawings</p>
+                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="font-weight: 400;font-size: 14px;" data-type="3">Upload or Drag and drop folders</p>
                                         <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)

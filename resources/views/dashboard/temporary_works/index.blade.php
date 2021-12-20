@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master-index',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style> 
@@ -6,6 +6,12 @@
     width: 30px;
     height: 30px;
     min-height: 15px;
+}
+.aside-enabled.aside-fixed.header-fixed .header{
+    left: 0px !important;
+}
+.aside-enabled.aside-fixed .wrapper{
+    padding-left: 0px !important;
 }
 
     .aside-enabled.aside-fixed.header-fixed .header{
@@ -72,6 +78,9 @@
 
     table thead {
         background-color: #f5f8fa;
+        position: sticky;
+        top: 0px;
+        z-index: 999999999;
     }
 
     table thead th {
@@ -125,12 +134,46 @@ border-radius: 8px;
 .table th:first-child{
     padding: .75rem .75rem !important;
 }
+.menu-item{
+    display: flex;
+}
+.menu-item .menu-link{
+    flex: 0%;
+}
+.menu-sub-accordion.show, .show:not(.menu-dropdown)>.menu-sub-accordion{
+    display: -webkit-inline-box;
+}
+.topMenu{
+    background-color: #fff;
+    padding: 30px;
+    border:1px solid #e4e6ef!important
+}
+.topMenu a{
+    color: #07d564 !important;
+}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
+
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+<div class="topMenu" style="padding-top:0px;">
+<div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
+		<div class="d-flex align-items-center justify-content-center flex-wrap px-5 py-5 px-md-10 py-md-9">
+			<!--begin::Menu-->
+			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
+			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
+			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>
+			@endif
+			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('users.index') }}" target="">Users</a>
+			@endif
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.index') }}" target="">All Listings</a>
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">Add New Temporary Work</a>
+		</div>
+    </div>
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
@@ -186,7 +229,7 @@ border-radius: 8px;
                         </div>
                     </div>
                     <!--begin::Table-->
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="height: 500px;">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>

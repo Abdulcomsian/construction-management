@@ -34,6 +34,10 @@
         background: transparent;
         border: none;
     }
+
+    tr.spacer>td {
+        padding-bottom: 1em;
+    }
 </style>
 
 
@@ -60,8 +64,11 @@
                 {{date('d-m-Y',strtotime($data['design_issued_date']))}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
         <tr>
             <td border="1" style="width: 20%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
@@ -83,8 +90,11 @@
                 {{ date('d-m-Y',strtotime($data['design_required_by_date']))}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
@@ -95,8 +105,11 @@
                 {{$data['projaddress']}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
@@ -107,8 +120,11 @@
                 {{$data['designer_company_name']}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
@@ -119,8 +135,11 @@
                 {{$data['designer_company_email']}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
@@ -131,10 +150,12 @@
                 {{$data['twc_email']}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
-
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
             font-weight: 700;">
@@ -159,8 +180,11 @@
 
 
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
         <tr>
             <td colspan="5" border="1" style="width: 100%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
@@ -173,10 +197,12 @@
                 </table>
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
-
         <tr>
             <td colspan="2" border="1" style="width: 25%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
             font-weight: 700;">
@@ -186,8 +212,11 @@
                 {{$data['description_temporary_work_required']}}
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
+        </tr> -->
+        <tr class="spacer">
+            <td></td>
         </tr>
         <tr>
             <td colspan="6" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
@@ -263,9 +292,10 @@
 
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>&nbsp;</td>
-        </tr>
+        </tr> -->
+        <tr class="spacer"></tr>
         </tr>
         <tr>
         <tr>
@@ -293,9 +323,10 @@
 
             </td>
             @endif
-        <tr>
+            <!-- <tr>
             <td>&nbsp;</td>
-        </tr>
+        </tr> -->
+        <tr class="spacer"></tr>
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
                     font-weight: 700;">
@@ -304,9 +335,10 @@
             <td border="1" style="width: 30%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 0 10px;border-radius: 3px;background-color: #F4F4F4;">
                 {{$data['job_title']}}
             </td>
-        <tr>
+            <!-- <tr>
             <td>&nbsp;</td>
-        </tr>
+        </tr> -->
+        <tr class="spacer"></tr>
         <tr>
         <tr>
             <td border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;

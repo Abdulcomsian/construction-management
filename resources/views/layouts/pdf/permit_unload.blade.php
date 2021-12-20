@@ -68,7 +68,8 @@
                 <strong> Date:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['date']}}
+                <!-- {{$data['date']}} -->
+                {{ date('d-m-Y', strtotime($data['date'])) }}
             </td>
         </tr>
         <tr>
@@ -352,7 +353,8 @@
                 <strong> Date:</strong>
             </td>
             <td border="1" style="width: 30%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
-                {{$data['date']}}
+                <!-- {{$data['date']}} -->
+                {{ date('d-m-Y', strtotime($data['date'])) }}
             </td>
         </tr>
     </table>

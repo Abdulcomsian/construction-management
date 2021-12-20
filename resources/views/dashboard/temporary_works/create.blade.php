@@ -85,7 +85,7 @@
     }
 
     .inputDiv input {
-        width: 100%;
+        width: 50%;
         color: #000 !important;
     }
 
@@ -95,10 +95,10 @@
     }
 
     .inputDiv label {
-        width: 50%;
+        width: 25%;
         color: #000;
     }
-
+    .select2-container{width:50% !important;}
     .inputDiv {
         margin: 20px 0px;
     }
@@ -156,7 +156,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Temporary Work Register</h2>
+                        <h2>Design Brief</h2>
                         <a style="width: 190px; text-align:center;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
                     </div>
                     <!--begin::Card toolbar-->
@@ -216,7 +216,9 @@
                                         <span class="required">Design Required by Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                    <p style="width: 50%; cursor: pointer;background-color: #f5f8fa;color: #000 !important;">
+                                        <input type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                    </p>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -341,14 +343,14 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv">
+                                <div class="d-flex ">
                                     <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
-                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                         <label style="width: 25%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" style="width: 50%;"  placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
                                  </div>
@@ -358,7 +360,7 @@
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
-                                            <textarea name="description_temporary_work_required" rows="2" cols="70" required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea name="description_temporary_work_required" rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv">
@@ -367,7 +369,7 @@
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea id="scopofdesign" rows="2" cols="70"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
+                                            <textarea id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                   </div>

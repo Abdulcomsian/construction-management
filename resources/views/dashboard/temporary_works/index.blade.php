@@ -195,7 +195,7 @@ border-radius: 8px;
                                     <th style="transform: rotate(-90deg);" class="">TW ID. No.</th>
                                     <th class="">Company</th>
                                     <th class="">Project Name</th>
-                                    <th class="" style="max-width:250px;">Description of TWS</th>
+                                    <th class="" style="max-width:210px;">Description of TWS</th>
                                     <th style="transform: rotate(-90deg);" class="">Design Check CAT</th>
                                     <th style="transform: rotate(-90deg);" class="">Implimentation Risk Class</th>
                                     <th class=""  style="transform: rotate(-90deg);">Issue Date of Design Brief</th>
@@ -244,7 +244,7 @@ border-radius: 8px;
                                     <td style="transform: rotate(-90deg);"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
-                                    <td  style="max-width:250px;">
+                                    <td  style="max-width:210px;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                         <hr style="color:red;border:1px solid red">
                                         <p data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">

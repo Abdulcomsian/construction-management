@@ -244,7 +244,7 @@ border-radius: 8px;
                                     <td style="transform: rotate(-90deg);"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
-                                    <td>
+                                    <td  style="max-width:250px;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                         <hr style="color:red;border:1px solid red">
                                         <p data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">

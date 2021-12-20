@@ -159,74 +159,21 @@ border-radius: 8px;
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
-<div class="topMenu">
-<div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
-                <span class="menu-link">
-                    <span class="menu-icon">
-                        <i class="bi bi-people fs-3"></i>
-                    </span>
-                    <span class="menu-title">Companies & Projects</span>
-                    <span class="menu-arrow"></span>
-                </span>
-                <div class="menu-sub menu-sub-accordion">
-                    <div class="menu-item">
-                        <a class="menu-link" href="{{route('projects.index')}}">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span>
-                            <span class="menu-title">Projects</span>
-                        </a>
-                    </div>
-                    @if(\Auth::user()->hasAnyRole(['admin', 'company']))
-                    <div class="menu-item">
-                        <a class="menu-link"  href="{{ route('companies.index') }}">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span>
-                            <span class="menu-title">Companies</span>
-                        </a>
-                    </div>
-                    @endif
-                    @if(\Auth::user()->hasAnyRole(['admin', 'company']))
-                    <div class="menu-item">
-                        <a class="menu-link" href="{{ route('users.index') }}">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span>
-                            <span class="menu-title">Users</span>
-                        </a>
-                    </div>
-                    @endif
-                </div>
-                <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
-                    <span class="menu-link" style="max-width: 40%;">
-                        <span class="menu-icon">
-                            <i class="bi bi-people fs-3"></i>
-                        </span>
-                        <span class="menu-title">Temporary Works</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion">
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('temporary_works.index') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">All Listings</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('temporary_works.create') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Add New Temporary Work</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-</div>
+<div class="topMenu" style="padding-top:0px;">
+<div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
+		<div class="d-flex align-items-center justify-content-center flex-wrap px-5 py-5 px-md-10 py-md-9">
+			<!--begin::Menu-->
+			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
+			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
+			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>
+			@endif
+			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('users.index') }}" target="">Users</a>
+			@endif
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.index') }}" target="">All Listings</a>
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">Add New Temporary Work</a>
+		</div>
+    </div>
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->

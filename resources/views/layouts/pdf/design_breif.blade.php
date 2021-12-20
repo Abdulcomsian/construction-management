@@ -18,10 +18,10 @@
     <div style="padding: 30px; width: 100%; max-width: 70%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText">
-                <h3>Design Brief</h3>
+                <h3>Design Brief: {{$twc_id_no}}</h3>
             </div>
             <div class="logo">
-                {{$twc_id_no}}
+
             </div>
 
         </div>
@@ -152,70 +152,70 @@
                         <td><b>Preliminary Sketches</b> (prior to full TW design for discussion with site team)</td>
                         <td>@if($scopdesg['preliminary_sketches_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['preliminary_sketches_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['preliminary_sketches_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['preliminary_sketches_date']))}}</td>
                     </tr>
                     <tr>
                         <td><b>Construction Drawings</b> (with notes on loadings, restrictions, critical components,
                             etc.)</td>
                         <td>@if($scopdesg['construction_rawings_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['construction_rawings_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['construction_rawings_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['construction_rawings_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Design Calculations</b> (where needed for submission to client etc.)</td>
                         <td>@if($scopdesg['design_calculations_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['design_calculations_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['design_calculations_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['design_calculations_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Design Check Certificate</b> (were needed for submission to client, etc.)</td>
                         <td>@if($scopdesg['design_check_certificate_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['design_check_certificate_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['design_check_certificate_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['design_check_certificate_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Loading Criteria</b></td>
                         <td>@if($scopdesg['loading_criteria_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['loading_criteria_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['loading_criteria_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['loading_criteria_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Construction / Erection Sequence Information</b> (to include in method statement)</td>
                         <td>@if($scopdesg['construction_erection_sequence_information_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['construction_erection_sequence_information_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['construction_erection_sequence_information_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['construction_erection_sequence_information_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Inspection Checklist</b> (for erection, loading, inspection, dismantling, etc.)</td>
                         <td>@if($scopdesg['inspection_checklist_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['inspection_checklist_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['inspection_checklist_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['inspection_checklist_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Monitoring Requirements</b></td>
                         <td>@if($scopdesg['monitoring_requirements_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['monitoring_requirements_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['monitoring_requirements_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['monitoring_requirements_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Specifications</b></td>
                         <td>@if($scopdesg['specifications_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['specifications_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['specifications_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['specifications_date']))}}</td>
 
                     </tr>
                     <tr>
                         <td><b>Design Inspection and Test Plans (ITP’s)</b></td>
                         <td>@if($scopdesg['design_inspection_test_plans_date']){{'Y'}}@endif</td>
                         <td>@if($scopdesg['design_inspection_test_plans_date']==null){{'N'}}@endif</td>
-                        <td>{{$scopdesg['design_inspection_test_plans_date'] ?? ''}}</td>
+                        <td>{{ date('d-m-Y',strtotime($scopdesg['design_inspection_test_plans_date']))}}</td>
 
                     </tr>
                 </tbody>

@@ -160,7 +160,7 @@ class TemporaryWorkController extends Controller
 
             $count = TemporaryWork::where('project_id', $request->project_id)->count();
             $count = $count + 1;
-            $twc_id_no = $request->projno . '-' . ucfirst(substr($request->company, 0, 2)) . '-00' . $count;
+            $twc_id_no = $request->projno . '-' . strtoupper(substr($request->company, 0, 2)) . '-00' . $count;
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');

@@ -149,73 +149,73 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><b style="font-size:12px;">Preliminary Sketches</b> (prior to full TW design for discussion with site team)</td>
-                        <td style="font-size:12px;">@if($scopdesg['preliminary_sketches_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['preliminary_sketches_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['preliminary_sketches_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Preliminary Sketches</b> (prior to full TW design for discussion with site team)</td>
+                        <td  style="font-size:12px;">@if($scopdesg['preliminary_sketches_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['preliminary_sketches_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['preliminary_sketches_date']){{ date('d-m-Y',strtotime($scopdesg['preliminary_sketches_date']))}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Construction Drawings</b> (with notes on loadings, restrictions, critical components,
+                        <td  style="font-size:12px;"><b style="font-size:12px;">Construction Drawings</b> (with notes on loadings, restrictions, critical components,
                             etc.)</td>
-                        <td style="font-size:12px;">@if($scopdesg['construction_rawings_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['construction_rawings_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['construction_rawings_date']))}}</td>
+                        <td  style="font-size:12px;">@if($scopdesg['construction_rawings_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['construction_rawings_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['construction_rawings_date']){{ date('d-m-Y',strtotime($scopdesg['construction_rawings_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Design Calculations</b> (where needed for submission to client etc.)</td>
-                        <td style="font-size:12px;">@if($scopdesg['design_calculations_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['design_calculations_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['design_calculations_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Design Calculations</b> (where needed for submission to client etc.)</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_calculations_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_calculations_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_calculations_date']){{ date('d-m-Y',strtotime($scopdesg['design_calculations_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Design Check Certificate</b> (were needed for submission to client, etc.)</td>
-                        <td style="font-size:12px;">@if($scopdesg['design_check_certificate_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['design_check_certificate_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['design_check_certificate_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Design Check Certificate</b> (were needed for submission to client, etc.)</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_check_certificate_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_check_certificate_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_check_certificate_date']){{ date('d-m-Y',strtotime($scopdesg['design_check_certificate_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Loading Criteria</b></td>
-                        <td style="font-size:12px;">@if($scopdesg['loading_criteria_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['loading_criteria_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['loading_criteria_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Loading Criteria</b></td>
+                        <td  style="font-size:12px;">@if($scopdesg['loading_criteria_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['loading_criteria_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['loading_criteria_date']){{ date('d-m-Y',strtotime($scopdesg['loading_criteria_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Construction / Erection Sequence Information</b> (to include in method statement)</td>
-                        <td style="font-size:12px;">@if($scopdesg['construction_erection_sequence_information_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['construction_erection_sequence_information_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['construction_erection_sequence_information_date']))}}</td>
+                        <td style="font-size:12px;" ><b>Construction / Erection Sequence Information</b> (to include in method statement)</td>
+                        <td  style="font-size:12px;">@if($scopdesg['construction_erection_sequence_information_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['construction_erection_sequence_information_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['construction_erection_sequence_information_date']){{ date('d-m-Y',strtotime($scopdesg['construction_erection_sequence_information_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Inspection Checklist</b> (for erection, loading, inspection, dismantling, etc.)</td>
-                        <td style="font-size:12px;">@if($scopdesg['inspection_checklist_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['inspection_checklist_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['inspection_checklist_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Inspection Checklist</b> (for erection, loading, inspection, dismantling, etc.)</td>
+                        <td  style="font-size:12px;">@if($scopdesg['inspection_checklist_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['inspection_checklist_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['inspection_checklist_date']){{ date('d-m-Y',strtotime($scopdesg['inspection_checklist_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Monitoring Requirements</b></td>
-                        <td style="font-size:12px;">@if($scopdesg['monitoring_requirements_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['monitoring_requirements_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['monitoring_requirements_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Monitoring Requirements</b></td>
+                        <td  style="font-size:12px;">@if($scopdesg['monitoring_requirements_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['monitoring_requirements_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['monitoring_requirements_date']){{ date('d-m-Y',strtotime($scopdesg['monitoring_requirements_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Specifications</b></td>
-                        <td style="font-size:12px;">@if($scopdesg['specifications_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['specifications_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['specifications_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Specifications</b></td>
+                        <td  style="font-size:12px;">@if($scopdesg['specifications_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['specifications_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['specifications_date']){{ date('d-m-Y',strtotime($scopdesg['specifications_date']))}}@endif</td>
 
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Design Inspection and Test Plans (ITP’s)</b></td>
-                        <td style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']){{'Y'}}@endif</td>
-                        <td style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']==null){{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{ date('d-m-Y',strtotime($scopdesg['design_inspection_test_plans_date']))}}</td>
+                        <td  style="font-size:12px;"><b>Design Inspection and Test Plans (ITP’s)</b></td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']){{'Y'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']==null){{'N'}}@endif</td>
+                        <td  style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']){{ date('d-m-Y',strtotime($scopdesg['design_inspection_test_plans_date']))}}@endif</td>
 
                     </tr>
                 </tbody>

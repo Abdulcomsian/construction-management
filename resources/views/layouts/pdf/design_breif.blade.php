@@ -231,47 +231,70 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><b style="font-size:12px;">List of attachments/sketches/ Photos / Specifications /Drawings etc.</b></td>
+                        <td>
+                            <b style="font-size:12px;">List of attachments/sketches/ Photos / Specifications /Drawings etc.</b>
+                            <p style="font-size:11px;"> <b>Comment:</b> {{$comments['list_of_attachments_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Reports including Site Investigations- relevant boreholes/ trial pits/ site investigation</b></td>
+                        <td><b style="font-size:12px;">Reports including Site Investigations- relevant boreholes/ trial pits/ site investigation</b>
+                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['reports_including_site_investigations_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Existing Ground conditions</b></td>
+                        <td>
+                            <b style="font-size:12px;">Existing Ground conditions</b>
+                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['existing_ground_conditions_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Preferred/non-preferred methods, systems or types of equipment</b></td>
+                        <td>
+                            <b style="font-size:12px;">Preferred/non-preferred methods, systems or types of equipment</b>
+                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['preferred_non_preferred_methods_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Access limitations or edge protection requirements:</b></td>
+                        <td>
+                            <b style="font-size:12px;">Access limitations or edge protection requirements:</b>
+                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['access_limitations_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Back Propping / Re-Propping Sequence: (please attach)</b></td>
-                        <td style="font-size:12px;">@if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes"){{'Y'}}@endif</td>
+                        <td><b style="font-size:12px;">Back Propping / Re-Propping Sequence: (please attach)</b>
+                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['back_propping_comment'] ?? '' }}</p>
+                        </td>
+                        <td  style="font-size:12px;">@if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Limitations on Temporary Works Design: (please attach)</b></td>
+                        <td><b style="font-size:12px;">Limitations on Temporary Works Design: (please attach)</b>
+                             <p style="font-size:11px;">{{$comments['limitations_on_temporary_works_design_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard</b></td>
+                        <td><b style="font-size:12px;">Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard</b>
+                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['details_of_any_hazards_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="no"){{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td><b style="font-size:12px;">3rd Party Requirements</b></td>
+                        <td>
+                            <b style="font-size:12px;">3rd Party Requirements</b>
+                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['3rd_party_requirements_comment'] ?? '' }}</p>
+                        </td>
                         <td style="font-size:12px;">@if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="no"){{'N'}}@endif</td>
                     </tr>

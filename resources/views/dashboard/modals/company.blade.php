@@ -52,7 +52,7 @@
                     <div class="row g-9 mb-8">
                         <div class="col-md-12 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Project</label>
-                            <select name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
+                            <select name="projects[]" class="form-select form-select-lg form-select-solid" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
                                 @php
                                 $old = old('projects');
                                 @endphp

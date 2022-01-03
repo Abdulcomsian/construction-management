@@ -209,7 +209,665 @@
                 </tr>
             </table>
         </div>
+        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <table>
+                <tr>
+                    <td style="width: 300px;color:black;border:none">
+                        <strong>Inspect each of the following items & tick off in the box provided if installed correctly as per the design. Where actions are required, identify with a number & detail comments in the space provided below.</strong>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Even, stable ground?</b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['even_stable_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">y</button>
+                                @elseif($check_radios['even_stable_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['even_stable_comment'] ?? ''}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Base Plates? </b>
+                            </label>
+
+                        </td>
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['base_Plates_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['base_Plates_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['base_Plates_comment'] ?? ''}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Sole boards?</b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['sole_boards_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['sole_boards_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['sole_boards_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Undermined?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['undermined_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['undermined_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['undermined_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Plumb?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['Plumb_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['Plumb_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['Plumb_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Staggered joints?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['staggered_joints_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['staggered_joints_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['staggered_joints_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Wrong spacing?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['wrong_spacing_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['wrong_spacing_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['wrong_spacing_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Damaged?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['damaged_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['damaged_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['damaged_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Damaged?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['trap_boards_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['trap_boards_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['trap_boards_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Trap boards?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['trap_boards_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['trap_boards_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['trap_boards_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Incomplete boarding?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['incomplete_boarding_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['incomplete_boarding_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['incomplete_boarding_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Insufficient supports / ties?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['supports_ties_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['supports_ties_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['supports_ties_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Insufficient length?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['insufficient_length_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['insufficient_length_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['insufficient_length_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Any missing or loose?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['missing_loose_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['missing_loose_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['missing_loose_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Wrong fittings?
+
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['wrong_fittings_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['wrong_fittings_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['wrong_fittings_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Not level?
+
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['not_level_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['not_level_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['not_level_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Joined in same bays?
+
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['joined_same_bays_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['joined_same_bays_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['joined_same_bays_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Loose or damaged?
+
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['loose_damaged_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['loose_damaged_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['loose_damaged_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Wrong height?
+
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['wrong_height_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['wrong_height_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['wrong_height_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> Any missing or loose?
+
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['some_missing_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['some_missing_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['some_missing_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Damaged?
+
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['partially_removed_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['partially_removed_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['partially_removed_comment'] ?? ''}}
+                        </td>
+                    </tr>
+
+
+
+
+
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;">Loose damaged or broken?
+                                </b></label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['loose_damaged_broken_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['loose_damaged_broken_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['loose_damaged_broken_comment'] ?? ''}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%;background:gray;color:white;">
+                            <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                                <b style="font-size: 12px;"> OTHER?Any further actions necessary?
+                                </b>
+                            </label>
+                        </td>
+
+                        <td style="width:10%;">
+                            <span style="font-size: 12px;">
+                                @if($check_radios['other_radio']=="1")
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
+                                @elseif($check_radios['other_radio']=="2")
+                                <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;">N</button>
+                                @else
+                                <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">N/A</button>
+                                @endif
+                            </span>
+
+                        </td>
+
+                        <td colspan="4" border="1" style="width: 50%; text-align: left;border:1px solid #000000;padding: 0 10px;border-radius: 3px;background-color: #F4F4F4; font-weight: 700;">
+                            {{$check_comments['other_comment'] ?? ''}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- old work below  -->
 
     {{--<table style="width: 100%; margin:0 auto; padding-top: 80px;">
         <tr>
@@ -1133,7 +1791,7 @@
                 {{$check_comments['other_comment'] ?? ''}}
             </td>
         </tr>
-    </table>
+    </table>--}}
 
     <table style="border: 1px solid black;width: 100%;">
 
@@ -1258,6 +1916,6 @@
             </td>
         </tr>
 
-    </table>--}}
+    </table>
 
 </page>

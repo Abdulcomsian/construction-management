@@ -2,6 +2,10 @@
 
 @section('styles')
 <style>
+.list-div ul li, .list-check-div ul li{
+height: 72px;
+    overflow: visible;
+}
     .aside-enabled.aside-fixed.header-fixed .header{
         border-bottom: 1px solid #e4e6ef!important;
     }

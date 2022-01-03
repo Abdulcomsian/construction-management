@@ -202,7 +202,7 @@ border-radius: 8px;
                        
                     </div>
                     <!--begin::Card toolbar-->
-                    <a href="{{ route('temporary_works.create') }}" style="width: 200px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
+                    <a href="{{ route('temporary_works.create') }}" style="width: 200px;color:#fff !important;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->

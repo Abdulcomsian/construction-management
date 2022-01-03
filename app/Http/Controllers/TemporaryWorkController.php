@@ -210,7 +210,7 @@ class TemporaryWorkController extends Controller
                         $image_links[] = $imagename;
                     }
                 }
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no,'comments'=>$attachcomments]);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
@@ -482,12 +482,12 @@ class TemporaryWorkController extends Controller
 
                 $notify_admins_msg = [
                     'greeting' => 'Scaffolding Pdf',
-                    'subject' => 'Scaffold PDF',
+                    'subject' => 'Permit Load PDF',
                     'body' => [
                         'text' => 'A Permit to ' . $msg . ' has been completed for the temporary works as per the attached document.',
                         'filename' => $filename,
                         'links' =>  '',
-                        'name' => 'scaffold',
+                        'name' => 'Permit Load',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -571,7 +571,7 @@ class TemporaryWorkController extends Controller
         $lastkey = count($data) - 1;
         $lastindex = end($data);
         if (preg_match("/[R]/", $lastindex)) {
-            $str = preg_replace('/\D/', '', $lastindex);
+            $str = (int)preg_replace('/\D/', '', $lastindex);
             $str = ++$str;
             $data[$lastkey] = 'R' . $str;
             $twc_id_no = implode('-', $data);
@@ -653,13 +653,13 @@ class TemporaryWorkController extends Controller
                 $model->save();
                 $pdf->save($path . '/' . $filename);
                 $notify_admins_msg = [
-                    'greeting' => 'Scaffolding Pdf',
+                    'greeting' => 'Permit Unload Pdf',
                     'subject' => 'Scaffold PDF',
                     'body' => [
                         'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
                         'filename' => $filename,
                         'links' =>  '',
-                        'name' => 'scaffold',
+                        'name' => 'Permit Unload',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -701,9 +701,9 @@ class TemporaryWorkController extends Controller
             $permitdata = Scaffolding::where(['temporary_work_id' => $tempid])->orderBy('id', 'desc')->first();
             if ($permitdata) {
                 $data = explode("-", $permitdata->permit_no);
-                $str = preg_replace('/\D/', '', $data[3]);
+                $str = (int)preg_replace('/\D/', '', $data[3]);
                 $str = ++$str;
-                $twc_id_no = $twc_id_no . '-' . $data[3] . $str;
+                $twc_id_no = $twc_id_no . '-S' . $str;
             } else {
                 $twc_id_no = $twc_id_no . '-S1';
             }

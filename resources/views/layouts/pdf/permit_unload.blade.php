@@ -9,21 +9,28 @@
         border-collapse: collapse;
         width: 100%;
     }
+
     .paddingTable td {
         padding: 10px;
     }
 </style>
 <page pageset="old">
-    <div style="padding: 10px; width: 100%; max-width: 70%; margin: auto;">
+    <div style="padding: 10px; width: 100%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
-            <div class="logoText">
+            <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to UnLoad/Strike</h3>
             </div>
-            <div class="logo">
-
+            <div class="logo" style="float:right;width:20%;">
+                @php
+                $logodata=\App\Models\User::where('id',$data['companyid'])->first();
+                @endphp
+                @if($logodata)
+                <img src="{{public_path($logodata->image)}}" width="80px" height="80px" />
+                @endif
             </div>
 
         </div>
+        <br>
         <div class="tableDiv paddingTable">
             <table>
                 <tbody>
@@ -233,7 +240,7 @@
 
                     </tr>
                     <tr>
-                        <td >
+                        <td>
                             <label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
                                     Company</b></label>
                         </td>

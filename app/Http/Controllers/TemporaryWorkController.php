@@ -425,7 +425,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs  = $request->except('_token', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if ($request->principle_contractor == 1) {

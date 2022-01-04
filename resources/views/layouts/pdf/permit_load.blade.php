@@ -15,16 +15,21 @@
     }
 </style>
 <page pageset="old">
-    <div style="padding: 0px; width: 100%; max-width: 70%; margin: auto;">
+    <div style="padding: 10px; width: 100%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
-            <div class="logoText">
+            <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to Load</h3>
             </div>
-            <div class="logo">
-
+            <div class="logo" style="float:right;width:20%;">
+                @php
+                $logodata=\App\Models\User::where('id',$data['companyid'])->first();
+                @endphp
+                @if($logodata)
+                <img src="{{public_path($logodata->image)}}" width="80px" height="80px" />
+                @endif
             </div>
-
         </div>
+        <br>
         <div class="tableDiv paddingTable">
             <table>
                 <tbody>
@@ -73,6 +78,11 @@
                                     TWC Name </b></label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['twc_name']}}</span></td>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                                    TWS Name </b></label>
+                        </td>
+                        <td><span style="font-size: 12px;">{{$data['tws_name']}}</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -167,7 +177,9 @@
                     <tr>
                         <td>
                             <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
-                                <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
+                                <center>
+                                    <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
+                                </center>
                                 <span style="font-size:12px;">I confirm that I have inspected the above temporary structure and I am satisfied that it
                                     conforms to the above design.</span> <br>
                                 <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use. <br>
@@ -225,7 +237,7 @@
                                     Signature </b></label></td>
                         <td style="width: 200px; font-size:12px;">
                             @if(isset($image_name1) && $image_name1!='')
-                            <img src="temporary/signature/{{$image_name1}}" width="40px" height="40px" />
+                            <img src="temporary/signature/{{$image_name1}}" width="60px" height="60px" />
                             @else
                             {{ $data['namesign1'] ?? ''}}
                             @endif
@@ -264,7 +276,7 @@
                         </td>
                         <td style="width: 200px; font-size:12px;">
                             @if(isset($image_name) && $image_name!='')
-                            <img src="temporary/signature/{{$image_name}}" width="40px" height="40px" />
+                            <img src="temporary/signature/{{$image_name}}" width="60px" height="60px" />
                             @else
                             {{ $data['namesign'] ?? ''}}
                             @endif

@@ -162,7 +162,20 @@ class TemporaryWorkController extends Controller
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
-            $image_name = HelperFunctions::savesignature($request);
+            $image_name = '';
+            if ($request->signtype == 1) {
+                $image_name = $request->namesign;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+            }
+            // $image_name = HelperFunctions::savesignature($request);
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
             if (auth()->user()->hasRole('admin')) {

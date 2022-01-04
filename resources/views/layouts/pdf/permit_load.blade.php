@@ -83,7 +83,7 @@
                 <tbody>
                     <tr>
                         <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
+                            <label for="" style="width: 400px; border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
                                     Location of the Temporary Works (Area)</b> </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
@@ -91,7 +91,7 @@
                     </tr>
                     <tr>
                         <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
+                            <label for="" style="width: 400px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
                                     of the structure which is ready for use</b> </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
@@ -169,9 +169,9 @@
                             <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
                                 <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
                                 <span style="font-size:12px;">I confirm that I have inspected the above temporary structure and I am satisfied that it
-                                conforms to the above design.</span> <br>
+                                    conforms to the above design.</span> <br>
                                 <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use. <br>
-                                I confirm that I am authorised to issue a Permit to Load for this temporary structure.</span>
+                                    I confirm that I am authorised to issue a Permit to Load for this temporary structure.</span>
 
                             </label>
                         </td>

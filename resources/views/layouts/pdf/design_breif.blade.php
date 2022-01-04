@@ -24,11 +24,12 @@
                 @php
                 $logodata=\App\Models\User::where('id',$data['company_id'])->first();
                 @endphp
-                @if($logodata)
+                @if($logodata->image != NULL)
                 <img src="{{public_path($logodata->image)}}" width="80px" height="80px" />
+                @else
+                <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" />
                 @endif
             </div>
-
         </div>
         <br>
         <div class="tableDiv paddingTable">
@@ -107,11 +108,13 @@
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="font-weight:900;float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design requirement for</b></label>
                         </td>
-                        <td style="width: 300px; font-size:12px;">{{$data['design_requirement_text']}}</td>
+                        <td style="width: 300px; font-size:11px;">{{$data['design_requirement_text']}}</td>
+                    </tr>
+                    <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works required</b></label>
                         </td>
-                        <td style="width: 300px; font-size:12px;">{{$data['description_temporary_work_required']}}</td>
+                        <td style="width: 300px; font-size:11px;">{{$data['description_temporary_work_required']}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -463,7 +463,7 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
-                                            <input type="text" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                            <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                                         </div>
                                         <div class="d-flex inputDiv ">
                                             <!--begin::Label-->

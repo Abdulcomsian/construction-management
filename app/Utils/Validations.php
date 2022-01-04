@@ -13,7 +13,7 @@ class Validations
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'no' => ['required',  'amount' => "regex:/^\d+(\.\d{1,2})?$/", 'gt:0', 'digits_between:1,6'],
+            'no' => ['required',  'amount' => "regex:/^\d+(\.\d{1,2})?$/", 'gt:0', 'digits_between:1,9'],
         ]);
     }
 

@@ -654,7 +654,7 @@ class TemporaryWorkController extends Controller
                 $pdf->save($path . '/' . $filename);
                 $notify_admins_msg = [
                     'greeting' => 'Permit Unload Pdf',
-                    'subject' => 'Scaffold PDF',
+                    'subject' => 'Permit Unload PDF',
                     'body' => [
                         'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
                         'filename' => $filename,

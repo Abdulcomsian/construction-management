@@ -5,6 +5,7 @@ namespace App\Utils;
 
 
 use Illuminate\Support\Facades\File;
+use App\Models\TemporaryWork;
 
 class HelperFunctions
 {
@@ -101,5 +102,41 @@ class HelperFunctions
             }
             return $class;
         }
+    }
+
+    public static function generatetwcid($projecno, $company, $project_id)
+    {
+        $count = TemporaryWork::where('project_id', $project_id)->count();
+        $count = $count + 1;
+        $twc_id_no = $projecno . '-' . strtoupper(substr($company, 0, 2)) . '-00' . $count;
+        return $twc_id_no;
+    }
+    public static function generatetempid($project_id)
+    {
+        $check = TemporaryWork::where('project_id', $project_id)->orderBy('id', 'desc')->first();
+        if ($check) {
+            $j = $check->tempid + 1;
+        } else {
+            $j = 1;
+        }
+        return $j;
+    }
+
+    public static function savesignature($request)
+    {
+        $image_name = '';
+        if ($request->signtype == 1) {
+            $image_name = $request->namesign;
+        } else {
+            $folderPath = public_path('temporary/signature/');
+            $image = explode(";base64,", $request->signed);
+            $image_type = explode("image/", $image[0]);
+            $image_type_png = $image_type[1];
+            $image_base64 = base64_decode($image[1]);
+            $image_name = uniqid() . '.' . $image_type_png;
+            $file = $folderPath . $image_name;
+            file_put_contents($file, $image_base64);
+        }
+        return $image_name;
     }
 }

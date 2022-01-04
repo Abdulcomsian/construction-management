@@ -157,39 +157,21 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $count = TemporaryWork::where('project_id', $request->project_id)->count();
-            $count = $count + 1;
-            $twc_id_no = $request->projno . '-' . strtoupper(substr($request->company, 0, 2)) . '-00' . $count;
+
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
             //upload signature here
-            $image_name = '';
-            if ($request->signtype == 1) {
-                $all_inputs['signature'] = $request->namesign;
-            } else {
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name;
-                file_put_contents($file, $image_base64);
-                $all_inputs['signature'] = $image_name;
-            }
+            $image_name = HelperFunctions::savesignature($request);
+            $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
             if (auth()->user()->hasRole('admin')) {
                 $all_inputs['created_by'] = $request->company_id;
             }
             //work for qrcode
-            $check = TemporaryWork::where('project_id', $request->project_id)->orderBy('id', 'desc')->first();
-            if ($check) {
-                $j = $check->tempid + 1;
-            } else {
-                $j = 1;
-            }
+            $j = HelperFunctions::generatetempid($request->project_id);
             $all_inputs['tempid'] = $j;
+            $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
             $all_inputs['twc_id_no'] = $twc_id_no;
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
@@ -210,6 +192,8 @@ class TemporaryWorkController extends Controller
                         $image_links[] = $imagename;
                     }
                 }
+
+                //work for pdf
                 $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
@@ -427,6 +411,7 @@ class TemporaryWorkController extends Controller
         try {
             $all_inputs  = $request->except('_token', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
             $all_inputs['created_by'] = auth()->user()->id;
+            //first person signature and name
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
                 $all_inputs['name1'] = $request->name1;
@@ -445,7 +430,7 @@ class TemporaryWorkController extends Controller
                     $all_inputs['signature1'] = $image_name1;
                 }
             }
-            //for 2
+            //second person signature and name
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;

@@ -249,7 +249,7 @@
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
                                         Location of the Temporary Works (Area):
                                     </label>
                                     <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
@@ -258,7 +258,7 @@
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
                                         Description of Structure which is ready for use:
                                     </label>
                                     <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
@@ -267,16 +267,16 @@
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
                                         <span class="required">MS/RA Number</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
+                                    <input type="text" style="width:25%" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-20">
                                 <div class="d-flex inputDiv" style=" height: 87px;">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
                                         <span class="required">Equipment/materials used as a specified/fit for purpose</span>
                                     </label>
                                     <!--begin::Radio group-->
@@ -302,7 +302,7 @@
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%"> 
                                         <span class="required">Workmanship checked </span>
                                     </label>
                                     <!--begin::Radio group-->
@@ -330,7 +330,7 @@
 
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
                                         <span class="required">TW checked to drawings/design output</span>
 
                                     </label>
@@ -366,7 +366,7 @@
 
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
                                         <span class="required">Loading /use limitations understood e.g. sequence of loading, access/plant loading</span>
                                     </label>
                                     <!--begin::Radio group-->

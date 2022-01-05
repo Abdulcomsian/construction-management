@@ -165,7 +165,7 @@
                     </div>
                 </div>
                 <div class="submit-requirment" data-bs-dismiss="modal">
-                    <button disabled="disabled">Save</button>
+                    <button disabled="disabled" style="opacity:1 !important;">Save</button>
                 </div>
             </div>
             <!--end::Modal body-->
@@ -543,7 +543,7 @@
                     <input type="button" class="btn btn-sm btn-primary addfile" style="width: 10%;" value="Add"> -->
                 </div>
                 <div class="submit-requirment" style="width:100%;padding-left:10px;">
-                    <button data-bs-dismiss="modal" style="width: 10%;">Save</button>
+                    <button data-bs-dismiss="modal" style="width: 10%;opacity:1 !important;">Save</button>
 
                 </div>
 

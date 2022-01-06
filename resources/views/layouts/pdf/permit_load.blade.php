@@ -159,13 +159,13 @@
                         <td style="font-size:12px;">Y</td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Approval by Temp Works Coordinator Required?
-                            completed Other criteria specified (e.g. strength of supporting structure, any back propping, ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)</td>
+                        <td style="font-size:12px;">Approval by Temp Works Coordinator Required?</td>
                         <td style="font-size:12px;">@if($data['works_coordinator']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
                     <tr style="height: 40px;">
                         <td style="font-size:12px;">
                             @if($data['works_coordinator']==1)
+                            completed Other criteria specified (e.g. strength of supporting structure, any back propping, ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)<br>
                             {{$data['description_approval_temp_works']}}
                             @endif
                         </td>
@@ -213,7 +213,7 @@
 
         </div>
 
-
+        <pagebreak></pagebreak>
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <tbody>
@@ -224,64 +224,57 @@
                         </td>
                         <td style="width:200px; font-size:12px;"> @if($data['principle_contractor']==1){{$data['name1']}}@endif</td>
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
-                                    Job Title </b></label></td>
-                        <td style="width: 200px; font-size:12px;"> @if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
+                        Name   </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{$data['name']}}</td>
 
 
                     </tr>
                     <tr>
                         <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
-                                <b style="font-size:12px;"> Company </b></label>
+                                <b style="font-size:12px;">  Job Title
+                                
+                                 </b></label>
                         </td>
-                        <td style="width: 200px; font-size: 12px;"> {{$data['company']}}</td>
+                        <td style="width: 200px; font-size: 12px;"> @if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;"><b style="font-size:12px;">
-                                    Signature </b></label></td>
+                        Company 
+                         </b></label></td>
                         <td style="width: 200px; font-size:12px;">
-                            @if(isset($image_name1) && $image_name1!='')
-                            <img src="temporary/signature/{{$image_name1}}" width="50px" height="50px" />
+                        {{$data['company']}}
+                            
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    
+                            Signature
+                             </b></label>
+                        </td>
+                        <td style="width: 200px; font-size:12px;">
+                        @if(isset($image_name1) && $image_name1!='')
+                            <img src="temporary/signature/{{$image_name1}}"  width="auto" height="120" />
                             @else
                             {{ $data['namesign1'] ?? ''}}
                             @endif
+                            
                         </td>
-
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                    Date </b></label>
-                        </td>
-                        <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                    Name </b></label></td>
-                        <td style="width: 200px; font-size:12px;">{{$data['name']}}</td>
-
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                    Job Title </b></label>
-                        </td>
+                             Job Title        </b></label></td>
                         <td style="width: 200px; font-size:12px;"> {{$data['job_title']}}</td>
-                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black;  margin: 0px;"><b style="font-size:12px;">
-                                    Company </b></label></td>
-                        <td style="width: 200px; font-size:12px;">{{$data['company']}}</td>
 
 
                     </tr>
+                   
                     <tr>
                         <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                    Signature </b></label>
+                                     </b></label>
                         </td>
                         <td style="width: 200px; font-size:12px;">
-                            @if(isset($image_name) && $image_name!='')
-                            <img src="temporary/signature/{{$image_name}}" width="50px" height="50px" />
-                            @else
-                            {{ $data['namesign'] ?? ''}}
-                            @endif
                         </td>
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
                                     Date </b></label></td>
@@ -289,10 +282,40 @@
 
 
                     </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                     </b></label>
+                        </td>
+                        <td style="width: 200px; font-size:12px;">
+                          
+                        </td>
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Signature </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> 
+                        @if(isset($image_name) && $image_name!='')
+                            <img src="temporary/signature/{{$image_name}}"   width="auto" height="120" />
+                            @else
+                            {{ $data['namesign'] ?? ''}}
+                            @endif
+                    </td>
+
+
+                    </tr>
                 </tbody>
             </table>
         </div>
-
+        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                @foreach($image_links as $image)
+                    <tr>
+                        <td><img src="{{$image}}" width="500" alt="img"/></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </page>

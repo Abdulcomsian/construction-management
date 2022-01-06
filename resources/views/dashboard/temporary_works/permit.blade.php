@@ -8,7 +8,7 @@
     .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-
+    .form-control.form-control-solid{background-color:#000;}
     .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
@@ -122,7 +122,10 @@
         width: 100% !important;
         height: auto;
     }
-
+    #sig1 canvas {
+        width: 100% !important;
+        height: auto;
+    }
     .modalDiv {
         width: 100%;
     }
@@ -133,7 +136,7 @@
     }
 
     .nav-group.nav-group-fluid {
-        position: absolute;
+        /* position: absolute; */
         right: 10px;
     }
 
@@ -212,7 +215,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{old('twc_name')}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}" required>
                                 </div>
                             </div>
                         </div>
@@ -224,7 +227,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
                                         </label>
-                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date" value="{{old('date')}}">
+                                        <input type="date" style="background-color:#f5f8fa !important" id="permit_date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date" value="{{old('date')}}">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -242,7 +245,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{old('drawing_title')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -251,7 +254,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name" value="{{old('tws_name')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required>
                                     </div>
                                 </div>
                             </div>
@@ -281,7 +284,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">MS/RA Number</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -434,9 +437,9 @@
                                     <textarea name="description_approval_temp_works" rows="2" cols="155">{{old('description_approval_temp_works')}}</textarea>
                                 </div>
                             </div>
-                            <h5 style="color: white">Permit to unload/Use</h5>
+                            <h5 style="color: #000">Permit to unload/Use</h5>
                             <br>
-                            <p style="color: white;">
+                            <p style="color: #000;">
 
                                 I confirm that I have inspected the above temporary structure and I
                                 am satisfied that it conforms to the above.<br>
@@ -498,7 +501,7 @@
                                                     <span class="required">Name::</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Name" name="name1" value="{{old('name1')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name1" name="name1" value="{{old('name1')}}">
                                             </div>
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
@@ -506,7 +509,7 @@
                                                     <span class="required">Job title:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" value="{{old('job_title1')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1')}}">
                                             </div>
 
                                         </div>
@@ -524,7 +527,7 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Name Signature:</span>
                                                 </label>
-                                                <input type="text" name="namesign1" class="form-control form-control-solid">
+                                                <input type="text" name="namesign1" id="namesign_id2" class="form-control form-control-solid">
                                             </div>
                                             <div class="d-flex inputDiv principleno" id="sign1" style="margin-left:40px">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -552,7 +555,7 @@
                                                     <span class="required">Name::</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{old('name')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name')}}">
                                             </div>
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
@@ -560,7 +563,7 @@
                                                     <span class="required">Job title:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title')}}">
                                             </div>
                                             <div class="d-flex inputDiv ">
                                                 <!--begin::Label-->
@@ -577,7 +580,7 @@
                                                     <span class="required">Date:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                                <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                             </div>
 
                                         </div>
@@ -595,7 +598,7 @@
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Name Signature:</span>
                                                 </label>
-                                                <input type="text" name="namesign" class="form-control form-control-solid">
+                                                <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                             </div>
                                             <div class="d-flex inputDiv principleno" id="sign" style="margin-left:40px">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -693,5 +696,47 @@
             $("#signature").attr('required', 'required');
         }
     })
+    $('#drawing_no').change(function() {
+        $('#drawing_no').css("background-color", "#f5f8fa ");
+     });
+     $('#drawing_title').change(function() {
+        $('#drawing_title').css("background-color", "#f5f8fa ");
+     });
+     $('#drawing_no').change(function() {
+        $('#drawing_no').css("background-color", "#f5f8fa ");
+     });
+     $('#twc_name').change(function() {
+        $('#twc_name').css("background-color", "#f5f8fa ");
+     });
+     $('#tws_name').change(function() {
+        $('#tws_name').css("background-color", "#f5f8fa ");
+     });
+     $('#ms_ra_no').change(function() {
+        $('#ms_ra_no').css("background-color", "#f5f8fa ");
+     });
+     $('#name1').change(function() {
+        $('#name1').css("background-color", "#f5f8fa ");
+     });
+     $('#job_title1').change(function() {
+        $('#job_title1').css("background-color", "#f5f8fa ");
+     });
+     $('#name2').change(function() {
+        $('#name2').css("background-color", "#f5f8fa ");
+     });
+     $('#job_title').change(function() {
+        $('#job_title').css("background-color", "#f5f8fa ");
+     });
+     $('#namesign_id').change(function() {
+        $('#namesign_id').css("background-color", "#f5f8fa ");
+     });
+     $('#namesign_id2').change(function() {
+        $('#namesign_id2').css("background-color", "#f5f8fa ");
+     });
+     
+    //  $('#permit_date').change(function() {
+    //     $('#permit_date').css("background-color", "#f5f8fa ");
+    //     $('#permit_date').css("color", "#000 !important;");
+    //  });
+     
 </script>
 @endsection

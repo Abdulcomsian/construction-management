@@ -241,7 +241,7 @@ border-radius: 8px;
                                     <th class="" style="max-width:210px;">Description of TWS</th>
                                     <th style="transform: rotate(-90deg);" class="">Design Check CAT</th>
                                     <th style="transform: rotate(-90deg);" class="">Implimentation Risk Class</th>
-                                    <th class=""  style="transform: rotate(-90deg);">Issue Date of Design Brief</th>
+                                    <th class=""  style="transform: rotate(-90deg);">Issue Date<br> of Design Brief</th>
                                     <th class=""  style="transform: rotate(-90deg);">Required Date of Design</th>
                                     <th class="">Comments</th>
                                     <th class="">TW designer (designer name and company)</th>
@@ -296,9 +296,9 @@ border-radius: 8px;
                                     </td>
                                     <td style="">{{ $item->tw_category ?: '-' }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                    <td>{{ $item->design_issued_date ?: '-' }}</td>
+                                    <td style="transform: rotate(-90deg);width:100%">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
-                                        <p style="background: #07d564;border: 1px solid 07d564;width: 103%;">{{$item->design_required_by_date ?: '-' }}</p> </td>
+                                        <p style="background: #07d564;border: 1px solid 07d564;width: 103%;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" style="font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
@@ -327,7 +327,7 @@ border-radius: 8px;
                                     <td style="transform: rotate(-90deg);"> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
-                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{$file->created_at->todatestring()}}
+                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}
                                           </p>
                                             @break
                                           @endif
@@ -337,7 +337,7 @@ border-radius: 8px;
                                     <td style="transform: rotate(-90deg);">
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
-                                           <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{$file->created_at->todatestring()}}</p>
+                                           <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
                                             @break
                                           @endif
                                         @endforeach

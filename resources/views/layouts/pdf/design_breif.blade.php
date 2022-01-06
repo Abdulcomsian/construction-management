@@ -25,9 +25,9 @@
                 $logodata=\App\Models\User::where('id',$data['company_id'])->first();
                 @endphp
                 @if($logodata->image != NULL)
-                <img src="{{public_path($logodata->image)}}" width="80px" height="80px" />
+                <img src="{{public_path($logodata->image)}}" width="auto" height="80px" />
                 @else
-                <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" />
+                <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="auto" height="80px" />
                 @endif
             </div>
         </div>
@@ -84,9 +84,11 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['twc_name']}}</td>
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWc Email Address</b></label>
+                            <!-- <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWc Email Address</b></label> -->
                         </td>
-                        <td style="max-height:70px !important; font-size:12px;"> {{$data['twc_email']}}</td>
+                        <td style="max-height:70px !important; font-size:12px;"> 
+                        <!-- {{$data['twc_email']}} -->
+                    </td>
                     </tr>
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
@@ -98,27 +100,22 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['tw_risk_class']}}</td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
-            <table>
-                <tbody>
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="font-weight:900;float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design requirement for</b></label>
                         </td>
-                        <td style="width: 300px; font-size:11px;">{{$data['design_requirement_text']}}</td>
+                        <td colspan="3" style="width: 300px; font-size:11px;">{{$data['design_requirement_text']}}</td>
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works required</b></label>
                         </td>
-                        <td style="width: 300px; font-size:11px;">{{$data['description_temporary_work_required']}}</td>
+                        <td colspan="3" style="width: 300px; font-size:11px;">{{$data['description_temporary_work_required']}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+       
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <thead style="background:gray;color:white">
@@ -204,7 +201,7 @@
                 </tbody>
             </table>
         </div>
-
+        <pagebreak></pagebreak>
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <thead>
@@ -215,6 +212,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                @if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes")
                 <tr>
                         <td>
                             <b style="font-size:12px;">List of attachments/sketches/ Photos / Specifications /Drawings etc.</b>
@@ -226,6 +224,8 @@
                         <!-- @if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
+                    @endif
+                    @if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes")
                     <tr>
                         <td><b style="font-size:12px;">Reports including Site Investigations- relevant boreholes/ trial pits/ site investigation</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['reports_including_site_investigations_comment'] ?? '' }}</p>
@@ -236,6 +236,8 @@
                         <!-- @if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
+                    @endif
+                    @if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="yes")
                     <tr>
                         <td>
                             <b style="font-size:12px;">Existing Ground conditions</b>
@@ -247,6 +249,8 @@
                         <!-- @if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
+                    @endif
+                    @if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="yes")
                     <tr>
                         <td>
                             <b style="font-size:12px;">Preferred/non-preferred methods, systems or types of equipment</b>
@@ -258,6 +262,8 @@
                         <!-- @if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
+                    @endif
+                    @if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="yes")
                     <tr>
                         <td>
                             <b style="font-size:12px;">Access limitations or edge protection requirements:</b>
@@ -269,8 +275,8 @@
                         <!-- @if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
-                
-                    
+                    @endif
+                    @if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes")
                     <tr>
                         <td><b style="font-size:12px;">Back Propping / Re-Propping Sequence: (please attach)</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['back_propping_comment'] ?? '' }}</p>
@@ -281,8 +287,9 @@
                         <!-- @if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
-					
-  <tr>
+                    @endif
+                    @if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="yes")	
+                  <tr>
                         <td><b style="font-size:12px;">Limitations on Temporary Works Design: (please attach)</b>
                             <p style="font-size:11px;">{{$comments['limitations_on_temporary_works_design_comment'] ?? '' }}</p>
                         </td>
@@ -292,7 +299,8 @@
                         <!-- @if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
-                  
+                    @endif
+                    @if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="yes")                  
                     <tr>
                         <td><b style="font-size:12px;">Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['details_of_any_hazards_comment'] ?? '' }}</p>
@@ -303,6 +311,8 @@
                         <!-- @if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
+                    @endif
+                    @if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="yes")
                     <tr>
                         <td>
                             <b style="font-size:12px;">3rd Party Requirements</b>
@@ -314,6 +324,7 @@
                         <!-- @if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="no"){{'N'}}@endif -->
                     </td>
                     </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -384,7 +395,7 @@
                             {{ucwords($data['namesign'])}}
                             @else
                             @php $sign=\App\Models\TemporaryWork::find($image_name);@endphp
-                            <img src="temporary/signature/{{$sign->signature}}" width="60px" height="60px">
+                            <img src="temporary/signature/{{$sign->signature}}" width="auto" height="120">
                             @endif
                         </td>
                     </tr>

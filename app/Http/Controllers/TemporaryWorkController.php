@@ -469,8 +469,9 @@ class TemporaryWorkController extends Controller
                 }
                 //save permit images
 
-                // $image_links = $this->permitfiles($request, $permitload->id);
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
+                 $image_links = $this->permitfiles($request, $permitload->id);
+                //  dd($image_links);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links'=>$image_links, 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -496,7 +497,6 @@ class TemporaryWorkController extends Controller
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
-            return $e->getMessage();
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

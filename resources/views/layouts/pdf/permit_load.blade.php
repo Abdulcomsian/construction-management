@@ -89,15 +89,14 @@
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 400px; border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
-                                    Location of the Temporary<br>
-                                    <br>Works (Area)</b> </label>
+                                    Location of the Temporary<br>Works (Area)</b> </label>
                         </td>
                         <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
 
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 400px;border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
+                        <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">Description
                                     of the<br>structure which is<br> ready for use</b> </label>
                         </td>
                         <td  colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
@@ -154,7 +153,7 @@
                     <tr style="height: 40px;">
                         <td style="font-size:10px;">
                             @if($data['works_coordinator']==1)
-                            completed Other criteria specified (e.g. strength of supporting structure, any back propping, ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)<br>
+                            completed Other criteria specified (e.g. strength of supporting structure, any back propping, ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)<br><br>
                             <span style="font-size:12px;">{{$data['description_approval_temp_works']}}</span>
                             @endif
                         </td>
@@ -196,7 +195,7 @@
 
                         <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
-                                <b style="font-size:12px;"> Name </b></label>
+                                <b style="font-size:12px;">@if($data['principle_contractor']==1) Name @endif</b></label>
                         </td>
                         <td style="width:200px; font-size:12px;"> @if($data['principle_contractor']==1){{$data['name1']}}@endif</td>
 
@@ -226,7 +225,7 @@
 
                         <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
-                                <b style="font-size:12px;">  Job Title
+                                <b style="font-size:12px;"> @if($data['principle_contractor']==1) Job Title @endif
                                 
                                  </b></label>
                         </td>
@@ -243,7 +242,7 @@
                         <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
 
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                    Date </b></label></td>
+                        @if($data['principle_contractor']==1) Date @endif</b></label></td>
                         <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
 
                     </tr>
@@ -262,7 +261,7 @@
                     <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
                                     
-                            Signature
+                            @if($data['principle_contractor']==1)      Signature @endif
                              </b></label>
                         </td>
                         <td style="width: 200px; font-size:12px;">

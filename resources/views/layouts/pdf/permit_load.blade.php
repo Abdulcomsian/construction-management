@@ -152,10 +152,10 @@
                         <td style="font-size:12px;">@if($data['works_coordinator']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
                     <tr style="height: 40px;">
-                        <td style="font-size:12px;">
+                        <td style="font-size:10px;">
                             @if($data['works_coordinator']==1)
                             completed Other criteria specified (e.g. strength of supporting structure, any back propping, ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)<br>
-                            {{$data['description_approval_temp_works']}}
+                            <span style="font-size:12px;">{{$data['description_approval_temp_works']}}</span>
                             @endif
                         </td>
                     </tr>

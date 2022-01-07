@@ -218,25 +218,20 @@
             <table>
                 <tbody>
                     <tr>
+                       
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                        Name   </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{$data['name']}}</td>
+
                         <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
                                 <b style="font-size:12px;"> Name </b></label>
                         </td>
                         <td style="width:200px; font-size:12px;"> @if($data['principle_contractor']==1){{$data['name1']}}@endif</td>
-                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
-                        Name   </b></label></td>
-                        <td style="width: 200px; font-size:12px;"> {{$data['name']}}</td>
-
 
                     </tr>
                     <tr>
-                        <td>
-                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
-                                <b style="font-size:12px;">  Job Title
-                                
-                                 </b></label>
-                        </td>
-                        <td style="width: 200px; font-size: 12px;"> @if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
+                       
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;"><b style="font-size:12px;">
                         Company 
                          </b></label></td>
@@ -244,11 +239,56 @@
                         {{$data['company']}}
                             
                         </td>
+                        <td>
+                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
+                                <b style="font-size:12px;">  </b></label>
+                        </td>
+                        <td style="width:200px; font-size:12px;"> </td>
 
+                       
+                    </tr>
+                    <tr>
+                        
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                             Job Title        </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{$data['job_title']}}</td>
+
+                        <td>
+                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
+                                <b style="font-size:12px;">  Job Title
+                                
+                                 </b></label>
+                        </td>
+                        <td style="width: 200px; font-size: 12px;"> @if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
+
+                        
+                        
+                    </tr>
+                   
+                    <tr>
+                       
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Date </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
+
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Date </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
 
                     </tr>
                     <tr>
-                        <td>
+                        
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Signature </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> 
+                        @if(isset($image_name) && $image_name!='')
+                            <img src="temporary/signature/{{$image_name}}"   width="auto" height="120" />
+                            @else
+                            {{ $data['namesign'] ?? ''}}
+                            @endif
+                    </td>
+
+                    <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
                                     
                             Signature
@@ -262,44 +302,6 @@
                             @endif
                             
                         </td>
-                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                             Job Title        </b></label></td>
-                        <td style="width: 200px; font-size:12px;"> {{$data['job_title']}}</td>
-
-
-                    </tr>
-                   
-                    <tr>
-                        <td>
-                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                     </b></label>
-                        </td>
-                        <td style="width: 200px; font-size:12px;">
-                        </td>
-                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                    Date </b></label></td>
-                        <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
-
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                     </b></label>
-                        </td>
-                        <td style="width: 200px; font-size:12px;">
-                          
-                        </td>
-                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
-                                    Signature </b></label></td>
-                        <td style="width: 200px; font-size:12px;"> 
-                        @if(isset($image_name) && $image_name!='')
-                            <img src="temporary/signature/{{$image_name}}"   width="auto" height="120" />
-                            @else
-                            {{ $data['namesign'] ?? ''}}
-                            @endif
-                    </td>
-
 
                     </tr>
                 </tbody>

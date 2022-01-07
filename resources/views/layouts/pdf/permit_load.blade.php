@@ -89,7 +89,7 @@
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 400px; border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
-                                    Location of<br>the Temporary
+                                    Location of the Temporary<br>
                                     <br>Works (Area)</b> </label>
                         </td>
                         <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
@@ -98,7 +98,7 @@
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 400px;border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
-                                    of<br>the structure <br>which is ready<br>for use</b> </label>
+                                    of the<br>structure which is<br> ready for use</b> </label>
                         </td>
                         <td  colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
 

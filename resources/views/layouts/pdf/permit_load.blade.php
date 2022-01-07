@@ -170,14 +170,8 @@
                             @endif
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
-            <table>
-                <tbody>
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
                                 <center>
                                     <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
@@ -191,29 +185,17 @@
                         </td>
 
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tableDiv paddingTable" style="width: 100%;">
-            <div class="inputDiv">
-                <table style="margin-top: 10px;">
-                    <thead style="margin-top:10px;">
-                        <th style="font-size:12px;">Principal Contractor Approval required</th>
+                    <!-- <tr>
+                    <th style="font-size:12px;">Principal Contractor Approval required</th>
                         <th style="font-size:12px;">Y</th>
-                    </thead>
-
-                    <tbody style="margin-top: 10px;">
-                        <tr>
+                    </tr> -->
+                    <tr>
                             <td style="font-size:12px;">Principal Contractor Approval required</td>
                             <td style="font-size:12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-
+                </tbody>
+            </table>
         </div>
-
-        <pagebreak></pagebreak>
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <tbody>

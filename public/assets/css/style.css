@@ -242,7 +242,10 @@ input:focus {
 #DataTables_Table_0_filter label {
     color: #000 !important;
 }
-
+.btn-check:checked+.btn.btn-active-primary2{
+    background-color: red;
+    color:#fff;
+}
 .btn-check:checked+.btn.btn-active-primary,
 .btn.btn-primary:hover:not(.btn-active),
 .btn.btn-primary,

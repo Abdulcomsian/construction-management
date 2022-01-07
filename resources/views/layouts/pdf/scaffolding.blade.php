@@ -926,31 +926,7 @@
       </div>
    </div>
    <!-- old work below  -->
-   <table style="border: 1px solid black;width: 100%;">
-      <tr>
-         <td style="width:12%; "></td>
-         <td style="width:40%;">COMMENTS/ACTIONS </td>
-         <td style=" width:20%; "></td>
-      </tr>
-      <tr style=" border:1px solid black;">
-         </td>
-         <td style=" border:1px solid black;">NO</td>
-         <td style=" border:1px solid black;">COMMENTS/ACTIONS REQUIRES</td>
-         <td style=" border:1px solid black;">Date Completed</td>
-      </tr>
-      @php
-      for($i=0;$i<count($data['no']);$i++){@endphp 
-      <tr>
-         <td style=" border:1px solid black;">{{$data['no'][$i]}}</td>
-         <td style=" border:1px solid black;">{{$data['desc_actions'][$i]}}</td>
-         <td style=" border:1px solid black;">
-            <!-- {{$data['action_date'][$i]}} -->
-            {{ date('d-m-Y', strtotime($data['action_date'][$i])) }}
-         </td>
-      </tr>
-      @php }
-      @endphp
-   </table>
+
    <!-- new work of -->
    <div class="tableDiv paddingTable" style="margin: 20px 0px;">
       <table>

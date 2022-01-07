@@ -239,7 +239,7 @@ $('input[name="partially_removed_radio"]').change(function () {
 });
 
 $('input[name="loose_damaged_broken_radio"]').change(function () {
-    if ($(this).val() == 1) {
+    if ($(this).val() == 2) {
         $('textarea[name="loose_damaged_broken_comment"]')
             .removeClass("d-none")
             .attr("required", "required");
@@ -251,7 +251,7 @@ $('input[name="loose_damaged_broken_radio"]').change(function () {
 });
 
 $('input[name="loose_damaged_broken_radio"]').change(function () {
-    if ($(this).val() == 1) {
+    if ($(this).val() == 2) {
         $('textarea[name="loose_damaged_broken_comment"]')
             .removeClass("d-none")
             .attr("required", "required");

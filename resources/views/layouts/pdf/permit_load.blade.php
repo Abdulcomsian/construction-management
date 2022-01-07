@@ -15,12 +15,12 @@
     }
 </style>
 <page pageset="old">
-    <div style="padding: 10px; width: 100%; margin: auto;">
+    <div style="padding: 0; width: 100%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to Load</h3>
             </div>
-            <div class="logo" style="float:right;width:20%;">
+            <!-- <div class="logo" style="float:right;width:20%;">
                 @php
                 $logodata=\App\Models\User::where('id',$data['companyid'])->first();
                 @endphp
@@ -29,22 +29,22 @@
                 @else
                 <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" />
                 @endif
-            </div>
+            </div> -->
         </div>
-        <br>
+        <!-- <br> -->
         <div class="tableDiv paddingTable">
             <table>
                 <tbody>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 5px 10px; padding: 5px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Project
                                     Name</b>
                             </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['projname']}}</span></td>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 10px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Project
                                     number </b> </label>
                         </td>
@@ -52,81 +52,70 @@
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
                                 <b style="font-size: 12px;"> Drawing Number </b> </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['drawing_no']}}</span></td>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Date </b><label>
                         </td>
                         <td><span style="font-size: 12px;">{{ date('d-m-Y', strtotime($data['date'])) }}</span></td>
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit
+                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit
                                     Number </b> </label>
                         </td>
                         <td style="font-size: 12px;">{{$data['permit_no']}}</td>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Drawing Title </b></label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['drawing_title']}}</span></td>
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     TWC Name </b></label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['twc_name']}}</span></td>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     TWS Name </b></label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['tws_name']}}</span></td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
-            <table>
-                <tbody>
                     <tr>
-                        <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px; border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
-                                    Location of the Temporary Works (Area)</b> </label>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 400px; border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
+                                    Location of<br>the Temporary
+                                    <br>Works (Area)</b> </label>
                         </td>
-                        <td><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
+                        <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
 
                     </tr>
                     <tr>
-                        <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
-                                    of the structure which is ready for use</b> </label>
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 400px;border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
+                                    of<br>the structure <br>which is ready<br>for use</b> </label>
                         </td>
-                        <td><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
+                        <td  colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
 
                     </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
-            <table>
-                <tbody>
                     <tr>
-                        <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 200px;background:gray;color:white;">
+                            <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">
                                     MS/RA number</b> </label>
                         </td>
-                        <td><span style="font-size: 12px;">{{$data['ms_ra_no']}}</span></td>
+                        <td colspan="3"><span style="font-size: 12px;">{{$data['ms_ra_no']}}</span></td>
 
                     </tr>
                 </tbody>
             </table>
         </div>
+
+
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <thead>
@@ -264,7 +253,7 @@
                                     Signature </b></label></td>
                         <td style="width: 200px; font-size:12px;"> 
                         @if(isset($image_name) && $image_name!='')
-                            <img src="temporary/signature/{{$image_name}}"   width="auto" height="120" />
+                            <img src="temporary/signature/{{$image_name}}"   width="50%" height="auto" />
                             @else
                             {{ $data['namesign'] ?? ''}}
                             @endif
@@ -278,7 +267,7 @@
                         </td>
                         <td style="width: 200px; font-size:12px;">
                         @if(isset($image_name1) && $image_name1!='')
-                            <img src="temporary/signature/{{$image_name1}}"  width="auto" height="120" />
+                            <img src="temporary/signature/{{$image_name1}}"  style="width:50%;height:auto;" width="50%" height="auto" />
                             @else
                             {{ $data['namesign1'] ?? ''}}
                             @endif
@@ -289,6 +278,7 @@
                 </tbody>
             </table>
         </div>
+        @if(isset($image_links))
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <tbody>
@@ -300,6 +290,6 @@
                 </tbody>
             </table>
         </div>
-
+        @endif
     </div>
 </page>

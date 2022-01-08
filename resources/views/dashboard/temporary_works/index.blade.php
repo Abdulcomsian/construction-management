@@ -525,6 +525,7 @@ border-radius: 8px;
             data:{id:id,type:'unload'},
             success:function(res)
             {
+                console.log(res);
                $("#permitheading").html('Permit To Unload');
                $("#permitloadbutton").removeClass('d-flex').hide();
                $("#permitbody").html(res);

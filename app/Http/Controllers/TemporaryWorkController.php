@@ -469,9 +469,9 @@ class TemporaryWorkController extends Controller
                 }
                 //save permit images
 
-                 $image_links = $this->permitfiles($request, $permitload->id);
+                $image_links = $this->permitfiles($request, $permitload->id);
                 //  dd($image_links);
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links'=>$image_links, 'image_name' => $image_name, 'image_name1' => $image_name1]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -532,6 +532,7 @@ class TemporaryWorkController extends Controller
                 }
                 $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
+            $list .= '<hr>';
         }
         if (count($scaffold) > 0) {
             $current =  \Carbon\Carbon::now();
@@ -546,13 +547,13 @@ class TemporaryWorkController extends Controller
                 $button = '';
                 if ($permit->status == 1) {
                     $status = "Open";
-                    $button = '<a class="btn btn-primary" href="#"><span class="fa fa-plus-square"></span>Renew</a>';
-                    if (isset($request->type)) {
-                        // $button = '<a class="btn btn-primary" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
-                        $button="";
+                    if($request->type=="unload"){}else{
+                        $button = '<a class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }
-                } elseif ($permit->status == 0) {
+                } elseif ($permit->status == 0 || $permit->status == 4) {
                     $status = "Closed";
+                } elseif ($permit->status == 3) {
+                    $status = "Unloaded";
                 }
                 $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
@@ -743,7 +744,7 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $all_inputs  = $request->except('_token', 'type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
@@ -761,6 +762,10 @@ class TemporaryWorkController extends Controller
 
             $all_inputs['created_by'] = auth()->user()->id;
             //save data in scaffolign model
+            if (isset($request->type) && $request->type == "scaffoldunload") {
+                $all_inputs['status'] = 1;
+                Scaffolding::find($request->id)->update(['status' => 4]);
+            }
             $scaffolding = Scaffolding::create($all_inputs);
             if ($scaffolding) {
                 $model = new CheckAndComment();
@@ -850,6 +855,23 @@ class TemporaryWorkController extends Controller
             Notification::route('mail', 'basitawan.abdul@gmail.com')->notify(new TempAttachmentNotifications($data));
             toastSuccess('Attachements sent successfully!');
             return Redirect::back();
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    //Scaffolod unlaod
+    public function scaffolding_unload($id)
+    {
+        try {
+            $scaffoldid =  \Crypt::decrypt($id);
+            $scaffolddata = Scaffolding::find($scaffoldid);
+            $tempid = $scaffolddata->temporary_work_id;
+            $twc_id_no = $scaffolddata->permit_no;
+            $project = Project::with('company')->where('id', $scaffolddata->project_id)->first();
+            $checkAndComments = CheckAndComment::find($scaffoldid);
+            return view('dashboard.temporary_works.scaffold-unload', compact('project', 'checkAndComments', 'tempid', 'scaffolddata', 'twc_id_no'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

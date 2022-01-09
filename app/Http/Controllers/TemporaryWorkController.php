@@ -547,7 +547,9 @@ class TemporaryWorkController extends Controller
                 $button = '';
                 if ($permit->status == 1) {
                     $status = "Open";
-                    if($request->type=="unload"){}else{
+                    if($request->type=="unload"){
+                        $button = '<a class="btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
+                    }else{
                         $button = '<a class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }
                 } elseif ($permit->status == 0 || $permit->status == 4) {
@@ -860,7 +862,22 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+    
+    public function scaffolding_close($id)
+    {
+        // echo "123";exit;
+        try {
+            $scaffoldid =  \Crypt::decrypt($id);
+            $scaffolddata = Scaffolding::find($scaffoldid);
+            Scaffolding::find($scaffoldid)->update(['status' => 4]);
+            
+            return Redirect::back();
+        } catch (\Exception $exception) {
 
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
     //Scaffolod unlaod
     public function scaffolding_unload($id)
     {

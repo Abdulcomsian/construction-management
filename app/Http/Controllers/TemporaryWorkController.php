@@ -421,6 +421,7 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
+    //    dd($request->all());
         Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
@@ -498,6 +499,7 @@ class TemporaryWorkController extends Controller
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
+            echo $exception->getMessage();exit;
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

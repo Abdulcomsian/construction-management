@@ -440,7 +440,7 @@ height: 72px;
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <div id="sig" ontouchmove="event.preventDefault();"></div>
+                                    <canvas id="sig" style="background: lightgray"></canvas>
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                 </div>
@@ -502,7 +502,7 @@ height: 72px;
         }
     })
 </script>
-<script>
+
     
 
 @endsection

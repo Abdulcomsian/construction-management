@@ -130,6 +130,9 @@
         border: 1px solid grey;
         color: #000;
     }
+    canvas{
+        background: lightgray;
+    }
 </style>
 @endsection
 @section('content')
@@ -1606,7 +1609,7 @@
                                             <span class="required">Signature:</span>
                                         </label>
                                         <br />
-                                        <div id="sig" ontouchmove="event.preventDefault();"></div>
+                                        <canvas id="sig" ontouchmove="event.preventDefault();"></canvas>
                                         <br />
                                         <textarea id="signature" name="signed" style="opacity:0" required></textarea>
                                     </div>

@@ -112,6 +112,7 @@ class TemporaryWorkController extends Controller
      */
     public function store(Request $request)
     {
+        
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];

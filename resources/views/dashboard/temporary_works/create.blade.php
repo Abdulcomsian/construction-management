@@ -99,7 +99,7 @@ height: 72px;
     }
 
     .inputDiv label {
-        width: 25%;
+        width: 40%;
         color: #000;
     }
     .select2-container{width:50% !important;}
@@ -125,6 +125,11 @@ height: 72px;
         .modalDiv{
             width:100% ;
         }
+        .form-control.form-control-solid{width:250px;}
+        @media only screen and (max-width: 470px) {
+            .inputDiv label{font-size:11px;}
+    }
+    canvas{width:270px;height:110px;}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -220,9 +225,9 @@ height: 72px;
                                         <span class="required">Design Required by Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <p style="width: 50%; cursor: pointer;background-color: #f5f8fa;color: #000 !important;">
-                                        <input type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
-                                    </p>
+                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
+                                        <input  style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                    <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -347,16 +352,18 @@ height: 72px;
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex ">
+                                <div class="d-flex inputDiv">
+                                
                                     <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
-                                         <label style="width: 25%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                         <label style="" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" style="width: 50%;"  placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" style="width: 50%;"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
+                                
                                  </div>
                                   <div class="d-flex inputDiv">
                                     <div class="d-flex modalDiv">
@@ -364,7 +371,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
-                                            <textarea name="description_temporary_work_required" rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea class="form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv">
@@ -373,7 +380,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
+                                            <textarea class="form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                   </div>

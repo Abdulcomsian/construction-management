@@ -46,6 +46,7 @@ $(document).ready(function () {
         var val_second = $(".requirment-second-value").val();
         var full_val = val_first + " - " + val_second;
         val.attr("value", full_val);
+        $("#design_requirement_text").css("background", "grey !important;");
     });
     var show_val = "";
     $("#scope-of-design .requirment-first ul li").click(function () {

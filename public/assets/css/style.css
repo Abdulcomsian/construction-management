@@ -43,7 +43,9 @@ input:focus {
     height: 58px;
     display: flex;
 }
-
+/* #scope-of-design .modal-content{
+    width:80% !important;
+} */
 #design-requirement .requirment-second li:nth-child(1):after {
     content: none !important;
 }
@@ -64,7 +66,12 @@ input:focus {
     border: none;
 }
 
-#scope-of-design .common-requirment,
+#scope-of-design .common-requirment{
+    width: 70%;
+}
+#scope-of-design .requirment-second{
+    width: 30%;
+}
 #design-requirement .common-requirment {
     width: 50%;
 }
@@ -144,7 +151,7 @@ input:focus {
     color: #000 !important;
     cursor: pointer;
     position: relative;
-    width: 50%;
+    width: 100%;
     border: none;
 }
 

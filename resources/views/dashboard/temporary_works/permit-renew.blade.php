@@ -607,11 +607,18 @@
             var canvas = document.getElementById("sig");
             var signaturePad = new SignaturePad(canvas);
             var canvas1 = document.getElementById("sig1");
-            var signaturePad1 = new SignaturePad(canvas1);
+            if(canvas1)
+            {
+             var signaturePad1 = new SignaturePad(canvas1);
+            }
             
             $("#submitbutton").on('click',function(){
                  $("#signature").val(signaturePad.toDataURL('image/png'));
-                 $("#signature1").val(signaturePad1.toDataURL('image/png'));
+                 if(canvas1)
+                 {
+                    console.log("hello");
+                    $("#signature1").val(signaturePad1.toDataURL('image/png'));
+                 }
                  $("#permitrenew").submit();
             })
     

@@ -1609,7 +1609,7 @@
                                             <span class="required">Signature:</span>
                                         </label>
                                         <br />
-                                        <canvas id="sig" ontouchmove="event.preventDefault();"></canvas>
+                                        <canvas id="sig"></canvas>
                                         <br />
                                         <textarea id="signature" name="signed" style="opacity:0" required></textarea>
                                     </div>

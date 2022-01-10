@@ -96,6 +96,7 @@ License: -->
         var signaturePad = new SignaturePad(canvas);
         
            signaturePad.addEventListener("endStroke", () => {
+            console.log(signaturePad.toDataURL('image/png'));
               $("#signature").val(signaturePad.toDataURL('image/png'));
             }, { once: true });
 
@@ -111,6 +112,7 @@ License: -->
         var canvas1 = document.getElementById("sig1");
         var signaturePad1 = new SignaturePad(canvas1);
         signaturePad1.addEventListener("endStroke", () => {
+             console.log(signaturePad1.toDataURL('image/png'));
               $("#signature1").val(signaturePad1.toDataURL('image/png'));
             }, { once: true });
          $('#clear').click(function(e) {

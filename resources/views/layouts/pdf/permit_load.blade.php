@@ -266,7 +266,7 @@
                         </td>
                         <td style="width: 200px; font-size:12px;">
                         @if(isset($image_name1) && $image_name1!='')
-                            <img src="temporary/signature/{{$image_name1}}"  style="width:50%;height:auto;" width="50%" height="auto" />
+                            <img src="temporary/signature/{{$image_name1}}"  width="auto" height="120px" width="50%" height="auto" />
                             @else
                             {{ $data['namesign1'] ?? ''}}
                             @endif

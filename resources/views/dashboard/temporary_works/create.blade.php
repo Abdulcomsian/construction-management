@@ -127,7 +127,7 @@ height: 72px;
         }
         .form-control.form-control-solid{width:250px;}
         @media only screen and (max-width: 470px) {
-            .inputDiv label{font-size:11px;}
+            .inputDiv label{font-size:11px !important;}
     }
     canvas{width:270px;height:110px;}
 </style>
@@ -428,13 +428,13 @@ height: 72px;
                                 </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
                                         <span class="required">Name signature:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="checkbox" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                     <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
                                       <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                     <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                     <span style="padding-left:3px;color:#000">Do you want name signature?</span>
                                 </div>
                                 <div class="d-flex inputDiv" id="namesign" style="display: none !important">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

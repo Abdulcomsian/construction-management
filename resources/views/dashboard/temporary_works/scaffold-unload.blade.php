@@ -1741,7 +1741,7 @@
             var signaturePad = new SignaturePad(canvas);            
              $("#submitbutton").on('click',function(){
                  $("#signature").val(signaturePad.toDataURL('image/png'));
-                 $("#scaffolding").Submit();
+                 $("#scaffolding").submit();
             });
 </script>
 @endsection

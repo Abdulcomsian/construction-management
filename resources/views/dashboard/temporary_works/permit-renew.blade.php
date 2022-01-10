@@ -130,6 +130,9 @@
  .image-uploader .upload-text span{
         color:white;
     }
+    canvas{
+        background: lightgray;
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
@@ -536,7 +539,7 @@
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <div id="sig"  style="width:40%;height: 100px;"></div>
+                                    <canvas id="sig"  style="width:40%;height: 100px;"></canvas>
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                 </div>

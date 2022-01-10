@@ -530,7 +530,7 @@
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <div id="sig1" style="width:40%;height: 100px"></div>
+                                    <canvas id="sig1" style="width:40%;height: 100px"></canvas>
                                     <br/>
                                    <textarea id="signature1" name="signed1" style="display: none"></textarea>
                                 </div>

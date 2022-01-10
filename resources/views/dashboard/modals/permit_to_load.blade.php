@@ -28,12 +28,12 @@
                     <h1 class="mb-3" id="permitheading">Permit To Load</h1>
                     <!--end::Title-->
                 </div>
-                <div class="d-flex text-center" id="permitloadbutton">
-                    <form method="get" action="{{route('scaffolding.load')}}">
+                <div class=" text-center" id="permitloadbutton">
+                    <form method="get" action="{{route('scaffolding.load')}}" style="display:inline-block;margin-right:20px;">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
-                        <button type="submit" class="btn btn-primary">New Scaffolding</button>
+                        <button type="submit" class="btn btn-primary">New Scaffolding Permit</button>
                     </form>
-                    <form method="get" action="{{route('permit.load')}}" style="margin-left:332px">
+                    <form method="get" action="{{route('permit.load')}}" style="display:inline-block;">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
                         <button type="submit" class="btn btn-primary" id="permiturl">New Permit</button>
                     </form>

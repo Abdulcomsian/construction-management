@@ -146,6 +146,7 @@
     canvas{
         background: lightgray;
     }
+    .uploaded{padding:40px 0 !important;}
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
@@ -221,6 +222,7 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}" required>
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="col-md-6">
                             <div class="col-md-12">
@@ -260,6 +262,16 @@
                                         <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required>
                                     </div>
                                 </div>
+                                <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">MS/RA Number</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
+                                        <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -281,15 +293,15 @@
                                     <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <!-- <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
-                                    <!--begin::Label-->
+                                   
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">MS/RA Number</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -494,7 +506,7 @@
 
                                 <div class="col-md-12">
                                     <div class="row" id="first_member">
-                                        <div class="col">
+                                        <div class="col"  style="flex:100% !important;">
 
                                             <div class="d-flex inputDiv">
                                             </div>
@@ -518,21 +530,21 @@
                                         </div>
 
                                         <div class="col">
-                                            <div class="d-flex inputDiv" style="margin-left:40px">
+                                            <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                     <span class="required">Name/signature:</span>
                                                 </label>
                                                 <input type="checkbox" id="flexCheckChecked1" style="width: 12px;margin-top:5px">
                                                 <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="0">
-                                                <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                                <span style="padding-left:3px;color:#000">Do you want name signature?</span>
                                             </div>
-                                            <div class="d-flex inputDiv" id="namesign1" style="display: none !important;margin-left:40px">
+                                            <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Name Signature:</span>
                                                 </label>
                                                 <input type="text" name="namesign1" id="namesign_id2" class="form-control form-control-solid">
                                             </div>
-                                            <div class="d-flex inputDiv principleno" id="sign1" style="margin-left:40px">
+                                            <div class="d-flex inputDiv principleno" id="sign1" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Signature:</span>
                                                 </label>
@@ -548,7 +560,7 @@
 
 
                                     <div class="row" id="second_member">
-                                        <div class="col">
+                                        <div class="col" style="flex:100% !important;">
 
                                             <div class="d-flex inputDiv">
                                             </div>
@@ -589,21 +601,21 @@
                                         </div>
 
                                         <div class="col">
-                                            <div class="d-flex inputDiv" style="margin-left:40px">
+                                            <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                     <span class="required">Name/signature:</span>
                                                 </label>
                                                 <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
                                                 <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                                <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                                <span style="padding-left:3px;color:#000">Do you want name signature?</span>
                                             </div>
-                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important;margin-left:40px">
+                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Name Signature:</span>
                                                 </label>
                                                 <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                             </div>
-                                            <div class="d-flex inputDiv principleno" id="sign" style="margin-left:40px">
+                                            <div class="d-flex inputDiv principleno" id="sign" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Signature:</span>
                                                 </label>

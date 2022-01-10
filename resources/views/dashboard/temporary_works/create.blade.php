@@ -102,7 +102,7 @@ height: 72px;
         width: 40%;
         color: #000;
     }
-    .select2-container{width:50% !important;}
+    .select2-container{width:250px !important;}
     .inputDiv {
         margin: 20px 0px;
     }

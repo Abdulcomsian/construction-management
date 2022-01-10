@@ -281,7 +281,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" style="width:100%" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -290,7 +290,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
+                                    <textarea name="description_structure" rows="2" style="width:100%" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
                             <!-- <div class="d-flex inputDiv">

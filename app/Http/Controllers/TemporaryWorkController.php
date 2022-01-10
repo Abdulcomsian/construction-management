@@ -112,7 +112,6 @@ class TemporaryWorkController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];

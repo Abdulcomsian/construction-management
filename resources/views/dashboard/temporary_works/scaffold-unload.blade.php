@@ -156,7 +156,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form action="{{route('scaffolding.store')}}" method="post" enctype="multipart/form-data">
+                <form id="scaffolding" action="{{route('scaffolding.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}" />
@@ -1609,7 +1609,7 @@
                                             <span class="required">Signature:</span>
                                         </label>
                                         <br />
-                                        <canvas id="sig" ontouchmove="event.preventDefault();"></canvas>
+                                        <canvas id="sig"></canvas>
                                         <br />
                                         <textarea id="signature" name="signed" style="opacity:0" required></textarea>
                                     </div>
@@ -1702,7 +1702,7 @@
                                 </div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button id="submitbutton" type="button" class="btn btn-primary">Submit</button>
                         </div>
                 </form>
             </div>
@@ -1736,5 +1736,12 @@
 
         }
     })
+
+            var canvas = document.getElementById("sig");
+            var signaturePad = new SignaturePad(canvas);            
+             $("#submitbutton").on('click',function(){
+                 $("#signature").val(signaturePad.toDataURL('image/png'));
+                 $("#scaffolding").submit();
+            });
 </script>
 @endsection

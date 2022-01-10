@@ -170,7 +170,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form action="{{route('permit.save')}}" method="post" enctype="multipart/form-data">
+                <form id="permitform" action="{{route('permit.save')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
@@ -610,7 +610,7 @@
                                                 <br />
                                                 <canvas id="sig" style="width:40%;height: 100px"></canvas>
                                                 <br />
-                                                <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
+                                                <textarea id="signature" name="signed" style="opacity: 0" ></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -622,7 +622,7 @@
                                 <div class="input-images"></div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary float-end">Submit</button>
+                            <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
 
                         </div>
                     </div>
@@ -740,6 +740,30 @@
     //     $('#permit_date').css("background-color", "#f5f8fa ");
     //     $('#permit_date').css("color", "#000 !important;");
     //  });
+
+
+            var canvas = document.getElementById("sig");
+            var signaturePad = new SignaturePad(canvas);
+            var canvas1 = document.getElementById("sig1");
+            var signaturePad1 = new SignaturePad(canvas1);
+            
+            $("#submitbutton").on('click',function(){
+                if(signaturePad)
+                 {
+                 $("#signature").val(signaturePad.toDataURL('image/png'));
+                  }
+                 if(signaturePad1)
+                 {
+                    $("#signature1").val(signaturePad1.toDataURL('image/png'));
+                 }
+                 $("#permitform").submit();
+            })
+           
+            //  $('#clear').click(function(e) {
+            //     e.preventDefault();
+            //     signaturePad.clear();
+            //     $("#signature").val('');
+            // });
      
 </script>
 @endsection

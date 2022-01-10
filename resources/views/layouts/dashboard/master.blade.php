@@ -92,32 +92,34 @@ License: -->
    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
     <script type="text/javascript">
-        var canvas = document.getElementById("sig");
-        var signaturePad = new SignaturePad(canvas);
+        // var canvas = document.getElementById("sig");
+        // var signaturePad = new SignaturePad(canvas);
         
-           signaturePad.addEventListener("endStroke", () => {
-              $("#signature").val(signaturePad.toDataURL('image/png'));
-            }, { once: true });
+        //    signaturePad.addEventListener("endStroke", () => {
+        //     console.log(signaturePad.toDataURL('image/png'));
+        //       $("#signature").val(signaturePad.toDataURL('image/png'));
+        //     }, { once: true });
 
 
 
-         $('#clear').click(function(e) {
-            e.preventDefault();
-            signaturePad.clear();
-            $("#signature").val('');
-        });
+        //  $('#clear').click(function(e) {
+        //     e.preventDefault();
+        //     signaturePad.clear();
+        //     $("#signature").val('');
+        // });
 
 
-        var canvas1 = document.getElementById("sig1");
-        var signaturePad1 = new SignaturePad(canvas1);
-        signaturePad1.addEventListener("endStroke", () => {
-              $("#signature1").val(signaturePad1.toDataURL('image/png'));
-            }, { once: true });
-         $('#clear').click(function(e) {
-            e.preventDefault();
-            signaturePad1.clear();
-            $("#signature1").val('');
-        });
+        // var canvas1 = document.getElementById("sig1");
+        // var signaturePad1 = new SignaturePad(canvas1);
+        // signaturePad1.addEventListener("endStroke", () => {
+        //      console.log(signaturePad1.toDataURL('image/png'));
+        //       $("#signature1").val(signaturePad1.toDataURL('image/png'));
+        //     }, { once: true });
+        //  $('#clear').click(function(e) {
+        //     e.preventDefault();
+        //     signaturePad1.clear();
+        //     $("#signature1").val('');
+        // });
         // var sig1 = $('#sig1').signature({
         //     syncField: '#signature1',
         //     syncFormat: 'PNG'

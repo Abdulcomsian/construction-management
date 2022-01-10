@@ -176,7 +176,7 @@ height: 72px;
 
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <form action="{{ route('temporary_works.store') }}" method="post" enctype="multipart/form-data">
+                    <form id="desingform" action="{{ route('temporary_works.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -458,7 +458,7 @@ height: 72px;
                           <br>
                         @include('dashboard.modals.design-relief-modals')
 
-                        <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -508,6 +508,22 @@ height: 72px;
              
         }
     })
+
+
+
+            var canvas = document.getElementById("sig");
+            var signaturePad = new SignaturePad(canvas);
+            
+            $("#submitbutton").on('click',function(){
+                 $("#signature").val(signaturePad.toDataURL('image/png'));
+                 $("#desingform").submit();
+            })
+           
+             $('#clear').click(function(e) {
+                e.preventDefault();
+                signaturePad.clear();
+                $("#signature").val('');
+            });
 </script>
 
     

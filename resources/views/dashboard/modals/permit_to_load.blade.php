@@ -31,11 +31,11 @@
                 <div class="d-flex text-center" id="permitloadbutton">
                     <form method="get" action="{{route('scaffolding.load')}}">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
-                        <button type="submit" class="btn btn-primary">Scaffolding</button>
+                        <button type="submit" class="btn btn-primary">New Scaffolding</button>
                     </form>
                     <form method="get" action="{{route('permit.load')}}" style="margin-left:332px">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
-                        <button type="submit" class="btn btn-primary" id="permiturl">Permit</button>
+                        <button type="submit" class="btn btn-primary" id="permiturl">New Permit</button>
                     </form>
                 </div>
                 <div class="d-flex text-center">

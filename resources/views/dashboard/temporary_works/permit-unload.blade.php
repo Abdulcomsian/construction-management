@@ -593,18 +593,19 @@
             var canvas = document.getElementById("sig");
             var signaturePad = new SignaturePad(canvas);
             var canvas1 = document.getElementById("sig1");
-            var signaturePad1 = new SignaturePad(canvas1);
+            if(canvas1)
+            {
+             var signaturePad1 = new SignaturePad(canvas1);
+            }
             
             $("#submitbutton").on('click',function(){
-                 if(signaturePad)
-                 {
                  $("#signature").val(signaturePad.toDataURL('image/png'));
-                  }
-                 if(signaturePad1)
+                 if(canvas1)
                  {
+                    console.log("hello");
                     $("#signature1").val(signaturePad1.toDataURL('image/png'));
                  }
                  $("#permitunload").submit();
-            })
+            });
 </script>
 @endsection

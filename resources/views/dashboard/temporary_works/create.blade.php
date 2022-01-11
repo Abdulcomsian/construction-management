@@ -90,7 +90,7 @@ height: 72px;
 
     .inputDiv input {
         width: 50%;
-        color: #000 !important;
+        color: #000;
     }
 
     .inputDiv select {
@@ -130,6 +130,7 @@ height: 72px;
             .inputDiv label{font-size:11px !important;}
     }
     canvas{width:270px;height:110px;}
+    .inputDiv  #design_required_by_date{color:#fff;}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -226,7 +227,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                        <input  style=" cursor: pointer;color: #f5f8fa;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -244,7 +245,7 @@ height: 72px;
                                         <span class="required">Designer Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -253,7 +254,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email Address" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
+                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -262,7 +263,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{old('twc_name')}}"  required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -271,7 +272,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" name="twc_email" value="{{old('twc_email')}}"  required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -524,6 +525,29 @@ height: 72px;
                 signaturePad.clear();
                 $("#signature").val('');
             });
+
+
+            $('#design_required_by_date').change(function() {
+                $('#design_required_by_date').css("background-color", "#f5f8fa ");
+                $('#design_required_by_date').css("color", "#000");
+            });
+            $('#designer_company_name').change(function() {
+                $('#designer_company_name').css("background-color", "#f5f8fa ");
+                $('#design_required_by_date').css("color", "#000");
+            });
+            $('#designer_company_email').change(function() {
+                $('#designer_company_email').css("background-color", "#f5f8fa ");
+                $('#designer_company_email').css("color", "#000");
+            });
+            $('#twc_name').change(function() {
+                $('#twc_name').css("background-color", "#f5f8fa ");
+                $('#twc_name').css("color", "#000");
+            });
+            $('#twc_email').change(function() {
+                $('#twc_email').css("background-color", "#f5f8fa ");
+                $('#twc_email').css("color", "#000");
+            });
+            
 </script>
 
     

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var val, date, otherVal;
     $(".modalDiv input").on("click", function () {
-        $(this).addClass("active");
+        // $(this).addClass("active");
         val = $(this);
         $(".submit-requirment button").attr("disabled", "disabled");
         $(".submit-requirment button").css("opacity", ".5");
@@ -46,7 +46,7 @@ $(document).ready(function () {
         var val_second = $(".requirment-second-value").val();
         var full_val = val_first + " - " + val_second;
         val.attr("value", full_val);
-        $("#design_requirement_text").css("background", "grey !important;");
+        $("#design_requirement_text").css("background", "#f5f8fa");
     });
     var show_val = "";
     $("#scope-of-design .requirment-first ul li").click(function () {

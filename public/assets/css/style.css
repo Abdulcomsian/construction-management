@@ -270,4 +270,16 @@ input:focus {
 .active{
     background-color: #07d564 !important;
 }
-.design_requirement_text{}
+#design_requirement_text{background:#000;color:#fff}
+#design_requirement_text::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff;
+    opacity: 1; /* Firefox */
+  }
+  
+  #design_requirement_text:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #fff;
+  }
+  
+  #design_requirement_text::-ms-input-placeholder { /* Microsoft Edge */
+    color: #fff;
+  }

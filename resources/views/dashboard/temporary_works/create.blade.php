@@ -415,7 +415,7 @@ height: 72px;
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company"  required>
+                                     <input type="text" id="companyadmin" class="form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
                                      <input type="hidden" id="company_id"  name="company_id"  >
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -424,7 +424,7 @@ height: 72px;
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
                                 </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->

@@ -1376,7 +1376,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="2" {{$checkAndComments->radio_checks['partially_removed_radio'] == 3 ? 'checked' : ''}} />
+                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="3" {{$checkAndComments->radio_checks['partially_removed_radio'] == 3 ? 'checked' : ''}} />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1414,7 +1414,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="debrings_somemissing_radio" value="2" {{$checkAndComments->radio_checks['debrings_somemissing_radio'] == 3 ? 'checked' : ''}} />
+                                        <input type="radio" class="btn-check" name="debrings_somemissing_radio" value="3" {{$checkAndComments->radio_checks['debrings_somemissing_radio'] == 3 ? 'checked' : ''}} />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->

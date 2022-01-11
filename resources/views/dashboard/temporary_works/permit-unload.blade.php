@@ -279,9 +279,9 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
-                            <h5 style="color: white">Permit to unload/Strike</h5>
+                            <h5 style="color: #000">Permit to unload/Strike</h5>
                             <br>
-                            <p style="color: white;">1. Permanent Works supported by the above item of Temporary Works have gained sufficient strength to support the loading/use permitted (See concrete cube results below – or state any other PW design requirements if applicable)
+                            <p style="color: #000;">1. Permanent Works supported by the above item of Temporary Works have gained sufficient strength to support the loading/use permitted (See concrete cube results below – or state any other PW design requirements if applicable)
                                 <br>
                                 2. Sequence of removal of TW, where specified by the TWD, is understood by the supervisor.
                                 <br>
@@ -334,10 +334,10 @@
 
                         <div class="col-md-12">
                             <h6 style="color:black">TWC to define the extents, limits and controls for this PTS (where applicable)</h6>
-                            <textarea name="twc_control_pts" rows="2" cols="153"></textarea>
+                            <textarea name="twc_control_pts" rows="2" style="width:100%;"></textarea>
 
                             <h6 style="color:black">Back-propping and additional requirements; limitations and exclusions; explanatory sketches refrences - if applicable</h6>
-                            <textarea name="back_propping" rows="2" cols="153"></textarea>
+                            <textarea name="back_propping" rows="2"  style="width:100%;"></textarea>
                             <br>
                             <p style="color: black;"> I hereby authorise the Temporary Works to be struck out/removed in accordance with the specified/approved unloading & striking method, subject to observing the extents, limits and controls listed above. </p>
 
@@ -372,15 +372,14 @@
                             </div>
                         </div>
                         <!--end::Radio group-->
-                        <div class="d-flex inputDiv">
+                        <!-- <div class="d-flex inputDiv"> -->
                             <!--begin::Label-->
 
 
-                            <div class="col-md-12">
+                            <div class="row" id="second_member">
+                                <div class="col" style="flex:100% !important;">
 
-                                <div class="row" id="first_member">
-
-                                    <div class="col">
+                                   
 
                                         <div class="d-flex inputDiv">
                                         </div>
@@ -406,27 +405,30 @@
 
                                     <div class="col">
                                         @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                                        <div class="d-flex inputDiv" style="margin-left:40px">
+                                        <div class="d-flex inputDiv" >
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                 <span class="required">Name/signature:</span>
                                             </label>
                                             <input type="checkbox" id="flexCheckChecked1" style="width: 12px;margin-top:5px">
                                             <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                            <span style="padding-left:3px;color:#000">Do you want name signature?</span>
                                         </div>
-                                        <div class="d-flex inputDiv" id="namesign1" style="display: none !important;margin-left:40px">
+                                        <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Name Signature:</span>
                                             </label>
                                             <input type="text" name="namesign1" class="form-control form-control-solid">
                                         </div>
-                                        <div class="d-flex inputDiv principleno" id="sign1" style="margin-left:40px">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <div class="d-flex inputDiv principleno" id="sign1" >
+                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
                                             </label>
                                             <br />
-                                            <canvas id="sig1" style="width:40%;height: 100px"></canvas>
+                                            <canvas id="sig1" ></canvas>
                                             <br />
+                                            
+                                        </div>
+                                        <div class="d-flex inputDiv principleno" id="sign1" >
                                             <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                         </div>
                                         @endif
@@ -438,8 +440,7 @@
                                 <!-- Second person -->
 
 
-                                <div class="row" id="second_member">
-                                    <div class="col">
+                                <div class="col" style="flex:100% !important;">
 
                                         <div class="d-flex inputDiv">
                                         </div>
@@ -480,34 +481,36 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="d-flex inputDiv" style="margin-left:40px">
+                                        <div class="d-flex inputDiv" >
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                 <span class="required">Name/signature:</span>
                                             </label>
                                             <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
                                             <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                            <span style="padding-left:3px;color:#000">Do you want name signature?</span>
                                         </div>
-                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important;margin-left:40px">
+                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Name Signature:</span>
                                             </label>
                                             <input type="text" name="namesign" class="form-control form-control-solid">
                                         </div>
-                                        <div class="d-flex inputDiv principleno" id="sign" style="margin-left:40px">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <div class="d-flex inputDiv principleno" id="sign">
+                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
                                             </label>
                                             <br />
-                                            <canvas id="sig" style="width:40%;height: 100px"></canvas>
-                                            <br />
+                                            <canvas id="sig" ></canvas>
+
+                                        </div>
+                                        <div class="d-flex inputDiv principleno" id="sign">
                                             <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
                                         </div>
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
-                            </div>
+                            <!-- </div> -->
 
-                        </div>
+                        <!-- </div> -->
                         <div class="col-md-12">
                             <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>

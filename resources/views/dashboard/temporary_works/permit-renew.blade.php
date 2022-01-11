@@ -430,9 +430,9 @@
                                     @endif
                             </div>
                          </div>
-                            <h5 style="color: white">Permit to unload/Use</h5>
+                            <h5 style="color: #000">Permit to unload/Use</h5>
                             <br>
-                            <p style="color: white;">
+                            <p style="color: #000;">
                                
                                 I confirm that I have inspected the above temporary structure and I
                                 am satisfied that it conforms to the above.<br>
@@ -474,15 +474,14 @@
                             </div>
                             <!--end::Radio group-->
                         </div>     
-                        <div class="d-flex inputDiv">
-                            <!--begin::Label-->
-                            <div class="col-md-6">
+                        <div class="row" id="second_member">
+                                        <div class="col" style="flex:100% !important;">
                                 <div class="d-flex inputDiv">
                                 </div>
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
                                <div class="d-flex inputDiv principleno">
                                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label  class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
@@ -523,20 +522,20 @@
                                      <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                                     </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col">
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                               <div class="d-flex inputDiv principleno" id="sign1" style="margin-left:40px">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                               <div class="d-flex inputDiv principleno" id="sign1" >
+                                    <label style="width:33%"  class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <canvas id="sig1" style="width:40%;height: 100px"></canvas>
+                                    <canvas id="sig1" ></canvas>
                                     <br/>
                                    <textarea id="signature1" name="signed1" style="display: none"></textarea>
                                 </div>
                                 @endif
-                                <div class="d-flex inputDiv " id="sign"  style="margin-left:40px">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                <div class="d-flex inputDiv " id="sign" >
+                                    <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
@@ -544,7 +543,7 @@
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                 </div>
-                                <div class="d-flex inputDiv " style="margin-left:40px">
+                                <div class="d-flex inputDiv ">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
                                         <span class="required">Date:</span>

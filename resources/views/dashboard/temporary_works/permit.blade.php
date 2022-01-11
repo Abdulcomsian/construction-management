@@ -545,12 +545,13 @@
                                                 <input type="text" name="namesign1" id="namesign_id2" class="form-control form-control-solid">
                                             </div>
                                             <div class="d-flex inputDiv principleno" id="sign1" style="">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Signature:</span>
                                                 </label>
                                                 <br />
-                                                <canvas id="sig1" style="width:40%;height: 100px"></canvas>
-                                                <br />
+                                                <canvas id="sig1" ></canvas>
+                                            </div>
+                                            <div class="d-flex inputDiv principleno" id="sign1" style="">
                                                 <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                             </div>
                                         </div>
@@ -616,12 +617,14 @@
                                                 <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                             </div>
                                             <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Signature:</span>
                                                 </label>
                                                 <br />
                                                 <canvas id="sig" ></canvas>
-                                                <br />
+                                               
+                                            </div>
+                                            <div class="d-flex inputDiv principleno" id="sign" style="">
                                                 <textarea id="signature" name="signed" style="opacity: 0" ></textarea>
                                             </div>
                                         </div>

@@ -133,6 +133,7 @@
     canvas{
         background: lightgray;
     }
+    .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
 </style>
 @endsection
 @section('content')
@@ -204,7 +205,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{old('twc_name')}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}" required>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +217,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
                                         </label>
-                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date">
+                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa;" name="date">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -234,7 +235,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{old('drawing_title')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -243,7 +244,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required"> TWS or competent Scaffolder Name:</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name" value="{{old('tws_name')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -252,7 +253,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required"> MS/RA Number:</span>
                                         </label>
-                                        <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
+                                        <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
                                     </div>
                                 </div>
                             </div>
@@ -1552,7 +1553,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Inspected by: 
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" name="inspected_by" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" required>
 
                                         </div>
                                     </div>
@@ -1562,7 +1563,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Job Title: 
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" required>
 
                                         </div>
                                     </div>
@@ -1573,7 +1574,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Company:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Company" id="company" name="company" value="{{$project->company->name ?? ''}}" required>
 
                                         </div>
                                     </div>
@@ -1591,7 +1592,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Name Signature:</span>
                                         </label>
-                                        <input type="text" name="namesign" class="form-control form-control-solid">
+                                        <input type="text" name="namesign" id="namesign" class="form-control form-control-solid">
                                     </div>
                                     <div class="d-flex inputDiv" id="sign">
                                         <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1735,5 +1736,34 @@
                  $("#signature").val(signaturePad.toDataURL('image/png'));
                  $("#scaffolding").submit();
             });
+
+        $('#drawing_no').change(function() {
+                $('#drawing_no').css("background-color", "#f5f8fa ");
+        });
+        $('#twc_name').change(function() {
+                $('#twc_name').css("background-color", "#f5f8fa ");
+        });
+        $('#drawing_title').change(function() {
+                $('#drawing_title').css("background-color", "#f5f8fa ");
+        });
+        $('#tws_name').change(function() {
+                $('#tws_name').css("background-color", "#f5f8fa ");
+        });
+        $('#ms_ra_no').change(function() {
+                $('#ms_ra_no').css("background-color", "#f5f8fa ");
+        });
+        $('#inspected_by').change(function() {
+                $('#inspected_by').css("background-color", "#f5f8fa ");
+        });
+        $('#job_title').change(function() {
+                $('#job_title').css("background-color", "#f5f8fa ");
+        });
+        $('#company').change(function() {
+                $('#company').css("background-color", "#f5f8fa ");
+        });
+        $('#namesign').change(function() {
+                $('#namesign').css("background-color", "#f5f8fa ");
+        });
+        
 </script>
 @endsection

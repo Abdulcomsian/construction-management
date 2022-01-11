@@ -1592,7 +1592,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Name Signature:</span>
                                         </label>
-                                        <input type="text" name="namesign" id="namesign" class="form-control form-control-solid">
+                                        <input type="text" name="namesign" id="namesign2" class="form-control form-control-solid">
                                     </div>
                                     <div class="d-flex inputDiv" id="sign">
                                         <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1761,8 +1761,8 @@
         $('#company').change(function() {
                 $('#company').css("background-color", "#f5f8fa ");
         });
-        $('#namesign').change(function() {
-                $('#namesign').css("background-color", "#f5f8fa ");
+        $('#namesign2').change(function() {
+                $('#namesign2').css("background-color", "#f5f8fa ");
         });
         
 </script>

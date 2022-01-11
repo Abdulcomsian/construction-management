@@ -496,6 +496,17 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
                                 </div>
                                 @endif
+                                @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                               <div class="d-flex inputDiv principleno" id="sign1" >
+                                    <label style="width:33%"  class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Signature:</span>
+                                    </label>
+                                    <br/>
+                                    <canvas id="sig1" ></canvas>
+                                    <br/>
+                                   <textarea id="signature1" name="signed1" style="display: none"></textarea>
+                                </div>
+                                @endif
                                 <div class="d-flex inputDiv ">
                                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -523,17 +534,7 @@
                                     </div>
                             </div>
                             <div class="col">
-                                @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                               <div class="d-flex inputDiv principleno" id="sign1" >
-                                    <label style="width:33%"  class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Signature:</span>
-                                    </label>
-                                    <br/>
-                                    <canvas id="sig1" ></canvas>
-                                    <br/>
-                                   <textarea id="signature1" name="signed1" style="display: none"></textarea>
-                                </div>
-                                @endif
+                              
                                 <div class="d-flex inputDiv " id="sign" >
                                     <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
                                         <span class="required">Signature:</span>

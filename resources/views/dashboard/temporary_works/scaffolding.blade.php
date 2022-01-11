@@ -246,36 +246,37 @@
                                         <input type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name" value="{{old('tws_name')}}" required>
                                     </div>
                                 </div>
+                                <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required"> MS/RA Number:</span>
+                                        </label>
+                                        <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:50%">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" style="width:100%" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" class="form-control" style="width:100%" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:50%">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea name="description_structure" rows="2" style="width:100%" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
+                                    <textarea name="description_structure" rows="2" class="form-control" style="width:100%" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">MS/RA Number</span>
-                                    </label>
-                                    <input type="text" style="width:25%" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
-                                </div>
-                            </div>
+                         
                             <div class="col-md-12 mt-20">
                                 <div class="d-flex inputDiv" style=" height: 87px;">
                                     <!--begin::Label-->
@@ -300,7 +301,7 @@
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
                                         <h3 style="color: white;">Comments</h3>
-                                        <textarea name="equipment_materials_desc" rows="2" cols="50"></textarea>
+                                        <textarea name="equipment_materials_desc" rows="2" style="width:100%;" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -325,7 +326,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="workmanship_desc" rows="2" cols="50"></textarea>
+                                        <textarea name="workmanship_desc" rows="2" cols= style="width:100%;" class="form-control"></textarea>
                                     </div>
 
 
@@ -362,7 +363,7 @@
 
                                     <div style="margin-left: 10px; text-align:center;">
 
-                                        <textarea name="drawings_design_desc" rows="2" cols="50"></textarea>
+                                        <textarea name="drawings_design_desc" rows="2"  style="width:100%;" class="form-control"></textarea>
 
                                     </div>
                                 </div>
@@ -395,7 +396,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="loading_limit_desc" rows="2" cols="50"></textarea>
+                                        <textarea name="loading_limit_desc" rows="2"  style="width:100%;" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <p style="color: #000;">Inspect each of the following items & tick off in the box provided if installed correctly as per the design. Where actions are required, identify with a number & detail comments in the space provided below.</p>
@@ -1584,7 +1585,7 @@
                                         <!--end::Label-->
                                         <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
                                         <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                        <span style="padding-left:3px;color:white">Do you want name signature?</span>
+                                        <span style="padding-left:3px;color:#000">Do you want name signature?</span>
                                     </div>
                                     <div class="d-flex inputDiv" id="namesign" style="display: none !important">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1593,13 +1594,16 @@
                                         <input type="text" name="namesign" class="form-control form-control-solid">
                                     </div>
                                     <div class="d-flex inputDiv" id="sign">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Signature:</span>
                                         </label>
                                         <br />
                                         <canvas id="sig"></canvas>
                                         <br />
-                                        <textarea id="signature" name="signed" style="opacity:0" required></textarea>
+                                        
+                                    </div>
+                                    <div class="d-flex inputDiv" id="sign">
+                                    <textarea id="signature" name="signed" style="opacity:0" required></textarea>
                                     </div>
                                     <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
                                 </div>

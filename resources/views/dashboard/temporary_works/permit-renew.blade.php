@@ -133,6 +133,7 @@
     canvas{
         background: lightgray;
     }
+    .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
@@ -221,7 +222,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
                                         </label>
-                                         <input  type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date">
+                                         <input  type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa" name="date">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -603,7 +604,42 @@
        }
     })
 
-
+    $('#drawing_no').change(function() {
+        $('#drawing_no').css("background-color", "#f5f8fa ");
+     });
+     $('#drawing_title').change(function() {
+        $('#drawing_title').css("background-color", "#f5f8fa ");
+     });
+     $('#drawing_no').change(function() {
+        $('#drawing_no').css("background-color", "#f5f8fa ");
+     });
+     $('#twc_name').change(function() {
+        $('#twc_name').css("background-color", "#f5f8fa ");
+     });
+     $('#tws_name').change(function() {
+        $('#tws_name').css("background-color", "#f5f8fa ");
+     });
+     $('#ms_ra_no').change(function() {
+        $('#ms_ra_no').css("background-color", "#f5f8fa ");
+     });
+     $('#name1').change(function() {
+        $('#name1').css("background-color", "#f5f8fa ");
+     });
+     $('#job_title1').change(function() {
+        $('#job_title1').css("background-color", "#f5f8fa ");
+     });
+     $('#name2').change(function() {
+        $('#name2').css("background-color", "#f5f8fa ");
+     });
+     $('#job_title').change(function() {
+        $('#job_title').css("background-color", "#f5f8fa ");
+     });
+     $('#namesign_id').change(function() {
+        $('#namesign_id').css("background-color", "#f5f8fa ");
+     });
+     $('#namesign_id2').change(function() {
+        $('#namesign_id2').css("background-color", "#f5f8fa ");
+     });
             var canvas = document.getElementById("sig");
             var signaturePad = new SignaturePad(canvas);
             var canvas1 = document.getElementById("sig1");

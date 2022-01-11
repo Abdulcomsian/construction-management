@@ -134,6 +134,7 @@
     canvas{
         background: lightgray;
     }
+    .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
@@ -207,7 +208,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{$permitdata->twc_name ?? ''}}">
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" id="twc_name" value="{{$permitdata->twc_name ?? ''}}">
                                 </div>
                             </div>
                         </div>
@@ -219,7 +220,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
                                         </label>
-                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date">
+                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa" name="date">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -237,7 +238,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
+                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -246,7 +247,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
+                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +277,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">MS/RA Number</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             <h5 style="color: #000">Permit to unload/Strike</h5>
@@ -390,7 +391,7 @@
                                                 <span class="required">Name::</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Name" name="name1" value="{{old('name1',$permitdata->name1 ?? '')}}">
+                                            <input type="text" class="form-control form-control-solid" placeholder="Name"  id="name1" name="name1" value="{{old('name1',$permitdata->name1 ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
@@ -398,7 +399,7 @@
                                                 <span class="required">Job title:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
+                                            <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
                                         </div>
                                         @endif
                                     </div>
@@ -450,7 +451,7 @@
                                                 <span class="required">Name::</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{old('name',$permitdata->name ?? '')}}">
+                                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name',$permitdata->name ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
@@ -458,7 +459,7 @@
                                                 <span class="required">Job title:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{old('job_title',$permitdata->job_title ?? '')}}">
+                                            <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title',$permitdata->job_title ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv ">
                                             <!--begin::Label-->
@@ -475,7 +476,7 @@
                                                 <span class="required">Date:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                            <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                         </div>
 
                                     </div>
@@ -592,7 +593,42 @@
             $("#signature").attr('required', 'required');
         }
     })
-
+    $('#drawing_no').change(function() {
+        $('#drawing_no').css("background-color", "#f5f8fa ");
+     });
+     $('#drawing_title').change(function() {
+        $('#drawing_title').css("background-color", "#f5f8fa ");
+     });
+     $('#drawing_no').change(function() {
+        $('#drawing_no').css("background-color", "#f5f8fa ");
+     });
+     $('#twc_name').change(function() {
+        $('#twc_name').css("background-color", "#f5f8fa ");
+     });
+     $('#tws_name').change(function() {
+        $('#tws_name').css("background-color", "#f5f8fa ");
+     });
+     $('#ms_ra_no').change(function() {
+        $('#ms_ra_no').css("background-color", "#f5f8fa ");
+     });
+     $('#name1').change(function() {
+        $('#name1').css("background-color", "#f5f8fa ");
+     });
+     $('#job_title1').change(function() {
+        $('#job_title1').css("background-color", "#f5f8fa ");
+     });
+     $('#name2').change(function() {
+        $('#name2').css("background-color", "#f5f8fa ");
+     });
+     $('#job_title').change(function() {
+        $('#job_title').css("background-color", "#f5f8fa ");
+     });
+     $('#namesign_id').change(function() {
+        $('#namesign_id').css("background-color", "#f5f8fa ");
+     });
+     $('#namesign_id2').change(function() {
+        $('#namesign_id2').css("background-color", "#f5f8fa ");
+     });
             var canvas = document.getElementById("sig");
             var signaturePad = new SignaturePad(canvas);
             var canvas1 = document.getElementById("sig1");

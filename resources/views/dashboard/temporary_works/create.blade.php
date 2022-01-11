@@ -125,7 +125,7 @@ height: 72px;
         .modalDiv{
             width:100% ;
         }
-        .form-control.form-control-solid{width:250px;}
+     .form-control.form-control-solid{width:250px;background-color:#000;}
         @media only screen and (max-width: 470px) {
             .inputDiv label{font-size:11px !important;}
     }

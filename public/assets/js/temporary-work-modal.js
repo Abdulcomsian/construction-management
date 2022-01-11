@@ -31,9 +31,9 @@ $(document).ready(function () {
         $(this).addClass("active");
         var val = $(this).text();
         $(".requirment-second-value").val(val);
-        $("#design-requirement .requirment-second ul li.active input").addClass(
-            "active"
-        );
+        // $("#design-requirement .requirment-second ul li.active input").addClass(
+        //     "active"
+        // );
         $(".submit-requirment button").removeAttr("disabled");
         $(".submit-requirment button").css("opacity", "1");
     });

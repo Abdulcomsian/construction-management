@@ -245,7 +245,7 @@ border-radius: 8px;
                                     <th class="">Company</th>
                                     <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
                                     <th class="" style="max-width:210px;">Description of TWS</th>
-                                    <th style="transform: rotate(-90deg);padding: 0px !important;vertical-align: middle;max-width: 90px;min-width:90px" class="">CAT Check</th>
+                                    <th style="transform: rotate(-90deg);padding: 0px !important;vertical-align: middle;max-width: 60px;min-width:30px" class="">CAT Check</th>
                                     <th style="transform: rotate(-90deg);min-width: 80px;" class="">Risk Class</th>
                                     <th class=""  style="transform: rotate(-90deg);min-width:60px;">Issue Date<br> of Design Brief</th>
                                     <th class=""  style="transform: rotate(-90deg);">Required Date of Design</th>

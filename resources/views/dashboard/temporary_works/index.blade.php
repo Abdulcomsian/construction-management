@@ -267,28 +267,7 @@ border-radius: 8px;
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                <!-- <tr>
-                                    <td></td>
-                                    <td>A16</td>
-                                    <td>A2</td>
-                                    <td>A10</td>
-                                    <td>0</td>
-                                    <td>H3</td>
-                                    <td>A3</td>
-                                    <td>A4</td>
-                                    <td>A11 Drag and Drop emails</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td> 
-                                    <td></td>
-                                    <td class="uploadfile">Drag and drop folders/ pdf drawings</td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Drag and drop folders/ pdf drawings</td>
-                                </tr> -->
                                 @forelse($temporary_works as $item)
-
                                 <tr>
                                     <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;;transform: rotate(-90deg);"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
@@ -296,15 +275,15 @@ border-radius: 8px;
                                     <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                         <hr style="color:red;border:1px solid red">
-                                        <p data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
-                                            {{ substr($item->description_temporary_work_required ?: '-',0,40).'.......' }}
-                                        </p>
+                                        <button class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
+                                            View Desc
+                                        </button>
                                     </td>
                                     <td style="">{{ $item->tw_category ?: '-' }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td style="transform: rotate(-90deg);width:100%">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
-                                        <p style="background: #07d564;border: 1px solid 07d564;width: 103%;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</p> </td>
+                                        <p border: 1px solid 07d564;width: 103%;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" style="font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
@@ -371,8 +350,8 @@ border-radius: 8px;
                                     </td>
                                     <td>
                                         <p class="permit-to-load cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative; top: -6px;" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p>
-                                        @if(isset($item->permits->id))
-                                        <button class="btn btn-info">Live</button>
+                                        @if(isset($item->permits[0]->id))
+                                        <button class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button class="btn btn-success">Closed</button>
                                         @endif
@@ -400,7 +379,9 @@ border-radius: 8px;
                                         @endif
                                     </td>
                                     <td>
+                                         @if(\Auth::user()->hasRole('admin'))
                                         <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty
@@ -427,6 +408,7 @@ border-radius: 8px;
 @include('dashboard.modals.comments')
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load');
+@include('dashboard.modals.description');
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -540,6 +522,11 @@ border-radius: 8px;
           });
     })
    
+    $(".desc").on('click',function(){
+        var desc=$(this).attr('title');
+        $("#desc").html(desc);
+        $("#desc_modal_id").modal('show');
+    })
 </script>
 <script type="text/javascript">
         Dropzone.options.dropzone =
@@ -583,5 +570,8 @@ border-radius: 8px;
                return false;
             }
 };
+
+
+
 </script>
 @endsection

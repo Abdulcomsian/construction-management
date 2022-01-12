@@ -31,7 +31,7 @@ use App\Notifications\TemporaryWorkNotification;
 use App\Utils\HelperFunctions;
 use DB;
 use PDF;
-
+use Carbon\Carbon;
 
 
 class TemporaryWorkController extends Controller
@@ -46,7 +46,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -54,18 +54,19 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
             } else {
                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
                     $users = User::select('id')->where('company_id', auth()->user()->company_id)->get();
                     foreach ($users as $u) {
                         $ids[] = $u->id;
                     }
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->latest()->paginate(20);
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
                 } else {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->latest()->paginate(20);
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->where('created_by', $user->id)->latest()->paginate(20);
                 }
             }
+           
 
             //work for datatable
             return view('dashboard.temporary_works.index', compact('temporary_works'));
@@ -532,7 +533,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }
@@ -559,7 +560,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->created_at->todatestring() . '</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -895,5 +896,62 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+
+    //cron job for permit expire
+    public function cron_permit()
+    {
+        $current =  \Carbon\Carbon::now();
+        //get permit load daa
+
+         $notify_admins_msg = [
+            'greeting' => 'Permit Expire',
+            'subject' => 'Permit Load Expire',
+            'body' => [
+                'text' => 'A Permit to load has been Expire',
+                'filename' => '',
+                'links' =>  '',
+                'name' => '',
+            ],
+            'thanks_text' => 'Thanks For Using our site',
+            'action_text' => '',
+            'action_url' => '',
+        ];
+       PermitLoad::where('status', 1)->chunk(100, function ($permits) {
+            foreach ($permits as $permit) {
+                     $to =Carbon::createFromFormat('Y-m-d', $permit->created_at);
+                     $diff_in_days = $to->diffInDays($current);
+                     if($diff_in_days > 7)
+                     {
+                         Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                     }
+            }
+        });
+        
+        $notify_admins_msg = [
+            'greeting' => 'Scaffold Expire',
+            'subject' => 'Scaffold Load Expire',
+            'body' => [
+                'text' => 'A Scaffold to load has been Expire',
+                'filename' => '',
+                'links' =>  '',
+                'name' => '',
+            ],
+            'thanks_text' => 'Thanks For Using our site',
+            'action_text' => '',
+            'action_url' => '',
+        ];
+        Scaffolding::where('status', 1)->chunk(100, function ($permits) {
+            foreach ($permits as $permit) {
+                     $to =Carbon::createFromFormat('Y-m-d', $permit->created_at);
+                     $diff_in_days = $to->diffInDays($current);
+                     if($diff_in_days > 7)
+                     {
+                         Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                     }
+            }
+        });
+       
     }
 }

@@ -244,7 +244,7 @@ border-radius: 8px;
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW <br>ID.<br> No.</th>
+                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                     <th class="">Company</th>
                                     <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
                                     <th class="" style="max-width:210px;">Description of TWS</th>

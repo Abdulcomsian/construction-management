@@ -245,15 +245,15 @@ border-radius: 8px;
                                     <th class="">Company</th>
                                     <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
                                     <th class="" style="max-width:210px;">Description of TWS</th>
-                                    <th style="transform: rotate(-90deg);padding: 0px !important;vertical-align: middle;min-width: 60px;" class="">Design Check CAT</th>
-                                    <th style="transform: rotate(-90deg);" class="">Implimentation Risk Class</th>
-                                    <th class=""  style="transform: rotate(-90deg);">Issue Date<br> of Design Brief</th>
+                                    <th style="transform: rotate(-90deg);padding: 0px !important;vertical-align: middle;max-width: 60px;" class="">Design Check CAT</th>
+                                    <th style="transform: rotate(-90deg);min-width: 80px;" class="">Implimentation Risk Class</th>
+                                    <th class=""  style="transform: rotate(-90deg);min-width:60px;">Issue Date<br> of Design Brief</th>
                                     <th class=""  style="transform: rotate(-90deg);">Required Date of Design</th>
                                     <th class="">Comments</th>
                                     <th class="">TW designer (designer name and company)</th>
                                     <!-- <th class="">Appointments</th>  -->
-                                    <th class=""  style="transform: rotate(-90deg);">Date Design Returned</th>
-                                    <th class=""  style="transform: rotate(-90deg);">Date Design / Check Returned</th>
+                                    <th class=""  style="transform: rotate(-90deg); min-width: 150px; padding: 36px;">Date Design Returned</th>
+                                    <th class=""  style="transform: rotate(-90deg); min-width: 170px; max-width: 150px; padding: 36px !important;">Date Design / Check Certificate Returned</th>
                                     <th class="">DRAWINGS and DESIGNS</th>
                                     <th class="">Design Check Certificate</th>
                                     <th class="">Permit to Load</th>
@@ -281,14 +281,14 @@ border-radius: 8px;
                                     </td>
                                     <td style="">{{ $item->tw_category ?: '-' }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                    <td style="transform: rotate(-90deg);width:100%">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
+                                    <td style="transform: rotate(-90deg);min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
                                         <p border: 1px solid 07d564;width: 103%;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</p> </td>
                                     <td >
-                                        <p class="addcomment cursor-pointer" style="font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
-                                        <hr style="color:red;border:1px solid red">
-                                       <h3 class="uploadfile  cursor-pointer" style="font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">All Drag And Drop emails</h3>
+                                        <hr style="color:red;border:1px solid red; margin: 2px;">
+                                       <h3 class="uploadfile  cursor-pointer" style="font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
                                        <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)

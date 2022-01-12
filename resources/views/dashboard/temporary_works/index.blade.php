@@ -252,7 +252,7 @@ border-radius: 8px;
                                     <th class="">Comments</th>
                                     <th class="">TW designer (designer name and company)</th>
                                     <!-- <th class="">Appointments</th>  -->
-                                    <th class=""  style="transform: rotate(-90deg); min-width: 140px; padding: 12px;">Date Design Returned</th>
+                                    <th class=""  style="transform: rotate(-90deg); min-width: 95px; padding: 12px;">Date Design Returned</th>
                                     <th class=""  style="transform: rotate(-90deg); min-width: 140px; max-width: 140px; padding: 30px !important;">Date Design / Check Certificate Returned</th>
                                     <th class="">DRAWINGS and DESIGNS</th>
                                     <th class="">Design Check Certificate</th>

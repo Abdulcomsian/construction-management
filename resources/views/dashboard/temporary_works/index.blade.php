@@ -250,7 +250,7 @@ border-radius: 8px;
                                     <th class=""  style="transform: rotate(-90deg);min-width:60px;">Issue Date<br> of Design Brief</th>
                                     <th class=""  style="transform: rotate(-90deg);">Required Date of Design</th>
                                     <th class="">Comments</th>
-                                    <th class="">TW designer (designer name and company)</th>
+                                    <th class="">TW designer<br> (designer name and company)</th>
                                     <!-- <th class="">Appointments</th>  -->
                                     <th class=""  style="transform: rotate(-90deg); min-width: 95px; padding: 12px;">Date Design Returned</th>
                                     <th class=""  style="transform: rotate(-90deg); min-width: 140px; max-width: 140px; padding: 30px !important;">Date Design / Check Certificate Returned</th>

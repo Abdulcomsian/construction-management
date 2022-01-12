@@ -330,7 +330,7 @@ border-radius: 8px;
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="font-weight: 400;font-size: 14px;">Upload<br> or Drag <br>and drop<br> folders</p><br>
+                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="font-weight: 400;font-size: 14px;">Upload<br> or Drag <br>and drop<br> folders</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -341,7 +341,6 @@ border-radius: 8px;
                                     </td>
                                     <td >
                                         <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="font-weight: 400;font-size: 14px;" data-type="2">Upload<br> or Drag <br>and drop<br> folders</p>
-                                        <br>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==2)

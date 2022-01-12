@@ -219,12 +219,14 @@ border-radius: 8px;
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
-                            <a href="{{ route('temporary_works.create') }}" style="width: 500px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" class="newDesignBtn btn project_details">New Design Brief / Temporary Work</a>
+                            <a href="{{ route('temporary_works.create') }}" style="min-width:220px;max-width: 500px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" class="newDesignBtn btn project_details">New Design Brief / Temporary Work</a>
                         </div>
                         <div class="col-md-4 offset-md-2">
                              <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
                                 <div class="row">
-                                      <div class="form-group  col-md-8">
+                                      <div class="form-group  col-md-2">
+</div>
+                                      <div class="form-group  col-md-6">
                                         <label  class="text-white">Search</label>
                                         <input type="text" class="form-control" name="terms" required="required" />
                                       </div>
@@ -249,7 +251,7 @@ border-radius: 8px;
                                     <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
                                     <th style="min-width: 40px;" class="">Risk Class</th>
                                     <th class=""  style="min-width:60px;">Issue Date<br> of Design Brief</th>
-                                    <th class=""  style="">Required Date of Design</th>
+                                    <th class=""  style="">Required<br>Date<br>of<br>Design</th>
                                     <th class="">Comments</th>
                                     <th class="">TW designer<br> (designer name and company)</th>
                                     <!-- <th class="">Appointments</th>  -->
@@ -282,8 +284,8 @@ border-radius: 8px;
                                     </td>
                                     <td style="">{{ $item->tw_category ?: '-' }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                    <td style="transform: rotate(-90deg);min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
-                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
+                                    <td style="min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
+                                    <td style="width:90px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
                                         <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
@@ -350,9 +352,9 @@ border-radius: 8px;
 
                                     </td>
                                     <td>
-                                        <p class="permit-to-load cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
+                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
                                         @if(isset($item->permits[0]->id))
-                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>
                                         @endif

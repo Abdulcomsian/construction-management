@@ -82,7 +82,7 @@ class HelperFunctions
                     } elseif ($diff_in_days >= '7') {
                         $class = "background:#f2f2f2;color:green";
                     } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                        $class = "background:#f2f2f2;color:yellow";
+                        $class = "background:#f2f2f2;color:orange";
                     }
                     return $class;
                     break;

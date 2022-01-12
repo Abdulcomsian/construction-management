@@ -25,7 +25,11 @@ class TemporaryWork extends Model
 
     public function permits() //this relation for open permit check in table
     {
-        return $this->hasOne(PermitLoad::class)->where('status', '=', 1);
+        return $this->hasMany(PermitLoad::class)->where('status', '=', 1);
+    }
+    public function scaffold() //this relation for open permit check in table
+    {
+        return $this->hasMany(Scaffolding::class)->where('status', '=', 1);
     }
 
     public function temp_work_images()

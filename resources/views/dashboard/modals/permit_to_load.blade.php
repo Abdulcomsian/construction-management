@@ -43,6 +43,7 @@
                         <thead style="height: 60px;">
                             <tr style="background: #f5f8fa;color:#000;">
                                 <td><b>Pdf Link</b></td>
+                                <td><b>Permit No</b></td>
                                 <td><b>Date</b></td>
                                 <td><b>Type</b></td>
                                 <td><b>Status</b></td>

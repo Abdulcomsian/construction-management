@@ -291,7 +291,7 @@ border-radius: 8px;
                                         <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
-                                       <h3 class="uploadfile  cursor-pointer" style="font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
+                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
                                       
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -330,7 +330,7 @@ border-radius: 8px;
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="font-weight: 400;font-size: 14px;">Upload<br> or Drag <br>and drop<br> folders</p>
+                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;">Upload<br> or Drag <br>and drop<br> folders</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -340,7 +340,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td >
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="font-weight: 400;font-size: 14px;" data-type="2">Upload<br> or Drag <br>and drop<br> folders</p>
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="2">Upload<br> or Drag <br>and drop<br> folders</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==2)

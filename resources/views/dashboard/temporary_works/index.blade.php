@@ -312,7 +312,7 @@ border-radius: 8px;
                                         @endif
                                         @endforeach
                                     </td> -->
-                                    <td style="transform: rotate(-90deg);"> 
+                                    <td style=""> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
                                           <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}
@@ -322,7 +322,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                    <!--  <td></td> -->
-                                    <td style="transform: rotate(-90deg);">
+                                    <td style="">
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
                                            <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>

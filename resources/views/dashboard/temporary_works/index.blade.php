@@ -330,7 +330,7 @@ border-radius: 8px;
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;">Upload<br> or Drag <br>and drop<br> folders</p>
+                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;">Upload Drawings</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -340,7 +340,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td >
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="2">Upload<br> or Drag <br>and drop<br> folders</p>
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="2">Upload DCC</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==2)
@@ -359,7 +359,7 @@ border-radius: 8px;
                                         @endif
                                     </td>
                                     <td>
-                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -26px;" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
+                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
                                     </td>
                                     <td  data-type="2">
                                         <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="font-weight: 400;font-size: 14px;position: relative;top: 7px;" data-type="3">Upload<br> or Drag and drop<br> folders</p>

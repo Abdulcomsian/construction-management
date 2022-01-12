@@ -415,6 +415,8 @@ border-radius: 8px;
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<script src="{{asset('js/dropzone.js')}}"></script>
+
 <script type="text/javascript">
     var role="{{ \Auth::user()->roles->pluck('name')[0] }}";
     console.log(role);

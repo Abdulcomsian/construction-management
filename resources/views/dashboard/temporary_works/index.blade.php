@@ -272,7 +272,7 @@ border-radius: 8px;
                             <tbody class="text-gray-600 fw-bold">
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;;transform: rotate(-90deg);"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
+                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">

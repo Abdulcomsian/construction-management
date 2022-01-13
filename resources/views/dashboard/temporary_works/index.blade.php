@@ -74,6 +74,7 @@
 
     table tbody td {
         text-align: center;
+        padding: 5px !important;
     }
 
     table thead {
@@ -186,7 +187,7 @@ border-radius: 8px;
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Temporary Works</h1>
+                
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -203,8 +204,8 @@ border-radius: 8px;
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title">
-                       
+                    <div class="card-title" style="width: 100%"> 
+                    <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center; font-size:45px !important; text-transform: uppercase;">Temporary Works Register</h1>
                     </div>
                     <!--begin::Card toolbar-->
                     
@@ -218,12 +219,14 @@ border-radius: 8px;
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
-                            <a href="{{ route('temporary_works.create') }}" style="width: 200px;color:#fff !important; margin-top: 20px;" value="add" class="newDesignBtn btn project_details">New Temporary Work</a>
+                            <a href="{{ route('temporary_works.create') }}" style="min-width:220px;max-width: 500px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" class="newDesignBtn btn project_details">New Design Brief / Temporary Work</a>
                         </div>
                         <div class="col-md-4 offset-md-2">
                              <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
                                 <div class="row">
-                                      <div class="form-group  col-md-8">
+                                      <div class="form-group  col-md-2">
+</div>
+                                      <div class="form-group  col-md-6">
                                         <label  class="text-white">Search</label>
                                         <input type="text" class="form-control" name="terms" required="required" />
                                       </div>
@@ -241,21 +244,21 @@ border-radius: 8px;
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th style="padding: 0px !important;vertical-align: middle;;transform: rotate(-90deg);" class="">TW ID. No.</th>
+                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                     <th class="">Company</th>
                                     <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
                                     <th class="" style="max-width:210px;">Description of TWS</th>
-                                    <th style="transform: rotate(-90deg);padding: 0px !important;vertical-align: middle;min-width: 60px;" class="">Design Check CAT</th>
-                                    <th style="transform: rotate(-90deg);" class="">Implimentation Risk Class</th>
-                                    <th class=""  style="transform: rotate(-90deg);">Issue Date<br> of Design Brief</th>
-                                    <th class=""  style="transform: rotate(-90deg);">Required Date of Design</th>
+                                    <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
+                                    <th style="min-width: 40px;" class="">Risk Class</th>
+                                    <th class=""  style="min-width:60px;">Issue Date<br> of Design Brief</th>
+                                    <th class=""  style="">Required<br>Date<br>of<br>Design</th>
                                     <th class="">Comments</th>
-                                    <th class="">TW designer (designer name and company)</th>
+                                    <th class="">TW designer<br> (designer name and company)</th>
                                     <!-- <th class="">Appointments</th>  -->
-                                    <th class=""  style="transform: rotate(-90deg);">Date Design Returned</th>
-                                    <th class=""  style="transform: rotate(-90deg);">Date Design / Check Returned</th>
-                                    <th class="">DRAWINGS and DESIGNS</th>
-                                    <th class="">Design Check Certificate</th>
+                                    <th class=""  style="padding: 12px;">Date<br> Design<br> Returned</th>
+                                    <th class=""  style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
+                                    <th class="">DRAWINGS<br> and<br> DESIGNS</th>
+                                    <th class="">Design<br> Check<br> CERT</th>
                                     <th class="">Permit to Load</th>
                                     <th class="">Permit to Unload</th>
                                     <th class="">RAMS</th>
@@ -269,27 +272,27 @@ border-radius: 8px;
                             <tbody class="text-gray-600 fw-bold">
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;;transform: rotate(-90deg);"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
+                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
-                                        <hr style="color:red;border:1px solid red">
-                                        <button class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
-                                            View Desc
+                                        <hr style="margin: 5px;;color:red;border:1px solid red">
+                                        <button style="background: #07d564;font-size: 12px;border-radius: 10px" class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
+                                            Description
                                         </button>
                                     </td>
                                     <td style="">{{ $item->tw_category ?: '-' }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                    <td style="transform: rotate(-90deg);width:100%">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
-                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
-                                        <p border: 1px solid 07d564;width: 103%;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</p> </td>
+                                    <td style="min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
+                                    <td style="width:90px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
+                                        <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
-                                        <p class="addcomment cursor-pointer" style="font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
-                                        <span style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
-                                        <hr style="color:red;border:1px solid red">
-                                       <h3 class="uploadfile  cursor-pointer" style="font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">All Drag And Drop emails</h3>
-                                       <br>
+                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
+                                        <hr style="color:red;border:1px solid red; margin: 2px;">
+                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
+                                      
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==4)
@@ -298,7 +301,7 @@ border-radius: 8px;
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td style="transform: rotate(-90deg);">{{ $item->designer_company_name ?: '-' }}</td>
+                                    <td style="">{{ $item->designer_company_name ?: '-' }}</td>
                                     <!-- <td>
                                         <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
                                         @php $i=0;@endphp
@@ -309,7 +312,7 @@ border-radius: 8px;
                                         @endif
                                         @endforeach
                                     </td> -->
-                                    <td style="transform: rotate(-90deg);"> 
+                                    <td style=""> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
                                           <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}
@@ -319,7 +322,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                    <!--  <td></td> -->
-                                    <td style="transform: rotate(-90deg);">
+                                    <td style="">
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
                                            <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
@@ -327,7 +330,7 @@ border-radius: 8px;
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="font-weight: 400;font-size: 14px;">Upload or Drag and drop folders</p><br>
+                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -337,8 +340,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td >
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="font-weight: 400;font-size: 14px;" data-type="2">Upload or Drag and drop folders</p>
-                                        <br>
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==2)
@@ -349,19 +351,18 @@ border-radius: 8px;
 
                                     </td>
                                     <td>
-                                        <p class="permit-to-load cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative; top: -6px;" data-id={{Crypt::encrypt($item->id)}}>Permit to load</p>
+                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
                                         @if(isset($item->permits[0]->id))
-                                        <button class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
-                                        <button class="btn btn-success">Closed</button>
+                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>
                                         @endif
                                     </td>
                                     <td>
-                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -19px;" data-id={{Crypt::encrypt($item->id)}}>Permit to Unload</p>
+                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
                                     </td>
                                     <td  data-type="2">
-                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="font-weight: 400;font-size: 14px;position: relative;top: 17px;" data-type="3">Upload or Drag and drop folders</p>
-                                        <br>
+                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==3)
@@ -413,6 +414,8 @@ border-radius: 8px;
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<script src="{{asset('js/dropzone.js')}}"></script>
+
 <script type="text/javascript">
     var role="{{ \Auth::user()->roles->pluck('name')[0] }}";
     console.log(role);

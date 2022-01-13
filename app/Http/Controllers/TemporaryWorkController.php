@@ -533,7 +533,8 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                 $path = ENV('APP_URL');
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="'.$path .' pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }

@@ -22,19 +22,19 @@ class UserTableSeeder extends Seeder
         $users = [
             [
                 'name' => 'Admin',
-                'email' =>  'admin@example.com',
-                'password' => Hash::make('password'),
+                'email' =>  'hani.thaher@gmail.com',
+                'password' => Hash::make('Hani@123'),
                 'email_verified_at' => now(),
                 'status' => Status::Active,
                 'job_title'=>'admin',
             ],
             [
-                'name' => 'Assad Yaqoob',
-                'email' =>  'assad@example.com',
+                'name' => 'Abdul Basit',
+                'email' =>  'basitawan.abdul@gmail.com',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
                 'status' => Status::Active,
-                'job_title'=>'asad yaqoob',
+                'job_title'=>'Director',
             ],
         ];
 

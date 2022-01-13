@@ -20,7 +20,7 @@ License: -->
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+    <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}} />
     <!-- work for signature -->
     
     

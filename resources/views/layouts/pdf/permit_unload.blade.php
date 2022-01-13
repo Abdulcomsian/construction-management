@@ -260,13 +260,13 @@
                         </td>
                         <td style="width: 200px; font-size:12px">
                             @if(isset($image_name1) && $image_name1!='')
-                            <img src="public/temporary/signature/{{$image_name1}}" width="40px" height="40px" />
+                            <img src="temporary/signature/{{$image_name1}}" width="40px" height="40px" />
                             @endif
                         </td>
                         <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black;  margin: 0px;"><b style="font-size: 12px;">
                                     Signature </b></label></td>
                         <td style="width: 200px; font-size:12px;">
-                            <img src="public/temporary/signature/{{$image_name}}" width="40px" height="40px" />
+                            <img src="temporary/signature/{{$image_name}}" width="40px" height="40px" />
                         </td>
                     </tr>
                     <tr>

@@ -224,7 +224,9 @@
                      </span>
                   </td>
                   <td></td>
+                  @if($check_radios['even_stable_radio']=="2")
                   <span style="font-size: 12px;">{{$check_comments['even_stable_comment'] ?? ''}}</span>
+                  @endif
                   </td>
                </tr>
                <tr>

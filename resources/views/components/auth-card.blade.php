@@ -1,6 +1,6 @@
 <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
     <div>
-        {{ $logo }}
+       <img alt="Logo" src="{{asset('assets/media/logos/logo.png')}}"  style="max-width: 270px;" class="h-15px"/>
     </div>
 
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">

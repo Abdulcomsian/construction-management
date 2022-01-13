@@ -533,7 +533,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 }
-                 $path = ENV('APP_URL');
+                 $path = env('APP_URL');
                 $list .= '<tr style="' . $class . '"><td><a target="_blank" href="'.$path .' pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
@@ -561,7 +561,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="'.$path .' pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -903,14 +903,13 @@ class TemporaryWorkController extends Controller
     //cron job for permit expire
     public function cron_permit()
     {
-        $current =  \Carbon\Carbon::now();
-        //get permit load daa
-
+       
+         $date = \Carbon\Carbon::today()->subDays(7);
          $notify_admins_msg = [
             'greeting' => 'Permit Expire',
             'subject' => 'Permit Load Expire',
             'body' => [
-                'text' => 'A Permit to load has been Expire',
+                'text' => 'You have an open job, Please close it or unload it.',
                 'filename' => '',
                 'links' =>  '',
                 'name' => '',
@@ -919,14 +918,10 @@ class TemporaryWorkController extends Controller
             'action_text' => '',
             'action_url' => '',
         ];
-       PermitLoad::where('status', 1)->chunk(100, function ($permits) {
+       PermitLoad::with('user')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use($notify_admins_msg) {
             foreach ($permits as $permit) {
-                     $to =Carbon::createFromFormat('Y-m-d', $permit->created_at);
-                     $diff_in_days = $to->diffInDays($current);
-                     if($diff_in_days > 7)
-                     {
-                         Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
-                     }
+                $notify_admins_msg['body']['filename']=$permit->ped_url;
+                         Notification::route('mail',$permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
         
@@ -934,7 +929,7 @@ class TemporaryWorkController extends Controller
             'greeting' => 'Scaffold Expire',
             'subject' => 'Scaffold Load Expire',
             'body' => [
-                'text' => 'A Scaffold to load has been Expire',
+                'text' => 'You have an open job, Please close it or unload it.',
                 'filename' => '',
                 'links' =>  '',
                 'name' => '',
@@ -943,14 +938,10 @@ class TemporaryWorkController extends Controller
             'action_text' => '',
             'action_url' => '',
         ];
-        Scaffolding::where('status', 1)->chunk(100, function ($permits) {
+        Scaffolding::where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use($notify_admins_msg) {
             foreach ($permits as $permit) {
-                     $to =Carbon::createFromFormat('Y-m-d', $permit->created_at);
-                     $diff_in_days = $to->diffInDays($current);
-                     if($diff_in_days > 7)
-                     {
-                         Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
-                     }
+                 $notify_admins_msg['body']['filename']=$permit->ped_url;
+                         Notification::route('mail', $permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
        

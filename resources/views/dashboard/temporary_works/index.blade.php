@@ -282,7 +282,7 @@ border-radius: 8px;
                                             Description
                                         </button>
                                     </td>
-                                    <td style="">{{ $item->tw_category ?: '-' }}</td>
+                                    <td style="">{{ $item->tw_category }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td style="min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
                                     <td style="width:90px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">

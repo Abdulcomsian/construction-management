@@ -534,7 +534,7 @@ class TemporaryWorkController extends Controller
                     $status = "Unloaded";
                 }
                  $path =config('app.url');
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="'.$path .' pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="'.$path .'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }

@@ -270,7 +270,7 @@
                         </td>
                         <td style="width: 200px; font-size:12px;">
                         @if(isset($image_name1) && $image_name1!='')
-                            <img src="public/temporary/signature/{{$image_name1}}"  width="auto" height="120px"/>
+                            <img src="temporary/signature/{{$image_name1}}"  width="auto" height="120px"/>
                             @else
                             {{ $data['namesign1'] ?? ''}}
                             @endif

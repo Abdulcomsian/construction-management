@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/public/', function () {
     dd("123");
     return view('auth/login');
 });

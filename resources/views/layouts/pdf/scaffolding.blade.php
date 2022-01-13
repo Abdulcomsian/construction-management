@@ -986,7 +986,7 @@
                   <label for="" style="float: left;width: 400px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Signature</b></label>
                </td>
                <td colspan="3" style="font-size:12px;">
-                  @if($data['signtype']=='1'){{ucwords($data['namesign'])}}@else<img src="public/temporary/signature/{{$image_name}}" width="auto" height="120px" />@endif
+                  @if($data['signtype']=='1'){{ucwords($data['namesign'])}}@else<img src="temporary/signature/{{$image_name}}" width="auto" height="120px" />@endif
                </td>
             </tr>
          </tbody>

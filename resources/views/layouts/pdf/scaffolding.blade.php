@@ -246,7 +246,9 @@
                         @endif
                   </td>
                   <td>
+                  @if($check_radios['base_Plates_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['base_Plates_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -267,7 +269,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['sole_boards_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['sole_boards_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -289,7 +293,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['undermined_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['undermined_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -312,7 +318,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['Plumb_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['Plumb_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -334,7 +342,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['staggered_joints_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['staggered_joints_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -356,7 +366,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['wrong_spacing_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['wrong_spacing_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -378,7 +390,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['damaged_radio']=="2")
                      {{$check_comments['damaged_comment'] ?? ''}}
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -401,7 +415,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['trap_boards_radio']=="2")
                      {{$check_comments['trap_boards_comment'] ?? ''}}
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -423,7 +439,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['trap_boards_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['trap_boards_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -445,7 +463,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['incomplete_boarding_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['incomplete_boarding_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -467,7 +487,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['supports_ties_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['supports_ties_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -490,7 +512,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['insufficient_length_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['insufficient_length_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -512,7 +536,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['missing_loose_radio']=="2")
                      {{$check_comments['missing_loose_comment'] ?? ''}}
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -534,7 +560,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['wrong_fittings_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['wrong_fittings_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -557,7 +585,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['not_level_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['not_level_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -579,7 +609,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['joined_same_bays_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['joined_same_bays_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -601,7 +633,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['loose_damaged_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['loose_damaged_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -624,7 +658,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['wrong_height_radio']=="2")
                      {{$check_comments['wrong_height_comment'] ?? ''}}
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -646,7 +682,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['some_missing_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -668,7 +706,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['partially_removed_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
 
@@ -693,6 +733,7 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['wrong_height_radio']=="2")
                      {{$check_comments['wrong_height_comment'] ?? ''}}
                   </td>
                </tr>
@@ -715,7 +756,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['some_missing_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -737,7 +780,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['partially_removed_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
 
@@ -762,7 +807,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['wrong_height_radio']=="2")
                      {{$check_comments['wrong_height_comment'] ?? ''}}
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -784,7 +831,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['some_missing_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -806,7 +855,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['partially_removed_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
 
@@ -830,7 +881,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['wrong_height_radio']=="2")
                      {{$check_comments['wrong_height_comment'] ?? ''}}
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -852,7 +905,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['some_missing_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -874,7 +929,9 @@
                      </span>
                   </td>
                   <td>
+                  @if($check_radios['partially_removed_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
 

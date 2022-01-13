@@ -395,7 +395,7 @@
                             {{ucwords($data['namesign'])}}
                             @else
                             @php $sign=\App\Models\TemporaryWork::find($image_name);@endphp
-                            <img src="public/temporary/signature/{{$sign->signature}}" width="auto" height="120">
+                            <img src="temporary/signature/{{$sign->signature}}" width="auto" height="120">
                             @endif
                         </td>
                     </tr>

@@ -283,7 +283,6 @@
                             {{ date('d-m-Y', strtotime($data['date'])) }}
                         </td>
 
-
                     </tr>
                 </tbody>
             </table>

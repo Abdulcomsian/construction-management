@@ -34,7 +34,7 @@ class UserTableSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
                 'status' => Status::Active,
-                'job_title'=>'asad yaqoob',
+                'job_title'=>'Director',
             ],
         ];
 

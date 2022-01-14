@@ -235,7 +235,7 @@ background-color: #07d564 !important;
                                     @endif
                                             <!-- <td>{{$loop->index+1}}</td> -->
                                             <td>
-                                                <img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="auto" height="150px">
+                                                <img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="auto" height="350px">
                                                 <p>{{$loop->index+1}}</p>
                                             </td>
                                     @if($i==2) 

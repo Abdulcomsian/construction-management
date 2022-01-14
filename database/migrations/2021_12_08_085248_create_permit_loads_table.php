@@ -53,6 +53,7 @@ class CreatePermitLoadsTable extends Migration
             $table->string('twc_control_pts')->nullable();
             $table->string('back_propping')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

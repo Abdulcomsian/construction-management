@@ -47,6 +47,7 @@ class CreateScaffoldingsTable extends Migration
             $table->tinyInteger('carry_out_inspection')->nullable();
             $table->integer('created_by')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->string('type')->nullable();
             $table->string('ped_url')->nullable();
             $table->timestamps();
         });

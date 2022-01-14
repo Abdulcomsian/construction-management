@@ -69,7 +69,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('tempwork-search', [TemporaryWorkController::class, 'tempwork_search'])->name('tempwork.search');
     Route::get('tempwork-send-attach/{id}', [TemporaryWorkController::class, 'tempwork_send_attach'])->name('tempwork.sendattach');
-
+    //export to excel
+    Route::get('temporary-work-export', [TemporaryWorkController::class, 'export_excel'])->name('Designbrief.export');
 
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');
     //rout for genereate qr code

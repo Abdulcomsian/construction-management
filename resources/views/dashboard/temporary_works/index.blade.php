@@ -205,6 +205,9 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title" style="width: 100%"> 
+                        <span style="width:200px"> 
+                            <a style="min-width:220px;max-width: 500px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="newDesignBtn">Export Data</a>
+                        </span>
                     <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center; font-size:45px !important; text-transform: uppercase;">Temporary Works Register</h1>
                     </div>
                     <!--begin::Card toolbar-->
@@ -215,12 +218,15 @@ border-radius: 8px;
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <div class="row"> 
+
                         <div class="col-md-6" >
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
                             <a href="{{ route('temporary_works.create') }}" style="min-width:220px;max-width: 500px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" class="newDesignBtn btn project_details">New Design Brief / Temporary Work</a>
+
                         </div>
+
                         <div class="col-md-4 offset-md-2">
                              <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
                                 <div class="row">

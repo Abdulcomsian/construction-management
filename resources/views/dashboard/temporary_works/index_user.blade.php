@@ -97,7 +97,6 @@
 
     table {
         margin-top: 20px;
-        border-collapse: separate;
     }
     .dataTables_filter input {
         border-radius: 8px;
@@ -113,15 +112,7 @@
         background-color: #07d564 !important;
     }
 
-    table thead th {
-        padding: 3px 18px 3px 10px;
-        border-bottom: 0;
-        color: #ff0000;
-        font-size: 12px;
-        font-weight: bold;
-        cursor: pointer;
-        * cursor: hand;
-    }
+    
 
     table td {
         padding: 3px 10px;
@@ -179,7 +170,7 @@ background-color: #07d564 !important;
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="height: 1000px;">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>
@@ -212,13 +203,13 @@ background-color: #07d564 !important;
                                 @if($temporary_works)
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
+                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td>A10</td>
                                     <td>{{ $item->tw_category ?: '-' }}</td>
                                     <td>{{ $item->tw_risk_class ?: '-' }}</td>
-                                    <td>{{ $item->design_issued_date ?: '-' }}</td>
+                                    <td style="min-width: 60px; max-width: 80px;">{{ $item->design_issued_date ?: '-' }}</td>
                                     <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}}">{{$item->design_required_by_date ?: '-' }} </td>
                                     <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
                                     <td>{{ $item->designer_company_name ?: '-' }}</td>

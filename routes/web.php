@@ -19,11 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/public/', function () {
-    dd("123");
-    return view('auth/login');
-});
-Route::get('/cron-permit',[TemporaryWorkController::class,'cron_permit']);
+
+Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 
 Route::get('/addProject', function () {

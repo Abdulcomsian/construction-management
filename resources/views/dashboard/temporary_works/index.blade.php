@@ -352,7 +352,7 @@ border-radius: 8px;
                                     </td>
                                     <td>
                                         <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
-                                        @if(isset($item->permits[0]->id))
+                                        @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>

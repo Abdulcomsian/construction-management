@@ -130,10 +130,15 @@
         border: 1px solid grey;
         color: #000;
     }
-    canvas{
+
+    canvas {
         background: lightgray;
     }
-    .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
+
+    .form-control.form-control-solid {
+        background-color: #000;
+        color: #5e6278 !important;
+    }
 </style>
 @endsection
 @section('content')
@@ -277,7 +282,7 @@
                                     <textarea name="description_structure" rows="2" class="form-control" style="width:100%" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
-                         
+
                             <div class="col-md-12 mt-20">
                                 <div class="d-flex inputDiv" style=" height: 87px;">
                                     <!--begin::Label-->
@@ -307,7 +312,7 @@
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%"> 
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
                                         <span class="required">Workmanship checked </span>
                                     </label>
                                     <!--begin::Radio group-->
@@ -327,7 +332,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="workmanship_desc" rows="2" cols= style="width:100%;" class="form-control"></textarea>
+                                        <textarea name="workmanship_desc" rows="2" cols=style="width:100%;" class="form-control"></textarea>
                                     </div>
 
 
@@ -364,7 +369,7 @@
 
                                     <div style="margin-left: 10px; text-align:center;">
 
-                                        <textarea name="drawings_design_desc" rows="2"  style="width:100%;" class="form-control"></textarea>
+                                        <textarea name="drawings_design_desc" rows="2" style="width:100%;" class="form-control"></textarea>
 
                                     </div>
                                 </div>
@@ -397,7 +402,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                     <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="loading_limit_desc" rows="2"  style="width:100%;" class="form-control"></textarea>
+                                        <textarea name="loading_limit_desc" rows="2" style="width:100%;" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <p style="color: #000;">Inspect each of the following items & tick off in the box provided if installed correctly as per the design. Where actions are required, identify with a number & detail comments in the space provided below.</p>
@@ -407,10 +412,11 @@
 
                         <div class="col-md-12 ">
 
-                        <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="background:green;color:#fff;padding:10px;width: 20%;">
+                            <div class="d-flex inputDiv">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="background:green;color:#fff;padding:10px;width: 20%;">
                                     <span style="">Footings:</span>
-                                </label></div>
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -424,7 +430,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="even_stable_radio" value="1"  />
+                                        <input type="radio" class="btn-check" name="even_stable_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
                                     </label>
                                     <!--end::Option-->
@@ -434,7 +440,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="even_stable_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="even_stable_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -460,7 +466,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="1"  />
+                                        <input type="radio" class="btn-check" name="base_Plates_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
                                     </label>
                                     <!--end::Option-->
@@ -496,7 +502,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="sole_boards_radio" value="1"  />
+                                        <input type="radio" class="btn-check" name="sole_boards_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
                                     </label>
                                     <!--end::Option-->
@@ -506,7 +512,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="sole_boards_radio"  checked value="3" />
+                                        <input type="radio" class="btn-check" name="sole_boards_radio" checked value="3" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -538,7 +544,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="undermined_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="undermined_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
@@ -557,9 +563,10 @@
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
                                     Standards:
-                                </label></div>
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -573,7 +580,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="Plumb_radio" value="1"  />
+                                        <input type="radio" class="btn-check" name="Plumb_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
                                     </label>
                                     <!--end::Option-->
@@ -609,7 +616,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="1"  />
+                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
                                     </label>
                                     <!--end::Option-->
@@ -619,7 +626,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="staggered_joints_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -652,11 +659,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="wrong_spacing_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -691,11 +698,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="damaged_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="damaged_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="damaged_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="damaged_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -705,14 +712,15 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea  class="d-none" name="damaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="damaged_comment" rows="2" cols="90"></textarea>
 
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
                                     Boards:
-                                </label></div>
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -726,7 +734,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="1"  />
+                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
                                     </label>
                                     <!--end::Option-->
@@ -736,7 +744,7 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="trap_boards_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -771,11 +779,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="incomplete_boarding_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -808,11 +816,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="supports_ties_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -826,9 +834,10 @@
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
                                     Ladders:
-                                </label></div>
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -848,7 +857,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="insufficient_length_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="insufficient_length_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
@@ -890,11 +899,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="missing_loose_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -929,11 +938,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="wrong_fittings_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -948,9 +957,10 @@
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
-                        Ledgers:
-                                </label></div>
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                    Ledgers:
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -966,7 +976,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="not_level_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="not_level_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
@@ -980,7 +990,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="not_level_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="not_level_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1001,17 +1011,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="joined_same_bays_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="joined_same_bays_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1027,11 +1037,11 @@
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="loose_damaged_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1041,13 +1051,14 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="loose_damaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="loose_damaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
                                     Guard Rails:
-                                </label></div>
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -1067,11 +1078,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="wrong_height_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1081,7 +1092,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="wrong_height_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="wrong_height_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1103,17 +1114,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="some_missing_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="some_missing_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="some_missing_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="some_missing_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="some_missing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="some_missing_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1135,11 +1146,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="GuardRails_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="GuardRails_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="GuardRails_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="GuardRails_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
@@ -1150,9 +1161,10 @@
                             </div>
                             <!-- coupling & tiles -->
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
                                     Couplings:
-                                </label></div>
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -1172,17 +1184,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="coupling_wrongfitting_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="coupling_wrongfitting_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="coupling_wrongfitting_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="coupling_wrongfitting_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea  class="d-none"  name="coupling_wrongfitting_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="coupling_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1200,17 +1212,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="coupling_somemissing_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="coupling_somemissing_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="coupling_somemissing_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="coupling_somemissing_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1228,25 +1240,26 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="coupling_loosedamaged_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="coupling_loosedamaged_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="coupling_loosedamaged_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="coupling_loosedamaged_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea  class="d-none"  name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
 
                             <!-- Bracing Facades -->
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
                                     Bracing:
-                                </label></div>
+                                </label>
+                            </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
@@ -1266,17 +1279,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="bracing_wrongfitting_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="bracing_wrongfitting_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="bracing_wrongfitting_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="bracing_wrongfitting_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"   name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1294,17 +1307,17 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="bracing_somemissing_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="bracing_somemissing_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="bracing_somemissing_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="bracing_somemissing_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1322,26 +1335,27 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="bracing_loosedamaged_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="bracing_loosedamaged_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="bracing_loosedamaged_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="bracing_loosedamaged_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
 
 
 
                             <div class="d-flex inputDiv">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
-                        Debrings Netting:
-                                </label></div>
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                                    Debrings Netting:
+                                </label>
+                            </div>
                             <!-- Debrings Netting -->
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1362,11 +1376,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="partially_removed_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1376,7 +1390,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="partially_removed_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="partially_removed_comment" rows="2" cols="90"></textarea>
                                 </div>
 
 
@@ -1400,11 +1414,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="debrings_somemissing_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="debrings_somemissing_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="debrings_somemissing_radio" value="2" checked/>
+                                        <input type="radio" class="btn-check" name="debrings_somemissing_radio" value="2" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                     <!--end::Option-->
@@ -1414,7 +1428,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none"  name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
 
 
@@ -1434,11 +1448,11 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="2"  />
+                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="2" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Fail</span>
                                     </label>
                                     <label>
-                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="3" checked/>
+                                        <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="3" checked />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N/A</span>
                                     </label>
                                 </div>
@@ -1551,7 +1565,7 @@
                                         <div class="d-flex modalDiv">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                Inspected by: 
+                                                Inspected by:
                                             </label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" required>
 
@@ -1561,7 +1575,7 @@
                                         <div class="d-flex modalDiv">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                Job Title: 
+                                                Job Title:
                                             </label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" required>
 
@@ -1601,12 +1615,12 @@
                                         <br />
                                         <canvas id="sig"></canvas>
                                         <br />
-                                        
+
                                     </div>
                                     <div class="d-flex inputDiv" id="sign">
-                                    <textarea id="signature" name="signed" style="opacity:0" required></textarea>
+                                        <textarea id="signature" name="signed" style="opacity:0" required></textarea>
                                     </div>
-                                    <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
+                                    <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
                                 </div>
 
                                 <div class="col-md-6">
@@ -1730,40 +1744,39 @@
         }
     })
 
-            var canvas = document.getElementById("sig");
-            var signaturePad = new SignaturePad(canvas);            
-             $("#submitbutton").on('click',function(){
-                 $("#signature").val(signaturePad.toDataURL('image/png'));
-                 $("#scaffolding").submit();
-            });
+    var canvas = document.getElementById("sig");
+    var signaturePad = new SignaturePad(canvas);
+    $("#submitbutton").on('click', function() {
+        $("#signature").val(signaturePad.toDataURL('image/png'));
+        $("#scaffolding").submit();
+    });
 
-        $('#drawing_no').change(function() {
-                $('#drawing_no').css("background-color", "#f5f8fa ");
-        });
-        $('#twc_name').change(function() {
-                $('#twc_name').css("background-color", "#f5f8fa ");
-        });
-        $('#drawing_title').change(function() {
-                $('#drawing_title').css("background-color", "#f5f8fa ");
-        });
-        $('#tws_name').change(function() {
-                $('#tws_name').css("background-color", "#f5f8fa ");
-        });
-        $('#ms_ra_no').change(function() {
-                $('#ms_ra_no').css("background-color", "#f5f8fa ");
-        });
-        $('#inspected_by').change(function() {
-                $('#inspected_by').css("background-color", "#f5f8fa ");
-        });
-        $('#job_title').change(function() {
-                $('#job_title').css("background-color", "#f5f8fa ");
-        });
-        $('#company').change(function() {
-                $('#company').css("background-color", "#f5f8fa ");
-        });
-        $('#namesign2').change(function() {
-                $('#namesign2').css("background-color", "#f5f8fa ");
-        });
-        
+    $('#drawing_no').change(function() {
+        $('#drawing_no').css("background-color", "#f5f8fa ");
+    });
+    $('#twc_name').change(function() {
+        $('#twc_name').css("background-color", "#f5f8fa ");
+    });
+    $('#drawing_title').change(function() {
+        $('#drawing_title').css("background-color", "#f5f8fa ");
+    });
+    $('#tws_name').change(function() {
+        $('#tws_name').css("background-color", "#f5f8fa ");
+    });
+    $('#ms_ra_no').change(function() {
+        $('#ms_ra_no').css("background-color", "#f5f8fa ");
+    });
+    $('#inspected_by').change(function() {
+        $('#inspected_by').css("background-color", "#f5f8fa ");
+    });
+    $('#job_title').change(function() {
+        $('#job_title').css("background-color", "#f5f8fa ");
+    });
+    $('#company').change(function() {
+        $('#company').css("background-color", "#f5f8fa ");
+    });
+    $('#namesign2').change(function() {
+        $('#namesign2').css("background-color", "#f5f8fa ");
+    });
 </script>
 @endsection

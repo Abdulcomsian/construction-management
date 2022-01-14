@@ -44,6 +44,10 @@
         color: #000 !important;
         padding: 15px 0px;
     }
+    .card{
+        margin: 30px 0px;
+        border-radius: 10px;    
+    }
 
     .toolbar-fixed .toolbar {
         background-color: transparent !important;
@@ -59,7 +63,7 @@
     }
 
     table thead {
-        background-color: #000;
+        background-color: #f5f8fa;
     }
 
     table thead th {

@@ -27,7 +27,6 @@
 
     table {
         margin-top: 20px;
-        border-collapse: separate;
     }
 
     #kt_content_container{
@@ -186,24 +185,24 @@ background-color: #07d564 !important;
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px">TW ID. No.</th>
-                                    <th class="min-w-100px">Company</th>
-                                    <th class="min-w-100px">Project Name</th>
-                                    <th class="min-w-100px">Description of TWS</th>
-                                    <th class="min-w-100px">Design Check CAT (0,1,2,3)</th>
-                                    <th class="min-w-100px">Implimentation Risk Class (VL,L,M,H)</th>
-                                    <th class="min-w-100px">Issue Date of Design Brief</th>
-                                    <th class="min-w-100px">Required Date of Design</th>
-                                    <th class="min-w-100px">Comments</th>
-                                    <th class="min-w-100px">TW designer (designer name and company)</th>
-                                    <th class="min-w-100px">Date Design Returned</th>
-                                    <th class="min-w-100px">TW designer (designer name and company)</th>
-                                    <th class="min-w-100px">Date Design / Check Returned</th>
-                                    <th class="min-w-100px">Drawings</th>
-                                    <th class="min-w-100px">Design Check Certificate</th>
-                                    <th class="min-w-100px">Permit to Load</th>
-                                    <th class="min-w-100px">Permit to Unload</th>
-                                    <th class="min-w-100px">RAMS</th>
+                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
+                                    <th class="">Company</th>
+                                    <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
+                                    <th class="" style="max-width:210px;">Description of TWS</th>
+                                    <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
+                                    <th style="min-width: 40px;" class="">Risk Class</th>
+                                    <th class=""  style="min-width:60px;">Issue Date<br> of Design Brief</th>
+                                    <th class=""  style="">Required<br>Date<br>of<br>Design</th>
+                                    <th class="">Comments</th>
+                                    <th class="">TW designer<br> (designer name and company)</th>
+                                    <th class=""  style="padding: 12px;">Date<br> Design<br> Returned</th>
+                                    <th class="">TW designer (designer name and company)</th>
+                                    <th class=""  style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
+                                    <th class="">DRAWINGS<br> and<br> DESIGNS</th>
+                                    <th class="">Design<br> Check<br> CERT</th>
+                                    <th class="">Permit to Load</th>
+                                    <th class="">Permit to Unload</th>
+                                    <th class="">RAMS</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>

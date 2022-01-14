@@ -866,7 +866,7 @@ class TemporaryWorkController extends Controller
     {
         try {
             $data = TemporaryWork::with('temp_work_images', 'uploadfile', 'permits', 'scaffold')->find($id);
-            Notification::route('mail', 'basitawan.abdul@gmail.com')->notify(new TempAttachmentNotifications($data));
+            Notification::route('mail', 'hani.thaher@gmail.com')->notify(new TempAttachmentNotifications($data));
             toastSuccess('Attachements sent successfully!');
             return Redirect::back();
         } catch (\Exception $exception) {
@@ -929,7 +929,7 @@ class TemporaryWorkController extends Controller
         PermitLoad::with('user')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
             foreach ($permits as $permit) {
                 $notify_admins_msg['body']['filename'] = $permit->ped_url;
-                Notification::route('mail', $permit->user->email ?? 'basitawan.abdul@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $permit->user->email ?? 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
 

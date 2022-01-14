@@ -168,6 +168,8 @@ height: 72px;
                     <div class="card-title">
                         <h2>Design Brief</h2>
                         <a style="width: 190px; text-align:center;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
+
+
                     </div>
                     <!--begin::Card toolbar-->
 

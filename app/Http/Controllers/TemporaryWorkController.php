@@ -31,6 +31,8 @@ use App\Notifications\TemporaryWorkNotification;
 use App\Utils\HelperFunctions;
 use DB;
 use PDF;
+use App\Exports\TemporyWorkExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 
 
@@ -772,10 +774,11 @@ class TemporaryWorkController extends Controller
             }
 
             $all_inputs['created_by'] = auth()->user()->id;
+            $all_inputs['type'] = 'load';
             //save data in scaffolign model
             if (isset($request->type) && $request->type == "scaffoldunload") {
                 $all_inputs['status'] = 1;
-                Scaffolding::find($request->id)->update(['status' => 4]);
+                Scaffolding::find($request->id)->update(['status' => 3]);
             }
             $scaffolding = Scaffolding::create($all_inputs);
             if ($scaffolding) {
@@ -862,7 +865,7 @@ class TemporaryWorkController extends Controller
     public function tempwork_send_attach($id)
     {
         try {
-            $data = TemporaryWork::with('temp_work_images', 'uploadfile')->find($id);
+            $data = TemporaryWork::with('temp_work_images', 'uploadfile', 'permits', 'scaffold')->find($id);
             Notification::route('mail', 'hani.thaher@gmail.com')->notify(new TempAttachmentNotifications($data));
             toastSuccess('Attachements sent successfully!');
             return Redirect::back();
@@ -949,5 +952,11 @@ class TemporaryWorkController extends Controller
                 Notification::route('mail', $permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
+    }
+
+    //export to excel
+    public function export_excel()
+    {
+        return  Excel::download(new TemporyWorkExport, 'temp.xlsx');
     }
 }

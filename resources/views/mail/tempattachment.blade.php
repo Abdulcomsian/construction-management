@@ -41,7 +41,7 @@
                                                                     }
                                                                     elseif($file->file_type==4)
                                                                     {
-                                                                    $name='Drap & Drop email';
+                                                                    $name='Drag & Drop email';
                                                                     }
                                                                     elseif($file->file_type==5){
                                                                     $name='Appointment';

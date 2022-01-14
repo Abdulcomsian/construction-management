@@ -391,7 +391,7 @@
                   </td>
                   <td>
                   @if($check_radios['damaged_radio']=="2")
-                     {{$check_comments['damaged_comment'] ?? ''}}
+                  <span style="font-size: 12px;">{{$check_comments['damaged_comment'] ?? ''}}</span>
                      @endif
                   </td>
                </tr>
@@ -416,7 +416,7 @@
                   </td>
                   <td>
                   @if($check_radios['trap_boards_radio']=="2")
-                     {{$check_comments['trap_boards_comment'] ?? ''}}
+                  <span style="font-size: 12px;">{{$check_comments['trap_boards_comment'] ?? ''}}</span>
                      @endif
                   </td>
                </tr>
@@ -537,7 +537,7 @@
                   </td>
                   <td>
                   @if($check_radios['missing_loose_radio']=="2")
-                     {{$check_comments['missing_loose_comment'] ?? ''}}
+                  <span style="font-size: 12px;">{{$check_comments['missing_loose_comment'] ?? ''}}</span>
                      @endif
                   </td>
                </tr>
@@ -659,7 +659,7 @@
                   </td>
                   <td>
                   @if($check_radios['wrong_height_radio']=="2")
-                     {{$check_comments['wrong_height_comment'] ?? ''}}
+                  <span style="font-size: 12px;">{{$check_comments['wrong_height_comment'] ?? ''}}</span>
                      @endif
                   </td>
                </tr>
@@ -723,9 +723,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['wrong_height_radio']=="1")
+                        @if($check_radios['coupling_wrongfitting_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['wrong_height_radio']=="2")
+                        @elseif($check_radios['coupling_wrongfitting_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -733,8 +733,9 @@
                      </span>
                   </td>
                   <td>
-                  @if($check_radios['wrong_height_radio']=="2")
-                     {{$check_comments['wrong_height_comment'] ?? ''}}
+                  @if($check_radios['coupling_wrongfitting_radio']=="2")
+                  <span style="font-size: 12px;">{{$check_comments['wrong_height_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -797,9 +798,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['wrong_height_radio']=="1")
+                        @if($check_radios['bracing_wrongfitting_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['wrong_height_radio']=="2")
+                        @elseif($check_radios['bracing_wrongfitting_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -807,8 +808,8 @@
                      </span>
                   </td>
                   <td>
-                  @if($check_radios['wrong_height_radio']=="2")
-                     {{$check_comments['wrong_height_comment'] ?? ''}}
+                  @if($check_radios['bracing_wrongfitting_radio']=="2")
+                  <span style="font-size: 12px;">{{$check_comments['wrong_height_comment'] ?? ''}}</span>
                      @endif
                   </td>
                </tr>
@@ -871,9 +872,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['wrong_height_radio']=="1")
+                        @if($check_radios['partially_removed_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['wrong_height_radio']=="2")
+                        @elseif($check_radios['partially_removed_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -881,8 +882,8 @@
                      </span>
                   </td>
                   <td>
-                  @if($check_radios['wrong_height_radio']=="2")
-                     {{$check_comments['wrong_height_comment'] ?? ''}}
+                  @if($check_radios['partially_removed_radio']=="2")
+                  <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
                      @endif
                   </td>
                </tr>

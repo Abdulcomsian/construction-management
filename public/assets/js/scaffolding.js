@@ -262,6 +262,18 @@ $('input[name="loose_damaged_broken_radio"]').change(function () {
     }
 });
 
+$('input[name="GuardRails_radio"]').change(function () {
+    if ($(this).val() == 2) {
+        $('textarea[name="GuardRails_comment"]')
+            .removeClass("d-none")
+            .attr("required", "required");
+    } else {
+        $('textarea[name="GuardRails_comment"]')
+            .addClass("d-none")
+            .removeAttr("required");
+    }
+});
+
 $('input[name="coupling_wrongfitting_radio"]').change(function () {
     if ($(this).val() == 2) {
         $('textarea[name="coupling_wrongfitting_comment"]')

@@ -170,7 +170,7 @@ class Validations
             'base_Plates_comment' => 'required_if:base_Plates_radio,2',
             'sole_boards_comment' => 'required_if:sole_boards_radio,2',
             'undermined_radio_comment' => 'required_if:undermined_radio_radio,2',
-            'Plumb_comment' => 'required_if:Plumb_radio,2',
+            // 'Plumb_comment' => 'required_if:Plumb_radio,2',
             'staggered_joints_comment' => 'required_if:staggered_joints_radio,2',
             'wrong_spacing_comment' => 'required_if:wrong_spacing_radio,2',
             'damaged_comment' => 'required_if:damaged_radio,2',

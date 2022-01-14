@@ -2,7 +2,7 @@
     <!--begin::Brand-->
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="/">
+        <a href="{{url('dashboard')}}">
             <img alt="Logo" src="{{asset('assets/media/logos/logo.png')}}" style="height:auto !important; width:100%; max-width:300px;" class="h-15px logo" />
         </a>
         <!--end::Logo-->

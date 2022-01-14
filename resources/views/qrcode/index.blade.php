@@ -183,12 +183,25 @@
                             </thead>
                             <!--end::Table head-->
                             <!--begin::Table body-->
+                            @php 
+                            $i=0;
+                            @endphp
                             <tbody class="text-gray-600 fw-bold">
                                 @foreach( $qrcodes as $code)
-                                 <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td><img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="100px" height="100px">
-                                 </tr>
+                                    @if($i==0) 
+                                        <tr>
+                                    @endif
+                                            <!-- <td>{{$loop->index+1}}</td> -->
+                                            <td><img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="100px" height="100px">
+                                    @if($i==0) 
+                                        </tr>
+                                    @endif
+                                    @php
+                                        $i++;
+                                        if($i==1){
+                                            $i=0;
+                                        }
+                                    @endphp
                                 @endforeach
                             </tbody>
                             <!--end::Table body-->

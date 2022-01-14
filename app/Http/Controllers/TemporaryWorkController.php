@@ -866,7 +866,7 @@ class TemporaryWorkController extends Controller
     {
         try {
             $data = TemporaryWork::with('temp_work_images', 'uploadfile', 'permits', 'scaffold')->find($id);
-            Notification::route('mail', 'hani.thaher@gmail.com')->notify(new TempAttachmentNotifications($data));
+            Notification::route('mail', 'basitawan.abdul@gmail.com')->notify(new TempAttachmentNotifications($data));
             toastSuccess('Attachements sent successfully!');
             return Redirect::back();
         } catch (\Exception $exception) {

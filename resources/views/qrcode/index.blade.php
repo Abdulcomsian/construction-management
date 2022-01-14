@@ -193,7 +193,7 @@
                                     @endif
                                             <!-- <td>{{$loop->index+1}}</td> -->
                                             <td>
-                                                <img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="100px" height="100px">
+                                                <img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="auto" height="150px">
                                                 <p>{{$loop->index+1}}</p>
                                             </td>
                                     @if($i==2) 

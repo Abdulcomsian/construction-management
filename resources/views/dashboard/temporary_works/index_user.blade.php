@@ -131,6 +131,9 @@
         border-color: #07d564 !important;
 background-color: #07d564 !important;
     }
+    .topMenu a {
+color: #07d564 !important;
+}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection

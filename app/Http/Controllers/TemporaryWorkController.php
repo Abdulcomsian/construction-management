@@ -929,7 +929,7 @@ class TemporaryWorkController extends Controller
         PermitLoad::with('user')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
             foreach ($permits as $permit) {
                 $notify_admins_msg['body']['filename'] = $permit->ped_url;
-                Notification::route('mail', $permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $permit->user->email ?? 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
 

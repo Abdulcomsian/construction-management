@@ -61,35 +61,35 @@
                                                                     <h3>Permit Load Pdf</h3>
                                                                     @foreach($details->permits as $x=> $pdf)
                                                                     @if($pdf->status==1)
-                                                                    <a href="{{asset('pdf'.'/'.$pdf->ped_url)}}"> PDF </a>
+                                                                    <a href="{{asset('pdf'.'/'.$pdf->ped_url)}}"> PDF </a><br>
                                                                     @endif
                                                                     @endforeach
 
                                                                     <h3>Permit UnLoad Pdf</h3>
                                                                     @foreach($details->permits as $x=> $pdf)
                                                                     @if($pdf->status==3)
-                                                                    <a href="{{asset('pdf'.'/'.$pdf->ped_url)}}"> PDF </a>
+                                                                    <a href="{{asset('pdf'.'/'.$pdf->ped_url)}}"> PDF </a><br>
                                                                     @endif
                                                                     @endforeach
 
                                                                     <h3>Scaffold Load Pdf</h3>
                                                                     @foreach($details->scaffold as $spdf)
                                                                     @if($spdf->status==1)
-                                                                    <a href="{{asset('pdf'.'/'.$spdf->ped_url)}}"> PDF </a>
+                                                                    <a href="{{asset('pdf'.'/'.$spdf->ped_url)}}"> PDF </a><br>
                                                                     @endif
                                                                     @endforeach
 
                                                                     <h3>Scaffold UnLoad Pdf</h3>
                                                                     @foreach($details->scaffold as $spdf)
                                                                     @if($spdf->status==3)
-                                                                    <a href="{{asset('pdf'.'/'.$spdf->ped_url)}}"> PDF </a>
+                                                                    <a href="{{asset('pdf'.'/'.$spdf->ped_url)}}"> PDF </a><br>
                                                                     @endif
                                                                     @endforeach
 
 
                                                                     <h3>Temporary work PDF attachments/PDF</h3>
 
-                                                                    <a href="{{asset('pdf'.'/'.$details->ped_url)}}">PDF </a>
+                                                                    <a href="{{asset('pdf'.'/'.$details->ped_url)}}">PDF </a><br>
 
                                                                     </p>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>Construction Management</p>

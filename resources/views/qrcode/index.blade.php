@@ -1,18 +1,26 @@
 @extends('layouts.dashboard.master',['title' => 'Project QR code'])
 @section('styles')
 <style>
+    .aside-enabled.aside-fixed.header-fixed .header{
+        border-bottom: 1px solid #e4e6ef!important;
+    }
+    .header-fixed.toolbar-fixed .wrapper{
+        padding-top: 60px !important;
+    }
+    .content{
+        padding-top: 0px !important;
+        background-color: #e9edf1 !important;
+    }
     .newDesignBtn {
         border-radius: 8px;
-        background-color: #F9D413;
+        background-color: #07d564;
         width: 150px;
         padding: 10px 15px;
         color: #000;
         margin: 0px 29px;
     }
 
-    .newDesignBtn:hover {
-        color: rgba(222, 13, 13, 0.66);
-    }
+    
 
     .card>.card-body {
         padding: 32px;
@@ -21,21 +29,27 @@
     table {
         margin-top: 20px;
         border-collapse: separate;
-        background-color: red;
     }
 
-    .wrapper,
-    .page {
-        background-image: url({{asset("assets/media/images/temporaryBg.png")}})
+    #kt_content_container{
+        background-color: #e9edf1;
+    }
+    #kt_toolbar_container{
+        background-color:#fff;
+        
+        
     }
 
     #kt_toolbar_container h1 {
         font-size: 35px !important;
-        color: red !important;
+        color: #000 !important;
+        padding: 15px 0px;
+    }
+    .card{
+        margin: 30px 0px;
+        border-radius: 10px;    
     }
 
-    .content,
-    .card,
     .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
@@ -49,14 +63,14 @@
         text-align: center;
     }
 
-    table thead {
-        background-color: #000;
+   table thead {
+        background-color: #f5f8fa;
     }
 
     table thead th {
-        color: #fff !important;
+        color: #000 !important;
         text-align: center;
-        transform: rotate(-90deg);
+        /* transform: rotate(-90deg); */
         border-bottom: 0px !important;
         vertical-align: middle;
         font-size: 12px !important;
@@ -72,7 +86,6 @@
     }
 
     .table {
-        border-color: red;
         border-style: solid;
     }
 
@@ -80,8 +93,18 @@
         height: 120px;
     }
 
-    td {
-        border: 1px solid red !important;
+   
+    .dataTables_filter input {
+        border-radius: 8px;
+    }
+
+    thead tr {
+        height: 6px !important;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: separate;
     }
 
     .dataTables_length label,
@@ -91,15 +114,34 @@
     }
 
     .page-item.active .page-link {
-        background-color: #000 !important;
+        background-color: #07d564 !important;
+    }
+    table thead th {
+        padding: 3px 18px 3px 10px;
+        border-bottom: 0;
+        color: #ff0000;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        * cursor: hand;
     }
 
-    table {
-        margin-top: 20px;
-        border-collapse: separate;
-        background-color: red !important;
-        border-color: red !important;
-        border-style: solid !important;
+    table td {
+        padding: 3px 10px;
+        color: #000000;
+        font-size: 12px;
+        font-weight: normal;
+    }
+    table td .d-flex{
+        justify-content: center;
+    }
+    .btn.btn-active-color-primary:hover:not(.btn-active),
+    .btn.btn-active-color-primary:hover:not(.btn-active) i{
+    color: #07d564;
+}
+.modal .btn.btn-primary{
+        border-color: #07d564 !important;
+background-color: #07d564 !important;
     }
     @media print
     {

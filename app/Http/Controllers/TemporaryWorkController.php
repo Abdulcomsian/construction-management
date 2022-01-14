@@ -46,7 +46,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -54,19 +54,19 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
             } else {
                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
                     $users = User::select('id')->where('company_id', auth()->user()->company_id)->get();
                     foreach ($users as $u) {
                         $ids[] = $u->id;
                     }
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
                 } else {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->where('created_by', $user->id)->latest()->paginate(20);
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('created_by', $user->id)->latest()->paginate(20);
                 }
             }
-           
+
 
             //work for datatable
             return view('dashboard.temporary_works.index', compact('temporary_works'));
@@ -421,7 +421,6 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
-    //    dd($request->all());
         Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
@@ -499,7 +498,8 @@ class TemporaryWorkController extends Controller
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
-            echo $exception->getMessage();exit;
+            echo $exception->getMessage();
+            exit;
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -517,8 +517,10 @@ class TemporaryWorkController extends Controller
                 $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
                 $diff_in_days = $to->diffInDays($current);
                 $class = '';
+                $color = '';
                 if ($diff_in_days > 7) {
                     $class = "background:gray";
+                    $color = "text-danger";
                 }
                 $status = '';
                 $button = '';
@@ -533,8 +535,8 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 }
-                 $path =config('app.url');
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="'.$path .'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $path = config('app.url');
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . (7 - $diff_in_days) . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }
@@ -544,16 +546,18 @@ class TemporaryWorkController extends Controller
                 $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
                 $diff_in_days = $to->diffInDays($current);
                 $class = '';
+                $color = '';
                 if ($diff_in_days > 7) {
                     $class = "background:gray";
+                    $color = "text-danger";
                 }
                 $status = '';
                 $button = '';
                 if ($permit->status == 1) {
                     $status = "Open";
-                    if($request->type=="unload"){
+                    if ($request->type == "unload") {
                         $button = '<a class="btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
-                    }else{
+                    } else {
                         $button = '<a class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }
                 } elseif ($permit->status == 0 || $permit->status == 4) {
@@ -561,8 +565,8 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 }
-                 $path =config('app.url');
-                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="'.$path .'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>'.$permit->permit_no.'</td><td>' . $permit->created_at->diffForHumans() . '</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $path = config('app.url');
+                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . (7 - $diff_in_days) . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -867,7 +871,7 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
-    
+
     public function scaffolding_close($id)
     {
         // echo "123";exit;
@@ -875,7 +879,7 @@ class TemporaryWorkController extends Controller
             $scaffoldid =  \Crypt::decrypt($id);
             $scaffolddata = Scaffolding::find($scaffoldid);
             Scaffolding::find($scaffoldid)->update(['status' => 4]);
-            
+
             return Redirect::back();
         } catch (\Exception $exception) {
 
@@ -904,9 +908,9 @@ class TemporaryWorkController extends Controller
     //cron job for permit expire
     public function cron_permit()
     {
-       
-         $date = \Carbon\Carbon::today()->subDays(7);
-         $notify_admins_msg = [
+
+        $date = \Carbon\Carbon::today()->subDays(7);
+        $notify_admins_msg = [
             'greeting' => 'Permit Expire',
             'subject' => 'Permit Load Expire',
             'body' => [
@@ -919,13 +923,13 @@ class TemporaryWorkController extends Controller
             'action_text' => '',
             'action_url' => '',
         ];
-       PermitLoad::with('user')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use($notify_admins_msg) {
+        PermitLoad::with('user')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
             foreach ($permits as $permit) {
-                $notify_admins_msg['body']['filename']=$permit->ped_url;
-                         Notification::route('mail',$permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                $notify_admins_msg['body']['filename'] = $permit->ped_url;
+                Notification::route('mail', $permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
-        
+
         $notify_admins_msg = [
             'greeting' => 'Scaffold Expire',
             'subject' => 'Scaffold Load Expire',
@@ -939,12 +943,11 @@ class TemporaryWorkController extends Controller
             'action_text' => '',
             'action_url' => '',
         ];
-        Scaffolding::where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use($notify_admins_msg) {
+        Scaffolding::where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
             foreach ($permits as $permit) {
-                 $notify_admins_msg['body']['filename']=$permit->ped_url;
-                         Notification::route('mail', $permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                $notify_admins_msg['body']['filename'] = $permit->ped_url;
+                Notification::route('mail', $permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
-       
     }
 }

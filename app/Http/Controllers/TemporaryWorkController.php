@@ -355,7 +355,11 @@ class TemporaryWorkController extends Controller
     //get commetns
     public function get_comments(Request $request)
     {
-        $commetns = TemporaryWorkComment::where(['user_id' => $request->id, 'temporary_work_id' => $request->temporary_work_id])->get();
+        if (isset($request->id)) {
+            $commetns = TemporaryWorkComment::where(['user_id' => $request->id, 'temporary_work_id' => $request->temporary_work_id])->get();
+        } else {
+            $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
+        }
         if (count($commetns) > 0) {
             $table = '<table class="table table-hover"><thead style="height:80px"><tr><th>S-no</th><th>Comment</th><th>Date</th></tr></thead><tbody>';
             $i = 1;

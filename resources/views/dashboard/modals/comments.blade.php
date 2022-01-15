@@ -24,6 +24,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
+                @if(!isset($scantempwork))
                 <form id="kt_modal_new_target_form" class="form comments_details_form" action="{{ route('temporarywork.storecomment') }}" method="post">
                     @csrf
                     <!--begin::Heading-->
@@ -59,6 +60,7 @@
                     </div>
                     <!--end::Actions-->
                 </form>
+                @endif
                 <!--end:Form-->
                 <div id="commenttable">
 

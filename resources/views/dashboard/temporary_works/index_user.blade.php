@@ -358,33 +358,16 @@ border-radius: 8px;
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-<script type="text/javascript">
-    var role="{{ \Auth::user()->roles->pluck('name')[0] }}";
-    console.log(role);
-    Dropzone.options.dropzoneForm = {
-    init: function () {
-        // Set up any event handlers
-       this.on("queuecomplete", function (file) {
-          location.reload();
-      });
-    }
-};
-</script>
+
 <script type="text/javascript">
     $(".addcomment").on('click',function(){
-       if(role=='supervisor' || role=="scaffolder")
-        {
-            alert("You are not allowed to add comment");
-            return false;
-        }
       $("#temp_work_id").val($(this).attr('data-id'));
       var temporary_work_id=$(this).attr('data-id');
-      var userid={{\Auth::user()->id}}
        $("#commenttable").html('');
       $.ajax({
         url:"{{route('temporarywork.get-comments')}}",
         method:"get",
-        data:{id:userid,temporary_work_id:temporary_work_id},
+        data:{temporary_work_id:temporary_work_id},
         success:function(res)
         {
            $("#commenttable").html(res);
@@ -396,11 +379,6 @@ border-radius: 8px;
 </script>
 <script type="text/javascript">
     $(".dateclick").on('click',function(){
-        if(role=='supervisor' || role=="scaffolder")
-        {
-            alert("You are not allowed to add comment");
-            return false;
-        }
         var file_type=$(this).attr('data-type');
         var tempid=$(this).attr('data-id');
         $.ajax({

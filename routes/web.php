@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
-
+Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
+Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
 });
@@ -54,11 +55,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('company/update/password', [CompanyController::class, 'updatePassword'])->name('company.updatePassword');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
     Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
-    Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
+    // Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
     Route::get('file-upload-date', [TemporaryWorkController::class, 'file_upload_dates'])->name('temporarywork.file-upload-dates');
     Route::get('permit-to-load', [TemporaryWorkController::class, 'permit_load'])->name('permit.load');
     Route::post('permit-save', [TemporaryWorkController::class, 'permit_save'])->name('permit.save');
-    Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
+    // Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
     Route::get('permit-renew/{id}', [TemporaryWorkController::class, 'permit_renew'])->name('permit.renew');
     Route::get('permit-unload/{id}', [TemporaryWorkController::class, 'permit_unload'])->name('permit.unload');
     Route::post('permit-unload-save', [TemporaryWorkController::class, 'permit_unload_save'])->name('permit.unload.save');

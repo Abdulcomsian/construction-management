@@ -329,8 +329,9 @@ class TemporaryWorkController extends Controller
     public function load_scan_temporarywork(Request $request, $id)
     {
         $tempid = Crypt::decryptString($request->temp);
-        $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where(['project_id' => $id, 'tempid' => $tempid])->get();
-        return view('dashboard.temporary_works.index_user', compact('temporary_works'));
+        $scantempwork = 'scantempwork';
+        $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where(['project_id' => $id, 'tempid' => $tempid])->get();
+        return view('dashboard.temporary_works.index_user', compact('temporary_works', 'scantempwork'));
     }
 
     //save comments against temp work
@@ -538,6 +539,9 @@ class TemporaryWorkController extends Controller
                     $status = "Unloaded";
                 }
                 $path = config('app.url');
+                if (isset($request->scanuser)) {
+                    $button = '';
+                }
                 $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . (7 - $diff_in_days) . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
@@ -568,6 +572,9 @@ class TemporaryWorkController extends Controller
                     $status = "Unloaded";
                 }
                 $path = config('app.url');
+                if (isset($request->scanuser)) {
+                    $button = '';
+                }
                 $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . (7 - $diff_in_days) . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
@@ -877,7 +884,6 @@ class TemporaryWorkController extends Controller
 
     public function scaffolding_close($id)
     {
-        // echo "123";exit;
         try {
             $scaffoldid =  \Crypt::decrypt($id);
             $scaffolddata = Scaffolding::find($scaffoldid);
@@ -897,7 +903,18 @@ class TemporaryWorkController extends Controller
             $scaffoldid =  \Crypt::decrypt($id);
             $scaffolddata = Scaffolding::find($scaffoldid);
             $tempid = $scaffolddata->temporary_work_id;
-            $twc_id_no = $scaffolddata->permit_no;
+            $data = explode("-", $scaffolddata->permit_no);
+            $lastkey = count($data) - 1;
+            $lastindex = end($data);
+            if (preg_match("/[R]/", $lastindex)) {
+                $str = (int)preg_replace('/\D/', '', $lastindex);
+                $str = ++$str;
+                $data[$lastkey] = 'R' . $str;
+                $twc_id_no = implode('-', $data);
+            } else {
+                $twc_id_no = $scaffolddata->permit_no . '-R1';
+            }
+            // $twc_id_no = $scaffolddata->permit_no;
             $project = Project::with('company')->where('id', $scaffolddata->project_id)->first();
             $checkAndComments = CheckAndComment::find($scaffoldid);
             return view('dashboard.temporary_works.scaffold-unload', compact('project', 'checkAndComments', 'tempid', 'scaffolddata', 'twc_id_no'));

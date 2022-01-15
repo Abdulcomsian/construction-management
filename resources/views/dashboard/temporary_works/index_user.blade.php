@@ -1,7 +1,19 @@
 @extends('layouts.dashboard.master_user',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
-<style>
+<style> 
+  ::-webkit-scrollbar {
+    width: 30px;
+    height: 30px;
+    min-height: 15px;
+}
+.aside-enabled.aside-fixed.header-fixed .header{
+    left: 0px !important;
+}
+.aside-enabled.aside-fixed .wrapper{
+    padding-left: 0px !important;
+}
+
     .aside-enabled.aside-fixed.header-fixed .header{
         border-bottom: 1px solid #e4e6ef!important;
     }
@@ -12,18 +24,23 @@
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
     }
-    .newDesignBtn {
+     .newDesignBtn {
         border-radius: 8px;
         background-color: #07d564;
         width: 150px;
         padding: 10px 15px;
         color: #000;
         margin: 0px 29px;
+        margin-right: 0px;
     }
+
+    .newDesignBtn:hover {
+        color: rgba(222, 13, 13, 0.66);
+    }
+
     .card>.card-body {
         padding: 32px;
     }
-
 
     table {
         margin-top: 20px;
@@ -37,7 +54,6 @@
         
         
     }
-
     #kt_toolbar_container h1 {
         font-size: 35px !important;
         color: #000 !important;
@@ -47,7 +63,6 @@
         margin: 30px 0px;
         border-radius: 10px;    
     }
-
     .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
@@ -59,19 +74,22 @@
 
     table tbody td {
         text-align: center;
+        padding: 5px !important;
     }
 
     table thead {
         background-color: #f5f8fa;
+        position: sticky;
+        top: 0px;
+        z-index: 999999999;
     }
 
     table thead th {
-        /* color: #fff !important; */
+        color: #000 !important;
         text-align: center;
-        /* transform: rotate(-90deg); */
         border-bottom: 0px !important;
         vertical-align: middle;
-        font-size: 12px !important;
+        font-size: 10px !important;
         font-weight: 900 !important;
     }
 
@@ -83,23 +101,14 @@
         background-color: #f2f2f2;
     }
 
-    .table {
-        border-style: solid;
-    }
 
-    .table.table-row-dashed tr {
-        height: 120px;
+    .table td {
+        font-size: 12px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
     }
-
-    thead tr {
-        height: 6px !important;
-    }
-
-    table {
-        margin-top: 20px;
-    }
-    .dataTables_filter input {
-        border-radius: 8px;
+    .table td p{
+        font-size: 12px !important;
     }
 
     .dataTables_length label,
@@ -109,36 +118,55 @@
     }
 
     .page-item.active .page-link {
-        background-color: #07d564 !important;
+        background-color: #000 !important;
     }
 
+    table {
+        margin-top: 20px;
+    }
+    .profileimg{
+        border-radius: 50%;
+    }
     
-
-    table td {
-        padding: 3px 10px;
-        color: #000000;
-        font-size: 12px;
-        font-weight: normal;
-    }
-    table td .d-flex{
-        justify-content: center;
-    }
-    .btn.btn-active-color-primary:hover:not(.btn-active),
-    .btn.btn-active-color-primary:hover:not(.btn-active) i{
-    color: #07d564;
-}
-.modal .btn.btn-primary{
-        border-color: #07d564 !important;
+.btn.btn-primary{
+    border-color: #07d564 !important;
 background-color: #07d564 !important;
-    }
-    .topMenu a {
-color: #07d564 !important;
+border-radius: 8px;
+}
+.form-control,.form-control:focus{
+    border:1px solid #b5b5c3;
+    border-radius: 8px;
+}
+.table th:first-child{
+    padding: .75rem .75rem !important;
+}
+.menu-item{
+    display: flex;
+}
+.menu-item .menu-link{
+    flex: 0%;
+}
+.menu-sub-accordion.show, .show:not(.menu-dropdown)>.menu-sub-accordion{
+    display: -webkit-inline-box;
+}
+.topMenu{
+    background-color: #fff;
+    padding: 30px;
+    border:1px solid #e4e6ef!important
+}
+.topMenu a{
+    color: #07d564 !important;
 }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
 @section('content')
+
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+<div class="topMenu" style="padding-top:0px;">
+<div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
+    </div>
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
@@ -146,7 +174,7 @@ color: #07d564 !important;
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Temporary Works</h1>
+                
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -163,17 +191,18 @@ color: #07d564 !important;
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2>Temporary Work Register</h2>
+                    <div class="card-title" style="width: 100%"> 
+                    <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center; font-size:45px !important; text-transform: uppercase;">Temporary Works Register</h1>
                     </div>
                     <!--begin::Card toolbar-->
+                    
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <div class="table-responsive" style="height: 1000px;">
+                    <div class="table-responsive">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>
@@ -189,8 +218,8 @@ color: #07d564 !important;
                                     <th class=""  style="">Required<br>Date<br>of<br>Design</th>
                                     <th class="">Comments</th>
                                     <th class="">TW designer<br> (designer name and company)</th>
+                                    <!-- <th class="">Appointments</th>  -->
                                     <th class=""  style="padding: 12px;">Date<br> Design<br> Returned</th>
-                                    <th class="">TW designer (designer name and company)</th>
                                     <th class=""  style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
                                     <th class="">DRAWINGS<br> and<br> DESIGNS</th>
                                     <th class="">Design<br> Check<br> CERT</th>
@@ -203,24 +232,67 @@ color: #07d564 !important;
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                @if($temporary_works)
                                 @forelse($temporary_works as $item)
                                 <tr>
                                     <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     <td>{{ $item->company ?: '-' }}</td>
                                     <td>{{ $item->project->name ?: '-' }}</td>
-                                    <td>A10</td>
-                                    <td>{{ $item->tw_category ?: '-' }}</td>
-                                    <td>{{ $item->tw_risk_class ?: '-' }}</td>
-                                    <td style="min-width: 60px; max-width: 80px;">{{ $item->design_issued_date ?: '-' }}</td>
-                                    <td style="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}}">{{$item->design_required_by_date ?: '-' }} </td>
-                                    <td>{{ $item->description_temporary_work_required ?: '-' }}</td>
-                                    <td>{{ $item->designer_company_name ?: '-' }}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <p>Drag and drop folders/ pdf drawings</p><br>
+                                    <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">
+                                        <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
+                                        <hr style="margin: 5px;;color:red;border:1px solid red">
+                                        <button style="background: #07d564;font-size: 12px;border-radius: 10px" class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
+                                            Description
+                                        </button>
+                                    </td>
+                                    <td style="">{{ $item->tw_category }}</td>
+                                    <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
+                                    <td style="min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
+                                    <td style="width:90px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
+                                        <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
+                                    <td >
+                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
+                                        <hr style="color:red;border:1px solid red; margin: 2px;">
+                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
+                                      
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==4)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+                                    </td>
+                                    <td style="">{{ $item->designer_company_name ?: '-' }}</td>
+                                    <!-- <td>
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==5)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">App{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+                                    </td> -->
+                                    <td style=""> 
+                                        @foreach($item->uploadfile as $file)
+                                          @if($file->file_type==1)
+                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}
+                                          </p>
+                                            @break
+                                          @endif
+                                        @endforeach
+                                    </td>
+                                   <!--  <td></td> -->
+                                    <td style="">
+                                        @foreach($item->uploadfile as $file)
+                                          @if($file->file_type==2)
+                                           <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
+                                            @break
+                                          @endif
+                                        @endforeach
+                                    </td>
+                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -229,9 +301,8 @@ color: #07d564 !important;
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td>
-                                        <p>Drag and drop folders/ pdf drawings</p>
-                                        <br>
+                                    <td >
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==2)
@@ -242,19 +313,18 @@ color: #07d564 !important;
 
                                     </td>
                                     <td>
-                                        <p>Permit to load</p>
-                                        @if(isset($item->permits->id))
-                                        <button class="btn btn-info">Live</button>
+                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
+                                        @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
-                                        <button class="btn btn-success">Closed</button>
+                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>
                                         @endif
                                     </td>
                                     <td>
-                                         <p>Permit to Unload</p>
+                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
                                     </td>
-                                    <td>
-                                        <p>Drag and drop folders/ pdf drawings</p>
-                                        <br>
+                                    <td  data-type="2">
+                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==3)
@@ -266,14 +336,11 @@ color: #07d564 !important;
                                 </tr>
                                 @empty
                                 @endforelse
-                                @else
-                                <tr><td colspan="12"><h3>No record Found</h3></td><td colspan="7"></td></tr>
-                                @endif
                             </tbody>
                             <!--end::Table body-->
                         </table>
                     </div>
-                    <!--end::Table-->
+                    <br>
                 </div>
                 <!--end::Card body-->
             </div>
@@ -283,7 +350,113 @@ color: #07d564 !important;
     </div>
     <!--end::Post-->
 </div>
+@include('dashboard.modals.upload-file')
+@include('dashboard.modals.comments')
+@include('dashboard.modals.datemodal')
+@include('dashboard.modals.permit_to_load');
+@include('dashboard.modals.description');
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
+<script type="text/javascript">
+    var role="{{ \Auth::user()->roles->pluck('name')[0] }}";
+    console.log(role);
+    Dropzone.options.dropzoneForm = {
+    init: function () {
+        // Set up any event handlers
+       this.on("queuecomplete", function (file) {
+          location.reload();
+      });
+    }
+};
+</script>
+<script type="text/javascript">
+    $(".addcomment").on('click',function(){
+       if(role=='supervisor' || role=="scaffolder")
+        {
+            alert("You are not allowed to add comment");
+            return false;
+        }
+      $("#temp_work_id").val($(this).attr('data-id'));
+      var temporary_work_id=$(this).attr('data-id');
+      var userid={{\Auth::user()->id}}
+       $("#commenttable").html('');
+      $.ajax({
+        url:"{{route('temporarywork.get-comments')}}",
+        method:"get",
+        data:{id:userid,temporary_work_id:temporary_work_id},
+        success:function(res)
+        {
+           $("#commenttable").html(res);
+           $("#comment_modal_id").modal('show');
+        }
+      });
+     
+    });
+</script>
+<script type="text/javascript">
+    $(".dateclick").on('click',function(){
+        if(role=='supervisor' || role=="scaffolder")
+        {
+            alert("You are not allowed to add comment");
+            return false;
+        }
+        var file_type=$(this).attr('data-type');
+        var tempid=$(this).attr('data-id');
+        $.ajax({
+        url:"{{route('temporarywork.file-upload-dates')}}",
+        method:"get",
+        data:{file_type:file_type,tempid:tempid},
+        success:function(res)
+        {
+            $("#tablebody").html(res);
+            $("#date_modal_id").modal('show');
+        }
+      });
+      
+    })
+</script>
+<script type="text/javascript">
+    $(".permit-to-load").on('click',function(){
+         id=$(this).attr('data-id');
+            $.ajax({
+            url:"{{route('permit.get')}}",
+            method:"get",
+            data:{id:id,scanuser:'scanuser'},
+            success:function(res)
+            {
+               $("#permitheading").html('Permit To Load');
+               $("#permitloadbutton").addClass('d-flex').show();
+               $("#permitbody").html(res);
+               $(".temp_work_id").val(id);
+               $("#permit_modal_id").modal('show');
+            }
+          });
+         
+    })
+
+    //permit to unload
+    $(".permit-to-unload").on('click',function(){
+         id=$(this).attr('data-id');
+            $.ajax({
+            url:"{{route('permit.get')}}",
+            method:"get",
+            data:{id:id,type:'unload',scanuser:'scanuser'},
+            success:function(res)
+            {
+                console.log(res);
+               $("#permitheading").html('Permit To Unload');
+               $("#permitloadbutton").removeClass('d-flex').hide();
+               $("#permitbody").html(res);
+               $("#permit_modal_id").modal('show');
+            }
+          });
+    })
+   
+    $(".desc").on('click',function(){
+        var desc=$(this).attr('title');
+        $("#desc").html(desc);
+        $("#desc_modal_id").modal('show');
+    })
+</script>
 @endsection

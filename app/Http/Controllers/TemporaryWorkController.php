@@ -360,10 +360,11 @@ class TemporaryWorkController extends Controller
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
         }
         if (count($commetns) > 0) {
-            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th>S-no</th><th>Comment</th><th>Date</th></tr></thead><tbody>';
+            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
-                $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $comment->created_at->todatestring()  . '</td></tr>';
+                $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
+                $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $date_comment  . '</td></tr>';
                 $i++;
             }
             $table .= '</tbody></table>';
@@ -504,7 +505,7 @@ class TemporaryWorkController extends Controller
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
-            echo $exception->getMessage();
+            dd($exception->getMessage());
             exit;
             toastError('Something went wrong, try again!');
             return Redirect::back();

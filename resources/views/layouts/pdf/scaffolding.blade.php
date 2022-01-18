@@ -223,8 +223,11 @@
                         @endif
                      </span>
                   </td>
-                  <td></td>
-                  <span style="font-size: 12px;">{{$check_comments['even_stable_comment'] ?? ''}}</span>
+                  <td>
+                    @if($check_radios['even_stable_radio']=="2")
+                     <span style="font-size: 12px;">
+                       {{ $check_comments['even_stable_comment'] ?? ''}}</span>
+                    @endif
                   </td>
                </tr>
                <tr>
@@ -244,7 +247,11 @@
                         @endif
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['base_Plates_comment'] ?? ''}}</span>
+                    @if($check_radios['base_Plates_radio']=="2")
+                     <span style="font-size: 12px;">
+                       {{ $check_comments['base_Plates_comment'] ?? ''}}
+                    </span>
+                    @endif
                   </td>
                </tr>
                <tr>
@@ -265,7 +272,9 @@
                      </span>
                   </td>
                   <td>
+                    @if($check_radios['sole_boards_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['sole_boards_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -287,7 +296,9 @@
                      </span>
                   </td>
                   <td>
+                     @if($check_radios['undermined_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['undermined_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -310,7 +321,9 @@
                      </span>
                   </td>
                   <td>
+                     @if($check_radios['Plumb_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['Plumb_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -332,7 +345,9 @@
                      </span>
                   </td>
                   <td>
+                     @if($check_radios['staggered_joints_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['staggered_joints_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -354,7 +369,9 @@
                      </span>
                   </td>
                   <td>
+                     @if($check_radios['wrong_spacing_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['wrong_spacing_comment'] ?? ''}}</span>
+                     @endif
                   </td>
                </tr>
                <tr>

@@ -31,7 +31,7 @@
             console.log('form_id',form_id);
             console.log('link',link);
             swal({
-                    title: "Are you sure?",
+                    title: "Are you sure? The permit to load scaffolding is about to be signed off and be closed.",
                     // text: "You will not be able to recover this record!",
                     type: "warning",
                     confirmButtonColor: '#DD6B55',

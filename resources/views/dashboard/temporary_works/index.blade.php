@@ -157,6 +157,7 @@ border-radius: 8px;
 .topMenu a{
     color: #07d564 !important;
 }
+
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -251,7 +252,9 @@ border-radius: 8px;
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
+                                    @if(\Auth::user()->hasRole('admin'))
                                     <th class="">Company</th>
+                                    @endif
                                     <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
                                     <th class="" style="max-width:210px;">Description of TWS</th>
                                     <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
@@ -279,7 +282,9 @@ border-radius: 8px;
                                 @forelse($temporary_works as $item)
                                 <tr>
                                     <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
+                                    @if(\Auth::user()->hasRole('admin'))
                                     <td>{{ $item->company ?: '-' }}</td>
+                                    @endif
                                     <td>{{ $item->project->name ?: '-' }}</td>
                                     <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>

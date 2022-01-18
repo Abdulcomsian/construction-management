@@ -231,9 +231,8 @@ class TemporaryWorkController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail', 'admin@example.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', 'hani.thaher@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
-                //Notification::send($admin, new TemporaryWorkNotification($notify_admins_msg));
             }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
@@ -566,7 +565,7 @@ class TemporaryWorkController extends Controller
                 if ($permit->status == 1) {
                     $status = "Open";
                     if ($request->type == "unload") {
-                        $button = '<a class="btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
+                        $button = '<a class="confirm unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
                     } else {
                         $button = '<a class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }

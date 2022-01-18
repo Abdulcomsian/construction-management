@@ -24,6 +24,10 @@
             }else{
                 link = $(this).attr('href');
             }
+            if($(this).hasClass('unload'))
+            {
+                $("#permit_modal_id").hide();
+            }
             console.log('form_id',form_id);
             console.log('link',link);
             swal({

@@ -157,7 +157,9 @@ border-radius: 8px;
 .topMenu a{
     color: #07d564 !important;
 }
-
+.sweet-alert{
+            z-index:99999999999 !important;
+        }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -207,10 +209,11 @@ border-radius: 8px;
                     <!--begin::Card title-->
                     <div class="card-title" style="width: 100%"> 
                         <span style="width:200px"> 
-                            <a style="min-width:220px;max-width: 500px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="newDesignBtn">Export Data</a>
+                          
                         </span>
                     <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center; font-size:45px !important; text-transform: uppercase;">Temporary Works Register</h1>
-                    </div>
+                    
+                </div>
                     <!--begin::Card toolbar-->
                     
                     <!--end::Card toolbar-->
@@ -225,7 +228,7 @@ border-radius: 8px;
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
                             <a href="{{ route('temporary_works.create') }}" style="min-width:220px;max-width: 500px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" class="newDesignBtn btn project_details">New Design Brief / Temporary Work</a>
-
+                            <a style="min-width:220px;max-width: 500px;color:#fff !important;    font-size: 20px; margin-top: 20px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>    
                         </div>
 
                         <div class="col-md-4 offset-md-2">

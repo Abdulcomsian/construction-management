@@ -126,7 +126,11 @@ height: 72px;
             width:100% ;
         }
      .form-control.form-control-solid{width:250px;background-color:#000;}
+     @media only screen and (min-width: 470px) {
+        .list_top{display:inline !important;}
+     }
         @media only screen and (max-width: 470px) {
+            .list_top{margin-top:20px;}
             .inputDiv label{font-size:11px !important;}
     }
     canvas{width:270px;height:110px;}
@@ -165,11 +169,12 @@ height: 72px;
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2>Design Brief</h2>
-                        <a style="width: 190px; text-align:center;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
-
-
+                    <div class="card-title list_top">
+                        <h2 style="display: inline-block;">Design Brief</h2>
+                        <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
+                        <a style="width: 190px; text-align:center;float: right;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Existing Design Brief</a>
+                        
+                        
                     </div>
                     <!--begin::Card toolbar-->
 

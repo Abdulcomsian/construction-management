@@ -34,6 +34,7 @@ use PDF;
 use App\Exports\TemporyWorkExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 
 class TemporaryWorkController extends Controller
@@ -102,6 +103,62 @@ class TemporaryWorkController extends Controller
             }
             return view('dashboard.temporary_works.create', compact('projects'));
         } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    //manually desing breif form for old data
+    public function create1()
+    {
+        abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        try {
+            $user = auth()->user();
+            if ($user->hasRole(['admin'])) {
+                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+            } elseif ($user->hasRole(['company'])) {
+                $projects = Project::with('company')->where('company_id', $user->id)->get();
+            } else {
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+                $projects = Project::with('company')->whereIn('id', $ids)->get();
+            }
+            return view('dashboard.temporary_works.create1', compact('projects'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+    //manually design brief form store 
+    public function store1(Request $request)
+    {
+        Validations::storeManuallyTemporaryWork($request);
+        try {
+            $all_inputs  = $request->except('_token','pdf','projaddress','projno', 'projname');
+            $all_inputs['created_by'] = auth()->user()->id;
+            //work for qrcode
+            $j = HelperFunctions::generatetempid($request->project_id);
+            $all_inputs['tempid'] = $j;
+            if ($file=$request->file('pdf')) 
+                {
+                     $path = public_path('pdf');
+                     File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+                     $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                     $file->move( $path, $filename);
+                      $all_inputs['ped_url']=$filename;
+                                
+                }
+            $temporary_work = TemporaryWork::create($all_inputs);
+            if ($temporary_work) {
+               toastSuccess('Temporary Work successfully added!');
+               return redirect()->route('temporary_works.index');  
+            }
+            
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

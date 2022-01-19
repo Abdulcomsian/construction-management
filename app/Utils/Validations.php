@@ -111,6 +111,20 @@ class Validations
         ]);
     }
 
+    public static function storeManuallyTemporaryWork($request)
+    {
+        $request->validate([
+        'project_id' => ['required', 'max:255', 'exists:projects,id'],
+        'design_required_by_date' => ['required'],
+        'tw_category' => ['required'],
+        'tw_risk_class' => ['required'],
+        'design_requirement_text' => ['required'],
+        'description_temporary_work_required' => ['required'],
+        'pdf'=>['required'],
+        ]);
+
+    }
+
     public static function storepermitload($request)
     {
         $request->validate([

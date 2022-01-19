@@ -77,6 +77,11 @@ Route::group(['middleware' => ['auth']], function () {
     //rout for genereate qr code
     Route::post('project/genqrcode', [ProjectController::class, 'gen_qrcode'])->name('projects.genqrcode');
     Route::get('project/qrcode/{id}', [ProjectController::class, 'proj_qrcode'])->name('projects.qrcode');
+
+
+    //maunuall desing breif form 
+     Route::get('manuall-designbrief-form', [TemporaryWorkController::class, 'create1'])->name('Designbrief.form');
+     Route::post('manuall-designbrief-save', [TemporaryWorkController::class, 'store1'])->name('temporary_works.store1');
 });
 
 Route::get('/dashboard', function () {

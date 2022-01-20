@@ -224,7 +224,7 @@ border-radius: 8px;
                         <span style="width:200px"> 
                           
                         </span>
-                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
+                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
                     <h1 class="export_btn"><a style="margin-left:0; min-width:155px;max-width: 270px;color:#fff !important;    font-size: 16px; margin-top: 20px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>    </h1>
                 </div>
                     <!--begin::Card toolbar-->

@@ -318,6 +318,7 @@ height: 72px;
                                         </label>
                                         <!--end::Option-->
                                     </div>
+                                    <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -356,6 +357,7 @@ height: 72px;
                                         </label>
                                         <!--end::Option-->
                                     </div>
+                                    <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
                             </div>

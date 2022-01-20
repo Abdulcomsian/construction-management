@@ -258,6 +258,50 @@ height: 72px;
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Upload Drawings and Design:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="form-control form-control-solid"  id="drawing" name="drawing" >
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Date Design Returned:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
+                                        <input  style=" cursor: pointer;color: #f5f8fa;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}"  >
+                                    <!-- </p> -->
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Upload Design Check Certificate:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="form-control form-control-solid"  id="dcc" name="dcc" >
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Date DCC Returned:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
+                                        <input  style=" cursor: pointer;color: #f5f8fa;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
+                                    <!-- </p> -->
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TW Category</span>
 
                                     </label>
@@ -288,6 +332,7 @@ height: 72px;
                                         </label>
                                         <!--end::Option-->
                                     </div>
+                                    <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -322,6 +367,7 @@ height: 72px;
                                         </label>
                                         <!--end::Option-->
                                     </div>
+                                    <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
                             </div>

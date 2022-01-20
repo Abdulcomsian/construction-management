@@ -135,9 +135,10 @@ class TemporaryWorkController extends Controller
     //manually design brief form store 
     public function store1(Request $request)
     {
+ //   dd($request->all());
         Validations::storeManuallyTemporaryWork($request);
         try {
-            $all_inputs  = $request->except('_token','pdf','projaddress','projno', 'projname');
+            $all_inputs  = $request->except('_token','pdf','projaddress','projno', 'projname', 'dcc_returned', 'drawing', 'dcc', 'design_returned');
             $all_inputs['created_by'] = auth()->user()->id;
             //work for qrcode
             $j = HelperFunctions::generatetempid($request->project_id);
@@ -152,6 +153,32 @@ class TemporaryWorkController extends Controller
                                 
                 }
             $temporary_work = TemporaryWork::create($all_inputs);
+            if($temporary_work)
+            {
+                $filePath = HelperFunctions::temporaryworkuploadPath();
+               // dd($filePath);
+                $file = $request->file('drawing');
+               #uploading drawing
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model = new TempWorkUploadFiles();
+                $model->file_name = $imagename;
+                $model->file_type = 1;
+                $model->created_at = $request->design_returned;
+                $model->temporary_work_id = $temporary_work->id;
+                $model->save();
+
+                #uploading DCC
+                $file = $request->file('dcc');
+               
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model = new TempWorkUploadFiles();
+                $model->file_name = $imagename;
+                $model->file_type = 2;
+                $model->created_at = $request->dcc_returned;
+                $model->temporary_work_id = $temporary_work->id;
+                $model->save();
+                
+            }
             if ($temporary_work) {
                toastSuccess('Temporary Work successfully added!');
                return redirect()->route('temporary_works.index');  

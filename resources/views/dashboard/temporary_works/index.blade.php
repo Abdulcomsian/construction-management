@@ -160,6 +160,9 @@ border-radius: 8px;
 .sweet-alert{
             z-index:99999999999 !important;
         }
+        .passionate{
+            font-size: 45px;
+        }
         .sweet-alert h2{font-size:22px !important;}
             @media (max-width: 480px) {
             .passionate{

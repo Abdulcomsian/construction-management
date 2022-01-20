@@ -240,7 +240,7 @@ border-radius: 8px;
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
-                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="width:350px;min-width:220px;max-width: 500px !important;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief / Temporary Work</a>
+                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:350px;min-width:220px;max-width: 500px !important;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief / Temporary Work</a>
                             
                         </div>
 

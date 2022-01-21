@@ -514,7 +514,15 @@ class TemporaryWorkController extends Controller
             $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->where('status', '!=', 4)->orderBy('id', 'desc')->first();
             if ($permitdata) {
                 $data = explode("-", $permitdata->permit_no);
+                if(isset($data[3])){
                 $twc_id_no = $twc_id_no . '-' . ++$data[3];
+                }elseif(isset($data[2])){
+                    
+                     $twc_id_no = $twc_id_no . '-' . ++$data[2];
+                }elseif(isset($data[1])){
+                    
+                     $twc_id_no = $twc_id_no . '-' . ++$data[1];
+                }
             } else {
                 $twc_id_no = $twc_id_no . '-A';
             }
@@ -826,7 +834,13 @@ class TemporaryWorkController extends Controller
             $permitdata = Scaffolding::where(['temporary_work_id' => $tempid])->orderBy('id', 'desc')->first();
             if ($permitdata) {
                 $data = explode("-", $permitdata->permit_no);
+                if(isset($data[3])){
                 $str = (int)preg_replace('/\D/', '', $data[3]);
+                }elseif(isset($data[2])){
+                    $str = (int)preg_replace('/\D/', '', $data[2]);
+                }elseif(isset($data[1])){
+                    $str = (int)preg_replace('/\D/', '', $data[1]);
+                }
                 $str = ++$str;
                 $twc_id_no = $twc_id_no . '-S' . $str;
             } else {

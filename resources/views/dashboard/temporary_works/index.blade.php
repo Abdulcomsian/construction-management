@@ -328,7 +328,13 @@ border-radius: 8px;
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td style="">{{ $item->designer_company_name ?: '-' }}</td>
+                                    <td style="">{{ $item->designer_company_name ?: '-' }}
+                                    <br><br>
+                                    {{$item->tw_name ?: '-'}}
+                                    @if(!$item->tw_name)
+                                    <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TW Name</p>
+                                @endif    
+                                </td>
                                     <!-- <td>
                                         <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
                                         @php $i=0;@endphp
@@ -433,6 +439,7 @@ border-radius: 8px;
     <!--end::Post-->
 </div>
 @include('dashboard.modals.upload-file')
+@include('dashboard.modals.tw_name')
 @include('dashboard.modals.comments')
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load');
@@ -470,6 +477,12 @@ border-radius: 8px;
     })
 </script>
 <script type="text/javascript">
+    $(".addtwname").on('click',function(){
+        $("#temp_work_id").val($(this).attr('data-id'));
+      var temporary_work_id=$(this).attr('data-id');
+      var userid={{\Auth::user()->id}}
+        $("#tw_modal_id").modal('show');
+    })
     $(".addcomment").on('click',function(){
        if(role=='supervisor' || role=="scaffolder")
         {

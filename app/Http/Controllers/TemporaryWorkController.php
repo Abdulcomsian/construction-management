@@ -435,6 +435,22 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+    public function temp_savetwname(Request $request)
+    {
+        // Validations::storeComment($request);
+        try {
+            $model = TemporaryWork::find($request->temp_work_id);
+            $model->tw_name = $request->tw_name; 
+            // dd($model);
+            if ($model->save()) {
+                toastSuccess('TW Name Save sucessfully!');
+                return Redirect::back();
+            }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
+    }
     //get commetns
     public function get_comments(Request $request)
     {

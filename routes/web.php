@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('company/update/password', [CompanyController::class, 'updatePassword'])->name('company.updatePassword');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
     Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
+    Route::post('temporary_works/twname', [TemporaryWorkController::class, 'temp_savetwname'])->name('temporarywork.twname');
     // Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
     Route::get('file-upload-date', [TemporaryWorkController::class, 'file_upload_dates'])->name('temporarywork.file-upload-dates');
     Route::get('permit-to-load', [TemporaryWorkController::class, 'permit_load'])->name('permit.load');

@@ -134,6 +134,15 @@
         background: lightgray;
     }
     .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
+
+    @media only screen and (max-width: 450px) {
+        #sig1{
+            width:200px;
+        }
+        #sig{
+            width:200px;
+        }
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
@@ -261,7 +270,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea name="location_temp_work" rows="2"  style="width:100%;" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea class="form-control" ame="location_temp_work" rows="2"  style="width:100%;" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -270,7 +279,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea name="description_structure" rows="2" style="width:100%;" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
+                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%;" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -427,7 +436,7 @@
                          <div class="d-flex inputDiv">
                             <div class="d-flex modalDiv">
                                    @if(isset($permitdata) && $permitdata->works_coordinator==1)
-                                    <textarea name="description_approval_temp_works" rows="2" cols="155">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
+                                    <textarea name="description_approval_temp_works" rows="2" class="form-control" >{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
                                     @endif
                             </div>
                          </div>

@@ -139,6 +139,11 @@
         background-color: #000;
         color: #5e6278 !important;
     }
+    @media only screen and (max-width: 450px) {
+        #sig{
+            width:200px;
+        }
+    }
 </style>
 @endsection
 @section('content')
@@ -450,7 +455,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="even_stable_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none form-control" name="even_stable_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -486,7 +491,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="base_Plates_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="base_Plates_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -523,7 +528,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="sole_boards_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="sole_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -559,7 +564,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="undermined_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="undermined_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -601,7 +606,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="Plumb_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="Plumb_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -636,7 +641,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="staggered_joints_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="staggered_joints_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
 
@@ -673,7 +678,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
                                 </div>
 
 
@@ -712,7 +717,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="damaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="damaged_comment" rows="2" cols="90"></textarea>
 
                                 </div>
                             </div>
@@ -755,7 +760,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="trap_boards_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="trap_boards_comment" rows="2" cols="90"></textarea>
 
                                 </div>
                             </div>
@@ -793,7 +798,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
 
@@ -830,7 +835,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="supports_ties_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="supports_ties_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -872,7 +877,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="insufficient_length_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="insufficient_length_comment" rows="2" cols="90"></textarea>
 
                                 </div>
                             </div>
@@ -914,7 +919,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="missing_loose_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="missing_loose_comment" rows="2" cols="90"></textarea>
 
                                 </div>
                             </div>
@@ -953,7 +958,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -990,7 +995,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="not_level_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="not_level_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1021,7 +1026,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1051,7 +1056,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="loose_damaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="loose_damaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1092,7 +1097,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="wrong_height_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="wrong_height_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1124,7 +1129,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="some_missing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="some_missing_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1156,7 +1161,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="GuardRails_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="GuardRails_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <!-- coupling & tiles -->
@@ -1194,7 +1199,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="coupling_wrongfitting_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="coupling_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1222,7 +1227,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1250,7 +1255,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
 
@@ -1289,7 +1294,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1317,7 +1322,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1345,7 +1350,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
 
@@ -1390,7 +1395,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="partially_removed_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="partially_removed_comment" rows="2" cols="90"></textarea>
                                 </div>
 
 
@@ -1428,7 +1433,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
 
 
@@ -1459,7 +1464,7 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1492,7 +1497,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 70px; ">
-                                    <textarea class="d-none" name="other_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="other_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                             <div class="contain<input type=" text" name="" class="form-control" />
@@ -1618,7 +1623,7 @@
 
                                     </div>
                                     <div class="d-flex inputDiv" id="sign">
-                                        <textarea id="signature" name="signed" style="opacity:0" required></textarea>
+                                        <textarea id="signature" name="signed" class=" form-control" style="opacity:0" required></textarea>
                                     </div>
                                     <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
                                 </div>

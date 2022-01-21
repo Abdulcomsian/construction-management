@@ -121,6 +121,10 @@ class Validations
         'design_requirement_text' => ['required'],
         'description_temporary_work_required' => ['required'],
         'pdf'=>['required'],
+        'dcc_returned'=>['required'],
+        'dcc'=>['required'],
+        'drawing'=>['required'],
+        'design_returned'=>['required'],
         ]);
 
     }

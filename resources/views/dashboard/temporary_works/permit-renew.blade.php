@@ -270,7 +270,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
                                     </label>
-                                    <textarea class="form-control" ame="location_temp_work" rows="2"  style="width:100%;" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea class="form-control" name="location_temp_work" rows="2"  style="width:100%;" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">

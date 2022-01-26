@@ -135,7 +135,6 @@ class TemporaryWorkController extends Controller
     //manually design brief form store 
     public function store1(Request $request)
     {
- //   dd($request->all());
         Validations::storeManuallyTemporaryWork($request);
         try {
             $all_inputs  = $request->except('_token','pdf','projaddress','projno', 'projname', 'dcc_returned', 'drawing', 'dcc', 'design_returned');
@@ -437,7 +436,6 @@ class TemporaryWorkController extends Controller
     }
     public function temp_savetwname(Request $request)
     {
-        // Validations::storeComment($request);
         try {
             $model = TemporaryWork::find($request->temp_work_id);
             $model->tw_name = $request->tw_name; 
@@ -527,7 +525,7 @@ class TemporaryWorkController extends Controller
                 $twc_id_no = $twc_id_no . '-A';
             }
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
-            return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no'));
+            return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no','tempdata'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -538,7 +536,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs  = $request->except('_token','twc_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -608,7 +606,8 @@ class TemporaryWorkController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Permit ' . $msg . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -712,7 +711,7 @@ class TemporaryWorkController extends Controller
             $twc_id_no = $permitdata->permit_no . '-R1';
         }
         $project = Project::with('company')->where('id', $permitdata->project_id)->first();
-        return view('dashboard.temporary_works.permit-renew', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
+        return view('dashboard.temporary_works.permit-renew', compact('project', 'tempid', 'permitdata', 'twc_id_no','tempdata'));
     }
 
     //permit unlaod
@@ -737,7 +736,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs  = $request->except('_token','twc_email','companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if (isset($request->signtype1)) {
@@ -798,7 +797,8 @@ class TemporaryWorkController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Permit Unloaded sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -847,7 +847,7 @@ class TemporaryWorkController extends Controller
                 $twc_id_no = $twc_id_no . '-S1';
             }
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
-            return view('dashboard.temporary_works.scaffolding', compact('project', 'tempid', 'twc_id_no'));
+            return view('dashboard.temporary_works.scaffolding', compact('project', 'tempid', 'twc_id_no','tempdata'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -882,7 +882,7 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $all_inputs  = $request->except('_token','twc_email','type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
@@ -947,7 +947,11 @@ class TemporaryWorkController extends Controller
                 ];
 
                 //mail send to admin here
-                Notification::route('mail', 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                if(isset($request->twc_email))
+                {
+                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                }
                 toastSuccess('Scaffolding Created Successfully');
                 return redirect()->route('temporary_works.index');
             }

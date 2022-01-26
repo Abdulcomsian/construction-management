@@ -220,6 +220,7 @@
                                          <span class="required">TWC Name :</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{$permitdata->twc_name ?? ''}}">
+                                     <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
                         </div>

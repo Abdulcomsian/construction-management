@@ -28,7 +28,7 @@
                 <form id="kt_modal_new_target_form" class="form comments_details_form" action="{{ route('temporarywork.twname') }}" method="post">
                     @csrf
                     <!--begin::Heading-->
-                    <input type="hidden" name="temp_work_id" id="temp_work_id" />
+                    <input type="hidden" name="temp_work_id" id="temp_work_idd" />
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <div class="mb-13 text-center">
@@ -61,10 +61,6 @@
                     <!--end::Actions-->
                 </form>
                 @endif
-                <!--end:Form-->
-                <div id="commenttable">
-
-                </div>
             </div>
             <!--end::Modal body-->
         </div>

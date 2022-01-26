@@ -63,7 +63,9 @@
                                 <li data-id="Embankment">Embankment Bunds</li>
                                 <li data-id="Dewatering">Dewatering</li>
                                 <li data-id="State">Other Please State</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li>
+                                    <input class="otherInput" type="text" vlaue="" placeholder="If other: please state">
+                                </li>
                             </ul>
                             <!-- **************** Framework / Falsework **************  -->
                             <ul class="d-none Formwork">

@@ -314,7 +314,7 @@ class TemporaryWorkController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail', 'hani.thaher@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', 'hani@ctwork.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
                 Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
                 
@@ -998,7 +998,7 @@ class TemporaryWorkController extends Controller
     {
         try {
             $data = TemporaryWork::with('temp_work_images', 'uploadfile', 'permits', 'scaffold')->find($id);
-            Notification::route('mail', 'hani.thaher@gmail.com')->notify(new TempAttachmentNotifications($data));
+            Notification::route('mail', 'hani@ctwork.co.uk')->notify(new TempAttachmentNotifications($data));
             toastSuccess('Attachements sent successfully!');
             return Redirect::back();
         } catch (\Exception $exception) {

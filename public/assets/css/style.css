@@ -62,7 +62,7 @@ input:focus {
 .requirment-second li input {
     width: 100%;
     background-color: #f5f8fa;
-    color: #fff !important;
+    /*color: #fff !important;*/
     border: none;
 }
 

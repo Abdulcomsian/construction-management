@@ -229,6 +229,7 @@
                                         <span class="required">TWC Name :</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}" required>
+                                    <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
                             

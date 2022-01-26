@@ -478,11 +478,12 @@ border-radius: 8px;
 </script>
 <script type="text/javascript">
     $(".addtwname").on('click',function(){
-        $("#temp_work_id").val($(this).attr('data-id'));
+        $("#temp_work_idd").val($(this).attr('data-id'));
       var temporary_work_id=$(this).attr('data-id');
       var userid={{\Auth::user()->id}}
         $("#tw_modal_id").modal('show');
     })
+
     $(".addcomment").on('click',function(){
        if(role=='supervisor' || role=="scaffolder")
         {

@@ -316,6 +316,8 @@ class TemporaryWorkController extends Controller
                 ];
                 Notification::route('mail', 'hani.thaher@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
+                
             }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
@@ -536,7 +538,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token','twc_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs  = $request->except('_token','twc_email','designer_company_email','companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -608,6 +610,7 @@ class TemporaryWorkController extends Controller
                 ];
                 Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
                 toastSuccess('Permit ' . $msg . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -736,7 +739,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token','twc_email','companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs  = $request->except('_token','twc_email','designer_company_email','companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if (isset($request->signtype1)) {
@@ -799,6 +802,7 @@ class TemporaryWorkController extends Controller
                 ];
                 Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
                 toastSuccess('Permit Unloaded sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -882,7 +886,7 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token','twc_email','type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $all_inputs  = $request->except('_token','twc_email','designer_company_email','type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
@@ -948,10 +952,8 @@ class TemporaryWorkController extends Controller
 
                 //mail send to admin here
                 Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
-                if(isset($request->twc_email))
-                {
-                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
-                }
+                Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
                 toastSuccess('Scaffolding Created Successfully');
                 return redirect()->route('temporary_works.index');
             }

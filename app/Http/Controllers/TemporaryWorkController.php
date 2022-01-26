@@ -599,6 +599,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Scaffolding Pdf',
                     'subject' => 'Permit Load PDF',
                     'body' => [
+
                         'text' => 'A Permit to ' . $msg . ' has been completed for the temporary works as per the attached document.',
                         'filename' => $filename,
                         'links' =>  '',
@@ -610,7 +611,7 @@ class TemporaryWorkController extends Controller
                 ];
                 Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
-                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Permit ' . $msg . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -802,7 +803,7 @@ class TemporaryWorkController extends Controller
                 ];
                 Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
-                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Permit Unloaded sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -953,7 +954,7 @@ class TemporaryWorkController extends Controller
                 //mail send to admin here
                 Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
-                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Scaffolding Created Successfully');
                 return redirect()->route('temporary_works.index');
             }

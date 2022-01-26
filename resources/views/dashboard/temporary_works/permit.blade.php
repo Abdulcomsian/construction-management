@@ -184,7 +184,7 @@
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
-                    <input type="email" name="designer_company_email" value="{{$tempdata->designer_company_email ?? ''}}"  readonly>
+                    <input type="hidden" name="designer_company_email" value="{{$tempdata->designer_company_email ?? ''}}"  readonly>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv">

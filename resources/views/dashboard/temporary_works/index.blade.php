@@ -164,6 +164,9 @@ border-radius: 8px;
             font-size: 45px !important;
         }
         .sweet-alert h2{font-size:22px !important;}
+            @media (max-width: 768px) {
+                .margintop{margin-top:20px;}
+            }
             @media (max-width: 480px) {
             .passionate{
             font-size:24px !important;
@@ -221,11 +224,25 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title btns_resp" style="width: 100%"> 
-                        <span style="width:200px"> 
-                          
-                        </span>
+                       
+                    
                     <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
-                    <h1 class="export_btn"><a style="margin-left:0; min-width:155px;max-width: 270px;color:#fff !important;    font-size: 16px; margin-top: 20px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>    </h1>
+                </div>
+                <div class="card-title " style="width: 100%;    display: contents"> 
+                       <div class="row" style="display: contents;">
+                        <div class="col-md-6 col-sm-12" >
+                       <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                       <option value="">Select Projects</option>
+                                       <option value="user">Project 1</option>
+                                       <option value="supervisor">Project 2</option>
+                                       <option value="scaffolder">Project 3</option>
+                                   </select>
+        </div>
+        <div class="col-md-2 col-sm-7 text-center margintop"> <a style="color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details">Add Documents</a></div>
+        <div class="col-md-2  col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details">View Documents</a> </div>
+        <div class="col-md-2 col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
+        </div>
+        </div>
                 </div>
                     <!--begin::Card toolbar-->
                     
@@ -416,6 +433,8 @@ border-radius: 8px;
                                          @if(\Auth::user()->hasRole('admin'))
                                         <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
                                         @endif
+                                        <br>
+                                        <a  href="#" class="btn btn-danger p-2 m-1" style="border-radius: 21%;"><i style="padding:3px;" class="fa fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                                 @empty

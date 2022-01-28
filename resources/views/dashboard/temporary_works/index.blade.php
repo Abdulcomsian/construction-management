@@ -284,7 +284,7 @@ border-radius: 8px;
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
+                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
                                     @if(\Auth::user()->hasRole('admin'))
                                     <th class="">Company</th>
                                     @endif

@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('scaffolding-close/{id}', [TemporaryWorkController::class, 'scaffolding_close'])->name('scaffold.close');
 
     Route::get('tempwork-search', [TemporaryWorkController::class, 'tempwork_search'])->name('tempwork.search');
+     Route::get('tempwork-project-search', [TemporaryWorkController::class, 'tempwork_project_search'])->name('tempwork.proj.search');
     Route::get('tempwork-send-attach/{id}', [TemporaryWorkController::class, 'tempwork_send_attach'])->name('tempwork.sendattach');
     //export to excel
     Route::get('temporary-work-export', [TemporaryWorkController::class, 'export_excel'])->name('Designbrief.export');
@@ -83,6 +84,11 @@ Route::group(['middleware' => ['auth']], function () {
     //maunuall desing breif form 
      Route::get('manuall-designbrief-form', [TemporaryWorkController::class, 'create1'])->name('Designbrief.form');
      Route::post('manuall-designbrief-save', [TemporaryWorkController::class, 'store1'])->name('temporary_works.store1');
+
+     //store project documents
+     Route::post('temporarywork-store-project-documents',[ProjectController::class,'temporarywork_store_project_documents'])->name('temporarywork.store.project.document');
+     Route::get('project-docs-get',[ProjectController::class,'project_docs_get'])->name('project.document.get');
+     Route::get('/tempwork-share/{id}',[TemporaryWorkController::class,'Tempwork_share'])->name('tempwork.share');
 });
 
 Route::get('/dashboard', function () {

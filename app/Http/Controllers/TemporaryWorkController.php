@@ -47,36 +47,45 @@ class TemporaryWorkController extends Controller
     public function index()
     {
         $user = auth()->user();
-        try {
+        // try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->latest()->paginate(20);
+                  $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
+
                 $ids = [];
                 foreach ($users as $u) {
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
+                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
-                    $users = User::select('id')->where('company_id', auth()->user()->company_id)->get();
-                    foreach ($users as $u) {
-                        $ids[] = $u->id;
+                   $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                    $ids = [];
+                    foreach ($project_idds as $id) {
+                        $ids[] = $id->project_id;
                     }
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereHas('project', function($q) use($ids){
+                        $q->whereIn('id', $ids);
+                    })->latest()->paginate(20);
+                    $projects = Project::with('company')->whereIn('id', $ids)->get();
                 } else {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('created_by', $user->id)->latest()->paginate(20);
+                    $projects = Project::with('company')->whereIn('id', $user->id)->get();
                 }
+
             }
 
 
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works'));
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+            return view('dashboard.temporary_works.index', compact('temporary_works','projects'));
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     /**
@@ -86,7 +95,12 @@ class TemporaryWorkController extends Controller
      */
     public function create()
     {
-        abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        if(auth()->user()->hasRole([['supervisor', 'scaffolder']]))
+        {
+            toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
+            return Redirect::back();
+        }
+        //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -971,6 +985,7 @@ class TemporaryWorkController extends Controller
         try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -979,12 +994,62 @@ class TemporaryWorkController extends Controller
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             } else {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->where('created_by', $user->id)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
+                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                    $ids = [];
+                    foreach ($project_idds as $id) {
+                        $ids[] = $id->project_id;
+                    }
+                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereHas('project', function($q) use($ids){
+                        $q->whereIn('id', $ids);
+                    })->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                  $projects = Project::with('company')->whereIn('id', $ids)->get();
+                 }else {
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
+                    $projects = Project::with('company')->whereIn('id', $user->id)->get();
+                }
             }
 
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works'));
+            return view('dashboard.temporary_works.index', compact('temporary_works','projects'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    //temp work search according to projects
+    public function tempwork_project_search(Request $request)
+    {
+        //dd($request->all());
+        $user = auth()->user();
+        try {
+            if ($user->hasRole('admin')) {
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+            } elseif ($user->hasRole('company')) {
+                $users = User::select('id')->where('company_id', $user->id)->get();
+                $ids = [];
+                foreach ($users as $u) {
+                    $ids[] = $u->id;
+                }
+                $ids[] = $user->id;
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('project_id', $request->projects)->whereIn('created_by', $ids)->latest()->paginate(20);
+                 $projects = Project::with('company')->whereIn('id', $ids)->get();
+            } else {
+                if ($user->hasRole(['supervisor', 'scaffolder'])) {
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                    $projects = Project::with('company')->whereIn('id', $request->projects)->get();
+                }else {
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
+                    $projects = Project::with('company')->whereIn('id', $user->id)->get();
+                }
+            }
+
+            //work for datatable
+            return view('dashboard.temporary_works.index', compact('temporary_works','projects'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1101,4 +1166,12 @@ class TemporaryWorkController extends Controller
     {
         return  Excel::download(new TemporyWorkExport, 'temp.xlsx');
     }
+
+    //share temporary work
+    public function Tempwork_share($id)
+    {
+        
+    }
+
+    
 }

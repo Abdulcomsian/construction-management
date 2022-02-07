@@ -54,6 +54,16 @@ class HelperFunctions
         }
         return $path;
     }
+    public static function Projectdocupath($user= null)
+    {
+         if ($user) {
+            $path = 'uploads/proj-doc' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
+        } else {
+            $path  = 'uploads/proj-doc';
+        }
+        return $path;
+
+    }
 
     public function check_date($desingdate, $array)
     {

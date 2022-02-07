@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectQrCode;
+use App\Models\ProjectDocuments;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Crypt;
+use App\Utils\HelperFunctions;
 use DB;
 
 class ProjectController extends Controller
@@ -263,5 +265,60 @@ class ProjectController extends Controller
             $qrcodes = ProjectQrCode::where('project_id', $id)->get();
         }
         return view('qrcode.index', compact('qrcodes', 'id'));
+    }
+
+
+    //store project documents
+    public function temporarywork_store_project_documents(Request $request)
+    {
+        try {
+                $filePath = HelperFunctions::Projectdocupath();
+                $file = $request->file('file');
+                $document = HelperFunctions::saveFile(null, $file, $filePath);
+                $model = new ProjectDocuments();
+                $model->docuements=$document;
+                $model->project_id=$request->projects;
+                $model->save();
+                toastSuccess('Document Saved successfully!');
+                return Redirect::back();
+            } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+    //get proj doc
+    public function project_docs_get(Request $request)
+    {
+         $user = auth()->user();
+            if ($user->hasRole('admin')) 
+            {
+                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+                 $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
+            } elseif ($user->hasRole('company')) {
+                $users = User::select('id')->where('company_id', $user->id)->get();
+                $ids = [];
+                foreach ($users as $u) {
+                    $ids[] = $u->id;
+                }
+                $ids[] = $user->id;
+                 $projects = Project::with('company')->whereIn('id', $ids)->get();
+                 $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
+            } else {
+                   $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                    $ids = [];
+                    foreach ($project_idds as $id) {
+                        $ids[] = $id->project_id;
+                    }
+                     $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$ids)->get();
+            }
+
+           $list='<table class="table table-hover"><thead><th>S-No</th><th>Documents</th><th>Project Name</th><th>Create Date</th></thead><tbody>';
+            $path = config('app.url');
+           foreach($projectDocs as $docs)
+           {
+            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="'. $path.'/'.$docs->docuements.'">'.$docs->docuements.'</a></td><td>'.$docs->project->name.'</td><td>'.$docs->created_at.'</td></tr>';
+           }
+           $list.='</tbody></table>';
+           echo $list;
     }
 }

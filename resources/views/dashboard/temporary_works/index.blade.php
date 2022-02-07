@@ -227,23 +227,30 @@ border-radius: 8px;
                        
                     
                     <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
-                </div>
-                <div class="card-title " style="width: 100%;    display: contents"> 
+                    </div>
+                    <div class="card-title " style="width: 100%;    display: contents"> 
                        <div class="row" style="display: contents;">
-                        <div class="col-md-6 col-sm-12" >
-                       <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                            <form class="form-inline d-flex" style="width: 40%" method="get" action="{{route('tempwork.proj.search')}}" >
+                                <div class="col-md-9 col-sm-6" >
+                                   <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                        <option value="">Select Projects</option>
-                                       <option value="user">Project 1</option>
-                                       <option value="supervisor">Project 2</option>
-                                       <option value="scaffolder">Project 3</option>
+                                       @foreach($projects as $proj)
+                                       <option value="{{$proj->id}}">{{$proj->name}}</option>
+                                       @endforeach
                                    </select>
-        </div>
-        <div class="col-md-2 col-sm-7 text-center margintop"> <a style="color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details">Add Documents</a></div>
-        <div class="col-md-2  col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details">View Documents</a> </div>
-        <div class="col-md-2 col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
-        </div>
-        </div>
-                </div>
+                                </div>
+                                <div class="col-md-2 col-sm-7 text-center margintop">
+                                    <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                </div>
+                             </form>
+                            <div class="col-md-2 col-sm-7 text-center margintop"> <a style="color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
+                            </div>
+                            <div class="col-md-3  col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details viewdocument">View Documents</a> 
+                            </div>
+                            <div class="col-md-2 col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
+                            </div>
+                        </div>
+                    </div>
                     <!--begin::Card toolbar-->
                     
                     <!--end::Card toolbar-->
@@ -435,6 +442,7 @@ border-radius: 8px;
                                         @endif
                                         <br>
                                         <a  href="#" class="btn btn-danger p-2 m-1" style="border-radius: 21%;"><i style="padding:3px;" class="fa fa-trash-alt"></i></a>
+                                        <a  href="#" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;"><i style="padding:3px;" class="fa fa-share-alt"></i></a>
                                     </td>
                                 </tr>
                                 @empty
@@ -463,6 +471,8 @@ border-radius: 8px;
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load');
 @include('dashboard.modals.description');
+@include('dashboard.modals.project_documents');
+@include('dashboard.modals.tempwork_share');
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -584,12 +594,50 @@ border-radius: 8px;
             }
           });
     })
-   
+
+    //desc 
     $(".desc").on('click',function(){
         var desc=$(this).attr('title');
         $("#desc").html(desc);
         $("#desc_modal_id").modal('show');
     })
+
+    //Add documents
+    $(".adddocument").on('click',function(e){
+        if(role=='supervisor' || role=="scaffolder")
+        {
+            alert("You are not allowed to add Documents");
+            return false;
+        }
+        e.preventDefault();
+        $("#project-documents").hide();
+         $(".project_doc_form").show();
+         $("#project_document_modal_id").modal('show');
+    });
+
+    //view documents
+    $(".viewdocument").on('click',function(e){
+        e.preventDefault();
+        $.ajax({
+            url:"{{route('project.document.get')}}",
+            method:"GET",
+            data:{},
+            success:function(res)
+            {
+               $(".project_doc_form").hide();
+               $("#project-documents").html(res);
+               $("#project_document_modal_id").modal('show');
+            }
+        });
+        
+    });
+
+    //share butto click envent
+    $(".sharebutton").on('click',function(e){
+          e.preventDefault();
+        $("#tempwork_share_modal_id").modal('show');
+    })
+    
 </script>
 <script type="text/javascript">
         Dropzone.options.dropzone =

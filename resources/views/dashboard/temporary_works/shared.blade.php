@@ -225,32 +225,7 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title btns_resp" style="width: 100%"> 
-                       
-                    
-                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
-                    </div>
-                    <div class="card-title " style="width: 100%;    display: contents"> 
-                       <div class="row" style="display: contents;">
-                            <form class="form-inline d-flex" style="width: 40%" method="get" action="{{route('tempwork.proj.search')}}" >
-                                <div class="col-md-9 col-sm-6" >
-                                   <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
-                                       <option value="">Select Projects</option>
-                                       @foreach($projects as $proj)
-                                       <option value="{{$proj->id}}">{{$proj->name}}</option>
-                                       @endforeach
-                                   </select>
-                                </div>
-                                <div class="col-md-2 col-sm-7 text-center margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
-                                </div>
-                             </form>
-                            <div class="col-md-2 col-sm-7 text-center margintop"> <a style="color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
-                            </div>
-                            <div class="col-md-3  col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details viewdocument">View Documents</a> 
-                            </div>
-                            <div class="col-md-2 col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
-                            </div>
-                        </div>
+                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Shared Temporary Works</h1>
                     </div>
                     <!--begin::Card toolbar-->
                     
@@ -267,22 +242,6 @@ border-radius: 8px;
                             @endif
                             <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:350px;min-width:220px;max-width: 500px !important;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief / Temporary Work</a>
                             
-                        </div>
-
-                        <div class="col-md-4 offset-md-2">
-                             <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
-                                <div class="row">
-                                      <div class="form-group  col-md-2">
-</div>
-                                      <div class="form-group  col-md-6">
-                                        <label  class="text-white">Search</label>
-                                        <input type="text" class="form-control" name="terms" required="required" />
-                                      </div>
-                                      <div class="col-md-4 mt-6">
-                                        <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <!--begin::Table-->
@@ -438,22 +397,22 @@ border-radius: 8px;
                                         @endif
                                     </td>
                                     <td>
-                                        @if(\Auth::user()->hasRole('admin'))
+                                         @if(\Auth::user()->hasRole('admin'))
                                         <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
                                         @endif
                                         <br>
-                                        @if(\Auth::user()->hasRole('admin'))
-                                            <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
-                                                @method('Delete')
-                                                @csrf
-                                                <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
-                                                    <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
-                                                 <i style="padding:3px;" class="fa fa-trash-alt"></i>
-                                                    <!--end::Svg Icon-->
-                                                </button>
-                                            </form>
+                                         @if(\Auth::user()->hasRole('admin'))
+                                        <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
+                                            @method('Delete')
+                                            @csrf
+                                            <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
+                                                <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
+                                             <i style="padding:3px;" class="fa fa-trash-alt"></i>
+                                                <!--end::Svg Icon-->
+                                            </button>
+                                        </form>
                                         @endif
-                                        @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                         @if(\Auth::user()->hasRole([['admin', 'company','user']]))
                                             <a  href="#" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
                                                 <i style="padding:3px;" class="fa fa-share-alt"></i>
                                             </a>
@@ -486,7 +445,6 @@ border-radius: 8px;
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load');
 @include('dashboard.modals.description');
-@include('dashboard.modals.project_documents');
 @include('dashboard.modals.tempwork_share');
 @endsection
 @section('scripts')

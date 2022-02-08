@@ -17,6 +17,7 @@ use App\Models\PermitLoadImages;
 use App\Models\Scaffolding;
 use App\Models\CheckAndComment;
 use App\Models\CommentsAction;
+use App\Models\Tempworkshare;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
 use App\Utils\Validations;
@@ -86,6 +87,44 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+    //All shared tempory work
+    public function shared_temporarywork()
+    {
+        $user = auth()->user();
+        try {
+            if ($user->hasRole('admin')) {
+                $tempidds =DB::table('tempworkshares')->get();
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                }
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+            } elseif ($user->hasRole('company')) {
+                $users = User::select('id')->where('company_id', $user->id)->get();
+                $ids = [];
+                foreach ($users as $u) {
+                    $ids[] = $u->id;
+                }
+                $ids[] = $user->id;
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
+                 $projects = Project::with('company')->where('company_id', $user->id)->get();
+            } else {
+                 $tempidds =DB::table('tempworkshares')->select('temporary_work_id')->where('user_id',$user->id)->get();
+                if ($user->hasRole(['supervisor', 'scaffolder'])) {
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id',$tempidds)->latest()->paginate(20);
+                } else {
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->whereIn('id',$tempidds)->latest()->paginate(20);
+                }
+
+            }
+            //work for datatable
+            return view('dashboard.temporary_works.shared', compact('temporary_works'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+
     }
 
     /**
@@ -398,6 +437,9 @@ class TemporaryWorkController extends Controller
     public function destroy(TemporaryWork $temporaryWork)
     {
         try {
+            $temporaryWork->delete();
+            toastSuccess('Temporary Work Delete Successfully!!');
+            return Redirect::back();
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1168,9 +1210,55 @@ class TemporaryWorkController extends Controller
     }
 
     //share temporary work
-    public function Tempwork_share($id)
+    public function Tempwork_share(Request $request)
     {
-        
+         try {
+             $tempid = Crypt::decrypt($request->tempid);
+             $condition=$request->condition;
+             $useremail=$request->useremail;
+             if(isset($request->commentsandother))
+             {
+                $commentsandother=1;
+             }
+             else{
+                $commentsandother=0;
+             }
+             
+             if($tempid=="" && $condition=="" && $useremail=="")
+             {
+                 toastError('Please Fill All field');
+                 return Redirect::back();
+             }
+             else{
+                     $user = auth()->user();
+                     $projectid=HelperFunctions::getProjectid($tempid);
+                     if($user->hasRole('admin'))
+                     {
+                           HelperFunctions::sharetemwork($useremail,$condition,$tempid,$projectid,$commentsandother);
+                     }
+                     elseif($user->hasRole('company'))
+                     {
+                        $checkproject=Project::where(['id'=>$projectid,'company_id'=>$user->id])->first();
+                        if($checkproject)
+                        {
+                           HelperFunctions::sharetemwork($useremail,$condition,$tempid,$projectid,$commentsandother);
+                        }
+                     }elseif($user->hasRole('user'))
+                     {
+                         $checkproject=DB::table('users_has_projects')->where(['project_id'=>$projectid,'user_id'=>$user->id])->first();
+                        if($checkproject)
+                        {
+                           HelperFunctions::sharetemwork($useremail,$condition,$tempid,$projectid,$commentsandother);
+                        }
+
+                     }
+                     toastSuccess('TempWork Share Successfully!');
+                    return Redirect::back();
+             }
+          } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+          }
     }
 
     

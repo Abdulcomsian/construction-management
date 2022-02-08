@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
         'companies' => CompanyController::class, //Companies
         'temporary_works' => TemporaryWorkController::class, //Temporary Works
     ]);
+    //shared temp work
+    Route::get('temporary_works_shared',[TemporaryWorkController::class,'shared_temporarywork'])->name('temporary_works.shared');
 
     Route::get('company/projects', [CompanyController::class, 'companyProjects'])->name('company.projects');
     Route::put('user/update/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
@@ -88,7 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
      //store project documents
      Route::post('temporarywork-store-project-documents',[ProjectController::class,'temporarywork_store_project_documents'])->name('temporarywork.store.project.document');
      Route::get('project-docs-get',[ProjectController::class,'project_docs_get'])->name('project.document.get');
-     Route::get('/tempwork-share/{id}',[TemporaryWorkController::class,'Tempwork_share'])->name('tempwork.share');
+     Route::post('tempwork-share',[TemporaryWorkController::class,'Tempwork_share'])->name('tempwork.share');
 });
 
 Route::get('/dashboard', function () {

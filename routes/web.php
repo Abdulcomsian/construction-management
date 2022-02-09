@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
     //shared temp work
     Route::get('temporary_works_shared',[TemporaryWorkController::class,'shared_temporarywork'])->name('temporary_works.shared');
+    Route::post('temporary_work_shared_delete',[TemporaryWorkController::class,'Delete_shared_temp'])->name('temporary_works.sharedelete');
 
     Route::get('company/projects', [CompanyController::class, 'companyProjects'])->name('company.projects');
     Route::put('user/update/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');

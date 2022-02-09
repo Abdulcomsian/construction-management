@@ -96,8 +96,10 @@ class TemporaryWorkController extends Controller
         try {
             if ($user->hasRole('admin')) {
                 $tempidds =DB::table('tempworkshares')->get();
+                $users=[];
                 foreach ($tempidds as $u) {
                     $ids[] = $u->temporary_work_id;
+                    $users[]=$u->user_id;
                 }
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
@@ -108,18 +110,23 @@ class TemporaryWorkController extends Controller
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
-                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
+                   $tempidds =DB::table('tempworkshares')->where('user_id',$user->id)->get();
+                   $users=[];
+                   foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[]=$u->user_id;
+                   }
                  $tempidds =DB::table('tempworkshares')->select('temporary_work_id')->where('user_id',$user->id)->get();
                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id',$tempidds)->latest()->paginate(20);
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id',$ids)->latest()->paginate(20);
                 } else {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->whereIn('id',$tempidds)->latest()->paginate(20);
+                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits','scaffold')->whereIn('id',$ids)->latest()->paginate(20);
                 }
 
             }
             //work for datatable
-            return view('dashboard.temporary_works.shared', compact('temporary_works'));
+            return view('dashboard.temporary_works.shared', compact('temporary_works','users'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1259,6 +1266,20 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
           }
+    }
+
+    //delete shared temporary work
+    public function Delete_shared_temp(Request $request)
+    {
+        try {
+            Tempworkshare::where(['temporary_work_id'=>$request->id,'user_id'=>$request->user_id])->delete();
+            toastSuccess('Temporary share  Work Delete Successfully!!');
+            return Redirect::back();
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+
     }
 
     

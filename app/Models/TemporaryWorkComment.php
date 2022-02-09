@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TemporaryWorkComment extends Model
 {
     use HasFactory;
+
+    public function tempwork()
+    {
+        return $this->belongsTo(TemporaryWork::class);
+    }
 }

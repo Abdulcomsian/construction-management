@@ -402,9 +402,10 @@ border-radius: 8px;
                                         @endif
                                         <br>
                                          @if(\Auth::user()->hasRole('admin'))
-                                        <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
-                                            @method('Delete')
+                                        <form method="POST" action="{{route('temporary_works.sharedelete')}} " id="{{'form_' . $item->id}}">
                                             @csrf
+                                            <input type="hidden" name="id" value="{{$item->id}}">
+                                            <input type="hidden" name="user_id" value="{{$users[$loop->index]}}">
                                             <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
                                                 <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
                                              <i style="padding:3px;" class="fa fa-trash-alt"></i>

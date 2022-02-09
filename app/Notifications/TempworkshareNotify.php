@@ -44,26 +44,17 @@ class TempworkshareNotify extends Notification
      */
     public function toMail($notifiable)
     {
-        $comments=[];
          if(is_object($this->data) && count($this->data)>0)
          {
-           $tempworkdetails=TemporaryWork::select('ped_url','twc_id_no')->whereIn('id',$this->data)->get();
-           if($this->check)
-           {
-                 $comments=TemporaryWorkComment::whereIn('temporary_work_id',$this->data)->get();
-           }
+           $tempworkdetails=TemporaryWork::with('comments','uploadfile')->select('id','ped_url','twc_id_no')->whereIn('id',$this->data)->get();
          }
          else{
-             $tempworkdetails=TemporaryWork::select('ped_url','twc_id_no')->where('id',$this->data)->get();
-              if($this->check)
-              {
-                $comments=TemporaryWorkComment::where('temporary_work_id',$this->data)->get();
-              }
+             $tempworkdetails=TemporaryWork::with('comments','uploadfile')->select('id','ped_url','twc_id_no')->where('id',$this->data)->get();
          }
          return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Temporary Work Share Notifications')
-            ->view('mail.tempshare', ['details' => $tempworkdetails,'comments'=>$comments]);
+            ->view('mail.tempshare', ['details' => $tempworkdetails]);
     }
 
     /**

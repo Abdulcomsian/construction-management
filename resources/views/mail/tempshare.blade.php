@@ -27,14 +27,16 @@
                                                                     <h3>Temporary Works have shared with you</h3>
                                                                     @foreach($details as $key => $data)
                                                                     <a href="{{asset('pdf'.'/'.$data->ped_url)}}">{{$data->twc_id_no}} </a><br>
-                                                                    @endforeach
-
-                                                                    </p>
-                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                    <h3>Temporary Works Comments</h3>
-                                                                        @foreach($comments as $key => $data)
-                                                                        <b>{{$data->comment}} </b><br>
+                                                                    @if($data->comments)
+                                                                        <h4>Comments</h4>
+                                                                        <ul>
+                                                                        @foreach($data->comments as $comments)
+                                                                         <li>{{$comments->comment}}</li>
                                                                         @endforeach
+                                                                         </ul>
+                                                                    @endif
+                                                                    <hr>
+                                                                    @endforeach
 
                                                                     </p>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>Construction Management</p>

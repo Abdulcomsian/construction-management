@@ -172,17 +172,27 @@ class HelperFunctions
 
                 for($i=0;$i<count($tempworkidds);$i++)
                 {
-                    $model= new Tempworkshare();
-                    $model->temporary_work_id=$tempworkidds[$i]->id;
-                    $model->user_id=$Userdata->id;
-                    $model->save();
+                    //check if already exist
+                    $check=Tempworkshare::where(['temporary_work_id'=>$tempworkidds[$i]->id,'user_id'=>$Userdata->id])->count();
+                    if($check<=0)
+                    {
+                      $model= new Tempworkshare();
+                      $model->temporary_work_id=$tempworkidds[$i]->id;
+                      $model->user_id=$Userdata->id;
+                      $model->save();
+                    }
+                    
                 }
             }
             else{
-                    $model= new Tempworkshare();
-                    $model->temporary_work_id=$tempid;
-                    $model->user_id=$Userdata->id;
-                    $model->save();
+                    $check=Tempworkshare::where(['temporary_work_id'=>$tempworkidds[$i]->id,'user_id'=>$Userdata->id])->count();
+                    if($check<=0)
+                    {
+                     $model= new Tempworkshare();
+                     $model->temporary_work_id=$tempid;
+                     $model->user_id=$Userdata->id;
+                     $model->save();
+                    }
             }
         }
         else{

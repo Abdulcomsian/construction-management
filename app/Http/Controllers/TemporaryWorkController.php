@@ -103,13 +103,12 @@ class TemporaryWorkController extends Controller
                 }
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
-                $users = User::select('id')->where('company_id', $user->id)->get();
-                $ids = [];
-                foreach ($users as $u) {
-                    $ids[] = $u->id;
-                }
-                $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
+                $tempidds =DB::table('tempworkshares')->where('user_id',$user->id)->get();
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[]=$u->user_id;
+                   }
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             } else {
                    $tempidds =DB::table('tempworkshares')->where('user_id',$user->id)->get();
                    $users=[];
@@ -117,7 +116,6 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[]=$u->user_id;
                    }
-                 $tempidds =DB::table('tempworkshares')->select('temporary_work_id')->where('user_id',$user->id)->get();
                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id',$ids)->latest()->paginate(20);
                 } else {
@@ -1219,7 +1217,7 @@ class TemporaryWorkController extends Controller
     //share temporary work
     public function Tempwork_share(Request $request)
     {
-         try {
+         // try {
              $tempid = Crypt::decrypt($request->tempid);
              $condition=$request->condition;
              $useremail=$request->useremail;
@@ -1262,10 +1260,10 @@ class TemporaryWorkController extends Controller
                      toastSuccess('TempWork Share Successfully!');
                     return Redirect::back();
              }
-          } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-          }
+          // } catch (\Exception $exception) {
+          //   toastError('Something went wrong, try again!');
+          //   return Redirect::back();
+          // }
     }
 
     //delete shared temporary work

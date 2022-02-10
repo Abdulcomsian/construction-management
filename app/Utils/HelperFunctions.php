@@ -185,7 +185,7 @@ class HelperFunctions
                 }
             }
             else{
-                    $check=Tempworkshare::where(['temporary_work_id'=>$tempworkidds[$i]->id,'user_id'=>$Userdata->id])->count();
+                    $check=Tempworkshare::where(['temporary_work_id'=>$tempid,'user_id'=>$Userdata->id])->count();
                     if($check<=0)
                     {
                      $model= new Tempworkshare();

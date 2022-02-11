@@ -145,6 +145,7 @@
         }
     }
 </style>
+<link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
 @section('content')
 <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -171,7 +172,7 @@
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
-                    <input type="email" name="designer_company_email" value="{{$tempdata->designer_company_email ?? ''}}"  readonly>
+                    <input type="hidden" name="designer_company_email" value="{{$tempdata->designer_company_email ?? ''}}"  readonly>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv">
@@ -220,6 +221,21 @@
                                     <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
+                            <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="">Load Class:</span>
+                                        </label>
+                                        <select name="loadclass" id="loadclass" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
+                                            <option value="">Select Option</option>
+                                            <option value="1">Service Class 1 - 0.75 kN/m2 – Inspection and very light duty access</option>
+                                            <option value="2">Service Class 2 - 1.50 kN/m2 – Light duty such as painting and cleaning</option>
+                                            <option value="3">Service Class 3 - 2.00 kN/m2 – General building work, brickwork, etc.</option>
+                                            <option value="4">Service Class 4 - 3.00 kN/m2 – Heavy duty such as masonry and heavy cladding</option>
+                                        </select>
+                                    </div>
+                                </div>
                         </div>
                         <div class="col-md-6">
                             <div class="col-md-12">
@@ -1714,6 +1730,9 @@
                                     </div>
 
                                 </div>
+                            </div>
+                            <div class="uploadDiv" style="padding-left: 10px;">
+                                <div class="input-images"></div>
                             </div>
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary">Submit</button>

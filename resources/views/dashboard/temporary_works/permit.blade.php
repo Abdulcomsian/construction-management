@@ -776,12 +776,13 @@
             $("#submitbutton").on('click',function(){
                 if(signaturePad)
                  {
-                 $("#signature").val(signaturePad.toDataURL('image/png'));
-                  }
+                   $("#signature").val(signaturePad.toDataURL('image/png'));
+                 }
                  if(signaturePad1)
                  {
                     $("#signature1").val(signaturePad1.toDataURL('image/png'));
                  }
+                 $(this).attr('disabled','disabled');
                  $("#permitform").submit();
             })
            

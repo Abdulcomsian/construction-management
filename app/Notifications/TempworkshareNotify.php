@@ -46,10 +46,10 @@ class TempworkshareNotify extends Notification
     {
          if(is_object($this->data) && count($this->data)>0)
          {
-           $tempworkdetails=TemporaryWork::with('comments','uploadfile')->select('id','ped_url','twc_id_no')->whereIn('id',$this->data)->get();
+           $tempworkdetails=TemporaryWork::with('comments','uploadfile','permits','scaffold')->select('id','ped_url','twc_id_no')->whereIn('id',$this->data)->get();
          }
          else{
-             $tempworkdetails=TemporaryWork::with('comments','uploadfile')->select('id','ped_url','twc_id_no')->where('id',$this->data)->get();
+             $tempworkdetails=TemporaryWork::with('comments','uploadfile','permits','scaffold')->select('id','ped_url','twc_id_no')->where('id',$this->data)->get();
          }
          return (new MailMessage)
             ->greeting('Greetings')

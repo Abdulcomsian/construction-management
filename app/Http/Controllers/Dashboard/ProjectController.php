@@ -277,6 +277,7 @@ class ProjectController extends Controller
                 $document = HelperFunctions::saveFile(null, $file, $filePath);
                 $model = new ProjectDocuments();
                 $model->docuements=$document;
+                $model->type=$request->type;
                 $model->project_id=$request->projects;
                 $model->save();
                 toastSuccess('Document Saved successfully!');
@@ -312,11 +313,11 @@ class ProjectController extends Controller
                      $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$ids)->get();
             }
 
-           $list='<table class="table table-hover"><thead><th>S-No</th><th>Documents</th><th>Project Name</th><th>Create Date</th></thead><tbody>';
+           $list='<table class="table table-hover"><thead><th>S-No</th><th>Documents</th><th>Document Type</th><th>Project Name</th><th>Create Date</th></thead><tbody>';
             $path = config('app.url');
            foreach($projectDocs as $docs)
            {
-            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="'. $path.'/'.$docs->docuements.'">'.$docs->docuements.'</a></td><td>'.$docs->project->name.'</td><td>'.$docs->created_at.'</td></tr>';
+            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="'. $path.'/'.$docs->docuements.'">'.$docs->docuements.'</a></td><td>'.$docs->type.'</td><td>'.$docs->project->name.'</td><td>'.$docs->created_at.'</td></tr>';
            }
            $list.='</tbody></table>';
            echo $list;

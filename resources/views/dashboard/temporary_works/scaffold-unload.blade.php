@@ -209,6 +209,21 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{$scaffolddata->twc_name ?? ''}}" required>
                                 </div>
                             </div>
+                             <div class="d-flex inputDiv">
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="">Load Class:</span>
+                                        </label>
+                                        <select name="loadclass" id="loadclass" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
+                                            <option value="">Select Option</option>
+                                            <option value="1" {{$scaffolddata->loadclass==1 ? 'selected' : ''}}>Service Class 1 - 0.75 kN/m2 – Inspection and very light duty access</option>
+                                            <option value="2" {{$scaffolddata->loadclass==2 ? 'selected' : ''}}>Service Class 2 - 1.50 kN/m2 – Light duty such as painting and cleaning</option>
+                                            <option value="3" {{$scaffolddata->loadclass==3 ? 'selected' : ''}}>Service Class 3 - 2.00 kN/m2 – General building work, brickwork, etc.</option>
+                                            <option value="4" {{$scaffolddata->loadclass==4 ? 'selected' : ''}}>Service Class 4 - 3.00 kN/m2 – Heavy duty such as masonry and heavy cladding</option>
+                                        </select>
+                                    </div>
+                                </div>
                         </div>
                         <div class="col-md-6">
                             <div class="col-md-12">

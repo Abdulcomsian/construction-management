@@ -86,6 +86,27 @@
                <tr style="min-height: 150px;">
                   <td style="width: 180px;background:gray;color:white;">
                      <label for="" style="width: 200px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
+                        <b>Load Class</b> </label>
+                  </td>
+                  <td colspan="3">
+                    <span style="font-size: 12px;">
+                     @if($data['loadclass']==1)
+                     Service Class 1 - 0.75 kN/m2 – Inspection and very light duty access
+                     @endif
+                     @if($data['loadclass']==2)
+                     Service Class 2 - 1.50 kN/m2 – Light duty such as painting and cleaning
+                     @endif
+                     @if($data['loadclass']==3)
+                     Service Class 3 - 2.00 kN/m2 – General building work, brickwork, etc.
+                     @endif
+                     @if($data['loadclass']==4)
+                     Service Class 4 - 3.00 kN/m2 – Heavy duty such as masonry and heavy cladding
+                     @endif
+                  </span></td>
+               </tr>
+               <tr style="min-height: 150px;">
+                  <td style="width: 180px;background:gray;color:white;">
+                     <label for="" style="width: 200px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
                            Location of the<br>Temporary Works (Area)</b> </label>
                   </td>
                   <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
@@ -1022,5 +1043,18 @@
             </tr>
          </tbody>
       </table>
+       @if(isset($image_links))
+        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                @foreach($image_links as $image)
+                    <tr>
+                        <td><img src="{{$image}}" width="500" alt="img"/></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
    </div>
 </page>

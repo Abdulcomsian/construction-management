@@ -18,6 +18,7 @@ use App\Models\Scaffolding;
 use App\Models\CheckAndComment;
 use App\Models\CommentsAction;
 use App\Models\Tempworkshare;
+use App\Models\ScaffoldLoadImages;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
 use App\Utils\Validations;
@@ -697,17 +698,19 @@ class TemporaryWorkController extends Controller
                 $diff_in_days = $to->diffInDays($current);
                 $class = '';
                 $color = '';
-                if ($diff_in_days > 7) {
-                    $class = "background:gray";
-                    $color = "text-danger";
-                }
                 $status = '';
                 $button = '';
+                $days= $diff_in_days;
                 if ($permit->status == 1) {
                     $status = "Open";
                     $button = '<a class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     if (isset($request->type)) {
                         $button = '<a class="btn btn-primary" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
+                    }
+                    if ($diff_in_days > 7) {
+                    $days=(7-$diff_in_days);
+                    $class = "background:gray";
+                    $color = "text-danger";
                     }
                 } elseif ($permit->status == 0 || $permit->status == 4) {
                     $status = "Closed";
@@ -718,7 +721,7 @@ class TemporaryWorkController extends Controller
                 if (isset($request->scanuser)) {
                     $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . (7 - $diff_in_days) . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }
@@ -729,10 +732,7 @@ class TemporaryWorkController extends Controller
                 $diff_in_days = $to->diffInDays($current);
                 $class = '';
                 $color = '';
-                if ($diff_in_days > 7) {
-                    $class = "background:gray";
-                    $color = "text-danger";
-                }
+                $days=$diff_in_days;
                 $status = '';
                 $button = '';
                 if ($permit->status == 1) {
@@ -742,16 +742,22 @@ class TemporaryWorkController extends Controller
                     } else {
                         $button = '<a class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }
+                    if ($diff_in_days > 7) {
+                    $days=(7-$diff_in_days);
+                    $class = "background:gray";
+                    $color = "text-danger";
+                    }
                 } elseif ($permit->status == 0 || $permit->status == 4) {
                     $status = "Closed";
+
                 } elseif ($permit->status == 3) {
-                    $status = "Unloaded";
+                     $status = "Unloaded";
                 }
                 $path = config('app.url');
                 if (isset($request->scanuser)) {
                     $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . (7 - $diff_in_days) . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -948,7 +954,7 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token','twc_email','designer_company_email','type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date');
+            $all_inputs  = $request->except('_token','twc_email','designer_company_email','type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date','images');
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
@@ -990,8 +996,11 @@ class TemporaryWorkController extends Controller
                     }
                 }
 
+                //work for images
+                 $image_links = $this->scaffoldfiles($request, $scaffolding->id);
+
                 //pdf work here
-                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments]);
+                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(),'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = Scaffolding::find($scaffolding->id);
@@ -1023,6 +1032,25 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+    //save scaffold images
+    public function scaffoldfiles($request, $id)
+    {
+        $image_links = [];
+        if (isset($request->images) && $request->file('images')) {
+            $filePath = HelperFunctions::temporaryworkImagePath();
+            $files = $request->file('images');
+            foreach ($files  as $key => $file) {
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model = new ScaffoldLoadImages();
+                $model->fileName = $imagename;
+                $model->scaffolding_id = $id;
+                $model->save();
+                $image_links[] = $imagename;
+            }
+        }
+        return $image_links;
     }
 
     //search tempwork
@@ -1217,7 +1245,7 @@ class TemporaryWorkController extends Controller
     //share temporary work
     public function Tempwork_share(Request $request)
     {
-         // try {
+         try {
              $tempid = Crypt::decrypt($request->tempid);
              $condition=$request->condition;
              $useremail=$request->useremail;
@@ -1260,10 +1288,10 @@ class TemporaryWorkController extends Controller
                      toastSuccess('TempWork Share Successfully!');
                     return Redirect::back();
              }
-          // } catch (\Exception $exception) {
-          //   toastError('Something went wrong, try again!');
-          //   return Redirect::back();
-          // }
+          } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+          }
     }
 
     //delete shared temporary work

@@ -281,6 +281,14 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email')}}"  required>
                                 </div>
+                                <div class="inputDiv d-none desinger_company_name2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Company Name2:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid " placeholder="Designer Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  required>
+                                </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -519,43 +527,54 @@ height: 72px;
         }
     })
 
+//when click of category 3
+    $('input[name="tw_category"]').click(function(){
+        var value=$(this).val();
+        if(value==3)
+        {
+            $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
+        }
+        else{
+            $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
+        }
+    })
 
 
-            var canvas = document.getElementById("sig");
-            var signaturePad = new SignaturePad(canvas);
-            
-            $("#submitbutton").on('click',function(){
-                 $("#signature").val(signaturePad.toDataURL('image/png'));
-                 $("#desingform").submit();
-            })
-           
-             $('#clear').click(function(e) {
-                e.preventDefault();
-                signaturePad.clear();
-                $("#signature").val('');
-            });
+    var canvas = document.getElementById("sig");
+    var signaturePad = new SignaturePad(canvas);
+    
+    $("#submitbutton").on('click',function(){
+         $("#signature").val(signaturePad.toDataURL('image/png'));
+         $("#desingform").submit();
+    })
+   
+     $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+    });
 
 
-            $('#design_required_by_date').change(function() {
-                $('#design_required_by_date').css("background-color", "#f5f8fa ");
-                $('#design_required_by_date').css("color", "#000");
-            });
-            $('#designer_company_name').change(function() {
-                $('#designer_company_name').css("background-color", "#f5f8fa ");
-                $('#design_required_by_date').css("color", "#000");
-            });
-            $('#designer_company_email').change(function() {
-                $('#designer_company_email').css("background-color", "#f5f8fa ");
-                $('#designer_company_email').css("color", "#000");
-            });
-            $('#twc_name').change(function() {
-                $('#twc_name').css("background-color", "#f5f8fa ");
-                $('#twc_name').css("color", "#000");
-            });
-            $('#twc_email').change(function() {
-                $('#twc_email').css("background-color", "#f5f8fa ");
-                $('#twc_email').css("color", "#000");
-            });
+    $('#design_required_by_date').change(function() {
+        $('#design_required_by_date').css("background-color", "#f5f8fa ");
+        $('#design_required_by_date').css("color", "#000");
+    });
+    $('#designer_company_name').change(function() {
+        $('#designer_company_name').css("background-color", "#f5f8fa ");
+        $('#design_required_by_date').css("color", "#000");
+    });
+    $('#designer_company_email').change(function() {
+        $('#designer_company_email').css("background-color", "#f5f8fa ");
+        $('#designer_company_email').css("color", "#000");
+    });
+    $('#twc_name').change(function() {
+        $('#twc_name').css("background-color", "#f5f8fa ");
+        $('#twc_name').css("color", "#000");
+    });
+    $('#twc_email').change(function() {
+        $('#twc_email').css("background-color", "#f5f8fa ");
+        $('#twc_email').css("color", "#000");
+    });
             
 </script>
 

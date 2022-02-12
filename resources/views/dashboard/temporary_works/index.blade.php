@@ -411,7 +411,18 @@ border-radius: 8px;
                                     <td>
                                         <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
-                                        <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
+                                         @php 
+                                         $permitexpire=\App\Models\PermitLoad::where('temporary_work_id',$item->id)->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+
+                                         $scaffoldexpire=\App\Models\Scaffolding::where('temporary_work_id',$item->id)->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                         
+                                         $color="orange";
+                                         if($permitexpire>0 || $scaffoldexpire>0)
+                                         {
+                                            $color="red";
+                                         }
+                                         @endphp
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>
                                         @endif

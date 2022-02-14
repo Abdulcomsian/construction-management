@@ -50,11 +50,11 @@
                               </label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-4">
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" name="commentsandother"  id="flexCheckIndeterminate">
                               <label class="form-check-label" for="flexCheckIndeterminate">
-                                Share Comments And Other Files
+                                Share Comments And Emails
                               </label>
                             </div>
                         </div>

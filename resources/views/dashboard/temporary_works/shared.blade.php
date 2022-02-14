@@ -302,7 +302,7 @@ border-radius: 8px;
                                         <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
-                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
+                                       <h3 class="cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
                                       
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -347,7 +347,7 @@ border-radius: 8px;
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
+                                    <td><p  class="cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -357,7 +357,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td >
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
+                                        <p  class="cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==2)
@@ -379,7 +379,7 @@ border-radius: 8px;
                                          <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
                                     </td>
                                     <td  data-type="2">
-                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS</p>
+                                        <p class="cursor-pointer" data-id="{{$item->id}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS</p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==3)
@@ -398,10 +398,6 @@ border-radius: 8px;
                                     </td>
                                     <td>
                                          @if(\Auth::user()->hasRole('admin'))
-                                        <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
-                                        @endif
-                                        <br>
-                                         @if(\Auth::user()->hasRole('admin'))
                                         <form method="POST" action="{{route('temporary_works.sharedelete')}} " id="{{'form_' . $item->id}}">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$item->id}}">
@@ -412,11 +408,6 @@ border-radius: 8px;
                                                 <!--end::Svg Icon-->
                                             </button>
                                         </form>
-                                        @endif
-                                         @if(\Auth::user()->hasRole([['admin', 'company','user']]))
-                                            <a  href="#" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
-                                                <i style="padding:3px;" class="fa fa-share-alt"></i>
-                                            </a>
                                         @endif
                                     </td>
                                 </tr>
@@ -465,20 +456,6 @@ border-radius: 8px;
     }
 };
 </script>
-<script>
-   
-    $(".uploadfile").on('click',function(){
-        if(role=='supervisor' || role=="scaffolder")
-        {
-            alert("You are not allowed to add File");
-            return false;
-        }
-        $("#tempworkid").val($(this).attr('data-id'));
-        $("#type").val($(this).attr('data-type'));
-        $("#upload_file_id").modal('show');
-
-    })
-</script>
 <script type="text/javascript">
     $(".addtwname").on('click',function(){
         $("#temp_work_idd").val($(this).attr('data-id'));
@@ -488,11 +465,6 @@ border-radius: 8px;
     })
 
     $(".addcomment").on('click',function(){
-       if(role=='supervisor' || role=="scaffolder")
-        {
-            alert("You are not allowed to add comment");
-            return false;
-        }
       $("#temp_work_id").val($(this).attr('data-id'));
       var temporary_work_id=$(this).attr('data-id');
       var userid={{\Auth::user()->id}}
@@ -511,34 +483,12 @@ border-radius: 8px;
     });
 </script>
 <script type="text/javascript">
-    $(".dateclick").on('click',function(){
-        if(role=='supervisor' || role=="scaffolder")
-        {
-            alert("You are not allowed to add comment");
-            return false;
-        }
-        var file_type=$(this).attr('data-type');
-        var tempid=$(this).attr('data-id');
-        $.ajax({
-        url:"{{route('temporarywork.file-upload-dates')}}",
-        method:"get",
-        data:{file_type:file_type,tempid:tempid},
-        success:function(res)
-        {
-            $("#tablebody").html(res);
-            $("#date_modal_id").modal('show');
-        }
-      });
-      
-    })
-</script>
-<script type="text/javascript">
     $(".permit-to-load").on('click',function(){
          id=$(this).attr('data-id');
             $.ajax({
             url:"{{route('permit.get')}}",
             method:"get",
-            data:{id:id},
+            data:{id:id,'shared':'shared'},
             success:function(res)
             {
                $("#permitheading").html('Permit To Load');
@@ -557,7 +507,7 @@ border-radius: 8px;
             $.ajax({
             url:"{{route('permit.get')}}",
             method:"get",
-            data:{id:id,type:'unload'},
+            data:{id:id,type:'unload','shared':'shared'},
             success:function(res)
             {
                 console.log(res);
@@ -578,15 +528,15 @@ border-radius: 8px;
 
     //Add documents
     $(".adddocument").on('click',function(e){
-        if(role=='supervisor' || role=="scaffolder")
-        {
-            alert("You are not allowed to add Documents");
-            return false;
-        }
-        e.preventDefault();
-        $("#project-documents").hide();
-         $(".project_doc_form").show();
-         $("#project_document_modal_id").modal('show');
+        // if(role=='supervisor' || role=="scaffolder")
+        // {
+        //     alert("You are not allowed to add Documents");
+        //     return false;
+        // }
+        // e.preventDefault();
+        // $("#project-documents").hide();
+        //  $(".project_doc_form").show();
+        //  $("#project_document_modal_id").modal('show');
     });
 
     //view documents
@@ -607,12 +557,12 @@ border-radius: 8px;
     });
 
     //share butto click envent
-    $(".sharebutton").on('click',function(e){
-          e.preventDefault();
-          var tempid=$(this).attr('data-id');
-          $("#sharetempid").val(tempid);
-        $("#tempwork_share_modal_id").modal('show');
-    })
+    // $(".sharebutton").on('click',function(e){
+    //       e.preventDefault();
+    //       var tempid=$(this).attr('data-id');
+    //       $("#sharetempid").val(tempid);
+    //     $("#tempwork_share_modal_id").modal('show');
+    // })
     
 </script>
 <script type="text/javascript">

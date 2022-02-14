@@ -289,6 +289,14 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid " placeholder="Designer Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  required>
                                 </div>
+                                 <div class="inputDiv d-none desinger_company_name2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid " placeholder="Designer Name" id="desinger" name="desinger" value="{{old('desinger')}}"  required>
+                                </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

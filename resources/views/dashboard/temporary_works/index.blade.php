@@ -196,7 +196,7 @@ border-radius: 8px;
 			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('users.index') }}" target="">Users</a>
 			@endif
 			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.index') }}" target="">Temporary Work Register</a>
-			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">Add New Temporary Work</a>
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">New Design Brief</a>
             <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('temporary_works.shared')}}" target="">Shared Temporary Works</a>
 		</div>
     </div>
@@ -233,7 +233,7 @@ border-radius: 8px;
                        <div class="row" style="display: contents;">
                             <form class="form-inline d-flex" style="width: 40%" method="get" action="{{route('tempwork.proj.search')}}" >
                                 <div class="col-md-9 col-sm-6" >
-                                   <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                   <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
                                        <option value="">Select Projects</option>
                                        @foreach($projects as $proj)
                                        <option value="{{$proj->id}}">{{$proj->name}}</option>
@@ -244,11 +244,14 @@ border-radius: 8px;
                                     <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
                                 </div>
                              </form>
-                            <div class="col-md-2 col-sm-7 text-center margintop"> <a style="color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
+                            <div class="col-md-2 col-sm-7 text-center showonclick margintop "> <a style="color:#fff !important; padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
                             </div>
-                            <div class="col-md-3  col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details viewdocument">View Documents</a> 
+                            <div class="col-md-3  col-sm-7 text-center showonclick margintop "><a style=" color:#fff !important;  padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="#" class="newDesignBtn btn project_details viewdocument">View Documents</a> 
                             </div>
-                            <div class="col-md-2 col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
+                            <div class="col-md-2 col-sm-7 text-center showonclick margintop "><a style=" color:#fff !important;  padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
+                            </div>
+
+                            <div class="col-md-2 col-sm-7 hideonclick text-center margintop"><a style=" color:#fff !important;  padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" id="adddocument" class="newDesignBtn btn document_data project_details">Documents & Data</a>
                             </div>
                         </div>
                     </div>
@@ -261,25 +264,25 @@ border-radius: 8px;
                 <div class="card-body pt-0">
                     <div class="row"> 
 
-                        <div class="col-md-6" >
+                        <div class="col-md-2" >
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
-                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:350px;min-width:220px;max-width: 500px !important;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief / Temporary Work</a>
+                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
                             
                         </div>
 
-                        <div class="col-md-4 offset-md-2">
+                        <div class="col-md-4 offset-md-6">
                              <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
                                 <div class="row">
                                       <div class="form-group  col-md-2">
 </div>
                                       <div class="form-group  col-md-6">
                                         <label  class="text-white">Search</label>
-                                        <input type="text" class="form-control" name="terms" required="required" />
+                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" required="required" />
                                       </div>
                                       <div class="col-md-4 mt-6">
-                                        <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                        <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
                                     </div>
                                 </div>
                             </form>
@@ -503,6 +506,12 @@ border-radius: 8px;
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script> -->
+<script>
+    $( document ).ready(function() {
+
+ $(".showonclick").hide();
+    })
+</script>
 <script src="{{asset('js/dropzone.js')}}"></script>
 
 <script type="text/javascript">
@@ -712,6 +721,11 @@ border-radius: 8px;
 };
 
 
-
+$(document).on('click', "#adddocument", function () {
+console.log("here");
+    $(".showonclick").show();
+    $(".hideonclick").hide();
+    
+})
 </script>
 @endsection

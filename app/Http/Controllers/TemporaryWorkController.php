@@ -90,10 +90,11 @@ class TemporaryWorkController extends Controller
     public function shared_temporarywork()
     {
         $user = auth()->user();
-        try {
+      #  try {
             if ($user->hasRole('admin')) {
                 $tempidds = DB::table('tempworkshares')->get();
                 $users = [];
+                $ids = [];
                 foreach ($tempidds as $u) {
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
@@ -101,6 +102,7 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
                 $user = User::select('id')->where('company_id', $user->id)->get();
+                $ids = [];
                 foreach ($user as $u) {
                     $uids[] = $u->id;
                 }
@@ -114,6 +116,7 @@ class TemporaryWorkController extends Controller
             } else {
                 $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();
                 $users = [];
+                $ids = [];
                 foreach ($tempidds as $u) {
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
@@ -123,10 +126,10 @@ class TemporaryWorkController extends Controller
             $scantempwork = 'sharedview';
             //work for datatable
             return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork'));
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     /**

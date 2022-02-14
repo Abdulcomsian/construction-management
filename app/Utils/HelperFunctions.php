@@ -58,15 +58,14 @@ class HelperFunctions
         }
         return $path;
     }
-    public static function Projectdocupath($user= null)
+    public static function Projectdocupath($user = null)
     {
-         if ($user) {
+        if ($user) {
             $path = 'uploads/proj-doc' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
         } else {
             $path  = 'uploads/proj-doc';
         }
         return $path;
-
     }
 
     public function check_date($desingdate, $array)
@@ -156,59 +155,47 @@ class HelperFunctions
 
     public static function getProjectid($tempid)
     {
-        $project=TemporaryWork::select('project_id')->find($tempid);
+        $project = TemporaryWork::select('project_id')->find($tempid);
         return $project->project_id;
     }
 
-    public static function sharetemwork($useremail,$condition,$tempid,$projectid,$commentsandother)
+    public static function sharetemwork($useremail, $condition, $tempid, $projectid, $commentsandother)
     {
-     //check use exist or not
-        $Userdata=User::where(['email'=>$useremail])->first();
-        if($Userdata)
-        {
-            if($condition=="all")
-            {
-                $tempworkidds=TemporaryWork::select('id')->where(['project_id'=>$projectid])->get();
+        //check use exist or not
+        $Userdata = User::where(['email' => $useremail])->first();
+        if ($Userdata) {
+            if ($condition == "all") {
+                $tempworkidds = TemporaryWork::select('id')->where(['project_id' => $projectid])->get();
 
-                for($i=0;$i<count($tempworkidds);$i++)
-                {
+                for ($i = 0; $i < count($tempworkidds); $i++) {
                     //check if already exist
-                    $check=Tempworkshare::where(['temporary_work_id'=>$tempworkidds[$i]->id,'user_id'=>$Userdata->id])->count();
-                    if($check<=0)
-                    {
-                      $model= new Tempworkshare();
-                      $model->temporary_work_id=$tempworkidds[$i]->id;
-                      $model->user_id=$Userdata->id;
-                      $model->save();
+                    $check = Tempworkshare::where(['temporary_work_id' => $tempworkidds[$i]->id, 'user_id' => $Userdata->id])->count();
+                    if ($check <= 0) {
+                        $model = new Tempworkshare();
+                        $model->temporary_work_id = $tempworkidds[$i]->id;
+                        $model->user_id = $Userdata->id;
+                        $model->save();
                     }
-                    
+                }
+            } else {
+                $check = Tempworkshare::where(['temporary_work_id' => $tempid, 'user_id' => $Userdata->id])->count();
+                if ($check <= 0) {
+                    $model = new Tempworkshare();
+                    $model->temporary_work_id = $tempid;
+                    $model->user_id = $Userdata->id;
+                    $model->save();
                 }
             }
-            else{
-                    $check=Tempworkshare::where(['temporary_work_id'=>$tempid,'user_id'=>$Userdata->id])->count();
-                    if($check<=0)
-                    {
-                     $model= new Tempworkshare();
-                     $model->temporary_work_id=$tempid;
-                     $model->user_id=$Userdata->id;
-                     $model->save();
-                    }
-            }
-        }
-        else{
+        } else {
             //send email to user
-            if($condition=="all")
-            {
-                $tempworkidds=TemporaryWork::select('id')->where(['project_id'=>$projectid])->get();
+            if ($condition == "all") {
+                $tempworkidds = TemporaryWork::select('id')->where(['project_id' => $projectid])->get();
                 //send email to user and send all tempwork ids u have shared
-                 Notification::route('mail',$useremail)->notify(new TempworkshareNotify($tempworkidds,$commentsandother));
-               
-            }
-            else{
+                Notification::route('mail', $useremail)->notify(new TempworkshareNotify($tempworkidds, $commentsandother));
+            } else {
                 //send email to suer current tempwork
-                 Notification::route('mail',$useremail)->notify(new TempworkshareNotify($tempid,$commentsandother));   
+                Notification::route('mail', $useremail)->notify(new TempworkshareNotify($tempid, $commentsandother));
             }
-
         }
     }
 }

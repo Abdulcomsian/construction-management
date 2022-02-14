@@ -29,7 +29,6 @@
                     <!--begin::Heading-->
                     <input type="hidden" id="sharetempid" name="tempid" value="">
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
                         <h1 class="mb-3">Share Temporary Work</h1>
@@ -50,11 +49,11 @@
                               </label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-4">
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" name="commentsandother"  id="flexCheckIndeterminate">
                               <label class="form-check-label" for="flexCheckIndeterminate">
-                                Share Comments And Other Files
+                                Share Comments And Emails
                               </label>
                             </div>
                         </div>

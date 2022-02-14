@@ -55,7 +55,6 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
-
                 $ids = [];
                 foreach ($users as $u) {
                     $ids[] = $u->id;
@@ -79,8 +78,6 @@ class TemporaryWorkController extends Controller
                     $projects = Project::with('company')->where('id', $user->id)->get();
                 }
             }
-
-
             //work for datatable
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
         } catch (\Exception $exception) {
@@ -103,7 +100,12 @@ class TemporaryWorkController extends Controller
                 }
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
-                $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();
+                $user = User::select('id')->where('company_id', $user->id)->get();
+                foreach ($user as $u) {
+                    $uids[] = $u->id;
+                }
+                $uids[] = $user->id;
+                $tempidds = DB::table('tempworkshares')->whereIn('user_id', $uids)->get();
                 foreach ($tempidds as $u) {
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
@@ -116,14 +118,11 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                if ($user->hasRole(['supervisor', 'scaffolder'])) {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
-                } else {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
-                }
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             }
+            $scantempwork = 'sharedview';
             //work for datatable
-            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users'));
+            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -711,6 +710,9 @@ class TemporaryWorkController extends Controller
                 if (isset($request->scanuser)) {
                     $button = '';
                 }
+                if (isset($request->shared)) {
+                    $button = '';
+                }
                 $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
@@ -744,6 +746,9 @@ class TemporaryWorkController extends Controller
                 }
                 $path = config('app.url');
                 if (isset($request->scanuser)) {
+                    $button = '';
+                }
+                if (isset($request->shared)) {
                     $button = '';
                 }
                 $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';

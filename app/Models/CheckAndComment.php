@@ -11,5 +11,6 @@ class CheckAndComment extends Model
     protected $casts = [
         'radio_checks' => 'array',
         'comments' => 'array',
+        'images' => 'array',
     ];
 }

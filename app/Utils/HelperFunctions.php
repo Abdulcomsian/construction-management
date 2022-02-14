@@ -6,6 +6,10 @@ namespace App\Utils;
 
 use Illuminate\Support\Facades\File;
 use App\Models\TemporaryWork;
+use App\Models\Tempworkshare;
+use App\Models\User;
+use App\Notifications\TempworkshareNotify;
+use Notification;
 
 class HelperFunctions
 {
@@ -148,5 +152,63 @@ class HelperFunctions
             file_put_contents($file, $image_base64);
         }
         return $image_name;
+    }
+
+    public static function getProjectid($tempid)
+    {
+        $project=TemporaryWork::select('project_id')->find($tempid);
+        return $project->project_id;
+    }
+
+    public static function sharetemwork($useremail,$condition,$tempid,$projectid,$commentsandother)
+    {
+     //check use exist or not
+        $Userdata=User::where(['email'=>$useremail])->first();
+        if($Userdata)
+        {
+            if($condition=="all")
+            {
+                $tempworkidds=TemporaryWork::select('id')->where(['project_id'=>$projectid])->get();
+
+                for($i=0;$i<count($tempworkidds);$i++)
+                {
+                    //check if already exist
+                    $check=Tempworkshare::where(['temporary_work_id'=>$tempworkidds[$i]->id,'user_id'=>$Userdata->id])->count();
+                    if($check<=0)
+                    {
+                      $model= new Tempworkshare();
+                      $model->temporary_work_id=$tempworkidds[$i]->id;
+                      $model->user_id=$Userdata->id;
+                      $model->save();
+                    }
+                    
+                }
+            }
+            else{
+                    $check=Tempworkshare::where(['temporary_work_id'=>$tempid,'user_id'=>$Userdata->id])->count();
+                    if($check<=0)
+                    {
+                     $model= new Tempworkshare();
+                     $model->temporary_work_id=$tempid;
+                     $model->user_id=$Userdata->id;
+                     $model->save();
+                    }
+            }
+        }
+        else{
+            //send email to user
+            if($condition=="all")
+            {
+                $tempworkidds=TemporaryWork::select('id')->where(['project_id'=>$projectid])->get();
+                //send email to user and send all tempwork ids u have shared
+                 Notification::route('mail',$useremail)->notify(new TempworkshareNotify($tempworkidds,$commentsandother));
+               
+            }
+            else{
+                //send email to suer current tempwork
+                 Notification::route('mail',$useremail)->notify(new TempworkshareNotify($tempid,$commentsandother));   
+            }
+
+        }
     }
 }

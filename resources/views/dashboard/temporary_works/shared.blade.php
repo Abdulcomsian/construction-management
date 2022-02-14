@@ -195,7 +195,7 @@ border-radius: 8px;
 			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
 			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('users.index') }}" target="">Users</a>
 			@endif
-			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.index') }}" target="">Temporary Work Register</a>
+			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.index') }}" target="">All Listings</a>
 			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">Add New Temporary Work</a>
             <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('temporary_works.shared')}}" target="">Shared Temporary Works</a>
 		</div>
@@ -225,32 +225,7 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title btns_resp" style="width: 100%"> 
-                       
-                    
-                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
-                    </div>
-                    <div class="card-title " style="width: 100%;    display: contents"> 
-                       <div class="row" style="display: contents;">
-                            <form class="form-inline d-flex" style="width: 40%" method="get" action="{{route('tempwork.proj.search')}}" >
-                                <div class="col-md-9 col-sm-6" >
-                                   <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
-                                       <option value="">Select Projects</option>
-                                       @foreach($projects as $proj)
-                                       <option value="{{$proj->id}}">{{$proj->name}}</option>
-                                       @endforeach
-                                   </select>
-                                </div>
-                                <div class="col-md-2 col-sm-7 text-center margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
-                                </div>
-                             </form>
-                            <div class="col-md-2 col-sm-7 text-center margintop"> <a style="color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
-                            </div>
-                            <div class="col-md-3  col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="#" class="newDesignBtn btn project_details viewdocument">View Documents</a> 
-                            </div>
-                            <div class="col-md-2 col-sm-7 text-center margintop"><a style=" color:#fff !important;    font-size: 16px;text-transform: uppercase;width: 100% !important;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
-                            </div>
-                        </div>
+                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Shared Temporary Works</h1>
                     </div>
                     <!--begin::Card toolbar-->
                     
@@ -267,22 +242,6 @@ border-radius: 8px;
                             @endif
                             <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:350px;min-width:220px;max-width: 500px !important;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief / Temporary Work</a>
                             
-                        </div>
-
-                        <div class="col-md-4 offset-md-2">
-                             <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
-                                <div class="row">
-                                      <div class="form-group  col-md-2">
-</div>
-                                      <div class="form-group  col-md-6">
-                                        <label  class="text-white">Search</label>
-                                        <input type="text" class="form-control" name="terms" required="required" />
-                                      </div>
-                                      <div class="col-md-4 mt-6">
-                                        <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <!--begin::Table-->
@@ -411,18 +370,7 @@ border-radius: 8px;
                                     <td>
                                         <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
-                                         @php 
-                                         $permitexpire=\App\Models\PermitLoad::where('temporary_work_id',$item->id)->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-
-                                         $scaffoldexpire=\App\Models\Scaffolding::where('temporary_work_id',$item->id)->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                         
-                                         $color="orange";
-                                         if($permitexpire>0 || $scaffoldexpire>0)
-                                         {
-                                            $color="red";
-                                         }
-                                         @endphp
-                                        <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>
                                         @endif
@@ -449,22 +397,23 @@ border-radius: 8px;
                                         @endif
                                     </td>
                                     <td>
-                                        @if(\Auth::user()->hasRole('admin'))
+                                         @if(\Auth::user()->hasRole('admin'))
                                         <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
                                         @endif
                                         <br>
-                                        @if(\Auth::user()->hasRole('admin'))
-                                            <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
-                                                @method('Delete')
-                                                @csrf
-                                                <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
-                                                    <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
-                                                 <i style="padding:3px;" class="fa fa-trash-alt"></i>
-                                                    <!--end::Svg Icon-->
-                                                </button>
-                                            </form>
+                                         @if(\Auth::user()->hasRole('admin'))
+                                        <form method="POST" action="{{route('temporary_works.sharedelete')}} " id="{{'form_' . $item->id}}">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$item->id}}">
+                                            <input type="hidden" name="user_id" value="{{$users[$loop->index]}}">
+                                            <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
+                                                <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
+                                             <i style="padding:3px;" class="fa fa-trash-alt"></i>
+                                                <!--end::Svg Icon-->
+                                            </button>
+                                        </form>
                                         @endif
-                                        @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                         @if(\Auth::user()->hasRole([['admin', 'company','user']]))
                                             <a  href="#" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
                                                 <i style="padding:3px;" class="fa fa-share-alt"></i>
                                             </a>
@@ -497,12 +446,11 @@ border-radius: 8px;
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load');
 @include('dashboard.modals.description');
-@include('dashboard.modals.project_documents');
 @include('dashboard.modals.tempwork_share');
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
 <script src="{{asset('js/dropzone.js')}}"></script>
 
 <script type="text/javascript">
@@ -652,7 +600,6 @@ border-radius: 8px;
             {
                $(".project_doc_form").hide();
                $("#project-documents").html(res);
-               $("#project-documents").show();
                $("#project_document_modal_id").modal('show');
             }
         });

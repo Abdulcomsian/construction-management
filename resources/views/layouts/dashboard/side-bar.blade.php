@@ -81,7 +81,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">All Listings</span>
+                                <span class="menu-title">Temporary Work Register</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -92,6 +92,7 @@
                                 <span class="menu-title">Add New Temporary Work</span>
                             </a>
                         </div>
+                        
                     </div>
                 </div>
             </div>

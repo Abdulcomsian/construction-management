@@ -57,6 +57,25 @@
                          <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+                                <span class="required">Document Type:</span>
+                            </label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                                <select name="type"  class="form-select form-select-lg form-select-solid"  data-placeholder="Select an option" data-allow-clear="true">
+                                       <option value="">Select Type</option>
+                                       <option value="Company policy">Company policy</option>
+                                       <option value="Appointment letters">Appointment letters</option>
+                                       <option value="Competency check">Competency check</option>
+                                       <option value="Competency certificate">Competency certificate</option>
+                                   </select>
+                                <!--end:Input-->
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                         <div class="col-md-12">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
                                 <span class="required">Document:</span>
                             </label>
                             <!--begin::Label-->

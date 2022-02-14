@@ -24,9 +24,10 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="kt_modal_new_target_form" class="form project_doc_form" action="{{ route('temporarywork.store.project.document') }}" method="post" enctype="multipart/form-data">
+                <form id="kt_modal_new_target_form" class="form project_doc_form" action="{{ route('tempwork.share') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Heading-->
+                    <input type="hidden" id="sharetempid" name="tempid" value="">
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <div class="mb-13 text-center">
@@ -35,18 +36,38 @@
                         <!--end::Title-->
                     </div>
                     <div class="row g-9 mb-8">
+                        <div class="col-md-12">
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="condition" id="flexRadioDefault1" value="current" checked>
+                              <label class="form-check-label" for="flexRadioDefault1">
+                               Share Current Temporary Work
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="condition" id="flexRadioDefault2" value="all">
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                Share Full Project Temporary Work
+                              </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                           <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="commentsandother"  id="flexCheckIndeterminate">
+                              <label class="form-check-label" for="flexCheckIndeterminate">
+                                Share Comments And Other Files
+                              </label>
+                            </div>
+                        </div>
                         <!--begin::Col-->
                         <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
-                                <span class="required">Select User:</span>
+                                <span class="required">Email:</span>
                             </label>
                             <!--begin::Label-->
                             <!--begin::Label-->
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                                <select name="projects"  class="form-select form-select-lg form-select-solid"  data-placeholder="Select an option" data-allow-clear="true">
-                                       <option value="">Select User</option>
-                                   </select>
+                               <input type="email" class="form-control" name="useremail" placeholder="Enter User Email" required>
                                 <!--end:Input-->
                             </div>
                             <!--begin::Label-->

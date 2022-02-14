@@ -29,7 +29,6 @@
                     <!--begin::Heading-->
                     <input type="hidden" id="sharetempid" name="tempid" value="">
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
                         <h1 class="mb-3">Share Temporary Work</h1>

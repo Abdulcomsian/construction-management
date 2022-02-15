@@ -200,8 +200,8 @@ background-color: #07d564 !important;
                                 @foreach($project_documents as $all)
                                 <tr class="text-start text-black-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <td>{{$all->id}}</td>
-                                    @php  $path = config('app.url');@endphp
-                                    <td><a href="{{$path}}{{$all->docuements}}">{{$all->docuements}}</a></td>
+                                    @php  echo $path = config('app.url');@endphp
+                                    <td><a href="{{$path}}/{{$all->docuements}}">{{$all->docuements}}</a></td>
                                     <td>{{$all->type}}</td>
                                     <td>{{$all->project->name}}</td>
                                     <td>{{$all->created_at}}</td>

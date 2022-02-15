@@ -75,7 +75,12 @@ class TemporaryWorkController extends Controller
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
                 } else {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('created_by', $user->id)->latest()->paginate(20);
-                    $projects = Project::with('company')->where('id', $user->id)->get();
+                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                    $ids = [];
+                    foreach ($project_idds as $id) {
+                        $ids[] = $id->project_id;
+                    }
+                    $projects = Project::with('company')->whereIn('id', $ids)->get();
                 }
             }
             //work for datatable

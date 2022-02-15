@@ -90,46 +90,46 @@ class TemporaryWorkController extends Controller
     public function shared_temporarywork()
     {
         $user = auth()->user();
-        #  try {
-        if ($user->hasRole('admin')) {
-            $tempidds = DB::table('tempworkshares')->get();
-            $users = [];
-            $ids = [];
-            foreach ($tempidds as $u) {
-                $ids[] = $u->temporary_work_id;
-                $users[] = $u->user_id;
+        try {
+            if ($user->hasRole('admin')) {
+                $tempidds = DB::table('tempworkshares')->get();
+                $users = [];
+                $ids = [];
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[] = $u->user_id;
+                }
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+            } elseif ($user->hasRole('company')) {
+                $user = User::select('id')->where('company_id', $user->id)->get();
+                $ids = [];
+                foreach ($user as $u) {
+                    $uids[] = $u->id;
+                }
+                $uids[] = $user->id;
+                $tempidds = DB::table('tempworkshares')->whereIn('user_id', $uids)->get();
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[] = $u->user_id;
+                }
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+            } else {
+                $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();
+                $users = [];
+                $ids = [];
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[] = $u->user_id;
+                }
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             }
-            $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
-        } elseif ($user->hasRole('company')) {
-            $user = User::select('id')->where('company_id', $user->id)->get();
-            $ids = [];
-            foreach ($user as $u) {
-                $uids[] = $u->id;
-            }
-            $uids[] = $user->id;
-            $tempidds = DB::table('tempworkshares')->whereIn('user_id', $uids)->get();
-            foreach ($tempidds as $u) {
-                $ids[] = $u->temporary_work_id;
-                $users[] = $u->user_id;
-            }
-            $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
-        } else {
-            $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();
-            $users = [];
-            $ids = [];
-            foreach ($tempidds as $u) {
-                $ids[] = $u->temporary_work_id;
-                $users[] = $u->user_id;
-            }
-            $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+            $scantempwork = 'sharedview';
+            //work for datatable
+            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
         }
-        $scantempwork = 'sharedview';
-        //work for datatable
-        return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork'));
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
     }
 
     /**

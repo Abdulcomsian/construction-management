@@ -71,7 +71,7 @@ class HelperFunctions
     public static function Projectdocupath($user = null)
     {
         if ($user) {
-            $path = 'uploads/proj-doc' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
+            $path = 'uploads/proj-doc/' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
         } else {
             $path  = 'uploads/proj-doc/';
         }

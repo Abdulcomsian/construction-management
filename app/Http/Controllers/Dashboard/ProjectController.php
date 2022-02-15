@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectQrCode;
+use App\Models\User;
 use App\Models\ProjectDocuments;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -294,7 +295,7 @@ class ProjectController extends Controller
             if ($user->hasRole('admin')) 
             {
                  $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
-                 $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
+                //  $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -303,23 +304,30 @@ class ProjectController extends Controller
                 }
                 $ids[] = $user->id;
                  $projects = Project::with('company')->whereIn('id', $ids)->get();
-                 $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
+                 //$projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
             } else {
                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                     $ids = [];
                     foreach ($project_idds as $id) {
                         $ids[] = $id->project_id;
                     }
-                     $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$ids)->get();
+                    $projects = Project::with('company')->whereIn('id', $ids)->get();
+                    // $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$ids)->get();
             }
 
-           $list='<table class="table table-hover"><thead><th>S-No</th><th>Documents</th><th>Document Type</th><th>Project Name</th><th>Create Date</th></thead><tbody>';
+           $list='<table class="table table-hover"><thead><th>S-No</th><th>Project Name</th></thead><tbody>';
             $path = config('app.url');
-           foreach($projectDocs as $docs)
+           foreach($projects as $docs)
            {
-            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="'. $path.'/'.$docs->docuements.'">'.$docs->docuements.'</a></td><td>'.$docs->type.'</td><td>'.$docs->project->name.'</td><td>'.$docs->created_at.'</td></tr>';
+            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="/project-document/'.$docs->id.'">'.$docs->name.'</a></td></tr>';
            }
            $list.='</tbody></table>';
            echo $list;
+    }
+
+    public function project_document($id)
+    {
+         $project_documents=ProjectDocuments::with('project')->where('project_id',$id)->paginate(20);
+        return view('dashboard.temporary_works.project_document',compact('project_documents'));
     }
 }

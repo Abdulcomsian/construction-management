@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
      //store project documents
      Route::post('temporarywork-store-project-documents',[ProjectController::class,'temporarywork_store_project_documents'])->name('temporarywork.store.project.document');
      Route::get('project-docs-get',[ProjectController::class,'project_docs_get'])->name('project.document.get');
+     Route::get('project-document/{id}',[ProjectController::class,'project_document'])->name('project-document');
      Route::post('tempwork-share',[TemporaryWorkController::class,'Tempwork_share'])->name('tempwork.share');
 });
 

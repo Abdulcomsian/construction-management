@@ -187,6 +187,7 @@ class HelperFunctions
                         $model->save();
                     }
                 }
+                Notification::route('mail', $Userdata->email)->notify(new TempworkshareNotify($tempworkidds, $commentsandother));
             } else {
                 $check = Tempworkshare::where(['temporary_work_id' => $tempid, 'user_id' => $Userdata->id])->count();
                 if ($check <= 0) {
@@ -195,6 +196,7 @@ class HelperFunctions
                     $model->user_id = $Userdata->id;
                     $model->save();
                 }
+                Notification::route('mail', $Userdata->email)->notify(new TempworkshareNotify($tempid, $commentsandother));
             }
         } else {
             //send email to user

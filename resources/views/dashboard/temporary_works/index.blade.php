@@ -157,7 +157,7 @@ border-radius: 8px;
 .topMenu a{
     color: #07d564 !important;
 }
-.sweet-alert{
+/*.sweet-alert{
             z-index:99999999999 !important;
         }
         .passionate{
@@ -175,7 +175,14 @@ border-radius: 8px;
                     display:block !important;
                 }
                 .project_details{width:250px !important;}
-            }
+            }*/
+
+            .modal-backdrop {
+    visibility: hidden !important;
+}
+.modal.in {
+    background-color: rgba(0,0,0,0.5);
+}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -606,6 +613,7 @@ border-radius: 8px;
                $("#permitloadbutton").addClass('d-flex').show();
                $("#permitbody").html(res);
                $(".temp_work_id").val(id);
+                $("#permit_modal_id").css('display','block');
                $("#permit_modal_id").modal('show');
             }
           });
@@ -625,6 +633,7 @@ border-radius: 8px;
                $("#permitheading").html('Permit To Unload');
                $("#permitloadbutton").removeClass('d-flex').hide();
                $("#permitbody").html(res);
+                $("#permit_modal_id").css('display','block');
                $("#permit_modal_id").modal('show');
             }
           });

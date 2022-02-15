@@ -272,7 +272,7 @@ class ProjectController extends Controller
     //store project documents
     public function temporarywork_store_project_documents(Request $request)
     {
-        try {
+      #  try {
                 $filePath = HelperFunctions::Projectdocupath();
                 $file = $request->file('file');
                 $document = HelperFunctions::saveFile(null, $file, $filePath);
@@ -283,10 +283,10 @@ class ProjectController extends Controller
                 $model->save();
                 toastSuccess('Document Saved successfully!');
                 return Redirect::back();
-            } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+          #  } catch (\Exception $exception) {
+         #   toastError('Something went wrong, try again!');
+         #   return Redirect::back();
+      #  }
     }
     //get proj doc
     public function project_docs_get(Request $request)

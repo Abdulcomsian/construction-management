@@ -315,11 +315,11 @@ class ProjectController extends Controller
                     // $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$ids)->get();
             }
 
-           $list='<table class="table table-hover"><thead><th>S-No</th><th>Project Name</th><th>Create Date</th></thead><tbody>';
+           $list='<table class="table table-hover"><thead><th>S-No</th><th>Project Name</th></thead><tbody>';
             $path = config('app.url');
            foreach($projects as $docs)
            {
-            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="/project-document/'.$docs->id.'">'.$docs->name.'</a></td><td>'.$docs->created_at.'</td></tr>';
+            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="/project-document/'.$docs->id.'">'.$docs->name.'</a></td></tr>';
            }
            $list.='</tbody></table>';
            echo $list;

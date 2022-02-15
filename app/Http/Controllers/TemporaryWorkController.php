@@ -63,23 +63,18 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
-                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
-                    $ids = [];
-                    foreach ($project_idds as $id) {
-                        $ids[] = $id->project_id;
-                    }
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereHas('project', function ($q) use ($ids) {
-                        $q->whereIn('id', $ids);
+                        $q->whereIn('project_id', $ids);
                     })->latest()->paginate(20);
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
                 } else {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('created_by', $user->id)->latest()->paginate(20);
-                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
-                    $ids = [];
-                    foreach ($project_idds as $id) {
-                        $ids[] = $id->project_id;
-                    }
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
                 }
             }
@@ -932,123 +927,123 @@ class TemporaryWorkController extends Controller
         //pdf work here
         Validations::storescaffolding($request);
         // try {
-            $check_radios = [];
-            foreach ($request->keys() as $key) {
-                if (Str::contains($key, 'radio')) {
-                    $data = null;
-                    $data = [
-                        $key => $request->$key
-                    ];
-                    $check_radios = array_merge($check_radios, $data);
-                    unset($request[$key]);
-                }
-            }
-            $check_comments = [];
-            foreach ($request->keys() as $key) {
-                if (Str::contains($key, 'comment')) {
-                    $data = null;
-                    $data = [
-                        $key => $request->$key
-                    ];
-                    $check_comments = array_merge($check_comments, $data);
-                    unset($request[$key]);
-                }
-            }
-
-            // dd($request->file('even_stable_image'));
-            $check_images = [];
-            foreach ($request->keys() as $key) {
-               
-                if (Str::contains($key, 'image')) {
-                    $data = null;
-                    $filePath = HelperFunctions::scaffoldImagePath();
-                    $file = $request->file($key);
-                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-                    $data = [
-                        $key => $imagename
-                    ];
-                    $check_images = array_merge($check_images, $data);
-                    unset($request[$key]);
-                }
-            }
-            // dd($check_images['ev en_stable_image']);
-            $all_inputs  = $request->only('temporary_work_id', 'project_id', 'drawing_no', 'type', 'twc_name', 'loadclass', 'permit_no', 'drawing_title', 'tws_name', 'ms_ra_no', 'location_temp_work', 'description_structure', 'equipment_materials', 'equipment_materials_desc', 'workmanship','workmanship_desc','drawings_design','drawings_design_desc','loading_limit','loading_limit_desc','inspected_by','job_title','company','Scaff_tag_signed','carry_out_inspection','signature','created_by');
-            
-            $image_name = '';
-            if ($request->signtype == 1) {
-                $all_inputs['signature'] = $request->namesign;
-            } else {
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name;
-                file_put_contents($file, $image_base64);
-                $all_inputs['signature'] = $image_name;
-            }
-
-            $all_inputs['created_by'] = auth()->user()->id;
-            $all_inputs['type'] = 'load';
-            //save data in scaffolign model
-            if (isset($request->type) && $request->type == "scaffoldunload") {
-                $all_inputs['status'] = 1;
-                Scaffolding::find($request->id)->update(['status' => 3]);
-            }
-            // dd($all_inputs);
-            $scaffolding = Scaffolding::create($all_inputs);
-            if ($scaffolding) {
-                $model = new CheckAndComment();
-                $model->radio_checks = $check_radios;
-                $model->comments = $check_comments;
-                $model->images = $check_images;
-                $model->scaffolding_id = $scaffolding->id;
-                $model->save();
-                //end
-                if ($request->no) {
-                    for ($i = 0; $i < count($request->no); $i++) {
-                        $model = new CommentsAction();
-                        $model->scaffolding_id = $scaffolding->id;
-                        $model->no = $request['no'][$i];
-                        $model->comments_actions = $request['desc_actions'][$i];
-                        $model->action_date = $request['action_date'][$i];
-                        $model->save();
-                    }
-                }
-
-                //work for images
-                $image_links = $this->scaffoldfiles($request, $scaffolding->id);
-
-                //pdf work here
-                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments , 'check_images' => $check_images]);
-                $path = public_path('pdf');
-                $filename = rand() . '.pdf';
-                $model = Scaffolding::find($scaffolding->id);
-                $model->ped_url = $filename;
-                $model->save();
-                $pdf->save($path . '/' . $filename);
-                $notify_admins_msg = [
-                    'greeting' => 'Scaffolding Pdf',
-                    'subject' => 'Scaffold PDF',
-                    'body' => [
-                        'text' => 'A Permit to load has been completed for the scaffolding  as per the attached document.',
-                        'filename' => $filename,
-                        'links' =>  '',
-                        'name' => 'scaffold',
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
+        $check_radios = [];
+        foreach ($request->keys() as $key) {
+            if (Str::contains($key, 'radio')) {
+                $data = null;
+                $data = [
+                    $key => $request->$key
                 ];
-
-                //mail send to admin here
-                #  Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
-                Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
-                # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
-                toastSuccess('Scaffolding Created Successfully');
-                return redirect()->route('temporary_works.index');
+                $check_radios = array_merge($check_radios, $data);
+                unset($request[$key]);
             }
+        }
+        $check_comments = [];
+        foreach ($request->keys() as $key) {
+            if (Str::contains($key, 'comment')) {
+                $data = null;
+                $data = [
+                    $key => $request->$key
+                ];
+                $check_comments = array_merge($check_comments, $data);
+                unset($request[$key]);
+            }
+        }
+
+        // dd($request->file('even_stable_image'));
+        $check_images = [];
+        foreach ($request->keys() as $key) {
+
+            if (Str::contains($key, 'image')) {
+                $data = null;
+                $filePath = HelperFunctions::scaffoldImagePath();
+                $file = $request->file($key);
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $data = [
+                    $key => $imagename
+                ];
+                $check_images = array_merge($check_images, $data);
+                unset($request[$key]);
+            }
+        }
+        // dd($check_images['ev en_stable_image']);
+        $all_inputs  = $request->only('temporary_work_id', 'project_id', 'drawing_no', 'type', 'twc_name', 'loadclass', 'permit_no', 'drawing_title', 'tws_name', 'ms_ra_no', 'location_temp_work', 'description_structure', 'equipment_materials', 'equipment_materials_desc', 'workmanship', 'workmanship_desc', 'drawings_design', 'drawings_design_desc', 'loading_limit', 'loading_limit_desc', 'inspected_by', 'job_title', 'company', 'Scaff_tag_signed', 'carry_out_inspection', 'signature', 'created_by');
+
+        $image_name = '';
+        if ($request->signtype == 1) {
+            $all_inputs['signature'] = $request->namesign;
+        } else {
+            $folderPath = public_path('temporary/signature/');
+            $image = explode(";base64,", $request->signed);
+            $image_type = explode("image/", $image[0]);
+            $image_type_png = $image_type[1];
+            $image_base64 = base64_decode($image[1]);
+            $image_name = uniqid() . '.' . $image_type_png;
+            $file = $folderPath . $image_name;
+            file_put_contents($file, $image_base64);
+            $all_inputs['signature'] = $image_name;
+        }
+
+        $all_inputs['created_by'] = auth()->user()->id;
+        $all_inputs['type'] = 'load';
+        //save data in scaffolign model
+        if (isset($request->type) && $request->type == "scaffoldunload") {
+            $all_inputs['status'] = 1;
+            Scaffolding::find($request->id)->update(['status' => 3]);
+        }
+        // dd($all_inputs);
+        $scaffolding = Scaffolding::create($all_inputs);
+        if ($scaffolding) {
+            $model = new CheckAndComment();
+            $model->radio_checks = $check_radios;
+            $model->comments = $check_comments;
+            $model->images = $check_images;
+            $model->scaffolding_id = $scaffolding->id;
+            $model->save();
+            //end
+            if ($request->no) {
+                for ($i = 0; $i < count($request->no); $i++) {
+                    $model = new CommentsAction();
+                    $model->scaffolding_id = $scaffolding->id;
+                    $model->no = $request['no'][$i];
+                    $model->comments_actions = $request['desc_actions'][$i];
+                    $model->action_date = $request['action_date'][$i];
+                    $model->save();
+                }
+            }
+
+            //work for images
+            $image_links = $this->scaffoldfiles($request, $scaffolding->id);
+
+            //pdf work here
+            $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments, 'check_images' => $check_images]);
+            $path = public_path('pdf');
+            $filename = rand() . '.pdf';
+            $model = Scaffolding::find($scaffolding->id);
+            $model->ped_url = $filename;
+            $model->save();
+            $pdf->save($path . '/' . $filename);
+            $notify_admins_msg = [
+                'greeting' => 'Scaffolding Pdf',
+                'subject' => 'Scaffold PDF',
+                'body' => [
+                    'text' => 'A Permit to load has been completed for the scaffolding  as per the attached document.',
+                    'filename' => $filename,
+                    'links' =>  '',
+                    'name' => 'scaffold',
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+                'action_text' => '',
+                'action_url' => '',
+            ];
+
+            //mail send to admin here
+            #  Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+            Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+            # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
+            toastSuccess('Scaffolding Created Successfully');
+            return redirect()->route('temporary_works.index');
+        }
         // } catch (\Exception $exception) {
         //     toastError('Something went wrong, try again!');
         //     return Redirect::back();

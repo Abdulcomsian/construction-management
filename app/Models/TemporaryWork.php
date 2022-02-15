@@ -38,4 +38,9 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(TemporayWorkImage::class);
     }
+
+    public function permitsunload() //this relation for open permit check in table
+    {
+        return $this->hasMany(PermitLoad::class)->where('status', '=', 3);
+    }
 }

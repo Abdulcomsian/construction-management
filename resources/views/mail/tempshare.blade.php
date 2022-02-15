@@ -47,10 +47,31 @@
                                                                         @endforeach
                                                                          </ul>
                                                                     @endif
+                                                                    @if(count($data->uploadfile)>0)
+                                                                    <h4>Design check cert</h4>
+                                                                        <ul>
+                                                                        @foreach($data->uploadfile as $file)
+                                                                         @if($file->file_type==2)
+                                                                            <li>
+                                                                            <a href="{{asset($file->file_name)}}">{{$file->file_name}}</a>
+                                                                            </li>
+                                                                         @endif
+                                                                        @endforeach
+                                                                         </ul>
+                                                                    @endif
                                                                     @if(count($data->permits)>0)
                                                                     <h4>Permits</h4>
                                                                         <ul>
                                                                         @foreach($data->permits as $permit)
+                                                                            <li>
+                                                                           <a href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
+                                                                        @endforeach
+                                                                         </ul>
+                                                                    @endif
+                                                                    @if(count($data->permits)>0)
+                                                                    <h4>Permits Unload</h4>
+                                                                        <ul>
+                                                                        @foreach($data->permitsunload as $permit)
                                                                             <li>
                                                                            <a href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
                                                                         @endforeach

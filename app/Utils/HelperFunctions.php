@@ -39,6 +39,16 @@ class HelperFunctions
         return $path;
     }
 
+    public static function scaffoldImagePath($user = null)
+    {
+        if ($user) {
+            $path = 'uploads/' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
+        } else {
+            $path  = 'uploads/scaffold_images/';
+        }
+        return $path;
+    }
+
     //tempory work uploaded image path
     public static function temporaryworkImagePath($user = null)
     {

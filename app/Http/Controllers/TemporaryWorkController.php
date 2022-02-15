@@ -926,7 +926,7 @@ class TemporaryWorkController extends Controller
     {
         //pdf work here
         Validations::storescaffolding($request);
-        try {
+        // try {
             $check_radios = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'radio')) {
@@ -949,7 +949,26 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date', 'images');
+
+            // dd($request->file('even_stable_image'));
+            $check_images = [];
+            foreach ($request->keys() as $key) {
+               
+                if (Str::contains($key, 'image')) {
+                    $data = null;
+                    $filePath = HelperFunctions::scaffoldImagePath();
+                    $file = $request->file($key);
+                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    $data = [
+                        $key => $imagename
+                    ];
+                    $check_images = array_merge($check_images, $data);
+                    unset($request[$key]);
+                }
+            }
+            // dd($check_images['ev en_stable_image']);
+            $all_inputs  = $request->only('temporary_work_id', 'project_id', 'drawing_no', 'type', 'twc_name', 'loadclass', 'permit_no', 'drawing_title', 'tws_name', 'ms_ra_no', 'location_temp_work', 'description_structure', 'equipment_materials', 'equipment_materials_desc', 'workmanship','workmanship_desc','drawings_design','drawings_design_desc','loading_limit','loading_limit_desc','inspected_by','job_title','company','Scaff_tag_signed','carry_out_inspection','signature','created_by');
+            
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
@@ -972,11 +991,13 @@ class TemporaryWorkController extends Controller
                 $all_inputs['status'] = 1;
                 Scaffolding::find($request->id)->update(['status' => 3]);
             }
+            // dd($all_inputs);
             $scaffolding = Scaffolding::create($all_inputs);
             if ($scaffolding) {
                 $model = new CheckAndComment();
                 $model->radio_checks = $check_radios;
                 $model->comments = $check_comments;
+                $model->images = $check_images;
                 $model->scaffolding_id = $scaffolding->id;
                 $model->save();
                 //end
@@ -995,7 +1016,7 @@ class TemporaryWorkController extends Controller
                 $image_links = $this->scaffoldfiles($request, $scaffolding->id);
 
                 //pdf work here
-                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments]);
+                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments , 'check_images' => $check_images]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = Scaffolding::find($scaffolding->id);
@@ -1023,10 +1044,10 @@ class TemporaryWorkController extends Controller
                 toastSuccess('Scaffolding Created Successfully');
                 return redirect()->route('temporary_works.index');
             }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     //save scaffold images

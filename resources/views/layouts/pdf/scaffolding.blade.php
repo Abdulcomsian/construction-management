@@ -250,6 +250,11 @@
                        {{ $check_comments['even_stable_comment'] ?? ''}}</span>
                     @endif
                   </td>
+                  <td>
+                    @if( $check_images['even_stable_image'] ?? '')
+                       <img src="{{ $check_images['even_stable_image'] ?? ''}}" width="40" height="40px" />
+                    @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -272,6 +277,11 @@
                      <span style="font-size: 12px;">
                        {{ $check_comments['base_Plates_comment'] ?? ''}}
                     </span>
+                    @endif
+                  </td>
+                  <td>
+                    @if($check_images['base_Plates_image'] ?? '')
+                    <img src="{{ $check_images['base_Plates_image'] ?? ''}}" width="40" height="40px" />
                     @endif
                   </td>
                </tr>
@@ -297,6 +307,11 @@
                      <span style="font-size: 12px;">{{$check_comments['sole_boards_comment'] ?? ''}}</span>
                      @endif
                   </td>
+                  <td>
+                    @if($check_images['sole_boards_image'] ?? '')
+                     <img src="{{ $check_images['sole_boards_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -319,6 +334,11 @@
                   <td>
                      @if($check_radios['undermined_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['undermined_comment'] ?? ''}}</span>
+                     @endif
+                  </td>
+                  <td>
+                     @if($check_images['undermined_image'] ?? '')
+                     <img src="{{ $check_images['undermined_image'] ?? ''}}" width="40" height="40px" />
                      @endif
                   </td>
                </tr>
@@ -346,6 +366,11 @@
                      <span style="font-size: 12px;">{{$check_comments['Plumb_comment'] ?? ''}}</span>
                      @endif
                   </td>
+                  <td>
+                     @if($check_images['Plumb_image'] ?? '')
+                        <img src="{{ $check_images['Plumb_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -368,6 +393,11 @@
                   <td>
                      @if($check_radios['staggered_joints_radio']=="2")
                      <span style="font-size: 12px;">{{$check_comments['staggered_joints_comment'] ?? ''}}</span>
+                     @endif
+                  </td>
+                  <td>
+                     @if($check_images['staggered_joints_image'] ?? '')
+                        <img src="{{ $check_images['staggered_joints_image'] ?? ''}}" width="40" height="40px" />
                      @endif
                   </td>
                </tr>
@@ -394,6 +424,11 @@
                      <span style="font-size: 12px;">{{$check_comments['wrong_spacing_comment'] ?? ''}}</span>
                      @endif
                   </td>
+                  <td>
+                     @if($check_images['wrong_spacing_image'] ?? '')
+                     <img src="{{ $check_images['wrong_spacing_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -418,16 +453,21 @@
                   <span style="font-size: 12px;">{{$check_comments['damaged_comment'] ?? ''}}</span>
                      @endif
                   </td>
+                  <td>
+                  @if($check_images['damaged_image'] ?? '')
+                     <img src="{{ $check_images['damaged_image'] ?? ''}}" width="40" height="40px" />
+                  @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:5%;background:gray;color:white; " rowspan="4">Boards</td>
-                  <td style="width:30%;background:gray;color:white;">
+                  <!-- <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
                         <b style="font-size: 12px;">Damaged?
                         </b>
                      </label>
-                  </td>
-                  <td style="width:10%;">
+                  </td> -->
+                  <!-- <td style="width:10%;">
                      <span style="font-size: 12px;">
                         @if($check_radios['trap_boards_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -437,13 +477,18 @@
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
                         @endif
                      </span>
-                  </td>
-                  <td>
+                  </td> -->
+                  <!-- <td>
                   @if($check_radios['trap_boards_radio']=="2")
                   <span style="font-size: 12px;">{{$check_comments['trap_boards_comment'] ?? ''}}</span>
                      @endif
                   </td>
-               </tr>
+                  <td>
+                  @if($check_images['trap_boards_image'] ?? '')
+                  <img src="{{ $check_images['trap_boards_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
+               </tr> -->
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
@@ -464,6 +509,11 @@
                   </td>
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['trap_boards_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['trap_boards_image'] ?? '')
+                     <img src="{{ $check_images['trap_boards_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -487,6 +537,11 @@
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['incomplete_boarding_comment'] ?? ''}}</span>
                   </td>
+                  <td>
+                     @if($check_images['incomplete_boarding_image'] ?? '')
+                     <img src="{{ $check_images['incomplete_boarding_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -508,6 +563,11 @@
                   </td>
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['supports_ties_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['supports_ties_image'] ?? '')
+                     <img src="{{ $check_images['supports_ties_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -531,6 +591,11 @@
                   </td>
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['insufficient_length_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['insufficient_length_image'] ?? '')
+                     <img src="{{ $check_images['insufficient_length_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -556,6 +621,11 @@
                   <span style="font-size: 12px;">{{$check_comments['missing_loose_comment'] ?? ''}}</span>
                      @endif
                   </td>
+                  <td>
+                     @if($check_images['missing_loose_image'] ?? '')
+                     <img src="{{ $check_images['missing_loose_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -577,6 +647,11 @@
                   </td>
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['wrong_fittings_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['wrong_fittings_image'] ?? '')
+                     <img src="{{ $check_images['wrong_fittings_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -601,6 +676,11 @@
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['not_level_comment'] ?? ''}}</span>
                   </td>
+                  <td>
+                     @if($check_images['not_level_image'] ?? '')
+                     <img src="{{ $check_images['not_level_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -623,6 +703,11 @@
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['joined_same_bays_comment'] ?? ''}}</span>
                   </td>
+                  <td>
+                     @if($check_images['joined_same_bays_image'] ?? '')
+                     <img src="{{ $check_images['joined_same_bays_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -644,6 +729,11 @@
                   </td>
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['loose_damaged_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['loose_damaged_image'] ?? '')  
+                     <img src="{{ $check_images['loose_damaged_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -670,6 +760,11 @@
                   <span style="font-size: 12px;">{{$check_comments['wrong_height_comment'] ?? ''}}</span>
                      @endif
                   </td>
+                  <td>
+                  @if($check_images['wrong_height_image'] ?? '')
+                  <img src="{{ $check_images['wrong_height_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -692,6 +787,11 @@
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
                   </td>
+                  <td>
+                     @if($check_images['some_missing_image'] ?? '')
+                     <img src="{{ $check_images['some_missing_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -702,9 +802,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['partially_removed_radio']=="1")
+                        @if($check_radios['GuardRails_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['partially_removed_radio']=="2")
+                        @elseif($check_radios['GuardRails_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -712,7 +812,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">{{$check_comments['GuardRails_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['GuardRails_image'] ?? '')
+                     <img src="{{ $check_images['GuardRails_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
 
@@ -738,7 +843,12 @@
                   </td>
                   <td>
                   @if($check_radios['coupling_wrongfitting_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['wrong_height_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">{{$check_comments['coupling_wrongfitting_comment'] ?? ''}}</span>
+                     @endif
+                  </td>
+                  <td>
+                  @if($check_images['coupling_wrongfitting_image'] ?? '')
+                  <img src="{{ $check_images['coupling_wrongfitting_image'] ?? ''}}" width="40" height="40px" />
                      @endif
                   </td>
                </tr>
@@ -751,9 +861,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['some_missing_radio']=="1")
+                        @if($check_radios['coupling_somemissing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['some_missing_radio']=="2")
+                        @elseif($check_radios['coupling_somemissing_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -761,7 +871,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">{{$check_comments['coupling_somemissing_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if( $check_images['coupling_somemissing_image'] ?? '')
+                     <img src="{{ $check_images['coupling_somemissing_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -773,9 +888,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['partially_removed_radio']=="1")
+                        @if($check_radios['coupling_loosedamaged_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['partially_removed_radio']=="2")
+                        @elseif($check_radios['coupling_loosedamaged_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -783,7 +898,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">{{$check_comments['coupling_loosedamaged_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['coupling_loosedamaged_image'] ?? '')
+                     <img src="{{ $check_images['coupling_loosedamaged_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
 
@@ -809,7 +929,12 @@
                   </td>
                   <td>
                   @if($check_radios['bracing_wrongfitting_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['wrong_height_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">{{$check_comments['bracing_wrongfitting_comment'] ?? ''}}</span>
+                     @endif
+                  </td>
+                  <td>
+                  @if($check_images['bracing_wrongfitting_image'] ?? '')
+                  <img src="{{ $check_images['bracing_wrongfitting_image'] ?? ''}}" width="40" height="40px" />
                      @endif
                   </td>
                </tr>
@@ -822,9 +947,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['some_missing_radio']=="1")
+                        @if($check_radios['bracing_somemissing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['some_missing_radio']=="2")
+                        @elseif($check_radios['bracing_somemissing_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -832,7 +957,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">{{$check_comments['bracing_somemissing_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['bracing_somemissing_image'] ?? '')
+                     <img src="{{ $check_images['bracing_somemissing_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -844,9 +974,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['partially_removed_radio']=="1")
+                        @if($check_radios['bracing_loosedamaged_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['partially_removed_radio']=="2")
+                        @elseif($check_radios['bracing_loosedamaged_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -854,7 +984,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">{{$check_comments['bracing_loosedamaged_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['bracing_loosedamaged_image'] ?? '')
+                     <img src="{{ $check_images['bracing_loosedamaged_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
 
@@ -882,6 +1017,11 @@
                   <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
                      @endif
                   </td>
+                  <td>
+                  @if($check_images['partially_removed_image'] ?? '')
+                  <img src="{{ $check_images['partially_removed_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td>
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
@@ -892,9 +1032,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['some_missing_radio']=="1")
+                        @if($check_radios['debrings_somemissing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['some_missing_radio']=="2")
+                        @elseif($check_radios['debrings_somemissing_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -902,7 +1042,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">{{$check_comments['debrings_somemissing_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['debrings_somemissing_image'] ?? '')
+                     <img src="{{ $check_images['debrings_somemissing_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
                <tr>
@@ -914,9 +1059,9 @@
                   </td>
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
-                        @if($check_radios['partially_removed_radio']=="1")
+                        @if($check_radios['loose_damaged_broken_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
-                        @elseif($check_radios['partially_removed_radio']=="2")
+                        @elseif($check_radios['loose_damaged_broken_radio']=="2")
                         <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
@@ -924,7 +1069,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">{{$check_comments['loose_damaged_broken_comment'] ?? ''}}</span>
+                  </td>
+                  <td>
+                     @if($check_images['loose_damaged_broken_image'] ?? '')
+                     <img src="{{ $check_images['loose_damaged_broken_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
                   </td>
                </tr>
 
@@ -978,6 +1128,11 @@
                   <td>
                      <span style="font-size: 12px;">{{$check_comments['other_comment'] ?? ''}}</span>
                   </td>
+                  <!-- <td>
+                     @if($check_images['other_image'] ?? '')
+                     <img src="{{ $check_images['other_image'] ?? ''}}" width="40" height="40px" />
+                     @endif
+                  </td> -->
                </tr> -->
             </tbody>
          </table>
@@ -1043,6 +1198,31 @@
             </tr>
          </tbody>
       </table>
+      @if(isset($check_images))
+        <div class="tableDiv paddingTable col-md-6" style="margin: 20px 0px;">
+            <table>
+                <tbody>
+                   @php
+                     $i =1;
+                   @endphp
+                @foreach($check_images as $image)
+                  @if(($i % 2) == 1) 
+                     <tr>
+                        <td>
+                           <img src="{{$image}}" width="40%" height="40%" alt="img"/>
+                        </td>
+                     @else
+                     <td>
+                        <img src="{{$image}}" width="40%" height="40%" alt="img"/>
+                     </td>
+                  </tr>
+                  @endif
+                  @php $i++;@endphp
+                  @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
        @if(isset($image_links))
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
@@ -1056,5 +1236,6 @@
             </table>
         </div>
         @endif
+       
    </div>
 </page>

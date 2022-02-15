@@ -1614,9 +1614,9 @@
                                 <div style="margin-left: 70px; ">
                                     <textarea class="d-none  form-control" name="other_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <!-- <div style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="other_image" id="other_image">
-                                </div>
+                                </div> -->
                             </div>
                             <div class="container">
                             <!-- <table style="width:100%">

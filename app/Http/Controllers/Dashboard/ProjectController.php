@@ -319,7 +319,7 @@ class ProjectController extends Controller
             $path = config('app.url');
            foreach($projects as $docs)
            {
-            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="/project-document/'.$docs->id.'">'.$docs->name.'</a></td></tr>';
+            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="'.url('project-document',$docs->id).'">'.$docs->name.'</a></td></tr>';
            }
            $list.='</tbody></table>';
            echo $list;

@@ -89,7 +89,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Add New Temporary Work</span>
+                                <span class="menu-title">New Design Brief</span>
                             </a>
                         </div>
                     </div>

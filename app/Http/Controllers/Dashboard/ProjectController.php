@@ -319,7 +319,7 @@ class ProjectController extends Controller
 
     public function project_document($id)
     {
-         $project_documents=ProjectDocuments::with('project')->where('project_id',$id)->paginate(20);
+         $project_documents=ProjectDocuments::with('project')->where('project_id',$id)->latest()->paginate(20);
         return view('dashboard.temporary_works.project_document',compact('project_documents'));
     }
 }

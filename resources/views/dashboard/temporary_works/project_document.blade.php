@@ -199,8 +199,7 @@ background-color: #07d564 !important;
                             <tbody>
                                 @foreach($project_documents as $all)
                                 <tr class="text-start text-black-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <td>{{$all->id}}</td>
-                                    @php  echo $path = config('app.url');@endphp
+                                    <td>{{$loop->index+1}}</td>
                                     <td><a href="{{$path}}/{{$all->docuements}}">{{$all->docuements}}</a></td>
                                     <td>{{$all->type}}</td>
                                     <td>{{$all->project->name}}</td>

@@ -37,7 +37,7 @@ use App\Exports\TemporyWorkExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
-
+use Auth;
 
 class TemporaryWorkController extends Controller
 {
@@ -90,7 +90,7 @@ class TemporaryWorkController extends Controller
     public function shared_temporarywork()
     {
         $user = auth()->user();
-        try {
+       try {
             if ($user->hasRole('admin')) {
                 $tempidds = DB::table('tempworkshares')->get();
                 $users = [];
@@ -106,7 +106,7 @@ class TemporaryWorkController extends Controller
                 foreach ($user as $u) {
                     $uids[] = $u->id;
                 }
-                $uids[] = $user->id;
+                $uids[] = Auth::user()->id;
                 $tempidds = DB::table('tempworkshares')->whereIn('user_id', $uids)->get();
                 foreach ($tempidds as $u) {
                     $ids[] = $u->temporary_work_id;

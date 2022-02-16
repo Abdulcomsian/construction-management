@@ -99,7 +99,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             } elseif ($user->hasRole('company')) {
                 $user = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -112,7 +112,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             } else {
                 $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();
                 $users = [];
@@ -121,11 +121,11 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             }
-            $scantempwork = 'sharedview';
+            //dd($temporary_works);
             //work for datatable
-            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork'));
+            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

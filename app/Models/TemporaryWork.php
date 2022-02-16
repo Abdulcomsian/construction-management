@@ -43,4 +43,9 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(PermitLoad::class)->where('status', '=', 3);
     }
+
+    public function tempshare()
+    {
+        return $this->hasOne(Tempworkshare::class);
+    }
 }

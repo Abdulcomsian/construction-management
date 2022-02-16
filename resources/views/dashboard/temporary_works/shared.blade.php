@@ -299,10 +299,10 @@ border-radius: 8px;
                                     <td style="width:90px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
                                         <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
-                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-show="@if($item->tempshare->comments_email==1){{'show'}}@else{{'hide'}}@endif" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
                                         <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
-                                       <h3 class="cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
+                                       <h3 class="@if($item->tempshare->comments_email==1){{'uploadfile'}}@endif  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
                                       
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -441,7 +441,7 @@ border-radius: 8px;
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script> -->
 <script src="{{asset('js/dropzone.js')}}"></script>
 
 <script type="text/javascript">
@@ -456,6 +456,15 @@ border-radius: 8px;
     }
 };
 </script>
+<script>
+   
+    $(".uploadfile").on('click',function(){
+        $("#tempworkid").val($(this).attr('data-id'));
+        $("#type").val($(this).attr('data-type'));
+        $("#upload_file_id").modal('show');
+
+    })
+</script>
 <script type="text/javascript">
     $(".addtwname").on('click',function(){
         $("#temp_work_idd").val($(this).attr('data-id'));
@@ -467,6 +476,7 @@ border-radius: 8px;
     $(".addcomment").on('click',function(){
       $("#temp_work_id").val($(this).attr('data-id'));
       var temporary_work_id=$(this).attr('data-id');
+      var showhide=$(this).attr('data-show');
       var userid={{\Auth::user()->id}}
        $("#commenttable").html('');
       $.ajax({
@@ -476,6 +486,16 @@ border-radius: 8px;
         success:function(res)
         {
            $("#commenttable").html(res);
+           console.log(showhide);
+           if(showhide=='show')
+           {
+            console.log("show");
+            $(".comments_form").show();
+           }
+           else{
+            console.log("hide");
+                $(".comments_form").hide();
+           }
            $("#comment_modal_id").modal('show');
         }
       });

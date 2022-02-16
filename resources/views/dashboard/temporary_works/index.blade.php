@@ -273,7 +273,8 @@ border-radius: 8px;
 
                         <div class="col-md-2 text-center" >
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
-                             <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
+                             @php $path = config('app.url');@endphp
+                             <img class="img img-thumbnail profileimg" src="{{$path.\auth()->user()->image}}" width="150px" height="150px">
                             @endif
                             <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
                             

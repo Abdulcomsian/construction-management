@@ -184,6 +184,11 @@ class HelperFunctions
                         $model = new Tempworkshare();
                         $model->temporary_work_id = $tempworkidds[$i]->id;
                         $model->user_id = $Userdata->id;
+                        if($commentsandother)
+                        {
+                            $model->comments_email=1;
+                        }
+                        
                         $model->save();
                     }
                 }
@@ -194,6 +199,10 @@ class HelperFunctions
                     $model = new Tempworkshare();
                     $model->temporary_work_id = $tempid;
                     $model->user_id = $Userdata->id;
+                     if($commentsandother)
+                      {
+                        $model->comments_email=1;
+                       }
                     $model->save();
                 }
                 Notification::route('mail', $Userdata->email)->notify(new TempworkshareNotify($tempid, $commentsandother));

@@ -212,7 +212,7 @@ input:focus {
 .aside .aside-logo,
 .aside-menu .menu-item.here>.menu-link,
 .aside-menu .menu-item.show>.menu-link {
-    background-color: transparent;
+    background-color: #f2f1f1;
 }
 
 .header-fixed .header {

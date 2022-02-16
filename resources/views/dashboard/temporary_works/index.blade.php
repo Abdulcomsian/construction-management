@@ -247,8 +247,8 @@ border-radius: 8px;
                                        @endforeach
                                    </select>
                                 </div>
-                                <div class="col-md-2 col-sm-7 text-center margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                <div class="col-md-2 col-sm-7 margintop">
+                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
                                 </div>
                              </form>
                             <div class="col-md-2 col-sm-7 text-center showonclick margintop "> <a style="color:#fff !important; padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
@@ -271,11 +271,11 @@ border-radius: 8px;
                 <div class="card-body pt-0">
                     <div class="row"> 
 
-                        <div class="col-md-2" >
+                        <div class="col-md-2 text-center" >
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
-                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
+                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
                             
                         </div>
 
@@ -288,7 +288,7 @@ border-radius: 8px;
                                         <label  class="text-white">Search</label>
                                         <input type="text" style="    padding: 0px;" class="form-control" name="terms" required="required" />
                                       </div>
-                                      <div class="col-md-4 mt-6">
+                                      <div class="col-md-4 mt-6 text-center">
                                         <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
                                     </div>
                                 </div>

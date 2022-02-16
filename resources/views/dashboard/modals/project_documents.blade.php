@@ -68,6 +68,7 @@
                                        <option value="Appointment letters">Appointment letters</option>
                                        <option value="Competency check">Competency check</option>
                                        <option value="Competency certificate">Competency certificate</option>
+                                        <option value="Other">Other</option>
                                    </select>
                                 <!--end:Input-->
                             </div>

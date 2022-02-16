@@ -297,14 +297,7 @@ class ProjectController extends Controller
                  $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 //  $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
             } elseif ($user->hasRole('company')) {
-                $users = User::select('id')->where('company_id', $user->id)->get();
-                $ids = [];
-                foreach ($users as $u) {
-                    $ids[] = $u->id;
-                }
-                $ids[] = $user->id;
-                 $projects = Project::with('company')->whereIn('id', $ids)->get();
-                 //$projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$projects)->get();
+                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                     $ids = [];
@@ -312,7 +305,6 @@ class ProjectController extends Controller
                         $ids[] = $id->project_id;
                     }
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
-                    // $projectDocs=ProjectDocuments::with('project')->whereIn('project_id',$ids)->get();
             }
 
            $list='<table class="table table-hover"><thead><th>S-No</th><th>Project Name</th></thead><tbody>';

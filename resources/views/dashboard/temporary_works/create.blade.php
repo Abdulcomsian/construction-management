@@ -130,7 +130,8 @@ height: 72px;
         .list_top{display:inline !important;}
      }
         @media only screen and (max-width: 470px) {
-            .list_top{margin-top:20px;}
+            .list_top{margin-top:20px;display:block !important;}
+            .newDesignBtn{margin-top:20px; margin-bottom:10px;}
             .inputDiv label{font-size:11px !important;}
     }
     canvas{width:270px;height:110px;}

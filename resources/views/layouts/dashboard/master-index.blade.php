@@ -114,6 +114,13 @@ License: -->
     </script>
     <script type="text/javascript">
          $('.input-images').imageUploader();
+         $('.menuBtn').click(function(){
+             if($('.mobileView').css("display")=='block'){
+                $('.mobileView').css("display", 'none')
+             } else{
+                $('.mobileView').css("display","block")
+             }
+         })
     </script>
 @include('layouts.dashboard.scripts')
 @toastr_js

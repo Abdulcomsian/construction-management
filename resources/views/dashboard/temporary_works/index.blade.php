@@ -454,11 +454,11 @@ border-radius: 8px;
                                     </td>
                                     <td>
                                         @php
-                                        $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
+                                        <!-- $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first(); -->
                                         @endphp
-                                        @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
-                                        <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
-                                        @endif
+                                        <!-- @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.''))) -->
+                                        <!-- <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px"> -->
+                                        <!-- @endif -->
                                     </td>
                                     <td>
                                         @if(\Auth::user()->hasRole('admin'))

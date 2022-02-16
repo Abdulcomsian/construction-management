@@ -124,8 +124,9 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
             }
             //dd($temporary_works);
+            $scantempwork = 'sharedview';
             //work for datatable
-            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users'));
+            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

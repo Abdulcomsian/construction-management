@@ -39,6 +39,16 @@ class HelperFunctions
         return $path;
     }
 
+    public static function scaffoldImagePath($user = null)
+    {
+        if ($user) {
+            $path = 'uploads/' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
+        } else {
+            $path  = 'uploads/scaffold_images/';
+        }
+        return $path;
+    }
+
     //tempory work uploaded image path
     public static function temporaryworkImagePath($user = null)
     {
@@ -61,9 +71,9 @@ class HelperFunctions
     public static function Projectdocupath($user = null)
     {
         if ($user) {
-            $path = 'uploads/proj-doc' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
+            $path = 'uploads/proj-doc/' . strtolower(str_replace(' ', '_', trim($user->name))) . '-id-' . $user->id . '/profile_images/';
         } else {
-            $path  = 'uploads/proj-doc';
+            $path  = 'uploads/proj-doc/';
         }
         return $path;
     }
@@ -177,6 +187,7 @@ class HelperFunctions
                         $model->save();
                     }
                 }
+                Notification::route('mail', $Userdata->email)->notify(new TempworkshareNotify($tempworkidds, $commentsandother));
             } else {
                 $check = Tempworkshare::where(['temporary_work_id' => $tempid, 'user_id' => $Userdata->id])->count();
                 if ($check <= 0) {
@@ -185,6 +196,7 @@ class HelperFunctions
                     $model->user_id = $Userdata->id;
                     $model->save();
                 }
+                Notification::route('mail', $Userdata->email)->notify(new TempworkshareNotify($tempid, $commentsandother));
             }
         } else {
             //send email to user

@@ -26,44 +26,65 @@
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                     <h3>Temporary Works have shared with you</h3>
                                                                     @foreach($details as $key => $data)
-                                                                     <a href="{{asset('pdf'.'/'.$data->ped_url)}}">Design Breif {{$data->twc_id_no}} </a><br>
+                                                                    <a href="{{asset('pdf'.'/'.$data->ped_url)}}">Design Breif {{$data->twc_id_no}} </a><br>
                                                                     @if(count($data->comments)>0)
-                                                                        <h4>Comments</h4>
-                                                                        <ul>
+                                                                    <h4>Comments</h4>
+                                                                    <ul>
                                                                         @foreach($data->comments as $comments)
-                                                                         <li>{{$comments->comment}}</li>
+                                                                        <li>{{$comments->comment}}</li>
                                                                         @endforeach
-                                                                         </ul>
+                                                                    </ul>
                                                                     @endif
                                                                     @if(count($data->uploadfile)>0)
                                                                     <h4>Drawing And Designs</h4>
-                                                                        <ul>
+                                                                    <ul>
                                                                         @foreach($data->uploadfile as $file)
-                                                                         @if($file->file_type==1)
-                                                                            <li>
+                                                                        @if($file->file_type==1)
+                                                                        <li>
                                                                             <a href="{{asset($file->file_name)}}">{{$file->file_name}}</a>
-                                                                            </li>
-                                                                         @endif
+                                                                        </li>
+                                                                        @endif
                                                                         @endforeach
-                                                                         </ul>
+                                                                    </ul>
+                                                                    @endif
+                                                                    @if(count($data->uploadfile)>0)
+                                                                    <h4>Design check cert</h4>
+                                                                    <ul>
+                                                                        @foreach($data->uploadfile as $file)
+                                                                        @if($file->file_type==2)
+                                                                        <li>
+                                                                            <a href="{{asset($file->file_name)}}">{{$file->file_name}}</a>
+                                                                        </li>
+                                                                        @endif
+                                                                        @endforeach
+                                                                    </ul>
                                                                     @endif
                                                                     @if(count($data->permits)>0)
                                                                     <h4>Permits</h4>
-                                                                        <ul>
+                                                                    <ul>
                                                                         @foreach($data->permits as $permit)
-                                                                            <li>
-                                                                           <a href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
-                                                                        @endforeach
-                                                                         </ul>
+                                                                        <li>
+                                                                            <a href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
+                                                                            @endforeach
+                                                                    </ul>
+                                                                    @endif
+                                                                    @if(count($data->permitsunload)>0)
+                                                                    <h4>Permits Unload</h4>
+                                                                    <ul>
+                                                                        @foreach($data->permitsunload as $permit)
+                                                                        <li>
+                                                                            <a href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
+                                                                            @endforeach
+                                                                    </ul>
                                                                     @endif
                                                                     @if(count($data->scaffold)>0)
                                                                     <h4>Scaffold</h4>
-                                                                        <ul>
+                                                                    <ul>
                                                                         @foreach($data->scaffold as $scaffold)
-                                                                            <li>
-                                                                           <a href="{{asset('pdf'.'/'.$scaffold->ped_url)}}">{{$scaffold->ped_url}}</a>
-                                                                        @endforeach
-                                                                         </ul>
+                                                                        <li>
+                                                                            <a href="{{asset('pdf'.'/'.$scaffold->ped_url)}}">{{$scaffold->ped_url}}</a>
+                                                                            @endforeach
+                                                                    </ul>
                                                                     @endif
                                                                     <hr>
                                                                     @endforeach

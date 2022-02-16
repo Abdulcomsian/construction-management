@@ -15,7 +15,7 @@ class AddDesignCompanyToTemporaryWorksTable extends Migration
     {
         Schema::table('temporary_works', function (Blueprint $table) {
             $table->string('desinger_company_name2')->nullable();
-            $table->string('desinger_company_email2')->nullable();
+            $table->string('desinger')->nullable();
         });
     }
 

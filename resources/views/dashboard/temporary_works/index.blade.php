@@ -157,7 +157,7 @@ border-radius: 8px;
 .topMenu a{
     color: #07d564 !important;
 }
-.sweet-alert{
+/*.sweet-alert{
             z-index:99999999999 !important;
         }
         .passionate{
@@ -175,7 +175,14 @@ border-radius: 8px;
                     display:block !important;
                 }
                 .project_details{width:250px !important;}
-            }
+            }*/
+
+            .modal-backdrop {
+    visibility: hidden !important;
+}
+.modal.in {
+    background-color: rgba(0,0,0,0.5);
+}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -240,8 +247,8 @@ border-radius: 8px;
                                        @endforeach
                                    </select>
                                 </div>
-                                <div class="col-md-2 col-sm-7 text-center margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                <div class="col-md-2 col-sm-7 margintop">
+                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
                                 </div>
                              </form>
                             <div class="col-md-2 col-sm-7 text-center showonclick margintop "> <a style="color:#fff !important; padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
@@ -264,11 +271,11 @@ border-radius: 8px;
                 <div class="card-body pt-0">
                     <div class="row"> 
 
-                        <div class="col-md-2" >
+                        <div class="col-md-2 text-center" >
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
-                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
+                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
                             
                         </div>
 
@@ -281,7 +288,7 @@ border-radius: 8px;
                                         <label  class="text-white">Search</label>
                                         <input type="text" style="    padding: 0px;" class="form-control" name="terms" required="required" />
                                       </div>
-                                      <div class="col-md-4 mt-6">
+                                      <div class="col-md-4 mt-6 text-center">
                                         <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
                                     </div>
                                 </div>
@@ -415,9 +422,9 @@ border-radius: 8px;
                                         <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                          @php 
-                                         $permitexpire=\App\Models\PermitLoad::where('temporary_work_id',$item->id)->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                         $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
 
-                                         $scaffoldexpire=\App\Models\Scaffolding::where('temporary_work_id',$item->id)->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                         $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                          
                                          $color="orange";
                                          if($permitexpire>0 || $scaffoldexpire>0)
@@ -606,6 +613,7 @@ border-radius: 8px;
                $("#permitloadbutton").addClass('d-flex').show();
                $("#permitbody").html(res);
                $(".temp_work_id").val(id);
+                $("#permit_modal_id").css('display','block');
                $("#permit_modal_id").modal('show');
             }
           });
@@ -625,6 +633,7 @@ border-radius: 8px;
                $("#permitheading").html('Permit To Unload');
                $("#permitloadbutton").removeClass('d-flex').hide();
                $("#permitbody").html(res);
+                $("#permit_modal_id").css('display','block');
                $("#permit_modal_id").modal('show');
             }
           });

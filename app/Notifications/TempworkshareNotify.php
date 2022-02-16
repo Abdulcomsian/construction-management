@@ -19,10 +19,10 @@ class TempworkshareNotify extends Notification
      *
      * @return void
      */
-    public function __construct($data,$check)
+    public function __construct($data, $check)
     {
-         $this->data = $data;
-         $this->check= $check;
+        $this->data = $data;
+        $this->check = $check;
     }
 
     /**
@@ -44,14 +44,12 @@ class TempworkshareNotify extends Notification
      */
     public function toMail($notifiable)
     {
-         if(is_object($this->data) && count($this->data)>0)
-         {
-           $tempworkdetails=TemporaryWork::with('comments','uploadfile','permits','scaffold')->select('id','ped_url','twc_id_no')->whereIn('id',$this->data)->get();
-         }
-         else{
-             $tempworkdetails=TemporaryWork::with('comments','uploadfile','permits','scaffold')->select('id','ped_url','twc_id_no')->where('id',$this->data)->get();
-         }
-         return (new MailMessage)
+        if (is_object($this->data) && count($this->data) > 0) {
+            $tempworkdetails = TemporaryWork::with('comments', 'uploadfile', 'permits', 'scaffold', 'permitsunload')->select('id', 'ped_url', 'twc_id_no')->whereIn('id', $this->data)->get();
+        } else {
+            $tempworkdetails = TemporaryWork::with('comments', 'uploadfile', 'permits', 'scaffold', 'permitsunload')->select('id', 'ped_url', 'twc_id_no')->where('id', $this->data)->get();
+        }
+        return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Temporary Work Share Notifications')
             ->view('mail.tempshare', ['details' => $tempworkdetails]);

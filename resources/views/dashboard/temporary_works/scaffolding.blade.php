@@ -475,6 +475,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none form-control" name="even_stable_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="even_stable_image" id="even_stable_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -510,6 +513,9 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="base_Plates_comment" rows="2" cols="90"></textarea>
+                                </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="base_Plates_image" id="base_Plates_image">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -548,6 +554,10 @@
 
                                     <textarea class="d-none  form-control" name="sole_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="sole_boards_image" id="sole_boards_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -583,6 +593,10 @@
                                 <div style="margin-left: 10px; text-align:center;">
 
                                     <textarea class="d-none  form-control" name="undermined_comment" rows="2" cols="90"></textarea>
+                                </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="undermined_image" id="undermined_image">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -626,6 +640,10 @@
 
                                     <textarea class="d-none  form-control" name="Plumb_comment" rows="2" cols="90"></textarea>
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="Plumb_image" id="Plumb_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -660,6 +678,10 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="staggered_joints_comment" rows="2" cols="90"></textarea>
+                                </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="staggered_joints_image" id="staggered_joints_image">
                                 </div>
                             </div>
 
@@ -697,6 +719,10 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
+                                </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="wrong_spacing_image" id="wrong_spacing_image">
                                 </div>
 
 
@@ -738,6 +764,10 @@
                                     <textarea class="d-none  form-control" name="damaged_comment" rows="2" cols="90"></textarea>
 
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="damaged_image" id="damaged_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
@@ -777,9 +807,11 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
                                     <textarea class="d-none  form-control" name="trap_boards_comment" rows="2" cols="90"></textarea>
+                                </div>
 
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="trap_boards_image" id="trap_boards_image">
                                 </div>
                             </div>
 
@@ -818,6 +850,10 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="incomplete_boarding_image" id="incomplete_boarding_image">
+                                </div>
                             </div>
 
                             <div class="d-flex inputDiv">
@@ -854,6 +890,10 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="supports_ties_comment" rows="2" cols="90"></textarea>
+                                </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="supports_ties_image" id="supports_ties_image">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -894,9 +934,11 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
                                     <textarea class="d-none  form-control" name="insufficient_length_comment" rows="2" cols="90"></textarea>
+                                </div>
 
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="insufficient_length_image" id="insufficient_length_image">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -936,9 +978,11 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
                                     <textarea class="d-none  form-control" name="missing_loose_comment" rows="2" cols="90"></textarea>
+                                </div>
 
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="missing_loose_image" id="missing_loose_image">
                                 </div>
                             </div>
 
@@ -975,8 +1019,11 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
                                     <textarea class="d-none  form-control" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
+                                </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="wrong_fittings_image" id="wrong_fittings_image">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1015,6 +1062,10 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="not_level_comment" rows="2" cols="90"></textarea>
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="not_level_image" id="not_level_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1046,6 +1097,10 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="joined_same_bays_image" id="joined_same_bays_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1076,6 +1131,11 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="loose_damaged_comment" rows="2" cols="90"></textarea>
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="loose_damaged_image" id="loose_damaged_image">
+                                </div>
+
                             </div>
                             <div class="d-flex inputDiv">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
@@ -1117,6 +1177,11 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="wrong_height_comment" rows="2" cols="90"></textarea>
                                 </div>
+
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="wrong_height_image" id="wrong_height_image">
+                                </div>
+
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1149,6 +1214,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="some_missing_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="some_missing_image" id="some_missing_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1180,6 +1248,9 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="GuardRails_comment" rows="2" cols="90"></textarea>
+                                </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="GuardRails_image" id="GuardRails_image">
                                 </div>
                             </div>
                             <!-- coupling & tiles -->
@@ -1219,6 +1290,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="coupling_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="coupling_wrongfitting_image" id="coupling_wrongfitting_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1247,6 +1321,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="coupling_somemissing_image" id="coupling_somemissing_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1274,6 +1351,9 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="coupling_loosedamaged_image" id="coupling_loosedamaged_image">
                                 </div>
                             </div>
 
@@ -1314,6 +1394,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="bracing_wrongfitting_image" id="bracing_wrongfitting_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1342,6 +1425,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none  form-control" name="bracing_somemissing_image" id="bracing_somemissing_image">
+                                </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
@@ -1369,6 +1455,9 @@
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="bracing_loosedamaged_image" id="bracing_loosedamaged_image">
                                 </div>
                             </div>
 
@@ -1415,6 +1504,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="partially_removed_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="partially_removed_image" id="partially_removed_image">
+                                </div>
 
 
                             </div>
@@ -1453,6 +1545,9 @@
                                 <div style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="debrings_somemissing_image" id="debrings_somemissing_image">
+                                </div>
 
 
                             </div>
@@ -1481,8 +1576,10 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-left: 10px; text-align:center;">
-
                                     <textarea class="d-none  form-control" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
+                                </div>
+                                <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="loose_damaged_broken_image" id="loose_damaged_broken_image">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -1517,8 +1614,11 @@
                                 <div style="margin-left: 70px; ">
                                     <textarea class="d-none  form-control" name="other_comment" rows="2" cols="90"></textarea>
                                 </div>
+                                <!-- <div style="margin-left: 10px; text-align:center;">
+                                    <input type="file" class="d-none form-control" name="other_image" id="other_image">
+                                </div> -->
                             </div>
-                            <div class="contain<input type=" text" name="" class="form-control" />
+                            <div class="container">
                             <!-- <table style="width:100%">
 
                                 <tr>

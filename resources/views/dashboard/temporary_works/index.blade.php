@@ -463,7 +463,7 @@ border-radius: 8px;
                                         <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
                                         @endif
                                         <br>
-                                        @if(\Auth::user()->hasRole('admin'))
+                                        @if(\Auth::user()->hasRole([['admin', 'company']]))
                                             <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
                                                 @method('Delete')
                                                 @csrf

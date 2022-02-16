@@ -192,9 +192,9 @@ border-radius: 8px;
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
 <div class="topMenu" style="padding-top:0px;">
-<div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
+<!-- <div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
 		<div class="d-flex align-items-center justify-content-center flex-wrap px-5 py-5 px-md-10 py-md-9">
-			<!--begin::Menu-->
+			
 			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
 			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
 			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>
@@ -206,7 +206,7 @@ border-radius: 8px;
 			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">New Design Brief</a>
             <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('temporary_works.shared')}}" target="">Shared Temporary Works</a>
 		</div>
-    </div>
+    </div> -->
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
@@ -237,10 +237,66 @@ border-radius: 8px;
                     <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
                     </div>
                     <div class="card-title " style="width: 100%;    display: contents"> 
-                       <div class="row" style="display: contents;">
+                        <div class="formDiv">
+                            <div class="form">
+                                <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}" >
+                                    <div class="col-10" >
+                                    <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
+                                        <option value="">Select Projects</option>
+                                        @foreach($projects as $proj)
+                                        <option value="{{$proj->id}}">{{$proj->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-7 margintop">
+                                        <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="button desktopView">
+                                <a style="color:#fff !important; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
+                                <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
+                                <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
+                                <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
+                            </div>
+                            <div class="menuBtn">
+                                <span class="fa fa-bars"></span>
+                            </div>
+                        </div>
+                        <div class="mobileView">
+                            <a style="color:#fff !important; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
+                            <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
+                            <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
+                            <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
+
+
+                            <div class="row">
+                                <div class="col-12">
+                                    @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
+                                    <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
+                                    @endif
+                                    <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
+                                </div>
+                                <div class="col-12">
+                                <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
+                                <div class="row">
+                                      <div class="form-group  col-md-8">
+                                        <label  class="text-white">Search</label>
+                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" required="required" />
+                                      </div>
+                                      <div class="col-md-4 mt-6 text-center">
+                                        <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                    </div>
+                                </div>
+                            </form>
+                                </div>
+                            </div>
+                        </div>
+                       <!-- <div class="row" style="display: contents;">
                             <form class="form-inline d-flex" style="width: 40%" method="get" action="{{route('tempwork.proj.search')}}" >
                                 <div class="col-md-9 col-sm-6" >
                                    <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
+                                       
                                        <option value="">Select Projects</option>
                                        @foreach($projects as $proj)
                                        <option value="{{$proj->id}}">{{$proj->name}}</option>
@@ -260,7 +316,7 @@ border-radius: 8px;
 
                             <div class="col-md-2 col-sm-7 hideonclick text-center margintop"><a style=" color:#fff !important;  padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" id="adddocument" class="newDesignBtn btn document_data project_details">Documents & Data</a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <!--begin::Card toolbar-->
                     
@@ -269,9 +325,9 @@ border-radius: 8px;
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <div class="row"> 
+                    <div class="row desktopView"> 
 
-                        <div class="col-md-2 text-center" >
+                        <div class="col-md-2" >
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              @php $path = config('app.url');@endphp
                              <img class="img img-thumbnail profileimg" src="{{$path.\auth()->user()->image}}" width="150px" height="150px">
@@ -285,11 +341,11 @@ border-radius: 8px;
                                 <div class="row">
                                       <div class="form-group  col-md-2">
 </div>
-                                      <div class="form-group  col-md-6">
+                                      <div class="form-group  col-md-8">
                                         <label  class="text-white">Search</label>
                                         <input type="text" style="    padding: 0px;" class="form-control" name="terms" required="required" />
                                       </div>
-                                      <div class="col-md-4 mt-6 text-center">
+                                      <div class="col-md-2 mt-6 text-center">
                                         <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
                                     </div>
                                 </div>

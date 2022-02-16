@@ -283,3 +283,85 @@ input:focus {
   #design_requirement_text::-ms-input-placeholder { /* Microsoft Edge */
     color: #fff;
   }
+  #kt_header_nav, #kt_header_nav .header-menu {
+      width: 100%;
+  }
+  #kt_header_nav .header-menu .menu{
+      display: block;
+  }
+  .header .header-menu .menu>.menu-item{
+      
+    width: 100%;
+    max-width: 70%;
+    margin: auto;
+    margin-right: auto !important;
+    padding: 10px 0px;
+    justify-content: center;
+    margin-left: 18%;
+
+  }
+  .menu-item .menu-link{
+      display: grid;
+    
+  }
+  .header .header-menu .menu>.menu-item a{
+    color: #07d564 !important;
+}
+.formDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.formDiv .newDesignBtn{
+    margin-left: 0px !important;
+}
+.menuBtn{
+    display: none;
+}
+.mobileView{
+    display: none;
+    width: 100%;
+    text-align: end;
+    margin: 10px 0px;
+}
+.mobileView a{
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1500px) {
+    .header .header-menu .menu>.menu-item {
+      max-width: 100%;
+      margin-left: 0px;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .newDesignBtn{
+        margin-left: 0px !important;
+        font-size: 14px !important;
+        width: 150px !important;
+    }
+  }
+  @media screen and (max-width: 990px) {
+      .formDiv .form{
+          width: 100%;
+      }
+      .formDiv .form button{
+        padding: 10px !important;
+        margin: -6px 0px 0px 10px !important;
+      }
+    .menu-item {
+        display: grid !important;
+    }
+    .menu-item a{
+        text-align: left;
+    }
+    .drawer.drawer-on{
+        z-index: 9999999999999999;
+    }
+    .menuBtn{
+        display: block;
+    }
+    .desktopView{
+        display: none;
+    }
+  }

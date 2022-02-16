@@ -332,12 +332,13 @@ border-radius: 8px;
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
                                 @forelse($temporary_works as $item)
+                              
                                 <tr>
                                     <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     @if(\Auth::user()->hasRole('admin'))
                                     <td>{{ $item->company ?: '-' }}</td>
                                     @endif
-                                    <td>{{ $item->project->name ?: '-' }}</td>
+                                    <td>{{ $item->project->name ?? '' }}</td>
                                     <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                         <hr style="margin: 5px;;color:red;border:1px solid red">

@@ -78,7 +78,6 @@ class TemporaryWorkController extends Controller
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
                 }
             }
-            dd($temporary_works);
             //work for datatable
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
         } catch (\Exception $exception) {

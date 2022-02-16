@@ -197,6 +197,7 @@ background-color: #07d564 !important;
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody>
+                                @php $path = config('app.url'); @endphp
                                 @foreach($project_documents as $all)
                                 <tr class="text-start text-black-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <td>{{$loop->index+1}}</td>

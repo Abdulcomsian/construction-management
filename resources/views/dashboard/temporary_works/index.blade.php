@@ -563,10 +563,10 @@ border-radius: 8px;
 @include('dashboard.modals.tw_name')
 @include('dashboard.modals.comments')
 @include('dashboard.modals.datemodal')
-@include('dashboard.modals.permit_to_load');
-@include('dashboard.modals.description');
-@include('dashboard.modals.project_documents');
-@include('dashboard.modals.tempwork_share');
+@include('dashboard.modals.permit_to_load')
+@include('dashboard.modals.description')
+@include('dashboard.modals.project_documents')
+@include('dashboard.modals.tempwork_share')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')

@@ -1086,7 +1086,7 @@ class TemporaryWorkController extends Controller
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
-                $projects = Project::with('company')->whereIn('id', $ids)->get();
+                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
                 if ($user->hasRole(['supervisor', 'scaffolder'])) {
                     $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();

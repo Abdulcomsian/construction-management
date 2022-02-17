@@ -183,6 +183,7 @@ border-radius: 8px;
 .modal.in {
     background-color: rgba(0,0,0,0.5);
 }
+.topMenu, #kt_content_container, .card>.card-body, .card>.card-header{padding:0 1rem !important;}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -208,19 +209,19 @@ border-radius: 8px;
 		</div>
     </div> -->
     <!--begin::Toolbar-->
-    <div class="toolbar" id="kt_toolbar">
+    <!-- <div class="toolbar" id="kt_toolbar"> -->
         <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!-- <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack"> -->
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
+            <!-- <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;"> -->
                 <!--begin::Title-->
                 
                 <!--end::Title-->
-            </div>
+            <!-- </div> -->
             <!--end::Page title-->
-        </div>
+        <!-- </div> -->
         <!--end::Container-->
-    </div>
+    <!-- </div> -->
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -258,6 +259,7 @@ border-radius: 8px;
                                 <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
                                 <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
                                 <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
+                                <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;width:35px !important;" id="crossdoc" class="showonclick newDesignBtn btn  project_details">x</a>
                             </div>
                             <div class="menuBtn">
                                 <span class="fa fa-bars"></span>
@@ -282,7 +284,7 @@ border-radius: 8px;
                                 <div class="row">
                                       <div class="form-group  col-md-8">
                                         <label  class="text-white">Search</label>
-                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" required="required" />
+                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
                                       </div>
                                       <div class="col-md-4 mt-6 text-center">
                                         <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
@@ -343,7 +345,7 @@ border-radius: 8px;
 </div>
                                       <div class="form-group  col-md-8">
                                         <label  class="text-white">Search</label>
-                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" required="required" />
+                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
                                       </div>
                                       <div class="col-md-2 mt-6 text-center">
                                         <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
@@ -794,5 +796,12 @@ console.log("here");
     $(".hideonclick").hide();
     
 })
+$(document).on('click', "#crossdoc", function () {
+console.log("here");
+    $(".showonclick").hide();
+    $(".hideonclick").show();
+    
+})
+
 </script>
 @endsection

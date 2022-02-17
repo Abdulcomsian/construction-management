@@ -135,7 +135,8 @@ height: 72px;
             .inputDiv label{font-size:11px !important;}
     }
     canvas{width:270px;height:110px;}
-    .inputDiv  #design_required_by_date{color:#fff;}
+    /* .inputDiv  #design_required_by_date{color:#fff;} */
+    .form-control.form-control-solid:focus{color:#000 !important;}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -172,8 +173,8 @@ height: 72px;
                     <!--begin::Card title-->
                     <div class="card-title list_top">
                         <h2 style="display: inline-block;">Design Brief</h2>
-                        <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
-                        <a style="width: 190px; text-align:center;float: right;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Existing Design Brief</a>
+                        <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a> -->
+                        <a style="width: 170px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Existing Design Brief</a>
                         
                         
                     </div>
@@ -565,8 +566,8 @@ height: 72px;
 
 
     $('#design_required_by_date').change(function() {
-        $('#design_required_by_date').css("background-color", "#f5f8fa ");
-        $('#design_required_by_date').css("color", "#000");
+        $('#design_required_by_date').css("background-color", "#eee ");
+        $('#design_required_by_date').css({"color": "#000"});
     });
     $('#designer_company_name').change(function() {
         $('#designer_company_name').css("background-color", "#f5f8fa ");

@@ -176,6 +176,7 @@ border-radius: 8px;
                 }
                 .project_details{width:250px !important;}
             }
+            .topMenu, #kt_content_container, .card>.card-body, .card>.card-header{padding:0 1rem !important;}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -185,9 +186,9 @@ border-radius: 8px;
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
 <div class="topMenu" style="padding-top:0px;">
-<div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
+<!-- <div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
 		<div class="d-flex align-items-center justify-content-center flex-wrap px-5 py-5 px-md-10 py-md-9">
-			<!--begin::Menu-->
+		
 			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
 			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
 			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>
@@ -199,21 +200,21 @@ border-radius: 8px;
 			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">New Design Brief</a>
             <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('temporary_works.shared')}}" target="">Shared Temporary Works</a>
 		</div>
-    </div>
+    </div> -->
     <!--begin::Toolbar-->
-    <div class="toolbar" id="kt_toolbar">
+    <!-- <div class="toolbar" id="kt_toolbar"> -->
         <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!-- <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack"> -->
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
+            <!-- <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;"> -->
                 <!--begin::Title-->
                 
                 <!--end::Title-->
-            </div>
+            <!-- </div> -->
             <!--end::Page title-->
-        </div>
+        <!-- </div> -->
         <!--end::Container-->
-    </div>
+    <!-- </div> -->
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">

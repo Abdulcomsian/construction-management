@@ -1088,19 +1088,19 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('created_by', $ids)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
                  $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
-                if ($user->hasRole(['supervisor', 'scaffolder'])) {
-                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                     $ids = [];
                     foreach ($project_idds as $id) {
                         $ids[] = $id->project_id;
                     }
+                if ($user->hasRole(['supervisor', 'scaffolder'])) {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereHas('project', function ($q) use ($ids) {
                         $q->whereIn('id', $ids);
                     })->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
                 } else {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
-                    $projects = Project::with('company')->where('id', $user->id)->get();
+                    $projects = Project::with('company')->whereIn('id', $ids)->get();
                 }
             }
 

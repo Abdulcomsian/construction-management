@@ -68,15 +68,10 @@ class TemporaryWorkController extends Controller
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
                 }
-                if ($user->hasRole(['supervisor', 'scaffolder'])) {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereHas('project', function ($q) use ($ids) {
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereHas('project', function ($q) use ($ids) {
                         $q->whereIn('project_id', $ids);
                     })->latest()->paginate(20);
-                    $projects = Project::with('company')->whereIn('id', $ids)->get();
-                } else {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('created_by', $user->id)->latest()->paginate(20);
-                    $projects = Project::with('company')->whereIn('id', $ids)->get();
-                }
+                $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
             //work for datatable
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
@@ -927,7 +922,7 @@ class TemporaryWorkController extends Controller
     {
         //pdf work here
         Validations::storescaffolding($request);
-        // try {
+        try {
         $check_radios = [];
         foreach ($request->keys() as $key) {
             if (Str::contains($key, 'radio')) {
@@ -1045,10 +1040,10 @@ class TemporaryWorkController extends Controller
             toastSuccess('Scaffolding Created Successfully');
             return redirect()->route('temporary_works.index');
         }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     //save scaffold images
@@ -1093,15 +1088,13 @@ class TemporaryWorkController extends Controller
                     foreach ($project_idds as $id) {
                         $ids[] = $id->project_id;
                     }
-                if ($user->hasRole(['supervisor', 'scaffolder'])) {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereHas('project', function ($q) use ($ids) {
                         $q->whereIn('id', $ids);
                     })->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
-                } else {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
-                    $projects = Project::with('company')->whereIn('id', $ids)->get();
-                }
+                     
+                     //coordinator query
+                    // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
             }
 
             //work for datatable
@@ -1136,13 +1129,8 @@ class TemporaryWorkController extends Controller
                     foreach ($project_idds as $id) {
                         $ids[] = $id->project_id;
                     }
-                if ($user->hasRole(['supervisor', 'scaffolder'])) {
                     $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
                     $projects = Project::with('company')->whereIn('id',$ids)->get();
-                } else {
-                    $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('created_by', $user->id)->latest()->paginate(20);
-                    $projects = Project::with('company')->whereIn('id',$ids)->get();
-                }
             }
 
             //work for datatable

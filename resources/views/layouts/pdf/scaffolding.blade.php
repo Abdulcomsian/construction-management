@@ -13,6 +13,9 @@
    .paddingTable td {
       padding: 10px;
    }
+   .paddingTable2 td {
+      padding: 5px 10px;
+   }
 </style>
 <page pageset="old">
    <div style="padding: 0px; width: 100%; max-width: 70%; margin: auto;">
@@ -223,7 +226,7 @@
          
          </table>
          </div> -->
-      <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+      <div class="tableDiv paddingTable2" style="margin: 20px 0px;">
          <table>
             <tbody>
                <tr>
@@ -996,19 +999,19 @@
                <tr>
                   <td style="width:5%;background:gray;color:white; " rowspan="3">Debris Netting</td>
                   <td style="width:30%;background:gray;color:white;">
-                     <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                     <label style="border: 1px solid black; height: auto; font-size: 14px; padding: 0 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
                         <b style="font-size: 12px;"> Wrong fittings?
                         </b>
                      </label>
                   </td>
                   <td style="width:10%;">
-                     <span style="font-size: 12px;">
+                     <span style="font-size: 12px;"> 
                         @if($check_radios['partially_removed_radio']=="1")
-                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
+                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
                         @elseif($check_radios['partially_removed_radio']=="2")
-                        <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
+                        <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
-                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
+                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
                         @endif
                      </span>
                   </td>
@@ -1025,7 +1028,7 @@
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
-                     <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                     <label style="border: 1px solid black; height: auto; font-size: 14px; padding: 0 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
                         <b style="font-size: 12px;"> Some missing?
                         </b>
                      </label>
@@ -1033,11 +1036,11 @@
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
                         @if($check_radios['debrings_somemissing_radio']=="1")
-                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
+                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
                         @elseif($check_radios['debrings_somemissing_radio']=="2")
-                        <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
+                        <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
-                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
+                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
                         @endif
                      </span>
                   </td>
@@ -1052,7 +1055,7 @@
                </tr>
                <tr>
                   <td style="width:30%;background:gray;color:white;">
-                     <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                     <label style="border: 1px solid black; height: auto; font-size: 14px; padding: 0 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
                         <b style="font-size: 12px;">Loose/ damaged or broken?
                         </b>
                      </label>
@@ -1060,11 +1063,11 @@
                   <td style="width:10%;">
                      <span style="font-size: 12px;">
                         @if($check_radios['loose_damaged_broken_radio']=="1")
-                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
+                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
                         @elseif($check_radios['loose_damaged_broken_radio']=="2")
-                        <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
+                        <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
-                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
+                        <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;">N/A</button>
                         @endif
                      </span>
                   </td>
@@ -1073,7 +1076,7 @@
                   </td>
                   <td>
                      @if($check_images['loose_damaged_broken_image'] ?? '')
-                     <img src="{{ $check_images['loose_damaged_broken_image'] ?? ''}}" width="40" height="40px" />
+                     <img src="{{ $check_images['loose_damaged_broken_image'] ?? ''}}" width="40" height="auto" />
                      @endif
                   </td>
                </tr>
@@ -1106,8 +1109,8 @@
                   -->
                <tr>
                   <td colspan="2" style="width:30%;background:gray;color:white;">
-                     <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;"> OTHER?Any further actions necessary?
+                     <label style="border: 1px solid black; height: auto; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
+                        <b style="font-size: 12px;"> OTHER? Any further actions necessary?
                         </b>
                      </label>
                   </td>
@@ -1141,7 +1144,7 @@
    <!-- old work below  -->
 
    <!-- new work of -->
-   <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+   <div class="tableDiv paddingTable" style="margin: 5px 0px;">
       <table>
          <tbody>
             <tr>
@@ -1190,10 +1193,10 @@
             </tr>
             <tr>
                <td style="width:30%;background:gray;color:white;">
-                  <label for="" style="float: left;width: 400px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Signature</b></label>
+                  <label for="" style="float: left;width: 400px; height: auto; font-size: 14px; padding: 0 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Signature</b></label>
                </td>
                <td colspan="3" style="font-size:12px;">
-                  @if($data['signtype']=='1'){{ucwords($data['namesign'])}}@else<img src="temporary/signature/{{$image_name}}" width="auto" height="120px" />@endif
+                  @if($data['signtype']=='1'){{ucwords($data['namesign'])}}@else<img src="temporary/signature/{{$image_name}}" width="auto" height="100px" />@endif
                </td>
             </tr>
          </tbody>

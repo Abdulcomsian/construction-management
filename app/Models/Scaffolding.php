@@ -14,4 +14,8 @@ class Scaffolding extends Model
     {
         return $this->belongsTo(User::class,'created_by');
     }
+     public function tempwork()
+    {
+        return $this->belongsTo(TemporaryWork::class,'temporary_work_id','id');
+    }
 }

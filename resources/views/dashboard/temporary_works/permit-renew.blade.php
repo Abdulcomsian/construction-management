@@ -172,6 +172,7 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
                     <input type="email" name="designer_company_email" value="{{$tempdata->designer_company_email ?? ''}}"  readonly>
+                     <input type="hidden" name="design_requirement_text" value="{{$tempdata->design_requirement_text ?? ''}}" readonly="readonly">
                     @if(isset($permitdata))
                     <input type="hidden" name="type" value="renew">
                     <input type="hidden" name="permitid" value="{{$permitdata->id}}">

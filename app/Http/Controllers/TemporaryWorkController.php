@@ -955,6 +955,8 @@ class TemporaryWorkController extends Controller
         foreach ($request->keys() as $key) {
 
             if (Str::contains($key, 'image')) {
+                if($key!="images")
+                {
                 $data = null;
                 $filePath = HelperFunctions::scaffoldImagePath();
                 $file = $request->file($key);
@@ -964,6 +966,7 @@ class TemporaryWorkController extends Controller
                 ];
                 $check_images = array_merge($check_images, $data);
                 unset($request[$key]);
+               }
             }
         }
         // dd($check_images['ev en_stable_image']);

@@ -171,8 +171,8 @@ height: 72px;
                     <!--begin::Card title-->
                     <div class="card-title list_top">
                         <h2 style="display: inline-block;">Design Brief</h2>
-                        <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
-                        <a style="width: 190px; text-align:center;float: right;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Existing Design Brief</a>
+                        <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
+                        <a style="width: 190px; text-align:center;float: right;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Existing Design Brief</a> -->
                         
                         
                     </div>
@@ -241,10 +241,7 @@ height: 72px;
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Design Required by Date:</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #f5f8fa;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
-                                    <!-- </p> -->
+                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -269,7 +266,7 @@ height: 72px;
                                         <span class="required">Upload Drawings and Design:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="form-control form-control-solid" required id="drawing" name="drawing" >
+                                    <input  type="file" class="form-control form-control-solid" id="drawing" name="drawing" >
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -278,7 +275,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #f5f8fa;" type="date" required class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}"  >
+                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date"  class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}"  >
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -287,7 +284,7 @@ height: 72px;
                                         <span class="required">Upload Design Check Certificate:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="form-control form-control-solid" required  id="dcc" name="dcc" >
+                                    <input  type="file" class="form-control form-control-solid" id="dcc" name="dcc" >
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -296,7 +293,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #f5f8fa;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
+                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv">

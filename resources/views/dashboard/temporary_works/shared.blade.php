@@ -226,9 +226,10 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title btns_resp" style="width: 100%"> 
+
                         <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;     font-size: 22px !important; width: 100%; text-align: center;font-size:21px; text-transform: uppercase;">Shared Temporary Works</h1>
-                        <br>
-                        <div class="form">
+                    </div>
+                    <div class="form">
                             <form class="form-inline d-flex" method="get" action="{{route('sharedtempwork.proj.search')}}" >
                                 <div class="col-10" >
                                 <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
@@ -243,7 +244,6 @@ border-radius: 8px;
                                 </div>
                             </form>
                         </div>
-                    </div>
                     <!--begin::Card toolbar-->
                     
                     <!--end::Card toolbar-->

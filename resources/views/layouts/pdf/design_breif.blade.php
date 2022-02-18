@@ -26,8 +26,6 @@
                 @endphp
                 @if($logodata->image != NULL)
                 <img src="{{public_path($logodata->image)}}" width="auto" height="80px" />
-                @else
-                <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="auto" height="80px" />
                 @endif
             </div>
         </div>
@@ -80,7 +78,7 @@
                     </tr>
                      <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Company<br>Name2</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Company<br>Name</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_company_name2'] ?? ''}}</td>
                         <td style="width: 150px;background:gray;color:white">

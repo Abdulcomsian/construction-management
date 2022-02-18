@@ -427,7 +427,7 @@ border-radius: 8px;
                                     <br><br>
                                     {{$item->tw_name ?: '-'}}
                                     @if(!$item->tw_name)
-                                    <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TW Name</p>
+                                    <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p>
                                 @endif    
                                 </td>
                                     <!-- <td>
@@ -523,7 +523,7 @@ border-radius: 8px;
                                         <a  href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
                                         @endif
                                         <br>
-                                        @if(\Auth::user()->hasRole([['admin', 'company']]))
+                                        @if(\Auth::user()->hasRole([['admin', 'company','user']]))
                                             <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
                                                 @method('Delete')
                                                 @csrf

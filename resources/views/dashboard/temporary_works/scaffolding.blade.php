@@ -317,13 +317,15 @@
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="equipment_materials" value="1" checked />
+
                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="equipment_materials" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                          <!--   <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span> -->
                                         </label>
                                         <!--end::Option-->
                                     </div>
@@ -349,7 +351,8 @@
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="workmanship" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                            <!-- <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span> -->
                                         </label>
                                         <!--end::Option-->
                                     </div>
@@ -381,7 +384,7 @@
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="drawings_design" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                           <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
@@ -416,7 +419,7 @@
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="loading_limit" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->

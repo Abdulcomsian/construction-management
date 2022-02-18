@@ -171,10 +171,10 @@ height: 72px;
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title list_top">
+                    <div class="card-title list_top" style="width:98%">
                         <h2 style="display: inline-block;">Design Brief</h2>
                         <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a> -->
-                        <a style="width: 170px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Existing Design Brief</a>
+                        <a style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">upload existing design brief</a>
                         
                         
                     </div>
@@ -236,7 +236,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #f5f8fa;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                        <input  style=" cursor: pointer;color:#a9abb7;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -286,7 +286,7 @@ height: 72px;
                                 <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Company Name2:</span>
+                                        <span class="required">Design Checker Company Name:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid " placeholder="Designer Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  required>

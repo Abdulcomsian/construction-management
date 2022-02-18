@@ -226,7 +226,7 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title btns_resp" style="width: 100%"> 
-                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Shared Temporary Works</h1>
+                        <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;     font-size: 22px !important; width: 100%; text-align: center;font-size:21px; text-transform: uppercase;">Shared Temporary Works</h1>
                     </div>
                     <!--begin::Card toolbar-->
                     
@@ -241,7 +241,7 @@ border-radius: 8px;
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif
-                            <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:350px;min-width:220px;max-width: 500px !important;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief / Temporary Work</a>
+                            <!-- <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="margin-left:0px;width:350px;min-width:220px;max-width: 500px !important;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief / Temporary Work</a> -->
                             
                         </div>
                     </div>

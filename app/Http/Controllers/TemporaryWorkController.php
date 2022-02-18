@@ -588,7 +588,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign','design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -628,15 +628,16 @@ class TemporaryWorkController extends Controller
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
                 //make status 0 if permit is 
-                $msg = "Load";
+                $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load created by ".$request->company." Ltd. (".$request->design_requirement_text."), for your attention";
+                $message="Load";
                 if (isset($request->type)) {
                     PermitLoad::find($request->permitid)->update(['status' => 0]);
-                    $msg = "Renew";
+                    $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load which has been renewed created by ".$request->company." Ltd. (".$request->design_requirement_text."), for your attention.";
+                     $message="Renew";
                 }
-                //save permit images
 
+                //save permit image
                 $image_links = $this->permitfiles($request, $permitload->id);
-                //  dd($image_links);
                 $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
@@ -646,11 +647,10 @@ class TemporaryWorkController extends Controller
                 $pdf->save($path . '/' . $filename);
 
                 $notify_admins_msg = [
-                    'greeting' => 'Scaffolding Pdf',
+                    'greeting' => 'Permit Pdf',
                     'subject' => 'Permit Load PDF',
                     'body' => [
-
-                        'text' => 'A Permit to ' . $msg . ' has been completed for the temporary works as per the attached document.',
+                        'text' => $msg,
                         'filename' => $filename,
                         'links' =>  '',
                         'name' => 'Permit Load',
@@ -662,7 +662,7 @@ class TemporaryWorkController extends Controller
                 # Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
-                toastSuccess('Permit ' . $msg . ' sucessfully!');
+                toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
@@ -783,10 +783,10 @@ class TemporaryWorkController extends Controller
             $permitid =  \Crypt::decrypt($id);
             $permitdata = PermitLoad::find($permitid);
             $tempid = $permitdata->temporary_work_id;
-            $tempdata = TemporaryWork::select('twc_id_no')->find($tempid);
+            $tempdata = TemporaryWork::select(['twc_email','twc_id_no','designer_company_email','design_requirement_text'])->find($tempid);
             $twc_id_no = $permitdata->permit_no;
             $project = Project::with('company')->where('id', $permitdata->project_id)->first();
-            return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no'));
+            return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no','tempdata'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -798,7 +798,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign','design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if (isset($request->signtype1)) {
@@ -850,7 +850,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Permit Unload Pdf',
                     'subject' => 'Permit Unload PDF',
                     'body' => [
-                        'text' => 'A Permit to unload for the temporary works  has been completed as per the attached document. ',
+                        'text' => 'Welcome to the online i-works Portal. Attached is a PDF permit to unload created by '.$request->company.' Ltd.('.$request->design_requirement_text.'), for your attention.',
                         'filename' => $filename,
                         'links' =>  '',
                         'name' => 'Permit Unload',
@@ -920,7 +920,6 @@ class TemporaryWorkController extends Controller
     //save scaffolding
     public function scaffolding_save(Request $request)
     {
-        //pdf work here
         Validations::storescaffolding($request);
         try {
         $check_radios = [];
@@ -945,8 +944,6 @@ class TemporaryWorkController extends Controller
                 unset($request[$key]);
             }
         }
-
-        // dd($request->file('even_stable_image'));
         $check_images = [];
         foreach ($request->keys() as $key) {
 
@@ -1209,7 +1206,7 @@ class TemporaryWorkController extends Controller
             'greeting' => 'Permit Expire',
             'subject' => 'Permit Load Expire',
             'body' => [
-                'text' => 'You have an open job, Please close it or unload it.',
+                'text' => 'Welcome to the online i-works Portal. your permit to load for (description of TWS top part) has expired. If the structure is still in use, please renew the permit to load. If the structure has been removed , not in use and not supporting any other element, please close permit.',
                 'filename' => '',
                 'links' =>  '',
                 'name' => '',
@@ -1218,9 +1215,10 @@ class TemporaryWorkController extends Controller
             'action_text' => '',
             'action_url' => '',
         ];
-        PermitLoad::with('user')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
+        PermitLoad::with('user','tempwork')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
             foreach ($permits as $permit) {
                 $notify_admins_msg['body']['filename'] = $permit->ped_url;
+                $notify_admins_msg['body']['text']=str_replace("description of TWS top part", $permit->tempwork->design_requirement_text,$notify_admins_msg['body']['text']);
                 Notification::route('mail', $permit->user->email ?? 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
@@ -1229,7 +1227,7 @@ class TemporaryWorkController extends Controller
             'greeting' => 'Scaffold Expire',
             'subject' => 'Scaffold Load Expire',
             'body' => [
-                'text' => 'You have an open job, Please close it or unload it.',
+                'text' => 'Welcome to the online i-works Portal. your permit to load for (description of TWS top part) has expired. If the structure is still in use, please renew the permit to load. If the structure has been removed , not in use and not supporting any other element, please close permit.',
                 'filename' => '',
                 'links' =>  '',
                 'name' => '',
@@ -1238,10 +1236,11 @@ class TemporaryWorkController extends Controller
             'action_text' => '',
             'action_url' => '',
         ];
-        Scaffolding::where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
+        Scaffolding::with('user','tempwork')->where('status', 1)->where('created_at', '<', $date)->chunk(100, function ($permits) use ($notify_admins_msg) {
             foreach ($permits as $permit) {
                 $notify_admins_msg['body']['filename'] = $permit->ped_url;
-                Notification::route('mail', $permit->user->email ?? 'admin@example.com')->notify(new PermitNotification($notify_admins_msg));
+                 $notify_admins_msg['body']['text']=str_replace("description of TWS top part", $permit->tempwork->design_requirement_text,$notify_admins_msg['body']['text']);
+                Notification::route('mail', $permit->user->email ?? 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
     }

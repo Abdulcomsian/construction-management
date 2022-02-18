@@ -110,7 +110,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td align="center" style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px">
-                                                                <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;line-height:1.5em;margin-top:0;color:#aeaeae;font-size:12px;text-align:center">© 2021 Contstruction Management. All rights reserved.</p>
+                                                                <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;line-height:1.5em;margin-top:0;color:#aeaeae;font-size:12px;text-align:center">© 2022 City Temporary Works.  All rights reserved.</p>
                                                             </td>
                                                         </tr>
                                                     </tbody>

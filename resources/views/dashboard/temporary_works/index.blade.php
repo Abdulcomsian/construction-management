@@ -265,26 +265,26 @@ border-radius: 8px;
                                 <span class="fa fa-bars"></span>
                             </div>
                         </div>
-                        <div class="mobileView">
-                            <a style="color:#fff !important; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
-                            <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
-                            <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
-                            <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
+                        <div class="mobileView text-center">
+                            <a style="color:#fff !important; display:inline-block; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
+                            <a style=" color:#fff !important;   display:inline-block; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
+                            <a style=" color:#fff !important;  display:inline-block;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
+                            <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="text-center hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
 
 
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 text-center">
                                     @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                                     <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                                     @endif
                                     <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 text-center">
                                 <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
-                                <div class="row">
-                                      <div class="form-group  col-md-8">
+                                <div class="row" style="margin:0 auto;">
+                                      <div class="form-group  col-md-2 text-center">
                                         <label  class="text-white">Search</label>
-                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
+                                        <input type="text" style="  margin:0 auto;    width: 240px;  padding: 0px 10px;" class="form-control" name="terms" placeholder="Search1 Description of TWS" required="required" />
                                       </div>
                                       <div class="col-md-4 mt-6 text-center">
                                         <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
@@ -338,14 +338,14 @@ border-radius: 8px;
                             
                         </div>
 
-                        <div class="col-md-4 offset-md-6">
+                        <div class="col-md-2 offset-md-8">
                              <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
                                 <div class="row">
-                                      <div class="form-group  col-md-2">
+                                      <div class="form-group  col-md-12">
 </div>
-                                      <div class="form-group  col-md-8">
+                                      <div class="form-group  col-md-9">
                                         <label  class="text-white">Search</label>
-                                        <input type="text" style="    padding: 0px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
+                                        <input type="text" style="    padding: 0px 10px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
                                       </div>
                                       <div class="col-md-2 mt-6 text-center">
                                         <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>

@@ -36,7 +36,7 @@ class UserController extends Controller
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->editColumn('company_id', function ($data) {
-                        return $data->userCompany->name;
+                        return $data->userCompany->name ?? '';
                     })
                     ->addColumn('action', function ($data) use ($user) {
                         if ($user->hasRole('admin')) {

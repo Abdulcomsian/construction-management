@@ -95,6 +95,8 @@ class TemporaryWorkController extends Controller
                     $users[] = $u->user_id;
                 }
                 $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
+                 $projects=Project::whereIn('id',$projects_id)->get();
             } elseif ($user->hasRole('company')) {
                 $user = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -108,6 +110,8 @@ class TemporaryWorkController extends Controller
                     $users[] = $u->user_id;
                 }
                 $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $projects_id = Tempworkshare::select('project_id')->where('user_id',$user->id)->groupBy('project_id')->get();
+                $projects=Project::whereIn('id',$projects_id)->get();
             } else {
                 $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();
                 $users = [];
@@ -117,11 +121,14 @@ class TemporaryWorkController extends Controller
                     $users[] = $u->user_id;
                 }
                 $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+
+               $projects_id = Tempworkshare::select('project_id')->where('user_id',$user->id)->groupBy('project_id')->get();
+                $projects=Project::whereIn('id',$projects_id)->get();
             }
             //dd($temporary_works);
             $scantempwork = 'sharedview';
             //work for datatable
-            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork'));
+            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork','projects'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1106,7 +1113,6 @@ class TemporaryWorkController extends Controller
     //temp work search according to projects
     public function tempwork_project_search(Request $request)
     {
-        //dd($request->all());
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
@@ -1138,6 +1144,56 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+
+    //sharedtemp work search according to projects
+    public function shared_tempwork_project_search(Request $request)
+    {
+       $user = auth()->user();
+       try {
+            if ($user->hasRole('admin')) {
+                $tempidds = DB::table('tempworkshares')->whereIn('project_id',$request->projects)->get();
+                $users = [];
+                $ids = [];
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[] = $u->user_id;
+                }
+                $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
+                 $projects=Project::whereIn('id',$projects_id)->get();
+            } elseif ($user->hasRole('company')) {
+                $tempidds = DB::table('tempworkshares')->whereIn('project_id',$request->projects)->where('user_id', $user->id)->get();
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[] = $u->user_id;
+                }
+                $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $projects_id = Tempworkshare::select('project_id')->where('user_id',$user->id)->groupBy('project_id')->get();
+                $projects=Project::whereIn('id',$projects_id)->get();
+            } else {
+                $tempidds = DB::table('tempworkshares')->whereIn('project_id',$request->projects)->where('user_id', $user->id)->get();
+                $users = [];
+                $ids = [];
+                foreach ($tempidds as $u) {
+                    $ids[] = $u->temporary_work_id;
+                    $users[] = $u->user_id;
+                }
+                $temporary_works = TemporaryWork::with('tempshare','project', 'uploadfile', 'comments', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+
+               $projects_id = Tempworkshare::select('project_id')->where('user_id',$user->id)->groupBy('project_id')->get();
+                $projects=Project::whereIn('id',$projects_id)->get();
+            }
+            $scantempwork = 'sharedview';
+            return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork','projects'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    //search shared tempwork according to project
+
 
 
     // Temporary work attachment to send email

@@ -25,7 +25,7 @@
                                                                     <h1>Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                     <h3>Welcome to the online i-works Portal. 
-                                                                        The temporary works @if(!multiple)for ({{$details[0]->design_requirement_text}}) @endif has been shared with you by {{$details[0]->company}} Ltd for Project {{$details[0]->project->name ?? ''}} {{$details[0]->project->no ?? ''}}
+                                                                        The temporary works @if(!$multiple)for ({{$details[0]->design_requirement_text}}) @endif has been shared with you by {{$details[0]->company}} Ltd for Project {{$details[0]->project->name ?? ''}} {{$details[0]->project->no ?? ''}}
                                                                     </h3>
                                                                     @foreach($details as $key => $data)
                                                                     <h5>

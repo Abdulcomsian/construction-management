@@ -30,8 +30,13 @@
             }
             console.log('form_id',form_id);
             console.log('link',link);
+            var text=$(this).attr('data-text');
+            if(!text)
+            {
+                text="Delete it.";
+            }
             swal({
-                    title: "Are you sure? to Delete.",
+                    title: "Are you sure? to "+text+".",
                     // text: "You will not be able to recover this record!",
                     type: "warning",
                     confirmButtonColor: '#DD6B55',

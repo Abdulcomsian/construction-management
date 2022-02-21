@@ -25,13 +25,13 @@
                                                                     <h1>Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                     <h3>Welcome to the online i-works Portal. 
-                                                                        The temporary works for ({{$details[0]->design_requirement_text}})  has been shared with you by {{$details[0]->company}} Ltd.
+                                                                        The temporary works @if(!multiple)for ({{$details[0]->design_requirement_text}}) @endif has been shared with you by {{$details[0]->company}} Ltd for Project {{$details[0]->project->name ?? ''}} {{$details[0]->project->no ?? ''}}
                                                                     </h3>
                                                                     @foreach($details as $key => $data)
                                                                     <h5>
                                                                         The temporary works for ({{$data->design_requirement_text}})  has been shared with you by {{$data->company}} Ltd.
                                                                     </h5>
-                                                                    <a href="{{asset('pdf'.'/'.$data->ped_url)}}">Design Breif - {{$data->twc_id_no}} </a><br>
+                                                                    <a style="text-decoration: none" href="{{asset('pdf'.'/'.$data->ped_url)}}">Design Breif - {{$data->twc_id_no}} ({{$data->design_requirement_text}}) </a><br>
                                                                     @if(count($data->comments)>0)
                                                                     <h4>Comments -</h4>
                                                                     <ul>
@@ -46,7 +46,7 @@
                                                                         @foreach($data->uploadfile as $file)
                                                                         @if($file->file_type==1)
                                                                         <li>
-                                                                            <a href="{{asset($file->file_name)}}">{{$file->file_name}}</a>
+                                                                            <a  style="text-decoration: none" href="{{asset($file->file_name)}}">{{$file->file_name}}</a>
                                                                         </li>
                                                                         @endif
                                                                         @endforeach
@@ -58,7 +58,7 @@
                                                                         @foreach($data->uploadfile as $file)
                                                                         @if($file->file_type==2)
                                                                         <li>
-                                                                            <a href="{{asset($file->file_name)}}">{{$file->file_name}}</a>
+                                                                            <a  style="text-decoration: none" href="{{asset($file->file_name)}}">{{$file->file_name}}</a>
                                                                         </li>
                                                                         @endif
                                                                         @endforeach
@@ -69,7 +69,7 @@
                                                                     <ul>
                                                                         @foreach($data->permits as $permit)
                                                                         <li>
-                                                                            <a href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
+                                                                            <a  style="text-decoration: none" href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
                                                                             @endforeach
                                                                     </ul>
                                                                     @endif
@@ -78,7 +78,7 @@
                                                                     <ul>
                                                                         @foreach($data->permitsunload as $permit)
                                                                         <li>
-                                                                            <a href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
+                                                                            <a  style="text-decoration: none" href="{{asset('pdf'.'/'.$permit->ped_url)}}">{{$permit->ped_url}}</a>
                                                                             @endforeach
                                                                     </ul>
                                                                     @endif
@@ -87,7 +87,7 @@
                                                                     <ul>
                                                                         @foreach($data->scaffold as $scaffold)
                                                                         <li>
-                                                                            <a href="{{asset('pdf'.'/'.$scaffold->ped_url)}}">{{$scaffold->ped_url}}</a>
+                                                                            <a  style="text-decoration: none" href="{{asset('pdf'.'/'.$scaffold->ped_url)}}">{{$scaffold->ped_url}}</a>
                                                                             @endforeach
                                                                     </ul>
                                                                     @endif

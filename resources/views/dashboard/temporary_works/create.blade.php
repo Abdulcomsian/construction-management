@@ -294,6 +294,14 @@ height: 72px;
                                  <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Email 2:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid " placeholder="Designer Email Second" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}"  required>
+                                </div>
+                                 <div class="inputDiv d-none desinger_company_name2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Designer:</span>
                                     </label>
                                     <!--end::Label-->

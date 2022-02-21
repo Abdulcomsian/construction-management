@@ -735,7 +735,7 @@ class TemporaryWorkController extends Controller
                 if ($permit->status == 1) {
                     $status = "Open";
                     if ($request->type == "unload") {
-                        $button = '<a class="confirm unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
+                        $button = '<a class="confirm unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '" data-text="Unload it."><span class="fa fa-plus-square"></span> Unload</a>';
                     } else {
                         $button = '<a class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }

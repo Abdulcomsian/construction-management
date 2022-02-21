@@ -45,14 +45,16 @@ class TempworkshareNotify extends Notification
     public function toMail($notifiable)
     {
         if (is_object($this->data) && count($this->data) > 0) {
-            $tempworkdetails = TemporaryWork::with('comments', 'uploadfile', 'permits', 'scaffold', 'permitsunload')->select('id','company','design_requirement_text','ped_url', 'twc_id_no')->whereIn('id', $this->data)->get();
+            $tempworkdetails = TemporaryWork::with('project','comments', 'uploadfile', 'permits', 'scaffold', 'permitsunload')->select('id','project_id','company','design_requirement_text','ped_url', 'twc_id_no')->whereIn('id', $this->data)->get();
+            $multiple=1;
         } else {
-            $tempworkdetails = TemporaryWork::with('comments', 'uploadfile', 'permits', 'scaffold', 'permitsunload')->select('id','company','design_requirement_text','ped_url', 'twc_id_no')->where('id', $this->data)->get();
+            $tempworkdetails = TemporaryWork::with('project','comments', 'uploadfile', 'permits', 'scaffold', 'permitsunload')->select('id','project_id','company','design_requirement_text','ped_url', 'twc_id_no')->where('id', $this->data)->get();
+              $multiple=0;
         }
         return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Temporary Work Share Notifications')
-            ->view('mail.tempshare', ['details' => $tempworkdetails]);
+            ->view('mail.tempshare', ['details' => $tempworkdetails,'multiple'=>$multiple]);
     }
 
     /**

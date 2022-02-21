@@ -156,6 +156,7 @@ class UserController extends Controller
             $companies = User::role('company')->latest()->get();
             return view('dashboard.users.edit', compact('user_projects', 'user', 'companies', 'company_projects'));
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return back();
         }

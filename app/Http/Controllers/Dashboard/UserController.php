@@ -147,7 +147,7 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::role(['company', 'user', 'supervisor'])
+            $user = User::role(['company', 'user', 'supervisor', 'scaffolder'])
                 ->with(['userProjects', 'userCompany'])
                 ->where('id', $id)
                 ->first();

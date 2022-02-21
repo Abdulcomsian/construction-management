@@ -44,6 +44,7 @@ class TempworkshareNotify extends Notification
      */
     public function toMail($notifiable)
     {
+        $multiple=0;
         if (is_object($this->data) && count($this->data) > 0) {
             $tempworkdetails = TemporaryWork::with('project','comments', 'uploadfile', 'permits', 'scaffold', 'permitsunload')->select('id','project_id','company','design_requirement_text','ped_url', 'twc_id_no')->whereIn('id', $this->data)->get();
             $multiple=1;

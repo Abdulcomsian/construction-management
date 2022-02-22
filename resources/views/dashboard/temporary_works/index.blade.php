@@ -749,7 +749,7 @@ border-radius: 8px;
 <script type="text/javascript">
         Dropzone.options.dropzone =
          {
-            maxFilesize: 12,
+            maxFilesize: 50,
             renameFile: function(file) {
                 var dt = new Date();
                 var time = dt.getTime();
@@ -757,7 +757,7 @@ border-radius: 8px;
             },
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
-            timeout: 50000,
+            timeout: 500000,
             removedfile: function(file) 
             {
                 var name = file.upload.filename;

@@ -420,6 +420,8 @@ $('input[name="coupling_wrongfitting_radio"]').change(function () {
         $('textarea[name="coupling_wrongfitting_comment"]')
             .removeClass("d-none")
             .attr("required", "required");
+        $("input[name='coupling_wrongfitting_image']").removeClass("d-none")
+            .attr("required", "required");
     } else {
         $('textarea[name="coupling_wrongfitting_comment"]')
             .addClass("d-none")
@@ -450,6 +452,9 @@ $('input[name="coupling_loosedamaged_radio"]').change(function () {
         $('textarea[name="coupling_loosedamaged_comment"]')
             .removeClass("d-none")
             .attr("required", "required");
+             $('input[name="coupling_loosedamaged_image"]')
+            .removeClass("d-none")
+            .attr("required", "required");
     } else {
         $('textarea[name="coupling_loosedamaged_comment"]')
             .addClass("d-none")
@@ -460,6 +465,9 @@ $('input[name="coupling_loosedamaged_radio"]').change(function () {
 $('input[name="bracing_wrongfitting_radio"]').change(function () {
     if ($(this).val() == 2) {
         $('textarea[name="bracing_wrongfitting_comment"]')
+            .removeClass("d-none")
+            .attr("required", "required");
+            $('input[name="bracing_wrongfitting_image"]')
             .removeClass("d-none")
             .attr("required", "required");
     } else {
@@ -492,6 +500,9 @@ $('input[name="bracing_loosedamaged_radio"]').change(function () {
         $('textarea[name="bracing_loosedamaged_comment"]')
             .removeClass("d-none")
             .attr("required", "required");
+         $('input[name="bracing_loosedamaged_image"]')
+            .removeClass("d-none")
+            .attr("required", "required");
     } else {
         $('textarea[name="bracing_loosedamaged_comment"]')
             .addClass("d-none")
@@ -502,6 +513,9 @@ $('input[name="bracing_loosedamaged_radio"]').change(function () {
 $('input[name="debrings_somemissing_radio"]').change(function () {
     if ($(this).val() == 2) {
         $('textarea[name="debrings_somemissing_comment"]')
+            .removeClass("d-none")
+            .attr("required", "required");
+             $('input[name="debrings_somemissing_image"]')
             .removeClass("d-none")
             .attr("required", "required");
     } else {

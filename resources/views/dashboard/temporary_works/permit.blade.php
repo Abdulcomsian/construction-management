@@ -8,7 +8,7 @@
     .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-    .form-control.form-control-solid{background-color:#000;}
+    .form-control.form-control-solid
     .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
@@ -280,7 +280,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">MS/RA Number</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}">
                                         <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
                                     </div>
                                 </div>
@@ -517,7 +517,7 @@
 
 
                                 <div class="col-md-12">
-                                    <div class="row" id="first_member">
+                                     <div class="row" id="first_member">
                                         <div class="col"  style="flex:100% !important;">
 
                                             <div class="d-flex inputDiv">
@@ -528,7 +528,7 @@
                                                     <span class="required">Name::</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name1" name="name1" value="{{old('name1')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name1" name="name1" value="{{old('name1')}}" style="color:#5e6278">
                                             </div>
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
@@ -567,11 +567,8 @@
                                                 <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                             </div>
                                         </div>
-                                    </div>
-
+                                     </div>
                                     <!-- Second person -->
-
-
                                     <div class="row" id="second_member">
                                         <div class="col" style="flex:100% !important;">
 

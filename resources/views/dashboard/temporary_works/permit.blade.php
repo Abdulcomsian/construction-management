@@ -492,11 +492,7 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        @if(isset($old))
-                                        <input type="radio" class="btn-check" name="principle_contractor" value="1" {{ old('principle_contractor') == '1' ? 'checked' : '' }} />
-                                        @else
                                         <input type="radio" class="btn-check" name="principle_contractor" value="1" checked />
-                                        @endif
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
@@ -659,6 +655,11 @@
 @endsection
 @section('scripts')
 <script>
+    var principle_contractor = '{{old('principle_contractor')}}';
+    if(principle_contractor==2)
+    {
+        $("#first_member").hide();
+    }
     $("input[name='principle_contractor']").change(function() {
         if ($(this).val() == 1) {
 

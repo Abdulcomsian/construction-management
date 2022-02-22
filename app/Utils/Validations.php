@@ -145,6 +145,9 @@ class Validations
             'job_title' => ['required'],
             'company' => ['required'],
             'signed' => 'required_if:signtype,0',
+            'images' => 'max:50000',
+        ],[
+            'images.*'=>'Image size is greater than 50 Mb',
         ]);
     }
 

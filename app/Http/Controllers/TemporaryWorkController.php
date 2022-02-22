@@ -372,6 +372,8 @@ class TemporaryWorkController extends Controller
                 Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
                 Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg));
+               
             }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
@@ -668,6 +670,7 @@ class TemporaryWorkController extends Controller
                 ];
                 # Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', auth()->user()->email)->notify(new PermitNotification($notify_admins_msg));
                 # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
@@ -1224,7 +1227,6 @@ class TemporaryWorkController extends Controller
             $scaffoldid =  \Crypt::decrypt($id);
             $scaffolddata = Scaffolding::find($scaffoldid);
             Scaffolding::find($scaffoldid)->update(['status' => 4]);
-
             return Redirect::back();
         } catch (\Exception $exception) {
 

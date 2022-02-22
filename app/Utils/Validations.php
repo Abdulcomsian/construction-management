@@ -138,7 +138,7 @@ class Validations
             'permit_no' => ['required'],
             'drawing_title' => ['required'],
             'tws_name' => ['required'],
-            'ms_ra_no' => ['required'],
+            // 'ms_ra_no' => ['required'],
             'name1' => 'required_if:principle_contractor,1',
             'job_title1' => 'required_if:principle_contractor,1',
             'name' => ['required'],

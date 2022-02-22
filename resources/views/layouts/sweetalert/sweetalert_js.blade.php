@@ -33,10 +33,10 @@
             var text=$(this).attr('data-text');
             if(!text)
             {
-                text="Delete it.";
+                text="Are you sure? to Delete it.";
             }
             swal({
-                    title: "Are you sure? to "+text+".",
+                    title: text,
                     // text: "You will not be able to recover this record!",
                     type: "warning",
                     confirmButtonColor: '#DD6B55',

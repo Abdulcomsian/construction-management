@@ -426,6 +426,8 @@ $('input[name="coupling_wrongfitting_radio"]').change(function () {
         $('textarea[name="coupling_wrongfitting_comment"]')
             .addClass("d-none")
             .removeAttr("required");
+            $("input[name='coupling_wrongfitting_image']").addClass("d-none")
+            .attr("required", "required");
     }
 });
 
@@ -459,6 +461,9 @@ $('input[name="coupling_loosedamaged_radio"]').change(function () {
         $('textarea[name="coupling_loosedamaged_comment"]')
             .addClass("d-none")
             .removeAttr("required");
+             $('input[name="coupling_loosedamaged_image"]')
+            .addClass("d-none")
+            .attr("required", "required");
     }
 });
 
@@ -474,6 +479,9 @@ $('input[name="bracing_wrongfitting_radio"]').change(function () {
         $('textarea[name="bracing_wrongfitting_comment"]')
             .addClass("d-none")
             .removeAttr("required");
+            $('input[name="bracing_wrongfitting_image"]')
+            .addClass("d-none")
+            .attr("required", "required");
     }
 });
 
@@ -507,6 +515,9 @@ $('input[name="bracing_loosedamaged_radio"]').change(function () {
         $('textarea[name="bracing_loosedamaged_comment"]')
             .addClass("d-none")
             .removeAttr("required");
+            $('input[name="bracing_loosedamaged_image"]')
+            .addClass("d-none")
+            .attr("required", "required");
     }
 });
 
@@ -522,6 +533,9 @@ $('input[name="debrings_somemissing_radio"]').change(function () {
         $('textarea[name="debrings_somemissing_comment"]')
             .addClass("d-none")
             .removeAttr("required");
+             $('input[name="debrings_somemissing_image"]')
+            .addClass("d-none")
+            .attr("required", "required");
     }
 });
 

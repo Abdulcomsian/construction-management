@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master-index',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style> 
@@ -249,7 +249,7 @@ border-radius: 8px;
                                         @endforeach
                                     </select>
                                     </div>
-                                    <div class="col-md-2 col-sm-7 margintop">
+                                    <div class="col-2 margintop">
                                         <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
                                     </div>
                                 </form>

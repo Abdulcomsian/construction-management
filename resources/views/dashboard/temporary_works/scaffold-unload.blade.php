@@ -164,7 +164,7 @@
                     <input type="hidden" name="id" value="{{$scaffolddata->id ?? ''}}" />
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv d-block">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Select Project:</span>
                                 </label>
@@ -173,8 +173,8 @@
                                     <option value="{{$project->id}}" selected="selected">{{$project->name .' - '. $project->no}}</option>
                                 </select>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project No :</span>
@@ -182,8 +182,8 @@
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project Name :</span>
@@ -191,8 +191,8 @@
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Drawing Number:</span>
@@ -200,8 +200,8 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$scaffolddata->drawing_no ?? ''}}" required>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
@@ -209,8 +209,8 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{$scaffolddata->twc_name ?? ''}}" required>
                                 </div>
                             </div>
-                             <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                             <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="">Load Class:</span>
@@ -227,8 +227,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="col-md-12">
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
@@ -236,8 +236,8 @@
                                         <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="date">
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Permit Number :</span>
@@ -245,8 +245,8 @@
                                         <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
@@ -254,8 +254,8 @@
                                         <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{$scaffolddata->drawing_title ?? ''}}" required>
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required"> TWS or competent Scaffolder Name:</span>
@@ -266,8 +266,8 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
                                         Location of the Temporary Works (Area):
@@ -275,7 +275,7 @@
                                     <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{$scaffolddata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
@@ -284,8 +284,8 @@
                                     <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{$scaffolddata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
                                         <span class="required">MS/RA Number</span>
@@ -1572,8 +1572,8 @@
                         <div class="">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="d-flex inputDiv">
-                                        <div class="d-flex modalDiv">
+                                    <div class="d-flex inputDiv d-block">
+                                        <div class="d-flex modalDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Inspected by:
@@ -1582,8 +1582,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="d-flex inputDiv">
-                                        <div class="d-flex modalDiv">
+                                    <div class="d-flex inputDiv d-block">
+                                        <div class="d-flex modalDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Job Title:
@@ -1593,8 +1593,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-flex inputDiv">
-                                        <div class="d-flex modalDiv">
+                                    <div class="d-flex inputDiv d-block">
+                                        <div class="d-flex modalDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Company:

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master-index',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style> 

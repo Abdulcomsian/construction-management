@@ -365,3 +365,38 @@ input:focus {
         display: none;
     }
   }
+  @media screen and (max-width: 768px) {
+  .form-inline .form-group  input{
+      width: auto !important;
+  }
+  .nav-group.nav-group-fluid{
+      height: 40px;
+  }
+ .d-block{
+     display: block !important;
+ }
+ .card>.card-body {
+    padding: 33px 10px !important;
+}
+#scaffolding .inputDiv label{
+    width: 50% !important;
+}
+.signatureDiv{
+    display: flex;
+    width: 100% !important;
+    margin-bottom: 20px;
+}
+.uploadingDiv{
+    width: 100% !important;
+}
+}
+.aside-menu .menu-item.here>.menu-link, .aside-menu .menu-item.show>.menu-link{
+    display: flex !important;
+}
+.signatureDiv{
+    display: flex;
+    width: 100%;
+}
+.uploadingDiv{
+    width: 100%;
+}

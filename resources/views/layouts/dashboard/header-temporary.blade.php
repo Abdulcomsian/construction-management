@@ -1,4 +1,4 @@
-<div id="kt_header" style="" class="header align-items-stretch commonSideBar">
+<div id="kt_header" style="" class="header align-items-stretch">
     <!--begin::Container-->
     <div class="container-fluid d-flex align-items-stretch justify-content-between">
         <!--begin::Aside mobile toggle-->
@@ -28,11 +28,13 @@
                      data-kt-place="true" data-kt-place-mode="prepend"
                      data-kt-place-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
                     <!--begin::Menu-->
-                    <!-- <div
+                    <div
                         class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
                         <div class="menu-item me-lg-1">
-                           
+                            <!-- <a class=" href="{{url('dashboard')}}">
+                                <span class="menu-title">Dashboard</span>
+                            </a> -->
                             <a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
                             @if(\Auth::user()->hasAnyRole(['admin', 'company']))
                                 <a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>
@@ -44,7 +46,7 @@
                             <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">New Design Brief</a>
                             <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('temporary_works.shared')}}" target="">Shared Temporary Works</a>
                         </div>
-                    </div> -->
+                    </div>
                     <!--end::Menu-->
                 </div>
                 <!--end::Menu wrapper-->

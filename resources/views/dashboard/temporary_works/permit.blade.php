@@ -188,7 +188,7 @@
                     <input type="hidden" name="design_requirement_text" value="{{$tempdata->design_requirement_text ?? ''}}" readonly="readonly">
                     <div class="row"> 
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv d-block">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Select Project:</span>
                                 </label>
@@ -197,8 +197,8 @@
                                     <option value="{{$project->id}}" selected="selected">{{$project->name .' - '. $project->no}}</option>
                                 </select>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project No :</span>
@@ -206,8 +206,8 @@
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project Name :</span>
@@ -215,8 +215,8 @@
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Drawing Number:</span>
@@ -224,8 +224,8 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no')}}" required>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
@@ -239,7 +239,7 @@
                         <div class="col-md-6">
                             <div class="col-md-12">
                                 <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
@@ -248,7 +248,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Permit Number :</span>
@@ -257,7 +257,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
@@ -266,7 +266,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name :</span>
@@ -275,7 +275,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">MS/RA Number</span>
@@ -288,7 +288,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
@@ -297,7 +297,7 @@
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
@@ -314,7 +314,7 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
                                 </div>
                             </div> -->
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Equipment/materials used as a specified/fit for purpose</span>
@@ -334,7 +334,7 @@
                                 <!--end::Radio group-->
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, checked)</span>
@@ -364,7 +364,7 @@
                                 <!--end::Radio group-->
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">TW checked to drawings/design output</span>
@@ -394,7 +394,7 @@
                                 <!--end::Radio group-->
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Loading /use limitations understood e.g. Rate of pour, sequence of loading, access/plant loading</span>
@@ -424,7 +424,7 @@
                                 <!--end::Radio group-->
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Approval by Temp Works Coordinator Required? <br>
@@ -516,7 +516,7 @@
                                      <div class="row" id="first_member">
                                         <div class="col"  style="flex:100% !important;">
 
-                                            <div class="d-flex inputDiv">
+                                            <div class="d-flex inputDiv d-block">
                                             </div>
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
@@ -621,14 +621,42 @@
                                                 </label>
                                                 <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                             </div>
-                                            <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Signature:</span>
-                                                </label>
-                                                <br />
-                                                <canvas id="sig" ></canvas>
-                                               
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="signatureDiv">
+                                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                    <span class="required">Signature:</span>
+                                                                </label>
+                                                                <br />
+                                                                <canvas id="sig" ></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="uploadingDiv">
+                                                        <div class="uploadDiv" style="padding-left: 10px;">
+                                                                <div class="input-images"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <!-- <div class="d-flex inputDiv principleno" id="sign" style="">
+                                               <div class="signatureDiv">
+                                                <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Signature:</span>
+                                                    </label>
+                                                    <br />
+                                                    <canvas id="sig" ></canvas>
+                                               </div>
+                                               <div class="uploadingDiv">
+                                               <div class="uploadDiv" style="padding-left: 10px;">
+                                                    <div class="input-images"></div>
+                                                </div>
+                                               </div>
+                                            </div> -->
                                             <div class="d-flex inputDiv principleno" id="sign" style="">
                                                 <textarea id="signature" name="signed" style="opacity: 0" ></textarea>
                                             </div>
@@ -638,9 +666,9 @@
 
                             <!-- </div> -->
 
-                            <div class="uploadDiv" style="padding-left: 10px;">
+                            <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
-                            </div>
+                            </div> -->
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
 

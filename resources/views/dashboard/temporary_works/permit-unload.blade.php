@@ -168,7 +168,7 @@
                      <input type="hidden" name="design_requirement_text" value="{{$tempdata->design_requirement_text ?? ''}}" readonly="readonly">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv d-block">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Select Project:</span>
                                 </label>
@@ -177,8 +177,8 @@
                                     <option value="{{$project->id}}" selected="selected">{{$project->name .' - '. $project->no}}</option>
                                 </select>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project No :</span>
@@ -186,8 +186,8 @@
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project Name :</span>
@@ -195,8 +195,8 @@
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Drawing Number:</span>
@@ -204,8 +204,8 @@
                                     <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
@@ -217,8 +217,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="col-md-12">
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             Date :
@@ -226,8 +226,8 @@
                                         <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa" name="date">
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Permit Number :</span>
@@ -235,8 +235,8 @@
                                         <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
@@ -244,8 +244,8 @@
                                         <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name :</span>
@@ -256,8 +256,8 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works (Area):
@@ -265,8 +265,8 @@
                                     <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
@@ -274,8 +274,8 @@
                                     <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">MS/RA Number</span>
@@ -464,7 +464,7 @@
                                             <!--end::Label-->
                                             <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title',$permitdata->job_title ?? '')}}">
                                         </div>
-                                        <div class="d-flex inputDiv ">
+                                        <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Company: </span>
@@ -473,7 +473,7 @@
                                             <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
                                             <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                                         </div>
-                                        <div class="d-flex inputDiv ">
+                                        <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
                                                 <span class="required">Date:</span>
@@ -499,14 +499,36 @@
                                             </label>
                                             <input type="text" name="namesign" class="form-control form-control-solid">
                                         </div>
-                                        <div class="d-flex inputDiv principleno" id="sign">
+                                        <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="signatureDiv">
+                                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                    <span class="required">Signature:</span>
+                                                                </label>
+                                                                <br />
+                                                                <canvas id="sig" ></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="uploadingDiv">
+                                                        <div class="uploadDiv" style="padding-left: 10px;">
+                                                                <div class="input-images"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <!-- <div class="d-flex inputDiv principleno" id="sign">
                                             <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
                                             </label>
                                             <br />
                                             <canvas id="sig" ></canvas>
 
-                                        </div>
+                                        </div> -->
                                         <div class="d-flex inputDiv principleno" id="sign">
                                             <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
                                         </div>
@@ -516,9 +538,9 @@
 
                         <!-- </div> -->
                         <div class="col-md-12">
-                            <div class="uploadDiv" style="padding-left: 10px;">
+                            <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
-                            </div>
+                            </div> -->
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
                         </div>

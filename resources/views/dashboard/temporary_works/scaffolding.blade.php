@@ -1833,12 +1833,14 @@
                                     </div>
 
                                 </div>
-                            </div>
-                            <div class="uploadDiv" style="padding-left: 10px;">
+                                <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
+                                </div>
+                            
                             </div>
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary">Submit</button>
+                            
                         </div>
                 </form>
             </div>

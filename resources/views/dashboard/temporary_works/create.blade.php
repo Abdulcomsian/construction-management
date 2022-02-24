@@ -272,7 +272,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}"  required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" style="background: #f5f8fa" required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -281,7 +281,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email')}}"  required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email',\Auth::user()->email)}}" style="background: #f5f8fa"  required>
                                 </div>
                                 <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->

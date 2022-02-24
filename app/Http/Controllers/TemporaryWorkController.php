@@ -595,6 +595,7 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
+         
         Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign','design_requirement_text');
@@ -668,7 +669,14 @@ class TemporaryWorkController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                # Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                //send email to coordinator
+                $coordinatoremail=User::select('email')->whereHas('roles', function($q)
+                {
+                    $q->where('name', 'user');
+                }
+                )->where('company_id',$request->companyid)->first();
+                Notification::route('mail', $coordinatoremail->email)->notify(new PermitNotification($notify_admins_msg));
+
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', auth()->user()->email)->notify(new PermitNotification($notify_admins_msg));
                 # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
@@ -1047,8 +1055,14 @@ class TemporaryWorkController extends Controller
                 'action_url' => '',
             ];
 
-            //mail send to admin here
-            #  Notification::route('mail', 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+            //send email to coordinator
+            $coordinatoremail=User::select('email')->whereHas('roles', function($q)
+            {
+             $q->where('name', 'user');
+            }
+            )->where('company_id',$request->companyid)->first();
+            Notification::route('mail', $coordinatoremail->email)->notify(new PermitNotification($notify_admins_msg));
+
             Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
             # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
             toastSuccess('Scaffolding Created Successfully');

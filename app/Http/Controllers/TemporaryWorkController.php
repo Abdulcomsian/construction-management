@@ -942,8 +942,9 @@ class TemporaryWorkController extends Controller
     //save scaffolding
     public function scaffolding_save(Request $request)
     {
+         //dd($request->all());
         Validations::storescaffolding($request);
-        try {
+        // try {
         $check_radios = [];
         foreach ($request->keys() as $key) {
             if (Str::contains($key, 'radio')) {
@@ -1009,7 +1010,6 @@ class TemporaryWorkController extends Controller
             $all_inputs['status'] = 1;
             Scaffolding::find($request->id)->update(['status' => 3]);
         }
-        // dd($all_inputs);
         $scaffolding = Scaffolding::create($all_inputs);
         if ($scaffolding) {
             $model = new CheckAndComment();
@@ -1068,11 +1068,11 @@ class TemporaryWorkController extends Controller
             toastSuccess('Scaffolding Created Successfully');
             return redirect()->route('temporary_works.index');
         }
-        } catch (\Exception $exception) {
-            dd($exception->getMessage());
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     dd($exception->getMessage());
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     //save scaffold images

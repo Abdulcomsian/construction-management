@@ -272,7 +272,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required"> TWS or competent Scaffolder Name:</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name',auth()->user()->name)}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -1744,35 +1744,9 @@
                                         <br />
 
                                     </div> -->
-                                    <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="signatureDiv">
-                                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                    <span class="required">Signature:</span>
-                                                                </label>
-                                                                <br />
-                                                                <canvas id="sig" ></canvas>
-                                                                <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    <div class="d-flex inputDiv" id="sign">
-                                        <textarea id="signature" name="signed" class=" form-control" style="opacity:0" required></textarea>
-                                    </div>
-                                    <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
+                                    
                                 </div>
+
 
                                 <div class="col-md-6">
                                     <div class="d-flex inputDiv">
@@ -1858,6 +1832,32 @@
                                     </div>
 
                                 </div>
+
+                                <div class="row"> 
+                                                <div class="col-md-6">
+                                                    <div class="d-flex inputDiv" id="sign">
+                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Signature:</span>
+                                                    </label>
+                                                    <br/>
+                                                    <canvas id="sig" style="background: lightgray"></canvas>
+                                                    <br/>
+                                                   <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                     Take upload photos or documents
+                                                    </label>
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="uploadingDiv">
+                                                        <div class="uploadDiv" style="padding-left: 10px;">
+                                                                <div class="input-images"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
                                 </div> -->
@@ -1888,6 +1888,7 @@
             $("textarea[name='signed']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
+             signaturePad.clear();
 
         } else {
             $("#signtype").val(0);

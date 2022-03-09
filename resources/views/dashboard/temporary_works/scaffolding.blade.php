@@ -144,6 +144,12 @@
             width:200px;
         }
     }
+    @media only screen and (max-width: 768px) {
+        .ipadissue{
+           display:block !important;
+        }
+    }
+    
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
@@ -1844,7 +1850,7 @@
                                     </div>
 
                                     <div class="d-flex inputDiv mt-10">
-                                        <div class="d-flex inputDiv">
+                                        <div class="d-flex inputDiv ipadissue">
                                             <div class="d-flex modalDiv">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">

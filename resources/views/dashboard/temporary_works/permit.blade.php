@@ -625,7 +625,7 @@
                                                 <div class="col-md-8">
                                                     <div class="d-flex inputDiv principleno" id="sign" style="">
                                                         <div class="signatureDiv">
-                                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                            <label style="width:48%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                                     <span class="required">Signature:</span>
                                                                 </label>
                                                                 <br />

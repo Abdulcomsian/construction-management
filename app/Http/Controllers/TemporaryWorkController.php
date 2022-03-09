@@ -1032,9 +1032,9 @@ class TemporaryWorkController extends Controller
 
             //work for images
             $image_links = $this->scaffoldfiles($request, $scaffolding->id);
-
+            $design_requirement_text=TemporaryWork::select('design_requirement_text')->find($request->temporary_work_id);
             //pdf work here
-            $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments, 'check_images' => $check_images]);
+            $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments, 'check_images' => $check_images,'design_requirement_text'=>$design_requirement_text]);
             $path = public_path('pdf');
             $filename = rand() . '.pdf';
             $model = Scaffolding::find($scaffolding->id);

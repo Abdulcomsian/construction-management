@@ -675,7 +675,7 @@ class TemporaryWorkController extends Controller
                     $q->where('name', 'user');
                 }
                 )->where('company_id',$request->companyid)->first();
-                Notification::route('mail', $coordinatoremail->email)->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
 
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', auth()->user()->email)->notify(new PermitNotification($notify_admins_msg));
@@ -733,7 +733,7 @@ class TemporaryWorkController extends Controller
                 {
                      $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">'.$request->desc.'</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }
@@ -770,7 +770,7 @@ class TemporaryWorkController extends Controller
                 if (isset($request->shared)) {
                     $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">'.$request->desc.'</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -942,6 +942,7 @@ class TemporaryWorkController extends Controller
     //save scaffolding
     public function scaffolding_save(Request $request)
     {
+         //dd($request->all());
         Validations::storescaffolding($request);
         try {
         $check_radios = [];
@@ -1009,7 +1010,6 @@ class TemporaryWorkController extends Controller
             $all_inputs['status'] = 1;
             Scaffolding::find($request->id)->update(['status' => 3]);
         }
-        // dd($all_inputs);
         $scaffolding = Scaffolding::create($all_inputs);
         if ($scaffolding) {
             $model = new CheckAndComment();
@@ -1032,9 +1032,9 @@ class TemporaryWorkController extends Controller
 
             //work for images
             $image_links = $this->scaffoldfiles($request, $scaffolding->id);
-
+            $design_requirement_text=TemporaryWork::select('design_requirement_text')->find($request->temporary_work_id);
             //pdf work here
-            $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments, 'check_images' => $check_images]);
+            $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments, 'check_images' => $check_images,'design_requirement_text'=>$design_requirement_text]);
             $path = public_path('pdf');
             $filename = rand() . '.pdf';
             $model = Scaffolding::find($scaffolding->id);
@@ -1061,7 +1061,8 @@ class TemporaryWorkController extends Controller
              $q->where('name', 'user');
             }
             )->where('company_id',$request->companyid)->first();
-            Notification::route('mail', $coordinatoremail->email)->notify(new PermitNotification($notify_admins_msg));
+            
+             Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
 
             Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
             # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));

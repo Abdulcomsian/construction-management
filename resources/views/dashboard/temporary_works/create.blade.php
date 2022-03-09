@@ -393,7 +393,7 @@ height: 72px;
                                 
                                     <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
-                                         <label style="" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                         <label style="" class="required d-flex align-items-center fs-6 fw-bold mb-2">
                                            Design Requirement:
                                         </label>
                                         <br>
@@ -405,7 +405,7 @@ height: 72px;
                                   <div class="d-flex inputDiv d-block">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
                                             <textarea class="form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
@@ -466,7 +466,7 @@ height: 72px;
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
-                                        <span class="required">Name signature:</span>
+                                        <span>Name signature:</span>
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">

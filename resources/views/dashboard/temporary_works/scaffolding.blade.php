@@ -223,7 +223,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',$tempdata->twc_name)}}" required>
                                     <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
@@ -278,7 +278,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required"> TWS or competent Scaffolder Name:</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name',auth()->user()->name)}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -1601,9 +1601,9 @@
                                 </label>
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid" style="height: 48px;">
-                                    <label>
+                                    <label style="width:48px;">
                                         <input type="radio" class="btn-check" name="other_radio" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Yes</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -1699,7 +1699,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Inspected by:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" value="{{auth()->user()->name}}" required>
 
                                         </div>
                                     </div>
@@ -1709,7 +1709,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Job Title:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="" required>
 
                                         </div>
                                     </div>
@@ -1728,7 +1728,7 @@
                                     <div class="d-flex inputDiv">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                            <span class="required">Name signature:</span>
+                                            <span >Name signature:</span>
                                         </label>
                                         <!--end::Label-->
                                         <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
@@ -1750,35 +1750,9 @@
                                         <br />
 
                                     </div> -->
-                                    <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="signatureDiv">
-                                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                    <span class="required">Signature:</span>
-                                                                </label>
-                                                                <br />
-                                                                <canvas id="sig" ></canvas>
-                                                                <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    <div class="d-flex inputDiv" id="sign">
-                                        <textarea id="signature" name="signed" class=" form-control" style="opacity:0" required></textarea>
-                                    </div>
-                                    <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
+                                    
                                 </div>
+
 
                                 <div class="col-md-6">
                                     <div class="d-flex inputDiv">
@@ -1864,6 +1838,32 @@
                                     </div>
 
                                 </div>
+
+                                <div class="row"> 
+                                                <div class="col-md-6">
+                                                    <div class="d-flex inputDiv" id="sign">
+                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Signature:</span>
+                                                    </label>
+                                                    <br/>
+                                                    <canvas id="sig" style="background: lightgray"></canvas>
+                                                    <br/>
+                                                   <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                     Take upload photos or documents
+                                                    </label>
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="uploadingDiv">
+                                                        <div class="uploadDiv" style="padding-left: 10px;">
+                                                                <div class="input-images"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
                                 </div> -->
@@ -1894,6 +1894,7 @@
             $("textarea[name='signed']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
+             signaturePad.clear();
 
         } else {
             $("#signtype").val(0);

@@ -423,8 +423,11 @@ border-radius: 8px;
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td style="">{{ $item->designer_company_name ?: '-' }}
-                                    <br><br>
+                                    <td style="">
+                                     {{ $item->designer_company_name ?: '-' }}
+                                     <hr>
+                                     {{$item->desinger_company_name2 ?? ''}}
+                                    <hr>
                                     {{$item->tw_name ?: '-'}}
                                     @if(!$item->tw_name)
                                     <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p>
@@ -479,7 +482,7 @@ border-radius: 8px;
 
                                     </td>
                                     <td>
-                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
+                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit <br>to<br> load</p>
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                          @php 
                                          $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
@@ -498,7 +501,7 @@ border-radius: 8px;
                                         @endif
                                     </td>
                                     <td>
-                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
+                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}"  data-desc="{{$item->design_requirement_text}}">Permit<br> to <br>Unload</p>
                                     </td>
                                     <td  data-type="2">
                                         <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS</p>
@@ -663,10 +666,11 @@ border-radius: 8px;
 <script type="text/javascript">
     $(".permit-to-load").on('click',function(){
          id=$(this).attr('data-id');
+         desc=$(this).attr('data-desc');
             $.ajax({
             url:"{{route('permit.get')}}",
             method:"get",
-            data:{id:id},
+            data:{id:id,desc:desc},
             success:function(res)
             {
                $("#permitheading").html('Permit To Load');
@@ -683,10 +687,11 @@ border-radius: 8px;
     //permit to unload
     $(".permit-to-unload").on('click',function(){
          id=$(this).attr('data-id');
+         desc=$(this).attr('data-desc');
             $.ajax({
             url:"{{route('permit.get')}}",
             method:"get",
-            data:{id:id,type:'unload'},
+            data:{id:id,type:'unload',desc:desc},
             success:function(res)
             {
                 console.log(res);

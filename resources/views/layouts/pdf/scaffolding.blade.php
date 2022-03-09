@@ -16,6 +16,15 @@
    .paddingTable2 td {
       padding: 5px 10px;
    }
+   .red{
+    color:red; 
+   }
+   .green{
+    color:green;
+   }
+   *:not(html) {
+    -webkit-transform: translate3d(0, 0, 0);
+}
 </style>
 <page pageset="old">
    <div style="padding: 0px; width: 100%; max-width: 70%; margin: auto;">
@@ -26,6 +35,8 @@
             @else
             <h3>Scaffolding Inspection Permit to Load</h3>
             @endif
+            <br>
+            <p>{{$data['permit_no']}}  &nbsp;&nbsp;{{$design_requirement_text->design_requirement_text}}</p>
          </div>
          <div class="logo">
          </div>
@@ -236,12 +247,12 @@
                         <b style="font-size: 12px;"> Even, stable ground?</b>
                      </label>
                   </td>
-                  <td style="width:7%;">
+                  <td style="width:7%;" class="{{$check_radios['even_stable_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['even_stable_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
                         @elseif($check_radios['even_stable_radio']=="2")
-                        <button type="button" style="color: #FF0A0A; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; border:1px solid red;font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
+                        <button type="button"  style="color: #000;border:none; width: 18%;padding: 12px; border:1px solid red;font-weight: 700; font-size:12px;margin-right: 30px;border:1px solid red;">Fail</button>
                         @else
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid yellow;border:1px solid yellow;">N/A</button>
                         @endif
@@ -265,7 +276,7 @@
                         <b style="font-size: 12px;">Base Plates? </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['base_Plates_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['base_Plates_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -294,7 +305,7 @@
                         <b style="font-size: 12px;"> Sole boards and plates insalled correctly ?</b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;"  class="{{$check_radios['sole_boards_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['sole_boards_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -323,7 +334,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;"  class="{{$check_radios['undermined_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['undermined_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -353,7 +364,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['Plumb_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['Plumb_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -382,7 +393,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['staggered_joints_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['staggered_joints_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -411,7 +422,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['wrong_spacing_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['wrong_spacing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -440,7 +451,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['damaged_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['damaged_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -499,7 +510,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['trap_boards_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['trap_boards_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -526,7 +537,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['incomplete_boarding_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['incomplete_boarding_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -553,7 +564,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['supports_ties_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['supports_ties_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -581,7 +592,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['insufficient_length_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['insufficient_length_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -608,7 +619,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['missing_loose_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['missing_loose_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -637,7 +648,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['wrong_fittings_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['wrong_fittings_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -665,7 +676,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['not_level_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['not_level_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -692,7 +703,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['joined_same_bays_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['joined_same_bays_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -719,7 +730,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['loose_damaged_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['loose_damaged_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -747,7 +758,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['wrong_height_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['wrong_height_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -776,7 +787,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['some_missing_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['some_missing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -803,7 +814,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['GuardRails_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['GuardRails_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -833,7 +844,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['coupling_wrongfitting_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['coupling_wrongfitting_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -862,7 +873,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['coupling_somemissing_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['coupling_somemissing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -889,7 +900,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['coupling_loosedamaged_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['coupling_loosedamaged_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -919,7 +930,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['bracing_wrongfitting_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['bracing_wrongfitting_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -948,7 +959,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['bracing_somemissing_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['bracing_somemissing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -975,7 +986,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['bracing_loosedamaged_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['bracing_loosedamaged_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -1004,7 +1015,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['partially_removed_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;"> 
                         @if($check_radios['partially_removed_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -1033,7 +1044,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['debrings_somemissing_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['debrings_somemissing_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -1060,7 +1071,7 @@
                         </b>
                      </label>
                   </td>
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['loose_damaged_broken_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['loose_damaged_broken_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 0 12px; font-weight: 700; font-size:12px; margin-right: 30px;border:1px solid green;">Pass</button>
@@ -1115,7 +1126,7 @@
                      </label>
                   </td>
 
-                  <td style="width:10%;">
+                  <td style="width:10%;" class="{{$check_radios['other_radio']==2 ? 'red' : 'green'}}">
                      <span style="font-size: 12px;">
                         @if($check_radios['other_radio']=="1")
                         <button type="button" style="color: #164615; background-color: #C5BCBC;border:none; width: 18%;padding: 12px; font-weight: 700; font-size:12px; margin-right: 30px;">Y</button>
@@ -1136,7 +1147,7 @@
                      <img src="{{ $check_images['other_image'] ?? ''}}" width="40" height="40px" />
                      @endif
                   </td> -->
-               </tr> -->
+               </tr> 
             </tbody>
          </table>
       </div>

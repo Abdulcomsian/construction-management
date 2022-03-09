@@ -675,7 +675,7 @@ class TemporaryWorkController extends Controller
                     $q->where('name', 'user');
                 }
                 )->where('company_id',$request->companyid)->first();
-                Notification::route('mail', $coordinatoremail->email)->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
 
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 Notification::route('mail', auth()->user()->email)->notify(new PermitNotification($notify_admins_msg));
@@ -733,7 +733,7 @@ class TemporaryWorkController extends Controller
                 {
                      $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">'.$request->desc.'</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }
@@ -770,7 +770,7 @@ class TemporaryWorkController extends Controller
                 if (isset($request->shared)) {
                     $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">Pdf Link</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">'.$request->desc.'</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -944,7 +944,7 @@ class TemporaryWorkController extends Controller
     {
          //dd($request->all());
         Validations::storescaffolding($request);
-        // try {
+        try {
         $check_radios = [];
         foreach ($request->keys() as $key) {
             if (Str::contains($key, 'radio')) {
@@ -1061,18 +1061,19 @@ class TemporaryWorkController extends Controller
              $q->where('name', 'user');
             }
             )->where('company_id',$request->companyid)->first();
-            Notification::route('mail', $coordinatoremail->email)->notify(new PermitNotification($notify_admins_msg));
+            
+             Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
 
             Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
             # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
             toastSuccess('Scaffolding Created Successfully');
             return redirect()->route('temporary_works.index');
         }
-        // } catch (\Exception $exception) {
-        //     dd($exception->getMessage());
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     //save scaffold images

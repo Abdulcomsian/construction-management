@@ -217,7 +217,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',$tempdata->twc_name)}}" required>
                                     <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
@@ -1595,9 +1595,9 @@
                                 </label>
                                 <!--begin::Radio group-->
                                 <div class="nav-group nav-group-fluid" style="height: 48px;">
-                                    <label>
+                                    <label style="width:48px;">
                                         <input type="radio" class="btn-check" name="other_radio" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Yes</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -1693,7 +1693,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Inspected by:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" value="{{auth()->user()->name}}" required>
 
                                         </div>
                                     </div>
@@ -1703,7 +1703,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Job Title:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="" required>
 
                                         </div>
                                     </div>
@@ -1722,7 +1722,7 @@
                                     <div class="d-flex inputDiv">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                            <span class="required">Name signature:</span>
+                                            <span >Name signature:</span>
                                         </label>
                                         <!--end::Label-->
                                         <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">

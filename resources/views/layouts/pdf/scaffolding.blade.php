@@ -22,6 +22,9 @@
    .green{
     color:green;
    }
+   *:not(html) {
+    -webkit-transform: translate3d(0, 0, 0);
+}
 </style>
 <page pageset="old">
    <div style="padding: 0px; width: 100%; max-width: 70%; margin: auto;">
@@ -32,6 +35,8 @@
             @else
             <h3>Scaffolding Inspection Permit to Load</h3>
             @endif
+            <br>
+            <p>{{$data['permit_no']}}  &nbsp;&nbsp;{{$design_requirement_text->design_requirement_text}}</p>
          </div>
          <div class="logo">
          </div>

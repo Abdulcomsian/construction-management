@@ -466,7 +466,7 @@ height: 72px;
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
-                                        <span class="required">Name signature:</span>
+                                        <span>Name signature:</span>
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">

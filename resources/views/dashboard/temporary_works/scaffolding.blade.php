@@ -1825,7 +1825,7 @@
 
                                     <div class="d-flex inputDiv mt-10">
                                         <div class="d-flex inputDiv ipadissue">
-                                            <div class="d-flex modalDiv">
+                                            <div class="d-flex modalDiv ipadissue">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     Date :

@@ -230,7 +230,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name')}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',$tempdata->twc_name)}}" required>
                                     <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
@@ -271,7 +271,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name',auth()->user()->name)}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -540,7 +540,7 @@
                                         <div class="col">
                                             <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                                    <span class="required">Name/signature:</span>
+                                                    <span>Name/signature:</span>
                                                 </label>
                                                 <input type="checkbox" id="flexCheckChecked1" style="width: 12px;margin-top:5px">
                                                 <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="0">
@@ -609,7 +609,7 @@
                                         <div class="col">
                                             <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                                    <span class="required">Name/signature:</span>
+                                                    <span>Name/signature:</span>
                                                 </label>
                                                 <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
                                                 <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">

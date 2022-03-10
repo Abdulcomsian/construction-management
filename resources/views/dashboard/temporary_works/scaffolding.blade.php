@@ -235,7 +235,7 @@
                                         </label>
                                         <select name="loadclass" id="loadclass" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
                                             <option value="">Select Option</option>
-                                            <option value="1">Service Class 1 - 0.75 kN/m2 – Inspection and very light duty access</option>
+                                            <option value="1" >Service Class 1 - 0.75 kN/m2 – Inspection and very light duty access</option>
                                             <option value="2">Service Class 2 - 1.50 kN/m2 – Light duty such as painting and cleaning</option>
                                             <option value="3">Service Class 3 - 2.00 kN/m2 – General building work, brickwork, etc.</option>
                                             <option value="4">Service Class 4 - 3.00 kN/m2 – Heavy duty such as masonry and heavy cladding</option>
@@ -1699,7 +1699,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Inspected by:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" value="{{auth()->user()->name}}" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Inspected By" id="inspected_by" name="inspected_by" value="{{auth()->user()->name}}" required="required">
 
                                         </div>
                                     </div>
@@ -1709,7 +1709,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Job Title:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="" required="required">
 
                                         </div>
                                     </div>
@@ -1840,37 +1840,37 @@
                                 </div>
 
                                 <div class="row"> 
-                                                <div class="col-md-6">
-                                                    <div class="d-flex inputDiv" id="sign">
-                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                        <span class="required">Signature:</span>
-                                                    </label>
-                                                    <br/>
-                                                    <canvas id="sig" style="background: lightgray"></canvas>
-                                                    <br/>
-                                                   <textarea id="signature" name="signed" style="display: none"></textarea>
-                                                </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                     Take upload photos or documents
-                                                    </label>
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex inputDiv" id="sign">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label>
+                                        <br/>
+                                        <canvas id="sig" style="background: lightgray"></canvas>
+                                        <br/>
+                                       <textarea id="signature" name="signed" style="display: none"></textarea>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                         Take upload photos or documents
+                                        </label>
+                                        <div class="d-flex inputDiv principleno" id="sign" style="">
+                                            <div class="uploadingDiv">
+                                            <div class="uploadDiv" style="padding-left: 10px;">
+                                                    <div class="input-images"></div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
                                 </div> -->
                             
                             </div>
                             <br>
-                            <button id="submitbutton" type="button" class="btn btn-primary">Submit</button>
+                            <button id="submitbutton" type="submit" class="btn btn-primary">Submit</button>
                             
                         </div>
                 </form>
@@ -1906,13 +1906,16 @@
 
         }
     })
-
+    
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
-    $("#submitbutton").on('click', function() {
-        $("#signature").val(signaturePad.toDataURL('image/png'));
-        $("#scaffolding").submit();
-    });
+     signaturePad.addEventListener("endStroke", () => {
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+            }, { once: true });
+    // $("#submitbutton").on('click', function() {
+        
+    //     $("#scaffolding").submit();
+    // });
 
     $('#drawing_no').change(function() {
         $('#drawing_no').css("background-color", "#f5f8fa ");

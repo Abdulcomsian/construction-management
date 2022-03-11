@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\TemporaryWorkController;
+use App\Http\Controllers\DesignerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
 Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
+//design page for designer 
+Route::get('designer/upload-design/{id}',[DesignerController::class,'index'])->name('designer.uploaddesign');
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
 });

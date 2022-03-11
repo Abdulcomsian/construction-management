@@ -364,15 +364,24 @@ class TemporaryWorkController extends Controller
                         'filename' => $filename,
                         'links' => '',
                         'name' => 'TemporaryWork',
+                        'designer'=>''
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg));
-                Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
-                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg));
-                Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg));
+                Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg,$temporary_work->id));
+                Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporary_work->id));
+                if($request->designer_company_email)
+                {
+                    $notify_admins_msg['body']['designer']='designer1';
+                    Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporary_work->id));
+                }
+                if($request->desinger_email_2)
+                {
+                    Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporary_work->id));
+                }
+                
                
             }
             toastSuccess('Temporary Work successfully added!');

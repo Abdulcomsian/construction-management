@@ -26,6 +26,11 @@
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Welcome to the online i-works Web-Portal. Attached is a PDF design brief created by {{$details['body']['company']}} Ltd., for your attention. Relevant attachments for the design brief are also included as links in the design brief.
                                                                    </p>
+                                                                   @if($details['body']['designer'])
+                                                                   <p>
+                                                                       <a href="{{route('designer.uploaddesign',$id)}}">View and Upload Design</a>
+                                                                   </p>
+                                                                   @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>
                                                                         City Temporary Works
                                                                    </p>

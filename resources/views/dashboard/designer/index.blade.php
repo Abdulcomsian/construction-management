@@ -121,9 +121,10 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <form id="desingform" action="" method="post" enctype="multipart/form-data">
+                    <form id="desingform" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                        <input type="hidden" name="tempworkid" value="{{$id}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -131,22 +132,22 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Project Name:</span>
+                                                <span class="required">Drawing Number:</span>
 
                                             </label>
                                             <!--end::Label-->
-                                            <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
+                                            <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number"  value="{{old('drawing_number')}}" required="required">
                                         </div>
                                    </div>
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Project Address:</span>
+                                                <span class="required">Comments:</span>
 
                                             </label>
                                             <!--end::Label-->
-                                            <input readonly type="text" class="form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
+                                            <textarea class="form-control" id="comments" name="comments" required="required"></textarea>
                                         </div>
                                      </div>
                                 </div>
@@ -155,21 +156,21 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Designer Company Name:</span>
+                                                <span class="required">TWD Name:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name', $twd_name->twc_name)}}"  required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Designer Email Address:</span>
+                                                <span class="required">Drawing Title:</span>
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="email" class="form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
+                                            <input type="email" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
                                         </div>
                                     </div>
                                 </div>
@@ -178,16 +179,55 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">TWC Name:</span>
+                                                <span class="required">Drawing:</span>
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" style="background: #f5f8fa" required>
+                                            <input type="file" class="form-control form-control-solid"  id="file" name="file"  style="background: #f5f8fa" required>
                                         </div>
                                     </div>
-                                 </div>
+                                     <div class="col-md-3">
+                                         <div class="d-flex inputDiv requiredDiv">
+                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Preliminary/ For approval</span>
+
+                                            </label>
+                                            <!--begin::Radio group-->
+                                             <div class="nav-group nav-group-fluid">
+                                                <label>
+                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="1" checked />
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="2" />
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                                </label>
+                                            </div>
+                                     </div>
+                                   </div>
+
+                                   <div class="col-md-3">
+                                         <div class="d-flex inputDiv requiredDiv">
+                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">For construction</span>
+
+                                            </label>
+                                            <!--begin::Radio group-->
+                                             <div class="nav-group nav-group-fluid">
+                                                <label>
+                                                    <input type="radio" class="btn-check" name="construction" value="1" checked />
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" class="btn-check" name="construction" value="2" />
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                                </label>
+                                            </div>
+                                     </div>
+                                   </div>
+                                </div>
                                  <br>
-                                 <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
+                                 <button  type="submit" class="btn btn-primary float-end">Submit</button>
                             </div>
                         </div> 
                     </form>
@@ -196,20 +236,26 @@
                         <thead>
                             <tr>
                                 <th>S-no</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>Drawing Number</th>
+                                <th>Comments</th>
+                                <th>TWD Name</th>
+                                <th>Drawing Title</th>
+                                <th>Preliminary/ For approval</th>
+                                <th>For construction</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($DesignerUploads as $uploads)
                             <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$uploads->drawing_number}}</td>
+                                <td>{{$uploads->comments}}</td>
+                                <td>{{$uploads->twd_name}}</td>
+                                <td>{{$uploads->drawing_title}}</td>
+                                <td>{{$uploads->preliminary_approval==1?'Yes':'No'}}</td>
+                                <td>{{$uploads->construction==1?'Yes':'No'}}</td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

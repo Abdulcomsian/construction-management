@@ -27,6 +27,7 @@ Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('
 Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
 //design page for designer 
 Route::get('designer/upload-design/{id}',[DesignerController::class,'index'])->name('designer.uploaddesign');
+Route::post('designer/store',[DesignerController::class,'store'])->name('designer.store');
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
 });

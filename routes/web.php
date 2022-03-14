@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\TemporaryWorkController;
+use App\Http\Controllers\DesignerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
 Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
+//design page for designer 
+Route::get('designer/upload-design/{id}',[DesignerController::class,'index'])->name('designer.uploaddesign');
+Route::post('designer/store',[DesignerController::class,'store'])->name('designer.store');
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
 });
@@ -94,6 +98,10 @@ Route::group(['middleware' => ['auth']], function () {
      Route::get('project-docs-get',[ProjectController::class,'project_docs_get'])->name('project.document.get');
      Route::get('project-document/{id}',[ProjectController::class,'project_document'])->name('project-document');
      Route::post('tempwork-share',[TemporaryWorkController::class,'Tempwork_share'])->name('tempwork.share');
+
+
+     //get designs that uploaded
+     Route::get('get-designs',[DesignerController::class,'get_desings'])->name('get-designs');
 });
 
 Route::get('/dashboard', function () {

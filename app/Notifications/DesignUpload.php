@@ -7,20 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TemporaryWorkNotification extends Notification
+class DesignUpload extends Notification
 {
     use Queueable;
-    private $offerData;
-    public $id;
+     private $offerData;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData,$id)
+    public function __construct($offerData)
     {
         $this->offerData = $offerData;
-        $this->id=$id;
     }
 
     /**
@@ -42,14 +40,10 @@ class TemporaryWorkNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+       return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
-            ->view('mail.temporaryworkmail', ['details' => $this->offerData,'id'=>$this->id])
-            ->attach(public_path('pdf/' . $this->offerData['body']['filename']), [
-                'as' => 'Temporarywork.pdf',
-                'mime' => 'text/pdf',
-            ]);
+            ->view('mail.designupload', ['details' => $this->offerData]);
     }
 
     /**

@@ -24,8 +24,9 @@ class DesignerController extends Controller
 
     public function store(Request $request)
     {
+       
         try {
-            $tempworkdata=TemporaryWork::where('twc_id_no',$request->tempworkid)->first();
+            $tempworkdata=TemporaryWork::find($request->tempworkid);
             $createdby=User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $file = $request->file('file');

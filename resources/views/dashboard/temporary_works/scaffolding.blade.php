@@ -485,7 +485,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div style="margin-top: 10px; text-align:center;">
-                                    <textarea class="d-none form-control" name="even_stable_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none form-control" name="even_stable_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div style="margin-top: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="even_stable_image" id="even_stable_image">
@@ -524,7 +524,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="base_Plates_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="base_Plates_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="base_Plates_image" id="base_Plates_image">
@@ -564,7 +564,7 @@
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none  form-control" name="sole_boards_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="sole_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -604,7 +604,7 @@
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none  form-control" name="undermined_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="undermined_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -650,7 +650,7 @@
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
 
-                                    <textarea class="d-none  form-control" name="Plumb_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="Plumb_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -689,7 +689,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="staggered_joints_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="staggered_joints_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -730,7 +730,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -773,7 +773,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="damaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="damaged_comment" rows="2" cols="90"></textarea>
 
                                 </div>
 
@@ -819,7 +819,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="trap_boards_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="trap_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -860,7 +860,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -901,7 +901,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="supports_ties_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="supports_ties_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -946,7 +946,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="insufficient_length_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="insufficient_length_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -990,7 +990,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="missing_loose_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="missing_loose_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -1031,7 +1031,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -1072,7 +1072,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="not_level_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="not_level_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -1107,7 +1107,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -1141,7 +1141,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="loose_damaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="loose_damaged_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -1187,7 +1187,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="wrong_height_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_height_comment" rows="2" cols="90"></textarea>
                                 </div>
 
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
@@ -1224,7 +1224,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="some_missing_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="some_missing_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="some_missing_image" id="some_missing_image">
@@ -1259,7 +1259,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="GuardRails_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="GuardRails_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="GuardRails_image" id="GuardRails_image">
@@ -1300,7 +1300,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="coupling_wrongfitting_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" name="coupling_wrongfitting_comment" rows="2" placeholder="Please Enter Comments" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="coupling_wrongfitting_image" id="coupling_wrongfitting_image">
@@ -1331,7 +1331,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="coupling_somemissing_image" id="coupling_somemissing_image">
@@ -1362,7 +1362,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="coupling_loosedamaged_image" id="coupling_loosedamaged_image">
@@ -1404,7 +1404,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="bracing_wrongfitting_image" id="bracing_wrongfitting_image">
@@ -1435,7 +1435,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none  form-control" name="bracing_somemissing_image" id="bracing_somemissing_image">
@@ -1466,7 +1466,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="bracing_loosedamaged_image" id="bracing_loosedamaged_image">
@@ -1514,7 +1514,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="partially_removed_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="partially_removed_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="partially_removed_image" id="partially_removed_image">
@@ -1555,7 +1555,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="debrings_somemissing_image" id="debrings_somemissing_image">
@@ -1588,7 +1588,7 @@
                                 </div>
                                 <!--end::Radio group-->
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
+                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="loose_damaged_broken_image" id="loose_damaged_broken_image">

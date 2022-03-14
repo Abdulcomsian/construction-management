@@ -98,6 +98,10 @@ Route::group(['middleware' => ['auth']], function () {
      Route::get('project-docs-get',[ProjectController::class,'project_docs_get'])->name('project.document.get');
      Route::get('project-document/{id}',[ProjectController::class,'project_document'])->name('project-document');
      Route::post('tempwork-share',[TemporaryWorkController::class,'Tempwork_share'])->name('tempwork.share');
+
+
+     //get designs that uploaded
+     Route::get('get-designs',[DesignerController::class,'get_desings'])->name('get-designs');
 });
 
 Route::get('/dashboard', function () {

@@ -170,7 +170,7 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="email" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
                                         </div>
                                     </div>
                                 </div>
@@ -246,7 +246,16 @@
                         </thead>
                         <tbody>
                             @foreach($DesignerUploads as $uploads)
-                            <tr>
+                            @php 
+                             if($uploads->preliminary_approval==1)
+                             {
+                                $background='yellow';
+                             }
+                             elseif($uploads->construction==1){
+                                $background='lightgreen';
+                             }
+                            @endphp
+                            <tr style="background: {{$background}}">
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$uploads->drawing_number}}</td>
                                 <td>{{$uploads->comments}}</td>

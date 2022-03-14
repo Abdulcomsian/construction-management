@@ -255,7 +255,7 @@
                                 $background='lightgreen';
                              }
                             @endphp
-                            <tr style="background: {{$background}}">
+                            <tr style="background: {{$$background ?? ''}}">
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$uploads->drawing_number}}</td>
                                 <td>{{$uploads->comments}}</td>

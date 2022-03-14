@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TemporaryWork;
 use App\Models\TempWorkUploadFiles;
 use App\Utils\HelperFunctions;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Notification;
@@ -23,8 +24,9 @@ class DesignerController extends Controller
 
     public function store(Request $request)
     {
-        // try {
+        try {
             $tempworkdata=TemporaryWork::where('twc_id_no',$request->tempworkid)->first();
+            $createdby=User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $file = $request->file('file');
             $imagename = HelperFunctions::saveFile(null, $file, $filePath);
@@ -55,13 +57,14 @@ class DesignerController extends Controller
                     'action_url' => '',
                 ];
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 toastSuccess('Desinger Uploaded Successfully!');
                 return Redirect::back();
             }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     public function get_desings(Request $request)

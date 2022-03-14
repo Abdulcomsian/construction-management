@@ -145,9 +145,12 @@
         }
     }
     @media only screen and (max-width: 768px) {
-        .ipadissue{
+        .ipadnewline,   .ipadissue{
            display:block !important;
         }
+        .zeromargin{margin-left:0px !important;}
+        .margintop{margin-top:10px;margin-left:0px !important;}
+        
     }
     
 </style>
@@ -444,12 +447,12 @@
 
                         <div class="col-md-12 ">
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="background:green;color:#fff;padding:10px;width: 20%;">
                                     <span style="">Footings:</span>
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Even, stable ground?</span>
@@ -481,14 +484,14 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div style="margin-top: 10px; text-align:center;">
                                     <textarea class="d-none form-control" name="even_stable_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div style="margin-top: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="even_stable_image" id="even_stable_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Base Plates?</span>
@@ -520,14 +523,14 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="base_Plates_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="base_Plates_image" id="base_Plates_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Sole boards?</span>
@@ -559,16 +562,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
 
                                     <textarea class="d-none  form-control" name="sole_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="sole_boards_image" id="sole_boards_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Undermined?</span>
@@ -599,12 +602,12 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
 
                                     <textarea class="d-none  form-control" name="undermined_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="undermined_image" id="undermined_image">
                                 </div>
                             </div>
@@ -613,7 +616,7 @@
                                     Standards:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Plumb?</span>
@@ -645,16 +648,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
 
                                     <textarea class="d-none  form-control" name="Plumb_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="Plumb_image" id="Plumb_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Staggered joints?</span>
@@ -685,16 +688,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="staggered_joints_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="staggered_joints_image" id="staggered_joints_image">
                                 </div>
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Wrong spacing?</span>
@@ -726,17 +729,17 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="wrong_spacing_image" id="wrong_spacing_image">
                                 </div>
 
 
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Damaged?</span>
@@ -769,12 +772,12 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="damaged_comment" rows="2" cols="90"></textarea>
 
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="damaged_image" id="damaged_image">
                                 </div>
                             </div>
@@ -783,7 +786,7 @@
                                     Boards:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Trap boards?</span>
@@ -815,16 +818,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="trap_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="trap_boards_image" id="trap_boards_image">
                                 </div>
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Incomplete boarding?</span>
@@ -856,16 +859,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="incomplete_boarding_image" id="incomplete_boarding_image">
                                 </div>
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Insufficient supports / ties?</span>
@@ -897,11 +900,11 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="supports_ties_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="supports_ties_image" id="supports_ties_image">
                                 </div>
                             </div>
@@ -910,7 +913,7 @@
                                     Ladders:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Insufficient length?</span>
@@ -942,15 +945,15 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="insufficient_length_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="insufficient_length_image" id="insufficient_length_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Any missing or loose?</span>
@@ -986,16 +989,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="missing_loose_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="missing_loose_image" id="missing_loose_image">
                                 </div>
                             </div>
 
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Wrong fittings?</span>
@@ -1027,11 +1030,11 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="wrong_fittings_image" id="wrong_fittings_image">
                                 </div>
                             </div>
@@ -1040,7 +1043,7 @@
                                     Ledgers:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Not level?</span>
@@ -1068,15 +1071,15 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="not_level_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="not_level_image" id="not_level_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Joined in same bays?</span>
@@ -1103,15 +1106,15 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="joined_same_bays_image" id="joined_same_bays_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Loose or damaged?</span>
@@ -1137,11 +1140,11 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="loose_damaged_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="loose_damaged_image" id="loose_damaged_image">
                                 </div>
 
@@ -1151,7 +1154,7 @@
                                     Guard Rails:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Wrong height?</span>
@@ -1183,16 +1186,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="wrong_height_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="wrong_height_image" id="wrong_height_image">
                                 </div>
 
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Any missing or loose?</span>
@@ -1220,14 +1223,14 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="some_missing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="some_missing_image" id="some_missing_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Damaged?</span>
@@ -1255,10 +1258,10 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="GuardRails_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="GuardRails_image" id="GuardRails_image">
                                 </div>
                             </div>
@@ -1268,7 +1271,7 @@
                                     Couplings:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Wrong Fittings?</span>
@@ -1296,14 +1299,14 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="coupling_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="coupling_wrongfitting_image" id="coupling_wrongfitting_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Some Missing?</span>
@@ -1327,14 +1330,14 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="coupling_somemissing_image" id="coupling_somemissing_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Loose or Damaged?</span>
@@ -1358,10 +1361,10 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="coupling_loosedamaged_image" id="coupling_loosedamaged_image">
                                 </div>
                             </div>
@@ -1372,7 +1375,7 @@
                                     Bracing:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Wrong Fittings?</span>
@@ -1400,14 +1403,14 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="bracing_wrongfitting_image" id="bracing_wrongfitting_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Some Missing?</span>
@@ -1431,14 +1434,14 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none  form-control" name="bracing_somemissing_image" id="bracing_somemissing_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Loose or Damaged?</span>
@@ -1462,10 +1465,10 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="bracing_loosedamaged_image" id="bracing_loosedamaged_image">
                                 </div>
                             </div>
@@ -1478,7 +1481,7 @@
                                 </label>
                             </div>
                             <!-- Debrings Netting -->
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Partially Removed?</span>
@@ -1510,16 +1513,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="partially_removed_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="partially_removed_image" id="partially_removed_image">
                                 </div>
 
 
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Some Missing?</span>
@@ -1551,16 +1554,16 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="debrings_somemissing_image" id="debrings_somemissing_image">
                                 </div>
 
 
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">Loose/ damaged or broken?</span>
@@ -1584,14 +1587,14 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <textarea class="d-none  form-control" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-left: 10px; text-align:center;">
+                                <div class="margintop" style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="loose_damaged_broken_image" id="loose_damaged_broken_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">
@@ -1620,7 +1623,7 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-left: 70px; ">
+                                <div class="zeromargin" style="margin-left: 70px; ">
                                     <textarea class="d-none  form-control" name="other_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <!-- <div style="margin-left: 10px; text-align:center;">

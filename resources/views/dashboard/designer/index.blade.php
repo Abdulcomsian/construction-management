@@ -2,22 +2,24 @@
 
 @section('styles')
 <style>
-
     .card>.card-body {
         padding: 32px;
     }
-    #kt_content_container{
+
+    #kt_content_container {
         background-color: #e9edf1;
     }
-    #kt_toolbar_container{
-        background-color:#fff;
-        
-        
+
+    #kt_toolbar_container {
+        background-color: #fff;
+
+
     }
-    .card{
+
+    .card {
         margin: 30px 0px;
-        border-radius: 10px !important;   
-        border: none !important; 
+        border-radius: 10px !important;
+        border: none !important;
     }
 
     table {
@@ -76,7 +78,11 @@
         width: 40%;
         color: #000;
     }
-    .select2-container{width:250px !important;}
+
+    .select2-container {
+        width: 250px !important;
+    }
+
     .inputDiv {
         margin: 20px 0px;
     }
@@ -128,7 +134,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                   <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -136,30 +142,30 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number"  value="{{old('drawing_number')}}" required="required">
+                                            <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number" value="{{old('drawing_number')}}" required="required">
                                         </div>
-                                   </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span >Comments:</span>
+                                                <span>Comments:</span>
 
                                             </label>
                                             <!--end::Label-->
                                             <textarea class="form-control" id="comments" name="comments"></textarea>
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                   <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">TWD Name:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value=""  required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name', $twd_name->twc_name ?? '')}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -170,7 +176,7 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -183,53 +189,53 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="file" class="form-control form-control-solid"  id="file" name="file"  style="background: #f5f8fa" required>
+                                            <input type="file" class="form-control form-control-solid" id="file" name="file" style="background: #f5f8fa" required>
                                         </div>
                                     </div>
-                                     <div class="col-md-3">
-                                         <div class="d-flex inputDiv requiredDiv">
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <div class="col-md-3">
+                                        <div class="d-flex inputDiv requiredDiv">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Preliminary/ For approval</span>
 
                                             </label>
                                             <!--begin::Radio group-->
-                                             <div class="nav-group nav-group-fluid">
+                                            <div class="nav-group nav-group-fluid">
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="1" checked />
+                                                    <input type="radio" datacheck1='yes' class="btn-check" name="preliminary_approval" value="1" checked />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="2" />
+                                                    <input type="radio" datacheck1='no' class="btn-check" name="preliminary_approval" value="2" />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
                                             </div>
-                                     </div>
-                                   </div>
+                                        </div>
+                                    </div>
 
-                                   <div class="col-md-3">
-                                         <div class="d-flex inputDiv requiredDiv">
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <div class="col-md-3">
+                                        <div class="d-flex inputDiv requiredDiv">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">For construction</span>
 
                                             </label>
                                             <!--begin::Radio group-->
-                                             <div class="nav-group nav-group-fluid">
+                                            <div class="nav-group nav-group-fluid">
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="construction" value="1" checked />
+                                                    <input type="radio" datacheck='yes' class="btn-check" name="construction" value="1" />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="construction" value="2" />
+                                                    <input type="radio" datacheck='no' class="btn-check" name="construction" value="2" checked />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
                                             </div>
-                                     </div>
-                                   </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                 <br>
-                                 <button  type="submit" class="btn btn-primary float-end">Submit</button>
+                                <br>
+                                <button type="submit" class="btn btn-primary float-end">Submit</button>
                             </div>
-                        </div> 
+                        </div>
                     </form>
                     <hr>
                     <table class="table table-hover">
@@ -246,14 +252,14 @@
                         </thead>
                         <tbody>
                             @foreach($DesignerUploads as $uploads)
-                            @php 
-                             if($uploads->preliminary_approval==1)
-                             {
-                                $background='yellow';
-                             }
-                             elseif($uploads->construction==1){
-                                $background='lightgreen';
-                             }
+                            @php
+                            if($uploads->preliminary_approval==1)
+                            {
+                            $background='yellow';
+                            }
+                            elseif($uploads->construction==1){
+                            $background='lightgreen';
+                            }
                             @endphp
                             <tr style="background: {{$background ?? ''}}">
                                 <td>{{$loop->index+1}}</td>
@@ -278,4 +284,29 @@
 </div>
 @endsection
 @section('scripts')
+<script type="text/javascript">
+    $('input[name="preliminary_approval"]').on('click', function() {
+        var val = $(this).val();
+        console.log(val);
+        if (val == 1) {
+            $("[datacheck='no']").prop('checked', true);
+            $("[datacheck='yes']").prop('checked', false);
+        } else {
+            $("[datacheck='no']").prop('checked', false);
+            $("[datacheck='yes']").prop('checked', true);
+        }
+    })
+
+    $('input[name="construction"]').on('click', function() {
+        var val = $(this).val();
+        console.log(val);
+        if (val == 1) {
+            $("[datacheck1='no']").prop('checked', true);
+            $("[datacheck1='yes']").prop('checked', false);
+        } else {
+            $("[datacheck1='no']").prop('checked', false);
+            $("[datacheck1='yes']").prop('checked', true);
+        }
+    })
+</script>
 @endsection

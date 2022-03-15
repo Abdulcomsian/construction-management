@@ -34,7 +34,7 @@
                         <h1 class="mb-3">Upload Design & Drawings</h1>
                         <!--end::Title-->
                         </div>
-                        <div class="row">
+                             <div class="row">
                                  <div class="col-md-12">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->

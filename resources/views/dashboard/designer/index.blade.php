@@ -147,7 +147,7 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <textarea class="form-control" id="comments" name="comments" required="required"></textarea>
+                                            <textarea class="form-control" id="comments" name="comments"></textarea>
                                         </div>
                                      </div>
                                 </div>

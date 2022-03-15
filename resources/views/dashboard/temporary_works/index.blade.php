@@ -830,5 +830,36 @@ console.log("here");
     
 })
 
+
+
+</script>
+<script type="text/javascript">
+    $('input[name="preliminary_approval"]').on('click',function(){
+        var val=$(this).val();
+        console.log(val);
+        if(val==1)
+        {
+           $("[datacheck='no']").prop('checked',true); 
+           $("[datacheck='yes']").prop('checked',false);  
+        }
+        else{
+              $("[datacheck='no']").prop('checked',false); 
+              $("[datacheck='yes']").prop('checked',true); 
+        }
+    })
+
+    $('input[name="construction"]').on('click',function(){
+        var val=$(this).val();
+        console.log(val);
+        if(val==1)
+        {
+           $("[datacheck1='no']").prop('checked',true); 
+           $("[datacheck1='yes']").prop('checked',false);  
+        }
+        else{
+              $("[datacheck1='no']").prop('checked',false); 
+              $("[datacheck1='yes']").prop('checked',true); 
+        }
+    })
 </script>
 @endsection

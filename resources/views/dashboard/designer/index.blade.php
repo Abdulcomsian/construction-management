@@ -159,7 +159,7 @@
                                                 <span class="required">TWD Name:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name', $twd_name->twc_name)}}"  required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name', $twd_name->twc_name ?? '')}}"  required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -195,11 +195,11 @@
                                             <!--begin::Radio group-->
                                              <div class="nav-group nav-group-fluid">
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="1" checked />
+                                                    <input type="radio" datacheck1='yes' class="btn-check" name="preliminary_approval" value="1" checked />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="2" />
+                                                    <input type="radio" datacheck1='no' class="btn-check" name="preliminary_approval" value="2" />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
                                             </div>
@@ -215,11 +215,11 @@
                                             <!--begin::Radio group-->
                                              <div class="nav-group nav-group-fluid">
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="construction" value="1" checked />
+                                                    <input type="radio" datacheck='yes' class="btn-check" name="construction" value="1"  />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="construction" value="2" />
+                                                    <input type="radio" datacheck='no' class="btn-check" name="construction" value="2" checked/>
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
                                             </div>
@@ -278,4 +278,33 @@
 </div>
 @endsection
 @section('scripts')
+<script type="text/javascript">
+    $('input[name="preliminary_approval"]').on('click',function(){
+        var val=$(this).val();
+        console.log(val);
+        if(val==1)
+        {
+           $("[datacheck='no']").prop('checked',true); 
+           $("[datacheck='yes']").prop('checked',false);  
+        }
+        else{
+              $("[datacheck='no']").prop('checked',false); 
+              $("[datacheck='yes']").prop('checked',true); 
+        }
+    })
+
+    $('input[name="construction"]').on('click',function(){
+        var val=$(this).val();
+        console.log(val);
+        if(val==1)
+        {
+           $("[datacheck1='no']").prop('checked',true); 
+           $("[datacheck1='yes']").prop('checked',false);  
+        }
+        else{
+              $("[datacheck1='no']").prop('checked',false); 
+              $("[datacheck1='yes']").prop('checked',true); 
+        }
+    })
+</script>
 @endsection

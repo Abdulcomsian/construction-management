@@ -17,7 +17,7 @@ class DesignerController extends Controller
     public function index($id)
     {
         $id = \Crypt::decrypt($id);
-        $DesignerUploads=TempWorkUploadFiles::where('file_type',1)->get();
+        $DesignerUploads=TempWorkUploadFiles::where(['file_type'=>1,'temporary_work_id'=>$id])->get();
         $twd_name=TemporaryWork::select('twc_name')->where('id',$id)->first();
         return view('dashboard.designer.index', compact('DesignerUploads','id','twd_name'));
     }
@@ -76,7 +76,7 @@ class DesignerController extends Controller
          $list.='<th>S-no</th>';
          $list.='<th>Drawing Number</th>';
          $list.='<th>Comments</th>';
-         $list.='<th>TWD Name</th><th>Drawing Title</th><th>Preliminary/ For approval</th><th>For construction</th>';
+         $list.='<th>TWD Name</th><th>Drawing Title</th><th>Preliminary/ For approval</th><th>For construction</th><th>Action</th>';
          $list.='</tr></thead><tbody>';
          $i=1;
          foreach($DesignerUploads as $uploads)
@@ -101,6 +101,12 @@ class DesignerController extends Controller
             $list.='<td>'.$uploads->drawing_title.'</td>';
             $list.='<td>'. $papproval.'</td>';
             $list.='<td>'.$construction.'</td>';
+            $list.='<td><form method="get" action="'. route("permit.load").'" style="display:inline-block;">
+                        <input type="hidden" class="temp_work_id" name="temp_work_id" value='.Crypt::encrypt($tempworkid).' />
+                        <input type="hidden"  name="drawingno" value='.$uploads->drawing_number.' />
+                         <input type="hidden"  name="drawingtitle" value='.$uploads->drawing_title.' />
+                        <button style="font-size:8px" type="submit" class="btn btn-primary btn-small" id="permiturl">Open Permit</button>
+                    </form></td>';
             $list.='</tr>';
             $i++;
          }

@@ -111,11 +111,11 @@
                                             <!--begin::Radio group-->
                                              <div class="nav-group nav-group-fluid">
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="1" checked />
+                                                    <input type="radio" datacheck1='yes' class="btn-check" name="preliminary_approval" value="1" checked />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="preliminary_approval" value="2" />
+                                                    <input type="radio" datacheck1='no' class="btn-check" name="preliminary_approval" value="2" />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
                                             </div>
@@ -130,11 +130,11 @@
                                             <!--begin::Radio group-->
                                              <div class="nav-group nav-group-fluid">
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="construction" value="1" checked />
+                                                    <input type="radio" datacheck='yes' class="btn-check" name="construction" value="1"  />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="construction" value="2" />
+                                                    <input type="radio" datacheck='no' class="btn-check" name="construction" value="2" checked />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
                                             </div>

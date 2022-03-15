@@ -117,7 +117,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Upload Designes</h2>
+                        <h2 style="display: inline-block;">Upload Designs</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -159,7 +159,7 @@
                                                 <span class="required">TWD Name:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name', $twd_name->twc_name)}}"  required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value=""  required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

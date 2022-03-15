@@ -18,7 +18,7 @@ class DesignerController extends Controller
     {
         $id = \Crypt::decrypt($id);
         $DesignerUploads=TempWorkUploadFiles::where('file_type',1)->get();
-        $twd_name=TemporaryWork::select('twc_name')->where('twc_id_no',$id)->first();
+        $twd_name=TemporaryWork::select('twc_name')->where('id',$id)->first();
         return view('dashboard.designer.index', compact('DesignerUploads','id','twd_name'));
     }
 

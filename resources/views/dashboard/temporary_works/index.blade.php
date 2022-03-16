@@ -461,14 +461,17 @@ border-radius: 8px;
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
-                                        @php $i=0;@endphp
+                                    <td>
+                                        <p  class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
+                                        <br>
+                                        <p  class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">View Drawings</p>
+                                        <!-- @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
                                         @php $i++ @endphp
                                         <span><a href="{{asset($file->file_name)}}" target="_blank">D{{$i}}</a></span>
                                         @endif
-                                        @endforeach
+                                        @endforeach -->
                                     </td>
                                     <td >
                                         <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
@@ -568,6 +571,7 @@ border-radius: 8px;
 @include('dashboard.modals.tw_name')
 @include('dashboard.modals.comments')
 @include('dashboard.modals.drawingdesign')
+@include('dashboard.modals.drawingdesignlist')
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load')
 @include('dashboard.modals.description')
@@ -668,6 +672,13 @@ border-radius: 8px;
     //upload drawing and design
     $(".uploaddrawing").on('click',function(){
         var tempworkid=$(this).attr('data-id');
+        $("#desing_tempworkid").val(tempworkid);
+        $("#drawinganddesign").modal('show');   
+    })
+
+    //upload drawing and design
+    $(".uploaddrawinglist").on('click',function(){
+        var tempworkid=$(this).attr('data-id');
        
          $.ajax({
             url:"{{route('get-designs')}}",
@@ -675,14 +686,13 @@ border-radius: 8px;
             data:{tempworkid:tempworkid},
             success:function(res)
             {
-                console.log(tempworkid);
                 $("#drawingdesigntable").html(res);
-                 $("#desing_tempworkid").val(tempworkid);
-                $("#drawinganddesign").modal('show');
+                $("#drawinganddesignlist").modal('show');
             }
           });
         
     })
+    
 </script>
 
 <script type="text/javascript">

@@ -148,10 +148,7 @@
                 </form>
                 <br>
                 @endif
-                <!--end:Form-->
-                <div id="drawingdesigntable">
-
-                </div>
+               
             </div>
             <!--end::Modal body-->
         </div>

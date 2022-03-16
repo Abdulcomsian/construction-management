@@ -100,6 +100,8 @@ class DesignerController extends Controller
             $list.='<td>'.$uploads->drawing_title.'</td>';
             $list.='<td>'. $papproval.'</td>';
             $list.='<td>'.$construction.'</td>';
+            if($construction=='Yes')
+            {
             $list.='<td style="display:flex">
                      <a href="'.$uploads->file_name.'" target="_blank">D'.$i.'</a>&nbsp;
                      <form method="get" action="'. route("permit.load").'" style="display:inline-block;">
@@ -109,6 +111,19 @@ class DesignerController extends Controller
                         <button style="font-size:8px" type="submit" class="btn btn-primary btn-small" id="permiturl">Open Permit</button>
                     </form>
                     </td>';
+                }
+                else{
+                    $list.='<td style="display:flex">
+                     <a href="'.$uploads->file_name.'" target="_blank">D'.$i.'</a>&nbsp;
+                     <form method="get" action="'. route("permit.load").'" style="display:inline-block;">
+                        <input type="hidden" class="temp_work_id" name="temp_work_id" value='.Crypt::encrypt($tempworkid).' />
+                        <input type="hidden"  name="drawingno" value='.$uploads->drawing_number.' />
+                         <input type="hidden"  name="drawingtitle" value='.$uploads->drawing_title.' />
+                       
+                    </form>
+                    </td>';
+
+                }
             $list.='</tr>';
             $i++;
          }

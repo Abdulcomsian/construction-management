@@ -71,7 +71,7 @@
                                                 <span class="required">TWD Name:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{auth()->user()->name}}"  required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -87,7 +87,20 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="row">
+                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="d-flex inputDiv d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span>Design Check Certificate:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="checkbox" id="designcheck" name="designcheck" style="margin-left: 10px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row construction">
                                     <div class="col-md-12">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
@@ -101,7 +114,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="row">
+                                <div class="row construction">
                                      <div class="col-md-6">
                                          <div class="d-flex inputDiv requiredDiv">
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -141,6 +154,18 @@
                                      </div>
                                    </div>
                                </div>
+                               <div class="row designcheck" style="display: none">
+                                    <div class="col-md-12">
+                                        <div class="d-flex inputDiv d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Upload Design Check Certificate:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="file" class="form-control form-control-solid" id="designcheckfile" name="designcheckfile">
+                                        </div>
+                                    </div>
+                                </div>
                                <br>
                                  <button  type="submit" class="btn btn-primary float-end">Submit</button>
                                   <br>

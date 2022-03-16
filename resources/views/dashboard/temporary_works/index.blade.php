@@ -871,5 +871,21 @@ console.log("here");
               $("[datacheck1='yes']").prop('checked',true); 
         }
     })
+
+      $("#designcheck").on('change',function(){
+        if($(this).is(":checked"))
+        {
+            $(".designcheck").show();
+            $(".construction").hide();
+            $("#designcheckfile").attr('required','required');
+            $("#file").removeAttr('required');
+        }
+        else{
+            $(".designcheck").hide();
+            $(".construction").show();
+            $("#designcheckfile").removeAttr('required');
+            $("#file").attr('required','required');
+        }
+    })
 </script>
 @endsection

@@ -28,11 +28,19 @@ class DesignerController extends Controller
             $tempworkdata=TemporaryWork::find($request->tempworkid);
             $createdby=User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
-            $file = $request->file('file');
+             $file_type=1;
+            if(isset($request->designcheck))
+            {
+                $file = $request->file('designcheckfile');
+                $file_type=2;
+            }
+            else{
+                 $file = $request->file('file');
+            }
             $imagename = HelperFunctions::saveFile(null, $file, $filePath);
             $model = new TempWorkUploadFiles();
             $model->file_name = $imagename;
-            $model->file_type = 1;
+            $model->file_type = $file_type;
             $model->temporary_work_id =$tempworkdata->id;
             $model->drawing_number=$request->drawing_number;
             $model->comments=$request->comments;
@@ -100,10 +108,11 @@ class DesignerController extends Controller
             $list.='<td>'.$uploads->drawing_title.'</td>';
             $list.='<td>'. $papproval.'</td>';
             $list.='<td>'.$construction.'</td>';
+            $path = config('app.url');
             if($construction=='Yes')
             {
             $list.='<td style="display:flex">
-                     <a href="'.$uploads->file_name.'" target="_blank">D'.$i.'</a>&nbsp;
+                     <a href="' . $path . '/'.$uploads->file_name.'" target="_blank">D'.$i.'</a>&nbsp;
                      <form method="get" action="'. route("permit.load").'" style="display:inline-block;">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" value='.Crypt::encrypt($tempworkid).' />
                         <input type="hidden"  name="drawingno" value='.$uploads->drawing_number.' />
@@ -114,7 +123,7 @@ class DesignerController extends Controller
                 }
                 else{
                     $list.='<td style="display:flex">
-                     <a href="'.$uploads->file_name.'" target="_blank">D'.$i.'</a>&nbsp;
+                     <a href="' . $path . '/'.$uploads->file_name.'" target="_blank">D'.$i.'</a>&nbsp;
                      <form method="get" action="'. route("permit.load").'" style="display:inline-block;">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" value='.Crypt::encrypt($tempworkid).' />
                         <input type="hidden"  name="drawingno" value='.$uploads->drawing_number.' />

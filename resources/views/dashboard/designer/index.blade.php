@@ -165,7 +165,7 @@
                                                 <span class="required">TWD Name:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name', $twd_name->twc_name ?? '')}}" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name')}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -181,6 +181,18 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex inputDiv d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span>Design Check Certificate:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="checkbox" id="designcheck" name="designcheck">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row construction" >
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
@@ -211,7 +223,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-3">
                                         <div class="d-flex inputDiv requiredDiv">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -229,6 +240,18 @@
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row designcheck" style="display: none">
+                                    <div class="col-md-6">
+                                        <div class="d-flex inputDiv d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Upload Design Check Certificate:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="file" class="form-control form-control-solid" id="designcheckfile" name="designcheckfile">
                                         </div>
                                     </div>
                                 </div>
@@ -306,6 +329,22 @@
         } else {
             $("[datacheck1='no']").prop('checked', false);
             $("[datacheck1='yes']").prop('checked', true);
+        }
+    })
+
+    $("#designcheck").on('change',function(){
+        if($(this).is(":checked"))
+        {
+            $(".designcheck").show();
+            $(".construction").hide();
+            $("#designcheckfile").attr('required','required');
+            $("#file").removeAttr('required');
+        }
+        else{
+            $(".designcheck").hide();
+            $(".construction").show();
+            $("#designcheckfile").removeAttr('required');
+            $("#file").attr('required','required');
         }
     })
 </script>

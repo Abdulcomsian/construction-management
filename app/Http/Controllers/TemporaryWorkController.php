@@ -358,7 +358,7 @@ class TemporaryWorkController extends Controller
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'Temporary Work PDF',
+                    'subject' => $model->design_requirement_text.'-'.$model->twc_id_no,
                     'body' => [
                         'company' => $request->company,
                         'filename' => $filename,

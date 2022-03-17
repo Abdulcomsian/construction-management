@@ -363,7 +363,7 @@ class TemporaryWorkController extends Controller
                         'company' => $request->company,
                         'filename' => $filename,
                         'links' => '',
-                        'name' => 'TemporaryWork',
+                        'name' =>  $model->design_requirement_text.'-'.$model->twc_id_no,
                         'designer'=>''
                     ],
                     'thanks_text' => 'Thanks For Using our site',

@@ -65,7 +65,7 @@ class DesignerController extends Controller
                         'text' => $text,
                         'filename' =>$tempworkdata->ped_url,
                         'links' =>  '',
-                        'name' => $request->drawing_title.'-'.$request->drawing_number,
+                        'name' =>$tempworkdata->design_requirement_text.'-'.$tempworkdata->twc_id_no,
                         'ext'=> $ext,
                     ],
                     'thanks_text' => 'Thanks For Using our site',

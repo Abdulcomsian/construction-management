@@ -47,7 +47,7 @@ class TemporaryWorkNotification extends Notification
             ->subject($this->offerData['subject'])
             ->view('mail.temporaryworkmail', ['details' => $this->offerData,'id'=>$this->id])
             ->attach(public_path('pdf/' . $this->offerData['body']['filename']), [
-                'as' => 'Temporarywork.pdf',
+                'as' =>  $this->offerData['body']['name'].'.pdf',
                 'mime' => 'text/pdf',
             ]);
     }

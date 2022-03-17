@@ -872,6 +872,16 @@ console.log("here");
         }
     })
 
+    $(document).on('click',".clickable-row",function() {
+        window.open($(this).data("href"), '_blank');
+    });
+
+    $(document).on('click','.openpermitform',function(e){
+        id=$(this).attr('id');
+        $("#submit"+id+"").submit();
+        e.stopPropagation();
+    })
+
     //   $("#designcheck").on('change',function(){
     //     if($(this).is(":checked"))
     //     {

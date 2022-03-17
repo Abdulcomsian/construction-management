@@ -43,7 +43,10 @@ class DesignUpload extends Notification
        return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
-            ->view('mail.designupload', ['details' => $this->offerData]);
+            ->view('mail.designupload', ['details' => $this->offerData])
+            ->attach(public_path('pdf/'.$this->offerData['body']['filename']), [
+                'as' => $this->offerData['body']['name'].'.pdf',
+            ]);
     }
 
     /**

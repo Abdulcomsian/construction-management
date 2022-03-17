@@ -872,20 +872,20 @@ console.log("here");
         }
     })
 
-      $("#designcheck").on('change',function(){
-        if($(this).is(":checked"))
-        {
-            $(".designcheck").show();
-            $(".construction").hide();
-            $("#designcheckfile").attr('required','required');
-            $("#file").removeAttr('required');
-        }
-        else{
-            $(".designcheck").hide();
-            $(".construction").show();
-            $("#designcheckfile").removeAttr('required');
-            $("#file").attr('required','required');
-        }
-    })
+    //   $("#designcheck").on('change',function(){
+    //     if($(this).is(":checked"))
+    //     {
+    //         $(".designcheck").show();
+    //         $(".construction").hide();
+    //         $("#designcheckfile").attr('required','required');
+    //         $("#file").removeAttr('required');
+    //     }
+    //     else{
+    //         $(".designcheck").hide();
+    //         $(".construction").show();
+    //         $("#designcheckfile").removeAttr('required');
+    //         $("#file").attr('required','required');
+    //     }
+    // })
 </script>
 @endsection

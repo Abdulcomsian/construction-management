@@ -24,30 +24,30 @@ class DesignerController extends Controller
 
     public function store(Request $request)
     {
-        try {
+        // try {
             $tempworkdata=TemporaryWork::find($request->tempworkid);
             $createdby=User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
+            $model = new TempWorkUploadFiles();
              $file_type=1;
-            if(isset($request->designcheck))
+            if(isset($request->designcheckfile))
             {
                 $file = $request->file('designcheckfile');
                 $file_type=2;
             }
             else{
-                 $file = $request->file('file');
+                    $file = $request->file('file');
+                    $model->drawing_number=$request->drawing_number;
+                    $model->comments=$request->comments;
+                    $model->twd_name=$request->twd_name;
+                    $model->drawing_title=$request->drawing_title;
+                    $model->preliminary_approval=$request->preliminary_approval;
+                    $model->construction=$request->construction;
             }
             $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-            $model = new TempWorkUploadFiles();
             $model->file_name = $imagename;
             $model->file_type = $file_type;
             $model->temporary_work_id =$tempworkdata->id;
-            $model->drawing_number=$request->drawing_number;
-            $model->comments=$request->comments;
-            $model->twd_name=$request->twd_name;
-            $model->drawing_title=$request->drawing_title;
-            $model->preliminary_approval=$request->preliminary_approval;
-            $model->construction=$request->construction;
             if ($model->save()) {
                 //send mail to twc
                
@@ -69,10 +69,10 @@ class DesignerController extends Controller
                 toastSuccess('Desinger Uploaded Successfully!');
                 return Redirect::back();
             }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     public function get_desings(Request $request)

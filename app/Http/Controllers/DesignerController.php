@@ -34,14 +34,14 @@ class DesignerController extends Controller
             {
                 $file = $request->file('designcheckfile');
                 $ext= $request->file('designcheckfile')->extension();
-                $subject='Designer Uploaded Certificate';
+                $subject='Designer Uploaded Design Check Certificate '.$tempworkdata->design_requirement_text.'-'.$tempworkdata->twc_id_no;
                 $text=' Welcome to the online i-works Web-Portal.Designer have uploaded Design Check Certificate. Please Login and view document.';
                 $file_type=2;
             }
             else{
                     $file = $request->file('file');
                     $ext= $request->file('file')->extension();
-                    $subject='Designer Uploaded Drawing';
+                    $subject='Designer Uploaded Drawing '.$tempworkdata->design_requirement_text.'-'.$tempworkdata->twc_id_no;
                      $text=' Welcome to the online i-works Web-Portal. Designer have uploaded Drawing. Please Login and view drawing.';
                     $model->drawing_number=$request->drawing_number;
                     $model->comments=$request->comments;

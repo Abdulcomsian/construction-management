@@ -25,9 +25,17 @@ Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
 Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
+
+
 //design page for designer 
 Route::get('designer/upload-design/{id}',[DesignerController::class,'index'])->name('designer.uploaddesign');
 Route::post('designer/store',[DesignerController::class,'store'])->name('designer.store');
+
+//pc twc approval routes
+Route::get('design/approve/{id}',[DesignerController::class,'pc_index'])->name('pc.approved');
+Route::post('design/store',[DesignerController::class,'pc_store'])->name('design.store');
+
+
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
 });

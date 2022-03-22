@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TemporaryWork;
 use App\Models\TempWorkUploadFiles;
+use App\Models\TemporaryWorkComment;
 use App\Utils\HelperFunctions;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
@@ -24,7 +25,7 @@ class DesignerController extends Controller
 
     public function store(Request $request)
     {
-        // try {
+        try {
             $tempworkdata=TemporaryWork::find($request->tempworkid);
             $createdby=User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
@@ -77,10 +78,10 @@ class DesignerController extends Controller
                 toastSuccess('Desinger Uploaded Successfully!');
                 return Redirect::back();
             }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     public function get_desings(Request $request)
@@ -147,5 +148,82 @@ class DesignerController extends Controller
          $list.='</tbody></table>';
          echo $list;
 
+    }
+
+
+
+    //PC TWC EMAIL WORK HERE
+    public function pc_index($id)
+    {
+         $id = \Crypt::decrypt($id);
+         $tempworkdetail=TemporaryWork::find($id);
+         return view('dashboard.designer.pc_index', compact('tempworkdetail'));
+    }
+
+    //approved or reject
+    public function pc_store(Request $request)
+    {
+        try{
+            $tempworkdata=TemporaryWork::find($request->tempworkid);
+            $createdby=User::find($tempworkdata->created_by);
+            TemporaryWork::find($request->tempworkid)->update([
+                'status'=>$request->status,
+            ]);
+            if($request->status==2)
+            {
+                $model=new TemporaryWorkComment();
+                $model->comment=$request->comments;
+                $model->temporary_work_id=$request->tempworkid;
+                $model->type='pc';
+                if($model->save())
+                {
+                    $subject='Design Brief Rejected '.$tempworkdata->design_requirement_text.'-'.$tempworkdata->twc_id_no;
+                    $text=' Welcome to the online i-works Web-Portal.Design Brief Rejected by PC TWC.';
+                     $notify_admins_msg = [
+                        'greeting' => 'Design Brief Rejected',
+                        'subject' => $subject,
+                        'body' => [
+                            'text' => $text,
+                            'filename' =>$tempworkdata->ped_url,
+                            'links' =>  '',
+                            'name' =>$tempworkdata->design_requirement_text.'-'.$tempworkdata->twc_id_no,
+                            'ext'=> $ext,
+                        ],
+                        'thanks_text' => 'Thanks For Using our site',
+                        'action_text' => '',
+                        'action_url' => '',
+                    ];
+                  Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                  Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                    toastError('Design Brief Rejected Successfully!');
+                    return Redirect::back();
+                }
+            }
+            else{
+                 $subject='Design Brief Approved '.$tempworkdata->design_requirement_text.'-'.$tempworkdata->twc_id_no;
+                 $text=' Welcome to the online i-works Web-Portal.Design Brief Approve by PC TWC.';
+                 $notify_admins_msg = [
+                    'greeting' => 'Design Brief Approved',
+                    'subject' => $subject,
+                    'body' => [
+                        'text' => $text,
+                        'filename' =>$tempworkdata->ped_url,
+                        'links' =>  '',
+                        'name' =>$tempworkdata->design_requirement_text.'-'.$tempworkdata->twc_id_no,
+                        'ext'=> $ext,
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                toastSuccess('Design Brief Approved Successfully!');
+                return Redirect::back();
+            }
+          } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+          }
     }
 }

@@ -301,7 +301,7 @@ class TemporaryWorkController extends Controller
 
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname','approval','pc_twc_email');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -327,6 +327,13 @@ class TemporaryWorkController extends Controller
             $all_inputs['tempid'] = $j;
             $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
             $all_inputs['twc_id_no'] = $twc_id_no;
+            if(isset($request->approval))
+            {
+                $all_inputs['status'] = '0';
+            }
+            else{
+                 $all_inputs['status'] = '1';
+            }
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -364,7 +371,8 @@ class TemporaryWorkController extends Controller
                         'filename' => $filename,
                         'links' => '',
                         'name' =>  $model->design_requirement_text.'-'.$model->twc_id_no,
-                        'designer'=>''
+                        'designer'=>'',
+                        'pc_twc'=>'',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -380,6 +388,12 @@ class TemporaryWorkController extends Controller
                 if($request->desinger_email_2)
                 {
                     Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporary_work->id));
+                }
+                if(isset($request->approval))
+                {
+                    $notify_admins_msg['body']['designer']='';
+                    $notify_admins_msg['body']['pc_twc']='1';
+                    Notification::route('mail',$request->pc_twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporary_work->id));
                 }
                 
                
@@ -415,9 +429,30 @@ class TemporaryWorkController extends Controller
      * @param  \App\Models\TemporaryWork  $temporaryWork
      * @return \Illuminate\Http\Response
      */
-    public function edit(TemporaryWork $temporaryWork)
+    public function edit($id)
     {
+
+        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+            toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
+            return Redirect::back();
+        }
         try {
+            $user = auth()->user();
+            if ($user->hasRole(['admin'])) {
+                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+            } elseif ($user->hasRole(['company'])) {
+                $projects = Project::with('company')->where('company_id', $user->id)->get();
+            } else {
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+                $projects = Project::with('company')->whereIn('id', $ids)->get();
+            }
+            $temporaryWork=TemporaryWork::with('scopdesign','folder','attachspeccomment')->find($id);
+            $selectedproject=Project::find($temporaryWork->project_id);
+            return view('dashboard.temporary_works.edit',compact('temporaryWork','projects','selectedproject'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -433,8 +468,158 @@ class TemporaryWorkController extends Controller
      */
     public function update(Request $request, TemporaryWork $temporaryWork)
     {
+        Validations::storeTemporaryWork($request);
         try {
+            $scope_of_design = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'sod')) {
+                    $data = null;
+                    $data = [
+                        Str::replace('_sod', '', $key) => $request->$key
+                    ];
+                    $scope_of_design = array_merge($scope_of_design, $data);
+                    unset($request[$key]);
+                }
+            }
+            $folder_attachements = [];
+            $folder_attachements_pdf = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'folder')) {
+                    $data = null;
+                    $data1 = null;
+                    $data = [
+                        Str::replace('_folder', '', $key) => $request->$key
+                    ];
+                    $mykey = Str::replace('_folder', '', $key);
+                    if (isset($request->$mykey)) {
+                        $data1 = [
+                            $request->$mykey => $request->$key
+                        ];
+                        $folder_attachements_pdf = array_merge($folder_attachements_pdf, $data1);
+                    }
+                    $folder_attachements = array_merge($folder_attachements, $data);
+                    unset($request[$key]);
+                }
+            }
+            $attachcomments = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'comment')) {
+                    $data = null;
+                    $data1 = null;
+                    $data = [
+                        $key => $request->$key
+                    ];
+                    $attachcomments = array_merge($attachcomments, $data);
+                    unset($request[$key]);
+                }
+            }
+
+            //unset all keys 
+            $request = $this->Unset($request);
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname','approval','pc_twc_email');
+            //upload signature here
+            $image_name = '';
+            if ($request->signtype == 1) {
+                $image_name = $request->namesign;
+            } else {
+                @unlink($folderPath.$temporaryWork->signature);
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+            }
+            // $image_name = HelperFunctions::savesignature($request);
+            $all_inputs['signature'] = $image_name;
+            $all_inputs['created_by'] = auth()->user()->id;
+            if (auth()->user()->hasRole('admin')) {
+                $all_inputs['created_by'] = $request->company_id;
+            }
+            //work for qrcode
+            $j = HelperFunctions::generatetempid($request->project_id);
+            $all_inputs['tempid'] = $j;
+            $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
+            $all_inputs['twc_id_no'] = $twc_id_no;
+            if(isset($request->approval))
+            {
+                $all_inputs['status'] = '0';
+            }
+            else{
+                 $all_inputs['status'] = '1';
+            }
+             $temporary_work=TemporaryWork::find($temporaryWork->id)->update($all_inputs);
+            if ($temporary_work) {
+                ScopeOfDesign::where('temporary_work_id',$temporaryWork->id)->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork->id]));
+                Folder::where('temporary_work_id',$temporaryWork->id)->update(array_merge($folder_attachements, ['temporary_work_id' => $temporaryWork->id]));
+                AttachSpeComment::where('temporary_work_id',$temporaryWork->id)->update(array_merge($attachcomments, ['temporary_work_id' =>$temporaryWork->id]));
+                //work for upload images here
+                $image_links = [];
+                if ($request->file('images')) {
+                    $filePath = HelperFunctions::temporaryworkImagePath();
+                    $files = $request->file('images');
+                    foreach ($files  as $key => $file) {
+                        $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                        $model = new TemporayWorkImage();
+                        $model->image = $imagename;
+                        $model->temporary_work_id = $temporaryWork->id;
+                        $model->save();
+                        $image_links[] = $imagename;
+                    }
+                }
+
+                //work for pdf
+
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' =>$temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                $path = public_path('pdf');
+                 @unlink( $path.'/'.$temporaryWork->ped_url);
+                $filename = rand() . '.pdf';
+                $pdf->save($path . '/' . $filename);
+                $model = TemporaryWork::find($temporaryWork->id);
+                $model->ped_url = $filename;
+                $model->save();
+                //send mail to admin
+                $notify_admins_msg = [
+                    'greeting' => 'Temporary Work Pdf',
+                    'subject' => $model->design_requirement_text.'-'.$model->twc_id_no,
+                    'body' => [
+                        'company' => $request->company,
+                        'filename' => $filename,
+                        'links' => '',
+                        'name' =>  $model->design_requirement_text.'-'.$model->twc_id_no,
+                        'designer'=>'',
+                        'pc_twc'=>'',
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg,$temporaryWork->id));
+                Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporaryWork->id));
+                if($request->designer_company_email)
+                {
+                    $notify_admins_msg['body']['designer']='designer1';
+                    Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporaryWork->id));
+                }
+                if($request->desinger_email_2)
+                {
+                    Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporaryWork->id));
+                }
+                if(isset($request->approval))
+                {
+                    $notify_admins_msg['body']['designer']='';
+                    $notify_admins_msg['body']['pc_twc']='1';
+                    Notification::route('mail',$request->pc_twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg,$temporaryWork->id));
+                }
+                
+               
+            }
+            toastSuccess('Temporary Work successfully Updated!');
+            return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -525,8 +710,15 @@ class TemporaryWorkController extends Controller
         // if (isset($request->id)) {
         //     $commetns = TemporaryWorkComment::where(['user_id' => $request->id, 'temporary_work_id' => $request->temporary_work_id])->get();
         // } else {
-            $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
+            // $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
         // }
+        if($request->type=='normal')
+        {
+            $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id,'type'=>'normal'])->get();
+        }
+        else{
+            $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id,'type'=>'pc'])->get();
+        }
         if (count($commetns) > 0) {
             $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th></tr></thead><tbody>';
             $i = 1;

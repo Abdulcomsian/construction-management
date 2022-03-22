@@ -392,7 +392,14 @@ border-radius: 8px;
                                 @forelse($temporary_works as $item)
                               
                                 <tr>
-                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
+                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;">
+                                        <a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                        </a>
+                                        @if($item->status==2)
+                                        <p class="rejectcomment cursor-pointer" data-id="{{$item->id}}" > <span class="text-danger">Rejected</span></p>
+                                         <a  href="{{route('temporary_works.edit',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                        @endif
+                                    </td>
                                     @if(\Auth::user()->hasRole('admin'))
                                     <td>{{ $item->company ?: '-' }}</td>
                                     @endif
@@ -636,15 +643,42 @@ border-radius: 8px;
       $.ajax({
         url:"{{route('temporarywork.get-comments')}}",
         method:"get",
-        data:{id:userid,temporary_work_id:temporary_work_id},
+        data:{id:userid,temporary_work_id:temporary_work_id,type:'normal'},
         success:function(res)
         {
            $("#commenttable").html(res);
+           $(".comments_form").show();
            $("#comment_modal_id").modal('show');
         }
       });
      
     });
+
+    //show reject comment
+    $(".rejectcomment").on('click',function(){
+       if(role=='supervisor' || role=="scaffolder")
+        {
+            alert("You are not allowed to add comment");
+            return false;
+        }
+      $("#temp_work_id").val($(this).attr('data-id'));
+      var temporary_work_id=$(this).attr('data-id');
+      var userid={{\Auth::user()->id}}
+       $("#commenttable").html('');
+      $.ajax({
+        url:"{{route('temporarywork.get-comments')}}",
+        method:"get",
+        data:{id:userid,temporary_work_id:temporary_work_id,type:'pc'},
+        success:function(res)
+        {
+           $("#commenttable").html(res);
+           $(".comments_form").hide();
+           $("#comment_modal_id").modal('show');
+        }
+      });
+     
+    });
+   
 </script>
 <script type="text/javascript">
     $(".dateclick").on('click',function(){

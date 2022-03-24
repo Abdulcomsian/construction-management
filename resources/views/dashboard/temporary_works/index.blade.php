@@ -916,6 +916,23 @@ console.log("here");
         e.stopPropagation();
     })
 
+
+    $(document).on('click','.permit-rejected',function(){
+        var permit_id=$(this).attr('data-id');
+         $.ajax({
+            url:"{{route('temporarywork.get-comments')}}",
+            method:"get",
+            data:{permit_id:permit_id,type:'permit'},
+            success:function(res)
+            {
+                $("#permit_modal_id").modal('hide');
+               $("#commenttable").html(res);
+               $(".comments_form").hide();
+               $("#comment_modal_id").modal('show');
+            }
+        });
+    })
+
     //   $("#designcheck").on('change',function(){
     //     if($(this).is(":checked"))
     //     {

@@ -35,6 +35,10 @@ Route::post('designer/store',[DesignerController::class,'store'])->name('designe
 Route::get('design/approve/{id}',[DesignerController::class,'pc_index'])->name('pc.approved');
 Route::post('design/store',[DesignerController::class,'pc_store'])->name('design.store');
 
+//pc twc permit to load approval routes
+Route::get('design/permit-approve/{id}',[DesignerController::class,'pc_permit_index'])->name('pc.permit.approved');
+Route::post('design/permit-store',[DesignerController::class,'pc_permit_store'])->name('design.permit.store');
+
 
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
@@ -79,6 +83,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('permit-renew/{id}', [TemporaryWorkController::class, 'permit_renew'])->name('permit.renew');
     Route::get('permit-unload/{id}', [TemporaryWorkController::class, 'permit_unload'])->name('permit.unload');
     Route::post('permit-unload-save', [TemporaryWorkController::class, 'permit_unload_save'])->name('permit.unload.save');
+
+    //working for permit edit and update
+    Route::get('permit-edit/{id}', [TemporaryWorkController::class, 'permit_edit'])->name('permit.edit');
+     Route::post('permit-update', [TemporaryWorkController::class, 'permit_update'])->name('permit.update');
+
     Route::get('scaffolding-to-load', [TemporaryWorkController::class, 'scaffolding_load'])->name('scaffolding.load');
     Route::post('scaffolding-save', [TemporaryWorkController::class, 'scaffolding_save'])->name('scaffolding.store');
     Route::get('scaffolding-unload/{id}', [TemporaryWorkController::class, 'scaffolding_unload'])->name('scaffold.unload');

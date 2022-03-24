@@ -662,6 +662,25 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Approval div -->
+                                    <div class="d-flex inputDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:31% !important">
+                                            <span>Approval:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                         <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
+                                         <span style="padding-left:3px;color:#000">Do you want Approve Design Brief?</span>
+                                    </div>
+                                    <div class="d-none inputDiv pc-twc">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:30% !important">
+                                            <span>PC TWC Email:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                         <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                    </div>
                                 </div>
 
                             <!-- </div> -->
@@ -818,6 +837,21 @@
             //     signaturePad.clear();
             //     $("#signature").val('');
             // });
+
+
+
+    //approval checkbox checkded
+    $("#approval").change(function(){
+        if($(this).is(':checked'))
+        {
+            $(".pc-twc").removeClass('d-none').addClass('d-flex');
+            $("#pc-twc-email").attr('required','required');
+        }
+        else{
+            $(".pc-twc").removeClass('d-flex').addClass('d-none');
+            $("#pc-twc-email").removeAttr('required');
+        }
+    })
      
 </script>
 @endsection

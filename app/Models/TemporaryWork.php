@@ -48,4 +48,16 @@ class TemporaryWork extends Model
     {
         return $this->hasOne(Tempworkshare::class);
     }
+    public function scopdesign()
+    {
+        return $this->hasOne(ScopeOfDesign::class);
+    }
+    public function folder()
+    {
+        return $this->hasOne(Folder::class);
+    }
+    public function attachspeccomment()
+    {
+        return $this->hasOne(AttachSpeComment::class);
+    }
 }

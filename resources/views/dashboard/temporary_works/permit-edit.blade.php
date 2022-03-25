@@ -156,7 +156,7 @@
             <div class="card-header border-0 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    <h2>Permit to Load</h2>
+                    <h2>Edit Permit</h2>
 
                 </div>
                 <!--begin::Card toolbar-->
@@ -167,7 +167,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form id="permitrenew" action="{{route('permit.save')}}" method="post" enctype="multipart/form-data">
+                <form id="permitrenew" action="{{route('permit.update')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
@@ -212,7 +212,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">Drawing Number:</span>
                                     </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
+                                     <input  type="text" class="form-control" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -221,7 +221,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" value="{{$permitdata->twc_name ?? ''}}">
+                                    <input type="text" class="form-control " placeholder="TWC Name" name="twc_name" value="{{$permitdata->twc_name ?? ''}}">
                                      <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
@@ -252,7 +252,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                              <span class="required">Drawing title :</span>
                                         </label>
-                                         <input  type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
+                                         <input  type="text" class="form-control" placeholder="Drawing Title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -261,7 +261,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                              <span class="required">TWS Name :</span>
                                         </label>
-                                         <input  type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
+                                         <input  type="text" class="form-control" placeholder="TWS Name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">MS/RA Number</span>
                                     </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                     <input  type="text" class="form-control" placeholder="Ms/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -498,7 +498,7 @@
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
                                 </div>
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->
@@ -506,7 +506,7 @@
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
                                 </div>
                                 @endif
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
@@ -526,7 +526,7 @@
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{$permitdata->name ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="Name" name="name" value="{{$permitdata->name ?? ''}}">
                                 </div>
                                 <div class="d-flex inputDiv " >
                                     <!--begin::Label-->
@@ -534,7 +534,7 @@
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{$permitdata->job_title ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="Job title" name="job_title" value="{{$permitdata->job_title ?? ''}}">
                                 </div>
                                   <div class="d-flex inputDiv ">
                                     <!--begin::Label-->
@@ -542,7 +542,7 @@
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}">
+                                     <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}">
                                      <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                                     </div>
                             </div>
@@ -587,17 +587,35 @@
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
                                 </div>
                                 
                             </div>
+                            <!-- Approval div -->
+                                    <div class="d-flex inputDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:31% !important">
+                                            <span>Approval:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                         <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
+                                         <span style="padding-left:3px;color:#000">Do you want Approve Design Brief?</span>
+                                    </div>
+                                    <div class="d-none inputDiv pc-twc">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:30% !important">
+                                            <span>PC TWC Email:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                         <input  type="email" class="form-control" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                    </div>
                         </div>
                          <div class="col-md-12">
                              <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                <div class="input-images"></div>
                              </div> -->
                              <br>
-                            <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
+                            <button id="submitbutton" type="button" class="btn btn-primary float-end">Update</button>
                         </div>
                     </form>
     </div>
@@ -692,7 +710,19 @@
                     $("#signature1").val(signaturePad1.toDataURL('image/png'));
                  }
                  $("#permitrenew").submit();
-            })
+            });
+     //approval checkbox checkded
+    $("#approval").change(function(){
+        if($(this).is(':checked'))
+        {
+            $(".pc-twc").removeClass('d-none').addClass('d-flex');
+            $("#pc-twc-email").attr('required','required');
+        }
+        else{
+            $(".pc-twc").removeClass('d-flex').addClass('d-none');
+            $("#pc-twc-email").removeAttr('required');
+        }
+    })
     
 </script>
 @endsection

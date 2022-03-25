@@ -24,7 +24,7 @@
                 @php
                 $logodata=\App\Models\User::where('id',$data['company_id'])->first();
                 @endphp
-                @if($logodata->image != NULL)
+                @if(isset($logodata->image) && $logodata->image != NULL)
                 <img src="{{public_path($logodata->image)}}" width="auto" height="80px" />
                 @endif
             </div>
@@ -84,7 +84,7 @@
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Name</b></label>
                         </td>
-                        <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger']}}</td>
+                        <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger'] ?? ''}}</td>
                     </tr>
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">

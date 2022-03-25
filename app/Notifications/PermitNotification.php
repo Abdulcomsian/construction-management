@@ -45,11 +45,12 @@ class PermitNotification extends Notification
             ->subject($this->offerData['subject'])
             ->view('mail.scaffoldmail', ['details' => $this->offerData])
             ->attach(
-                    public_path('pdf/' . $this->offerData['body']['filename']), [
+                public_path('pdf/' . $this->offerData['body']['filename']),
+                [
                     'as' => $this->offerData['body']['name'] . '.pdf',
                     'mime' => 'text/pdf',
-                      ]
-        );
+                ]
+            );
     }
 
     /**

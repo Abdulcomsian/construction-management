@@ -31,6 +31,11 @@
                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($id))}}">View and Upload Design</a>
                                                                    </p>
                                                                    @endif
+                                                                   @if($details['body']['pc_twc'])
+                                                                   <p>
+                                                                       <a href="{{route('pc.approved',Crypt::encrypt($id))}}">View and Approve Design Breif</a>
+                                                                   </p>
+                                                                   @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>
                                                                         City Temporary Works
                                                                    </p>

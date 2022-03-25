@@ -387,6 +387,23 @@ height: 72px;
                                     <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
+                                 <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
+                                        <span>Approval:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
+                                     <span style="padding-left:3px;color:#000">Do you want Approve Design Brief?</span>
+                                </div>
+                                <div class="d-none inputDiv pc-twc">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
+                                        <span>PC TWC Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
@@ -490,12 +507,16 @@ height: 72px;
                                 </div>
                                 <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
 
+                                <!-- work for approval -->
+                                
+
                             </div>
+
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals')
 
-                        <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
+                        <button id="submitbutton" type="button" class="btn btn-primary float-end submitbutton">Submit</button>
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -546,15 +567,30 @@ height: 72px;
         }
     })
 
+    //approval checkbox checkded
+    $("#approval").change(function(){
+        if($(this).is(':checked'))
+        {
+            $(".pc-twc").removeClass('d-none').addClass('d-flex');
+            $("#pc-twc-email").attr('required','required');
+        }
+        else{
+            $(".pc-twc").removeClass('d-flex').addClass('d-none');
+            $("#pc-twc-email").removeAttr('required');
+        }
+    })
+
 //when click of category 3
     $('input[name="tw_category"]').click(function(){
         var value=$(this).val();
         if(value==3)
         {
             $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
+          
         }
         else{
             $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
+          
         }
     })
 
@@ -562,7 +598,7 @@ height: 72px;
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
     
-    $("#submitbutton").on('click',function(){
+    $("#submitbutton").on('click',function(e){
          $("#signature").val(signaturePad.toDataURL('image/png'));
          $("#desingform").submit();
     })

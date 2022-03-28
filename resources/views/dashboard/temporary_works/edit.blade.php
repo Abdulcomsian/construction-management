@@ -390,7 +390,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
-                                     <span style="padding-left:3px;color:#000">Do you want Approve Design Brief?</span>
+                                     <span style="padding-left:3px;color:#000">Select if approval is required.</span>
                                 </div>
                                 <div class="d-none inputDiv pc-twc">
                                     <!--begin::Label-->

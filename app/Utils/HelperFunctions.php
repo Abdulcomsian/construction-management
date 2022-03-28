@@ -68,6 +68,13 @@ class HelperFunctions
         }
         return $path;
     }
+
+    public static function temporaryworkcommentPath($user = null)
+    {
+
+            return $path  = 'uploads/commentsfile/';
+    }
+
     public static function Projectdocupath($user = null)
     {
         if ($user) {

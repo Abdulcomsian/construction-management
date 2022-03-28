@@ -70,7 +70,8 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
+            $scantempwork = '';
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -389,13 +390,13 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
-    public function edit($id)
+    public function edit(TemporaryWork $temporaryWork)
     {
-
         if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
+
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -403,14 +404,16 @@ class TemporaryWorkController extends Controller
             } elseif ($user->hasRole(['company'])) {
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
+
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
                 }
+
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
-            $temporaryWork = TemporaryWork::with('scopdesign', 'folder', 'attachspeccomment')->find($id);
+            $temporaryWork = TemporaryWork::where('id',$temporaryWork->id)->first();
             $selectedproject = Project::find($temporaryWork->project_id);
             return view('dashboard.temporary_works.edit', compact('temporaryWork', 'projects', 'selectedproject'));
         } catch (\Exception $exception) {
@@ -616,7 +619,14 @@ class TemporaryWorkController extends Controller
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
-            $model->user_id = auth()->user()->id;
+            $model->user_id = auth()->user()->id ?? NULL;
+            if($request->file('image'))
+            {
+                $filePath = HelperFunctions::temporaryworkcommentPath();
+                $file = $request->file('image');
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model->image=$imagename;
+            }
             if ($model->save()) {
                 toastSuccess('Comment Save sucessfully!');
                 return Redirect::back();
@@ -649,6 +659,7 @@ class TemporaryWorkController extends Controller
         // } else {
         // $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
         // }
+         $path = config('app.url');
         if ($request->type == 'normal') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
         } elseif ($request->type == 'pc') {
@@ -658,11 +669,31 @@ class TemporaryWorkController extends Controller
             $commetns = PermitComments::where(['permit_load_id' =>  $permit_id])->latest()->get();
         }
         if (count($commetns) > 0) {
-            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th></tr></thead><tbody>';
+            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
+                if(Auth::check())
+                {
+                    $colour="blue";
+                }
+                else{
+                    $colour='orange';
+                }
+                if($comment->image)
+                {
+                     $n = strrpos($comment->image, '.');
+                     $ext=substr($comment->image, $n+1);
+                }
+                if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                {
+                    $a='<a target="_blank" href="'. $path.'/'.$comment->image.'"><img width="50px" height="50px" src='. $path.'/'.$comment->image.' ></a>';
+                }
+                else{
+                    $a='<a target="_blank" href="'. $path.'/'.$comment->image.'">Attach File</a>';
+                }
+                
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                $table .= '<tr><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $date_comment  . '</td></tr>';
+                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $date_comment  . '</td><td>'.$a.'</td></tr>';
                 $i++;
             }
             $table .= '</tbody></table>';

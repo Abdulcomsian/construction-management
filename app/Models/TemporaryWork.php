@@ -22,7 +22,7 @@ class TemporaryWork extends Model
     }
     public function comments()
     {
-        return $this->hasMany(TemporaryWorkComment::class);
+        return $this->hasMany(TemporaryWorkComment::class)->where('type','normal');
     }
 
     public function permits() //this relation for open permit check in table

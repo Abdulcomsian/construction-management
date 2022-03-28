@@ -265,16 +265,6 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td style="">{{ $item->designer_company_name ?: '-' }}</td>
-                                    <!-- <td>
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
-                                        @php $i=0;@endphp
-                                        @foreach($item->uploadfile as $file)
-                                        @if($file->file_type==5)
-                                        @php $i++ @endphp
-                                        <span><a href="{{asset($file->file_name)}}" target="_blank">App{{$i}}</a></span>
-                                        @endif
-                                        @endforeach
-                                    </td> -->
                                     <td style=""> 
                                         @foreach($item->uploadfile as $file)
                                           @if($file->file_type==1)
@@ -368,7 +358,7 @@ border-radius: 8px;
       $.ajax({
         url:"{{route('temporarywork.get-comments')}}",
         method:"get",
-        data:{temporary_work_id:temporary_work_id},
+        data:{temporary_work_id:temporary_work_id,type:'normal'},
         success:function(res)
         {
            $("#commenttable").html(res);
@@ -423,7 +413,6 @@ border-radius: 8px;
             data:{id:id,type:'unload',scanuser:'scanuser'},
             success:function(res)
             {
-                console.log(res);
                $("#permitheading").html('Permit To Unload');
                $("#permitloadbutton").removeClass('d-flex').hide();
                $("#permitbody").html(res);

@@ -24,8 +24,8 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                @if(!isset($scantempwork) || $scantempwork=='sharedview')
-                <form id="kt_modal_new_target_form"  class="form comments_details_form comments_form" action="{{ route('temporarywork.storecomment') }}" method="post">
+                @if(isset($scantempwork) || $scantempwork=='sharedview')
+                <form id="kt_modal_new_target_form"  class="form comments_details_form comments_form" action="{{ route('temporarywork.storecomment') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Heading-->
                     <input type="hidden" name="temp_work_id" id="temp_work_id" />
@@ -51,6 +51,23 @@
                             </div>
                             <!--begin::Label-->
                         </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                         @if(isset($scantempwork) && $scantempwork=='scantempwork')
+                        <div class="col-md-12">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+                                <span>Image:</span>
+                            </label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                               <input type="file" name="image" class="form-control form-control-solid">
+                                <!--end:Input-->
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        @endif
                         <!--end::Col-->
                     </div>
                     <div class="text-center">

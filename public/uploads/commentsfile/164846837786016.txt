@@ -1,0 +1,100 @@
+=================================================
+Top Decorating credentials
+Cpanel
+https://www.hostinger.co.uk/cpanel-login
+user:healthandsafety@topdecdecorating.com
+pass:hEALTH_J5I09GDP@5264
+
+Admin login 
+http://topdecdecoratingapp.com/public/admin/
+user:admin@topdecdecoratingapp.com
+pass:Taj@123456789
+
+==================================================
+
+==================================================
+myiso credentials
+admin credentials
+https://myisoonline.com/
+user:life-of-ali@hotmail.com
+pass:1234
+
+user credentials
+user:jm@signumint.com
+pass:SignumUAE2021
+ 
+ ftp pass:Obaid@12345
+===================================================
+myiso cpanel
+https://my.a2hosting.com/clientarea.php
+user:life-of-ali@hotmail.com
+pass:YOE8^T^L9ryR
+==================================================
+
+==================================================
+empirecollection cpanel
+https://empireonecollection.com:2083/
+u: empireonecredit
+p: Business12!@
+
+admin login
+https://empireonecollection.com/
+username: admin@empireonecollection.com password: empire/1
+==================================================
+
+
+===================================================
+Mooray
+ftp
+user:sftp_abdul@moray-limousines.de
+host:ssh.strato.de
+pass:J5I09GDP@123
+
+cpanel
+https://www.strato.de
+Webhosting: https://www.strato.de
+User: itstrato
+pw: ITstrato213
+
+admin password is admin123
+$2y$10$VBtN2BWJyTD/oo2yNcEjK.6OaHU7TmWMJDYO1r.5kZnDYutFAOu76
+
+===================================================
+outlook email
+muhammad.obaid@accrualgroup.com
+
+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
+
+
+
+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
+  
+
+bcarsmart api key= I549ANysFf3NHIWi3iGNd9eG7oltqy1xaLpgDVjR
+
+curl -L -X POST 'https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles' \
+-H 'x-api-key: 1549ANysFf3NHIWi3iGNd9eG7oltqy1xaLpgDVjR' \
+-H 'Content-Type: application/json' \
+-d '{"registrationNumber": "TE57VRN"}'
+
+http://127.0.0.1:8000/register/verify?email=obi@gmail.com&expiration=1636717414&token=2fb9d74dd478e591b39c211895e1f0d1cc938fbab3e3aec3d2c409a147216484
+
+
+
+   $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'type', 'id', 'signtype', 'signed', 'namesign', 'projno', 'projname', 'no', 'action_date', 'desc_actions', 'date', 'images');
+
+
+   PAYEER ID:P1066080920
+   Password : Cashcowbtc123
+
+
+   secrete key:kkxFtKr1Zh2HdMsD
+
+   cowcash server login
+   uname:cowfarm
+   password:J5I09GDP@123
+
+
+   php artisan serve --host=192.168.18.57 --port=5000
+
+

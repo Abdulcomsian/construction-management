@@ -154,7 +154,7 @@ class DesignerController extends Controller
     //approved or reject
     public function pc_store(Request $request)
     {
-        try {
+        // try {
             $tempworkdata = TemporaryWork::find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
             TemporaryWork::find($request->tempworkid)->update([
@@ -176,7 +176,7 @@ class DesignerController extends Controller
                             'filename' => $tempworkdata->ped_url,
                             'links' =>  '',
                             'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
-                            'ext' => $ext,
+                            'ext' => '',
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',
@@ -198,7 +198,7 @@ class DesignerController extends Controller
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
-                        'ext' => $ext,
+                        'ext' => '',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -209,10 +209,10 @@ class DesignerController extends Controller
                 toastSuccess('Design Brief Approved Successfully!');
                 return Redirect::back();
             }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     public function pc_permit_index($id)

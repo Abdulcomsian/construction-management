@@ -358,7 +358,7 @@ border-radius: 8px;
       $.ajax({
         url:"{{route('temporarywork.get-comments')}}",
         method:"get",
-        data:{temporary_work_id:temporary_work_id,type:'normal'},
+        data:{temporary_work_id:temporary_work_id,type:'normal',scan:'scan'},
         success:function(res)
         {
            $("#commenttable").html(res);

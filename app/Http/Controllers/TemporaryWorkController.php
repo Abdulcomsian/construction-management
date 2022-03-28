@@ -672,13 +672,17 @@ class TemporaryWorkController extends Controller
             $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
-                if(Auth::check())
+                $colour='';
+                if(isset($request->scan))
                 {
-                    $colour="blue";
-                }
-                else{
-                    $colour='orange';
-                }
+                    if(Auth::check())
+                    {
+                        $colour="blue";
+                    }
+                    else{
+                        $colour='orange';
+                    }
+                    }
                 if($comment->image)
                 {
                      $n = strrpos($comment->image, '.');

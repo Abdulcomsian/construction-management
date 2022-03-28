@@ -28,7 +28,7 @@
                     <h1 class="mb-3" id="permitheading">Permit To Load</h1>
                     <!--end::Title-->
                 </div>
-                @if(!isset($scantempwork))
+                @if(isset($scantempwork) && $scantempwork=='')
                 <div class=" text-center" id="permitloadbutton">
                     <form method="get" action="{{route('scaffolding.load')}}" style="display:inline-block;margin-right:20px;">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />

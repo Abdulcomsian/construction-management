@@ -24,7 +24,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                @if(!isset($scantempwork))
+                @if(isset($scantempwork) && $scantempwork=='')
                 <form id="kt_modal_new_target_form" class="form comments_details_form" action="{{ route('temporarywork.twname') }}" method="post">
                     @csrf
                     <!--begin::Heading-->

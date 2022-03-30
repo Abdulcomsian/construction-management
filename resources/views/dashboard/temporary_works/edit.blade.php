@@ -186,6 +186,7 @@ height: 72px;
                         @method('put')
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                        <input type="hidden" name="twc_id_no" value="{{$temporaryWork->twc_id_no}}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">

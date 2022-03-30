@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Notification;
+use Auth;
 use App\Notifications\DesignUpload;
 use App\Notifications\PermitNotification;
 
@@ -89,6 +90,7 @@ class DesignerController extends Controller
     {
         $tempworkid = $request->tempworkid;
         $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->get();
+        dd($DesignerUploads);
         $list = '<table class="table table-hover"><thead><tr>';
         $list .= '<th>S-no</th>';
         $list .= '<th>Drawing Number</th>';
@@ -154,7 +156,7 @@ class DesignerController extends Controller
     //approved or reject
     public function pc_store(Request $request)
     {
-        // try {
+        try {
             $tempworkdata = TemporaryWork::find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
             TemporaryWork::find($request->tempworkid)->update([
@@ -182,8 +184,11 @@ class DesignerController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ];
+                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new DesignUpload($notify_admins_msg));
+
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
                     Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+
                     toastError('Design Brief Rejected Successfully!');
                     return Redirect::back();
                 }
@@ -204,15 +209,20 @@ class DesignerController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
+
+                Notification::route('mail', 'hani@ctworks.co.uk')->notify(new DesignUpload($notify_admins_msg));
+
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+
                 Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+
                 toastSuccess('Design Brief Approved Successfully!');
                 return Redirect::back();
             }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     public function pc_permit_index($id)

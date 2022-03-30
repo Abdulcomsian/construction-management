@@ -186,6 +186,7 @@ height: 72px;
                         @method('put')
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                        <input type="hidden" name="twc_id_no" value="{{$temporaryWork->twc_id_no}}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
@@ -526,6 +527,17 @@ height: 72px;
 @endsection
 @section('scripts')
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
+<script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
+<script type="text/javascript">
+ $('.input-imagess').imageUploader({
+        preloaded: 
+        [
+         @foreach($temporaryWork->temp_work_images as $img)
+            {id:'{{$img->image}}', src: '{{asset($img->image)}}'},
+         @endforeach
+       ]
+   });
+</script>
 <script>
     var projects = {!!$projects!!};
     $('#projects').change(function() {
@@ -632,3 +644,5 @@ height: 72px;
     
 
 @endsection
+
+

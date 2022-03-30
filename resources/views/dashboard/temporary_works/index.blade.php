@@ -431,10 +431,10 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td style="">
-                                     {{ $item->designer_company_name ?: '-' }}
-                                     <hr>
-                                     {{$item->desinger_company_name2 ?? ''}}
-                                    <hr>
+                                        <button class="designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}"><i class="fa fa-eye text-primary"></i>
+                                        </button>
+                                        <hr>
+                                     
                                     {{$item->tw_name ?: '-'}}
                                     @if(!$item->tw_name)
                                     <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p>
@@ -576,6 +576,7 @@ border-radius: 8px;
 </div>
 @include('dashboard.modals.upload-file')
 @include('dashboard.modals.tw_name')
+@include('dashboard.modals.designername')
 @include('dashboard.modals.comments')
 @include('dashboard.modals.drawingdesign')
 @include('dashboard.modals.drawingdesignlist')
@@ -933,20 +934,21 @@ console.log("here");
         });
     })
 
-    //   $("#designcheck").on('change',function(){
-    //     if($(this).is(":checked"))
-    //     {
-    //         $(".designcheck").show();
-    //         $(".construction").hide();
-    //         $("#designcheckfile").attr('required','required');
-    //         $("#file").removeAttr('required');
-    //     }
-    //     else{
-    //         $(".designcheck").hide();
-    //         $(".construction").show();
-    //         $("#designcheckfile").removeAttr('required');
-    //         $("#file").attr('required','required');
-    //     }
-    // })
+    $(".designer-company").on('click',function(){
+        var companies=$(this).attr('data-desing');
+        console.log(companies);
+        const names =  companies.split("-");
+        var list='';
+        if(names[0] !='')
+        {
+            list += '<tr><td>1</td><td>'+names[0]+'</td></tr>';
+        }
+        if(names[1] !='')
+        {
+            list += '<tr><td>2</td><td>'+names[1]+'</td></tr>';
+        }
+        $("#desginerbody").html(list);
+        $("#desingername").modal('show');
+    })
 </script>
 @endsection

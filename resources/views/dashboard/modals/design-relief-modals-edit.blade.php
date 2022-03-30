@@ -542,7 +542,7 @@
 
                 </div>
                 <div class="uploadDiv" style="padding-left: 10px;">
-                    <div class="input-images"></div>
+                    <div class="input-imagess"></div>
                     <!-- <input type="file" multiple name="file[]">
                     <input type="button" class="btn btn-sm btn-primary addfile" style="width: 10%;" value="Add"> -->
                 </div>

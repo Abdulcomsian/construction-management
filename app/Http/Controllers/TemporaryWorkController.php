@@ -422,7 +422,7 @@ class TemporaryWorkController extends Controller
 
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
-            $temporaryWork = TemporaryWork::where('id',$temporaryWork->id)->first();
+            $temporaryWork = TemporaryWork::with('scopdesign','folder','attachspeccomment','temp_work_images')->where('id',$temporaryWork->id)->first();
             $selectedproject = Project::find($temporaryWork->project_id);
             return view('dashboard.temporary_works.edit', compact('temporaryWork', 'projects', 'selectedproject'));
         } catch (\Exception $exception) {
@@ -433,6 +433,7 @@ class TemporaryWorkController extends Controller
     //update design brief
     public function update(Request $request, TemporaryWork $temporaryWork)
     {
+        dd($request->all());
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];
@@ -481,7 +482,7 @@ class TemporaryWorkController extends Controller
 
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname', 'approval', 'pc_twc_email');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','preloaded','namesign', 'signtype', 'projno', 'projname', 'approval', 'pc_twc_email');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -517,6 +518,12 @@ class TemporaryWorkController extends Controller
                 AttachSpeComment::where('temporary_work_id', $temporaryWork->id)->update(array_merge($attachcomments, ['temporary_work_id' => $temporaryWork->id]));
                 //work for upload images here
                 $image_links = [];
+                $oldimages=TemporayWorkImage::where('id',$temporaryWork->id)->whereNotIn('image',$request->preloaded)->get();
+                foreach($oldimages as $oldimg)
+                {
+                    @unlink($oldimg->image);
+                }
+                TemporayWorkImage::find($temporaryWork->id)->delete();
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -524,6 +531,17 @@ class TemporaryWorkController extends Controller
                         $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                         $model = new TemporayWorkImage();
                         $model->image = $imagename;
+                        $model->temporary_work_id = $temporaryWork->id;
+                        $model->save();
+                        $image_links[] = $imagename;
+                    }
+                }
+                if($request->preloaded)
+                {
+                    foreach($request->preloaded as $img)
+                    {
+                        $model = new TemporayWorkImage();
+                        $model->image =  $img;
                         $model->temporary_work_id = $temporaryWork->id;
                         $model->save();
                         $image_links[] = $imagename;

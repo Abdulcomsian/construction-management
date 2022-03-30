@@ -433,9 +433,9 @@ class TemporaryWorkController extends Controller
     //update design brief
     public function update(Request $request, TemporaryWork $temporaryWork)
     {
-        dd($request->all());
+        
         Validations::storeTemporaryWork($request);
-        try {
+        // try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -518,12 +518,12 @@ class TemporaryWorkController extends Controller
                 AttachSpeComment::where('temporary_work_id', $temporaryWork->id)->update(array_merge($attachcomments, ['temporary_work_id' => $temporaryWork->id]));
                 //work for upload images here
                 $image_links = [];
-                $oldimages=TemporayWorkImage::where('id',$temporaryWork->id)->whereNotIn('image',$request->preloaded)->get();
+                $oldimages=TemporayWorkImage::where('temporary_work_id',$temporaryWork->id)->whereNotIn('image',$request->preloaded)->get();
                 foreach($oldimages as $oldimg)
                 {
                     @unlink($oldimg->image);
                 }
-                TemporayWorkImage::find($temporaryWork->id)->delete();
+                TemporayWorkImage::where('temporary_work_id',$temporaryWork->id)->delete();
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -544,7 +544,7 @@ class TemporaryWorkController extends Controller
                         $model->image =  $img;
                         $model->temporary_work_id = $temporaryWork->id;
                         $model->save();
-                        $image_links[] = $imagename;
+                        $image_links[] = $img;
                     }
                 }
 
@@ -595,11 +595,11 @@ class TemporaryWorkController extends Controller
             }
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
-        } catch (\Exception $exception) {
-            dd($exception->getMessage());
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     dd($exception->getMessage());
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
     //delete design brief
     public function destroy(TemporaryWork $temporaryWork)

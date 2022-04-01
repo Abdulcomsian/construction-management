@@ -436,10 +436,10 @@ border-radius: 8px;
                                         </button>
                                         <hr>
                                      
-                                    <!-- {{$item->tw_name ?: '-'}}
-                                    @if(!$item->tw_name)
-                                    <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p>
-                                       @endif -->    
+                                        {{$item->tw_name ?: '-'}}
+                                        @if(!$item->tw_name)
+                                        <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p>
+                                           @endif    
                                 </td>
                                     <!-- <td>
                                         <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>

@@ -22,10 +22,12 @@
             </div>
             <!--begin::Modal header-->
             <!--begin::Modal body-->
-            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15" style="padding-top:50px !important">
                 <!--begin:Form-->
+                
                <form id="dropzoneForm" method="post" class="dropzone" action="{{route('tempwork.upload')}}"  enctype="multipart/form-data">
                     @csrf
+                    <input class="d-none form-control" style="width: 85% !important;position: absolute;top:0px;left:47px" type="text" name="rams_no" id="rams_no" placeholder="Enter Rams No">
                     <input type="hidden" name="tempworkid" id="tempworkid">
                     <input type="hidden" name="type" id="type">
                </form>

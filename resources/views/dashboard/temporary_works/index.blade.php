@@ -515,7 +515,7 @@ border-radius: 8px;
                                          <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}"  data-desc="{{$item->design_requirement_text}}">Permit<br> to <br>Unload</p>
                                     </td>
                                     <td  data-type="2">
-                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS</p>
+                                        <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS<br></p>
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==3)
@@ -619,9 +619,18 @@ border-radius: 8px;
         }
         $("#tempworkid").val($(this).attr('data-id'));
         $("#type").val($(this).attr('data-type'));
+        if($(this).attr('data-type')=='3')
+        {
+            $("#rams_no").removeClass('d-none').val($(this).attr('data-rams'));
+        }
+        else{
+            $("#rams_no").addClass('d-none');
+        }
         $("#upload_file_id").modal('show');
 
     })
+
+
 </script>
 <script type="text/javascript">
     $(".addtwname").on('click',function(){
@@ -954,5 +963,7 @@ console.log("here");
         $("#desginerbody").html(list);
         $("#desingername").modal('show');
     })
+
+
 </script>
 @endsection

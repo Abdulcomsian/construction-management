@@ -42,6 +42,7 @@ class DesignerController extends Controller
                 $subject = 'Designer Uploaded Design Check Certificate ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                 $text = ' Welcome to the online i-works Web-Portal.Designer have uploaded Design Check Certificate. Please Login and view document.';
                 $file_type = 2;
+                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
             } else {
                 $file = $request->file('file');
                 //$ext = $request->file[0]('file')->extension();
@@ -53,9 +54,10 @@ class DesignerController extends Controller
                 $model->drawing_title = $request->drawing_title;
                 $model->preliminary_approval = $request->preliminary_approval;
                 $model->construction = $request->construction;
+                 $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
             }
 
-            $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
+           
             $model->file_name = $imagename;
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
@@ -90,6 +92,7 @@ class DesignerController extends Controller
     public function get_desings(Request $request)
     {
         $tempworkid = $request->tempworkid;
+        $ramsno=TemporaryWork::select('rams_no')->find($tempworkid);
         $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->get();
         $list = '<table class="table table-hover"><thead><tr>';
         $list .= '<th>S-no</th>';
@@ -132,6 +135,7 @@ class DesignerController extends Controller
                 $list .= '<td style="display:flex">
                      <a href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
                      <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                        <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
                         <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                         <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
                          <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />

@@ -625,6 +625,11 @@ class TemporaryWorkController extends Controller
             $model->file_type = $request->type;
             $model->temporary_work_id = $request->tempworkid;
             if ($model->save()) {
+                if(isset($request->rams_no))
+                {
+                    
+                 TemporaryWork::find($request->tempworkid)->update(['rams_no'=>$request->rams_no]);
+                }
                 return response()->json(['success' =>  $imagename]);
             }
         } catch (\Exception $exception) {
@@ -789,7 +794,8 @@ class TemporaryWorkController extends Controller
                 $twc_id_no = $twc_id_no . '-A';
             }
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
-            return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata'));
+            $latestuploadfile=TempWorkUploadFiles::where('construction',1)->orderBy('id','desc')->limit(1)->first();
+            return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata','latestuploadfile'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1477,9 +1483,9 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
-
+              $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

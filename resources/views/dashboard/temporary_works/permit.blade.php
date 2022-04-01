@@ -221,7 +221,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Drawing Number:</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no',$_GET['drawingno'] ?? '')}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no',$_GET['drawingno'] ?? $latestuploadfile->drawing_number)}}" required>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -262,7 +262,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title',$_GET['drawingtitle'] ?? '')}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title)}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -280,7 +280,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">MS/RA Number</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}">
+                                        <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
                                         <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
                                     </div>
                                 </div>

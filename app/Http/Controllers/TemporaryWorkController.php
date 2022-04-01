@@ -625,7 +625,7 @@ class TemporaryWorkController extends Controller
             $model->file_type = $request->type;
             $model->temporary_work_id = $request->tempworkid;
             if ($model->save()) {
-                if(isset($request->rams_no))
+                if(isset($request->rams_no) && $request->type==3)
                 {
                     
                  TemporaryWork::find($request->tempworkid)->update(['rams_no'=>$request->rams_no]);

@@ -185,7 +185,7 @@ border-radius: 8px;
 }
 .topMenu, #kt_content_container, .card>.card-body, .card>.card-header{padding:0 1rem !important;}
 </style>
- 
+
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
@@ -436,10 +436,10 @@ border-radius: 8px;
                                         </button>
                                         <hr>
                                      
-                                    {{$item->tw_name ?: '-'}}
+                                    <!-- {{$item->tw_name ?: '-'}}
                                     @if(!$item->tw_name)
                                     <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p>
-                                @endif    
+                                       @endif -->    
                                 </td>
                                     <!-- <td>
                                         <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
@@ -470,9 +470,9 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td>
-                                        <p  class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
+                                        <p  class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 4px;">Upload Drawings</p>
                                         <br>
-                                        <p  class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">View Drawings</p>
+                                        <p  class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 0px;">View Drawings</p>
                                         <!-- @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)

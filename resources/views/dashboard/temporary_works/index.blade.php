@@ -185,6 +185,7 @@ border-radius: 8px;
 }
 .topMenu, #kt_content_container, .card>.card-body, .card>.card-header{padding:0 1rem !important;}
 </style>
+ 
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
@@ -431,7 +432,7 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td style="">
-                                        <button class="designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}"><i class="fa fa-eye text-primary"></i>
+                                        <button class="designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2.'-'.$item->tw_name ?? ''}}"><i>View</i>
                                         </button>
                                         <hr>
                                      
@@ -574,11 +575,11 @@ border-radius: 8px;
     </div>
     <!--end::Post-->
 </div>
+@include('dashboard.modals.drawingdesign')
 @include('dashboard.modals.upload-file')
 @include('dashboard.modals.tw_name')
 @include('dashboard.modals.designername')
 @include('dashboard.modals.comments')
-@include('dashboard.modals.drawingdesign')
 @include('dashboard.modals.drawingdesignlist')
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load')
@@ -596,7 +597,6 @@ border-radius: 8px;
     })
 </script>
 <script src="{{asset('js/dropzone.js')}}"></script>
-
 <script type="text/javascript">
     var role="{{ \Auth::user()->roles->pluck('name')[0] }}";
     console.log(role);
@@ -946,6 +946,10 @@ console.log("here");
         if(names[1] !='')
         {
             list += '<tr><td>2</td><td>'+names[1]+'</td></tr>';
+        }
+        if(names[2] !='')
+        {
+            list += '<tr><td>2</td><td>'+names[2]+'</td></tr>';
         }
         $("#desginerbody").html(list);
         $("#desingername").modal('show');

@@ -29,6 +29,7 @@ class DesignerController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request->all());
         try {
             $tempworkdata = TemporaryWork::find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
@@ -43,7 +44,7 @@ class DesignerController extends Controller
                 $file_type = 2;
             } else {
                 $file = $request->file('file');
-                $ext = $request->file('file')->extension();
+                //$ext = $request->file[0]('file')->extension();
                 $subject = 'Designer Uploaded Drawing ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                 $text = ' Welcome to the online i-works Web-Portal. Designer have uploaded Drawing. Please Login and view drawing.';
                 $model->drawing_number = $request->drawing_number;
@@ -54,7 +55,7 @@ class DesignerController extends Controller
                 $model->construction = $request->construction;
             }
 
-            $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
             $model->file_name = $imagename;
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
@@ -69,7 +70,7 @@ class DesignerController extends Controller
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
-                        'ext' => $ext,
+                        'ext' => '',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -90,7 +91,6 @@ class DesignerController extends Controller
     {
         $tempworkid = $request->tempworkid;
         $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->get();
-        dd($DesignerUploads);
         $list = '<table class="table table-hover"><thead><tr>';
         $list .= '<th>S-no</th>';
         $list .= '<th>Drawing Number</th>';

@@ -21,6 +21,7 @@ License: -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+   <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
     <!-- work for signature -->
     
     
@@ -87,33 +88,38 @@ License: -->
 <!--begin::Javascript-->
 <!--begin::Global Javascript Bundle(used by all pages)-->
   @jquery  
-    <script src="{{asset('js/Jquery-ui-min.js')}}"></script>
-    <script src="{{ asset('js/signature.js')}}"></script>
+   <!--  <script src="{{asset('js/Jquery-ui-min.js')}}"></script>
+    <script src="{{ asset('js/signature.js')}}"></script> -->
     <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
     <script type="text/javascript">
-        var sig1 = $('#sig1').signature({
-            syncField: '#signature1',
-            syncFormat: 'PNG'
-        });
-        $('#clear').click(function(e) {
-            e.preventDefault();
-            sig.signature('clear');
-            $("#signature").val('');
-        });
-    </script>
-     <script type="text/javascript">
-        var sig = $('#sig').signature({
-            syncField: '#signature',
-            syncFormat: 'PNG'
-        });
-        $('#clear').click(function(e) {
-            e.preventDefault();
-            sig.signature('clear');
-            $("#signature").val('');
-        });
+           $('.input-images').imageUploader({
+               maxFiles: 1,
+                imagesInputName: 'file',
+           });
     </script>
     <script type="text/javascript">
-         $('.input-images').imageUploader();
+        // var sig1 = $('#sig1').signature({
+        //     syncField: '#signature1',
+        //     syncFormat: 'PNG'
+        // });
+        // $('#clear').click(function(e) {
+        //     e.preventDefault();
+        //     sig.signature('clear');
+        //     $("#signature").val('');
+        // });
+    </script>
+     <script type="text/javascript">
+        // var sig = $('#sig').signature({
+        //     syncField: '#signature',
+        //     syncFormat: 'PNG'
+        // });
+        // $('#clear').click(function(e) {
+        //     e.preventDefault();
+        //     sig.signature('clear');
+        //     $("#signature").val('');
+        // });
+    </script>
+    <script type="text/javascript">
          $('.menuBtn').click(function(){
              if($('.mobileView').css("display")=='block'){
                 $('.mobileView').css("display", 'none')
@@ -122,6 +128,8 @@ License: -->
              }
          })
     </script>
+
+    
 @include('layouts.dashboard.scripts')
 @toastr_js
 @toastr_render

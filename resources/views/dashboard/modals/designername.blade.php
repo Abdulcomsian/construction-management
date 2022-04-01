@@ -26,8 +26,9 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>S-No</th>
-                            <th>Designer Name</th>
+                            <th>No</th>
+                            <th>Temporary work designer company name</th>
+                            <th>Twd Name</th>
                         </tr>
                     </thead>
                     <tbody id="desginerbody">

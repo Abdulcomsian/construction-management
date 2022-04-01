@@ -190,7 +190,7 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="file" class="form-control form-control-solid" id="file" name="file" style="background: #f5f8fa" required>
+                                            <input type="file" class="form-control form-control-solid" id="file" name="file[]" style="background: #f5f8fa" required>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

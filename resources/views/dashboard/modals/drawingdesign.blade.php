@@ -75,6 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -87,20 +88,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="d-flex inputDiv d-block">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Drawing:</span>
-
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="file" class="form-control form-control-solid"  id="file" name="file"  style="background: #f5f8fa" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
+                                
                                 <div class="row">
                                      <div class="col-md-6">
                                          <div class="d-flex inputDiv requiredDiv">
@@ -141,6 +129,23 @@
                                      </div>
                                    </div>
                                </div>
+                               <br>
+                               <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="d-flex inputDiv d-block">
+                                            <div class="uploadDiv" style="padding-left: 10px;width:100%">
+                                            <div id="myimage" class="input-images"></div>
+                                        </div>
+                                            <!--begin::Label-->
+                                            <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Drawing:</span>
+
+                                            </label> -->
+                                            <!--end::Label-->
+                                            <!-- <input type="file" class="form-control form-control-solid"  id="file" name="file"  style="background: #f5f8fa" required> -->
+                                        </div>
+                                    </div>
+                                </div>
                                <br>
                                  <button  type="submit" class="btn btn-primary float-end">Submit</button>
                                   <br>

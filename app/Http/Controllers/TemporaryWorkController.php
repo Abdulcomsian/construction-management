@@ -794,7 +794,7 @@ class TemporaryWorkController extends Controller
                 $twc_id_no = $twc_id_no . '-A';
             }
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
-            $latestuploadfile=TempWorkUploadFiles::where('construction',1)->orderBy('id','desc')->limit(1)->first();
+            $latestuploadfile=TempWorkUploadFiles::where('file_type',1)->orderBy('id','desc')->limit(1)->first();
             return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata','latestuploadfile'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');

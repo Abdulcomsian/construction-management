@@ -221,7 +221,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Drawing Number:</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no',$_GET['drawingno'] ?? $latestuploadfile->drawing_number)}}" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no',$_GET['drawingno'] ?? $latestuploadfile->drawing_number ?? '')}}" required>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -262,7 +262,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title)}}" required>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}" required>
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -524,7 +524,7 @@
                                                     <span class="required">Name::</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name1" name="name1" value="{{old('name1')}}" style="color:#5e6278">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name1" name="name1" value="{{old('name1', Auth::user()->name ?? '')}}" style="color:#5e6278">
                                             </div>
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
@@ -532,7 +532,7 @@
                                                     <span class="required">Job title:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1', Auth::user()->job_title ?? '')}}">
                                             </div>
 
                                         </div>
@@ -576,7 +576,7 @@
                                                     <span class="required">Name::</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name',  Auth::user()->name ?? '')}}">
                                             </div>
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
@@ -584,7 +584,7 @@
                                                     <span class="required">Job title:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title',Auth::user()->job_title ?? '')}}">
                                             </div>
                                             <div class="d-flex inputDiv ">
                                                 <!--begin::Label-->

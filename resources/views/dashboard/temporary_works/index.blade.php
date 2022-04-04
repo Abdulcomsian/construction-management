@@ -432,13 +432,13 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td style="">
-                                        <button class="designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2.'-'.$item->tw_name ?? ''}}"><i>View</i>
+                                        <button  style="padding: 7px !important;border-radius: 10px;background: #50cd89"  class="btn btn-info designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}">View
                                         </button>
                                         <hr>
                                      
-                                        {{$item->tw_name ?: '-'}}
+                                        <!-- {{$item->tw_name ?: '-'}} -->
                                         @if(!$item->tw_name)
-                                        <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p>
+                                        <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
                                            @endif    
                                 </td>
                                     <!-- <td>
@@ -453,12 +453,23 @@ border-radius: 8px;
                                     </td> -->
                                     <td style=""> 
                                         @foreach($item->uploadfile as $file)
-                                          @if($file->file_type==1)
-                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}
-                                          </p>
-                                            @break
-                                          @endif
+                                         @php
+                                           if($file->file_type==1  && $file->construction==1)
+                                           {
+                                             $color='green';
+                                             $date=$file->created_at->todatestring();
+                                           }
+                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
+                                           {
+                                            $color='#FFD700';
+                                            $date=$file->created_at->todatestring();
+                                           }
+                                          @endphp
                                         @endforeach
+                                        @if(isset($date))
+                                        <p class="dateclick cursor-pointer" style="color:{{$color ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                        </p>
+                                        @endif
                                     </td>
                                    <!--  <td></td> -->
                                     <td style="">
@@ -945,20 +956,17 @@ console.log("here");
 
     $(".designer-company").on('click',function(){
         var companies=$(this).attr('data-desing');
-        console.log(companies);
         const names =  companies.split("-");
+        var tw_name=$(this).attr('data-tw');
+        console.log(tw_name);
         var list='';
         if(names[0] !='')
         {
-            list += '<tr><td>1</td><td>'+names[0]+'</td></tr>';
+            list += '<tr><td>1</td><td>'+names[0]+'</td><td>'+tw_name+'</td></tr>';
         }
         if(names[1] !='')
         {
-            list += '<tr><td>2</td><td>'+names[1]+'</td></tr>';
-        }
-        if(names[2] !='')
-        {
-            list += '<tr><td>2</td><td>'+names[2]+'</td></tr>';
+            list += '<tr><td>2</td><td>'+names[1]+'</td><td>'+tw_name+'</td></tr>';
         }
         $("#desginerbody").html(list);
         $("#desingername").modal('show');

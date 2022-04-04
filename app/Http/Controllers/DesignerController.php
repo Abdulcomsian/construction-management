@@ -29,9 +29,10 @@ class DesignerController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
         try {
             $tempworkdata = TemporaryWork::find($request->tempworkid);
+            $tempworkdata->tw_name=$request->twd_name;
+            $tempworkdata->save();
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles();
@@ -123,7 +124,7 @@ class DesignerController extends Controller
             $list .= '<td>' . $construction . '</td>';
             if ($construction == 'Yes') {
                 $list .= '<td style="display:flex">
-                     <a href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                     <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
                      <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                         <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
@@ -133,7 +134,7 @@ class DesignerController extends Controller
                     </td>';
             } else {
                 $list .= '<td style="display:flex">
-                     <a href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                     <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
                      <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                         <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
                         <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />

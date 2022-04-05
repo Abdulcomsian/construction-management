@@ -394,6 +394,9 @@ input:focus {
     top:77% !important;
     position: absolute;
     left:-10px !important;
+    height: 0.6rem !important;
+    width: 0.6rem !important;
+    background-size: 51px 9px;
 }
 li.select2-selection__choice{
     width: 100% !important;

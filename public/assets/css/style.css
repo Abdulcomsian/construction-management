@@ -389,6 +389,16 @@ input:focus {
 .uploadingDiv{
     width: 100% !important;
 }
+
+.select2-container--bootstrap5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice .select2-selection__choice__remove{
+    top:77% !important;
+    position: absolute;
+    left:-10px !important;
+}
+li.select2-selection__choice{
+    width: 100% !important;
+}
+
 }
 .aside-menu .menu-item.here>.menu-link, .aside-menu .menu-item.show>.menu-link{
     display: flex !important;

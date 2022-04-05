@@ -157,6 +157,16 @@ border-radius: 8px;
 .topMenu a{
     color: #07d564 !important;
 }
+.sweet-alert{
+            z-index:99999999999 !important;
+        }
+        .sweet-overlay{
+             z-index:99999999999 !important;
+        }
+.btn-success{
+    border-radius:8px;
+    background: #9370DB !important;
+}
 /*.sweet-alert{
             z-index:99999999999 !important;
         }
@@ -519,7 +529,7 @@ border-radius: 8px;
                                          @endphp
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
-                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>
+                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-primary">Closed</button>
                                         @endif
                                     </td>
                                     <td>
@@ -971,7 +981,62 @@ console.log("here");
         $("#desginerbody").html(list);
         $("#desingername").modal('show');
     })
-
+   
+   $(document).on('click',".commentstatus",function(){
+       text=$(this).text();
+       if(text=="Pending")
+       {
+        modaltext="Are you sure to Fixed the comment?";
+       }
+       else{
+        modaltext="Are you sure to Pending the comment?";
+       }
+       commentid=$(this).attr('data-id');
+       var $t = $(this);
+        $("#comment_modal_id").modal('hide');
+       
+         swal({
+                title: modaltext,
+                // text: "You will not be able to recover this record!",
+                type: "warning",
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes!',
+                showCancelButton: true,
+                closeOnConfirm: true,
+                //closeOnCancel: false
+            },
+            function(){
+                    $.ajax({
+                    url:"{{route('temporarywork.comments.status')}}",
+                    method:"get",
+                    data:{commentid,text},
+                    success:function(res)
+                    {
+                        if(res=="success")
+                        {
+                            if(text=="Pending")
+                            {
+                                $t.text('Fixed');
+                                $t.removeClass('btn btn-primary').addClass('btn btn-success');
+                                 $("#comment_modal_id").modal('show');
+                            }
+                            else{
+                                 $t.text('Pending');
+                                 $t.removeClass('btn btn-success').addClass('btn btn-primary');
+                                   $("#comment_modal_id").modal('show');
+                            }
+                            
+                        }
+                        else{
+                             $t.text(text);
+                        }
+                    }
+                });
+                    
+            });
+        
+       
+   });
 
 </script>
 @endsection

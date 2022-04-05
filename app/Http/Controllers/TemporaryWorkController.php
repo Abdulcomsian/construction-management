@@ -21,6 +21,7 @@ use App\Models\Tempworkshare;
 use App\Models\ScaffoldLoadImages;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
+use App\Notifications\CommentsNotification;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -435,7 +436,7 @@ class TemporaryWorkController extends Controller
     {
         
         Validations::storeTemporaryWork($request);
-        // try {
+        try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -595,11 +596,11 @@ class TemporaryWorkController extends Controller
             }
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
-        // } catch (\Exception $exception) {
-        //     dd($exception->getMessage());
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
     //delete design brief
     public function destroy(TemporaryWork $temporaryWork)
@@ -649,6 +650,8 @@ class TemporaryWorkController extends Controller
     {
         Validations::storeComment($request);
         try {
+            //get twc email
+            $twc_email=TemporaryWork::select('twc_email')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
@@ -661,6 +664,8 @@ class TemporaryWorkController extends Controller
                 $model->image=$imagename;
             }
             if ($model->save()) {
+                Notification::route('mail', $twc_email->twc_email)->notify(new CommentsNotification($request->comment));
+               
                 toastSuccess('Comment Save sucessfully!');
                 return Redirect::back();
             }
@@ -674,7 +679,6 @@ class TemporaryWorkController extends Controller
         try {
             $model = TemporaryWork::find($request->temp_work_id);
             $model->tw_name = $request->tw_name;
-            // dd($model);
             if ($model->save()) {
                 toastSuccess('TW Name Save sucessfully!');
                 return Redirect::back();
@@ -682,6 +686,35 @@ class TemporaryWorkController extends Controller
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
             return Redirect::back();
+        }
+    }
+    //update commetns status
+    public function comments_status(Request $request)
+    {
+        $status=$request->text;
+        if($status=="Pending")
+        {
+            $commentmodel=TemporaryWorkComment::find($request->commentid);
+            $commentmodel->status=1;
+            if($commentmodel->save())
+            {
+                return "success";
+            }
+            else{
+                return 'false';
+            }
+            
+        }
+        else{
+            $commentmodel=TemporaryWorkComment::find($request->commentid);
+            $commentmodel->status=0;
+            if($commentmodel->save())
+            {
+                return "success";
+            }
+            else{
+                return 'false';
+            }
         }
     }
     //get commetns
@@ -702,16 +735,17 @@ class TemporaryWorkController extends Controller
             $commetns = PermitComments::where(['permit_load_id' =>  $permit_id])->latest()->get();
         }
         if (count($commetns) > 0) {
-            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th><th></th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
                 $colour='';
                 $a='';
+                $status='';
                 if(isset($request->scan))
                 {
-                    if(Auth::check())
+                    if($comment->user_id)
                     {
-                        $colour="blue";
+                        $colour="#6A5ACD";
                     }
                     else{
                         $colour='orange';
@@ -729,10 +763,19 @@ class TemporaryWorkController extends Controller
                         $a='<a target="_blank" href="'. $path.'/'.$comment->image.'">Attach File</a>';
                     }
                 }
+                if($comment->type=="normal")
+                {
+                    if($comment->status==0)
+                    {
+                        $status="<button class='btn btn-primary commentstatus' data-id=".$comment->id.">Pending</button>";
+                    }elseif($comment->status==1){
+                        $status="<button class='btn btn-success commentstatus' data-id=".$comment->id.">Fixed</button>";
+                    }
+                }
                 
                 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $date_comment  . '</td><td>'.$a.'</td></tr>';
+                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
                 $i++;
             }
             $table .= '</tbody></table>';

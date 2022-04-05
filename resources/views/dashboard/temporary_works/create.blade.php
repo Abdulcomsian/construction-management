@@ -299,15 +299,12 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}"  required>
                                 </div>
-                                 <div class="inputDiv d-none desinger_company_name2">
-                                    <!--begin::Label-->
+                                 <!-- <div class="inputDiv d-none desinger_company_name2">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                       Design Checker Name
-:</span>
+                                       Design Checker Name:</span>
                                     </label>
-                                    <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger')}}"  >
-                                </div>
+                                </div> -->
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

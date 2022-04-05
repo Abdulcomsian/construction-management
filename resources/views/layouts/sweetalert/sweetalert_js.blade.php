@@ -28,8 +28,6 @@
             {
                 $("#permit_modal_id").hide();
             }
-            console.log('form_id',form_id);
-            console.log('link',link);
             var text=$(this).attr('data-text');
             if(!text)
             {

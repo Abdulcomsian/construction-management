@@ -157,7 +157,16 @@ border-radius: 8px;
 .topMenu a{
     color: #07d564 !important;
 }
-
+.sweet-alert{
+            z-index:99999999999 !important;
+        }
+        .sweet-overlay{
+             z-index:99999999999 !important;
+        }
+.btn-success{
+    border-radius:8px;
+    background: #9370DB !important;
+}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -193,7 +202,7 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title" style="width: 100%"> 
-                    <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center; font-size:45px !important; text-transform: uppercase;">Temporary Works Register</h1>
+                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
                     </div>
                     <!--begin::Card toolbar-->
                     
@@ -308,7 +317,7 @@ border-radius: 8px;
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
-                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-success">Closed</button>
+                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-primary">Closed</button>
                                         @endif
                                     </td>
                                     <td>
@@ -426,5 +435,62 @@ border-radius: 8px;
         $("#desc").html(desc);
         $("#desc_modal_id").modal('show');
     })
+
+    $(document).on('click',".commentstatus",function(){
+       text=$(this).text();
+       if(text=="Pending")
+       {
+        modaltext="Are you sure to Fixed the comment?";
+       }
+       else{
+        modaltext="Are you sure to Pending the comment?";
+       }
+       commentid=$(this).attr('data-id');
+       var $t = $(this);
+        $("#comment_modal_id").modal('hide');
+       
+         swal({
+                title: modaltext,
+                // text: "You will not be able to recover this record!",
+                type: "warning",
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes!',
+                showCancelButton: true,
+                closeOnConfirm: true,
+                //closeOnCancel: false
+            },
+            function(){
+                    $.ajax({
+                    url:"{{route('temporarywork.comments.status')}}",
+                    method:"get",
+                    data:{commentid,text},
+                    success:function(res)
+                    {
+                        if(res=="success")
+                        {
+                            if(text=="Pending")
+                            {
+                                $t.text('Fixed');
+                                $t.removeClass('btn btn-primary').addClass('btn btn-success');
+                                 $("#comment_modal_id").modal('show');
+                            }
+                            else{
+                                 $t.text('Pending');
+                                 $t.removeClass('btn btn-success').addClass('btn btn-primary');
+                                   $("#comment_modal_id").modal('show');
+                            }
+                            
+                        }
+                        else{
+                             $t.text(text);
+                        }
+                    }
+                });
+                    
+            });
+        
+       
+   });
+
 </script>
 @endsection

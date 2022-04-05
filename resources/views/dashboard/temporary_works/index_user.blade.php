@@ -440,10 +440,10 @@ border-radius: 8px;
        text=$(this).text();
        if(text=="Pending")
        {
-        modaltext="Are you sure to Fixed the comment?";
+        modaltext="Do you want to change Comment status to Fixed?";
        }
        else{
-        modaltext="Are you sure to Pending the comment?";
+        modaltext="Do you want to change Comment status to Pending?";
        }
        commentid=$(this).attr('data-id');
        var $t = $(this);

@@ -253,8 +253,7 @@ border-radius: 8px;
                             <div class="form">
                                 <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}" >
                                     <div class="col-10" >
-                                    <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
-                                        <option value="">Select Projects</option>
+                                    <select name="projects[]"  class="form-select form-select-lg" multiple="multiple"data-control="select2" data-placeholder="Select a Project" >
                                         @foreach($projects as $proj)
                                         <option value="{{$proj->id}}">{{$proj->name}}</option>
                                         @endforeach

@@ -131,6 +131,7 @@
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <input type="hidden" name="tempworkid" value="{{$id}}">
+                        <input type="hidden" name="designermail" value="{{$mail}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -274,9 +275,11 @@
                         </tbody>
                     </table>
                     <br>
+                     <hr>
                     <form class="form-inline" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                          <input type="hidden" name="tempworkid" value="{{$id}}">
+                          <input type="hidden" name="designermail" value="{{$mail}}">
                       <div class="form-group mx-sm-3 mb-2 d-flex">
                           <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                            <span class="required">Design Check Certificate:</span>
@@ -287,6 +290,58 @@
                       </div>
                       
                     </form>
+                   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S-no</th>
+                                <th>Design Check Certificate</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            @foreach($Designerchecks as $dcc)
+                            <tr >
+                                <td>{{$loop->index+1}}</td>
+                                <td><a href="{{asset($dcc->file_name)}}" target="_blank">DC{{$loop->index+1}}</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <br>
+                     <hr>
+                    <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                         <input type="hidden" name="temp_work_id" value="{{$id}}">
+                          <div class="form-group mx-sm-3 mb-2 d-flex">
+                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                               <span class="required">Add Comment:</span>
+                              </label>
+                               <textarea rows="2" class="form-control" required="required" name="comment"></textarea>
+                               &nbsp;&nbsp;
+                               <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                          </div>
+                      
+                    </form>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S-no</th>
+                                <th>Comments</th>
+                                <th>Twc Reply</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            @foreach($comments as $cments)
+                            <tr >
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$cments->comment}}</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
                 <!--end::Card body-->
             </div>

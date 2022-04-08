@@ -123,7 +123,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Design Brief Approval</h2>
+                        <h2 style="display: inline-block;">Permit Load Approval</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">

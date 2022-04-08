@@ -526,6 +526,7 @@ border-radius: 8px;
                                             $color="red";
                                          }
                                          @endphp
+                                         <br>
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 7px !important;border-radius: 10px" class="btn btn-primary">Closed</button>
@@ -1036,6 +1037,35 @@ console.log("here");
         
        
    });
+
+
+$(document).on('keypress','.replay',function (e) {
+ var key = e.which;
+ if(key == 13)  // the enter key code
+  {
+    replay=$(this).val();
+    commentid=$(this).attr('data-id');
+     $.ajax({
+            headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+            url:"{{route('temporarywork.storecommentreplay')}}",
+            method:"get",
+            data:{replay,commentid},
+            success:function(res)
+            {
+               if(res=="sucess")
+               {
+                location.reload();
+               }
+            }
+        });
+  }
+}); 
+
+   $(document).on('click','.replay',function (e) {
+      $(this).attr('disabled','');
+    }); 
 
 </script>
 @endsection

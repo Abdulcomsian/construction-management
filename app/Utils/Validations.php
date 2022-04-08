@@ -93,6 +93,7 @@ class Validations
     public static function storeTemporaryWork($request)
     {
         $request->validate([
+            'photo' => ['required'],
             'project_id' => ['required', 'max:255', 'exists:projects,id'],
             'design_required_by_date' => ['required'],
             'designer_company_name' => ['required'],

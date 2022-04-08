@@ -464,6 +464,46 @@
                                     <textarea name="description_approval_temp_works" rows="2" class="form-control">{{old('description_approval_temp_works')}}</textarea>
                                 </div>
                             </div>
+                            <!-- new work here -->
+                            <div class="d-flex inputDiv requiredDiv">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Add rate of rise  (IF YES, SPECIFY BELOW)</span>
+
+                                </label>
+                                <!--begin::Radio group-->
+                                <div class="nav-group nav-group-fluid">
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                        @if(isset($old))
+                                        <input type="radio" class="btn-check" name="rate_rise" value="1" {{ old('rate_rise') == '1' ? 'checked' : '' }} />
+                                        @else
+                                        <input type="radio" class="btn-check" name="rate_rise" value="1" checked />
+                                        @endif
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                        <input type="radio" class="btn-check" name="rate_rise" value="2" {{ old('rate_rise') == '2' ? 'checked' : '' }} />
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                </div>
+                                <!--end::Radio group-->
+                            </div>
+                            <div class="d-flex inputDiv">
+                                <div class="d-flex modalDiv">
+                                    <textarea name="rate_rise_comment" rows="2" class="form-control">{{old('rate_rise_comment')}}</textarea>
+                                </div>
+                            </div>
+                            <!--  -->
                             <h5 style="color: #000">Permit to unload/Use</h5>
                             <br>
                             <p style="color: #000;">
@@ -732,7 +772,15 @@
 
         }
     })
+    
+    $("input[name='rate_rise']").change(function() {
+        if ($(this).val() == 1) {
+            $("textarea[name='rate_rise_comment']").show();
+        } else {
+            $("textarea[name='rate_rise_comment']").hide();
 
+        }
+    })
 
 
     $("#flexCheckChecked1").change(function() {

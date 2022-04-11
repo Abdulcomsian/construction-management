@@ -104,11 +104,11 @@
 
     .table td {
         font-size: 12px;
-        padding-left: 0px !important;
-        padding-right: 0px !important;
+      padding: 0px !important;
     }
     .table td p{
         font-size: 12px !important;
+        margin: 0px !important;
     }
 
     .dataTables_length label,
@@ -120,6 +120,9 @@
     .page-item.active .page-link {
         background-color: #000 !important;
     }
+    tbody.text-gray-600.fw-bold tr td {
+    vertical-align: middle;
+}
 
     table {
         margin-top: 20px;
@@ -194,6 +197,10 @@ border-radius: 8px;
     background-color: rgba(0,0,0,0.5);
 }
 .topMenu, #kt_content_container, .card>.card-body, .card>.card-header{padding:0 1rem !important;}
+.table td p{
+    position: initial !important;
+    top: initial !important
+}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -365,7 +372,7 @@ border-radius: 8px;
                         </div>
                     </div>
                     <!--begin::Table-->
-                    <div class="table-responsive" style="height: 1000px;">
+                    <div class="table-responsive tableDiv" style="height: 1000px;">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>
@@ -376,7 +383,7 @@ border-radius: 8px;
                                     <th class="">Company</th>
                                     @endif
                                     <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
-                                    <th class="" style="max-width:210px;">Description of TWS</th>
+                                    <th class="" style="max-width:150px;">Description of TWS</th>
                                     <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
                                     <th style="min-width: 40px;" class="">Risk Class</th>
                                     <th class=""  style="min-width:60px;">Issue Date<br> of Design Brief</th>
@@ -402,7 +409,7 @@ border-radius: 8px;
                                 @forelse($temporary_works as $item)
                               
                                 <tr>
-                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;">
+                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                         <a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                         </a>
                                         @if($item->status==2)
@@ -411,26 +418,28 @@ border-radius: 8px;
                                         @endif
                                     </td>
                                     @if(\Auth::user()->hasRole('admin'))
-                                    <td>{{ $item->company ?: '-' }}</td>
+                                    <td>
+                                        <p>{{ $item->company ?: '-' }}</p>
+                                    </td>
                                     @endif
                                     <td>{{ $item->project->name ?? '' }}</td>
-                                    <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">
+                                    <td  style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                         <hr style="margin: 5px;;color:red;border:1px solid red">
-                                        <button style="background: #07d564;font-size: 12px;border-radius: 10px" class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
+                                        <button style="background: #07d564;font-size: 12px;border-radius: 4px; padding: 2px;" class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
                                             Description
                                         </button>
                                     </td>
                                     <td style="">{{ $item->tw_category }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                    <td style="min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
-                                    <td style="width:90px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
+                                    <td style="min-width: 100px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
+                                    <td style="min-width:100px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
                                         <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
-                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span><br> Comment</p>
                                         <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
-                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
+                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4"><span class="fa fa-plus"></span><br> Emails</h3>
                                       
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -441,9 +450,9 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td style="">
-                                        <button  style="padding: 7px !important;border-radius: 10px;background: #50cd89"  class="btn btn-info designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}">View
+                                        <button  style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;"  class="btn btn-info designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}">View
                                         </button>
-                                        <hr>
+                                      
                                      
                                         <!-- {{$item->tw_name ?: '-'}} -->
                                         @if(!$item->tw_name)
@@ -513,7 +522,7 @@ border-radius: 8px;
 
                                     </td>
                                     <td>
-                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit <br>to<br> load</p>
+                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                          @php 
                                          $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
@@ -529,11 +538,11 @@ border-radius: 8px;
                                          <br>
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
-                                        <button style="padding: 7px !important;border-radius: 10px" class="btn btn-primary">Closed</button>
+                                        <button style="padding: 3px !important;border-radius: 4px; font-size: 12px;" class="btn btn-primary">Closed</button>
                                         @endif
                                     </td>
                                     <td>
-                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}"  data-desc="{{$item->design_requirement_text}}">Permit<br> to <br>Unload</p>
+                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}"  data-desc="{{$item->design_requirement_text}}">Permit to <br>Unload</p>
                                     </td>
                                     <td  data-type="2">
                                         <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS<br></p>

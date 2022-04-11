@@ -413,3 +413,14 @@ li.select2-selection__choice{
 .uploadingDiv{
     width: 100%;
 }
+.modal-content{
+    border-radius: 10px !important;
+}
+.tableDiv{
+    overflow-x: scroll;
+    transform: rotateX(180deg);
+    height: auto !important;
+}
+.tableDiv table{
+    transform: rotateX(180deg);
+}

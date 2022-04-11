@@ -336,7 +336,7 @@
                             <tr >
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$cments->comment}}</td>
-                                <td></td>
+                                <td>{{$cments->replay}}</td>
                             </tr>
                             @endforeach
                         </tbody>

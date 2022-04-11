@@ -285,11 +285,19 @@ class TemporaryWorkController extends Controller
 
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'projno', 'projname', 'approval', 'pc_twc_email');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype','pdfsigntype','pdfphoto','projno', 'projname', 'approval', 'pc_twc_email');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
                 $image_name = $request->namesign;
+            } 
+            if($request->pdfsigntype==1)
+            {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' .$file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name= $filename;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -318,10 +326,14 @@ class TemporaryWorkController extends Controller
             }
 
             //photo work here
-            $filePath = HelperFunctions::designbriefphotopath();
-            $file = $request->file('photo');
-            $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-            $all_inputs['photo']=$imagename;
+            if($request->photo)
+            {
+                $filePath = HelperFunctions::designbriefphotopath();
+                $file = $request->file('photo');
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $all_inputs['photo']=$imagename;
+             }
+            
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -375,14 +387,17 @@ class TemporaryWorkController extends Controller
                 }
                 else{
                         //send email to admin
-                        Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
+                       Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
+
                         //send to twc email
                         Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
+
                         //designer
                         if ($request->designer_company_email) {
                             $notify_admins_msg['body']['designer'] = 'designer1';
                             Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id,$request->designer_company_email));
                         }
+
                         //designer email second
                         if ($request->desinger_email_2) {
                             $notify_admins_msg['body']['designer'] = 'designer1';
@@ -790,7 +805,7 @@ class TemporaryWorkController extends Controller
                         $a='<a target="_blank" href="'. $path.'/'.$comment->image.'">Attach File</a>';
                     }
                 }
-                $disabled='';
+               
                 if($comment->type=="normal")
                 {
                     if($comment->status==0)
@@ -799,15 +814,12 @@ class TemporaryWorkController extends Controller
                     }elseif($comment->status==1){
                         $status="<button class='btn btn-success commentstatus' data-id=".$comment->id.">Fixed</button>";
                     }
-                    if($comment->replay)
-                    {
-                        $disabled="disabled";
-                    }
+                    
                 }
                 
                 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td><input type="text" class="replay" name="replay" data-id='.$comment->id.' value="'.$comment->replay.'"  '.$disabled.'/></td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
+                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td><input type="text" class="replay" name="replay" data-id='.$comment->id.' value="'.$comment->replay.'" /></td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
                 $i++;
             }
             $table .= '</tbody></table>';
@@ -1771,4 +1783,6 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+   
 }

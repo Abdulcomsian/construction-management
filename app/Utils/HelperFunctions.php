@@ -21,12 +21,17 @@ class HelperFunctions
             if ($oldFile) {
                 @unlink($oldFile);
             }
-            $filename = time() . rand(10000, 99999) . '.' . $newFile->getClientOriginalExtension();
+            $filename = time() . rand(10000, 99999) . '.' .$newFile->getClientOriginalExtension();
             $newFile->move($public_path, $filename);
             return $filePath . $filename;
         } catch (\Exception $exception) {
             return null;
         }
+    }
+
+    public function pdfsignpath()
+    {
+        return $path  = 'temporary/signature/';
     }
 
     public static function profileImagePath($user = null)

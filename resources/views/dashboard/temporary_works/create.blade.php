@@ -174,7 +174,8 @@ height: 72px;
                     <div class="card-title list_top" style="width:98%">
                         <h2 style="display: inline-block;">Design Brief</h2>
                         <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a> -->
-                        <a style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">upload existing design brief</a>
+                        <button style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" class="newDesignBtn hazardlist">Hazard List</button>
+                        <a style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         
                     </div>
@@ -200,7 +201,7 @@ height: 72px;
                                                 <span class="required">Photo:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera" required="required">
+                                            <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
                                         </div>
                                     </div>
                                </div>
@@ -303,7 +304,7 @@ height: 72px;
                                         <span class="required">Design Checker Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  required>
+                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  >
                                 </div>
                                  <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
@@ -311,7 +312,7 @@ height: 72px;
                                         <span class="required">Design Checker Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}"  required>
+                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" >
                                 </div>
                                  <!-- <div class="inputDiv d-none desinger_company_name2">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -498,15 +499,29 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
-                                      <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                     <span style="padding-left:3px;color:#000">Do you want name signature?</span>
+                                      <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                     <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">Do you want name signature?</span>
+                                     &nbsp;
+                                      <!--end::Label-->
+                                     <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
+                                      <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                     <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
+
                                 </div>
+                                <div class="inputDiv d-none" id="pdfsign">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Upload Signature:</span>
+                                    </label>
+                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                </div>
+                                
                                 <div class="d-flex inputDiv" id="namesign" style="display: none !important">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Name Signature:</span>
                                     </label>
                                     <input type="text" name="namesign" class="form-control form-control-solid">
                                 </div>
+
                                  <div class="d-flex inputDiv" id="sign">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
@@ -527,7 +542,7 @@ height: 72px;
                           <br>
                         @include('dashboard.modals.design-relief-modals')
 
-                        <button id="submitbutton" type="button" class="btn btn-primary float-end submitbutton">Submit</button>
+                        <button id="submitbutton" type="submit" class="btn btn-primary float-end submitbutton">Submit</button>
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -538,6 +553,7 @@ height: 72px;
     </div>
     <!--end::Post-->
 </div>
+@include('dashboard.modals.hazardlist')
 @endsection
 @section('scripts')
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
@@ -561,15 +577,19 @@ height: 72px;
     $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
         {
+            $("#pdfChecked").prop('checked',false);
             $("#signtype").val(1);
+             $("#pdfsign").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").addClass('d-flex').show();
+             $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required','required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
            
         }
         else{
-            $("#signtype").val(0);
+            $("#signtype").val(2);
             $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
@@ -577,6 +597,35 @@ height: 72px;
              
         }
     })
+
+    $("#pdfChecked").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#flexCheckChecked").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
+        }
+    })
+    
 
     //approval checkbox checkded
     $("#approval").change(function(){
@@ -608,11 +657,14 @@ height: 72px;
 
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
+     signaturePad.addEventListener("endStroke", () => {
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+            }, { once: true });
     
-    $("#submitbutton").on('click',function(e){
-         $("#signature").val(signaturePad.toDataURL('image/png'));
-         $("#desingform").submit();
-    })
+    // $("#submitbutton").on('click',function(e){
+    //      $("#signature").val(signaturePad.toDataURL('image/png'));
+    //      $("#desingform").submit();
+    // })
    
      $('#clear').click(function(e) {
         e.preventDefault();
@@ -641,6 +693,11 @@ height: 72px;
         $('#twc_email').css("background-color", "#f5f8fa ");
         $('#twc_email').css("color", "#000");
     });
+
+
+    $(".hazardlist").on('click',function(){
+        $("#hazard_modal_id").modal('show');
+    })
             
 </script>
 

@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\ProjectQrCode;
 use App\Models\User;
 use App\Models\ProjectDocuments;
+use App\Models\TemporaryWork;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -261,10 +262,11 @@ class ProjectController extends Controller
         if (isset($request->tempstart)) {
             $start = $request->tempstart;
             $end = $request->tempend;
-            $qrcodes = ProjectQrCode::where('project_id', $id)->where('tempid', '>=', $start)->where('tempid', '<=', $end)->get();
+            $qrcodes = ProjectQrCode::with('tempwork')->where('project_id', $id)->where('tempid', '>=', $start)->where('tempid', '<=', $end)->get();
         } else {
-            $qrcodes = ProjectQrCode::where('project_id', $id)->get();
+            $qrcodes = ProjectQrCode::with('tempwork')->where('project_id', $id)->get();
         }
+        //dd($qrcodes);
         return view('qrcode.index', compact('qrcodes', 'id'));
     }
 
@@ -321,5 +323,13 @@ class ProjectController extends Controller
     {
          $project_documents=ProjectDocuments::with('project')->where('project_id',$id)->latest()->paginate(20);
         return view('dashboard.temporary_works.project_document',compact('project_documents'));
+    }
+
+    public function qrcode_details($id)
+    {
+         $data=TemporaryWork::select('project_id','tempid')->find($id);
+         $qrcodes = ProjectQrCode::with('tempwork')->where(['project_id'=> $data->project_id,'tempid'=>$data->tempid])->get();
+         return view('qrcode.index', compact('qrcodes', 'id'));
+    
     }
 }

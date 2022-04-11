@@ -21,10 +21,18 @@ class DesignerController extends Controller
 {
     public function index($id)
     {
+        if(!isset($_GET['mail']))
+        {
+            abort(403);
+        }
+        $mail=$_GET['mail'];
         $id = \Crypt::decrypt($id);
-        $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id])->get();
+        $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
+        $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
-        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name'));
+        $comments=TemporaryWorkComment::where('temporary_work_id',$id)->get();
+        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments'));
+        
     }
 
     public function store(Request $request)
@@ -55,7 +63,8 @@ class DesignerController extends Controller
                 $model->drawing_title = $request->drawing_title;
                 $model->preliminary_approval = $request->preliminary_approval;
                 $model->construction = $request->construction;
-                 $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
+                $model->created_by = $request->designermail;
+                $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
             }
 
            

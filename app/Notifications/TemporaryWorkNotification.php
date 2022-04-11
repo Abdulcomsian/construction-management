@@ -12,15 +12,17 @@ class TemporaryWorkNotification extends Notification
     use Queueable;
     private $offerData;
     public $id;
+    public $email;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData,$id)
+    public function __construct($offerData,$id,$email=NULL)
     {
         $this->offerData = $offerData;
         $this->id=$id;
+        $this->email=$email;
     }
 
     /**
@@ -45,7 +47,7 @@ class TemporaryWorkNotification extends Notification
         return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
-            ->view('mail.temporaryworkmail', ['details' => $this->offerData,'id'=>$this->id])
+            ->view('mail.temporaryworkmail', ['details' => $this->offerData,'id'=>$this->id,'email'=>$this->email])
             ->attach(public_path('pdf/' . $this->offerData['body']['filename']), [
                 'as' =>  $this->offerData['body']['name'].'.pdf',
                 'mime' => 'text/pdf',

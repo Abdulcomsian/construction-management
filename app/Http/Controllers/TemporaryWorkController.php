@@ -316,6 +316,12 @@ class TemporaryWorkController extends Controller
             } else {
                 $all_inputs['status'] = '1';
             }
+
+            //photo work here
+            $filePath = HelperFunctions::designbriefphotopath();
+            $file = $request->file('photo');
+            $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            $all_inputs['photo']=$imagename;
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -375,11 +381,12 @@ class TemporaryWorkController extends Controller
                         //designer
                         if ($request->designer_company_email) {
                             $notify_admins_msg['body']['designer'] = 'designer1';
-                            Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
+                            Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id,$request->designer_company_email));
                         }
                         //designer email second
                         if ($request->desinger_email_2) {
-                            Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
+                            $notify_admins_msg['body']['designer'] = 'designer1';
+                            Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                         }
                     }
                 
@@ -674,6 +681,26 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+    public function temp_savecommentreplay(Request $request)
+    {
+        try {
+            $commentid=$request->commentid;
+            $res=TemporaryWorkComment::find($commentid)->update([
+                'replay'=>$request->replay
+            ]);
+            if($res){
+                return "sucess";
+            }
+            else{
+                return "false";
+            }
+            
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
+    }
     public function temp_savetwname(Request $request)
     {
         try {
@@ -735,7 +762,7 @@ class TemporaryWorkController extends Controller
             $commetns = PermitComments::where(['permit_load_id' =>  $permit_id])->latest()->get();
         }
         if (count($commetns) > 0) {
-            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th><th></th><th></th></tr></thead><tbody>';
+            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th>Replay</th><th style="width:120px;">Date</th><th></th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
                 $colour='';
@@ -763,6 +790,7 @@ class TemporaryWorkController extends Controller
                         $a='<a target="_blank" href="'. $path.'/'.$comment->image.'">Attach File</a>';
                     }
                 }
+                $disabled='';
                 if($comment->type=="normal")
                 {
                     if($comment->status==0)
@@ -771,11 +799,15 @@ class TemporaryWorkController extends Controller
                     }elseif($comment->status==1){
                         $status="<button class='btn btn-success commentstatus' data-id=".$comment->id.">Fixed</button>";
                     }
+                    if($comment->replay)
+                    {
+                        $disabled="disabled";
+                    }
                 }
                 
                 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
+                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td><input type="text" class="replay" name="replay" data-id='.$comment->id.' value="'.$comment->replay.'"  '.$disabled.'/></td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
                 $i++;
             }
             $table .= '</tbody></table>';
@@ -979,7 +1011,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 } elseif ($permit->status == 5) {
-                    $status = "<span class='permit-rejected text-danger cursor-pointer ' data-id='" . \Crypt::encrypt($permit->id) . "'>Rejected </span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
+                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='border-radius:8px' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL </span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
                 }
                 $path = config('app.url');
                 if (isset($request->scanuser)) {

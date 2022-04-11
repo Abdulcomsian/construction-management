@@ -443,6 +443,77 @@
                                     @endif
                             </div>
                          </div>
+
+                         <!-- rate of rise work -->
+                             <div class="d-flex inputDiv">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Add rate of rise  (IF YES, SPECIFY BELOW)</span>
+
+                                </label>
+                                <!--begin::Radio group-->
+                                <div class="nav-group nav-group-fluid">
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                         
+                                          <input type="radio" class="btn-check" name="rate_rise" value="1" @if(isset($permitdata) && $permitdata->rate_rise==1){{'checked'}}@endif />
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                        <input type="radio" class="btn-check" name="rate_rise" value="2" @if(isset($permitdata) && $permitdata->rate_rise==2){{'checked'}}@endif/>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                </div>
+                                <!--end::Radio group-->
+                            </div>
+                             <div class="d-flex inputDiv">
+                                <div class="d-flex modalDiv">
+                                       @if(isset($permitdata) && $permitdata->rate_rise==1)
+                                        <textarea name="rate_rise_comment" rows="2" class="form-control" >{{$permitdata->rate_rise_comment ?? ''}}</textarea>
+                                        @endif
+                                </div>
+                             </div>
+
+                              <div class="d-flex inputDiv">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">construction methodology changed</span>
+
+                                </label>
+                                <!--begin::Radio group-->
+                                <div class="nav-group nav-group-fluid">
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                         
+                                          <input type="radio" class="btn-check" name="construction_methodology" value="1" @if(isset($permitdata) && $permitdata->construction_methodology==1){{'checked'}}@endif />
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                        <input type="radio" class="btn-check" name="construction_methodology" value="2" @if(isset($permitdata) && $permitdata->construction_methodology==2){{'checked'}}@endif/>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                </div>
+                                <!--end::Radio group-->
+                            </div>
+                         <!-- end rate of rise -->
                             <h5 style="color: #000">Permit to unload/Use</h5>
                             <br>
                             <p style="color: #000;">

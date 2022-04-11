@@ -191,6 +191,20 @@ height: 72px;
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex inputDiv d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Photo:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera" required="required">
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

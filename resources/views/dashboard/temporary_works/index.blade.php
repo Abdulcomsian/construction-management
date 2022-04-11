@@ -550,7 +550,9 @@ border-radius: 8px;
                                         $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                         @endphp
                                         @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
-                                        <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
+                                        <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
+                                            <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
+                                        </a>
                                         @endif
                                     </td>
                                     <td>
@@ -1063,9 +1065,6 @@ $(document).on('keypress','.replay',function (e) {
   }
 }); 
 
-   $(document).on('click','.replay',function (e) {
-      $(this).attr('disabled','');
-    }); 
 
 </script>
 @endsection

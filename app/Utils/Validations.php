@@ -93,7 +93,7 @@ class Validations
     public static function storeTemporaryWork($request)
     {
         $request->validate([
-            'photo' => ['required'],
+            // 'photo' => ['required'],
             'project_id' => ['required', 'max:255', 'exists:projects,id'],
             'design_required_by_date' => ['required'],
             'designer_company_name' => ['required'],
@@ -107,8 +107,9 @@ class Validations
             'name' => ['required'],
             'job_title' => ['required'],
             'company' => ['required'],
-            'signed' => 'required_if:signtype,0',
+            'signed' => 'required_if:signtype,2',
             'namesign' => 'required_if:signtype,1',
+            'pdfphoto'=>'required_if:pdfsigntype,1',
         ]);
     }
 

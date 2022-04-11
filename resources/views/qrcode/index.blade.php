@@ -236,7 +236,9 @@ background-color: #07d564 !important;
                                             <!-- <td>{{$loop->index+1}}</td> -->
                                             <td>
                                                 <img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="auto" height="250px">
-                                                <p>{{$loop->index+1}}</p>
+                                                <br><br><br>
+                                                
+                                                <p><b>{{$code->tempwork->description_temporary_work_required ?? ''}}</b></p>
                                             </td>
                                     @if($i==2) 
                                         </tr>

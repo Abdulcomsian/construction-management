@@ -165,9 +165,11 @@
                                     <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
                                 </center>
                                 <span style="font-size:12px;">I confirm that I have inspected the above temporary structure and I am satisfied that it
-                                    conforms to the above design.</span> <br>
-                                <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use. <br>
-                                    I confirm that I am authorised to issue a Permit to Load for this temporary structure.</span>
+                                    conforms to the above design.  </span>  <span style="font-size:12px;">@if($data['is_inspected']==1){{'Y'}}@else{{'N'}}@endif</span> 
+                                    <br>
+                                <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use. <span style="font-size:12px;">@if($data['is_consider']==1){{'Y'}}@else{{'N'}}@endif</span>
+                                <br>
+                                    I confirm that I am authorised to issue a Permit to Load for this temporary structure. </span> <span style="font-size:12px;">@if($data['is_authorised']==1){{'Y'}}@else{{'N'}}@endif</span>
 
                             </label>
                         </td>

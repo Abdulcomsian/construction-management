@@ -147,7 +147,9 @@
         background: lightgray;
     }
     .uploaded{padding:40px 0 !important;}
-
+    .btn-check:checked+.btn.btn-active-primary2{
+        background: #FFBF00;
+    }
     @media only screen and (max-width: 450px) {
         #sig1{
             width:200px;
@@ -278,7 +280,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">MS/RA Number</span>
+                                            <span>MS/RA Number</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
                                         <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
@@ -509,11 +511,46 @@
                             <p style="color: #000;">
 
                                 I confirm that I have inspected the above temporary structure and I
-                                am satisfied that it conforms to the above.<br>
+                                am satisfied that it conforms to the above.
+                                 <label>
+                                    <input type="radio" class="btn-check" name="is_inspected" value="1"  />
+
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                </label>
+                                <!--end::Option-->
+                                <!--begin::Option-->
+                                <label>
+                                    <input type="radio" class="btn-check" name="is_inspected" value="2" checked/>
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                </label><br><br>
                                 I consider that the temporary structure is ready to be loaded and
-                                taken into use.<br>
+                                taken into use.
+                                <label>
+                                    <input type="radio" class="btn-check" name="is_consider" value="1"  />
+
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                </label>
+                                <!--end::Option-->
+                                <!--begin::Option-->
+                                <label>
+                                    <input type="radio" class="btn-check" name="is_consider" value="2" checked/>
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                </label>
+                                <br><br>
                                 I confirm that I am authorised to issue a Permit to Load for this
-                                temporary structure.<br>
+                                temporary structure.
+                                <label>
+                                    <input type="radio" class="btn-check" name="is_authorised" value="1"  />
+
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                </label>
+                                <!--end::Option-->
+                                <!--begin::Option-->
+                                <label>
+                                    <input type="radio" class="btn-check" name="is_authorised" value="2" checked/>
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                </label>
+                                <br>
                             </p>
 
                             <!--end::Option-->
@@ -584,7 +621,7 @@
                                                 </label>
                                                 <input type="checkbox" id="flexCheckChecked1" style="width: 12px;margin-top:5px">
                                                 <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="0">
-                                                <span style="padding-left:3px;color:#000">Do you want name signature?</span>
+                                                <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want name signature?</span>
                                             </div>
                                             <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -653,7 +690,7 @@
                                                 </label>
                                                 <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
                                                 <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                                <span style="padding-left:3px;color:#000">Do you want name signature?</span>
+                                                <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want name signature?</span>
                                             </div>
                                             <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -711,7 +748,7 @@
                                         </label>
                                         <!--end::Label-->
                                          <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
-                                         <span style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                         <span class="tickboxalign" style="padding-left:3px;color:#000">Select if approval is required.</span>
                                     </div>
                                     <div class="d-none inputDiv pc-twc">
                                         <!--begin::Label-->

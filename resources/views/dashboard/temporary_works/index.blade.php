@@ -373,12 +373,37 @@ border-radius: 8px;
                     </div>
                     <!--begin::Table-->
                     <div class="table-responsive tableDiv" style="height: 1000px;">
+                    <div class="tableInputDiv">
+                        <div class="">
+                        <strong>Checked the Checkbox for Hide column</strong><br><br>
+                        <input type="checkbox" class="hidecol" value="name" id="col_1" />&nbsp;<span>DESIGN BRIEF</span>&nbsp;
+                        <input type="checkbox" class="hidecol" value="salary" id="col_2" />&nbsp;<span>COMPANY</span>
+                        <input type="checkbox" class="hidecol" value="gender" id="col_3" />&nbsp;<span>PROJECT NAME</span>
+                        <input type="checkbox" class="hidecol" value="city" id="col_4" />&nbsp;<span>DESCRIPTION OF TWS</span>
+                        <input type="checkbox" class="hidecol" value="email" id="col_5" />&nbsp;<span>CAT CHECK</span>
+                        <input type="checkbox" class="hidecol" value="name" id="col_6" />&nbsp;<span>RISK CLASS&nbsp;</span>
+                        <input type="checkbox" class="hidecol" value="salary" id="col_7" />&nbsp;<span>ISSUE DATE</span>
+                        <input type="checkbox" class="hidecol" value="gender" id="col_8" />&nbsp;<span>REQUIRED DATE</span>
+                        <input type="checkbox" class="hidecol" value="city" id="col_9" />&nbsp;<span>COMMENTS</span>
+                        <input type="checkbox" class="hidecol" value="email" id="col_10" />&nbsp;<span>TW DESIGNER</span>
+                        <input type="checkbox" class="hidecol" value="city" id="col_11" />&nbsp;<span>DATE DESIGN</span>
+                        <input type="checkbox" class="hidecol" value="email" id="col_12" />&nbsp;<span>DATE DCC</span>
+                        <input type="checkbox" class="hidecol" value="name" id="col_13" />&nbsp;<span>DRAWINGS AND DESIGNS&nbsp;</span>
+                        <input type="checkbox" class="hidecol" value="salary" id="col_14" />&nbsp;<span>DESIGN CHECK CERT</span>
+                        <input type="checkbox" class="hidecol" value="gender" id="col_15" />&nbsp;<span>PERMIT TO LOAD</span>
+                        <input type="checkbox" class="hidecol" value="city" id="col_16" />&nbsp;<span>PERMIT TO UNLOAD</span>
+                        <input type="checkbox" class="hidecol" value="email" id="col_17" />&nbsp;<span>RAMS</span>
+                        <input type="checkbox" class="hidecol" value="name" id="col_18" />&nbsp;<span>QRCODE&nbsp;</span>
+                        <input type="checkbox" class="hidecol" value="salary" id="col_19" />&nbsp;<span>ACTIONS</span>
+                        </div>
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
+                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief  <button class="pull-right btn btn-default btn-condensed hide-column" data-toggle="tooltip" data-placement="bottom" title="Hide Column">
+          <i class="fa fa-eye-slash"></i>  
+        </button></th>
                                     @if(\Auth::user()->hasRole('admin'))
                                     <th class="">Company</th>
                                     @endif
@@ -592,6 +617,7 @@ border-radius: 8px;
                             </tbody>
                             <!--end::Table body-->
                         </table>
+                        </div>
                     </div>
                     <br>
                     <div class="col-md-6 d-flex" style="margin-bottom:10px">
@@ -1074,6 +1100,35 @@ $(document).on('keypress','.replay',function (e) {
   }
 }); 
 
+ 
+$(document).ready(function(){
 
+// Checkbox click
+$(".hidecol").click(function(){
+
+    var id = this.id;
+    var splitid = id.split("_");
+    var colno = splitid[1];
+    var checked = true;
+     
+    // Checking Checkbox state
+    if($(this).is(":checked")){
+        checked = true;
+    }else{
+        checked = false;
+    }
+    setTimeout(function(){
+        if(checked){
+            $('table td:nth-child('+colno+')').hide();
+            $('table th:nth-child('+colno+')').hide();
+        } else{
+            $('table td:nth-child('+colno+')').show();
+            $('table th:nth-child('+colno+')').show();
+        }
+
+    }, 1500);
+
+});
+});
 </script>
 @endsection

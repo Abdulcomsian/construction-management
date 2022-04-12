@@ -891,9 +891,9 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
-
+       
         Validations::storepermitload($request);
-        try {
+        // try {
             $all_inputs  = $request->except('_token', 'approval', 'pc_twc_email', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
@@ -986,10 +986,10 @@ class TemporaryWorkController extends Controller
                 toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
     //get all permits and loads in modal
     public function permit_get(Request $request)

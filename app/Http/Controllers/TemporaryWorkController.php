@@ -601,11 +601,11 @@ class TemporaryWorkController extends Controller
                 if (isset($request->approval)) {
                     $notify_admins_msg['body']['designer'] = '';
                     $notify_admins_msg['body']['pc_twc'] = '1';
-                    Notification::route('mail', $request->pc_twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                    Notification::route('mail', $request->pc_twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                 }
                 else{
                     Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
-                    Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                    Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                     if ($request->designer_company_email) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
                         Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));

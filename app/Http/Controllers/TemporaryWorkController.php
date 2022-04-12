@@ -777,7 +777,7 @@ class TemporaryWorkController extends Controller
             $commetns = PermitComments::where(['permit_load_id' =>  $permit_id])->latest()->get();
         }
         if (count($commetns) > 0) {
-            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th>Replay</th><th style="width:120px;">Date</th><th></th><th></th></tr></thead><tbody>';
+            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th>Reply</th><th style="width:120px;">Date</th><th></th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
                 $colour='';
@@ -894,7 +894,7 @@ class TemporaryWorkController extends Controller
 
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'pc_twc_email', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'approval', 'pc_twc_email', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text','is_inspected','is_consider','is_authorised');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -1023,7 +1023,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 } elseif ($permit->status == 5) {
-                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='border-radius:8px' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL </span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
+                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='border-radius:8px' data-id='" . \Crypt::encrypt($permit->id) . "'>dnl</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
                 }
                 $path = config('app.url');
                 if (isset($request->scanuser)) {
@@ -1035,7 +1035,7 @@ class TemporaryWorkController extends Controller
                 if (auth()->user()->hasRole('scaffolder')) {
                     $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . '/pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }
@@ -1345,7 +1345,8 @@ class TemporaryWorkController extends Controller
                 $twc_id_no = $twc_id_no . '-S1';
             }
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
-            return view('dashboard.temporary_works.scaffolding', compact('project', 'tempid', 'twc_id_no', 'tempdata'));
+            $latestuploadfile=TempWorkUploadFiles::where('file_type',1)->orderBy('id','desc')->limit(1)->first();
+            return view('dashboard.temporary_works.scaffolding', compact('project', 'tempid', 'twc_id_no', 'tempdata','latestuploadfile'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

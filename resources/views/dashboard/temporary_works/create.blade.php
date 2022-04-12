@@ -192,20 +192,7 @@ height: 72px;
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="d-flex inputDiv d-block">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Photo:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
-                                        </div>
-                                    </div>
-                               </div>
-                            </div>
+                            
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -492,6 +479,14 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
                                 </div>
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span>Photo:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
+                                </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
@@ -532,10 +527,7 @@ height: 72px;
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                 </div>
                                 <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
-
                                 <!-- work for approval -->
-                                
-
                             </div>
 
                         </div>

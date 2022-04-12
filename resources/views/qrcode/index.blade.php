@@ -238,7 +238,7 @@ background-color: #07d564 !important;
                                                 <img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="auto" height="250px">
                                                 <br><br><br>
                                                 
-                                                <p><b>{{$code->tempwork->description_temporary_work_required ?? ''}}</b></p>
+                                                <p><b>{{$code->tempwork->design_requirement_text ?? ''}}</b></p>
                                             </td>
                                     @if($i==2) 
                                         </tr>

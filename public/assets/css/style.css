@@ -401,6 +401,9 @@ input:focus {
 li.select2-selection__choice{
     width: 100% !important;
 }
+.tickboxalign{
+    line-height: 24px;
+}
 
 }
 .aside-menu .menu-item.here>.menu-link, .aside-menu .menu-item.show>.menu-link{

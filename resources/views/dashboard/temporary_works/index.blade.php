@@ -376,7 +376,7 @@ border-radius: 8px;
                     <div class="tableInputDiv">
                         <div class="">
                         <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn">unselect column view</button>
+                            <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;">unselect column view</button>
                             <div id="myDropdown" class="dropdown-content">
                                
                                  

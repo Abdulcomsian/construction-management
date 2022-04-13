@@ -151,7 +151,7 @@ class UserController extends Controller
                 ->with(['userProjects', 'userCompany'])
                 ->where('id', $id)
                 ->first();
-            $company_projects = $user->userCompany->companyProjects;
+            $company_projects = $user->userCompany->companyProjects ?? [];
             $user_projects = $user->userProjects->pluck('id')->toarray();
             $companies = User::role('company')->latest()->get();
             return view('dashboard.users.edit', compact('user_projects', 'user', 'companies', 'company_projects'));

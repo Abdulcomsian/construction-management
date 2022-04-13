@@ -686,7 +686,7 @@ class TemporaryWorkController extends Controller
                 $model->image=$imagename;
             }
             if ($model->save()) {
-                Notification::route('mail', $twc_email->twc_email)->notify(new CommentsNotification($request->comment));
+                Notification::route('mail', $twc_email->twc_email)->notify(new CommentsNotification($request->comment,'question'));
                
                 toastSuccess('Comment Save sucessfully!');
                 return Redirect::back();
@@ -711,11 +711,11 @@ class TemporaryWorkController extends Controller
                 if($tempdata->designer_company_email)
                 {
 
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay));
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay,'reply'));
                 }
                 if($tempdata->desinger_email_2)
                 {
-                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay));
+                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay,'reply'));
                 }
                 return "sucess";
             }

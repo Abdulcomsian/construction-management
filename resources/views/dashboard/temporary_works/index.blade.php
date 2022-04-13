@@ -81,7 +81,7 @@
         background-color: #f5f8fa;
         position: sticky;
         top: 0px;
-        z-index: 999999999;
+        z-index: 99;
     }
 
     table thead th {
@@ -214,9 +214,9 @@ border-radius: 8px;
 <!-- <div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
 		<div class="d-flex align-items-center justify-content-center flex-wrap px-5 py-5 px-md-10 py-md-9">
 			
-			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
+			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap5">Projects</a>
 			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
-			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>
+			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap4">Companies</a>
 			@endif
 			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
 			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('users.index') }}" target="">Users</a>
@@ -375,26 +375,162 @@ border-radius: 8px;
                     <div class="table-responsive tableDiv" style="height: 1000px;">
                     <div class="tableInputDiv">
                         <div class="">
-                        <strong>Checked the Checkbox for Hide column</strong><br><br>
-                        <input type="checkbox" class="hidecol" value="name" id="col_1" />&nbsp;<span>DESIGN BRIEF</span>&nbsp;
-                        <input type="checkbox" class="hidecol" value="salary" id="col_2" />&nbsp;<span>COMPANY</span>
-                        <input type="checkbox" class="hidecol" value="gender" id="col_3" />&nbsp;<span>PROJECT NAME</span>
-                        <input type="checkbox" class="hidecol" value="city" id="col_4" />&nbsp;<span>DESCRIPTION OF TWS</span>
-                        <input type="checkbox" class="hidecol" value="email" id="col_5" />&nbsp;<span>CAT CHECK</span>
-                        <input type="checkbox" class="hidecol" value="name" id="col_6" />&nbsp;<span>RISK CLASS&nbsp;</span>
-                        <input type="checkbox" class="hidecol" value="salary" id="col_7" />&nbsp;<span>ISSUE DATE</span>
-                        <input type="checkbox" class="hidecol" value="gender" id="col_8" />&nbsp;<span>REQUIRED DATE</span>
-                        <input type="checkbox" class="hidecol" value="city" id="col_9" />&nbsp;<span>COMMENTS</span>
-                        <input type="checkbox" class="hidecol" value="email" id="col_10" />&nbsp;<span>TW DESIGNER</span>
-                        <input type="checkbox" class="hidecol" value="city" id="col_11" />&nbsp;<span>DATE DESIGN</span>
-                        <input type="checkbox" class="hidecol" value="email" id="col_12" />&nbsp;<span>DATE DCC</span>
-                        <input type="checkbox" class="hidecol" value="name" id="col_13" />&nbsp;<span>DRAWINGS AND DESIGNS&nbsp;</span>
-                        <input type="checkbox" class="hidecol" value="salary" id="col_14" />&nbsp;<span>DESIGN CHECK CERT</span>
-                        <input type="checkbox" class="hidecol" value="gender" id="col_15" />&nbsp;<span>PERMIT TO LOAD</span>
-                        <input type="checkbox" class="hidecol" value="city" id="col_16" />&nbsp;<span>PERMIT TO UNLOAD</span>
-                        <input type="checkbox" class="hidecol" value="email" id="col_17" />&nbsp;<span>RAMS</span>
-                        <input type="checkbox" class="hidecol" value="name" id="col_18" />&nbsp;<span>QRCODE&nbsp;</span>
-                        <input type="checkbox" class="hidecol" value="salary" id="col_19" />&nbsp;<span>ACTIONS</span>
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">Checked the Checkbox for Hide column</button>
+                            <div id="myDropdown" class="dropdown-content">
+                               
+                                 
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_1">
+                                    <span >DESIGN BRIEF</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_2">
+                                    <span>COMPANY</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_3">
+                                    <span>PROJECT NAME</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_4">
+                                    <span>DESCRIPTION OF TWS</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_5">
+                                    <span>CAT CHECK</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_6">
+                                    <span>RISK CLASS</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_7">
+                                    <span>ISSUE DATE</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_8">
+                                    <span>REQUIRED DATE</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_9">
+                                    <span>COMMENTS</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_10">
+                                    <span>TW DESIGNER</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_11">
+                                    <span>DATE DESIGN</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_12">
+                                    <span>DATE DCC</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_13">
+                                    <span>DRAWINGS AND DESIGNS</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_14">
+                                    <span>DESIGN CHECK CERT</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_15">
+                                    <span>PERMIT TO LOAD</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_16">
+                                    <span>PERMIT TO UNLOAD</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_17">
+                                    <span>RAMS</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_18">
+                                    <span>QRCODE</span>
+                                </div>
+                                <div class="inputSpan">
+                                    <input type="checkbox" class="hidecol" id="col_19">
+                                    <span>ACTIONS</span>
+                                </div>
+
+                                                
+                                
+                            
+                            
+                               
+                            
+                            
+                             
+                            
+                            
+                              
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                               
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                               
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            
+                                
+                            
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                       
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         </div>
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
@@ -1130,5 +1266,23 @@ $(".hidecol").click(function(){
 
 });
 });
+
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
 </script>
 @endsection

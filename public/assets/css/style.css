@@ -445,6 +445,9 @@ li.select2-selection__choice{
   .tableDiv table{
     transform: rotateX(180deg);
   }
+  .table>:not(:last-child)>:last-child>*{
+    vertical-align: middle !important;
+  }
   .tableInputDiv strong{
       margin-bottom: 20px;
   }

@@ -384,10 +384,12 @@ border-radius: 8px;
                                     <input type="checkbox" class="hidecol" id="col_1" checked>
                                     <span >DESIGN BRIEF</span>
                                 </div>
+                                @if(\Auth::user()->hasRole('admin'))
                                 <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_2">
                                     <span>COMPANY</span>
                                 </div>
+                                @endif
                                 <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_3">
                                     <span>PROJECT NAME</span>

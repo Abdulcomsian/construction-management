@@ -442,7 +442,7 @@ li.select2-selection__choice{
     width: auto;
     transition: width .5s, margin .5s;
   }
-  .tableInputDiv{
+  table{
     transform: rotateX(180deg);
   }
   .tableInputDiv strong{
@@ -482,6 +482,7 @@ li.select2-selection__choice{
   .dropdown {
     position: relative;
     display: inline-block;
+    margin-top: 20px;
   }
   
   /* Dropdown Content (Hidden by Default) */
@@ -494,6 +495,7 @@ li.select2-selection__choice{
     z-index: 9999;
     height: 300px;
     overflow: scroll;
+    padding: 5px;
   }
   
   /* Links inside the dropdown */

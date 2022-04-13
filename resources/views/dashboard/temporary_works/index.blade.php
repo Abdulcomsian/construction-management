@@ -354,27 +354,8 @@ border-radius: 8px;
                             <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
                             
                         </div>
-
-                        <div class="col-md-2 offset-md-8">
-                             <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
-                                <div class="row">
-                                      <div class="form-group  col-md-12">
-</div>
-                                      <div class="form-group  col-md-9">
-                                        <label  class="text-white">Search</label>
-                                        <input type="text" style="    padding: 0px 10px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
-                                      </div>
-                                      <div class="col-md-2 mt-6 text-center">
-                                        <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!--begin::Table-->
-                    <div class="table-responsive tableDiv" style="height: 1000px;">
-                    <div class="tableInputDiv">
-                        <div class="">
+                        <div class="col-md-2">
+                            <div class="tableInputDiv">
                         <div class="dropdown">
                             <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;">unselect column view</button>
                             <div id="myDropdown" class="dropdown-content">
@@ -529,6 +510,30 @@ border-radius: 8px;
                                 @endif
                                
                             </div>
+</div>
+</div>
+                        </div>
+                        <div class="col-md-2 offset-md-6">
+                             <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
+                                <div class="row">
+                                      <div class="form-group  col-md-12">
+</div>
+                                      <div class="form-group  col-md-9">
+                                        <label  class="text-white">Search</label>
+                                        <input type="text" style="    padding: 0px 10px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
+                                      </div>
+                                      <div class="col-md-2 mt-6 text-center">
+                                        <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--begin::Table-->
+                    <div class="table-responsive tableDiv" style="height: 1000px;">
+                    <div class="tableInputDiv">
+                        <div class="">
+                        
 </div>
                         </div>
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
@@ -1273,11 +1278,29 @@ window.onclick = function(event) {
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+    //   if (openDropdown.classList.contains('show')) {
+    //     openDropdown.classList.remove('show');
+    //   }
     }
   }
 }
+$(document).click(function(e){
+
+    e.stopPropagation();
+
+    //check if the clicked area is dropDown or not
+    if (!$(event.target).closest('.dropbtn').length && !$(event.target).closest('#myDropdown').length) {
+      console.log("hello")
+      $("#myDropdown").removeClass("show")
+    }
+
+
+    // if($("#myDropdown").hasClass('show')){
+    //     $("#myDropdown").hide()
+    // }
+    // $("#myDropdown").click(function(e){
+    //     e.stopPropagation(); 
+    // });
+});
 </script>
 @endsection

@@ -123,7 +123,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Upload Designs Drawings & Questions</h2>
+                        <h2 style="display: inline-block;">upload questions for TWC if required</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -132,7 +132,7 @@
                          <input type="hidden" name="temp_work_id" value="{{$id}}">
                           <div class="form-group mx-sm-3 mb-2 d-flex">
                               <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                               <span class="required">Any question or further requirement for the temporary works coordinator before design ? Type and submit:</span>
+                               <span >Any question or further requirement for the temporary works coordinator before design ? Type and submit:</span>
                               </label>
                                <textarea rows="2" class="form-control" required="required" name="comment"></textarea>
                                &nbsp;&nbsp;

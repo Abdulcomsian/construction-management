@@ -492,6 +492,8 @@ li.select2-selection__choice{
     min-width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 9999;
+    height: 300px;
+    overflow: scroll;
   }
   
   /* Links inside the dropdown */

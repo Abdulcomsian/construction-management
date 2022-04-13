@@ -699,11 +699,19 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        try {
+        //dd($request->all());
+        // try {
             $commentid=$request->commentid;
             $tempid=$request->tempid;
+            $data=TemporaryWorkComment::select('replay')->find($commentid);
+            $array=[];
+            foreach($data->replay as $dt)
+            {
+                $array[]=$dt;
+            }
+            $array[]=$request->replay;
             $res=TemporaryWorkComment::find($commentid)->update([
-                'replay'=>$request->replay
+                'replay'=>$array
             ]);
             if($res){
                 $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($tempid);
@@ -717,16 +725,18 @@ class TemporaryWorkController extends Controller
                 {
                     Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay,'reply'));
                 }
-                return "sucess";
+                toastSuccess('Thank you for your reply');
+                return Redirect::back();
             }
             else{
-                return "false";
+                toastError('Something went wrong, try again');
+                 return Redirect::back();
             }
             
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again');
+        //     return Redirect::back();
+        // }
     }
     public function temp_savetwname(Request $request)
     {
@@ -829,9 +839,34 @@ class TemporaryWorkController extends Controller
                     
                 }
                 
+                    $list='';
+                    $k=1;
+                    for($j=0;$j<count($comment->replay);$j++)
+                    {
+                        if($comment->replay[$j])
+                        {
+                            $list.='<tr><td>'.$k.'</td><td colspan="5">'.$comment->replay[$j].'</td></tr>';
+                            $k++;
+                        }
+                    }
+                    
                 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td><input type="text" class="replay" name="replay" data-id='.$comment->id.' data-tempid='.$request->temporary_work_id.' value="'.$comment->replay.'" /><button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:2px">submit</button></td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
+                $table .= '<tr style="background:'.$colour.'">
+                               <td>' . $i . '</td><td>' . $comment->comment . '</td>
+                               <td>
+                               <form method="post" action="'.route("temporarywork.storecommentreplay").'">
+                                   <input type="hidden" name="_token" value="'.csrf_token().'"/>
+                                   <input type="hidden" name="tempid" value="'.$request->temporary_work_id.'"/>
+                                   <input type="text" class="replay" name="replay"/>
+                                   <input type="hidden" name="commentid" value="'.$comment->id.'"/>
+                                   <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:2px">submit</button>
+                               </form>
+                               </td>
+                               <td>' . $date_comment  . '</td>
+                               <td>'.$a.'</td>
+                               <td><b>'.$status.'</b></td>
+                           </tr>'.$list.'';
                 $i++;
             }
             $table .= '</tbody></table>';

@@ -444,15 +444,19 @@
                                         @if(isset($old))
                                         <input type="radio" class="btn-check" name="works_coordinator" value="1" {{ old('works_coordinator') == '1' ? 'checked' : '' }} />
                                         @else
-                                        <input type="radio" class="btn-check" name="works_coordinator" value="1" checked />
+                                        <input type="radio" class="btn-check" name="works_coordinator" value="1" />
                                         @endif
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
+                                        @if(isset($old))
                                         <input type="radio" class="btn-check" name="works_coordinator" value="2" {{ old('works_coordinator') == '2' ? 'checked' : '' }} />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                        @else
+                                        <input type="radio" class="btn-check" name="works_coordinator" value="2" checked/>
+                                        @endif
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -462,8 +466,8 @@
                                 <!--end::Radio group-->
                             </div>
                             <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
-                                    <textarea name="description_approval_temp_works" rows="2" class="form-control">{{old('description_approval_temp_works')}}</textarea>
+                                <div class="d-flex modalDiv" >
+                                    <textarea name="description_approval_temp_works" rows="2" class="form-control" style="display: none">{{old('description_approval_temp_works')}}</textarea>
                                 </div>
                             </div>
                             <!-- new work here -->
@@ -483,15 +487,19 @@
                                         @if(isset($old))
                                         <input type="radio" class="btn-check" name="rate_rise" value="1" {{ old('rate_rise') == '1' ? 'checked' : '' }} />
                                         @else
-                                        <input type="radio" class="btn-check" name="rate_rise" value="1" checked />
+                                        <input type="radio" class="btn-check" name="rate_rise" value="1"  />
                                         @endif
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
+                                        @if(isset($old))
                                         <input type="radio" class="btn-check" name="rate_rise" value="2" {{ old('rate_rise') == '2' ? 'checked' : '' }} />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                        @else
+                                        <input type="radio" class="btn-check" name="rate_rise" value="2" checked="" />
+                                        @endif
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -502,7 +510,7 @@
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
-                                    <textarea name="rate_rise_comment" rows="2" class="form-control">{{old('rate_rise_comment')}}</textarea>
+                                    <textarea name="rate_rise_comment" rows="2" class="form-control" style="display: none">{{old('rate_rise_comment')}}</textarea>
                                 </div>
                             </div>
                             <!--  -->
@@ -513,41 +521,41 @@
                                 I confirm that I have inspected the above temporary structure and I
                                 am satisfied that it conforms to the above.
                                  <label>
-                                    <input type="radio" class="btn-check" name="is_inspected" value="1"  />
+                                    <input type="radio" class="btn-check" name="is_inspected" value="1"  checked/>
 
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
-                                    <input type="radio" class="btn-check" name="is_inspected" value="2" checked/>
+                                    <input type="radio" class="btn-check" name="is_inspected" value="2" />
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                 </label><br><br>
                                 I consider that the temporary structure is ready to be loaded and
                                 taken into use.
                                 <label>
-                                    <input type="radio" class="btn-check" name="is_consider" value="1"  />
+                                    <input type="radio" class="btn-check" name="is_consider" value="1" checked />
 
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
-                                    <input type="radio" class="btn-check" name="is_consider" value="2" checked/>
+                                    <input type="radio" class="btn-check" name="is_consider" value="2" />
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                 </label>
                                 <br><br>
                                 I confirm that I am authorised to issue a Permit to Load for this
                                 temporary structure.
                                 <label>
-                                    <input type="radio" class="btn-check" name="is_authorised" value="1"  />
+                                    <input type="radio" class="btn-check" name="is_authorised" value="1" checked />
 
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
                                 <label>
-                                    <input type="radio" class="btn-check" name="is_authorised" value="2" checked/>
+                                    <input type="radio" class="btn-check" name="is_authorised" value="2" />
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                 </label>
                                 <br>
@@ -569,14 +577,22 @@
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
-                                        <input type="radio" class="btn-check" name="principle_contractor" value="1" checked />
+                                        @if(isset($old))
+                                        <input type="radio" class="btn-check" name="principle_contractor" value="1" {{ old('principle_contractor') == '1' ? 'checked' : '' }} />
+                                        @else
+                                        <input type="radio" class="btn-check" name="principle_contractor" value="1"  />
+                                        @endif
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
+                                        @if(isset($old))
                                         <input type="radio" class="btn-check" name="principle_contractor" value="2" {{ old('principle_contractor') == '2' ? 'checked' : '' }} />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                        @else
+                                        <input type="radio" class="btn-check" name="principle_contractor" value="2" checked />
+                                        @endif
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -590,7 +606,7 @@
 
 
                                 <div class="col-md-12">
-                                     <div class="row" id="first_member">
+                                     <div class="row" id="first_member" style="display: none">
                                         <div class="col"  style="flex:100% !important;">
 
                                             <div class="d-flex inputDiv d-block">

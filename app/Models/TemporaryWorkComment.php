@@ -9,6 +9,9 @@ class TemporaryWorkComment extends Model
 {
     use HasFactory;
      protected $guarded = [];
+      protected $casts = [
+        'replay' => 'array',
+    ];
     public function tempwork()
     {
         return $this->belongsTo(TemporaryWork::class);

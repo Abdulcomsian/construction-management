@@ -1213,28 +1213,6 @@ console.log("here");
        
    });
 
-
-$(document).on('click','.replay-comment',function (e) {
-    replay=$(this).siblings('input').val();
-    commentid=$(this).siblings('input').attr('data-id');
-    tempid=$(this).siblings('input').attr('data-tempid');
-     $.ajax({
-            headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-            url:"{{route('temporarywork.storecommentreplay')}}",
-            method:"get",
-            data:{replay,commentid,tempid},
-            success:function(res)
-            {
-               if(res=="sucess")
-               {
-                location.reload();
-               }
-            }
-        });
-}); 
-
  
 $(document).ready(function(){
 

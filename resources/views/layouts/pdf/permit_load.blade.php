@@ -20,16 +20,16 @@
             <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to Load</h3>
             </div>
-            <!-- <div class="logo" style="float:right;width:20%;">
+            <div class="logo" style="float:right;width:20%;">
                 @php
                 $logodata=\App\Models\User::where('id',$data['companyid'])->first();
                 @endphp
                 @if($logodata->image != NULL)
                 <img src="{{public_path($logodata->image)}}" width="80px" height="80px" />
                 @else
-                <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" />
+               <!--  <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" /> -->
                 @endif
-            </div> -->
+            </div>
         </div>
         <!-- <br> -->
         <div class="tableDiv paddingTable">

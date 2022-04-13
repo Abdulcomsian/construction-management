@@ -24,7 +24,7 @@
                 @php
                 $logodata=\App\Models\User::where('id',$data['company_id'])->first();
                 @endphp
-                @if(isset($logodata->image) && $logodata->image != NULL)
+                @if($logodata->image != NULL)
                 <img src="{{public_path($logodata->image)}}" width="auto" height="80px" />
                 @endif
             </div>

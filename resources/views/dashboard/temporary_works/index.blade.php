@@ -537,9 +537,7 @@ border-radius: 8px;
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief  <button class="pull-right btn btn-default btn-condensed hide-column" data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-          <i class="fa fa-eye-slash"></i>  
-        </button></th>
+                                    <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
                                     @if(\Auth::user()->hasRole('admin'))
                                     <th class="">Company</th>
                                     @endif

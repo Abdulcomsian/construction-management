@@ -17,9 +17,11 @@ class CommentsNotification extends Notification
      * @return void
      */
     private $comment;
-    public function __construct($comment)
+    private $type;
+    public function __construct($comment,$type)
     {
         $this->comment=$comment;
+        $this->type=$type;
     }
 
     /**
@@ -44,7 +46,7 @@ class CommentsNotification extends Notification
         return (new MailMessage)
             ->greeting('Comments Notification')
             ->subject('Comments Notification')
-            ->view('mail.commentsmail',['comment'=>$this->comment]);
+            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type]);
     }
 
     /**

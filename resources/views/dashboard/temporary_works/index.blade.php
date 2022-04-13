@@ -1076,19 +1076,17 @@ console.log("here");
    });
 
 
-$(document).on('keypress','.replay',function (e) {
- var key = e.which;
- if(key == 13)  // the enter key code
-  {
-    replay=$(this).val();
-    commentid=$(this).attr('data-id');
+$(document).on('click','.replay-comment',function (e) {
+    replay=$(this).siblings('input').val();
+    commentid=$(this).siblings('input').attr('data-id');
+    tempid=$(this).siblings('input').attr('data-tempid');
      $.ajax({
             headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },
             url:"{{route('temporarywork.storecommentreplay')}}",
             method:"get",
-            data:{replay,commentid},
+            data:{replay,commentid,tempid},
             success:function(res)
             {
                if(res=="sucess")
@@ -1097,7 +1095,6 @@ $(document).on('keypress','.replay',function (e) {
                }
             }
         });
-  }
 }); 
 
  

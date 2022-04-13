@@ -701,10 +701,22 @@ class TemporaryWorkController extends Controller
     {
         try {
             $commentid=$request->commentid;
+            $tempid=$request->tempid;
             $res=TemporaryWorkComment::find($commentid)->update([
                 'replay'=>$request->replay
             ]);
             if($res){
+                $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($tempid);
+
+                if($tempdata->designer_company_email)
+                {
+
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay));
+                }
+                if($tempdata->desinger_email_2)
+                {
+                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay));
+                }
                 return "sucess";
             }
             else{
@@ -810,16 +822,16 @@ class TemporaryWorkController extends Controller
                 {
                     if($comment->status==0)
                     {
-                        $status="<button class='btn btn-primary commentstatus' data-id=".$comment->id.">Pending</button>";
+                        $status="<button class='btn btn-primary commentstatus' data-id=".$comment->id." style='font-size:10px'>Pending</button>";
                     }elseif($comment->status==1){
-                        $status="<button class='btn btn-success commentstatus' data-id=".$comment->id.">Fixed</button>";
+                        $status="<button class='btn btn-success commentstatus' data-id=".$comment->id." style='font-size:10px'>Fixed</button>";
                     }
                     
                 }
                 
                 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td><input type="text" class="replay" name="replay" data-id='.$comment->id.' value="'.$comment->replay.'" /></td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
+                $table .= '<tr style="background:'.$colour.'"><td>' . $i . '</td><td>' . $comment->comment . '</td><td><input type="text" class="replay" name="replay" data-id='.$comment->id.' data-tempid='.$request->temporary_work_id.' value="'.$comment->replay.'" /><button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:2px">submit</button></td><td>' . $date_comment  . '</td><td>'.$a.'</td><td><b>'.$status.'</b></td></tr>';
                 $i++;
             }
             $table .= '</tbody></table>';

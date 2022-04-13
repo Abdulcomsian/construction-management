@@ -381,79 +381,79 @@ border-radius: 8px;
                                
                                  
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_1">
+                                    <input type="checkbox" class="hidecol" id="col_1" checked>
                                     <span >DESIGN BRIEF</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_2">
+                                    <input type="checkbox" class="hidecol" checked id="col_2">
                                     <span>COMPANY</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_3">
+                                    <input type="checkbox" class="hidecol" checked id="col_3">
                                     <span>PROJECT NAME</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_4">
+                                    <input type="checkbox" class="hidecol" checked id="col_4">
                                     <span>DESCRIPTION OF TWS</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_5">
+                                    <input type="checkbox" class="hidecol" checked id="col_5">
                                     <span>CAT CHECK</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_6">
+                                    <input type="checkbox" class="hidecol" checked id="col_6">
                                     <span>RISK CLASS</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_7">
+                                    <input type="checkbox" class="hidecol" checked id="col_7">
                                     <span>ISSUE DATE</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_8">
+                                    <input type="checkbox" class="hidecol" checked id="col_8">
                                     <span>REQUIRED DATE</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_9">
+                                    <input type="checkbox" class="hidecol" checked id="col_9">
                                     <span>COMMENTS</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_10">
+                                    <input type="checkbox" class="hidecol" checked id="col_10">
                                     <span>TW DESIGNER</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_11">
+                                    <input type="checkbox" class="hidecol" checked id="col_11">
                                     <span>DATE DESIGN</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_12">
+                                    <input type="checkbox" class="hidecol" checked id="col_12">
                                     <span>DATE DCC</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_13">
+                                    <input type="checkbox" class="hidecol" checked id="col_13">
                                     <span>DRAWINGS AND DESIGNS</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_14">
+                                    <input type="checkbox" class="hidecol" checked id="col_14">
                                     <span>DESIGN CHECK CERT</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_15">
+                                    <input type="checkbox" class="hidecol" checked id="col_15">
                                     <span>PERMIT TO LOAD</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_16">
+                                    <input type="checkbox" class="hidecol" checked id="col_16">
                                     <span>PERMIT TO UNLOAD</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_17">
+                                    <input type="checkbox" class="hidecol" checked id="col_17">
                                     <span>RAMS</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_18">
+                                    <input type="checkbox" class="hidecol" checked id="col_18">
                                     <span>QRCODE</span>
                                 </div>
                                 <div class="inputSpan">
-                                    <input type="checkbox" class="hidecol" id="col_19">
+                                    <input type="checkbox" class="hidecol" checked id="col_19">
                                     <span>ACTIONS</span>
                                 </div>
                             </div>
@@ -1161,6 +1161,7 @@ $(document).on('click','.replay-comment',function (e) {
  
 $(document).ready(function(){
 
+
 // Checkbox click
 $(".hidecol").click(function(){
 
@@ -1171,9 +1172,9 @@ $(".hidecol").click(function(){
      
     // Checking Checkbox state
     if($(this).is(":checked")){
-        checked = true;
-    }else{
         checked = false;
+    }else{
+        checked = true;
     }
     setTimeout(function(){
         if(checked){

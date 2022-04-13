@@ -48,7 +48,7 @@
     }
 
     table thead {
-        background-color: #000;
+        background-color: gray;
     }
 
     table thead th {
@@ -123,10 +123,44 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Upload Designs</h2>
+                        <h2 style="display: inline-block;">Upload Designs Drawings & Questions</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
+                    <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                         <input type="hidden" name="temp_work_id" value="{{$id}}">
+                          <div class="form-group mx-sm-3 mb-2 d-flex">
+                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                               <span class="required">Any question or further requirement for the temporary works coordinator before design ? Type and submit:</span>
+                              </label>
+                               <textarea rows="2" class="form-control" required="required" name="comment"></textarea>
+                               &nbsp;&nbsp;
+                               <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                          </div>
+                      
+                    </form>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S-no</th>
+                                <th>Comments</th>
+                                <th>Twc Reply</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            @foreach($comments as $cments)
+                            <tr >
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$cments->comment}}</td>
+                                <td>{{$cments->replay}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <hr>
+                    <br>
                     <form id="desingform" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -307,40 +341,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <br>
-                     <hr>
-                    <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post" enctype="multipart/form-data">
-                        @csrf
-                         <input type="hidden" name="temp_work_id" value="{{$id}}">
-                          <div class="form-group mx-sm-3 mb-2 d-flex">
-                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                               <span class="required">Add Comment:</span>
-                              </label>
-                               <textarea rows="2" class="form-control" required="required" name="comment"></textarea>
-                               &nbsp;&nbsp;
-                               <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                          </div>
-                      
-                    </form>
-                    <br>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>S-no</th>
-                                <th>Comments</th>
-                                <th>Twc Reply</th>
-                            </tr>
-                        </thead>
-                         <tbody>
-                            @foreach($comments as $cments)
-                            <tr >
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$cments->comment}}</td>
-                                <td>{{$cments->replay}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    
 
                 </div>
                 <!--end::Card body-->

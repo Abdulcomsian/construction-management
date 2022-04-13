@@ -442,7 +442,7 @@ li.select2-selection__choice{
     width: auto;
     transition: width .5s, margin .5s;
   }
-  table{
+  .tableDiv table{
     transform: rotateX(180deg);
   }
   .tableInputDiv strong{

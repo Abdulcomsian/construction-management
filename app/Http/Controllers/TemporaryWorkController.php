@@ -673,7 +673,7 @@ class TemporaryWorkController extends Controller
         Validations::storeComment($request);
         try {
             //get twc email
-            $twc_email=TemporaryWork::select('twc_email')->find($request->temp_work_id);
+            $twc_email=TemporaryWork::select('twc_email','design_requirement_text')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
@@ -686,7 +686,7 @@ class TemporaryWorkController extends Controller
                 $model->image=$imagename;
             }
             if ($model->save()) {
-                Notification::route('mail', $twc_email->twc_email)->notify(new CommentsNotification($request->comment,'question'));
+                Notification::route('mail', $twc_email->twc_email)->notify(new CommentsNotification($request->comment,'question',$request->temp_work_id,$twc_email->twc_email,$twc_email->design_requirement_text));
                
                 toastSuccess('Comment Save sucessfully!');
                 return Redirect::back();
@@ -700,7 +700,7 @@ class TemporaryWorkController extends Controller
     public function temp_savecommentreplay(Request $request)
     {
         //dd($request->all());
-        try {
+        // try {
             $commentid=$request->commentid;
             $tempid=$request->tempid;
             $data=TemporaryWorkComment::select('replay','reply_image')->find($commentid);
@@ -736,16 +736,16 @@ class TemporaryWorkController extends Controller
                 'reply_image'=>$arrayimage,
             ]);
             if($res){
-                $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($tempid);
+                $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2','design_requirement_text')->find($tempid);
 
                 if($tempdata->designer_company_email)
                 {
 
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay,'reply'));
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay,'reply',$tempid,$tempdata->designer_company_email,$tempdata->design_requirement_text));
                 }
                 if($tempdata->desinger_email_2)
                 {
-                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay,'reply'));
+                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay,'reply',$tempid,$tempdata->desinger_email_2,$tempdata->design_requirement_text));
                 }
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
@@ -755,10 +755,10 @@ class TemporaryWorkController extends Controller
                  return Redirect::back();
             }
             
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again');
+        //     return Redirect::back();
+        // }
     }
     public function temp_savetwname(Request $request)
     {
@@ -1042,7 +1042,7 @@ class TemporaryWorkController extends Controller
 
                 $notify_admins_msg = [
                     'greeting' => 'Permit Pdf',
-                    'subject' => 'Permit Load PDF',
+                     'subject' => $request->design_requirement_text . '-' . $request->permit_no,
                     'body' => [
                         'text' => $msg,
                         'filename' => $filename,
@@ -1243,7 +1243,7 @@ class TemporaryWorkController extends Controller
 
                 $notify_admins_msg = [
                     'greeting' => 'Permit Pdf',
-                    'subject' => 'Permit Load PDF',
+                    'subject' => $request->design_requirement_text . '-' . $request->permit_no,
                     'body' => [
                         'text' => $msg,
                         'filename' => $filename,
@@ -1371,7 +1371,7 @@ class TemporaryWorkController extends Controller
                 $pdf->save($path . '/' . $filename);
                 $notify_admins_msg = [
                     'greeting' => 'Permit Unload Pdf',
-                    'subject' => 'Permit Unload PDF',
+                     'subject' => $request->design_requirement_text . '-' . $request->permit_no,
                     'body' => [
                         'text' => 'Welcome to the online i-works Portal. Attached is a PDF permit to unload created by ' . $request->company . ' Ltd.(' . $request->design_requirement_text . '), for your attention.',
                         'filename' => $filename,
@@ -1443,7 +1443,6 @@ class TemporaryWorkController extends Controller
     //save scaffolding
     public function scaffolding_save(Request $request)
     {
-        //dd($request->all());
         Validations::storescaffolding($request);
         try {
             $check_radios = [];
@@ -1543,7 +1542,7 @@ class TemporaryWorkController extends Controller
                 $pdf->save($path . '/' . $filename);
                 $notify_admins_msg = [
                     'greeting' => 'Scaffolding Pdf',
-                    'subject' => 'Scaffold PDF',
+                     'subject' => $request->drawing_title . '-' . $request->permit_no,
                     'body' => [
                         'text' => 'A Permit to load has been completed for the scaffolding  as per the attached document.',
                         'filename' => $filename,
@@ -1565,7 +1564,7 @@ class TemporaryWorkController extends Controller
 
                 Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
 
-                Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
                 toastSuccess('Scaffolding Created Successfully');
                 return redirect()->route('temporary_works.index');

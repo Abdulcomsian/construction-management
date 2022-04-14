@@ -291,7 +291,7 @@ height: 72px;
                                         <span class="required">Design Checker Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  >
+                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  autocomplete="off">
                                 </div>
                                  <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
@@ -299,7 +299,7 @@ height: 72px;
                                         <span class="required">Design Checker Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" >
+                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
                                 </div>
                                  <!-- <div class="inputDiv d-none desinger_company_name2">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

@@ -152,9 +152,15 @@
                          <tbody>
                             @foreach($comments as $cments)
                             <tr >
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$cments->comment}}</td>
-                                <td>{{$cments->replay}}</td>
+                                <td><b>{{$loop->index+1}}</b></td>
+                                <td><b>{{$cments->comment}}</b></td>
+                                <td>
+                                    @if($cments->replay)
+                                     @foreach($cments->replay as $reply)
+                                      <p><b>{{$reply}}</b></p><hr>
+                                     @endforeach
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

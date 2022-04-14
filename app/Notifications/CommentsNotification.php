@@ -18,10 +18,16 @@ class CommentsNotification extends Notification
      */
     private $comment;
     private $type;
-    public function __construct($comment,$type)
+    private $tempid;
+    private $email;
+    private $title;
+    public function __construct($comment,$type,$tempid,$email,$title)
     {
         $this->comment=$comment;
         $this->type=$type;
+        $this->tempid=$tempid;
+        $this->email=$email;
+        $this->title=$title;
     }
 
     /**
@@ -45,8 +51,8 @@ class CommentsNotification extends Notification
     {
         return (new MailMessage)
             ->greeting('Comments Notification')
-            ->subject('Comments Notification')
-            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type]);
+            ->subject($this->title.' - Notification')
+            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email]);
     }
 
     /**

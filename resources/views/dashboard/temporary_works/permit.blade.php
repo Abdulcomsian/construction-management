@@ -446,7 +446,7 @@
                                         @else
                                         <input type="radio" class="btn-check" name="works_coordinator" value="1" />
                                         @endif
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -489,7 +489,7 @@
                                         @else
                                         <input type="radio" class="btn-check" name="rate_rise" value="1"  />
                                         @endif
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -520,45 +520,12 @@
 
                                 I confirm that I have inspected the above temporary structure and I
                                 am satisfied that it conforms to the above.
-                                 <label>
-                                    <input type="radio" class="btn-check" name="is_inspected" value="1"  checked/>
-
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                </label>
-                                <!--end::Option-->
-                                <!--begin::Option-->
-                                <label>
-                                    <input type="radio" class="btn-check" name="is_inspected" value="2" />
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                </label><br><br>
+                                <br>
                                 I consider that the temporary structure is ready to be loaded and
                                 taken into use.
-                                <label>
-                                    <input type="radio" class="btn-check" name="is_consider" value="1" checked />
-
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                </label>
-                                <!--end::Option-->
-                                <!--begin::Option-->
-                                <label>
-                                    <input type="radio" class="btn-check" name="is_consider" value="2" />
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                </label>
-                                <br><br>
+                                <br>
                                 I confirm that I am authorised to issue a Permit to Load for this
                                 temporary structure.
-                                <label>
-                                    <input type="radio" class="btn-check" name="is_authorised" value="1" checked />
-
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                </label>
-                                <!--end::Option-->
-                                <!--begin::Option-->
-                                <label>
-                                    <input type="radio" class="btn-check" name="is_authorised" value="2" />
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                </label>
-                                <br>
                             </p>
 
                             <!--end::Option-->

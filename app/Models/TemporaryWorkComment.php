@@ -11,6 +11,7 @@ class TemporaryWorkComment extends Model
      protected $guarded = [];
       protected $casts = [
         'replay' => 'array',
+        'reply_image'=>'array',
     ];
     public function tempwork()
     {

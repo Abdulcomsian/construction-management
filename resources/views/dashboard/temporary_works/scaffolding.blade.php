@@ -288,9 +288,9 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required"> MS/RA Number:</span>
+                                            <span > MS/RA Number:</span>
                                         </label>
-                                        <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}" required>
+                                        <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}">
                                     </div>
                                 </div>
                             </div>
@@ -1712,7 +1712,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 Job Title:
                                             </label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="" required="required">
+                                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="{{old('job_title',Auth::user()->job_title ?? '')}}" required="required">
 
                                         </div>
                                     </div>

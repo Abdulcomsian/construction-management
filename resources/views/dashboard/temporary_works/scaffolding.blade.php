@@ -1724,7 +1724,7 @@
                                                 Company:
                                             </label>
                                             <input type="text" class="form-control form-control-solid" placeholder="Company" id="company" name="company" value="{{$project->company->name ?? ''}}" required>
-                                             <input type="hidden" class="form-control form-control-solid" placeholder="Company" id="company_id" name="companyid" value="{{$project->company->id ?? ''}}">
+                                             <input type="hidden" class="form-control form-control-solid" placeholder="Company" id="company_id" name="companyid" value="{{$project->company->id ?? ''}}" readonly>
 
                                         </div>
                                     </div>

@@ -703,15 +703,37 @@ class TemporaryWorkController extends Controller
         // try {
             $commentid=$request->commentid;
             $tempid=$request->tempid;
-            $data=TemporaryWorkComment::select('replay')->find($commentid);
+            $data=TemporaryWorkComment::select('replay','reply_image')->find($commentid);
             $array=[];
-            foreach($data->replay as $dt)
+            if(is_array($data->replay))
             {
-                $array[]=$dt;
+                foreach($data->replay as $dt)
+                {
+                    $array[]=$dt;
+                }
             }
             $array[]=$request->replay;
+            $arrayimage=[];
+            if(is_array($data->reply_image))
+            {
+                foreach($data->reply_image as $img)
+                {
+                    $arrayimage[]=$img;
+                }
+            }
+            if($request->file('replyfile'))
+            {
+                $filePath = HelperFunctions::temporaryworkcommentPath();
+                $file = $request->file('replyfile');
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $arrayimage[]=$imagename;
+            }
+            else{
+                 $arrayimage[]=null;
+            }
             $res=TemporaryWorkComment::find($commentid)->update([
-                'replay'=>$array
+                'replay'=>$array,
+                'reply_image'=>$arrayimage,
             ]);
             if($res){
                 $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($tempid);
@@ -799,10 +821,10 @@ class TemporaryWorkController extends Controller
             $commetns = PermitComments::where(['permit_load_id' =>  $permit_id])->latest()->get();
         }
         if (count($commetns) > 0) {
-            $table = '<table class="table table-hover"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th>Reply</th><th style="width:120px;">Date</th><th></th><th></th></tr></thead><tbody>';
+            $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:40%">Reply</th><th style="width:120px;">Date</th><th></th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($commetns as $comment) {
-                $colour='';
+                $colour='white';
                 $a='';
                 $status='';
                 if(isset($request->scan))
@@ -830,23 +852,32 @@ class TemporaryWorkController extends Controller
                
                 if($comment->type=="normal")
                 {
-                    if($comment->status==0)
-                    {
-                        $status="<button class='btn btn-primary commentstatus' data-id=".$comment->id." style='font-size:10px'>Pending</button>";
-                    }elseif($comment->status==1){
-                        $status="<button class='btn btn-success commentstatus' data-id=".$comment->id." style='font-size:10px'>Fixed</button>";
-                    }
+                    // if($comment->status==0)
+                    // {
+                    //     $status="<button class='btn btn-primary commentstatus' data-id=".$comment->id." style='font-size:10px'>Pending</button>";
+                    // }elseif($comment->status==1){
+                    //     $status="<button class='btn btn-success commentstatus' data-id=".$comment->id." style='font-size:10px'>Fixed</button>";
+                    // }
+                    $status='';
                     
                 }
                 
                     $list='';
                     $k=1;
-                    for($j=0;$j<count($comment->replay);$j++)
+                    if($comment->replay)
                     {
-                        if($comment->replay[$j])
+                        for($j=0;$j<count($comment->replay);$j++)
                         {
-                            $list.='<tr><td>'.$k.'</td><td colspan="5">'.$comment->replay[$j].'</td></tr>';
-                            $k++;
+                            if($comment->replay[$j])
+                            {
+                                 $image='';
+                                if(isset($comment->reply_image[$j]))
+                                {
+                                    $image='<img src="'.$path.'/'.$comment->reply_image[$j].'" width="50px" height="50px"/>';
+                                }
+                                $list.='<tr style="background:lightgray;margin-top:1px"><td colspan="3">'.$comment->replay[$j].'</td><td>'.$image.'</td></tr><br>';
+                                $k++;
+                            }
                         }
                     }
                     
@@ -855,10 +886,11 @@ class TemporaryWorkController extends Controller
                 $table .= '<tr style="background:'.$colour.'">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
                                <td>
-                               <form method="post" action="'.route("temporarywork.storecommentreplay").'">
+                               <form method="post" action="'.route("temporarywork.storecommentreplay").'" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="'.csrf_token().'"/>
                                    <input type="hidden" name="tempid" value="'.$request->temporary_work_id.'"/>
-                                   <input type="text" class="replay" name="replay"/>
+                                   <input type="text" class="replay" name="replay" style="float:left"/>
+                                   <input type="file" name="replyfile" style="width:34%;float:right"/>
                                    <input type="hidden" name="commentid" value="'.$comment->id.'"/>
                                    <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:2px">submit</button>
                                </form>
@@ -941,7 +973,7 @@ class TemporaryWorkController extends Controller
 
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'pc_twc_email', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text','is_inspected','is_consider','is_authorised');
+            $all_inputs  = $request->except('_token', 'approval', 'pc_twc_email', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -1070,7 +1102,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 3) {
                     $status = "Unloaded";
                 } elseif ($permit->status == 5) {
-                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='border-radius:8px' data-id='" . \Crypt::encrypt($permit->id) . "'>dnl</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
+                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='border-radius:8px' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
                 }
                 $path = config('app.url');
                 if (isset($request->scanuser)) {
@@ -1082,7 +1114,7 @@ class TemporaryWorkController extends Controller
                 if (auth()->user()->hasRole('scaffolder')) {
                     $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . '/pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }

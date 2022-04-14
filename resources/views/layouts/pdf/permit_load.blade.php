@@ -19,13 +19,15 @@
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to Load</h3>
+                <br>
+                <p>{{$data['permit_no']}}</p>
             </div>
             <div class="logo" style="float:right;width:20%;">
                 @php
                 $logodata=\App\Models\User::where('id',$data['companyid'])->first();
                 @endphp
                 @if($logodata->image != NULL)
-                <img src="{{public_path($logodata->image)}}" width="80px" height="80px" />
+                <img src="{{public_path($logodata->image)}}" width="auto" height="80px" />
                 @else
                <!--  <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" /> -->
                 @endif
@@ -165,11 +167,11 @@
                                     <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
                                 </center>
                                 <span style="font-size:12px;">I confirm that I have inspected the above temporary structure and I am satisfied that it
-                                    conforms to the above design.  </span>  <span style="font-size:12px;">@if($data['is_inspected']==1){{'Y'}}@else{{'N'}}@endif</span> 
+                                    conforms to the above design.  </span> 
                                     <br>
-                                <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use. <span style="font-size:12px;">@if($data['is_consider']==1){{'Y'}}@else{{'N'}}@endif</span>
+                                <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use.</span>
                                 <br>
-                                    I confirm that I am authorised to issue a Permit to Load for this temporary structure. </span> <span style="font-size:12px;">@if($data['is_authorised']==1){{'Y'}}@else{{'N'}}@endif</span>
+                                    I confirm that I am authorised to issue a Permit to Load for this temporary structure. </span> 
 
                             </label>
                         </td>

@@ -291,7 +291,7 @@ class TemporaryWorkController extends Controller
             if ($request->signtype == 1) {
                 $image_name = $request->namesign;
             } 
-            if($request->pdfsigntype==1)
+            elseif($request->pdfsigntype==1)
             {
                 $folderPath = public_path('temporary/signature/');
                 $file = $request->file('pdfphoto');

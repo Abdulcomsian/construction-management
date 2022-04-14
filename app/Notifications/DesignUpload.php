@@ -11,14 +11,16 @@ class DesignUpload extends Notification
 {
     use Queueable;
      private $offerData;
+     private $email;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData)
+    public function __construct($offerData,$email=null)
     {
         $this->offerData = $offerData;
+        $this->email=$email;
     }
 
     /**
@@ -43,7 +45,7 @@ class DesignUpload extends Notification
        return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
-            ->view('mail.designupload', ['details' => $this->offerData])
+            ->view('mail.designupload', ['details' => $this->offerData,'email'=>$this->email])
             ->attach(public_path('pdf/'.$this->offerData['body']['filename']), [
                 'as' => $this->offerData['body']['name'].'.pdf',
             ]);

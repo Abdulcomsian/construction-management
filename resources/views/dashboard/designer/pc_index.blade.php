@@ -148,7 +148,7 @@
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv requiredDiv">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Approve</span>
+                                                <span class="required">Accept:</span>
 
                                             </label>
                                             <!--begin::Radio group-->

@@ -202,13 +202,15 @@ class DesignerController extends Controller
 
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
                     Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                    Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
                     toastError('Design Brief Rejected Successfully!');
                     return Redirect::back();
                 }
             } else {
                 $subject = 'Design Brief Approved ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                $text = ' Welcome to the online i-works Web-Portal.Design Brief Approve by PC TWC.';
+                     $text = ' Welcome to the online i-works Web-Portal.Design Brief Approve by PC TWC.';
+               
                 $notify_admins_msg = [
                     'greeting' => 'Design Brief Approved',
                     'subject' => $subject,
@@ -216,8 +218,10 @@ class DesignerController extends Controller
                         'text' => $text,
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
+                        'designer' => '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                         'ext' => '',
+                        'id'=>$request->tempworkid,
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -229,6 +233,12 @@ class DesignerController extends Controller
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
                 Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                if($tempworkdata->designer_company_email)
+                {
+                   $notify_admins_msg['body']['designer'] = 'designer1';
+                   Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->designer_company_email)); 
+                }
+                
 
                 toastSuccess('Design Brief Approved Successfully!');
                 return Redirect::back();

@@ -700,7 +700,7 @@ class TemporaryWorkController extends Controller
     public function temp_savecommentreplay(Request $request)
     {
         //dd($request->all());
-        // try {
+        try {
             $commentid=$request->commentid;
             $tempid=$request->tempid;
             $data=TemporaryWorkComment::select('replay','reply_image')->find($commentid);
@@ -755,10 +755,10 @@ class TemporaryWorkController extends Controller
                  return Redirect::back();
             }
             
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
     public function temp_savetwname(Request $request)
     {
@@ -873,7 +873,16 @@ class TemporaryWorkController extends Controller
                                  $image='';
                                 if(isset($comment->reply_image[$j]))
                                 {
-                                    $image='<img src="'.$path.'/'.$comment->reply_image[$j].'" width="50px" height="50px"/>';
+                                    $n = strrpos($comment->reply_image[$j], '.');
+                                    $ext=substr($comment->reply_image[$j], $n+1);
+                                    if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                    {
+                                       $image='<a target="_blank" href="'. $path.$comment->reply_image[$j].'"><img src="'.$path.$comment->reply_image[$j].'" width="50px" height="50px"/></a>'; 
+                                    }
+                                    else{
+                                       $a='<a target="_blank" href="'. $path.$comment->reply_image[$j].'">Attach File</a>';
+                                    }
+                                    
                                 }
                                 $list.='<tr style="background:lightgray;margin-top:1px"><td colspan="3">'.$comment->replay[$j].'</td><td>'.$image.'</td></tr><br>';
                                 $k++;

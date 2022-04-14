@@ -25,9 +25,10 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Hazard List</h1>
+                        <h1 class="mb-3">BS5975 Checklist</h1>
                         <!--end::Title-->
-                    </div>
+                        <a  class="btn btn-primary" href="{{asset('uploads/checklist.pdf')}}" target="_blank">View Checklist File</a>
+                </div>
             </div>
             <!--end::Modal body-->
         </div>

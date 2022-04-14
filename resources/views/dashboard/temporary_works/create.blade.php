@@ -174,7 +174,7 @@ height: 72px;
                     <div class="card-title list_top" style="width:98%">
                         <h2 style="display: inline-block;">Design Brief</h2>
                         <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a> -->
-                        <button style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" class="newDesignBtn hazardlist">Hazard List</button>
+                        <button style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" class="newDesignBtn hazardlist">BS5975 Checklist</button>
                         <a style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         

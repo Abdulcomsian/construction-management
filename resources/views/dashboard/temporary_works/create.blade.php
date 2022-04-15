@@ -283,7 +283,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email',\Auth::user()->email)}}" style="background: #f5f8fa"  required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email',\Auth::user()->email)}}" style="background: #f5f8fa"  required  readonly>
                                 </div>
                                 <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
@@ -563,6 +563,18 @@ height: 72px;
             $('#address').val('').val(project[0].address ? project[0].address : 'Not Set');
             $("#companyadmin").val(project[0].company.name);
             $("#company_id").val(project[0].company.id);
+            $.ajax({
+            url:"{{route('project.twc.get')}}",
+            method:"GET",
+            data:{id:project[0].id,compayid:project[0].company.id},
+            success:function(res)
+            {
+               if(res !='')
+               {
+                 $("#twc_email").val(res);
+               }
+            }
+        });
         }
         console.log(project);
     });

@@ -525,7 +525,7 @@ border-radius: 8px;
                                         <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span><br> Comment</p>
-                                        <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
+                                        <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background:{{count($item->reply)>0 ? 'blue':'red';}};color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
                                        <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4"><span class="fa fa-plus"></span><br> Emails</h3>
                                       
@@ -619,6 +619,11 @@ border-radius: 8px;
                                          
                                          $color="orange";
                                          if($permitexpire>0 || $scaffoldexpire>0)
+                                         {
+                                            $color="red";
+                                         }
+                                         $permitapproval=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>2])->count();
+                                         if($permitapproval>0)
                                          {
                                             $color="red";
                                          }

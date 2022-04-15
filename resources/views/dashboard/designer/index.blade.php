@@ -147,6 +147,7 @@
                                 <th>S-no</th>
                                 <th>Comments</th>
                                 <th>Twc Reply</th>
+                                <th>Attachement</th>
                             </tr>
                         </thead>
                          <tbody>
@@ -160,6 +161,33 @@
                                       <p><b>{{$reply}}</b></p><hr>
                                      @endforeach
                                     @endif
+                                </td>
+                                <td>
+                                    @php
+                                     $path = config('app.url');
+                                     if(isset($cments->reply_image))
+                                     {
+                                    for($j=0;$j < count($cments->reply_image);$j++)
+                                     {
+                           
+                                        $image='';
+                                        if(isset($cments->reply_image[$j]))
+                                        {
+                                            $n = strrpos($cments->reply_image[$j], '.');
+                                            $ext=substr($cments->reply_image[$j], $n+1);
+                                            if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                            {
+                                               echo $image='<a target="_blank" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
+
+                                            }
+                                            else{
+                                               echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">Attach File</a><hr>';
+                                            }
+                                            
+                                        }
+                                     }
+                                 }
+                                    @endphp
                                 </td>
                             </tr>
                             @endforeach

@@ -257,6 +257,11 @@ class DesignerController extends Controller
                    $notify_admins_msg['body']['designer'] = 'designer1';
                    Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->designer_company_email)); 
                 }
+                if($tempworkdata->desinger_email_2)
+                {
+                   $notify_admins_msg['body']['designer'] = 'designer1';
+                   Notification::route('mail',  $tempworkdata->desinger_email_2 ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->desinger_email_2)); 
+                }
                 
 
                 toastSuccess('Design Brief Approved Successfully!');

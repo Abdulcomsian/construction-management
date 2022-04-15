@@ -514,7 +514,7 @@
                                 </div>
                             </div>
                             <!--  -->
-                            <h5 style="color: #000">Permit to unload/Use</h5>
+                            <h5 style="color: #000">Remove Unload And Add Load</h5>
                             <br>
                             <p style="color: #000;">
 
@@ -667,6 +667,24 @@
                                         </div>
 
                                         <div class="col">
+                                            <!-- Approval div -->
+                                            <div class="d-flex inputDiv">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                                    <span>Approval:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                 <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
+                                                 <span class="tickboxalign" style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                            </div>
+                                            <div class="d-none inputDiv pc-twc">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:30% !important">
+                                                    <span>PC TWC Email:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                 <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                            </div>
                                             <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                     <span>Name/signature:</span>
@@ -721,25 +739,6 @@
                                                 <textarea id="signature" name="signed" style="opacity: 0" ></textarea>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Approval div -->
-                                    <div class="d-flex inputDiv">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:31% !important">
-                                            <span>Approval:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                         <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
-                                         <span class="tickboxalign" style="padding-left:3px;color:#000">Select if approval is required.</span>
-                                    </div>
-                                    <div class="d-none inputDiv pc-twc">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:30% !important">
-                                            <span>PC TWC Email:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                         <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
                                     </div>
                                 </div>
 

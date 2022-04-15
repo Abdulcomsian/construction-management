@@ -290,8 +290,19 @@
             <table>
                 <tbody>
                 @foreach($image_links as $image)
+                @php 
+                    $n = strrpos($image, '.');
+                    $ext=substr($image, $n+1);
+                     
+                @endphp
                     <tr>
-                        <td><img src="{{$image}}" width="500" alt="img"/></td>
+                        <td>
+                            @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                            <img src="{{$image}}" width="500" alt="img"/>
+                            @else
+                            <a href="{{asset($image)}}" target="_blank">Attachment</a>
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -332,4 +332,22 @@ class ProjectController extends Controller
          return view('qrcode.index', compact('qrcodes', 'id'));
     
     }
+
+    public function project_twc_get(Request $request)
+    {
+        $projectid=$request->id;
+        $companyid=$request->compayid;
+        $userdata=DB::table('users')
+                  ->join('users_has_projects','users.id','=','users_has_projects.user_id')
+                  ->where(['users.company_id'=>$companyid,'users_has_projects.project_id'=>$projectid])
+                  ->first();
+        if($userdata->email)
+        {
+            return $userdata->email;
+        }
+        else{
+            return '';
+        }
+        
+    }
 }

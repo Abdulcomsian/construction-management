@@ -125,6 +125,9 @@ Route::group(['middleware' => ['auth']], function () {
 
      //get designs that uploaded
      Route::get('get-designs',[DesignerController::class,'get_desings'])->name('get-designs');
+
+     //get twc according to project
+     Route::get('project-get-twc',[ProjectController::class, 'project_twc_get'])->name('project.twc.get');
 });
 
 Route::get('/dashboard', function () {

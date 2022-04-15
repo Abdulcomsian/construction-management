@@ -37,6 +37,7 @@ class CreateTemporaryWorksTable extends Migration
             $table->string('tempid')->nullable();
             $table->integer('created_by')->nullable();
             $table->string('ped_url')->nullable();
+            $table->string('tw_name')->nullable();
             $table->timestamps();
         });
     }

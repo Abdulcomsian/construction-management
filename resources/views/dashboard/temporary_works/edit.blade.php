@@ -501,8 +501,9 @@ height: 72px;
                                     <canvas id="sig" style="background: lightgray"></canvas>
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
+                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
                                 </div>
-                                <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button>
+                                <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
 
                                 <!-- work for approval -->
                                 

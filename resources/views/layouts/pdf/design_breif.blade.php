@@ -20,7 +20,7 @@
             <div class="logoText" style="float:left;width:70%">
                 <h3>Design Brief: {{$twc_id_no}}</h3>
                 <br>
-                <p style="width:200px !important">{{$data['twc_id_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
+                <p style="width:200px !important">{{$twc_id_no}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
             </div>
             <div class="logo" style="float:right;width:20%;">
                 @php

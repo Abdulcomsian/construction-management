@@ -220,10 +220,10 @@ class DesignerController extends Controller
                     Notification::route('mail', 'hani@ctworks.co.uk')->notify(new DesignUpload($notify_admins_msg));
 
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                    Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                    Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                    //Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                    //Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
-                    toastError('Design Brief Rejected Successfully!');
+                    toastSuccess('Design Brief Rejected Successfully!');
                     return Redirect::back();
                 }
             } else {

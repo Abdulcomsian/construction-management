@@ -27,7 +27,7 @@
                         <!--begin::Title-->
                         <h1 class="mb-3">BS5975 Checklist</h1>
                         <!--end::Title-->
-                        <a  class="btn btn-primary" href="{{asset('uploads/checklist.pdf')}}" target="_blank">View Checklist File</a>
+                        <a  class="btn btn-primary" href="{{asset('uploads/checklist.pdf')}}" target="_blank">View Checklist File  <i class="fa fa-file"></i></a>
                 </div>
             </div>
             <!--end::Modal body-->

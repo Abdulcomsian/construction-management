@@ -633,6 +633,9 @@ border-radius: 8px;
                                         @endforeach
                                     </td> -->
                                     <td style=""> 
+                                        @php 
+                                        $date='';
+                                        @endphp
                                         @foreach($item->uploadfile as $file)
                                          @php
                                            if($file->file_type==1  && $file->construction==1)
@@ -647,7 +650,7 @@ border-radius: 8px;
                                            }
                                           @endphp
                                         @endforeach
-                                        @if(isset($date))
+                                        @if($date)
                                         <p class="dateclick cursor-pointer" style="color:{{$color ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                         </p>
                                         @endif
@@ -686,7 +689,7 @@ border-radius: 8px;
                                     </td>
                                     <td>
                                         <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                        @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
+                                        @if(isset($item->openpermits[0]->id) || isset($item->scaffold[0]->id) )
                                          @php 
                                          $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
 
@@ -697,14 +700,10 @@ border-radius: 8px;
                                          {
                                             $color="red";
                                          }
-                                         $permitapproval=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>2])->count();
-                                         if($permitapproval>0)
-                                         {
-                                            $color="red";
-                                         }
+                                         
                                          @endphp
                                          <br>
-                                        <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->openpermits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 3px !important;border-radius: 4px; font-size: 12px;" class="btn btn-primary">Closed</button>
                                         @endif

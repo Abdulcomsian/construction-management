@@ -457,7 +457,7 @@ class TemporaryWorkController extends Controller
     {
         
         Validations::storeTemporaryWork($request);
-        // try {
+        try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -626,11 +626,11 @@ class TemporaryWorkController extends Controller
             }
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
-        // } catch (\Exception $exception) {
-        //     dd($exception->getMessage());
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
     //delete design brief
     public function destroy(TemporaryWork $temporaryWork)
@@ -1101,22 +1101,25 @@ class TemporaryWorkController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                //send email to coordinator
-                $coordinatoremail = User::select('email')->whereHas(
-                    'roles',
-                    function ($q) {
-                        $q->where('name', 'user');
-                    }
-                )->where('company_id', $request->companyid)->first();
-                Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
-
-                Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                Notification::route('mail', auth()->user()->email ?? '')->notify(new PermitNotification($notify_admins_msg));
+                
                 if (isset($request->approval)) {
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 }
-                # Notification::route('mail', $request->designer_company_email)->notify(new PermitNotification($notify_admins_msg));
+                else{
+                    //send email to coordinator
+                    // $coordinatoremail = User::select('email')->whereHas(
+                    //     'roles',
+                    //     function ($q) {
+                    //         $q->where('name', 'user');
+                    //     }
+                    // )->where('company_id', $request->companyid)->first();
+                    // Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', auth()->user()->email ?? '')->notify(new PermitNotification($notify_admins_msg));
+
+                }
                 toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -1304,20 +1307,22 @@ class TemporaryWorkController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                //send email to coordinator
-                $coordinatoremail = User::select('email')->whereHas(
-                    'roles',
-                    function ($q) {
-                        $q->where('name', 'user');
-                    }
-                )->where('company_id', $request->companyid)->first();
-                Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
-
-                Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
-                Notification::route('mail', auth()->user()->email)->notify(new PermitNotification($notify_admins_msg));
+                
                 if (isset($request->approval)) {
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email)->notify(new PermitNotification($notify_admins_msg));
+                }
+                else{
+                    //send email to coordinator
+                    // $coordinatoremail = User::select('email')->whereHas(
+                    //     'roles',
+                    //     function ($q) {
+                    //         $q->where('name', 'user');
+                    //     }
+                    // )->where('company_id', $request->companyid)->first();
+                    // Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 }
                 toastSuccess('Permit Updatd sucessfully!');
                 return redirect()->route('temporary_works.index');

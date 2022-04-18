@@ -689,7 +689,7 @@ border-radius: 8px;
                                     </td>
                                     <td>
                                         <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                        @if(isset($item->openpermits[0]->id) || isset($item->scaffold[0]->id) )
+                                        @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                          @php 
                                          $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
 

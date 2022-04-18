@@ -20,7 +20,8 @@
             <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to Load</h3>
                 <br>
-                <p>{{$data['permit_no']}}</p>
+                <br>
+                <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
             </div>
             <div class="logo" style="float:right;width:20%;">
                 @php

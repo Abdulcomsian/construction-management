@@ -134,7 +134,9 @@
         background: lightgray;
     }
     .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
-
+    .btn-check:checked+.btn.btn-active-primary2{
+        background: #FFBF00;
+    }
     @media only screen and (max-width: 450px) {
         #sig1{
             width:200px;
@@ -427,7 +429,7 @@
                                 <!--begin::Option-->
                                 <label>
                                     <input type="radio" class="btn-check" name="works_coordinator" value="2" @if(isset($permitdata) && $permitdata->works_coordinator==2){{'checked'}}@endif/>
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->
@@ -466,7 +468,7 @@
                                     <!--begin::Option-->
                                     <label>
                                         <input type="radio" class="btn-check" name="rate_rise" value="2" @if(isset($permitdata) && $permitdata->rate_rise==2){{'checked'}}@endif/>
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -504,7 +506,7 @@
                                     <!--begin::Option-->
                                     <label>
                                         <input type="radio" class="btn-check" name="construction_methodology" value="2" @if(isset($permitdata) && $permitdata->construction_methodology==2){{'checked'}}@endif/>
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -514,7 +516,7 @@
                                 <!--end::Radio group-->
                             </div>
                          <!-- end rate of rise -->
-                            <h5 style="color: #000">Permit to unload/Use</h5>
+                            <h5 style="color: #000">Permit to load/Use</h5>
                             <br>
                             <p style="color: #000;">
                                
@@ -549,7 +551,7 @@
                                 <!--begin::Option-->
                                 <label>
                                     <input type="radio" class="btn-check" name="principle_contractor" value="2" @if(isset($permitdata) && $permitdata->principle_contractor==2){{'checked'}}@endif/>
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                 </label>
                                 <!--end::Option-->
                                 <!--begin::Option-->

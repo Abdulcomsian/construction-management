@@ -381,7 +381,6 @@ class TemporaryWorkController extends Controller
                 
                 //when desing is not apporoved email is only send to twc approval
                 if (isset($request->approval)) {
-                    $notify_admins_msg['body']['designer'] = '';
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
                 }
@@ -458,7 +457,7 @@ class TemporaryWorkController extends Controller
     {
         
         Validations::storeTemporaryWork($request);
-        try {
+        // try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -539,12 +538,17 @@ class TemporaryWorkController extends Controller
                 ScopeOfDesign::where('temporary_work_id', $temporaryWork->id)->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork->id]));
                 Folder::where('temporary_work_id', $temporaryWork->id)->update(array_merge($folder_attachements, ['temporary_work_id' => $temporaryWork->id]));
                 AttachSpeComment::where('temporary_work_id', $temporaryWork->id)->update(array_merge($attachcomments, ['temporary_work_id' => $temporaryWork->id]));
+
                 //work for upload images here
                 $image_links = [];
-                $oldimages=TemporayWorkImage::where('temporary_work_id',$temporaryWork->id)->whereNotIn('image',$request->preloaded)->get();
-                foreach($oldimages as $oldimg)
+                if($request->preloaded)
                 {
-                    @unlink($oldimg->image);
+                    $oldimages=TemporayWorkImage::where('temporary_work_id',$temporaryWork->id)->whereNotIn('image',$request->preloaded)->get();
+                   
+                    foreach($oldimages as $oldimg)
+                    {
+                        @unlink($oldimg->image);
+                    }
                 }
                 TemporayWorkImage::where('temporary_work_id',$temporaryWork->id)->delete();
                 if ($request->file('images')) {
@@ -618,11 +622,11 @@ class TemporaryWorkController extends Controller
             }
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
-        } catch (\Exception $exception) {
-            dd($exception->getMessage());
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     dd($exception->getMessage());
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
     //delete design brief
     public function destroy(TemporaryWork $temporaryWork)
@@ -823,6 +827,7 @@ class TemporaryWorkController extends Controller
         // } else {
         // $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
         // }
+        $table='';
          $path = config('app.url');
         if ($request->type == 'normal') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
@@ -833,7 +838,14 @@ class TemporaryWorkController extends Controller
             $commetns = PermitComments::where(['permit_load_id' =>  $permit_id])->latest()->get();
         }
         if (count($commetns) > 0) {
-            $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+            if($request->type == "permit" || $request->type == 'pc')
+            {
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+            }
+            else{
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+            }
+            
             $i = 1;
             foreach ($commetns as $comment) {
                 $colour='white';
@@ -906,13 +918,14 @@ class TemporaryWorkController extends Controller
                             }
                         }
                     }
-                    
                 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
+                if($request->type !="permit" && $request->type != 'pc')
+                {
                 $table .= '<tr style="background:'.$colour.'">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
                                <td>
-                               <form method="post" action="'.route("temporarywork.storecommentreplay").'" enctype="multipart/form-data">
+                                <form method="post" action="'.route("temporarywork.storecommentreplay").'" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="'.csrf_token().'"/>
                                    <input type="hidden" name="tempid" value="'.$request->temporary_work_id.'"/>
                                    <input type="text" class="replay" name="replay" style="float:left"/>
@@ -925,6 +938,15 @@ class TemporaryWorkController extends Controller
                                <td>' . $date_comment  . '</td>
                                <td><b>'.$status.'</b></td>
                            </tr>'.$list.'';
+                }
+                else{
+                    $table .= '<tr style="background:'.$colour.'">
+                               <td>' . $i . '</td><td>' . $comment->comment . '</td>
+                               <td>' . $date_comment  . '</td>
+                               <td><b>'.$status.'</b></td>
+                           </tr>'.$list.'';
+                }
+
                 $i++;
             }
             $table .= '</tbody></table>';

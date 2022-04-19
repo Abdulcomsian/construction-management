@@ -181,7 +181,7 @@
 
                                             }
                                             else{
-                                               echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">Attach File</a><hr>';
+                                               echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
                                             }
                                             
                                         }

@@ -681,7 +681,7 @@ class TemporaryWorkController extends Controller
         Validations::storeComment($request);
         try {
             //get twc email
-            $twc_email=TemporaryWork::select('twc_email','design_requirement_text')->find($request->temp_work_id);
+            $tempdata=TemporaryWork::select('twc_email','design_requirement_text','twc_id_no')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
@@ -694,7 +694,7 @@ class TemporaryWorkController extends Controller
                 $model->image=$imagename;
             }
             if ($model->save()) {
-                Notification::route('mail', $twc_email->twc_email)->notify(new CommentsNotification($request->comment,'question',$request->temp_work_id,$twc_email->twc_email,$twc_email->design_requirement_text));
+                Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment,'question',$request->temp_work_id));
                
                 toastSuccess('Comment Save sucessfully!');
                 return Redirect::back();
@@ -707,7 +707,6 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        //dd($request->all());
         try {
             $commentid=$request->commentid;
             $tempid=$request->tempid;
@@ -756,16 +755,16 @@ class TemporaryWorkController extends Controller
                 'reply_date'=>$reply_date,
             ]);
             if($res){
-                $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2','design_requirement_text')->find($tempid);
+                $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($tempid);
 
                 if($tempdata->designer_company_email)
                 {
 
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay,'reply',$tempid,$tempdata->designer_company_email,$tempdata->design_requirement_text));
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay,'reply',$tempid));
                 }
                 if($tempdata->desinger_email_2)
                 {
-                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay,'reply',$tempid,$tempdata->desinger_email_2,$tempdata->design_requirement_text));
+                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay,'reply',$tempid));
                 }
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
@@ -909,14 +908,15 @@ class TemporaryWorkController extends Controller
                                        $image='<a target="_blank" href="'. $path.$comment->reply_image[$j].'"><img src="'.$path.$comment->reply_image[$j].'" width="50px" height="50px"/></a>'; 
                                     }
                                     else{
-                                       $image='<a target="_blank" href="'. $path.$comment->reply_image[$j].'">Attach File</a>';
+                                       $image='<a target="_blank" href="'. $path.$comment->reply_image[$j].'">View File</a>';
                                     }
                                     
                                 }
                                 $date='';
                                 if(isset($comment->reply_date[$j]))
                                 {
-                                    $date=$comment->reply_date[$j];
+                                    $date= date("d-m-Y", strtotime($comment->reply_date[$j]));
+                                   
                                 }
                                 $list.='<tr style="background:lightgray;margin-top:1px"><td>R</td><td></td><td>'.$comment->replay[$j].'</td><td>'.$image.'</td><td>'.$date.'</td></tr><br>';
                                 $k++;
@@ -940,7 +940,7 @@ class TemporaryWorkController extends Controller
                                </form>
                                </td>
                                <td>'.$a.'</td>
-                               <td>' . $date_comment  . '</td>
+                               <td>' . $date_comment. '</td>
                                <td><b>'.$status.'</b></td>
                            </tr>'.$list.'';
                 }

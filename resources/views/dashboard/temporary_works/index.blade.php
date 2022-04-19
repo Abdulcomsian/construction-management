@@ -601,7 +601,7 @@ border-radius: 8px;
                                     <td >
                                         <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span><br> Comment</p>
                                         @php 
-                                         $color="blue";
+                                         $color="green";
                                          if(count($item->comments)>0)
                                          {
                                             $color="red";

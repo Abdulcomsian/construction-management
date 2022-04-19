@@ -280,8 +280,8 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email',$temporaryWork->twc_email)}}" style="background: #f5f8fa"  required>
                                 </div>
-                                @if($temporaryWork->twc_category==3)
-                                <div class="inputDiv d-none desinger_company_name2">
+                               
+                                <div class="inputDiv {{$temporaryWork->tw_category==3 ?'d-flex':'d-none'}} desinger_company_name2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Design Checker Company Name:</span>
@@ -289,7 +289,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2',$temporaryWork->desinger_company_name2)}}"  required>
                                 </div>
-                                 <div class="inputDiv d-none desinger_company_name2">
+                                 <div class="inputDiv {{$temporaryWork->tw_category==3 ?'d-flex':'d-none'}} desinger_company_name2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Design Checker Email:</span>
@@ -297,15 +297,6 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2',$temporaryWork->desinger_email_2)}}"  required>
                                 </div>
-                                 <div class="inputDiv d-none desinger_company_name2">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                       Design Checker Name:
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger',$temporaryWork->desinger)}}"  >
-                                </div>
-                                @endif
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

@@ -573,7 +573,7 @@ border-radius: 8px;
                               
                                 <tr>
                                     <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
-                                        <a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                        <a style="color:{{$item->status==0 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                         </a>
                                         @if($item->status==2)
                                         <p class="rejectcomment cursor-pointer" data-id="{{$item->id}}" > <span class="text-danger">Rejected</span></p>
@@ -600,7 +600,20 @@ border-radius: 8px;
                                         <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
                                         <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span><br> Comment</p>
-                                        <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background:{{count($item->reply)>0 ? 'blue':'red';}};color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
+                                        @php 
+                                         $color="blue";
+                                         if(count($item->comments)>0)
+                                         {
+                                            $color="red";
+                                            if(count($item->reply)>0)
+                                            {
+                                                $color="blue";
+                                            }
+                                            
+                                         }
+                                         
+                                        @endphp
+                                        <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background:{{$color}};color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
                                        <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4"><span class="fa fa-plus"></span><br> Emails</h3>
                                       

@@ -63,11 +63,9 @@ class DesignerController extends Controller
                 $model->drawing_title = $request->drawing_title;
                 $model->preliminary_approval = $request->preliminary_approval;
                 $model->construction = $request->construction;
-                $model->created_by = $request->designermail;
                 $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
             }
-
-           
+             $model->created_by = $request->designermail;
             $model->file_name = $imagename;
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;

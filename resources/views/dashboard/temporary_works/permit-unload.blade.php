@@ -201,7 +201,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Drawing Number:</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -210,7 +210,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" name="twc_name" id="twc_name" value="{{$permitdata->twc_name ?? ''}}">
+                                    <input type="text" class="form-control " placeholder="TWC Name" name="twc_name" id="twc_name" value="{{$permitdata->twc_name ?? ''}}">
                                      <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Drawing title :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
+                                        <input type="text" class="form-control" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -250,7 +250,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name :</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
+                                        <input type="text" class="form-control" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +280,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">MS/RA Number</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             <h5 style="color: #000">Permit to unload/Strike</h5>
@@ -355,36 +355,19 @@
 
                             <!--begin::Radio group-->
                             <div class="nav-group nav-group-fluid d-none">
-                                <!--begin::Option-->
-
-                                <!--end::Option-->
-                                <!--begin::Option-->
                                 <label>
                                     <input type="radio" class="btn-check" name="principle_contractor" value="1" @if(isset($permitdata) && $permitdata->principle_contractor==1){{'checked'}}@endif/>
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                 </label>
-                                <!--end::Option-->
-                                <!--begin::Option-->
                                 <label>
                                     <input type="radio" class="btn-check" name="principle_contractor" value="2" @if(isset($permitdata) && $permitdata->principle_contractor==2){{'checked'}}@endif/>
-                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                 </label>
-                                <!--end::Option-->
-                                <!--begin::Option-->
-
-                                <!--end::Option-->
                             </div>
                         </div>
-                        <!--end::Radio group-->
-                        <!-- <div class="d-flex inputDiv"> -->
-                            <!--begin::Label-->
-
-
+                        
                             <div class="row" id="second_member">
                                 <div class="col" style="flex:100% !important;">
-
-                                   
-
                                         <div class="d-flex inputDiv">
                                         </div>
                                         @if(isset($permitdata) && $permitdata->principle_contractor==1)
@@ -394,7 +377,7 @@
                                                 <span class="required">Name::</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Name"  id="name1" name="name1" value="{{old('name1',$permitdata->name1 ?? '')}}">
+                                            <input type="text" class="form-control" placeholder="Name"  id="name1" name="name1" value="{{old('name1',$permitdata->name1 ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
@@ -402,7 +385,7 @@
                                                 <span class="required">Job title:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
+                                            <input type="text" class="form-control" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
                                         </div>
                                         @endif
                                     </div>
@@ -421,7 +404,7 @@
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Name Signature:</span>
                                             </label>
-                                            <input type="text" name="namesign1" class="form-control form-control-solid">
+                                            <input type="text" name="namesign1" class="form-control">
                                         </div>
                                         <div class="d-flex inputDiv principleno" id="sign1" >
                                             <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -454,7 +437,7 @@
                                                 <span class="required">Name::</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name',$permitdata->name ?? '')}}">
+                                            <input type="text" class="form-control" placeholder="Name" id="name2" name="name" value="{{old('name',$permitdata->name ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
@@ -462,7 +445,7 @@
                                                 <span class="required">Job title:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title',$permitdata->job_title ?? '')}}">
+                                            <input type="text" class="form-control" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title',$permitdata->job_title ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->

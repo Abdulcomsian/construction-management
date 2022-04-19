@@ -867,15 +867,16 @@ class TemporaryWorkController extends Controller
                 }
                 if($comment->image)
                 {
-                     $n = strrpos($comment->image, '.');
-                     $ext=substr($comment->image, $n+1);
-                     if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                    {
-                        $a='<a target="_blank" href="'. $path.'/'.$comment->image.'"><img width="50px" height="50px" src='. $path.'/'.$comment->image.' ></a>';
-                    }
-                    else{
-                        $a='<a target="_blank" href="'. $path.'/'.$comment->image.'">Attach File</a>';
-                    }
+                    //  $n = strrpos($comment->image, '.');
+                    //  $ext=substr($comment->image, $n+1);
+                    //  if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                    // {
+                    //     $a='<a target="_blank" href="'. $path.'/'.$comment->image.'"><img width="50px" height="50px" src='. $path.'/'.$comment->image.' ></a>';
+                    // }
+                    // else{
+                    //     $a='<a target="_blank" href="'. $path.'/'.$comment->image.'">Attach File</a>';
+                    // }
+                    $a='';
                 }
                
                 if($comment->type=="normal")
@@ -908,7 +909,7 @@ class TemporaryWorkController extends Controller
                                        $image='<a target="_blank" href="'. $path.$comment->reply_image[$j].'"><img src="'.$path.$comment->reply_image[$j].'" width="50px" height="50px"/></a>'; 
                                     }
                                     else{
-                                       $a='<a target="_blank" href="'. $path.$comment->reply_image[$j].'">Attach File</a>';
+                                       $image='<a target="_blank" href="'. $path.$comment->reply_image[$j].'">Attach File</a>';
                                     }
                                     
                                 }

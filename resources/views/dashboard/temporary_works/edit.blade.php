@@ -458,7 +458,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                      <input type="text" id="companyadmin" class="form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  value="{{$temporaryWork->company}}" required>
-                                     <input type="hidden" id="company_id"  name="company_id"  >
+                                     <input type="hidden" id="company_id"  name="company_id" value="{{$selectedproject->company->id ?? ''}}" >
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->

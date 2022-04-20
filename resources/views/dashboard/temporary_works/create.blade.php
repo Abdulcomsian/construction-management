@@ -443,12 +443,14 @@ height: 72px;
                                         <!--begin::Label-->
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Attachments / Spec:
+                                              <span style="">
+                                        <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:25px"></span></a>
+                                    </span>
                                             </label>
+                                           
                                         <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
                                     </div>
-                                    <span style="position:absolute;right:10px;margin-top: 21px;">
-                                        <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
-                                    </span>
+                                    
                                   </div>
                                   
                                 <div class="d-flex inputDiv d-block">

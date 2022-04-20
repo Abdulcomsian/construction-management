@@ -138,7 +138,7 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Comments:</span>
+                                                <span class="required">Comments/Reason:</span>
 
                                             </label>
                                             <!--end::Label-->
@@ -171,6 +171,24 @@
                             </div>
                         </div>
                     </form>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S-NO</th>
+                                <th>comments/Reason</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($comments as $cmt)
+                            <tr>
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$cmt->comment}}</td>
+                                <td>{{$cmt->created_at}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     <hr>
                     <table class="table table-hover">
                         <thead>

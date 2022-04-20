@@ -30,7 +30,7 @@ class DesignerController extends Controller
         $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
-        $comments=TemporaryWorkComment::where('temporary_work_id',$id)->get();
+        $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id,'type'=>'normal'])->get();
         return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments'));
         
     }
@@ -181,7 +181,8 @@ class DesignerController extends Controller
     {
         $id = \Crypt::decrypt($id);
         $tempworkdetail = TemporaryWork::find($id);
-        return view('dashboard.designer.pc_index', compact('tempworkdetail'));
+        $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
+        return view('dashboard.designer.pc_index', compact('tempworkdetail','comments'));
     }
 
     //approved or reject
@@ -317,7 +318,7 @@ class DesignerController extends Controller
 
             $twc_email = TemporaryWork::select('twc_email')->find($permitdata->temporary_work_id);
             Notification::route('mail',  $twc_email->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
-            Notification::route('mail',  $createdby->email ?? '')->notify(new PermitNotification($notify_admins_msg));
+            //Notification::route('mail',  $createdby->email ?? '')->notify(new PermitNotification($notify_admins_msg));
             toastSuccess($msg);
             return Redirect::back();
         } catch (\Exception $exception) {

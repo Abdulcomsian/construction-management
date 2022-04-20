@@ -281,6 +281,15 @@
                                          <input  type="text" class="form-control form-control-solid" placeholder="TWS Name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}" required>
                                     </div>
                                 </div>
+                                <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
+                                    
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                         <span class="required">MS/RA Number</span>
+                                    </label>
+                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no',$permitdata->ms_ra_no ?? '')}}">
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -302,15 +311,7 @@
                                     <textarea class="form-control" name="description_structure" rows="2" style="width:100%;" placeholder="Description of Structure which is ready for use:">{{old('description_structure',$permitdata->description_structure ?? '')}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
-                                <div class="d-flex modalDiv d-block">
-                                    
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                         <span class="required">MS/RA Number</span>
-                                    </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no',$permitdata->ms_ra_no ?? '')}}">
-                                </div>
-                            </div>
+                            
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -501,8 +502,38 @@
                                     <textarea name="rate_rise_comment" rows="2" class="form-control" style="{{$display}}">{{old('rate_rise_comment',$permitdata->rate_rise_comment)}}</textarea>
                                 </div>
                             </div>
+                            <div class="d-flex inputDiv">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">construction methodology changed</span>
+
+                                </label>
+                                <!--begin::Radio group-->
+                                <div class="nav-group nav-group-fluid">
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                         
+                                          <input type="radio" class="btn-check" name="construction_methodology" value="1" @if(isset($permitdata) && $permitdata->construction_methodology==1){{'checked'}}@endif />
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                        <input type="radio" class="btn-check" name="construction_methodology" value="2" @if(isset($permitdata) && $permitdata->construction_methodology==2){{'checked'}}@endif/>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                </div>
+                                <!--end::Radio group-->
+                            </div>
                             
-                            <h5 style="color: #000">Permit to unload/Use</h5>
+                            <h5 style="color: #000">Permit to Load/Use</h5>
                             <br>
                             <p style="color: #000;">
                                

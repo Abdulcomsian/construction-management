@@ -176,16 +176,27 @@
 
                             </label>
                         </td>
-
                     </tr>
-                    <!-- <tr>
-                    <th style="font-size:12px;">Principal Contractor Approval required</th>
-                        <th style="font-size:12px;">Y</th>
-                    </tr> -->
                     <tr>
                             <td style="font-size:12px;">Principal Contractor Approval required</td>
                             <td style="font-size:12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
-                        </tr>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead>
+                    <th style="color:black; padding: 10px;font-size:12px;"><span style="font-size:12px;">Equipment/materials used as specified/fit for purpose.</span></th>
+                    <th style="color: black; padding: 10px;">Y</th>
+
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size:12px;">Rate of Rise</td>
+                        <td style="font-size:12px;">@if($data['rate_rise']==1){{'Y'}}@else{{'N'}}@endif</td>
+                        <td style="font-size:12px;">{{$data['rate_rise_comment'] ?? ''}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

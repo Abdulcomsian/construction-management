@@ -552,7 +552,7 @@
                                 <!--end::Radio group-->
                             </div>
                             <!--  -->
-                            <h5 style="color: #000">Remove Unload And Add Load</h5>
+                            <h5 style="color: #000">Permit To Load/USE</h5>
                             <br>
                             <p style="color: #000;">
 

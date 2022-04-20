@@ -174,7 +174,7 @@ height: 72px;
                     <div class="card-title list_top" style="width:98%">
                         <h2 style="display: inline-block;">Design Brief</h2>
                         <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a> -->
-                        <button style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" class="newDesignBtn hazardlist">BS5975 Checklist</button>
+                        <!-- <button style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" class="newDesignBtn hazardlist">BS5975 Checklist</button> -->
                         <a style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         
@@ -436,16 +436,21 @@ height: 72px;
                                             <textarea class="form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
+                                    
                                   </div>
                                    <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                    <div style="position:relative;" class="d-flex modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Attachments / Spec:
                                             </label>
                                         <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
                                     </div>
+                                    <span style="position:absolute;right:10px;margin-top: 21px;">
+                                        <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
+                                    </span>
                                   </div>
+                                  
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

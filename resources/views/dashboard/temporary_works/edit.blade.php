@@ -243,7 +243,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress',$selectedproject->address ?? '')}}">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -287,7 +287,7 @@ height: 72px;
                                         <span class="required">Design Checker Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2',$temporaryWork->desinger_company_name2)}}"  required>
+                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2',$temporaryWork->desinger_company_name2)}}">
                                 </div>
                                  <div class="inputDiv {{$temporaryWork->tw_category==3 ?'d-flex':'d-none'}} desinger_company_name2">
                                     <!--begin::Label-->
@@ -295,7 +295,7 @@ height: 72px;
                                         <span class="required">Design Checker Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2',$temporaryWork->desinger_email_2)}}"  required>
+                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2',$temporaryWork->desinger_email_2)}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -505,7 +505,7 @@ height: 72px;
                           <br>
                         @include('dashboard.modals.design-relief-modals-edit')
 
-                        <button id="submitbutton" type="button" class="btn btn-primary float-end">Update</button>
+                        <button id="submitbutton" type="submit" class="btn btn-primary float-end">Update</button>
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -586,23 +586,24 @@ height: 72px;
         if(value==3)
         {
             $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
+            $("#desinger_company_name2").attr('required','required');
+            $("#desinger_email_2").attr('required','required');
           
         }
         else{
             $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
-          
+            $("#desinger_company_name2").removeAttr('required');
+            $("#desinger_email_2").removeAttr('required');
         }
     })
 
 
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
+    signaturePad.addEventListener("endStroke", () => {
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+            }, { once: true });
     
-    $("#submitbutton").on('click',function(){
-         $("#signature").val(signaturePad.toDataURL('image/png'));
-         $("#desingform").submit();
-    })
-   
      $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.clear();

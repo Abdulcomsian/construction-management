@@ -30,14 +30,14 @@ class TemporaryWork extends Model
         return $this->hasMany(TemporaryWorkComment::class)->where('replay','!=','');
     }
 
-    public function openpermits() //this relation for open permit check in table
+    public function rejectedpermits() //this relation for open permit check in table
     {
-        return $this->hasMany(PermitLoad::class)->where('status',1);
+        return $this->hasMany(PermitLoad::class)->where('status',5);
     }
 
     public function permits() //this relation for open permit check in table
     {
-         return $this->hasMany(PermitLoad::class)->where('status',1);
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[1,5]);
     }
     public function scaffold() //this relation for open permit check in table
     {

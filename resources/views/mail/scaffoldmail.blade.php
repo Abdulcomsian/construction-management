@@ -28,6 +28,10 @@
                                                                    <p>
                                                                        <a href="{{route('pc.permit.approved',Crypt::encrypt($details['body']['id']))}}">view to accept or reject permit to load</a>
                                                                    </p>
+                                                                   @else
+                                                                   <p>
+                                                                    <a href="{{url('temporary_works')}}">View Details</a>
+                                                                   </p>
                                                                    @endif
                                                                     
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>City Temporary Works.</p>

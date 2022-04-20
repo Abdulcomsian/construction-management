@@ -471,6 +471,7 @@
                                 </div>
                             </div>
                             <!-- new work here -->
+                            
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -512,6 +513,43 @@
                                 <div class="d-flex modalDiv">
                                     <textarea name="rate_rise_comment" rows="2" class="form-control" style="display: none">{{old('rate_rise_comment')}}</textarea>
                                 </div>
+                            </div>
+                            <div class="d-flex inputDiv">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">construction methodology changed</span>
+
+                                </label>
+                                <!--begin::Radio group-->
+                                <div class="nav-group nav-group-fluid">
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                         @if(isset($old))
+                                        <input type="radio" class="btn-check" name="construction_methodology" value="1" {{ old('construction_methodology') == '1' ? 'checked' : '' }} />
+                                        @else
+                                        <input type="radio" class="btn-check" name="construction_methodology"  value="1"  />
+                                        @endif
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+                                    <label>
+                                        @if(isset($old))
+                                        <input type="radio" class="btn-check" name="construction_methodology" value="2" {{ old('construction_methodology') == '2' ? 'checked' : '' }} />
+                                        @else
+                                        <input type="radio" class="btn-check" name="construction_methodology" value="2" checked/>
+                                        @endif
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                    </label>
+                                    <!--end::Option-->
+                                    <!--begin::Option-->
+
+                                    <!--end::Option-->
+                                </div>
+                                <!--end::Radio group-->
                             </div>
                             <!--  -->
                             <h5 style="color: #000">Remove Unload And Add Load</h5>

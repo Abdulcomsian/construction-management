@@ -1,16 +1,19 @@
 @extends('layouts.dashboard.master',['title' => 'Permit To Load'])
 @section('styles')
 <style>
-    .aside-enabled.aside-fixed.header-fixed .header{
-        border-bottom: 1px solid #e4e6ef!important;
+     .aside-enabled.aside-fixed.header-fixed .header {
+        border-bottom: 1px solid #e4e6ef !important;
     }
-    .header-fixed.toolbar-fixed .wrapper{
+
+    .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-    .content{
+    .form-control.form-control-solid
+    .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
     }
+
     .newDesignBtn {
         border-radius: 8px;
         background-color: #F9D413;
@@ -20,13 +23,20 @@
         margin: 0px 29px;
     }
 
-    #kt_content_container{
+    #kt_content_container {
         background-color: #e9edf1;
     }
-    #kt_toolbar_container{
-        background-color:#fff;
-        
-        
+
+    #kt_toolbar_container {
+        background-color: #fff;
+
+
+    }
+
+    .card {
+        margin: 30px 0px;
+        border-radius: 10px !important;
+        border: none !important;
     }
 
     .card>.card-body {
@@ -41,12 +51,8 @@
 
     #kt_toolbar_container h1 {
         font-size: 35px !important;
-        color: #000 !important;
-        padding: 15px 0px;
-    }
-    .card{
-        margin: 30px 0px;
-        border-radius: 10px;    
+        color: red !important;
+
     }
 
     .toolbar-fixed .toolbar {
@@ -86,6 +92,8 @@
 
     .inputDiv select {
         width: 100%;
+        background-color: #2B2727 !important;
+        border-color: #2B2727 !important;
         color: #000 !important;
     }
 
@@ -114,7 +122,10 @@
         width: 100% !important;
         height: auto;
     }
-
+    #sig1 canvas {
+        width: 100% !important;
+        height: auto;
+    }
     .modalDiv {
         width: 100%;
     }
@@ -123,17 +134,19 @@
         background-color: black;
         color: white;
     }
-    .nav-group.nav-group-fluid{
-        position: absolute;
-        right:10px;
+
+    .nav-group.nav-group-fluid {
+        /* position: absolute; */
+        right: 10px;
     }
- .image-uploader .upload-text span{
-        color:white;
+
+    .image-uploader .upload-text span {
+        color: white;
     }
     canvas{
         background: lightgray;
     }
-    .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
+    .uploaded{padding:40px 0 !important;}
     .btn-check:checked+.btn.btn-active-primary2{
         background: #FFBF00;
     }
@@ -266,6 +279,15 @@
                                          <input  type="text" class="form-control" placeholder="TWS Name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
                                     </div>
                                 </div>
+                                <div class="d-flex inputDiv d-block">
+                                <div class="d-flex modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                         <span class="required">MS/RA Number</span>
+                                    </label>
+                                     <input  type="text" class="form-control" placeholder="Ms/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -285,15 +307,6 @@
                                         Description of Structure which is ready for use:
                                     </label>
                                     <textarea class="form-control" name="description_structure" rows="2" style="width:100%;" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
-                                </div>
-                            </div>
-                            <div class="d-flex inputDiv d-block">
-                                <div class="d-flex modalDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                         <span class="required">MS/RA Number</span>
-                                    </label>
-                                     <input  type="text" class="form-control" placeholder="Ms/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -479,9 +492,7 @@
                             </div>
                              <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
-                                       @if(isset($permitdata) && $permitdata->rate_rise==1)
-                                        <textarea name="rate_rise_comment" rows="2" class="form-control" >{{$permitdata->rate_rise_comment ?? ''}}</textarea>
-                                        @endif
+                                        <textarea name="rate_rise_comment" rows="2" class="form-control {{$permitdata->rate_rise==1 ? 'd-flex' :'d-none'}}" >{{$permitdata->rate_rise_comment ?? ''}}</textarea>
                                 </div>
                              </div>
 
@@ -618,18 +629,34 @@
                                      <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}">
                                      <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                                     </div>
+                                <div class="d-flex inputDiv ">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                        <span class="required">Date:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
+                                </div>
+                                <!-- Approval div -->
+                                    <div class="d-flex inputDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                            <span>Approval:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                         <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
+                                         <span style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                    </div>
+                                    <div class="d-none inputDiv pc-twc">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:30% !important">
+                                            <span>PC TWC Email:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                         <input  type="email" class="form-control" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                    </div>
                             </div>
                             <div class="col">
-                              
-                                <!-- <div class="d-flex inputDiv " id="sign" >
-                                    <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                        <span class="required">Signature:</span>
-                                    </label>
-                                    <br/>
-                                    <canvas id="sig"  ></canvas>
-                                    <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
-                                </div> -->
                                 <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="d-flex inputDiv principleno" id="sign" style="">
@@ -654,34 +681,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                <div class="d-flex inputDiv ">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                        <span class="required">Date:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
-                                </div>
+                                
                                 
                             </div>
-                            <!-- Approval div -->
-                                    <div class="d-flex inputDiv">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:31% !important">
-                                            <span>Approval:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                         <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
-                                         <span style="padding-left:3px;color:#000">Select if approval is required.</span>
-                                    </div>
-                                    <div class="d-none inputDiv pc-twc">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:30% !important">
-                                            <span>PC TWC Email:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                         <input  type="email" class="form-control" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
-                                    </div>
+                            
                         </div>
                          <div class="col-md-12">
                              <!-- <div class="uploadDiv" style="padding-left: 10px;">
@@ -794,6 +797,15 @@
         else{
             $(".pc-twc").removeClass('d-flex').addClass('d-none');
             $("#pc-twc-email").removeAttr('required');
+        }
+    })
+
+    $("input[name='rate_rise']").change(function() {
+        if ($(this).val() == 1) {
+            $("textarea[name='rate_rise_comment']").removeClass('d-none').addClass('d-flex');
+        } else {
+            $("textarea[name='rate_rise_comment']").removeClass('d-flex').addClass('d-none');
+
         }
     })
     

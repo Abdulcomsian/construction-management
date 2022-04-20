@@ -30,6 +30,10 @@
                                                                    <p>
                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($details['body']['id']).'/?mail='.$email)}}">View and Upload Design</a>
                                                                    </p>
+                                                                   @else
+                                                                    <p>
+                                                                        <a href="{{url('temporary_works')}}">View Details</a>
+                                                                   </p>
                                                                    @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>
                                                                         City Temporary Works

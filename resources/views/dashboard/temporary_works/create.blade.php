@@ -401,7 +401,7 @@ height: 72px;
                                         <span>PC TWC Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                     <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc_twc_email')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">

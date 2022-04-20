@@ -381,16 +381,16 @@ height: 72px;
                                         <span>Approval:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
+                                     <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px" {{$temporaryWork->pc_twc_email== '' ? '' :'checked'}}>
                                      <span style="padding-left:3px;color:#000">Select if approval is required.</span>
                                 </div>
-                                <div class="d-none inputDiv pc-twc">
+                                <div class="{{$temporaryWork->pc_twc_email== '' ? 'd-none' :'d-flex'}} inputDiv pc-twc">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
                                         <span>PC TWC Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                     <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email',$temporaryWork->pc_twc_email ?? '')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">

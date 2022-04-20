@@ -605,7 +605,7 @@ border-radius: 8px;
                                          if(count($item->comments)>0)
                                          {
                                             $color="red";
-                                            if(count($item->reply)>0)
+                                            if(count($item->reply)== count($item->comments))
                                             {
                                                 $color="blue";
                                             }

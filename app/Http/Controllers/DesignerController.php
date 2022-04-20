@@ -250,7 +250,7 @@ class DesignerController extends Controller
 
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
-                Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                //Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 if($tempworkdata->designer_company_email)
                 {
                    $notify_admins_msg['body']['designer'] = 'designer1';

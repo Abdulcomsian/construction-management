@@ -289,7 +289,7 @@ class TemporaryWorkController extends Controller
 
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype','pdfsigntype','pdfphoto','projno', 'projname', 'approval', 'pc_twc_email');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype','pdfsigntype','pdfphoto','projno', 'projname', 'approval');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -449,7 +449,7 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
             $temporaryWork = TemporaryWork::with('scopdesign','folder','attachspeccomment','temp_work_images')->where('id',$temporaryWork->id)->first();
-            $selectedproject = Project::find($temporaryWork->project_id);
+            $selectedproject = Project::with('company')->find($temporaryWork->project_id);
             return view('dashboard.temporary_works.edit', compact('temporaryWork', 'projects', 'selectedproject'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
@@ -508,7 +508,7 @@ class TemporaryWorkController extends Controller
 
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','preloaded','namesign', 'signtype', 'projno', 'projname', 'approval', 'pc_twc_email');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','preloaded','namesign', 'signtype', 'projno', 'projname', 'approval');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {

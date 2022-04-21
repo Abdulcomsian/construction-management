@@ -658,11 +658,14 @@ height: 72px;
         if(value==3)
         {
             $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
+            $("#desinger_company_name2").attr('required','required');
+            $("#desinger_email_2").attr('required','required');
           
         }
         else{
             $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
-          
+            $("#desinger_company_name2").removeAttr('required');
+            $("#desinger_email_2").removeAttr('required');
         }
     })
 

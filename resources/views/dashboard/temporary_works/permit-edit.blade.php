@@ -499,7 +499,7 @@
                               <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">construction methodology changed</span>
+                                    <span class="required">Has the construction methodology changed?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -638,23 +638,23 @@
                                     <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
                                 </div>
                                 <!-- Approval div -->
-                                    <div class="d-flex inputDiv">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                            <span>Approval:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                         <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
-                                         <span style="padding-left:3px;color:#000">Select if approval is required.</span>
-                                    </div>
-                                    <div class="d-none inputDiv pc-twc">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:30% !important">
-                                            <span>PC TWC Email:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                         <input  type="email" class="form-control" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
-                                    </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                        <span>Approval:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px" {{$permitdata->pc_twc_email=='' ? '':'checked'}}>
+                                     <span style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                </div>
+                                <div class="inputDiv {{$permitdata->pc_twc_email=='' ? 'd-none':'d-flex'}}  pc-twc">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
+                                        <span>PC TWC Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input  type="email" class="form-control" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc_twc_email',$permitdata->pc_twc_email ?? '')}}">
+                                </div>
                             </div>
                             <div class="col">
                                 <div class="row">

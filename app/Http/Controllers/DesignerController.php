@@ -105,11 +105,72 @@ class DesignerController extends Controller
         $designearray[0]=$ramsno->designer_company_email;
         $designearray[1]=$ramsno->desinger_email_2;
         $list='';
+        $path = config('app.url');
+        //twc uploade designs
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')) {
+                $registerupload= TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->get();
+               if($registerupload)
+                {
+                    $list.="<h3>Twc/company Uploaded</h3>";            
+                    $list .= '<table class="table table-hover"><thead><tr>';
+                    $list .= '<th>S-no</th>';
+                    $list .= '<th>Drawing Number</th>';
+                    $list .= '<th>Comments</th>';
+                    $list .= '<th>TWD Name</th><th>Drawing Title</th><th>Preliminary/ For approval</th><th>For construction</th><th>Action</th>';
+                    $list .= '</tr></thead><tbody>';
+                     $i = 1;
+                    foreach ($registerupload as $uploads) {
+                        $papproval = 'No';
+                        $construction = 'No';
+                        if ($uploads->preliminary_approval == 1) {
+                            $background = 'yellow';
+                            $papproval = 'Yes';
+                        } elseif ($uploads->construction == 1) {
+                            $background = 'lightgreen';
+                            $construction = 'Yes';
+                        }
+
+                        $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . '/' . $uploads->file_name . '" style="background:' . $background . '">';
+                        $list .= '<td>' . $i . '</td>';
+                        $list .= '<td>' . $uploads->drawing_number . '</td>';
+                        $list .= '<td>' . $uploads->comments . '</td>';
+                        $list .= '<td>' . $uploads->twd_name . '</td>';
+                        $list .= '<td>' . $uploads->drawing_title . '</td>';
+                        $list .= '<td>' . $papproval . '</td>';
+                        $list .= '<td>' . $construction . '</td>';
+                        if ($construction == 'Yes') {
+                            $list .= '<td style="display:flex">
+                                 <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                                 <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                                    <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
+                                    <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
+                                     <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
+                                    <button style="font-size:8px" type="button" class="btn btn-primary btn-small openpermitform" id="' . $uploads->id . '">Open Permit</button>
+                                </form>
+                                </td>';
+                        } else {
+                            $list .= '<td style="display:flex">
+                                 <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                                 <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                                    <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
+                                    <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
+                                    <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
+                                     <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
+                                   
+                                </form>
+                                </td>';
+                        }
+                        $list .= '</tr>';
+                        $i++;
+                    }
+                    $list .= '</tbody></table>';
+                }
+        }
         for($j=0;$j<count($designearray);$j++)
         {
             $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->get();
             $i = 1;
-            $path = config('app.url');
+            
             if($DesignerUploads)
             {
                 if($j==0)

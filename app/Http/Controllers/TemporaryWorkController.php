@@ -1030,7 +1030,7 @@ class TemporaryWorkController extends Controller
 
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'pc_twc_email', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -1239,7 +1239,7 @@ class TemporaryWorkController extends Controller
         Validations::storepermitload($request);
         $permitdata = PermitLoad::find($request->permitid);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'pc_twc_email', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';

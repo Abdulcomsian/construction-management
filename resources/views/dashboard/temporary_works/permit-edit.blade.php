@@ -526,6 +526,11 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
+                            <div class="d-flex inputDiv">
+                                <div class="d-flex modalDiv">
+                                    <textarea name="construction_methodology_comment" rows="2" class="form-control" style="display: {{$permitdata->construction_methodology==1 ? 'block' : 'none';}}">{{old('construction_methodology_comment',$permitdata->construction_methodology_comment ?? '')}}</textarea>
+                                </div>
+                            </div>
                          <!-- end rate of rise -->
                             <h5 style="color: #000">Permit to load/Use</h5>
                             <br>
@@ -805,6 +810,15 @@
             $("textarea[name='rate_rise_comment']").removeClass('d-none').addClass('d-flex');
         } else {
             $("textarea[name='rate_rise_comment']").removeClass('d-flex').addClass('d-none');
+
+        }
+    })
+
+    $("input[name='construction_methodology']").change(function() {
+        if ($(this).val() == 1) {
+            $("textarea[name='construction_methodology_comment']").show();
+        } else {
+            $("textarea[name='construction_methodology_comment']").hide();
 
         }
     })

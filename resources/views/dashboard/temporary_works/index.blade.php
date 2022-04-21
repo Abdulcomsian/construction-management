@@ -719,7 +719,7 @@ border-radius: 8px;
                                          @endphp
                                          <br>
                                          @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                         <span class="fa fa-adjust text-danger"></span>
+                                         <span class="text-danger">DNL</span>
                                          @endif
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else

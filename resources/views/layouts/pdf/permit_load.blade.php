@@ -197,6 +197,11 @@
                         <td style="font-size:12px;">@if($data['rate_rise']==1){{'Y'}}@else{{'N'}}@endif</td>
                         <td style="font-size:12px;">{{$data['rate_rise_comment'] ?? ''}}</td>
                     </tr>
+                    <tr>
+                        <td style="font-size:12px;">Has the construction methodology changed?</td>
+                        <td style="font-size:12px;">@if($data['construction_methodology']==1){{'Y'}}@else{{'N'}}@endif</td>
+                        <td style="font-size:12px;">{{$data['construction_methodology_comment'] ?? ''}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

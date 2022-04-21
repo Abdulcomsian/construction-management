@@ -364,8 +364,12 @@ input:focus {
     .desktopView{
         display: none;
     }
+    .dropdown button{
+        border-radius: 8px;
+    }
   }
   @media screen and (max-width: 768px) {
+   
     .dropbtn{
         font-size: 12px !important;
     }

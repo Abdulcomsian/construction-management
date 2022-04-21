@@ -551,6 +551,11 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
+                            <div class="d-flex inputDiv">
+                                <div class="d-flex modalDiv">
+                                    <textarea name="construction_methodology_comment" rows="2" class="form-control" style="display: none">{{old('construction_methodology_comment')}}</textarea>
+                                </div>
+                            </div>
                             <!--  -->
                             <h5 style="color: #000">Permit To Load/USE</h5>
                             <br>
@@ -838,6 +843,17 @@
 
         }
     })
+
+    $("input[name='construction_methodology']").change(function() {
+        if ($(this).val() == 1) {
+            $("textarea[name='construction_methodology_comment']").show();
+        } else {
+            $("textarea[name='construction_methodology_comment']").hide();
+
+        }
+    })
+
+    
 
 
     $("#flexCheckChecked1").change(function() {

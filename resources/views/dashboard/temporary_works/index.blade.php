@@ -715,13 +715,12 @@ border-radius: 8px;
                                             $color="red";
                                          }
                                          
-                                         if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                         {
-                                            $color="red";
-                                         }
+                                         
                                          @endphp
                                          <br>
-
+                                         @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
+                                         <span class="fa fa-adjust text-danger"></span>
+                                         @endif
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 3px !important;border-radius: 4px; font-size: 12px;" class="btn btn-primary">Closed</button>

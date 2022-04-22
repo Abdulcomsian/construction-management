@@ -128,6 +128,7 @@ Route::group(['middleware' => ['auth']], function () {
 
      //get twc according to project
      Route::get('project-get-twc',[ProjectController::class, 'project_twc_get'])->name('project.twc.get');
+
 });
 
 Route::get('/dashboard', function () {

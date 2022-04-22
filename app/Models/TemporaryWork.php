@@ -25,6 +25,11 @@ class TemporaryWork extends Model
         return $this->hasMany(TemporaryWorkComment::class)->where('type','normal');
     }
 
+    public function scancomment()
+    {
+        return $this->hasMany(TemporaryWorkComment::class)->where('type','scan');
+    }
+
     public function reply()
     {
         return $this->hasMany(TemporaryWorkComment::class)->where('replay','!=','');

@@ -128,6 +128,8 @@ Route::group(['middleware' => ['auth']], function () {
 
      //get twc according to project
      Route::get('project-get-twc',[ProjectController::class, 'project_twc_get'])->name('project.twc.get');
+     //get rejected design briefs
+     Route::get('get-rejected-designs',[DesignerController::class,'get_rejected_designbrief'])->name('rejected.designs');
 
 });
 

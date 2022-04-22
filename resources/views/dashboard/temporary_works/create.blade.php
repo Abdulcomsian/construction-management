@@ -529,7 +529,7 @@ height: 72px;
                                         <span class="required">Signature:</span>
                                     </label>
                                     <br/>
-                                    <canvas id="sig" style="background: lightgray"></canvas>
+                                    <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
@@ -558,6 +558,7 @@ height: 72px;
 @section('scripts')
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script>
+    
     var projects = {!!$projects!!};
     $('#projects').change(function() {
         let id = $(this).val();
@@ -670,16 +671,25 @@ height: 72px;
     })
 
 
-    var canvas = document.getElementById("sig");
-    var signaturePad = new SignaturePad(canvas);
+     var canvas = document.getElementById("sig");
+     var signaturePad = new SignaturePad(canvas);
      signaturePad.addEventListener("endStroke", () => {
+        console.log("hello");
               $("#signature").val(signaturePad.toDataURL('image/png'));
-            }, { once: true });
-    
+            });
     // $("#submitbutton").on('click',function(e){
-    //      $("#signature").val(signaturePad.toDataURL('image/png'));
-    //      $("#desingform").submit();
+    //     if ( $("#desingform-form").valid() ) {
+
+    //          $("#signature").val(signaturePad.toDataURL('image/png'));
+    //           $("#desingform").submit();
+    //         } else {
+    //             console.log('form invalid');
+    //         }
+        
+        
     // })
+
+
    
      $('#clear').click(function(e) {
         e.preventDefault();

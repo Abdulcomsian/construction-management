@@ -48,7 +48,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold')->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
@@ -57,7 +57,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold')->whereIn('created_by', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('created_by', $ids)->latest()->paginate(20);
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
@@ -65,7 +65,7 @@ class TemporaryWorkController extends Controller
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
                 }
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold')->whereHas('project', function ($q) use ($ids) {
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('project_id', $ids);
                 })->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
@@ -91,7 +91,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
                 $projects = Project::whereIn('id', $projects_id)->get();
             } elseif ($user->hasRole('company')) {
@@ -106,7 +106,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
                 $projects = Project::whereIn('id', $projects_id)->get();
             } else {
@@ -117,7 +117,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
 
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
                 $projects = Project::whereIn('id', $projects_id)->get();

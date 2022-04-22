@@ -732,10 +732,14 @@ border-radius: 8px;
                               
                                 <tr>
                                     <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
+                                        @if(count($item->rejecteddesign)>0)
+                                         <button  style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;"  class="btn btn-info rejecteddesign" data-id="{{Crypt::encrypt($item->id)}}">Rejected <i class="fa fa-eye"></i>
+                                        </button>
+                                        @endif
                                         <a style="color:{{$item->status==0 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                         </a>
                                         @if($item->status==2)
-                                        <p class="rejectcomment cursor-pointer" data-id="{{$item->id}}" > <span class="text-danger">Rejected</span></p>
+                                        <!-- <p class="rejectcomment cursor-pointer" data-id="{{$item->id}}" > <span class="text-danger">Rejected</span></p> -->
                                          <a  href="{{route('temporary_works.edit',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                         @endif
                                     </td>
@@ -967,6 +971,7 @@ border-radius: 8px;
 @include('dashboard.modals.description')
 @include('dashboard.modals.project_documents')
 @include('dashboard.modals.tempwork_share')
+@include('dashboard.modals.rejected-temporarywork-modals')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -1485,6 +1490,20 @@ $(document).on('click','.scancomment',function(){
     }
   });
 
+});
+
+$(document).on('click','.rejecteddesign',function(){
+    tempid=$(this).attr('data-id');
+    $.ajax({
+    url:"{{route('rejected.designs')}}",
+    method:"get",
+    data:{tempid},
+    success:function(res)
+    {
+        $("#rejected-designbrief-body").html(res);
+        $("#rejected_designbrief_modal_id").modal('show');
+    }
+  });
 })
 </script>
 @endsection

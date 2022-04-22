@@ -602,7 +602,7 @@ height: 72px;
     var signaturePad = new SignaturePad(canvas);
     signaturePad.addEventListener("endStroke", () => {
               $("#signature").val(signaturePad.toDataURL('image/png'));
-            }, { once: true });
+            });
     
      $('#clear').click(function(e) {
         e.preventDefault();

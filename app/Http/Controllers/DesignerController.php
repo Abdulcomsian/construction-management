@@ -10,6 +10,7 @@ use App\Models\TemporaryWorkComment;
 use App\Models\PermitComments;
 use App\Utils\HelperFunctions;
 use App\Models\User;
+use App\Models\TemporaryWorkRejected;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Notification;
@@ -261,6 +262,13 @@ class DesignerController extends Controller
                 $model->temporary_work_id = $request->tempworkid;
                 $model->type = 'pc';
                 if ($model->save()) {
+                    $rejectedmodel= new TemporaryWorkRejected();
+                    $rejectedmodel->temporary_work_id=$request->tempworkid;
+                    $rejectedmodel->comment=$request->comments;
+                    $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
+                    $rejectedmodel->pdf_url=$tempworkdata->ped_url;
+                    $rejectedmodel->save();
+
                     $subject = 'Design Brief Rejected ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                     $text = ' Welcome to the online i-works Web-Portal.Design Brief Rejected by PC TWC.';
                     $notify_admins_msg = [
@@ -386,5 +394,20 @@ class DesignerController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+    public function get_rejected_designbrief(Request $request)
+    {
+        $id=\Crypt::decrypt($request->tempid);
+        $rejected=TemporaryWorkRejected::where('temporary_work_id',$id)->get();
+        $list='';
+        $i=1;
+        $path = config('app.url');
+        foreach($rejected as $rej)
+        {
+            $list .='<tr><td>'.$i.'</td><td>'.$rej->comment.'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td>'.$rej->rejected_by.'</td><td>'.$rej->created_at.'</td></tr>';
+            $i++;
+        }
+        echo $list;
     }
 }

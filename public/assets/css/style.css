@@ -518,3 +518,19 @@ li.select2-selection__choice{
   
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
   .show {display:block;}
+
+
+  #commenttable td form{
+      display: flex;
+      align-items: center;
+  }
+  #commenttable td{
+      vertical-align: middle;
+      padding: 10px !important;
+  }
+  #commenttable td form button{
+      padding: 5px;
+  }
+  #commenttable td form .replay{
+      border: 1px solid #e4e6ef;
+  }

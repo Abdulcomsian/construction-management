@@ -45,7 +45,9 @@
     table {
         margin-top: 20px;
     }
-
+    .mw-750px{
+        max-width: 850px !important;
+    }
     #kt_content_container{
         background-color: #e9edf1;
     }

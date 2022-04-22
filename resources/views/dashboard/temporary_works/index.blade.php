@@ -292,8 +292,8 @@ border-radius: 8px;
                             
                             <div class="tableInputDiv">
                                 <div class="dropdown">
-                                    <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;">unselect column view</button>
-                                    <div id="myDropdown" class="dropdown-content">
+                                    <button onclick="myFunctionMobile()" class="dropbtn" style="text-transform:uppercase;">unselect column view</button>
+                                    <div id="myDropdownMobile" class="dropdown-content">
                                        
                                          
                                         <div class="inputSpan">
@@ -1432,6 +1432,9 @@ $(".hidecol").click(function(){
 
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
+}
+function myFunctionMobile() {
+  document.getElementById("myDropdownMobile").classList.toggle("show");
 }
 
 // Close the dropdown menu if the user clicks outside of it

@@ -876,6 +876,11 @@ border-radius: 8px;
                                          
                                          @endphp
                                          <br>
+                                         @if(count($item->scancomment)>0)
+                                         <button style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
+                                         </button>
+                                         @endif
+                                         <br><br>
                                          @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                          <span class="text-danger">DNL</span>
                                          @endif
@@ -1460,5 +1465,23 @@ $(document).click(function(e){
     //     e.stopPropagation(); 
     // });
 });
+
+$(document).on('click','.scancomment',function(){
+  var temporary_work_id=$(this).attr('data-id');
+  var userid={{\Auth::user()->id}}
+  $("#commenttable").html('');
+  $.ajax({
+    url:"{{route('temporarywork.get-comments')}}",
+    method:"get",
+    data:{temporary_work_id:temporary_work_id,type:'scan'},
+    success:function(res)
+    {
+       $("#commenttable").html(res);
+       $(".comments_form").hide();
+       $("#comment_modal_id").modal('show');
+    }
+  });
+
+})
 </script>
 @endsection

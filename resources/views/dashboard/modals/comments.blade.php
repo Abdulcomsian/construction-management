@@ -54,6 +54,7 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                          @if(isset($scantempwork) && $scantempwork=='scantempwork')
+                         <input type="hidden" name="type" value="scan" />
                         <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">

@@ -262,11 +262,13 @@ class DesignerController extends Controller
                 $model->temporary_work_id = $request->tempworkid;
                 $model->type = 'pc';
                 if ($model->save()) {
-                    $rejectedmodel= new TemporaryWorkRejected();
+                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
+
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
                     $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
                     $rejectedmodel->pdf_url=$tempworkdata->ped_url;
+                    $rejectedmodel->updated_at=date('Y-m-d H:i:s');
                     $rejectedmodel->save();
 
                     $subject = 'Design Brief Rejected ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
@@ -399,15 +401,29 @@ class DesignerController extends Controller
     public function get_rejected_designbrief(Request $request)
     {
         $id=\Crypt::decrypt($request->tempid);
-        $rejected=TemporaryWorkRejected::where('temporary_work_id',$id)->get();
+        $tempdata=TemporaryWork::select(['twc_id_no','status'])->find($id);
+        $rejected=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->where('comment','!=','')->get();
         $list='';
+        $array=[];
+        $status='';
         $i=1;
         $path = config('app.url');
         foreach($rejected as $rej)
         {
-            $list .='<tr><td>'.$i.'</td><td>'.$rej->comment.'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td>'.$rej->rejected_by.'</td><td>'.$rej->created_at.'</td></tr>';
+            $list .='<tr><td>'.$i.'</td><td>'.$rej->rejected_by.'<br>'.date('H:i Y-m-d',strtotime($rej->acceptance_date)).'</td><td>'.$rej->comment.'<br>'.date('H:i Y-m-d',strtotime($rej->updated_at)).'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td>'.$rej->rejected_by.'</td><td>'.$rej->created_at.'</td></tr>';
             $i++;
         }
-        echo $list;
+        $array['list']=$list;
+        $array['brief']=$tempdata->twc_id_no;
+        if($tempdata->status == 0)
+        {
+           $status="Pending";
+        }
+        if($tempdata->status== 2)
+        {
+            $status='Rejected';
+        }
+        $array['status']=$status;
+       echo json_encode($array);
     }
 }

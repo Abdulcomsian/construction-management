@@ -18,6 +18,7 @@ use App\Models\Scaffolding;
 use App\Models\CheckAndComment;
 use App\Models\CommentsAction;
 use App\Models\Tempworkshare;
+use App\Models\TemporaryWorkRejected;
 use App\Models\ScaffoldLoadImages;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
@@ -240,7 +241,7 @@ class TemporaryWorkController extends Controller
     public function store(Request $request)
     {
         Validations::storeTemporaryWork($request);
-        try {
+        // try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -338,6 +339,7 @@ class TemporaryWorkController extends Controller
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
+                
                 //work for upload images here
                 $image_links = [];
                 if ($request->file('images')) {
@@ -361,6 +363,14 @@ class TemporaryWorkController extends Controller
                 $model = TemporaryWork::find($temporary_work->id);
                 $model->ped_url = $filename;
                 $model->save();
+                if(isset($request->approval))
+                {
+                    TemporaryWorkRejected::create([
+                        'temporary_work_id'=>$temporary_work->id,
+                        'acceptance_date'=>date('Y-m-d H:i:s'),
+                        'pdf_url'=> $filename,
+                    ]);
+                }
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
@@ -404,11 +414,11 @@ class TemporaryWorkController extends Controller
             }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
-        } catch (\Exception $exception) {
-            dd($exception->getMessage());
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     dd($exception->getMessage());
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
     public function show(TemporaryWork $temporaryWork)
     {

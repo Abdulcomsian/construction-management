@@ -23,15 +23,19 @@
             <!--begin::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                
+                <div style="display: flex">
+                <h3 style="width: 50%">Design Breif Number: <strong id="design-brief" class="text-danger"></strong></h3>
+                <h3 style="width: 30%;color:red;background: #c4c0c0;padding:10px">Status: <span id="rejectstatus"></span></h3>
+                </div>
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>S-No</th>
-                            <th>comments</th>
+                            <th>Email sent for acceptance</th>
+                            <th>Acceptance/Reject-notes</th>
                             <th>PDF </th>
                             <th>Rejectd By</th>
-                            <th>Date</th>
+                            <th>Date</th> 
                         </tr>
                     </thead>
                

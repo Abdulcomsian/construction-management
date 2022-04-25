@@ -395,7 +395,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list_of_attach_comment d-none" style="background: white;height:73px">
+                                <li class="list_of_attach_comment {{$temporaryWork->folder->list_of_attachments=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="{{$temporaryWork->folder->reports_including_site_investigations ? '':'invisible'}} Report-Site">
                                     <div class="multi-Radio">
@@ -412,7 +412,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="reports_including_site_investigations_comment d-none" style="background: white;height:73px">
+                                <li class="reports_including_site_investigations_comment {{$temporaryWork->folder->reports_including_site_investigations=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="{{$temporaryWork->folder->existing_ground_conditions ? '':'invisible'}} Exsisting-Ground">
                                     <div class="multi-Radio">
@@ -429,7 +429,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="existing_ground_conditions_comment d-none" style="background: white;height:73px">
+                                <li class="existing_ground_conditions_comment {{$temporaryWork->folder->existing_ground_conditions=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="{{$temporaryWork->folder->preferred_non_preferred_methods ? '':'invisible'}} System-Type">
                                     <div class="multi-Radio">
@@ -446,7 +446,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
+                                <li class="preferred_non_preferred_methods_comment {{$temporaryWork->folder->preferred_non_preferred_methods=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="{{$temporaryWork->folder->access_limitations ? '':'invisible'}} Limitations">
                                     <div class="multi-Radio">
@@ -463,12 +463,12 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="access_limitations_comment d-none" style="background: white;height:73px">
+                                <li class="access_limitations_comment {{$temporaryWork->folder->access_limitations=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="{{$temporaryWork->folder->back_propping ? '':'invisible'}} Back-Propping">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" {{$temporaryWork->folder->back_propping=='yes' ? '':'invisible'}}/>
+                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" {{$temporaryWork->folder->back_propping=='yes' ? 'checked':''}}/>
 
                                             <input class="form-check-input" type="hidden" name="back_propping" value="Back Propping / Re-Propping Sequence: (please attach)" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
@@ -476,17 +476,17 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" {{$temporaryWork->folder->back_propping=='no' ? '':'invisible'}}/>
+                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" {{$temporaryWork->folder->back_propping=='no' ? 'checked':''}}/>
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="back_propping_comment d-none" style="background: white;height:73px">
+                                <li class="back_propping_comment {{$temporaryWork->folder->back_propping=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="{{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'invisible'}} Temporary-Work">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" {{$temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? '':'invisible'}}/>
+                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" {{$temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? 'checked':''}}/>
 
                                             <input class="form-check-input" type="hidden" name="limitations_on_temporary_works_design" value="Limitations on Temporary Works Design:" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
@@ -494,30 +494,30 @@
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" {{$temporaryWork->folder->limitations_on_temporary_works_design=='no' ? '':'invisible'}}/>
+                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" {{$temporaryWork->folder->limitations_on_temporary_works_design=='no' ? 'checked':''}}/>
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="limitations_on_temporary_works_design_comment d-none" style="background: white;height:73px">
+                                <li class="limitations_on_temporary_works_design_comment {{$temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="{{$temporaryWork->folder->details_of_any_hazards ? '':'invisible'}} Hazard-Risk">
                                     <div class="multi-Radio">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" {{$temporaryWork->folder->details_of_any_hazards=='yes' ? '':'invisible'}}/>
+                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" {{$temporaryWork->folder->details_of_any_hazards=='yes' ? 'checked':''}}/>
                                             <input class="form-check-input" type="hidden" name="details_of_any_hazards" value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
                                         <!-- NO -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" {{$temporaryWork->folder->details_of_any_hazards=='no' ? '':'invisible'}}/>
+                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" {{$temporaryWork->folder->details_of_any_hazards=='no' ? 'checked':''}}/>
 
                                             <label class="form-check-label" for="flexRadioDefault2"> NO </label>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="details_of_any_hazards_comment d-none" style="background: white;height:73px">
+                                <li class="details_of_any_hazards_comment {{$temporaryWork->folder->details_of_any_hazards=='yes' ? '':'d-none'}}" style="background: white;height:73px">
                                 </li>
                                 <li class="invisible Party-Requirements">
                                     <div class="multi-Radio">

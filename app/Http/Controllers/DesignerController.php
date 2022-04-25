@@ -408,9 +408,14 @@ class DesignerController extends Controller
         $status='';
         $i=1;
         $path = config('app.url');
+        $acceptance_date='';
         foreach($rejected as $rej)
         {
-            $list .='<tr><td>'.$i.'</td><td>'.$rej->rejected_by.'<br>'.date('H:i Y-m-d',strtotime($rej->acceptance_date)).'</td><td>'.$rej->comment.'<br>'.date('H:i Y-m-d',strtotime($rej->updated_at)).'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td>'.$rej->rejected_by.'</td><td>'.$rej->created_at.'</td></tr>';
+            if($rej->acceptance_date)
+            {
+                $acceptance_date=date('H:i Y-m-d',strtotime($rej->acceptance_date));
+            }
+            $list .='<tr><td>'.$i.'</td><td>'.$rej->rejected_by.'<br>'.$acceptance_date.'</td><td>'.$rej->comment.'<br>'.date('H:i Y-m-d',strtotime($rej->updated_at)).'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td>'.$rej->rejected_by.'</td><td>'.$rej->created_at.'</td></tr>';
             $i++;
         }
         $array['list']=$list;

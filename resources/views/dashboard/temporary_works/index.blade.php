@@ -742,7 +742,7 @@ border-radius: 8px;
                                         </a>
                                         @if($item->status==2)
                                         <!-- <p class="rejectcomment cursor-pointer" data-id="{{$item->id}}" > <span class="text-danger">Rejected</span></p> -->
-                                         <a  href="{{route('temporary_works.edit',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                         <a  href="{{route('temporary_works.edit',$item->id)}}" style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                         @endif
                                     </td>
                                     @if(\Auth::user()->hasRole('admin'))

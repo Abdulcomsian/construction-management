@@ -588,6 +588,14 @@ class TemporaryWorkController extends Controller
                 $model = TemporaryWork::find($temporaryWork->id);
                 $model->ped_url = $filename;
                 $model->save();
+                if(isset($request->approval))
+                {
+                    TemporaryWorkRejected::create([
+                        'temporary_work_id'=>$temporaryWork->id,
+                        'acceptance_date'=>date('Y-m-d H:i:s'),
+                        'pdf_url'=> $filename,
+                    ]);
+                }
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',

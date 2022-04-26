@@ -175,7 +175,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-NO</th>
+                                <th>NO</th>
                                 <th>Permit No</th>
                                 <th>PDF</th>
                                

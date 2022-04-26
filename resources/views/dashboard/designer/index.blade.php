@@ -123,7 +123,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">upload questions for TWC if required</h2>
+                        <h2 style="display: inline-block;">Upload questions for TWC if required</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -145,7 +145,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Comments</th>
+                                <th>Designer's Comments</th>
                                 <th>Twc Reply</th>
                                 <th>Attachement</th>
                             </tr>

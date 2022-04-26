@@ -66,7 +66,14 @@ class DesignerController extends Controller
                 $model->construction = $request->construction;
                 $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
             }
-             $model->created_by = $request->designermail;
+            if(isset($request->designermail))
+            {
+                $model->created_by = $request->designermail;
+            }
+            else{
+                $model->created_by =Auth::user()->email;
+            }
+            
             $model->file_name = $imagename;
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
@@ -104,7 +111,10 @@ class DesignerController extends Controller
         $designearray=[];
         $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2')->find($tempworkid);
         $designearray[0]=$ramsno->designer_company_email;
+        if($ramsno->desinger_email_2)
+        {
         $designearray[1]=$ramsno->desinger_email_2;
+        }
         $list='';
         $path = config('app.url');
         //twc uploade designs
@@ -112,7 +122,7 @@ class DesignerController extends Controller
                 $registerupload= TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->get();
                if($registerupload)
                 {
-                    $list.="<h3>Twc/company Uploaded</h3>";            
+                    $list.="<h3>TWC Uploaded</h3>";            
                     $list .= '<table class="table table-hover"><thead><tr>';
                     $list .= '<th>S-no</th>';
                     $list .= '<th>Drawing Number</th>';

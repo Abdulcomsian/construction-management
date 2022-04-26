@@ -27,7 +27,7 @@
                 <table class="table table-hover">
                     <thead style="height:60px !important">
                         <tr>
-                            <th>S-no</th>
+                            <th>No</th>
                             <th>Date</th>
                         </tr>
                     </thead>

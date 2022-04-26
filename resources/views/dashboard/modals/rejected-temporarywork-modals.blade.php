@@ -30,7 +30,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>S-No</th>
+                            <th>No</th>
                             <th>Email sent for acceptance</th>
                             <th>Acceptance/Reject-notes</th>
                             <th>PDF </th>

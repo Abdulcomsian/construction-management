@@ -144,7 +144,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-no</th>
+                                <th>No</th>
                                 <th>Comments</th>
                                 <th>Twc Reply</th>
                                 <th>Attachement</th>
@@ -310,7 +310,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-no</th>
+                                <th>No</th>
                                 <th>Drawing Number</th>
                                 <th>Comments</th>
                                 <th>TWD Name</th>
@@ -362,7 +362,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-no</th>
+                                <th>No</th>
                                 <th>Design Check Certificate</th>
                             </tr>
                         </thead>

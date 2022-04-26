@@ -174,7 +174,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-NO</th>
+                                <th>NO</th>
                                 <th>comments/Reason</th>
                                 <th>Date</th>
                             </tr>
@@ -193,7 +193,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-NO</th>
+                                <th>NO</th>
                                 <th>TWC ID NO</th>
                                 <th>PDF</th>
                                 <th>Status</th>

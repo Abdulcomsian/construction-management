@@ -918,7 +918,7 @@
 
                                         </td>
                                         <td>
-                                            <p class="cursor-pointer permit-to-load" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                            <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                             @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                             @php
                                             $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
@@ -1070,12 +1070,7 @@
     $(".addtwname").on('click', function() {
         $("#temp_work_idd").val($(this).attr('data-id'));
         var temporary_work_id = $(this).attr('data-id');
-        var userid = {
-            {
-                \
-                Auth::user() - > id
-            }
-        }
+        var userid = {{Auth::user()->id}}
         $("#tw_modal_id").modal('show');
     })
 
@@ -1086,12 +1081,7 @@
         }
         $("#temp_work_id").val($(this).attr('data-id'));
         var temporary_work_id = $(this).attr('data-id');
-        var userid = {
-            {
-                \
-                Auth::user() - > id
-            }
-        }
+        var userid = {{Auth::user()->id}}
         $("#commenttable").html('');
         $.ajax({
             url: "{{route('temporarywork.get-comments')}}",
@@ -1118,12 +1108,7 @@
         }
         $("#temp_work_id").val($(this).attr('data-id'));
         var temporary_work_id = $(this).attr('data-id');
-        var userid = {
-            {
-                \
-                Auth::user() - > id
-            }
-        }
+        var userid = {{Auth::user()->id}}
         $("#commenttable").html('');
         $.ajax({
             url: "{{route('temporarywork.get-comments')}}",

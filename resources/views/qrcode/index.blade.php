@@ -184,7 +184,7 @@ background-color: #07d564 !important;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Tempory work qr code</h2>
+                        <h2>Tempory work QR code</h2>
                     </div>
                     <!--begin::Card toolbar-->
                      <button style="width: 200px;" value="add" class="newDesignBtn btn printqrcode">Print</button>
@@ -198,11 +198,11 @@ background-color: #07d564 !important;
                         <div class="row">
                           <div class="form-group mb-2 col-md-2">
                             <label  class="text-white">Temp Start</label>
-                            <input type="number" class="form-control" name="tempstart" required="required" />
+                            <input type="number" min="1" class="form-control" name="tempstart" required="required" />
                           </div>
                           <div class="form-group  mb-2 col-md-2">
                             <label class="text-white">Temp End</label>
-                            <input type="number" class="form-control" name="tempend" required="required">
+                            <input type="number" min="1" class="form-control" name="tempend" required="required">
                           </div>
                               <div class="col-md-2 mt-6">
 

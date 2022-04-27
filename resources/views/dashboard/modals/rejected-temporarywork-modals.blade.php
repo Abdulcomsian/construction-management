@@ -34,8 +34,8 @@
                             <th>Email sent for acceptance</th>
                             <th>Acceptance/Reject-notes</th>
                             <th>PDF </th>
-                            <th>Rejectd By</th>
-                            <th>Date</th> 
+                            <!-- <th>Rejectd By</th>
+                            <th>Date</th>  -->
                             <th>Actions</th>
                         </tr>
                     </thead>

@@ -152,7 +152,7 @@
 
                                             </label>
                                             <!--begin::Radio group-->
-                                            <div class="nav-group nav-group-fluid">
+                                            <div class="nav-group nav-group-fluid" style="min-width:160px !important">
                                                 <label>
                                                     <input type="radio" datacheck1='yes' class="btn-check" name="status" value="1" checked />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Accept</span>

@@ -3,7 +3,7 @@
 @section('styles')
 <style>
     .form-control[readonly] {
-    background-color: #000;
+    background-color: #000 !important;
 }
 .list-div ul li, .list-check-div ul li{
 height: 72px;
@@ -594,7 +594,7 @@ height: 72px;
             data:{id:project[0].id,compayid:project[0].company.id},
             success:function(res)
             {
-                $(".form-select.form-select-solid").css("background-color", "#eee ");
+                $(".form-select.form-select-solid").css("background-color", "#eee !important");
                 $(".form-control[readonly]").css("background-color", "#eee !important");
                 
                if(res !='')

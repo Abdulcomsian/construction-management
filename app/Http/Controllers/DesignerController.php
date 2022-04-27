@@ -435,6 +435,7 @@ class DesignerController extends Controller
         }
         $array['list']=$list;
         $array['brief']=$tempdata->twc_id_no;
+        $status='Accepted';
         if($tempdata->status == 0)
         {
            $status="Pending";

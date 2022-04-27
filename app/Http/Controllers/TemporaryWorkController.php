@@ -1150,7 +1150,7 @@ class TemporaryWorkController extends Controller
                 if (auth()->user()->hasRole('scaffolder')) {
                     $button = '';
                 }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr style="' . $class . '"><td><a target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;">' . $button . '</td></tr>';
             }
             $list .= '<hr>';
         }

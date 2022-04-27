@@ -904,7 +904,7 @@ border-radius: 8px;
                                          @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                          <span class="text-danger">DNL</span>
                                          @endif
-                                        <button data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}} style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 3px !important;border-radius: 4px; font-size: 12px;" class="btn btn-primary">Closed</button>
                                         @endif

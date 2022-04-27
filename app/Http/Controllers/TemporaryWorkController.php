@@ -763,10 +763,10 @@ class TemporaryWorkController extends Controller
 
                 if ($tempdata->designer_company_email) {
 
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid));
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid,'desinger1'));
                 }
                 if ($tempdata->desinger_email_2) {
-                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay, 'reply', $tempid));
+                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay, 'reply', $tempid,'desinger2'));
                 }
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();

@@ -23,13 +23,30 @@ class CommentsNotification extends Notification
     private $email;
     private $title;
     private $twc_id_no;
-    public function __construct($comment,$type,$tempid)
+    private $desinger;
+    public function __construct($comment,$type,$tempid,$desinger=null)
     {
         $this->comment=$comment;
         $this->type=$type;
         $this->tempid=$tempid;
+        $this->desinger=$desinger;
         $tempdata=TemporaryWork::select('twc_email','design_requirement_text','twc_id_no')->find($tempid);
-        $this->email=$tempdata->twc_email;
+        if($this->type=='question')
+        {
+            $this->email=$tempdata->twc_email;
+        }
+        elseif($this->type=='reply')
+        {
+            if($this->desinger=='desinger1')
+            {
+                $this->email=$tempdata->designer_company_email;
+            }
+            if($this->desinger=='desinger2')
+            {
+                $this->email=$tempdata->desinger_email_2;
+            }
+        }
+        
         $this->title=$tempdata->design_requirement_text;
         $this->twc_id_no=$tempdata->twc_id_no;
     }

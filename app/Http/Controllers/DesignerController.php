@@ -412,20 +412,25 @@ class DesignerController extends Controller
     {
         $id=\Crypt::decrypt($request->tempid);
         $tempdata=TemporaryWork::select(['twc_id_no','status'])->find($id);
-        $rejected=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->where('comment','!=','')->get();
+        $rejected=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
         $list='';
         $array=[];
         $status='';
         $i=1;
         $path = config('app.url');
         $acceptance_date='';
+        $rejdate='';
         foreach($rejected as $rej)
         {
             if($rej->acceptance_date)
             {
                 $acceptance_date=date('H:i d-m-Y',strtotime($rej->acceptance_date));
             }
-            $list .='<tr><td>'.$i.'</td><td>'.$rej->email.'<br>'.$acceptance_date.'</td><td>'.$rej->comment.'<br>'.date('H:i d-m-Y',strtotime($rej->updated_at)).'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td>'.$rej->rejected_by.'</td><td>'.date('H:i d-m-Y',strtotime($rej->created_at)).'</td><td><a  href='.route('temporary_works.edit',$id).' target="_blank" style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a></td></tr>';
+            if($rej->comment)
+            {
+                $rejdate=date('H:i d-m-Y',strtotime($rej->updated_at));
+            }
+            $list .='<tr><td>'.$i.'</td><td>'.$rej->email.'<br>'.$acceptance_date.'</td><td>'.$rej->comment.'<br>'.$rejdate.'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td>'.$rej->rejected_by.'</td><td>'.date('H:i d-m-Y',strtotime($rej->created_at)).'</td><td><a  href='.route('temporary_works.edit',$id).' target="_blank" style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a></td></tr>';
             $i++;
         }
         $array['list']=$list;

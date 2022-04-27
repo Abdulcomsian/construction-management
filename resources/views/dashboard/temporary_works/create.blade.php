@@ -545,7 +545,7 @@ height: 72px;
                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
                                    
                                 </div>
-                                <div class="d-flex inputDiv" id="sign" style="align-items: right;text-align:right;float:right;">
+                                <div class="d-flex inputDiv"  style="align-items: right;text-align:right;float:right;">
                                     <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
                                 </div>
                                 <!-- work for approval -->

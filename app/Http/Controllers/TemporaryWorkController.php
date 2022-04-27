@@ -905,7 +905,7 @@ class TemporaryWorkController extends Controller
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'scan') {
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
-                               <td style="display:flex; flex-direction: column;">
+                               <td style=" flex-direction: column;">
                                 <form method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>

@@ -154,11 +154,13 @@
                             @foreach($comments as $cments)
                             <tr >
                                 <td><b>{{$loop->index+1}}</b></td>
-                                <td><b>{{$cments->comment}}</b></td>
+                                <td><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
                                 <td>
                                     @if($cments->replay)
+                                     @php $i=0;@endphp
                                      @foreach($cments->replay as $reply)
-                                      <p><b>{{$reply}}</b></p><hr>
+                                      <p><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p><hr>
+                                      @php $i++; @endphp
                                      @endforeach
                                     @endif
                                 </td>

@@ -36,6 +36,7 @@
                             <th>PDF </th>
                             <th>Rejectd By</th>
                             <th>Date</th> 
+                            <th>Actions</th>
                         </tr>
                     </thead>
                

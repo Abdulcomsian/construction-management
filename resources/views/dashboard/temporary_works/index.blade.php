@@ -889,12 +889,12 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 4px;">
+                                            <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 20px !important;position: relative;top: 4px;">
                                                 <!-- Upload Drawings -->
                                                 <span class="fa fa-plus" title="Upload Drawings"></span>
                                             </p>
                                             <br>
-                                            <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 0px;">
+                                            <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  20px !important;position: relative;top: 0px;">
                                                 <!-- View Drawings -->
                                                 <span class="fa fa-eye" title="View Drawings"></span>
                                             </p>

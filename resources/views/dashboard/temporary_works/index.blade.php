@@ -322,7 +322,7 @@
                                     <div class="col-md-2" style="margin-left: 40px">
                                         <div class="tableInputDiv">
                                             <div class="dropdown">
-                                                <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;font-weight: 600;">view</button>
+                                                <button onclick="myFunction()" class="dropbtn" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 0px;text-transform: uppercase;width:55px !important;margin-bottom: 10px;">view</button>
                                                 <div id="myDropdown" class="dropdown-content">
 
 

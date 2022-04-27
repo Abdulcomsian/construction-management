@@ -127,6 +127,27 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>Permit No</th>
+                                <th>PDF</th>
+                               
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                            <tr >
+                                <td>1</td>
+                                <td> {{$permitload->permit_no}}</td>
+                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">Permit to load for Approval</a></td>
+                               
+                            
+                        </tbody>
+                    </table>
+                    <hr>
                     <form id="desingform" action="{{route('design.permit.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -171,27 +192,8 @@
                             </div>
                         </div>
                     </form>
-                    <hr>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>Permit No</th>
-                                <th>PDF</th>
-                               
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-                            <tr >
-                                <td>1</td>
-                                <td> {{$permitload->permit_no}}</td>
-                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">Permit to load for Approval</a></td>
-                               
-                            
-                        </tbody>
-                    </table>
+                   
+                   
                 </div>
                 <!--end::Card body-->
             </div>

@@ -2,6 +2,9 @@
 
 @section('styles')
 <style>
+    .form-control[readonly] {
+    background-color: #000;
+}
 .list-div ul li, .list-check-div ul li{
 height: 72px;
     overflow: visible;

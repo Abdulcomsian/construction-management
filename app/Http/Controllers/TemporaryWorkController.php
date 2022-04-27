@@ -838,7 +838,7 @@ class TemporaryWorkController extends Controller
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == 'scan') {
                 $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">S-no</th><th>Comment</th><th style="width:68%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th></tr></thead><tbody>';
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">S-no</th><th>Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th></tr></thead><tbody>';
             }
 
             $i = 1;
@@ -903,15 +903,16 @@ class TemporaryWorkController extends Controller
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'scan') {
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
-                               <td>
+                               <td style="display:flex; flex-direction: column;">
                                 <form method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
-                                   <input type="text" class="replay" name="replay" style="float:left"/>
-                                   <input type="file" name="replyfile" style="width:34%;float:right"/>
-                                   <input type="hidden" name="commentid" value="' . $comment->id . '"/>
-                                   <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:2px">submit</button>
+                                   <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left"></textarea>
+                                  
                                </form>
+                               <input style="width: 100%" type="file" name="replyfile" style="width:34%;float:right"/>
+                               <input type="hidden" name="commentid" value="' . $comment->id . '"/>
+                               <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:2px">submit</button>
                                </td>
                                <td>' . $a . '</td>
                                <td>' . $date_comment . '</td>

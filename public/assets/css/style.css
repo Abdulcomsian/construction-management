@@ -264,7 +264,7 @@ input:focus {
 }
 
 .form-control[readonly] {
-    background-color: #f5f8fa !important;
+    background-color: #000 !important;
 }
 
 .active{
@@ -476,7 +476,7 @@ li.select2-selection__choice{
     padding: 3px 20px;
     font-size: 14px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
   }
   
@@ -503,6 +503,7 @@ li.select2-selection__choice{
     height: 300px;
     overflow: scroll;
     padding: 5px;
+    width: 200px;
   }
   
   /* Links inside the dropdown */

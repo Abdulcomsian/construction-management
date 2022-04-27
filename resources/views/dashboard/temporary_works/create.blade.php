@@ -5,6 +5,7 @@
 .list-div ul li, .list-check-div ul li{
 height: 72px;
     overflow: visible;
+    border-radius: 5px;
 }
     .aside-enabled.aside-fixed.header-fixed .header{
         border-bottom: 1px solid #e4e6ef!important;
@@ -51,6 +52,9 @@ height: 72px;
         border-collapse: separate;
         background-color: red;
     }
+    input::placeholder{
+        color: #fff !important
+    }
 
     #kt_toolbar_container h1 {
         font-size: 35px !important;
@@ -91,6 +95,12 @@ height: 72px;
     .inputDiv input {
         width: 50%;
         color: #000;
+    }
+    .hideBtn{
+        display: none !important;
+    }
+    .showBtn{
+        display: block !important
     }
 
     .inputDiv select {
@@ -274,7 +284,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" style="background: #f5f8fa" required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -448,7 +458,7 @@ height: 72px;
                                     </span>
                                             </label>
                                            
-                                        <input type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
+                                        <input style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
                                     </div>
                                     
                                   </div>
@@ -524,7 +534,7 @@ height: 72px;
                                     <input type="text" name="namesign" class="form-control form-control-solid">
                                 </div>
 
-                                 <div class="d-flex inputDiv" id="sign">
+                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
                                     </label>
@@ -533,6 +543,7 @@ height: 72px;
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                   <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
                                 </div>
                                 
                                 <!-- work for approval -->
@@ -541,8 +552,8 @@ height: 72px;
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals')
-
-                        <button id="submitbutton" type="submit" class="btn btn-primary float-end submitbutton" style="margin-right: 35px">Submit</button>
+                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="hideBtn btn btn-primary float-end submitbutton customSubmitButton">Submit</button>
+                        
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -595,6 +606,8 @@ height: 72px;
              $("#pdfsign").val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
              $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required','required');
             $("#clear").hide();
@@ -607,7 +620,8 @@ height: 72px;
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
             $("#clear").show();
-             
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
         }
     })
 

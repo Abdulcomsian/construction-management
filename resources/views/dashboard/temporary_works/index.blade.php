@@ -46,7 +46,7 @@
         margin-top: 20px;
     }
     .mw-750px{
-        max-width: 850px !important;
+        max-width: 1050px !important;
     }
     #kt_content_container{
         background-color: #e9edf1;
@@ -259,7 +259,7 @@ border-radius: 8px;
                     </div>
                     <div class="card-title " style="width: 100%;    display: contents"> 
                         <div class="formDiv">
-                            <div class="form">
+                            <div class="form" style="display: flex; align-items: baseline;">
                                 <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}" >
                                     <div class="col-10" >
                                     <select name="projects[]"  class="form-select form-select-lg" multiple="multiple"data-control="select2" data-placeholder="Select a Project" >
@@ -272,6 +272,179 @@ border-radius: 8px;
                                         <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
                                     </div>
                                 </form>
+                                <div class="col-md-3" style="margin-left: 20px">
+                             <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
+                                <div class="row">
+                                      <div class="form-group  col-md-9">
+                                        <input type="text" style="    padding: 0px 10px;" class="form-control" name="terms"  required="required" />
+                                      </div>
+                                      <div class="col-md-2 text-center">
+                                        <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                                <div class="col-md-2" style="margin-left: 40px">
+                            <div class="tableInputDiv">
+                                <div class="dropdown">
+                                    <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;">view</button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                       
+                                         
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" id="col_1" checked>
+                                            <span >DESIGN BRIEF</span>
+                                        </div>
+                                        @if(\Auth::user()->hasRole('admin'))
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_2">
+                                            <span>COMPANY</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_3">
+                                            <span>PROJECT NAME</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_4">
+                                            <span>DESCRIPTION OF TWS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_5">
+                                            <span>CAT CHECK</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_6">
+                                            <span>RISK CLASS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_7">
+                                            <span>ISSUE DATE</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_8">
+                                            <span>REQUIRED DATE</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_9">
+                                            <span>COMMENTS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_10">
+                                            <span>TW DESIGNER</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_11">
+                                            <span>DATE DESIGN</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_12">
+                                            <span>DATE DCC</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_13">
+                                            <span>DRAWINGS AND DESIGNS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_14">
+                                            <span>DESIGN CHECK CERT</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_15">
+                                            <span>PERMIT TO LOAD</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_16">
+                                            <span>PERMIT TO UNLOAD</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_17">
+                                            <span>RAMS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_18">
+                                            <span>QRCODE</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_19">
+                                            <span>ACTIONS</span>
+                                        </div>
+                                        @else
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_2">
+                                            <span>PROJECT NAME</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_3">
+                                            <span>DESCRIPTION OF TWS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_4">
+                                            <span>CAT CHECK</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_5">
+                                            <span>RISK CLASS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_6">
+                                            <span>ISSUE DATE</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_7">
+                                            <span>REQUIRED DATE</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_8">
+                                            <span>COMMENTS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_9">
+                                            <span>TW DESIGNER</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_10">
+                                            <span>DATE DESIGN</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_11">
+                                            <span>DATE DCC</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_12">
+                                            <span>DRAWINGS AND DESIGNS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_13">
+                                            <span>DESIGN CHECK CERT</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_14">
+                                            <span>PERMIT TO LOAD</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_15">
+                                            <span>PERMIT TO UNLOAD</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_16">
+                                            <span>RAMS</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_17">
+                                            <span>QRCODE</span>
+                                        </div>
+                                        <div class="inputSpan">
+                                            <input type="checkbox" class="hidecol" checked id="col_18">
+                                            <span>ACTIONS</span>
+                                        </div>
+                                        @endif
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
                             </div>
                             <div class="button desktopView">
                                 <a style="color:#fff !important; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
@@ -283,7 +456,9 @@ border-radius: 8px;
                             <div class="menuBtn">
                                 <span class="fa fa-bars"></span>
                             </div>
+                            
                         </div>
+                        
                         <div class="mobileView text-center">
                             <a style="color:#fff !important; display:inline-block; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
                             <a style=" color:#fff !important;   display:inline-block; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
@@ -292,7 +467,7 @@ border-radius: 8px;
                             
                             <div class="tableInputDiv">
                                 <div class="dropdown">
-                                    <button onclick="myFunctionMobile()" class="dropbtn" style="text-transform:uppercase;">unselect column view</button>
+                                    <button onclick="myFunctionMobile()" class="dropbtn" style="text-transform:uppercase;">view</button>
                                     <div id="myDropdownMobile" class="dropdown-content">
                                        
                                          
@@ -513,180 +688,8 @@ border-radius: 8px;
                             <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add" >New Design Brief</a>
                             
                         </div>
-                        <div class="col-md-2">
-                            <div class="tableInputDiv">
-                                <div class="dropdown">
-                                    <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;">unselect column view</button>
-                                    <div id="myDropdown" class="dropdown-content">
-                                       
-                                         
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" id="col_1" checked>
-                                            <span >DESIGN BRIEF</span>
-                                        </div>
-                                        @if(\Auth::user()->hasRole('admin'))
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_2">
-                                            <span>COMPANY</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_3">
-                                            <span>PROJECT NAME</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_4">
-                                            <span>DESCRIPTION OF TWS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_5">
-                                            <span>CAT CHECK</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_6">
-                                            <span>RISK CLASS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_7">
-                                            <span>ISSUE DATE</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_8">
-                                            <span>REQUIRED DATE</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_9">
-                                            <span>COMMENTS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_10">
-                                            <span>TW DESIGNER</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_11">
-                                            <span>DATE DESIGN</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_12">
-                                            <span>DATE DCC</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_13">
-                                            <span>DRAWINGS AND DESIGNS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_14">
-                                            <span>DESIGN CHECK CERT</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_15">
-                                            <span>PERMIT TO LOAD</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_16">
-                                            <span>PERMIT TO UNLOAD</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_17">
-                                            <span>RAMS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_18">
-                                            <span>QRCODE</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_19">
-                                            <span>ACTIONS</span>
-                                        </div>
-                                        @else
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_2">
-                                            <span>PROJECT NAME</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_3">
-                                            <span>DESCRIPTION OF TWS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_4">
-                                            <span>CAT CHECK</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_5">
-                                            <span>RISK CLASS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_6">
-                                            <span>ISSUE DATE</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_7">
-                                            <span>REQUIRED DATE</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_8">
-                                            <span>COMMENTS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_9">
-                                            <span>TW DESIGNER</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_10">
-                                            <span>DATE DESIGN</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_11">
-                                            <span>DATE DCC</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_12">
-                                            <span>DRAWINGS AND DESIGNS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_13">
-                                            <span>DESIGN CHECK CERT</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_14">
-                                            <span>PERMIT TO LOAD</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_15">
-                                            <span>PERMIT TO UNLOAD</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_16">
-                                            <span>RAMS</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_17">
-                                            <span>QRCODE</span>
-                                        </div>
-                                        <div class="inputSpan">
-                                            <input type="checkbox" class="hidecol" checked id="col_18">
-                                            <span>ACTIONS</span>
-                                        </div>
-                                        @endif
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 offset-md-6">
-                             <form class="form-inline" method="get" action="{{route('tempwork.search')}}" >
-                                <div class="row">
-                                      <div class="form-group  col-md-12">
-                                      </div>
-                                      <div class="form-group  col-md-9">
-                                        <label  class="text-white">Search</label>
-                                        <input type="text" style="    padding: 0px 10px;" class="form-control" name="terms" placeholder="Search Description of TWS" required="required" />
-                                      </div>
-                                      <div class="col-md-2 mt-6 text-center">
-                                        <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        
+                        
                     </div>
                     <!--begin::Table-->
                     <div class="table-responsive tableDiv" style="height: 1000px;">
@@ -764,7 +767,9 @@ border-radius: 8px;
                                     <td style="min-width:100px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
                                         <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
-                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span><br> Comment</p>
+                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}">
+                                        <!-- <span class="fa fa-plus"></span> -->
+                                        <br> Comment</p>
                                         @php 
                                          $color="green";
                                          if(count($item->comments)>0)
@@ -780,7 +785,10 @@ border-radius: 8px;
                                         @endphp
                                         <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background:{{$color}};color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
-                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4"><span class="fa fa-plus"></span><br> Emails</h3>
+                                       <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
+                                       
+                                       <!-- <span class="fa fa-plus"></span> -->
+                                       <br> Emails</h3>
                                       
                                         @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
@@ -843,9 +851,15 @@ border-radius: 8px;
                                         @endforeach
                                     </td>
                                     <td>
-                                        <p  class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 4px;">Upload Drawings</p>
+                                        <p  class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 4px;">
+                                        <!-- Upload Drawings -->
+                                        <span class="fa fa-plus" title="Upload Drawings"></span>    
+                                    </p>
                                         <br>
-                                        <p  class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 0px;">View Drawings</p>
+                                        <p  class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 0px;">
+                                        <!-- View Drawings -->
+                                        <span class="fa fa-eye" title="View Drawings"></span> 
+                                    </p>
                                         <!-- @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -866,7 +880,7 @@ border-radius: 8px;
 
                                     </td>
                                     <td>
-                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                        <p class="cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                          @php 
                                          $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
@@ -890,7 +904,7 @@ border-radius: 8px;
                                          @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                          <span class="text-danger">DNL</span>
                                          @endif
-                                        <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
+                                        <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
                                         <button style="padding: 3px !important;border-radius: 4px; font-size: 12px;" class="btn btn-primary">Closed</button>
                                         @endif
@@ -1127,8 +1141,29 @@ border-radius: 8px;
     
 </script>
 
+
 <script type="text/javascript">
+    
     $(".permit-to-load").on('click',function(){
+         id=$(this).attr('data-id');
+         desc=$(this).attr('data-desc');
+            $.ajax({
+            url:"{{route('permit.get')}}",
+            method:"get",
+            data:{id:id,desc:desc},
+            success:function(res)
+            {
+               $("#permitheading").html('Permit To Load');
+               $("#permitloadbutton").addClass('d-flex').show();
+               $("#permitbody").html(res);
+               $(".temp_work_id").val(id);
+                $("#permit_modal_id").css('display','block');
+               $("#permit_modal_id").modal('show');
+            }
+          });
+         
+    })
+    $(".permit-to-load-btn").on('click',function(){
          id=$(this).attr('data-id');
          desc=$(this).attr('data-desc');
             $.ajax({

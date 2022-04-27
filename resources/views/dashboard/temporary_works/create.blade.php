@@ -591,6 +591,7 @@ height: 72px;
             data:{id:project[0].id,compayid:project[0].company.id},
             success:function(res)
             {
+                $(".form-select.form-select-solid").css("background-color", "#eee ");
                if(res !='')
                {
                  $("#twc_email").val(res);

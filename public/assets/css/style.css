@@ -264,7 +264,7 @@ input:focus {
 }
 
 .form-control[readonly] {
-    /* background-color: #000 !important; */
+    background-color: #000;
 }
 
 .active{

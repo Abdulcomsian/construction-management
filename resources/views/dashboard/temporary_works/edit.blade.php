@@ -484,7 +484,7 @@ height: 72px;
                                     </label>
                                     <input type="text" name="namesign" class="form-control form-control-solid">
                                 </div>
-                                 <div class="d-flex inputDiv" id="sign">
+                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;"> 
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
                                     </label>
@@ -493,6 +493,7 @@ height: 72px;
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                     <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                    <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button>
                                 </div>
                                 <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
 
@@ -505,7 +506,7 @@ height: 72px;
                           <br>
                         @include('dashboard.modals.design-relief-modals-edit')
 
-                        <button id="submitbutton" type="submit" class="btn btn-primary float-end">Update</button>
+                        
                     </form>
                 </div>
                 <!--end::Card body-->

@@ -123,7 +123,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Permit Load Approval</h2>
+                        <h2 style="display: inline-block;">Permit Load Acceptance</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -148,18 +148,18 @@
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv requiredDiv">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Accept:</span>
+                                                <!-- <span class="required">Accept:</span> -->
 
                                             </label>
                                             <!--begin::Radio group-->
                                             <div class="nav-group nav-group-fluid">
                                                 <label>
                                                     <input type="radio" datacheck1='yes' class="btn-check" name="status" value="1" checked />
-                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Accept</span>
                                                 </label>
                                                 <label>
                                                     <input type="radio" datacheck1='no' class="btn-check" name="status" value="5" />
-                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Reject</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -187,7 +187,7 @@
                             <tr >
                                 <td>1</td>
                                 <td> {{$permitload->permit_no}}</td>
-                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">PDF</a></td>
+                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">Permit to load for Approval</a></td>
                                
                             
                         </tbody>

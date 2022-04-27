@@ -306,11 +306,18 @@ input:focus {
   }
   .header .header-menu .menu>.menu-item a{
     color: #07d564 !important;
+}canvas{
+    width: 58% !important;
+}
+#submitbutton{
+    position: relative;
+    right: 10px;
 }
 .formDiv{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .formDiv .newDesignBtn{
     margin-left: 0px !important;

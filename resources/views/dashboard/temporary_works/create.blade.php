@@ -543,7 +543,7 @@ height: 72px;
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                   <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
+                                   <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button> -->
                                 </div>
                                 
                                 <!-- work for approval -->
@@ -552,7 +552,7 @@ height: 72px;
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals')
-                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="hideBtn btn btn-primary float-end submitbutton customSubmitButton">Submit</button>
+                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
                         
                     </form>
                 </div>

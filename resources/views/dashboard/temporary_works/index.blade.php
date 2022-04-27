@@ -32,7 +32,7 @@
     .newDesignBtn {
         border-radius: 8px;
         background-color: #07d564;
-        width: 150px;
+        width: 170px;
         padding: 10px 15px;
         color: #000;
         margin: 0px 29px;

@@ -493,7 +493,7 @@ height: 72px;
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                     <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                    <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button>
+                                   
                                 </div>
                                 <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
 
@@ -505,7 +505,7 @@ height: 72px;
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals-edit')
-
+                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button>
                         
                     </form>
                 </div>

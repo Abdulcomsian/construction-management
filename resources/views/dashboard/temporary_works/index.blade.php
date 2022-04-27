@@ -1541,12 +1541,7 @@
 
     $(document).on('click', '.scancomment', function() {
         var temporary_work_id = $(this).attr('data-id');
-        var userid = {
-            {
-                \
-                Auth::user() - > id
-            }
-        }
+        var userid = {{Auth::user()->id}}
         $("#commenttable").html('');
         $.ajax({
             url: "{{route('temporarywork.get-comments')}}",

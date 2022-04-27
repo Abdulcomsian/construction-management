@@ -592,7 +592,7 @@ height: 72px;
             success:function(res)
             {
                 $(".form-select.form-select-solid").css("background-color", "#eee ");
-                $(".form-control[readonly]").css("background-color", "#eee ");
+                $(".form-control[readonly]").css("background-color", "#eee !important");
                 
                if(res !='')
                {

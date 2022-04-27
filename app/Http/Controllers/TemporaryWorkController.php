@@ -1138,7 +1138,7 @@ class TemporaryWorkController extends Controller
                 } elseif ($permit->status == 2) {
                     $status = "Pending";
                 } elseif ($permit->status == 5) {
-                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='border-radius:8px' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
+                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i class='fa fa-edit'></i></a>";
                 }
                 $path = config('app.url');
                 if (isset($request->scanuser)) {

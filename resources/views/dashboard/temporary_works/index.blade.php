@@ -940,7 +940,7 @@
                                                     @endif
                                                     <br><br>
                                                     @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                                    <span class="text-danger" style="height: 20px;line-height: 0px;">DNL</span>
+                                                    <span class="text-danger" style="">DNL</span>
                                                     @endif
                                                     <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                                     @else

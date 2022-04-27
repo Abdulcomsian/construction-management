@@ -369,6 +369,7 @@ class TemporaryWorkController extends Controller
                         'temporary_work_id'=>$temporary_work->id,
                         'acceptance_date'=>date('Y-m-d H:i:s'),
                         'pdf_url'=> $filename,
+                        'email'=> Auth::user()->email,
                     ]);
                 }
                 //send mail to admin
@@ -594,6 +595,7 @@ class TemporaryWorkController extends Controller
                         'temporary_work_id'=>$temporaryWork->id,
                         'acceptance_date'=>date('Y-m-d H:i:s'),
                         'pdf_url'=> $filename,
+                         'email'=> Auth::user()->email,
                     ]);
                 }
                 //send mail to admin
@@ -720,7 +722,7 @@ class TemporaryWorkController extends Controller
         try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
-            $data = TemporaryWorkComment::select('replay', 'reply_image')->find($commentid);
+            $data = TemporaryWorkComment::select('replay', 'reply_image','reply_date')->find($commentid);
             $array = [];
             $reply_date = [];
             if (is_array($data->replay)) {
@@ -732,10 +734,10 @@ class TemporaryWorkController extends Controller
 
             if (is_array($data->reply_date)) {
                 foreach ($data->reply_date as $dt) {
-                    $reply_date = $dt;
+                    $reply_date[] = $dt;
                 }
             }
-            $reply_date[] = date('Y-m-d');
+            $reply_date[] = date('Y-m-d H:i:s');
 
             $arrayimage = [];
             if (is_array($data->reply_image)) {

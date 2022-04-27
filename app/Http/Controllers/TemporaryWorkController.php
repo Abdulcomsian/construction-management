@@ -241,7 +241,7 @@ class TemporaryWorkController extends Controller
     public function store(Request $request)
     {
         Validations::storeTemporaryWork($request);
-        // try {
+        try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -415,11 +415,11 @@ class TemporaryWorkController extends Controller
             }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
-        // } catch (\Exception $exception) {
-        //     dd($exception->getMessage());
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
     public function show(TemporaryWork $temporaryWork)
     {

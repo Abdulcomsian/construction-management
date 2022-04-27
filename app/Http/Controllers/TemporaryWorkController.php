@@ -912,9 +912,9 @@ class TemporaryWorkController extends Controller
                                    <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left"></textarea>
                                   
                                </form>
-                               <input style="width:34%;margin-top:20px;float:right" type="file" name="replyfile" />
+                               <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
                                <input type="hidden" name="commentid" value="' . $comment->id . '"/>
-                               <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:left;">submit</button>
+                               <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
                                </td>
                                <td>' . $a . '</td>
                                <td>' . $date_comment . '</td>

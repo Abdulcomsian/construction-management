@@ -322,7 +322,7 @@
                                     <div class="col-md-2" style="margin-left: 40px">
                                         <div class="tableInputDiv">
                                             <div class="dropdown">
-                                                <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;">view</button>
+                                                <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;font-weight: 600;">view</button>
                                                 <div id="myDropdown" class="dropdown-content">
 
 
@@ -485,7 +485,7 @@
                                     <a style="color:#fff !important; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
                                     <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
                                     <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
-                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
+                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;width: 170px;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
                                     <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;width:35px !important;" id="crossdoc" class="showonclick newDesignBtn btn  project_details">x</a>
                                 </div>
                                 <div class="menuBtn">

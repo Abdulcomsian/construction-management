@@ -1167,9 +1167,9 @@ class TemporaryWorkController extends Controller
                 if ($permit->status == 1) {
                     $status = "Open";
                     if ($request->type == "unload") {
-                        $button = '<a class="confirm unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."><span class="fa fa-plus-square"></span> Unload</a>';
+                        $button = '<a  style="    height: 50px;line-height: 15px;" class="confirm unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."><span class="fa fa-plus-square"></span> Unload</a>';
                     } else {
-                        $button = '<a class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
+                        $button = '<a  style="    height: 50px;line-height: 15px;" class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }
                     if ($diff_in_days > 7) {
                         $class = "background:gray";
@@ -1186,8 +1186,8 @@ class TemporaryWorkController extends Controller
                 }
                 if (isset($request->shared)) {
                     $button = '';
-                }
-                $list .= '<tr style="' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                } 
+                $list .= '<tr style="height: 50px;line-height: 15px;' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;

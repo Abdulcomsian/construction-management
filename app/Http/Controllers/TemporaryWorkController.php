@@ -838,9 +838,9 @@ class TemporaryWorkController extends Controller
         }
         if (count($commetns) > 0) {
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == 'scan') {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">S-no</th><th>Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">S-no</th><th>Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th></tr></thead><tbody>';
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th></tr></thead><tbody>';
             }
 
             $i = 1;

@@ -69,7 +69,7 @@ height: 72px;
         color: #000;
     }
     .form-control[readonly]{
-        background-color: #f5f8fa !important;
+        background-color: #000 !important;
     }
 
     #kt_toolbar_container h1 {
@@ -781,6 +781,12 @@ height: 72px;
                 $(this).addClass("whiteBack")
             }
         });
+
+        $("#projects").change(function(){
+            $("#projects .select2-selection").removeClass("blackBack")
+            $(this).removeClass("blackBack")
+            $(".form-control[readonly]").css("background-color","#f5f8fa !important")
+        })
     });
 </script>
 

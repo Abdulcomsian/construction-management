@@ -3,7 +3,7 @@
 @section('styles')
 <style>
     .form-control[readonly] {
-    background-color: #000 !important;
+    background-color: #000;
 }
 .list-div ul li, .list-check-div ul li{
 height: 72px;
@@ -69,7 +69,7 @@ height: 72px;
         color: #000;
     }
     .form-control[readonly]{
-        background-color: #000 !important;
+        background-color: #000;
     }
 
     #kt_toolbar_container h1 {
@@ -155,6 +155,10 @@ height: 72px;
             background-color: #f5f8fa !important;
             color: #000 !important;
         }
+        .form-select.form-select-solid{
+            background-color: #000;
+            color: #fff;
+        }
      .form-control.form-control-solid{width:250px;}
      @media only screen and (min-width: 470px) {
         .list_top{display:inline !important;}
@@ -228,7 +232,7 @@ height: 72px;
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Select Project:</span>
                                     </label>
-                                    <select name="project_id" id="projects" class="blackBack form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
+                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
                                         <option value="">Select Option</option>
                                         @forelse($projects as $item)
                                         <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
@@ -781,11 +785,20 @@ height: 72px;
                 $(this).addClass("whiteBack")
             }
         });
+        $("#design_requirement_text").on("change paste keyup cut select", function() {
+            if($(this).val() !== "") {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+            }
+        });
 
         $("#projects").change(function(){
-            $("#projects .select2-selection").removeClass("blackBack")
+            console.log("hell")
             $(this).removeClass("blackBack")
-            $(".form-control[readonly]").css("background-color","#f5f8fa !important")
+            $("#projects span.form-select").removeClass("blackBack")
+            $(".form-control[readonly]").removeClass("blackBack")
+            $(".form-select.form-select-solid").css("background-color","#f5f8fa")
+            $("#companyadmin").removeClass("blackBack")
         })
     });
 </script>

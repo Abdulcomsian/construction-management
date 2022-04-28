@@ -49,7 +49,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign')->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
@@ -58,7 +58,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('created_by', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign')->whereIn('created_by', $ids)->latest()->paginate(20);
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
@@ -66,7 +66,7 @@ class TemporaryWorkController extends Controller
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
                 }
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereHas('project', function ($q) use ($ids) {
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('project_id', $ids);
                 })->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
@@ -93,7 +93,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
                 $projects = Project::whereIn('id', $projects_id)->get();
             } elseif ($user->hasRole('company')) {
@@ -108,7 +108,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
                 $projects = Project::whereIn('id', $projects_id)->get();
             } else {
@@ -119,7 +119,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold','rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign')->whereIn('id', $ids)->latest()->paginate(20);
 
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
                 $projects = Project::whereIn('id', $projects_id)->get();
@@ -340,7 +340,7 @@ class TemporaryWorkController extends Controller
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
-                
+
                 //work for upload images here
                 $image_links = [];
                 if ($request->file('images')) {
@@ -364,13 +364,12 @@ class TemporaryWorkController extends Controller
                 $model = TemporaryWork::find($temporary_work->id);
                 $model->ped_url = $filename;
                 $model->save();
-                if(isset($request->approval))
-                {
+                if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
-                        'temporary_work_id'=>$temporary_work->id,
-                        'acceptance_date'=>date('Y-m-d H:i:s'),
-                        'pdf_url'=> $filename,
-                        'email'=> Auth::user()->email,
+                        'temporary_work_id' => $temporary_work->id,
+                        'acceptance_date' => date('Y-m-d H:i:s'),
+                        'pdf_url' => $filename,
+                        'email' => Auth::user()->email,
                     ]);
                 }
                 //send mail to admin
@@ -590,13 +589,12 @@ class TemporaryWorkController extends Controller
                 $model = TemporaryWork::find($temporaryWork->id);
                 $model->ped_url = $filename;
                 $model->save();
-                if(isset($request->approval))
-                {
+                if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
-                        'temporary_work_id'=>$temporaryWork->id,
-                        'acceptance_date'=>date('Y-m-d H:i:s'),
-                        'pdf_url'=> $filename,
-                         'email'=> Auth::user()->email,
+                        'temporary_work_id' => $temporaryWork->id,
+                        'acceptance_date' => date('Y-m-d H:i:s'),
+                        'pdf_url' => $filename,
+                        'email' => Auth::user()->email,
                     ]);
                 }
                 //send mail to admin
@@ -697,8 +695,8 @@ class TemporaryWorkController extends Controller
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
             $model->user_id = auth()->user()->id ?? NULL;
-            $model->sender_email=$request->mail ?? NULL;
-            $model->status=$request->status ?? '0';
+            $model->sender_email = $request->mail ?? NULL;
+            $model->status = $request->status ?? '0';
             if ($request->file('image')) {
                 $filePath = HelperFunctions::temporaryworkcommentPath();
                 $file = $request->file('image');
@@ -725,7 +723,7 @@ class TemporaryWorkController extends Controller
         try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
-            $data = TemporaryWorkComment::select('replay', 'reply_image','reply_date','sender_email')->find($commentid);
+            $data = TemporaryWorkComment::select('replay', 'reply_image', 'reply_date', 'sender_email')->find($commentid);
             $array = [];
             $reply_date = [];
             if (is_array($data->replay)) {
@@ -756,14 +754,18 @@ class TemporaryWorkController extends Controller
             } else {
                 $arrayimage[] = null;
             }
+            $scan = '';
+            if (isset($request->scan)) {
+                $scan = 'scan';
+            }
             $res = TemporaryWorkComment::find($commentid)->update([
                 'replay' => $array,
                 'reply_image' => $arrayimage,
                 'reply_date' => $reply_date,
-                'reply_email'=>Auth::user()->email,
+                'reply_email' => Auth::user()->email,
             ]);
             if ($res) {
-                    Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid,$data->sender_email));
+                Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
             } else {
@@ -844,7 +846,9 @@ class TemporaryWorkController extends Controller
                 $colour = 'white';
                 $a = '';
                 $status = '';
+                $input = '';
                 if (isset($request->type) && $request->type == 'scan') {
+                    $input = '<input type="hidden" name="scan" value="scan" />';
                     if ($comment->user_id) {
                         $colour = "#6A5ACD";
                     } else {
@@ -880,7 +884,7 @@ class TemporaryWorkController extends Controller
                             if (isset($comment->reply_date[$j])) {
                                 $date = date("d-m-Y", strtotime($comment->reply_date[$j]));
                             }
-                            $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>'.$comment->reply_email.'<br>'. $image .'<br>'.$date. '</td><td></td><td>' . $date . '</td></tr><br>';
+                            $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' . $date . '</td></tr><br>';
                             $k++;
                         }
                     }
@@ -889,7 +893,7 @@ class TemporaryWorkController extends Controller
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
                 if ($request->type != "permit" && $request->type != 'pc') {
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td>'.$comment->sender_email.'<br>'. $comment->comment .'<br>'.date('H:i d-m-Y',strtotime($comment->created_at)). '</td>
+                               <td>' . $i . '</td><td>' . $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
                                <td style=" flex-direction: column;">
                                 <form method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
@@ -898,6 +902,7 @@ class TemporaryWorkController extends Controller
                                     <div class="submmitBtnDiv">
                                         <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
                                         <input type="hidden" name="commentid" value="' . $comment->id . '"/>
+                                        ' . $input . '
                                         <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
                                     </div>
 
@@ -1173,7 +1178,7 @@ class TemporaryWorkController extends Controller
                 }
                 if (isset($request->shared)) {
                     $button = '';
-                } 
+                }
                 $list .= '<tr style="height: 50px;line-height: 15px;' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }

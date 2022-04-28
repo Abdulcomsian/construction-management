@@ -38,6 +38,8 @@
                                                                     <p>
                                                                         @if($type=='question')
                                                                         <a href="{{url('temporary_works')}}">View Question</a>
+                                                                        @elseif($scan=='scan')
+
                                                                         @else
                                                                         <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">View Reply</a>
                                                                         @endif

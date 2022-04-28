@@ -23,7 +23,6 @@ class CommentsNotification extends Notification
     private $email;
     private $title;
     private $twc_id_no;
-    private $email;
     public function __construct($comment,$type,$tempid,$mail=null)
     {
         $this->comment=$comment;

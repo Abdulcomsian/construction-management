@@ -264,15 +264,16 @@ input:focus {
 }
 
 .form-control[readonly] {
-    background-color: #000;
+    background-color: #f5f8fa;
+
 }
 
 .active{
     background-color: #07d564 !important;
 }
-#design_requirement_text{background:#000;color:#fff}
+#design_requirement_text{background:#f5f8fa;color:#000 !important;}
 #design_requirement_text::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #fff;
+    color: #000;
     opacity: 1; /* Firefox */
   }
   
@@ -306,11 +307,18 @@ input:focus {
   }
   .header .header-menu .menu>.menu-item a{
     color: #07d564 !important;
+}canvas{
+    width: 58% !important;
+}
+#submitbutton{
+    position: relative;
+    right: 10px;
 }
 .formDiv{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .formDiv .newDesignBtn{
     margin-left: 0px !important;
@@ -527,6 +535,16 @@ li.select2-selection__choice{
   #commenttable td form{
       display: flex;
       align-items: center;
+      flex-direction: column;
+  }
+  .submmitBtnDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .submmitBtnDiv input,
+  .submmitBtnDiv button{
+      margin: 10px 0px !important;
   }
   #commenttable td{
       vertical-align: middle;

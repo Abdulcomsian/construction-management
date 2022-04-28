@@ -32,7 +32,7 @@
     .newDesignBtn {
         border-radius: 8px;
         background-color: #07d564;
-        width: 150px;
+        width: 170px;
         padding: 10px 15px;
         color: #000;
         margin: 0px 29px;
@@ -891,12 +891,12 @@
                                         <td>
                                             <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
                                                 <!-- Upload Drawings -->
-                                                <span class="fa fa-plus" title="Upload Drawings"></span>
+                                                <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                             </p>
                                             <br>
                                             <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                                 <!-- View Drawings -->
-                                                <span class="fa fa-eye" title="View Drawings"></span>
+                                                <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
                                             </p>
                                             <!-- @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)

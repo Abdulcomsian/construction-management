@@ -3,7 +3,7 @@
 @section('styles')
 <style>
     .form-control[readonly] {
-    background-color: #000 !important;
+    background-color: #000;
 }
 .list-div ul li, .list-check-div ul li{
 height: 72px;
@@ -55,8 +55,21 @@ height: 72px;
         border-collapse: separate;
         background-color: red;
     }
-    input::placeholder{
-        color: #fff !important
+    .blackBack{
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    .whiteBack{
+        background-color: #f5f8fa !important;
+        color: #000 !important;
+    }
+    select:focus,input:focus,
+    .form-select.form-select-solid:focus{
+        background-color: #f5f8fa;
+        color: #000;
+    }
+    .form-control[readonly]{
+        background-color: #000;
     }
 
     #kt_toolbar_container h1 {
@@ -138,7 +151,15 @@ height: 72px;
         .modalDiv{
             width:100% ;
         }
-     .form-control.form-control-solid{width:250px;background-color:#000;}
+        .whiteBack{
+            background-color: #f5f8fa !important;
+            color: #000 !important;
+        }
+        .form-select.form-select-solid{
+            background-color: #000;
+            color: #fff;
+        }
+     .form-control.form-control-solid{width:250px;}
      @media only screen and (min-width: 470px) {
         .list_top{display:inline !important;}
      }
@@ -225,7 +246,7 @@ height: 72px;
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -234,7 +255,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -242,7 +263,7 @@ height: 72px;
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}"  required>
+                                    <input readonly type="date" value="{{ date('Y-m-d') }}" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -251,7 +272,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color:#a9abb7;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                        <input  style=" cursor: pointer;color:#a9abb7;" type="date" class="blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -261,7 +282,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -269,7 +290,7 @@ height: 72px;
                                         <span class="required">Designer Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -278,7 +299,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
+                                    <input type="email" class="blackBack form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -287,7 +308,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -296,7 +317,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email',\Auth::user()->email)}}" style="background: #f5f8fa"  required  readonly>
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email',\Auth::user()->email)}}" style="background: #f5f8fa"  required  readonly>
                                 </div>
                                 <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
@@ -304,7 +325,7 @@ height: 72px;
                                         <span class="required">Design Checker Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  autocomplete="off">
+                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  autocomplete="off">
                                 </div>
                                  <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
@@ -312,7 +333,7 @@ height: 72px;
                                         <span class="required">Design Checker Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
+                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
                                 </div>
                                  <!-- <div class="inputDiv d-none desinger_company_name2">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -405,7 +426,7 @@ height: 72px;
                                         <span>Approval:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
+                                     <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px" class="blackBack">
                                      <span style="padding-left:3px;color:#000">Select if approval is required.</span>
                                 </div>
                                 <div class="d-none inputDiv pc-twc">
@@ -414,7 +435,7 @@ height: 72px;
                                         <span>PC TWC Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc_twc_email')}}">
+                                     <input  type="email" class="blackBack form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc_twc_email')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -426,7 +447,7 @@ height: 72px;
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" style="width: 50%;"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
                                 
@@ -437,7 +458,7 @@ height: 72px;
                                              <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
-                                            <textarea class="form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv d-block">
@@ -446,7 +467,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
+                                            <textarea class="blackBack form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     
@@ -461,7 +482,7 @@ height: 72px;
                                     </span>
                                             </label>
                                            
-                                        <input style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
+                                        <input id="attachment" class="blackBack" style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
                                     </div>
                                     
                                   </div>
@@ -472,7 +493,7 @@ height: 72px;
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -480,7 +501,7 @@ height: 72px;
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Job title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -488,7 +509,7 @@ height: 72px;
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
+                                     <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
                                      <input type="hidden" id="company_id"  name="company_id"  >
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -497,7 +518,7 @@ height: 72px;
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
+                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="blackBack form-control form-control-solid">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -505,7 +526,7 @@ height: 72px;
                                         <span>Photo:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
+                                    <input  type="file" class="blackBack form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -561,7 +582,7 @@ height: 72px;
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals')
-                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="hideBtn btn btn-primary float-end submitbutton customSubmitButton">Submit</button>
+                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
                         
                     </form>
                 </div>
@@ -750,6 +771,45 @@ height: 72px;
         $("#hazard_modal_id").modal('show');
     })
             
+
+    $(function() {
+        $("input").on("change paste keyup cut select", function() {
+            if($(this).val() !== "") {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+            }
+        });
+        $("textarea").on("change paste keyup cut select", function() {
+            if($(this).val() !== "") {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+            }
+        });
+        $("#design_requirement_text").on("click", function() {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+    
+        });
+        $("#scopofdesign").on("click", function() {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+    
+        });
+        $("#attachment").on("click", function() {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+    
+        });
+
+        $("#projects").change(function(){
+            console.log("hell")
+            $(this).removeClass("blackBack")
+            $("#projects span.form-select").removeClass("blackBack")
+            $(".form-control[readonly]").removeClass("blackBack")
+            $(".form-select.form-select-solid").css("background-color","#f5f8fa")
+            $("#companyadmin").removeClass("blackBack")
+        })
+    });
 </script>
 
     

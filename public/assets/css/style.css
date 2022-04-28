@@ -264,15 +264,15 @@ input:focus {
 }
 
 .form-control[readonly] {
-    background-color: #000 !important;
+    background-color: #f5f8fa;
 }
 
 .active{
     background-color: #07d564 !important;
 }
-#design_requirement_text{background:#000;color:#fff}
+#design_requirement_text{background:#f5f8fa;color:#000 !important;}
 #design_requirement_text::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #fff;
+    color: #000;
     opacity: 1; /* Firefox */
   }
   

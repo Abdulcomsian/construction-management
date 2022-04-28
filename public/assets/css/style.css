@@ -544,7 +544,7 @@ li.select2-selection__choice{
   }
   .submmitBtnDiv input,
   .submmitBtnDiv button{
-      margin: 0px;
+      margin: 10px 0px !important;
   }
   #commenttable td{
       vertical-align: middle;

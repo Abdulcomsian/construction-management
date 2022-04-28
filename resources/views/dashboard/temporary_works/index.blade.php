@@ -922,20 +922,20 @@
                                             <br>
                                             @if(count($item->scancomment)>0)
                                             @php 
-                                            $color='#50cd89';
+                                            
                                             $n=count($item->scancomment);
                                              if($item->scancomment[0]->status==2)
                                              {
-                                                $color="red";
+                                                $scolor="red";
                                              }elseif($item->scancomment[$n-1]->status==1)
                                              {
-                                                $color="#FFA500";
+                                                $scolor="#FFA500";
                                              }elseif($item->scancomment[0]->status==0)
                                              {
-                                                $color="green";
+                                                $scolor="green";
                                              }
                                             @endphp
-                                            <button style="padding: 3px !important;border-radius: 4px;background:{{$color}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
+                                            <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                             </button>
                                             <br><br>
                                             @endif

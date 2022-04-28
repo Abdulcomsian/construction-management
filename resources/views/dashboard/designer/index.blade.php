@@ -130,6 +130,7 @@
                     <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post" enctype="multipart/form-data">
                         @csrf
                          <input type="hidden" name="temp_work_id" value="{{$id}}">
+                          <input type="hidden" name="mail" value="{{$mail}}">
                           <div class="form-group mx-sm-3 mb-2 d-flex">
                               <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                <span >Any question or further requirement for the temporary works coordinator before design ? Type and submit:</span>

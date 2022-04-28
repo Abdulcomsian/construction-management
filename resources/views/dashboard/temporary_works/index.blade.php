@@ -919,6 +919,26 @@
                                         </td>
                                         <td>
                                             <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                            <br>
+                                            @if(count($item->scancomment)>0)
+                                            @php 
+                                            $color='#50cd89';
+                                            $n=count($item->scancomment);
+                                             if($item->scancomment[0]->status==2)
+                                             {
+                                                $color="red";
+                                             }elseif($item->scancomment[$n-1]->status==1)
+                                             {
+                                                $color="#FFA500";
+                                             }elseif($item->scancomment[0]->status==0)
+                                             {
+                                                $color="green";
+                                             }
+                                            @endphp
+                                            <button style="padding: 3px !important;border-radius: 4px;background:{{$color}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
+                                            </button>
+                                            <br><br>
+                                            @endif
                                             @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                             @php
                                             $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
@@ -933,11 +953,7 @@
 
 
                                                     @endphp
-                                                    <br>
-                                                    @if(count($item->scancomment)>0)
-                                                    <button style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
-                                                    </button>
-                                                    @endif
+                                                    
                                                     <br><br>
                                                     @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                                     <span class="text-danger" style="">DNL</span>

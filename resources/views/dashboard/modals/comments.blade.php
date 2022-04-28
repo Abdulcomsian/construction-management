@@ -55,6 +55,34 @@
                         <!--begin::Col-->
                          @if(isset($scantempwork) && $scantempwork=='scantempwork')
                          <input type="hidden" name="type" value="scan" />
+                         <div class="col-md-12">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+                                <span>Email:</span>
+                            </label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                               <input type="email" name="mail" class="form-control" required>
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                         <div class="col-md-12">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+                                <span>Status:</span>
+                            </label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                               <select name="status" class="form-control">
+                                   <option value="0">Green</option>
+                                   <option value="1">Amber</option>
+                                   <option value="2">Red</option>
+                               </select>
+                            </div>
+                            <!--begin::Label-->
+                        </div>
                         <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">

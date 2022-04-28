@@ -73,6 +73,7 @@ class TemporaryWorkController extends Controller
             }
             //work for datatable
             $scantempwork = '';
+
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
@@ -696,6 +697,8 @@ class TemporaryWorkController extends Controller
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
             $model->user_id = auth()->user()->id ?? NULL;
+            $model->sender_email=$request->mail ?? NULL;
+            $model->status=$request->status ?? '0';
             if ($request->file('image')) {
                 $filePath = HelperFunctions::temporaryworkcommentPath();
                 $file = $request->file('image');
@@ -722,7 +725,7 @@ class TemporaryWorkController extends Controller
         try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
-            $data = TemporaryWorkComment::select('replay', 'reply_image','reply_date')->find($commentid);
+            $data = TemporaryWorkComment::select('replay', 'reply_image','reply_date','sender_email')->find($commentid);
             $array = [];
             $reply_date = [];
             if (is_array($data->replay)) {
@@ -757,17 +760,10 @@ class TemporaryWorkController extends Controller
                 'replay' => $array,
                 'reply_image' => $arrayimage,
                 'reply_date' => $reply_date,
+                'reply_email'=>Auth::user()->email,
             ]);
             if ($res) {
-                $tempdata = TemporaryWork::select('designer_company_email', 'desinger_email_2')->find($tempid);
-
-                if ($tempdata->designer_company_email) {
-
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid,'desinger1'));
-                }
-                if ($tempdata->desinger_email_2) {
-                    Notification::route('mail', $tempdata->desinger_email_2)->notify(new CommentsNotification($request->replay, 'reply', $tempid,'desinger2'));
-                }
+                    Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid,$data->sender_email));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
             } else {
@@ -837,10 +833,10 @@ class TemporaryWorkController extends Controller
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $temporary_work_id, 'type' => 'scan'])->get();
         }
         if (count($commetns) > 0) {
-            if ($request->type == "permit" || $request->type == 'pc' || $request->type == 'scan') {
+            if ($request->type == "permit" || $request->type == 'pc') {
                 $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th></tr></thead><tbody>';
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th><th>Status</th></tr></thead><tbody>';
             }
 
             $i = 1;
@@ -866,14 +862,18 @@ class TemporaryWorkController extends Controller
                 }
 
 
-                if ($comment->type == "normal") {
-                    // if($comment->status==0)
-                    // {
-                    //     $status="<button class='btn btn-primary commentstatus' data-id=".$comment->id." style='font-size:10px'>Pending</button>";
-                    // }elseif($comment->status==1){
-                    //     $status="<button class='btn btn-success commentstatus' data-id=".$comment->id." style='font-size:10px'>Fixed</button>";
-                    // }
-                    $status = '';
+                if ($comment->type == "scan") {
+                    if($comment->status==0)
+                    {
+                        $status="<button class='btn btn-primary' style='font-size:10px'>Green</button>";
+                    }elseif($comment->status==1){
+                        $status="<button class='btn btn-warning ' style='font-size:10px;'>Amber</button>";
+                    }
+                    elseif($comment->status==2)
+                    {
+                        $status="<button class='btn btn-danger ' style='font-size:10px'>Red</button>";
+                    }
+                    
                 }
 
                 $list = '';
@@ -895,16 +895,16 @@ class TemporaryWorkController extends Controller
                             if (isset($comment->reply_date[$j])) {
                                 $date = date("d-m-Y", strtotime($comment->reply_date[$j]));
                             }
-                            $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>' . $image . '</td><td></td><td>' . $date . '</td></tr><br>';
+                            $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>'.$comment->reply_email.'<br>'. $image .'<br>'.$date. '</td><td></td><td>' . $date . '</td></tr><br>';
                             $k++;
                         }
                     }
                 }
 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'scan') {
+                if ($request->type != "permit" && $request->type != 'pc') {
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td>' . $comment->comment . '</td>
+                               <td>' . $i . '</td><td>'.$comment->sender_email.'<br>'. $comment->comment .'<br>'.date('H:i d-m-Y',strtotime($comment->created_at)). '</td>
                                <td style=" flex-direction: column;">
                                 <form method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>

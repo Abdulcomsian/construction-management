@@ -535,6 +535,16 @@ li.select2-selection__choice{
   #commenttable td form{
       display: flex;
       align-items: center;
+      flex-direction: column;
+  }
+  .submmitBtnDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .submmitBtnDiv input,
+  .submmitBtnDiv button{
+      margin: 0px;
   }
   #commenttable td{
       vertical-align: middle;

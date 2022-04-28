@@ -756,6 +756,11 @@ class TemporaryWorkController extends Controller
             } else {
                 $arrayimage[] = null;
             }
+            $scan='';
+            if(isset($request->scan))
+            {
+                $scan='scan';
+            }
             $res = TemporaryWorkComment::find($commentid)->update([
                 'replay' => $array,
                 'reply_image' => $arrayimage,
@@ -763,7 +768,7 @@ class TemporaryWorkController extends Controller
                 'reply_email'=>Auth::user()->email,
             ]);
             if ($res) {
-                    Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid,$data->sender_email));
+                    Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid,$data->sender_email,$scan));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
             } else {
@@ -844,7 +849,9 @@ class TemporaryWorkController extends Controller
                 $colour = 'white';
                 $a = '';
                 $status = '';
+                $input='';
                 if (isset($request->type) && $request->type == 'scan') {
+                    $input='<input type="hidden" name="scan" value="scan" />';
                     if ($comment->user_id) {
                         $colour = "#6A5ACD";
                     } else {
@@ -898,6 +905,7 @@ class TemporaryWorkController extends Controller
                                 
                                <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
                                <input type="hidden" name="commentid" value="' . $comment->id . '"/>
+                               '.$input .'
                                <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
                                 </form>
 

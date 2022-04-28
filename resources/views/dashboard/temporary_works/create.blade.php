@@ -482,7 +482,7 @@ height: 72px;
                                     </span>
                                             </label>
                                            
-                                        <input class="blackBack" style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
+                                        <input id="attachment" class="blackBack" style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
                                     </div>
                                     
                                   </div>
@@ -785,11 +785,20 @@ height: 72px;
                 $(this).addClass("whiteBack")
             }
         });
-        $("#design_requirement_text").on("change paste keyup cut select", function() {
-            if($(this).val() !== "") {
+        $("#design_requirement_text").on("click", function() {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")
-            }
+    
+        });
+        $("#scopofdesign").on("click", function() {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+    
+        });
+        $("#attachment").on("click", function() {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+    
         });
 
         $("#projects").change(function(){

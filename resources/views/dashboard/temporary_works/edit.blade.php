@@ -493,8 +493,15 @@ height: 72px;
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                     <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                   
                                 </div>
+                                <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           
+                                        </label>
+                                        <br/>
+                                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button>
+                                </div>
+                                
                                 <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
 
                                 <!-- work for approval -->

@@ -2,6 +2,9 @@
 
 @section('styles')
 <style>
+    .form-control[readonly] {
+    background-color: #000 !important;
+}
 .list-div ul li, .list-check-div ul li{
 height: 72px;
     overflow: visible;
@@ -560,9 +563,15 @@ height: 72px;
                                     <br/>
                                    <textarea id="signature" name="signed" style="display: none"></textarea>
                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                   <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button> -->
+                                   
                                 </div>
-                                
+                                <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           
+                                        </label>
+                                        <br/>
+                                    <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button>
+                                </div>
                                 <!-- work for approval -->
                             </div>
 
@@ -606,6 +615,9 @@ height: 72px;
             data:{id:project[0].id,compayid:project[0].company.id},
             success:function(res)
             {
+                $(".form-select.form-select-solid").css("background-color", "#eee !important");
+                $(".form-control[readonly]").css("background-color", "#eee !important");
+                
                if(res !='')
                {
                  $("#twc_email").val(res);

@@ -322,7 +322,7 @@
                                     <div class="col-md-2" style="margin-left: 40px">
                                         <div class="tableInputDiv">
                                             <div class="dropdown">
-                                                <button onclick="myFunction()" class="dropbtn" style="text-transform:uppercase;">view</button>
+                                                <button onclick="myFunction()" class="dropbtn" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 0px;text-transform: uppercase;width:55px !important;margin-bottom: 10px;">view</button>
                                                 <div id="myDropdown" class="dropdown-content">
 
 
@@ -485,7 +485,7 @@
                                     <a style="color:#fff !important; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
                                     <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
                                     <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
-                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
+                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;width: 170px;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
                                     <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;width:35px !important;" id="crossdoc" class="showonclick newDesignBtn btn  project_details">x</a>
                                 </div>
                                 <div class="menuBtn">
@@ -720,7 +720,7 @@
                                 @php $path = config('app.url');@endphp
                                 <img class="img img-thumbnail profileimg" src="{{$path.\auth()->user()->image}}" width="150px" height="150px">
                                 @endif
-                                <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add">New Design Brief</a>
+                                <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 0px;text-transform: uppercase;margin-bottom: 10px;" value="add">New Design Brief</a>
 
                             </div>
 
@@ -889,12 +889,12 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 4px;">
+                                            <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
                                                 <!-- Upload Drawings -->
                                                 <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                             </p>
                                             <br>
-                                            <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: 0px;">
+                                            <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                                 <!-- View Drawings -->
                                                 <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
                                             </p>
@@ -940,7 +940,7 @@
                                                     @endif
                                                     <br><br>
                                                     @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                                    <span class="text-danger">DNL</span>
+                                                    <span class="text-danger" style="">DNL</span>
                                                     @endif
                                                     <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                                     @else

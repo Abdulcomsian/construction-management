@@ -265,6 +265,7 @@ input:focus {
 
 .form-control[readonly] {
     background-color: #f5f8fa;
+
 }
 
 .active{
@@ -375,7 +376,10 @@ input:focus {
         border-radius: 8px;
     }
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 768px) {
+    .desktopView{margin-top:20px;}
+  }
+    @media screen and (max-width: 768px) {
    
     .dropbtn{
         font-size: 12px !important;

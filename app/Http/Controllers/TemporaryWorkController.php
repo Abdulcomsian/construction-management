@@ -836,7 +836,7 @@ class TemporaryWorkController extends Controller
             if ($request->type == "permit" || $request->type == 'pc') {
                 $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th><th>Status</th></tr></thead><tbody>';
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th></tr></thead><tbody>';
             }
 
             $i = 1;
@@ -859,21 +859,6 @@ class TemporaryWorkController extends Controller
                             $a = '<a target="_blank" href="' . $path . $comment->image . '">Attach File</a>';
                         }
                     }
-                }
-
-
-                if ($comment->type == "scan") {
-                    if($comment->status==0)
-                    {
-                        $status="<button class='btn btn-primary' style='font-size:10px'>Green</button>";
-                    }elseif($comment->status==1){
-                        $status="<button class='btn btn-warning ' style='font-size:10px;'>Amber</button>";
-                    }
-                    elseif($comment->status==2)
-                    {
-                        $status="<button class='btn btn-danger ' style='font-size:10px'>Red</button>";
-                    }
-                    
                 }
 
                 $list = '';
@@ -920,14 +905,12 @@ class TemporaryWorkController extends Controller
 
                                <td>' . $a . '</td>
                                <td>' . $date_comment . '</td>
-                               <td><b>' . $status . '</b></td>
                            </tr>' . $list . '';
                 } else {
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
                                <td>' . $a . '</td>
                                <td>' . $date_comment  . '</td>
-                               <td><b>' . $status . '</b></td>
                            </tr>' . $list . '';
                 }
 

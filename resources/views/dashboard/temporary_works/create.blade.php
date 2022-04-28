@@ -526,7 +526,7 @@ height: 72px;
                                         <span>Photo:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="blackBack form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
+                                    <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -573,14 +573,12 @@ height: 72px;
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            
                                         </label>
-                                        <br/>
-                                    <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button>
+                                    <!-- <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button> -->
                                 </div>
                                 <!-- work for approval -->
                             </div>
 
                         </div>
-                          <br>
                         @include('dashboard.modals.design-relief-modals')
                         <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
                         

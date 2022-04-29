@@ -271,7 +271,7 @@ input:focus {
 .active{
     background-color: #07d564 !important;
 }
-#design_requirement_text{background:#f5f8fa;color:#000 !important;}
+#design_requirement_text{background:#f5f8fa;color:#000;}
 #design_requirement_text::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #000;
     opacity: 1; /* Firefox */

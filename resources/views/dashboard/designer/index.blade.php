@@ -320,11 +320,14 @@
                                 <th>Drawing Title</th>
                                 <th>Preliminary/ For approval</th>
                                 <th>For construction</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @php  $l=1; @endphp
                             @foreach($DesignerUploads as $uploads)
                             @php
+                            
                             if($uploads->preliminary_approval==1)
                             {
                             $background='yellow';
@@ -332,6 +335,8 @@
                             elseif($uploads->construction==1){
                             $background='lightgreen';
                             }
+
+                            $comments=\App\Models\DrawingComment::where('temp_work_upload_files_id',$uploads->id)->get();
                             @endphp
                             <tr style="background: {{$background ?? ''}}">
                                 <td>{{$loop->index+1}}</td>
@@ -341,7 +346,65 @@
                                 <td>{{$uploads->drawing_title}}</td>
                                 <td>{{$uploads->preliminary_approval==1?'Yes':'No'}}</td>
                                 <td>{{$uploads->construction==1?'Yes':'No'}}</td>
+                                <td><form method="post" action="{{route('drawing.comment')}}">
+                                        @csrf
+                                        <textarea class="form-control" required name="comment"></textarea><br>
+                                        <input type="hidden" name="drawingid" value="{{$uploads->id}}">
+                                        <input type="hidden" name="tempid" value="{{$uploads->temporary_work_id}}">
+                                        <button class="btn btn-primary">Add Comment</button>
+                                    </form></td>
+
                             </tr>
+                            @if(count($comments)>0)
+                            @foreach($comments as $cments)
+                            <tr >
+                                <td><b>{{$l}} - {{$loop->index+1}}</b></td>
+                                <td><b>Comment/Reply</b></td>
+                                <td colspan="2"><b>{{$cments->drawing_comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
+                                <td colspan="2">
+                                    @if($cments->drawing_reply)
+                                     @php $i=0;@endphp
+                                     @foreach($cments->drawing_reply as $reply)
+                                      <p><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p><hr>
+                                      @php $i++; @endphp
+                                     @endforeach
+                                    @endif
+                                </td>
+                                <td colspan="2">
+                                    @php
+                                     $path = config('app.url');
+                                     if(isset($cments->reply_image))
+                                     {
+                                        for($j=0;$j < count($cments->reply_image);$j++)
+                                         {
+                               
+                                            $image='';
+                                            if(isset($cments->reply_image[$j]))
+                                            {
+                                                $n = strrpos($cments->reply_image[$j], '.');
+                                                $ext=substr($cments->reply_image[$j], $n+1);
+                                                if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                                {
+                                                   echo $image='<a target="_blank" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
+
+                                                }
+                                                else{
+                                                   echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
+                                                }
+                                                
+                                            }
+                                         }
+                                     }
+                                    @endphp
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+
+                            @php $l++; @endphp
                             @endforeach
                         </tbody>
                     </table>

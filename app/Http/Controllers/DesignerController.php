@@ -119,7 +119,7 @@ class DesignerController extends Controller
         }
         $list='';
         $path = config('app.url');
-        //twc uploade designs
+        
         if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')) {
                 $registerupload= TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->get();
                if($registerupload)

@@ -2,6 +2,11 @@
 
 @section('styles')
 <style>
+    .form-select,
+    #design_requirement_text,
+    .inputDiv input{
+        border-radius: 0.25rem !important;
+    }
     .form-control[readonly] {
     background-color: #000;
 }

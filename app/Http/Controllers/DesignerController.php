@@ -11,12 +11,16 @@ use App\Models\PermitComments;
 use App\Utils\HelperFunctions;
 use App\Models\User;
 use App\Models\TemporaryWorkRejected;
+use App\Models\ShareDrawing;
+use App\Models\DrawingComment;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Notification;
 use Auth;
 use App\Notifications\DesignUpload;
 use App\Notifications\PermitNotification;
+use App\Notifications\ShareDrawingNotification;
+use App\Notifications\DrawingCommentNotification;
 
 class DesignerController extends Controller
 {
@@ -78,8 +82,6 @@ class DesignerController extends Controller
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
             if ($model->save()) {
-                //send mail to twc
-
                 $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
                     'subject' => $subject,
@@ -141,7 +143,7 @@ class DesignerController extends Controller
                             $construction = 'Yes';
                         }
 
-                        $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . '/' . $uploads->file_name . '" style="background:' . $background . '">';
+                        $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                         $list .= '<td>' . $i . '</td>';
                         $list .= '<td>' . $uploads->drawing_number . '</td>';
                         $list .= '<td>' . $uploads->comments . '</td>';
@@ -151,7 +153,8 @@ class DesignerController extends Controller
                         $list .= '<td>' . $construction . '</td>';
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                                 <a class="btn btn-primary btn-small" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                                 <button class="btn btn-danger btn-small drawingreply" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                     <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                                     <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
@@ -161,7 +164,9 @@ class DesignerController extends Controller
                                 </td>';
                         } else {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                                 <a class="btn btn-primary btn-small" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
+                                 &nbsp;
+                                 <button class="btn btn-danger btn-small drawingreply" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                     <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
                                     <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -209,7 +214,7 @@ class DesignerController extends Controller
                         $construction = 'Yes';
                     }
 
-                    $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . '/' . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                     $list .= '<td>' . $i . '</td>';
                     $list .= '<td>' . $uploads->drawing_number . '</td>';
                     $list .= '<td>' . $uploads->comments . '</td>';
@@ -219,7 +224,8 @@ class DesignerController extends Controller
                     $list .= '<td>' . $construction . '</td>';
                     if ($construction == 'Yes') {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                             <a class="btn btn-primary btn-small" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <button class="btn btn-danger btn-small drawingreply" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                                 <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
@@ -229,7 +235,8 @@ class DesignerController extends Controller
                             </td>';
                     } else {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" href="' . $path . '/' . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;
+                             <a class="btn btn-primary btn-small" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <button class="btn btn-danger btn-small drawingreply" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
                                 <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -446,5 +453,140 @@ class DesignerController extends Controller
         }
         $array['status']=$status;
        echo json_encode($array);
+    }
+
+    public function share_drawing(Request $request)
+    {
+        $id=$request->id;
+        $email=$request->email;
+        $model= new ShareDrawing();
+        $model->email=$email;
+        $model->temp_work_upload_files_id=$id;
+        if($model->save())
+        {
+         Notification::route('mail',$email)->notify(new ShareDrawingNotification($id));
+         toastSuccess('Drawing Share Successfully!');
+          return Redirect::back();
+        }
+    }
+
+    public function get_share_drawing(Request $request)
+    {
+        $id=$request->id;
+        $sharedrawings=ShareDrawing::where('temp_work_upload_files_id',$id)->get();
+        $list='';
+        $i=1;
+        foreach($sharedrawings as $share)
+        {
+            $list.='<tr><td>'.$i.'</td><td>'.$share->email.'</td><td>'.$share->created_at.'</td></tr>';
+        }
+        return $list;
+    }
+
+    public function reply_drawing(Request $request)
+    {
+        $comments=DrawingComment::find($request->id);
+        $createdby=TempWorkUploadFiles::select('created_by')->find($request->drawingid);
+        $replyarray=[];
+        if (is_array($comments->drawing_reply)) 
+        {
+                foreach ($comments->drawing_reply as $dt) {
+                    $replyarray[] = $dt;
+                }
+        }
+        $replyarray[]=$request->reply;
+        if (is_array( $comments->reply_date)) {
+                foreach ($comments->reply_date as $dt) {
+                    $reply_date[] = $dt;
+                }
+            }
+        $reply_date[] = date('Y-m-d H:i:s');
+
+        $arrayimage = [];
+            if (is_array($comments->reply_image)) {
+                foreach ($comments->reply_image as $img) {
+                    $arrayimage[] = $img;
+                }
+            }
+            if ($request->file('replyfile')) {
+                $filePath = HelperFunctions::temporaryworkcommentPath();
+                $file = $request->file('replyfile');
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $arrayimage[] = $imagename;
+            } else {
+                $arrayimage[] = null;
+            }
+            
+
+        $comments->update(['drawing_reply'=>$replyarray,'reply_date'=>$reply_date,'reply_image'=>$arrayimage]);
+         Notification::route('mail', $createdby->created_by)->notify(new DrawingCommentNotification($request->reply,'reply'));
+        toastSuccess('Reply send  Successfully!');
+        return Redirect::back();
+        
+    }
+
+    public function get_reply_drawing(Request $request)
+    {
+        $id=$request->id;
+        $drawings=DrawingComment::where('temp_work_upload_files_id',$id)->get();
+        $list='';
+        $i=1;
+         $path = config('app.url');
+        foreach($drawings as $x => $comment)
+        {
+            //reply 
+            $replylist = '';
+                $k = 1;
+                if ($comment->drawing_reply) {
+                    for ($j = 0; $j < count($comment->drawing_reply); $j++) {
+                        if ($comment->drawing_reply[$j]) {
+                        
+                            $image = '';
+                            if (isset($comment->reply_image[$j])) {
+                                $n = strrpos($comment->reply_image[$j], '.');
+                                $ext = substr($comment->reply_image[$j], $n + 1);
+                                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '"><img src="' . $path . $comment->reply_image[$j] . '" width="50px" height="50px"/></a>';
+                                } else {
+                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '">View File</a>';
+                                }
+                            }
+                            $date = '';
+                            if (isset($comment->reply_date[$j])) {
+                                $date = date("d-m-Y", strtotime($comment->reply_date[$j]));
+                            }
+                            $replylist .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->drawing_reply[$j] . '</td><td>'. $image . '<br>' . $date . '</td><td>' . $comment->created_at . '</td></tr><br>';
+                            $k++;
+                        }
+                    }
+                }
+            $list.='<tr style="padding:5px"><td>'.$i.'</td><td>'.$comment->drawing_comment.'</td><td><form method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
+                                   <input type="hidden" name="_token" value="' . csrf_token() . '"/>
+                                   <input type="hidden" name="id" value="' . $comment->id . '"/>
+                                   <input type="hidden" name="drawingid" value="'.$id.'" />
+                                   <textarea style="width: 100%" type="text" class="replay" name="reply" style="float:left"></textarea>
+                                    <div class="submmitBtnDiv">
+                                        <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
+                                        <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
+                                    </div>
+                                </form></td><td>'.$comment->created_at.'</td></tr>'.$replylist.'';
+            $i++;
+        }
+        return $list;
+    }
+
+    public function drawing_comment(Request $request)
+    {
+        $tempdata=TemporaryWork::select('twc_email')->find($request->tempid);
+        $model= new DrawingComment();
+        $model->drawing_comment=$request->comment;
+        $model->temp_work_upload_files_id=$request->drawingid;
+        if($model->save())
+        {
+            Notification::route('mail',$tempdata->twc_email)->notify(new DrawingCommentNotification($request->comment,'question'));
+            toastSuccess('Comment Added  Successfully!');
+            return Redirect::back();
+        }
+
     }
 }

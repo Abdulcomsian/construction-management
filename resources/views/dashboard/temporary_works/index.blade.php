@@ -1042,6 +1042,8 @@
 @include('dashboard.modals.project_documents')
 @include('dashboard.modals.tempwork_share')
 @include('dashboard.modals.rejected-temporarywork-modals')
+@include('dashboard.modals.share_drawing_modal')
+@include('dashboard.modals.drawing_reply_modals')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -1592,6 +1594,44 @@
                 $("#rejected_designbrief_modal_id").modal('show');
             }
         });
+    })
+
+    $(document).on('click','.drawingshare',function(e){
+         e.stopPropagation();
+         id=$(this).attr('data-id');
+         $("#sharedrwingid").val($(this).attr('data-id'));
+        $.ajax({
+            url: "{{route('get.share.drawings')}}",
+            method: "get",
+            data: {
+                id
+            },
+            success: function(res) {
+                
+                $("#drawingsharedata").html(res);
+                $("#share_drawing_modal_id").modal('show');
+            }
+        });
+        
+
+    })
+
+    $(document).on('click','.drawingreply',function(e){
+        e.stopPropagation();
+         id=$(this).attr('data-id');
+         $("#replydrwingid").val($(this).attr('data-id'));
+         $.ajax({
+            url: "{{route('get.reply.drawings')}}",
+            method: "get",
+            data: {
+                id
+            },
+            success: function(res) {
+                $("#drawingreplydata").html(res);
+                $("#reply_drawing_modal_id").modal('show'); 
+            }
+        });
+         
     })
 </script>
 @endsection

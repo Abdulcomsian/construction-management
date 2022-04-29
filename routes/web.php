@@ -42,6 +42,9 @@ Route::post('design/store',[DesignerController::class,'pc_store'])->name('design
 Route::get('design/permit-approve/{id}',[DesignerController::class,'pc_permit_index'])->name('pc.permit.approved');
 Route::post('design/permit-store',[DesignerController::class,'pc_permit_store'])->name('design.permit.store');
 
+//risk assessemetn store
+Route::post('Risk-Assessment/store',[DesignerController::class,'risk_assessment_store'])->name('riskassesment.store');
+
 
 Route::get('/addProject', function () {
     return view('dashboard/projects/create');
@@ -131,7 +134,10 @@ Route::group(['middleware' => ['auth']], function () {
      Route::get('get_share-drawing',[DesignerController::class,'get_share_drawing'])->name('get.share.drawings');
      Route::post('reply-drawing',[DesignerController::class,'reply_drawing'])->name('drawing.reply');
      Route::get('get-reply-drawing',[DesignerController::class,'get_reply_drawing'])->name('get.reply.drawings');
+      
 
+    //get risk assessment
+     Route::get('get-risk-assessment',[DesignerController::class,'get_assessment'])->name('get.assessment');
      
 
      //get twc according to project

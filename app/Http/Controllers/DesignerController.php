@@ -34,9 +34,10 @@ class DesignerController extends Controller
         $id = \Crypt::decrypt($id);
         $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
+        $riskassessment = TempWorkUploadFiles::where(['file_type' => 5, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
         $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id,'type'=>'normal'])->get();
-        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments'));
+        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment'));
         
     }
 
@@ -478,7 +479,7 @@ class DesignerController extends Controller
         $i=1;
         foreach($sharedrawings as $share)
         {
-            $list.='<tr><td>'.$i.'</td><td>'.$share->email.'</td><td>'.$share->created_at.'</td></tr>';
+            $list.='<tr><td>'.$i.'</td><td>'.$share->email.'</td><td>'.date("d-m-Y", strtotime($share->created_at)).'</td></tr>';
         }
         return $list;
     }
@@ -589,4 +590,38 @@ class DesignerController extends Controller
         }
 
     }
+
+    public function risk_assessment_store(Request $request)
+    {
+        $model= new TempWorkUploadFiles();
+        $model->file_type=$request->type;
+        $model->created_by=$request->designermail;
+        $filePath = HelperFunctions::temporaryworkuploadPath();
+        if (isset($request->riskassesmentfile)) {
+            $file = $request->file('riskassesmentfile');
+            $ext = $request->file('riskassesmentfile')->extension();
+            $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            $model->file_name=$imagename;
+         }
+         $model->temporary_work_id=$request->tempworkid;
+        if($model->save())
+        {
+            toastSuccess('Risk Assessment Uploaded Successfully!');
+            return Redirect::back();
+        }
+   }
+
+   public function get_assessment(Request $request)
+   {
+     $riskassessment=TempWorkUploadFiles::where(['file_type'=>5,'temporary_work_id'=>$request->id])->get();
+     $list='';
+     $i=1;
+     $path = config('app.url');
+     foreach($riskassessment as $risk){
+        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">Risk Assessment-' . $i . '</a></td><td>'.date('d-m-Y',strtotime($risk->created_at)).'</td></tr>';
+        $i++;
+
+     }
+     return $list;
+   }
 }

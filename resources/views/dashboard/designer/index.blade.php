@@ -441,6 +441,52 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <!-- Risk Assessment and calculations -->
+                    <br>
+                     <hr>
+                    <form class="form-inline" action="{{route('riskassesment.store')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                         <input type="hidden" name="tempworkid" value="{{$id}}">
+                          <input type="hidden" name="designermail" value="{{$mail}}">
+                          <div class="form-group mx-sm-3 mb-2 d-flex">
+                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                               <span class="required">Risk Assessment Certificate:</span>
+                              </label>
+                               <input type="file" style="width:20%"class="form-control" id="riskassesmentfile" name="designcheckfile" required="required">
+                               &nbsp;&nbsp;
+                               <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                               <span class="required">Document Type:</span>
+                              </label>
+                               <select class="form-control" name="type" style="width:30% !important">
+                                   <option value="5">Risk Assessment Calculations</option>
+                               </select>
+                               &nbsp;&nbsp;
+                               <button type="submit" class="btn btn-primary mb-2">Upload Rrisk Assessment Certificate</button>
+                          </div>
+                      
+                    </form>
+                   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Email</th>
+                                <th>Risk Assessment Certificate</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            @foreach($riskassessment as $riks)
+                             <tr>
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$riks->created_by}}</td>
+                                <td><a href="{{asset($riks->file_name)}}" target="_blank">Risk Assessment-{{$loop->index+1}}</a></td>
+                                <td>{{date("d-m-Y",strtotime($riks->created_at));}}</td>
+                             </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     
 
                 </div>

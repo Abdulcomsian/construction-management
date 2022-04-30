@@ -43,6 +43,10 @@
                             <label class="required fs-6 fw-bold mb-2">Email</label>
                             <input type="email" class="form-control form-control-solid" placeholder="Enter Email" name="email" required />
                         </div>
+                        <div class="col-md-12 fv-row">
+                            <label class="fs-6 fw-bold mb-2">share Comment</label>
+                            <input type="checkbox"   name="commentcheckbox"/>
+                        </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         

@@ -478,16 +478,21 @@ class DesignerController extends Controller
 
     public function share_drawing(Request $request)
     {
+       
         $id=$request->id;
         $email=$request->email;
         $model= new ShareDrawing();
         $model->email=$email;
         $model->temp_work_upload_files_id=$id;
+        $check=0;
+        if(isset($request->commentcheckbox)){
+            $check=1;
+        }
         if($model->save())
         {
          $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
          $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
-         Notification::route('mail',$email)->notify(new ShareDrawingNotification($id));
+         Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check));
          toastSuccess('Drawing Share Successfully!');
          if($tempdata->desinger_email_2)
          {

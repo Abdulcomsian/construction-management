@@ -185,7 +185,27 @@ class DesignerController extends Controller
         }
         for($j=0;$j<count($designearray);$j++)
         {
+            if($j==0)
+            {
             $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->get();
+            }
+            else
+            {
+                $ids=[];
+                $drawingsid=ShareDrawing::select('temp_work_upload_files_id')->where('email',$designearray[$j])->get();
+                if(count($drawingsid)>0)
+                {
+                    foreach($drawingsid as $drawing)
+                    {
+                        $ids[]=$drawing->temp_work_upload_files_id;
+                    }
+                }
+                $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->where(function($query) use($ids,$designearray){
+                    $query->whereIn('id',$ids)
+                    ->orWhere('created_by',$designearray[1]);
+                })->get();
+            }
+            
             $i = 1;
             
             if($DesignerUploads)
@@ -465,8 +485,19 @@ class DesignerController extends Controller
         $model->temp_work_upload_files_id=$id;
         if($model->save())
         {
+         $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
+         $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
          Notification::route('mail',$email)->notify(new ShareDrawingNotification($id));
          toastSuccess('Drawing Share Successfully!');
+         if($tempdata->desinger_email_2)
+         {
+            $model= new ShareDrawing();
+            $model->email=$tempdata->desinger_email_2;
+            $model->temp_work_upload_files_id=$id;
+            $model->save();
+            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
+            toastSuccess('Drawing Share Successfully!');
+         }
           return Redirect::back();
         }
     }
@@ -519,7 +550,7 @@ class DesignerController extends Controller
             }
             
 
-        $comments->update(['drawing_reply'=>$replyarray,'reply_date'=>$reply_date,'reply_image'=>$arrayimage]);
+        $comments->update(['drawing_reply'=>$replyarray,'reply_date'=>$reply_date,'reply_image'=>$arrayimage,'reply_email'=>Auth::user()->email]);
          Notification::route('mail', $createdby->created_by)->notify(new DrawingCommentNotification($request->reply,'reply'));
         toastSuccess('Reply send  Successfully!');
         return Redirect::back();
@@ -556,12 +587,12 @@ class DesignerController extends Controller
                             if (isset($comment->reply_date[$j])) {
                                 $date = date("d-m-Y", strtotime($comment->reply_date[$j]));
                             }
-                            $replylist .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->drawing_reply[$j] . '</td><td>'. $image . '<br>' . $date . '</td><td>' . $comment->created_at . '</td></tr><br>';
+                            $replylist .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' .$comment->reply_email.'<br>'. $comment->drawing_reply[$j] . '</td><td>'. $image . '<br>' . $date . '</td><td>' . $comment->created_at . '</td></tr><br>';
                             $k++;
                         }
                     }
                 }
-            $list.='<tr style="padding:5px"><td>'.$i.'</td><td>'.$comment->drawing_comment.'</td><td><form method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
+            $list.='<tr style="padding:5px"><td>'.$i.'</td><td>'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td><form method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="id" value="' . $comment->id . '"/>
                                    <input type="hidden" name="drawingid" value="'.$id.'" />
@@ -582,6 +613,7 @@ class DesignerController extends Controller
         $model= new DrawingComment();
         $model->drawing_comment=$request->comment;
         $model->temp_work_upload_files_id=$request->drawingid;
+        $model->sender_email=$request->mail;
         if($model->save())
         {
             Notification::route('mail',$tempdata->twc_email)->notify(new DrawingCommentNotification($request->comment,'question'));

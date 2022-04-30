@@ -351,6 +351,7 @@
                                         <textarea class="form-control" required name="comment"></textarea><br>
                                         <input type="hidden" name="drawingid" value="{{$uploads->id}}">
                                         <input type="hidden" name="tempid" value="{{$uploads->temporary_work_id}}">
+                                        <input type="hidden" name="mail" value="{{{{$mail}}}}">
                                         <button class="btn btn-primary">Add Comment</button>
                                     </form></td>
 
@@ -360,12 +361,12 @@
                             <tr >
                                 <td><b>{{$l}} - {{$loop->index+1}}</b></td>
                                 <td><b>Comment/Reply</b></td>
-                                <td colspan="2"><b>{{$cments->drawing_comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
+                                <td colspan="2"><b>{{$mail}}</b><br><b>{{$cments->drawing_comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
                                 <td colspan="2">
                                     @if($cments->drawing_reply)
                                      @php $i=0;@endphp
                                      @foreach($cments->drawing_reply as $reply)
-                                      <p><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p><hr>
+                                      <p><b>{{$cments->reply_email}}</b><br><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p><hr>
                                       @php $i++; @endphp
                                      @endforeach
                                     @endif

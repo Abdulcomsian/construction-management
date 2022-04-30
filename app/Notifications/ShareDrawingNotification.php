@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\TempWorkUploadFiles;
+use App\Models\TemporaryWork;
 
 class ShareDrawingNotification extends Notification
 {
@@ -43,10 +44,11 @@ class ShareDrawingNotification extends Notification
     public function toMail($notifiable)
     {
         $drawings=TempWorkUploadFiles::find($this->data);
+        $tempdata=TemporaryWork::select('twc_id_no','ped_url')->find($drawings->temporary_work_id);
         return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Drawing  Share Notifications')
-            ->view('mail.drawingshare', compact('drawings'));
+            ->view('mail.drawingshare', compact('drawings','tempdata'));
     }
 
     /**

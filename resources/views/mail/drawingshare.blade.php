@@ -30,18 +30,25 @@
                                                                     <h5>
                                                                         The Drawomg for ({{$drawings->drawing_title}})  has been shared with you 
                                                                     </h5>
-                                                                    <a style="text-decoration: none" href="{{asset('pdf'.'/'.$drawings->ped_url)}}">Drawing - {{$drawings->drawing_number}} ({{$drawings->drawing_title}}) </a><br>
+                                                                    <a style="text-decoration: none" href="{{asset('pdf'.'/'.$tempdata->ped_url)}}">Design Brief - {{$tempdata->twc_id_no}}</a><br>
+                                                                    <h4></h4>Drawing Title</h4>
+                                                                    <p>{{$drawings->drawing_title}}</p>
+                                                                    <br>
+                                                                    <h4>Drawing Number</h4>
+                                                                    <p>{{$drawings->drawing_number}}</p>
+                                                                    <br>
+                                                                    <h4>Twd Name</h4>
+                                                                    <p>{{$drawings->twd_name}}</p>
+                                                                    <br>
                                                                    
                                                                     <h4>Comments -</h4>
                                                                     <p>{{$drawings->comments ?? ''}}</p>
                                                 
                                                                     <h4>Drawings File</h4>
-                                                                   
-                                                                            <a  style="text-decoration: none" href="{{asset($drawings->file_name)}}">{{$drawings->file_name}}</a>
+                                                                    <a  style="text-decoration: none" href="{{asset($drawings->file_name)}}">File</a>
                                                                        
                                                                     <hr>
                                                                    
-
                                                                     </p>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>City Temporary Works
 </p>

@@ -620,7 +620,6 @@ class DesignerController extends Controller
      foreach($riskassessment as $risk){
         $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">Risk Assessment-' . $i . '</a></td><td>'.date('d-m-Y',strtotime($risk->created_at)).'</td></tr>';
         $i++;
-
      }
      return $list;
    }

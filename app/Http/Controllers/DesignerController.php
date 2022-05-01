@@ -32,6 +32,10 @@ class DesignerController extends Controller
         }
         $mail=$_GET['mail'];
         $id = \Crypt::decrypt($id);
+        $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->where(function($query) use($ids,$designearray){
+            $query->whereIn('id',$ids)
+            ->orWhere('created_by',$designearray[1]);
+        })->get();
         $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $riskassessment = TempWorkUploadFiles::where(['file_type' => 5, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
@@ -185,26 +189,26 @@ class DesignerController extends Controller
         }
         for($j=0;$j<count($designearray);$j++)
         {
-            if($j==0)
-            {
+            // if($j==0)
+            // {
             $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->get();
-            }
-            else
-            {
-                $ids=[];
-                $drawingsid=ShareDrawing::select('temp_work_upload_files_id')->where('email',$designearray[$j])->get();
-                if(count($drawingsid)>0)
-                {
-                    foreach($drawingsid as $drawing)
-                    {
-                        $ids[]=$drawing->temp_work_upload_files_id;
-                    }
-                }
-                $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->where(function($query) use($ids,$designearray){
-                    $query->whereIn('id',$ids)
-                    ->orWhere('created_by',$designearray[1]);
-                })->get();
-            }
+            // }
+            // else
+            // {
+            //     $ids=[];
+            //     $drawingsid=ShareDrawing::select('temp_work_upload_files_id')->where('email',$designearray[$j])->get();
+            //     if(count($drawingsid)>0)
+            //     {
+            //         foreach($drawingsid as $drawing)
+            //         {
+            //             $ids[]=$drawing->temp_work_upload_files_id;
+            //         }
+            //     }
+            //     $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->where(function($query) use($ids,$designearray){
+            //         $query->whereIn('id',$ids)
+            //         ->orWhere('created_by',$designearray[1]);
+            //     })->get();
+            // }
             
             $i = 1;
             
@@ -658,17 +662,18 @@ class DesignerController extends Controller
      $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
       if($tempdata->desinger_email_2)
      {
-        $exist=ShareDrawing::where(['temp_work_upload_files_id'=> $id,'email'=>$tempdata->desinger_email_2])->count();
+        $exist=TempWorkUploadFiles::where(['share_id'=> $id,'created_by'=>$tempdata->desinger_email_2])->count();
         if($exist>0)
         {
              toastSuccess('Drawing Already Shared!');
              return Redirect::back();
         }
         else{
-            $model= new ShareDrawing();
-            $model->email=$tempdata->desinger_email_2;
-            $model->temp_work_upload_files_id=$id;
-            $model->save();
+            $model= TempWorkUploadFiles::find($id);
+            $newmodel=$model->replicate();
+            $newmodel->created_by=$tempdata->desinger_email_2;
+            $newmodel->share_id=$id;
+           $newmodel->save();
             Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
             toastSuccess('Drawing Share Successfully!');
             return Redirect::back();

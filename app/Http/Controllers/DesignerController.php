@@ -490,19 +490,9 @@ class DesignerController extends Controller
         }
         if($model->save())
         {
-         $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
-         $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+         
          Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check));
          toastSuccess('Drawing Share Successfully!');
-         if($tempdata->desinger_email_2)
-         {
-            $model= new ShareDrawing();
-            $model->email=$tempdata->desinger_email_2;
-            $model->temp_work_upload_files_id=$id;
-            $model->save();
-            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
-            toastSuccess('Drawing Share Successfully!');
-         }
           return Redirect::back();
         }
     }
@@ -659,5 +649,34 @@ class DesignerController extends Controller
         $i++;
      }
      return $list;
+   }
+
+   public function share_drawing_checker(Request $request)
+   {
+     $id=$request->id;
+     $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
+     $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+      if($tempdata->desinger_email_2)
+     {
+        $exist=ShareDrawing::where(['temp_work_upload_files_id'=> $id,'email'=>$tempdata->desinger_email_2])->count();
+        if($exist>0)
+        {
+             toastSuccess('Drawing Already Shared!');
+             return Redirect::back();
+        }
+        else{
+            $model= new ShareDrawing();
+            $model->email=$tempdata->desinger_email_2;
+            $model->temp_work_upload_files_id=$id;
+            $model->save();
+            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
+            toastSuccess('Drawing Share Successfully!');
+            return Redirect::back();
+        } 
+     }
+     else{
+        toastSuccess('Desing Chcecker Not found!!!');
+        return Redirect::back();
+     }
    }
 }

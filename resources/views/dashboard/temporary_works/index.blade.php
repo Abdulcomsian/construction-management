@@ -1606,6 +1606,7 @@
          e.stopPropagation();
          id=$(this).attr('data-id');
          $("#sharedrwingid").val($(this).attr('data-id'));
+         $("#sharedrwingwithchecckerid").val($(this).attr('data-id'));
         $.ajax({
             url: "{{route('get.share.drawings')}}",
             method: "get",

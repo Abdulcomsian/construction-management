@@ -43,6 +43,10 @@
                             <label class="required fs-6 fw-bold mb-2">Email</label>
                             <input type="email" class="form-control form-control-solid" placeholder="Enter Email" name="email" required />
                         </div>
+                        <div class="col-md-12 fv-row">
+                            <label class="fs-6 fw-bold mb-2">share Comment</label>
+                            <input type="checkbox"   name="commentcheckbox"/>
+                        </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         
@@ -51,6 +55,27 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">
                             <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <br>
+                <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('drawingchecker.share') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" id="sharedrwingwithchecckerid" value="">
+                    <!--begin::Heading-->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Share Drawing with Design Checker</h1>
+                        <!--end::Title-->
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="indicator-label">Share with Design Checker</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>

@@ -898,6 +898,11 @@
                                                 <!-- View Drawings -->
                                                 <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
                                             </p>
+                                            <br>
+                                            <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
+                                                <!-- View Drawings -->
+                                                <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
+                                            </p>
                                             <!-- @php $i=0;@endphp
                                         @foreach($item->uploadfile as $file)
                                         @if($file->file_type==1)
@@ -1044,6 +1049,7 @@
 @include('dashboard.modals.rejected-temporarywork-modals')
 @include('dashboard.modals.share_drawing_modal')
 @include('dashboard.modals.drawing_reply_modals')
+@include('dashboard.modals.risk_assessment')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -1600,6 +1606,7 @@
          e.stopPropagation();
          id=$(this).attr('data-id');
          $("#sharedrwingid").val($(this).attr('data-id'));
+         $("#sharedrwingwithchecckerid").val($(this).attr('data-id'));
         $.ajax({
             url: "{{route('get.share.drawings')}}",
             method: "get",
@@ -1632,6 +1639,21 @@
             }
         });
          
+    })
+
+    $(document).on('click','.assessmentlist',function(){
+        id=$(this).attr('data-id');
+         $.ajax({
+            url: "{{route('get.assessment')}}",
+            method: "get",
+            data: {
+                id
+            },
+            success: function(res) {
+                $("#risk_assessment_body").html(res);
+                $("#risk_assessment_modal_id").modal('show'); 
+            }
+        });
     })
 </script>
 @endsection

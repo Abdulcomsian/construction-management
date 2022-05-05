@@ -334,7 +334,7 @@ height: 72px;
                                 <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Checker Company Name:</span>
+                                        <span class="">Design Checker Company Name:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  autocomplete="off">
@@ -342,7 +342,7 @@ height: 72px;
                                  <div class="inputDiv d-none desinger_company_name2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Checker Email:</span>
+                                        <span class="">Design Checker Email:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
@@ -716,8 +716,8 @@ height: 72px;
         if(value==3)
         {
             $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
-            $("#desinger_company_name2").attr('required','required');
-            $("#desinger_email_2").attr('required','required');
+        //    $("#desinger_company_name2").attr('required','required');
+        //    $("#desinger_email_2").attr('required','required');
           
         }
         else{

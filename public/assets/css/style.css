@@ -335,7 +335,11 @@ input:focus {
 .mobileView a{
     margin-bottom: 10px;
 }
-
+@media screen and (min-width: 1200px) {
+    canvas{
+        width:270px !important;
+    }
+}
 @media screen and (max-width: 1500px) {
     .header .header-menu .menu>.menu-item {
       max-width: 100%;

@@ -180,6 +180,10 @@ height: 72px;
             .newDesignBtn{margin-top:20px; margin-bottom:10px;}
             .inputDiv label{font-size:11px !important;}
     }
+    #scopofdesign::placeholder {
+        /* modern browser */
+        color: #fff;
+    }
     canvas{width:270px;height:110px;}
     /* .inputDiv  #design_required_by_date{color:#fff;} */
     .form-control.form-control-solid:focus{color:#000 !important;}
@@ -800,12 +804,12 @@ height: 72px;
                 $(this).addClass("whiteBack")
     
         });
-        $("#scopofdesign").on("click", function() {
+        $("#scope-of-design #submit-requirment button").on("click", function() {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")
     
         });
-        $("#attachment").on("click", function() {
+        $("#attachment-of-design  #submit-requirment button").on("click", function() {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")
     

@@ -484,7 +484,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="blackBack form-control"  style="width:50%; background:#000;"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:"  readonly></textarea>
+                                            <textarea class="blackBack form-control"  style="width:50%; "  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:"  readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     
@@ -806,13 +806,13 @@ height: 72px;
     
         });
         $("#scope-of-design #submit-requirment button").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
+            $("#scope-of-design").removeClass("blackBack")
+            $("#scope-of-design").addClass("whiteBack")
     
         });
         $("#attachment-of-design  #submit-requirment button").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
+            $("#attachment-of-design").removeClass("blackBack")
+            $("#attachment-of-design").addClass("whiteBack")
     
         });
 

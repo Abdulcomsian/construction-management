@@ -280,7 +280,7 @@ height: 72px;
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" readonly type="date" value="{{ date('Y-m-d') }}" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}"  required>
+                                    <input data-date-inline-picker="true" readonly type="date" value="{{ date('Y-m-d') }}" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date"  id="design_issued_date" value="{{old('design_issued_date')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -510,7 +510,7 @@ height: 72px;
                                         <span class="required">Name::</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -518,7 +518,7 @@ height: 72px;
                                         <span class="required">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -806,8 +806,8 @@ height: 72px;
     
         });
         $("#scope-of-design #submit-requirment button").on("click", function() {
-            $("#scopofdesign").removeClass("blackBack")
-            $("#scopofdesign").addClass("whiteBack")
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
     
         });
         $("#attachment-of-design  #submit-requirment button").on("click", function() {
@@ -817,13 +817,21 @@ height: 72px;
         });
 
         $("#projects").change(function(){
-            console.log("hell")
+            console.log("hello")
             $(this).removeClass("blackBack")
             $("#projects span.form-select").removeClass("blackBack")
-            $(".form-control[readonly]").removeClass("blackBack")
+         //   $(".form-control[readonly]").removeClass("blackBack")
+            $("#no").removeClass("blackBack")
+            $("#name").removeClass("blackBack")
+            $("#design_issued_date").removeClass("blackBack")
+            $("#address").removeClass("blackBack")
+            $("#job_title").removeClass("blackBack")
+            $("#admin_name").removeClass("blackBack")
+            $("#companyadmin").removeClass("blackBack")
             $(".form-select.form-select-solid").css("background-color","#f5f8fa")
             $("#companyadmin").removeClass("blackBack")
             $("#twc_name").removeClass("blackBack")
+         //   $("#scopofdesign").addClass("blackBack")
         })
 
         $(".customDate").click(function(){

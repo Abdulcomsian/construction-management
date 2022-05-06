@@ -806,8 +806,8 @@ height: 72px;
     
         });
         $("#scope-of-design #submit-requirment button").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
+                $("#scopofdesign").removeClass("blackBack")
+                $("#scopofdesign").addClass("whiteBack")
     
         });
         $("#attachment-of-design  #submit-requirment button").on("click", function() {

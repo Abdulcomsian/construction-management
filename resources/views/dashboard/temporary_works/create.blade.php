@@ -184,6 +184,7 @@ height: 72px;
         /* modern browser */
         color: #fff;
     }
+    #scopofdesign{background:#000 !important;}
     canvas{width:270px;height:110px;}
     /* .inputDiv  #design_required_by_date{color:#fff;} */
     .form-control.form-control-solid:focus{color:#000 !important;}

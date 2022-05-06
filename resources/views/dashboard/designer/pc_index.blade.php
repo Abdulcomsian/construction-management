@@ -138,7 +138,7 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Comments/Reason:</span>
+                                                <span class="required">Question for TWC/Comments/Reason:</span>
 
                                             </label>
                                             <!--end::Label-->

@@ -806,13 +806,13 @@ height: 72px;
     
         });
         $("#scope-of-design #submit-requirment button").on("click", function() {
-            $("#scope-of-design textarea").removeClass("blackBack")
-            $("#scope-of-design textarea").addClass("whiteBack")
+            $("#scope-of-design").removeClass("blackBack")
+            $("#scope-of-design").addClass("whiteBack")
     
         });
         $("#attachment-of-design  #submit-requirment button").on("click", function() {
-            $("#attachment-of-design textarea").removeClass("blackBack")
-            $("#attachment-of-design textarea").addClass("whiteBack")
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
     
         });
 

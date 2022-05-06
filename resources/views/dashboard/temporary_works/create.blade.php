@@ -184,7 +184,7 @@ height: 72px;
         /* modern browser */
         color: #fff;
     }
-    #scopofdesign{background:#000 !important;}
+    
     canvas{width:270px;height:110px;}
     /* .inputDiv  #design_required_by_date{color:#fff;} */
     .form-control.form-control-solid:focus{color:#000 !important;}
@@ -484,7 +484,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="blackBack form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
+                                            <textarea class="blackBack form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" style="background:#000;" readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     

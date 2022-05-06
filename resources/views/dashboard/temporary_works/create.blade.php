@@ -484,7 +484,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="blackBack form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" style="background:#000;" readonly></textarea>
+                                            <textarea class="blackBack form-control"  style="width:50%; background:#000;"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:"  readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     

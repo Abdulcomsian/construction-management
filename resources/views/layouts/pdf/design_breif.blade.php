@@ -88,13 +88,13 @@
                     </tr>
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Email2</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_email_2'] ?? ''}}</td>
-                        <td style="width: 150px;background:gray;color:white">
+                        <!-- <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;"></b></label>
                         </td>
-                        <td style="max-height:70px !important; font-size:12px;"></td>
+                        <td style="max-height:70px !important; font-size:12px;"></td> -->
                     </tr>
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">

@@ -33,7 +33,7 @@
                             <th>No</th>
                             <th>Email sent for acceptance</th>
                             <th>Acceptance/Reject-notes</th>
-                            <th>PDF </th>
+                            <th>Design Brief Updated </th>
                             <!-- <th>Rejectd By</th>
                             <th>Date</th>  -->
                             <th>Actions</th>

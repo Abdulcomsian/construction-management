@@ -41,7 +41,7 @@
                         <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
-                                <span class="required">Comment:</span>
+                                <span class="required">TWC Comments:</span>
                             </label>
                             <!--begin::Label-->
                             <!--begin::Label-->

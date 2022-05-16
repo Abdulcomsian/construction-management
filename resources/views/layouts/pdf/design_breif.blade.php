@@ -76,7 +76,8 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['designer_company_email']}}</td>
                     </tr>
-                     <tr style="height: 150px;">
+                    @if(isset($data['desinger_company_name2']) || isset($data['desinger']))
+                     <!-- <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Company Name</b></label>
                         </td>
@@ -85,10 +86,16 @@
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Name</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger'] ?? ''}}</td>
-                    </tr>
+                    </tr> -->
+                    @endif
+                    @if(isset($data['desinger_email_2']) || isset($data['desinger_company_name2']))
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Email</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Company Name</b></label>
+                        </td>
+                        <td style="max-height:70px !important; font-size:12px;">{{$data['desinger_company_name2'] ?? ''}}</td>
+                        <td style="width: 150px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_email_2'] ?? ''}}</td>
                         <!-- <td style="width: 150px;background:gray;color:white">
@@ -96,6 +103,7 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"></td> -->
                     </tr>
+                    @endif
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWC Name</b></label>

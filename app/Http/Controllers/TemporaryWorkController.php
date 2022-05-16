@@ -211,8 +211,9 @@ class TemporaryWorkController extends Controller
                     $model = new TempWorkUploadFiles();
                     $model->file_name = $imagename;
                     $model->file_type = 1;
-                    $model->created_at = $request->design_returned;
+                    $model->created_at = $request->design_required_by_date;
                     $model->temporary_work_id = $temporary_work->id;
+                    $model->created_by=Auth::user()->email;
                     $model->save();
                 }
 
@@ -706,6 +707,9 @@ class TemporaryWorkController extends Controller
             if (isset($request->type) && $request->type == 'scan') {
                 $model->type = 'scan';
             }
+            if (isset($request->type) && $request->type == 'twc') {
+                $model->type = 'twc';
+            }
             if ($model->save()) {
                 Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id));
 
@@ -825,6 +829,7 @@ class TemporaryWorkController extends Controller
         $path = config('app.url');
         if ($request->type == 'normal') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
+            $twccommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'twc'])->get();
         } elseif ($request->type == 'pc') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'pc'])->get();
         } elseif ($request->type == 'permit') {
@@ -834,11 +839,26 @@ class TemporaryWorkController extends Controller
             $temporary_work_id = $request->temporary_work_id;
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $temporary_work_id, 'type' => 'scan'])->get();
         }
+        //twc comments here
+        if(count($twccommetns)>0)
+            {
+                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+                $i=1;
+                foreach($twccommetns as $comment)
+                {
+                    $table .= '<tr style="background:white">
+                               <td>' . $i . '</td><td>' . $comment->comment . '</td>
+                               <td>' . date("d-m-Y H:i:s", strtotime($comment->created_at)). '</td>
+                           </tr>';
+                           $i++;
+                }
+                $table .= '</tbody></table>';
+            }
         if (count($commetns) > 0) {
             if ($request->type == "permit" || $request->type == 'pc' || $request->type=="qscan") {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+                $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Comment</th><th style="width:40%">Reply</th><th>Attachment</th><th style="width:25%;">Date</th></tr></thead><tbody>';
+                $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Designer Comment</th><th style="width:40%">Twc Reply</th><th></th><th style="width:25%;">Date</th></tr></thead><tbody>';
             }
 
             $i = 1;
@@ -882,7 +902,7 @@ class TemporaryWorkController extends Controller
                             }
                             $date = '';
                             if (isset($comment->reply_date[$j])) {
-                                $date = date("d-m-Y", strtotime($comment->reply_date[$j]));
+                                $date = date("d-m-Y H:i:s", strtotime($comment->reply_date[$j]));
                             }
                             $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' . $date . '</td></tr><br>';
                             $k++;
@@ -891,7 +911,7 @@ class TemporaryWorkController extends Controller
                 }
 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan') {
+                if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type !='twc') {
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td>' . $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
                                <td style=" flex-direction: column;">
@@ -923,6 +943,8 @@ class TemporaryWorkController extends Controller
 
                 $i++;
             }
+
+
             $table .= '</tbody></table>';
             echo $table;
         } else {

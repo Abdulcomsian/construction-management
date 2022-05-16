@@ -3,7 +3,7 @@
 @section('styles')
 <style>
     .updateBtn {
-    bottom: 100px !important;
+    bottom: 200px !important;
 }
 .list-div ul li, .list-check-div ul li{
 height: 72px;

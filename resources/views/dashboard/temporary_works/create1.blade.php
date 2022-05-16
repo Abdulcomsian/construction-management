@@ -241,7 +241,7 @@ height: 72px;
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Tw Id no:</span>
+                                        <span class="required">TW ID No:</span>
 
                                     </label>
                                     <!--end::Label-->

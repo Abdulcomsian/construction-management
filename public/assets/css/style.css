@@ -348,17 +348,17 @@ input:focus {
 }
 @media screen and (max-width: 1800px) {
     #submitbutton {
-        right: 23%;
+        right: 23.4%;
     }
 }
 @media screen and (max-width: 1600px) {
     #submitbutton {
-        right: 22.3%;
+        right: 22.5%;
     }
 }
 @media screen and (max-width: 1440px) {
     #submitbutton {
-        right: 21.5%;
+        right: 21.2%;
     }
 }
 @media screen and (max-width: 1310px) {

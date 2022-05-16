@@ -14,6 +14,10 @@
 input::placeholder{
     color: #fff !important;
 }
+.Preliminary-Sketches{
+    width: 100%;
+    max-width: 70%;
+}
 #design_requirement_text{
     color: #000 !important;
 }
@@ -615,6 +619,7 @@ height: 72px;
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script>
     
+    
     var projects = {!!$projects!!};
     $('#projects').change(function() {
         let id = $(this).val();
@@ -758,6 +763,10 @@ height: 72px;
         signaturePad.clear();
         $("#signature").val('');
     });
+    $("#attachment").click(function() {
+        $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+        });
 
 
     $('#design_required_by_date').change(function() {
@@ -780,7 +789,10 @@ height: 72px;
         $('#twc_email').css("background-color", "#f5f8fa ");
         $('#twc_email').css("color", "#000");
     });
-
+    $("#scopofdesign").click(function() {
+        $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+        });
 
     $(".hazardlist").on('click',function(){
         $("#hazard_modal_id").modal('show');
@@ -788,18 +800,25 @@ height: 72px;
             
 
     $(function() {
+       var email= $("#twc_email").val();
+       if(email.length>0){
+        $("#twc_email").removeClass("blackBack")
+       } else{
+        $("#twc_email").addClass("blackBack")
+       }
         $("input").on("change paste keyup cut select", function() {
             if($(this).val() !== "") {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")
             }
         });
-        $("textarea").on("change paste keyup cut select", function() {
+        $("textarea").on("change", function() {
             if($(this).val() !== "") {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")
             }
         });
+       
         $("#design_requirement_text").on("click", function() {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")

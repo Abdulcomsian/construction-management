@@ -2,6 +2,15 @@
 
 @section('styles')
 <style>
+    .customDate::-webkit-calendar-picker-indicator {   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>'); }
+    .whiteBack{
+            background-color: #f5f8fa !important;
+            color: #000 !important;
+        }
+        .form-select.form-select-solid{
+            background-color: #000;
+            color: #fff;
+        }
 .list-div ul li, .list-check-div ul li{
 height: 72px;
     overflow: visible;
@@ -117,6 +126,9 @@ height: 72px;
             width: 100%;
             height: 220px;
         }
+        input::placeholder{
+    color: #fff !important;
+}
 
         #sig canvas {
             width: 100% !important;
@@ -125,7 +137,14 @@ height: 72px;
         .modalDiv{
             width:100% ;
         }
+        .blackBack{
+        background-color: #000 !important;
+        color: #fff !important;
+    }
      .form-control.form-control-solid{width:250px;background-color:#000;}
+     .form-control.form-control-solid[type="file"]{
+        background-color: transparent;
+     }
      @media only screen and (min-width: 470px) {
         .list_top{display:inline !important;}
      }
@@ -208,7 +227,7 @@ height: 72px;
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -217,16 +236,24 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Twc Id no:</span>
+                                        <span class="required">Tw Id no:</span>
 
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="text" class="form-control form-control-solid" placeholder="Twc Id No" id="twc_id_no" name="twc_id_no"  value="{{old('twc_id_no')}}" required>
+                                    <input  type="text" class="blackBack form-control form-control-solid" placeholder="Twc Id No" id="twc_id_no" name="twc_id_no"  value="{{old('twc_id_no')}}" required>
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Upload Existing Design Brief:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="form-control form-control-solid"  id="pdf" name="pdf" accept="application/pdf">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -234,14 +261,14 @@ height: 72px;
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="date" class="form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}"  required>
+                                    <input  type="date" class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Design Required by Date:</span>
                                     </label>
-                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -250,7 +277,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -260,32 +287,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid"   placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Upload Drawings and Design:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="file" class="form-control form-control-solid" id="drawing" name="drawing" >
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Date Design Returned:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date"  class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}"  >
-                                    <!-- </p> -->
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Upload Design Check Certificate:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="file" class="form-control form-control-solid" id="dcc" name="dcc" >
-                                </div>
+                                
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -293,7 +295,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
+                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv">
@@ -377,36 +379,56 @@ height: 72px;
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" style="width: 50%;"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
                                 
                                  </div>
+                                 
                                   <div class="d-flex inputDiv">
                                     <div class="d-flex modalDiv">
                                         <!--begin::Label-->
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description :
                                             </label>
-                                            <textarea class="form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
+                                 <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Upload Drawings and Design:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="whiteBack form-control form-control-solid" id="drawing" name="drawing" >
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Date Design Returned:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
+                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date"  class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}"  >
+                                    <!-- </p> -->
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Upload Design Check Certificate:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="whiteBack form-control form-control-solid" id="dcc" name="dcc" >
+                                </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
+                                     <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
                                 </div>
-                                 <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Upload PDF:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="file" class="form-control form-control-solid"  id="pdf" name="pdf" accept="application/pdf">
-                                </div>
+                                
                             </div>
                         </div>
                           <br>
@@ -641,7 +663,49 @@ height: 72px;
                 $('#twc_email').css("background-color", "#f5f8fa ");
                 $('#twc_email').css("color", "#000");
             });
+            $("#twc_id_no").on("change paste keyup cut select", function() {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+            });
+            $("input").on("change paste keyup cut select", function() {
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
+            });
+            $("#projects").change(function(){
+            console.log("hello")
+            $(this).removeClass("blackBack")
+            $("#projects span.form-select").removeClass("blackBack")
+         //   $(".form-control[readonly]").removeClass("blackBack")
+            $("#no").removeClass("blackBack")
+            $("#name").removeClass("blackBack")
+            $("#design_issued_date").removeClass("blackBack")
+            $("#address").removeClass("blackBack")
+            $("#job_title").removeClass("blackBack")
+            $("#admin_name").removeClass("blackBack")
+            $("#companyadmin").removeClass("blackBack")
+            $(".form-select.form-select-solid").css("background-color","#f5f8fa")
+            $("#companyadmin").removeClass("blackBack")
+            $("#twc_name").removeClass("blackBack")
+         //   $("#scopofdesign").addClass("blackBack")
+        })
+        $("#twc_id_no").on("change paste keyup cut select", function() {
+           
+                $(this).removeClass("blackBack")
+                $(this).addClass("whiteBack")
             
+        });
+        $("#design_requirement_text").click(function() {
+           
+           $(this).removeClass("blackBack")
+           $(this).addClass("whiteBack")
+       
+   });
+   $("textarea").click(function() {
+           
+           $(this).removeClass("blackBack")
+           $(this).addClass("whiteBack")
+       
+   });
 </script>
 
     

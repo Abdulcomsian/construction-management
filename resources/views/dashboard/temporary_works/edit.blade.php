@@ -2,6 +2,9 @@
 
 @section('styles')
 <style>
+    .updateBtn {
+    bottom: 100px !important;
+}
 .list-div ul li, .list-check-div ul li{
 height: 72px;
     overflow: visible;
@@ -402,7 +405,7 @@ height: 72px;
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" style="width: 50%;color:white !important"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
+                                        <input type="text" style="width: 50%;color:white"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
                                         <!--end::Label-->
                                     </div>
                                 
@@ -512,7 +515,7 @@ height: 72px;
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals-edit')
-                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button>
+                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="updateBtn btn btn-primary float-end">Update</button>
                         
                     </form>
                 </div>
@@ -639,6 +642,14 @@ height: 72px;
         $('#twc_email').css("background-color", "#f5f8fa ");
         $('#twc_email').css("color", "#000");
     });
+    $(document).ready(function() {
+        if($("#design_requirement_text").val() !== "") {
+            console.log("helo")
+                $("#design_requirement_text").removeClass("blackBack")
+                $("#design_requirement_text").addClass("whiteBack")
+            }
+        });
+  
             
 </script>
 

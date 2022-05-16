@@ -2,6 +2,7 @@
 
 @section('styles')
 <style>
+    .customDate::-webkit-calendar-picker-indicator {   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>'); }
     .updateBtn {
     bottom: 200px !important;
 }
@@ -227,7 +228,7 @@ height: 72px;
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="date"  class="form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date',$temporaryWork->design_issued_date)}}"  required>
+                                    <input readonly type="date"  class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date',$temporaryWork->design_issued_date)}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -236,7 +237,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color:#a9abb7;" type="date" class="form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date',$temporaryWork->design_required_by_date)}}"  required>
+                                        <input  style=" cursor: pointer;color:#a9abb7;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date',$temporaryWork->design_required_by_date)}}"  required>
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -469,7 +470,7 @@ height: 72px;
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
+                                    <input type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="customDate form-control form-control-solid">
                                 </div>
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->

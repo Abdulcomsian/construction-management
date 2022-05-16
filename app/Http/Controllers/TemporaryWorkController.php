@@ -944,7 +944,6 @@ class TemporaryWorkController extends Controller
                 $i++;
             }
 
-
             $table .= '</tbody></table>';
             echo $table;
         } else {

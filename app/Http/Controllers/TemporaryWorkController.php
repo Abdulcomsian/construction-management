@@ -902,9 +902,9 @@ class TemporaryWorkController extends Controller
                             }
                             $date = '';
                             if (isset($comment->reply_date[$j])) {
-                                $date = date("d-m-Y H:i:s", strtotime($comment->reply_date[$j]));
+                                $date = date("H:i d-m-Y", strtotime($comment->reply_date[$j]));
                             }
-                            $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' . $date . '</td></tr><br>';
+                            $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' .  date("d-m-Y", strtotime($comment->reply_date[$j])) . '</td></tr><br>';
                             $k++;
                         }
                     }

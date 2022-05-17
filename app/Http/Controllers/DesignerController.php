@@ -284,7 +284,9 @@ class DesignerController extends Controller
         $id = \Crypt::decrypt($id);
         $tempworkdetail = TemporaryWork::find($id);
         $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
-        return view('dashboard.designer.pc_index', compact('tempworkdetail','comments'));
+        $rejectedcomments=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
+        //dd($rejectedcomments);
+        return view('dashboard.designer.pc_index', compact('tempworkdetail','comments','rejectedcomments'));
     }
 
     //approved or reject

@@ -265,13 +265,39 @@
                                             <input type="file" class="form-control form-control-solid" id="file" name="file[]" style="background: #f5f8fa" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6 d-flex">
+                                        <div class="d-flex inputDiv d-block" style="width: 30%">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required"> Preliminary/Construction:</span>
+
+                                            </label>
+                                            <!--end::Label-->
+                                            
+                                        </div>
+                                       <div class="form-check" style="padding-top:26px">
+                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="option1" checked>
+                                          <label class="form-check-label" for="exampleRadios1">
+                                            Preliminary/ For approval
+                                          </label>
+                                        </div>
+                                        <div class="form-check" style="padding-top:26px">
+                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="option2">
+                                          <label class="form-check-label" for="exampleRadios2">
+                                            For construction
+                                          </label>
+                                        </div>
+                                        
+                                    </div>
+                                   <!--  <div class="col-md-3">
+
+                                        
                                         <div class="d-flex inputDiv requiredDiv">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Preliminary/ For approval</span>
 
                                             </label>
-                                            <!--begin::Radio group-->
+                                           
                                             <div class="nav-group nav-group-fluid">
                                                 <label>
                                                     <input type="radio" datacheck1='yes' class="btn-check" name="preliminary_approval" value="1" checked />
@@ -290,7 +316,7 @@
                                                 <span class="required">For construction</span>
 
                                             </label>
-                                            <!--begin::Radio group-->
+                                           
                                             <div class="nav-group nav-group-fluid">
                                                 <label>
                                                     <input type="radio" datacheck='yes' class="btn-check" name="construction" value="1" />
@@ -302,7 +328,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary float-end">Submit</button>

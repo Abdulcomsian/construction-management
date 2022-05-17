@@ -67,8 +67,19 @@ class DesignerController extends Controller
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
                 $model->drawing_title = $request->drawing_title;
-                $model->preliminary_approval = $request->preliminary_approval;
-                $model->construction = $request->construction;
+                if($request->status==1)
+                {
+                    //$model->preliminary_approval = $request->preliminary_approval;
+                    //$model->construction = $request->construction;
+                    $model->preliminary_approval = 1;
+                    $model->construction = 0;
+                }
+                else{
+                    $model->preliminary_approval = 0;
+                    $model->construction = 1;
+                }
+                
+                
                 $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
             }
             if(isset($request->designermail))

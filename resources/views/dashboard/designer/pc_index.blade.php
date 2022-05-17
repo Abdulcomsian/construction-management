@@ -176,14 +176,16 @@
                             <tr>
                                 <th>NO</th>
                                 <th>comments/Reason</th>
+                                <th>Design Brief Updated</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($comments as $cmt)
+                            @foreach($rejectedcomments as $cmt)
                             <tr>
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$cmt->comment}}</td>
+                                <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
                                 <td>{{$cmt->created_at}}</td>
                             </tr>
                             @endforeach

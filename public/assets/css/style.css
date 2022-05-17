@@ -67,10 +67,10 @@ input:focus {
 }
 
 #scope-of-design .common-requirment{
-    width: 70%;
+    width: 80%;
 }
 #scope-of-design .requirment-second{
-    width: 30%;
+    width: 20%;
 }
 #design-requirement .common-requirment {
     width: 50%;
@@ -336,20 +336,46 @@ input:focus {
 .mobileView a{
     margin-bottom: 10px;
 }
+@media screen and (min-width: 1900px) {
+    #submitbutton {
+        right: 24%;
+    }
+}
+@media screen and (min-width: 1800px) {
+    #submitbutton {
+        right: 24%;
+    }
+}
 @media screen and (max-width: 1800px) {
     #submitbutton {
-        right: 23%;
+        right: 23.4%;
     }
 }
 @media screen and (max-width: 1600px) {
     #submitbutton {
-        right: 22%;
+        right: 22.5%;
+    }
+}
+@media screen and (max-width: 1440px) {
+    #submitbutton {
+        right: 21.2%;
+    }
+}
+@media screen and (max-width: 1310px) {
+    #submitbutton {
+        right: 20.5%;
     }
 }
 @media screen and (min-width: 1200px) {
     
     canvas{
         width:270px !important;
+    }
+}
+@media screen and (max-width: 1150px) {
+    
+    #submitbutton {
+        right: 20.5%;
     }
 }
 @media screen and (max-width: 1500px) {

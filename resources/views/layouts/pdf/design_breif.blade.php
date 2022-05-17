@@ -76,34 +76,30 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['designer_company_email']}}</td>
                     </tr>
-                    @if(isset($data['desinger_company_name2']) || isset($data['desinger']))
-                     <!-- <tr style="height: 150px;">
+                    <!-- <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Company Name</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_company_name2'] ?? ''}}</td>
-                        <td style="width: 150px;background:gray;color:white">
+                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Name</b></label>
                         </td>
-                        <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger'] ?? ''}}</td>
-                    </tr> -->
-                    @endif
-                    @if(isset($data['desinger_email_2']) || isset($data['desinger_company_name2']))
-                    <tr style="height: 150px;">
-                        <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Company Name</b></label>
-                        </td>
-                        <td style="max-height:70px !important; font-size:12px;">{{$data['desinger_company_name2'] ?? ''}}</td>
+                        <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger'] ?? ''}}</td> -->
+                    <td style="width: 150px;background:gray;color:white">
+                        <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Email</b></label>
+                    </td>
+                    <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_email_2'] ?? ''}}</td>
+                    </tr>
+                    <!-- <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_email_2'] ?? ''}}</td>
-                        <!-- <td style="width: 150px;background:gray;color:white">
+                        <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;"></b></label>
                         </td>
-                        <td style="max-height:70px !important; font-size:12px;"></td> -->
-                    </tr>
-                    @endif
+                        <td style="max-height:70px !important; font-size:12px;"></td>
+                    </tr> -->
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWC Name</b></label>
@@ -112,9 +108,9 @@
                         <td style="width: 150px;background:gray;color:white">
                             <!-- <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWc Email Address</b></label> -->
                         </td>
-                        <td style="max-height:70px !important; font-size:12px;"> 
-                        <!-- {{$data['twc_email']}} -->
-                    </td>
+                        <td style="max-height:70px !important; font-size:12px;">
+                            <!-- {{$data['twc_email']}} -->
+                        </td>
                     </tr>
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
@@ -141,7 +137,7 @@
                 </tbody>
             </table>
         </div>
-       
+
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <thead style="background:gray;color:white">
@@ -257,17 +253,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                @if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes")
-                <tr>
+                    @if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes")
+                    <tr>
                         <td>
                             <b style="font-size:12px;">List of attachments/sketches/ Photos / Specifications /Drawings etc.</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['list_of_attachments_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['list_of_attachments']) || $folderattac['list_of_attachments']==NULL ||  $folderattac['list_of_attachments']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['list_of_attachments']) || $folderattac['list_of_attachments']==NULL || $folderattac['list_of_attachments']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
                     @if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes")
@@ -277,9 +273,9 @@
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['reports_including_site_investigations']) || $folderattac['reports_including_site_investigations']==NULL ||  $folderattac['reports_including_site_investigations']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['reports_including_site_investigations']) || $folderattac['reports_including_site_investigations']==NULL || $folderattac['reports_including_site_investigations']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
                     @if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="yes")
@@ -290,9 +286,9 @@
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['existing_ground_conditions']) || $folderattac['existing_ground_conditions']==NULL ||  $folderattac['existing_ground_conditions']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['existing_ground_conditions']) || $folderattac['existing_ground_conditions']==NULL || $folderattac['existing_ground_conditions']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
                     @if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="yes")
@@ -303,9 +299,9 @@
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['preferred_non_preferred_methods']) || $folderattac['preferred_non_preferred_methods']==NULL ||  $folderattac['preferred_non_preferred_methods']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['preferred_non_preferred_methods']) || $folderattac['preferred_non_preferred_methods']==NULL || $folderattac['preferred_non_preferred_methods']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
                     @if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="yes")
@@ -316,9 +312,9 @@
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['access_limitations']) || $folderattac['access_limitations']==NULL ||  $folderattac['access_limitations']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['access_limitations']) || $folderattac['access_limitations']==NULL || $folderattac['access_limitations']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
                     @if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes")
@@ -328,33 +324,33 @@
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['back_propping']) || $folderattac['back_propping']==NULL ||  $folderattac['back_propping']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['back_propping']) || $folderattac['back_propping']==NULL || $folderattac['back_propping']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
-                    @if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="yes")	
-                  <tr>
+                    @if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="yes")
+                    <tr>
                         <td><b style="font-size:12px;">Limitations on Temporary Works Design: (please attach)</b>
                             <p style="font-size:11px;">{{$comments['limitations_on_temporary_works_design_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['limitations_on_temporary_works_design']) || $folderattac['limitations_on_temporary_works_design']==NULL ||  $folderattac['limitations_on_temporary_works_design']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['limitations_on_temporary_works_design']) || $folderattac['limitations_on_temporary_works_design']==NULL || $folderattac['limitations_on_temporary_works_design']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
-                    @if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="yes")                  
+                    @if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="yes")
                     <tr>
                         <td><b style="font-size:12px;">Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['details_of_any_hazards_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['details_of_any_hazards']) || $folderattac['details_of_any_hazards']==NULL ||  $folderattac['details_of_any_hazards']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['details_of_any_hazards']) || $folderattac['details_of_any_hazards']==NULL || $folderattac['details_of_any_hazards']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
                     @if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="yes")
@@ -365,9 +361,9 @@
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
-                        @if(!isset($folderattac['3rd_party_requirements']) || $folderattac['3rd_party_requirements']==NULL ||  $folderattac['3rd_party_requirements']=="no"){{'N'}}@endif
-                        <!-- @if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="no"){{'N'}}@endif -->
-                    </td>
+                            @if(!isset($folderattac['3rd_party_requirements']) || $folderattac['3rd_party_requirements']==NULL || $folderattac['3rd_party_requirements']=="no"){{'N'}}@endif
+                            <!-- @if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="no"){{'N'}}@endif -->
+                        </td>
                     </tr>
                     @endif
                 </tbody>

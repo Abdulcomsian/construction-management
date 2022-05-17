@@ -213,7 +213,7 @@ class TemporaryWorkController extends Controller
                     $model->file_type = 1;
                     $model->created_at = $request->design_required_by_date;
                     $model->temporary_work_id = $temporary_work->id;
-                    $model->created_by=Auth::user()->email;
+                    $model->created_by = Auth::user()->email;
                     $model->save();
                 }
 
@@ -835,27 +835,25 @@ class TemporaryWorkController extends Controller
         } elseif ($request->type == 'permit') {
             $permit_id = \Crypt::decrypt($request->permit_id);
             $commetns = PermitComments::where(['permit_load_id' =>  $permit_id])->latest()->get();
-        } elseif ($request->type == 'scan' || $request->type == 'qscan' ) {
+        } elseif ($request->type == 'scan' || $request->type == 'qscan') {
             $temporary_work_id = $request->temporary_work_id;
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $temporary_work_id, 'type' => 'scan'])->get();
         }
         //twc comments here
-        if(count($twccommetns)>0)
-            {
-                $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
-                $i=1;
-                foreach($twccommetns as $comment)
-                {
-                    $table .= '<tr style="background:white">
+        if (count($twccommetns) > 0) {
+            $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+            $i = 1;
+            foreach ($twccommetns as $comment) {
+                $table .= '<tr style="background:white">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
-                               <td>' . date("d-m-Y H:i:s", strtotime($comment->created_at)). '</td>
+                               <td>' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                            </tr>';
-                           $i++;
-                }
-                $table .= '</tbody></table>';
+                $i++;
             }
+            $table .= '</tbody></table>';
+        }
         if (count($commetns) > 0) {
-            if ($request->type == "permit" || $request->type == 'pc' || $request->type=="qscan") {
+            if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
                 $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
                 $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Designer Comment</th><th style="width:40%">Twc Reply</th><th></th><th style="width:25%;">Date</th></tr></thead><tbody>';
@@ -867,7 +865,7 @@ class TemporaryWorkController extends Controller
                 $a = '';
                 $status = '';
                 $input = '';
-                if (isset($request->type) && $request->type == 'scan' || $request->type=='qscan') {
+                if (isset($request->type) && $request->type == 'scan' || $request->type == 'qscan') {
                     $input = '<input type="hidden" name="scan" value="scan" />';
                     if ($comment->user_id) {
                         $colour = "#6A5ACD";
@@ -911,7 +909,7 @@ class TemporaryWorkController extends Controller
                 }
 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type !='twc') {
+                if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td>' . $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
                                <td style=" flex-direction: column;">

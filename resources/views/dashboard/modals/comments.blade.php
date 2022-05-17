@@ -29,6 +29,7 @@
                     @csrf
                     <!--begin::Heading-->
                     <input type="hidden" name="temp_work_id" id="temp_work_id" />
+                    <input type="hidden" name="type" value="twc" />
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <div class="mb-13 text-center">

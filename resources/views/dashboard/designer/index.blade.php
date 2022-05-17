@@ -351,7 +351,7 @@
                                         <textarea class="form-control" required name="comment"></textarea><br>
                                         <input type="hidden" name="drawingid" value="{{$uploads->id}}">
                                         <input type="hidden" name="tempid" value="{{$uploads->temporary_work_id}}">
-                                        <input type="hidden" name="mail" value="{{{{$mail}}}}">
+                                        <input type="hidden" name="mail" value="{{$mail}}">
                                         <button class="btn btn-primary">Add Comment</button>
                                     </form></td>
 

@@ -32,10 +32,6 @@ class DesignerController extends Controller
         }
         $mail=$_GET['mail'];
         $id = \Crypt::decrypt($id);
-        $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->where(function($query) use($ids,$designearray){
-            $query->whereIn('id',$ids)
-            ->orWhere('created_by',$designearray[1]);
-        })->get();
         $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $riskassessment = TempWorkUploadFiles::where(['file_type' => 5, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
@@ -137,6 +133,7 @@ class DesignerController extends Controller
                     $list .= '<th>TWD Name</th><th>Drawing Title</th><th>Preliminary/ For approval</th><th>For construction</th><th>Action</th>';
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
+                     $background='';
                     foreach ($registerupload as $uploads) {
                         $papproval = 'No';
                         $construction = 'No';
@@ -228,6 +225,7 @@ class DesignerController extends Controller
                 $list .= '<th>Comments</th>';
                 $list .= '<th>TWD Name</th><th>Drawing Title</th><th>Preliminary/ For approval</th><th>For construction</th><th>Action</th>';
                 $list .= '</tr></thead><tbody>';
+                $background='';
                 foreach ($DesignerUploads as $uploads) {
                     $papproval = 'No';
                     $construction = 'No';
@@ -339,6 +337,20 @@ class DesignerController extends Controller
                     return Redirect::back();
                 }
             } else {
+                $model = new TemporaryWorkComment();
+                $model->comment = $request->comments;
+                $model->temporary_work_id = $request->tempworkid;
+                $model->type = 'pc';
+                if ($model->save()) {
+                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
+
+                    $rejectedmodel->temporary_work_id=$request->tempworkid;
+                    $rejectedmodel->comment=$request->comments;
+                    $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
+                    $rejectedmodel->pdf_url=$tempworkdata->ped_url;
+                    $rejectedmodel->updated_at=date('Y-m-d H:i:s');
+                    $rejectedmodel->save();
+                }
                 $subject = 'Design Brief Approved ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                      $text = ' Welcome to the online i-works Web-Portal.Design Brief Approve by PC TWC.';
                

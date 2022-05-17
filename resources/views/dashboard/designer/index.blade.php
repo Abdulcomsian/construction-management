@@ -266,14 +266,22 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 d-flex">
-                                        
-                                       <div class="form-check">
+                                        <div class="d-flex inputDiv d-block" style="width: 30%">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required"> Preliminary/Construction:</span>
+
+                                            </label>
+                                            <!--end::Label-->
+                                            
+                                        </div>
+                                       <div class="form-check" style="padding-top:26px">
                                           <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="option1" checked>
                                           <label class="form-check-label" for="exampleRadios1">
                                             Preliminary/ For approval
                                           </label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check" style="padding-top:26px">
                                           <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="option2">
                                           <label class="form-check-label" for="exampleRadios2">
                                             For construction

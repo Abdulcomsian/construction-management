@@ -175,6 +175,7 @@
                         <thead>
                             <tr>
                                 <th>NO</th>
+                                <th>TWC ID NO</th>
                                 <th>comments/Reason</th>
                                 <th>Design Brief Updated</th>
                                 <th>Date</th>
@@ -184,6 +185,7 @@
                             @foreach($rejectedcomments as $cmt)
                             <tr>
                                 <td>{{$loop->index+1}}</td>
+                                 <td> {{$tempworkdetail->twc_id_no}}</td>
                                 <td>{{$cmt->comment}}</td>
                                 <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
                                 <td>{{$cmt->created_at}}</td>
@@ -192,7 +194,7 @@
                         </tbody>
                     </table>
                     <hr>
-                    <table class="table table-hover">
+                    <!-- <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>NO</th>
@@ -219,7 +221,7 @@
                                 </td>
                             
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 <!--end::Card body-->
             </div>

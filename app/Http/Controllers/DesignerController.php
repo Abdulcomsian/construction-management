@@ -72,10 +72,10 @@ class DesignerController extends Controller
                     //$model->preliminary_approval = $request->preliminary_approval;
                     //$model->construction = $request->construction;
                     $model->preliminary_approval = 1;
-                    $model->construction = 0;
+                    $model->construction = 2;
                 }
                 else{
-                    $model->preliminary_approval = 0;
+                    $model->preliminary_approval = 2;
                     $model->construction = 1;
                 }
                 
@@ -542,7 +542,7 @@ class DesignerController extends Controller
     public function reply_drawing(Request $request)
     {
         $comments=DrawingComment::find($request->id);
-        $createdby=TempWorkUploadFiles::select('created_by')->find($request->drawingid);
+        $createdby=TempWorkUploadFiles::select(['created_by','temporary_work_id'])->find($request->drawingid);
         $replyarray=[];
         if (is_array($comments->drawing_reply)) 
         {
@@ -575,7 +575,7 @@ class DesignerController extends Controller
             
 
         $comments->update(['drawing_reply'=>$replyarray,'reply_date'=>$reply_date,'reply_image'=>$arrayimage,'reply_email'=>Auth::user()->email]);
-         Notification::route('mail', $createdby->created_by)->notify(new DrawingCommentNotification($request->reply,'reply'));
+         Notification::route('mail', $createdby->created_by)->notify(new DrawingCommentNotification($request->reply,'reply',$createdby->created_by,$createdby->temporary_work_id));
         toastSuccess('Reply send  Successfully!');
         return Redirect::back();
         

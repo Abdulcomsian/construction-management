@@ -30,6 +30,11 @@
                                                                     <h4>{{ $type=="question" ? 'Qutesion':'Reply'}}-</h4>
                                                                     <p>{{$comment ?? ''}}</p>
                                                                     <br>
+                                                                    @if($type=='question')
+                                                                        <a href="{{url('temporary_works')}}">View Question</a>
+                                                                    @else
+                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">View Reply</a>
+                                                                    @endif
                                                                     </p>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>City Temporary Works
 </p>

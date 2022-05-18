@@ -18,10 +18,14 @@ class DrawingCommentNotification extends Notification
      */
     protected $data;
     protected $type;
-    public function __construct($data,$type)
+    protected $mail;
+    protected $tempid;
+    public function __construct($data,$type,$mail=null,$tempid=null)
     {
         $this->data=$data;
         $this->type=$type;
+        $this->mail=$mail;
+        $this->tempid=$tempid;
     }
 
     /**
@@ -46,7 +50,7 @@ class DrawingCommentNotification extends Notification
          return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Drawing Comment/Reply Notifications')
-            ->view('mail.drawingcomment',['comment'=> $this->data,'type'=>$this->type]);
+            ->view('mail.drawingcomment',['comment'=> $this->data,'type'=>$this->type,'email'=>$this->mail,'tempid'=>$this->tempid]);
     }
 
     /**

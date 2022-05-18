@@ -468,7 +468,7 @@ class DesignerController extends Controller
     public function get_rejected_designbrief(Request $request)
     {
         $id=\Crypt::decrypt($request->tempid);
-        $tempdata=TemporaryWork::select(['twc_id_no','status'])->find($id);
+        $tempdata=TemporaryWork::select(['twc_id_no','status','pc_twc_email'])->find($id);
         $rejected=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
         $list='';
         $array=[];
@@ -487,7 +487,7 @@ class DesignerController extends Controller
             {
                 $rejdate=date('H:i d-m-Y',strtotime($rej->updated_at));
             }
-            $list .='<tr><td>'.$i.'</td><td>'.$rej->rejected_by.'<br>'.$acceptance_date.'</td><td>'.$rej->comment.'<br>'.$rejdate.'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td><a  href='.route('temporary_works.edit',$id).' target="_blank" style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a></td></tr>';
+            $list .='<tr><td>'.$i.'</td><td>'.$tempdata->pc_twc_email.'<br>'.$acceptance_date.'</td><td>'.$rej->comment.'<br>'.$rejdate.'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td><a  href='.route('temporary_works.edit',$id).' target="_blank" style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a></td></tr>';
             $i++;
         }
         $array['list']=$list;

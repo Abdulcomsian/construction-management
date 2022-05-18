@@ -297,7 +297,7 @@
                                 <div class="form" style="display: flex; align-items: baseline;">
                                     <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}">
                                         <div class="col-10">
-                                            <select name="projects[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select a Project">
+                                            <select name="projects[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select a Project" required>
                                                 @foreach($projects as $proj)
                                                 <option value="{{$proj->id}}">{{$proj->name}}</option>
                                                 @endforeach

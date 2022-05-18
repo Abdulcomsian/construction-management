@@ -1866,14 +1866,23 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
                                 <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
                                 </div> -->
-                            
-                            </div>
                             <br>
-                            <button id="submitbutton" type="submit" class="btn btn-primary">Submit</button>
+                            <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button  type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            </div>
+                            </div>
+
+                          
+                            
                             
                         </div>
                 </form>

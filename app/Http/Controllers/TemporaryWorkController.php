@@ -840,7 +840,7 @@ class TemporaryWorkController extends Controller
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $temporary_work_id, 'type' => 'scan'])->get();
         }
         //twc comments here
-        if (count($twccommetns) > 0) {
+        if (isset($twccommetns) && count($twccommetns) > 0) {
             $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($twccommetns as $comment) {

@@ -24,15 +24,15 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <!-- <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('drawing.reply') }}" method="post" enctype="multipart/form-data">
+                <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('twcdrawing.comment') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" id="replydrwingid" value="">
+                    <input type="hidden" name="drawingid" id="replydrwingid" />
                    
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <div class="mb-13 text-center">
                       
-                        <h1 class="mb-3">Reply</h1>
+                        <h1 class="mb-3">Add Comment</h1>
                        
                     </div>
                    
@@ -40,8 +40,8 @@
                     <div class="row g-9 mb-8">
                       
                         <div class="col-md-12 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Reply</label>
-                            <textarea class="form-control form-control-solid" name="reply" required></textarea>
+                            <label class="required fs-6 fw-bold mb-2">Comment:</label>
+                            <textarea class="form-control form-control-solid" name="commment" required></textarea>
                         </div>
                        
                         
@@ -50,12 +50,10 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">
                             <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                    
-                </form> -->
+                </form>
                 <!--end:Form-->
                 <table class="table table-hover">
                     <thead>

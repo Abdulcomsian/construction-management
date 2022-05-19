@@ -486,7 +486,8 @@
                                <span class="required">Document Type:</span>
                               </label>
                                <select class="form-control" name="type" style="width:30% !important">
-                                   <option value="5">Risk Assessment Calculations</option>
+                                   <option value="5">Risk Assessment</option>
+                                   <option value="6">Calculations</option>
                                </select>
                                &nbsp;&nbsp;
                                <button type="submit" class="btn btn-primary mb-2">Upload Rrisk Assessment Certificate</button>
@@ -499,16 +500,29 @@
                             <tr>
                                 <th>No</th>
                                 <th>Email</th>
-                                <th>Risk Assessment Certificate</th>
+                                <th>Document Type</th>
+                                <th>File</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                          <tbody>
                             @foreach($riskassessment as $riks)
+                            @php 
+                             $type='';
+                             if($riks->file_type=="5")
+                             {
+                                $type='Risk Assessment';
+                             }
+                             if($riks->file_type=="6")
+                             {
+                                $type='Calculations';
+                             }
+                             @endphp
                              <tr>
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$riks->created_by}}</td>
-                                <td><a href="{{asset($riks->file_name)}}" target="_blank">Risk Assessment-{{$loop->index+1}}</a></td>
+                                <td>{{$type}}</td>
+                                <td><a href="{{asset($riks->file_name)}}" target="_blank">File</a></td>
                                 <td>{{date("d-m-Y",strtotime($riks->created_at));}}</td>
                              </tr>
                             @endforeach

@@ -26,7 +26,7 @@
                 <!--begin:Form-->
                 <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('twcdrawing.comment') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="drawingid" id="replydrwingid" />
+                    <input type="hidden" name="drawingid" id="drwingid" />
                    
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

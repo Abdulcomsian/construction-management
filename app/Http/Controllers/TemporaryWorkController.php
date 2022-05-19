@@ -885,35 +885,42 @@ class TemporaryWorkController extends Controller
 
                 $list = '';
                 $k = 1;
+                $formorreply='';
+                $none='';
                 if ($comment->replay) {
-                    for ($j = 0; $j < count($comment->replay); $j++) {
-                        if ($comment->replay[$j]) {
+                    $none='display:none;';
+                  
+                    // for ($j = 0; $j < count($comment->replay); $j++) {
+                        if ($comment->replay[0]) {
                             $image = '';
-                            if (isset($comment->reply_image[$j])) {
-                                $n = strrpos($comment->reply_image[$j], '.');
-                                $ext = substr($comment->reply_image[$j], $n + 1);
+                            if (isset($comment->reply_image[0])) {
+                                $n = strrpos($comment->reply_image[0], '.');
+                                $ext = substr($comment->reply_image[0], $n + 1);
                                 if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '"><img src="' . $path . $comment->reply_image[$j] . '" width="50px" height="50px"/></a>';
+                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
                                 } else {
-                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '">View File</a>';
+                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
                                 }
                             }
                             $date = '';
-                            if (isset($comment->reply_date[$j])) {
-                                $date = date("H:i d-m-Y", strtotime($comment->reply_date[$j]));
+                            if (isset($comment->reply_date[0])) {
+                                $date = date("H:i d-m-Y", strtotime($comment->reply_date[0]));
                             }
-                            $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[$j] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' .  date("d-m-Y", strtotime($comment->reply_date[$j])) . '</td></tr><br>';
+                            // $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[0] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' .  date("d-m-Y", strtotime($comment->reply_date[0])) . '</td></tr><br>';
                             $k++;
                         }
-                    }
+                    //}
+                        $formorreply=$comment->reply_email. '<br>'. $comment->replay[0].'<br>' . $image . '<br>' . $date;
                 }
 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
+
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td>' . $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
                                <td style=" flex-direction: column;">
-                                <form method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
+                               '.$formorreply.'
+                                <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
                                    <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left"></textarea>

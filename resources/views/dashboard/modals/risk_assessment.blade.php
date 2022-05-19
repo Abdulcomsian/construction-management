@@ -31,7 +31,8 @@
                         <tr>
                             <th>No</th>
                             <th>Email</th>
-                            <th>Risk Assessment</th>
+                            <th>Document Type</th>
+                            <th>File</th>
                             <th>Date</th>
                         </tr>
                     </thead>

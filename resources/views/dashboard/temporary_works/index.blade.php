@@ -1638,7 +1638,7 @@
     $(document).on('click','.drawingreply',function(e){
         e.stopPropagation();
          id=$(this).attr('data-id');
-         $("#replydrwingid").val($(this).attr('data-id'));
+         $("#drwingid").val($(this).attr('data-id'));
          $.ajax({
             url: "{{route('get.reply.drawings')}}",
             method: "get",

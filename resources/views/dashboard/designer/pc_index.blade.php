@@ -176,8 +176,9 @@
                             <tr>
                                 <th>NO</th>
                                 <th>TWC ID NO</th>
+                                 <th>Design Brief Updated</th>
                                 <th>comments/Reason</th>
-                                <th>Design Brief Updated</th>
+                                <th>Send by</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -186,8 +187,9 @@
                             <tr>
                                 <td>{{$loop->index+1}}</td>
                                  <td> {{$tempworkdetail->twc_id_no}}</td>
-                                <td>{{$cmt->comment}}</td>
-                                <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
+                                 <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
+                                 <td>{{$cmt->comment}}</td>
+                                 <td>{{$cmt->email}}</td>
                                 <td>{{$cmt->created_at}}</td>
                             </tr>
                             @endforeach

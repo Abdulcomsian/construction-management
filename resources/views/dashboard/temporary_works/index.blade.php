@@ -1596,10 +1596,18 @@
                 console.log(res);
                 $("#rejected-designbrief-body").html(res.list);
                 $("#design-brief").html(res.brief);
-                $("span#rejectstatus").html(res.status);
+                $("span#rejectstatus").html('Status: '+res.status);
                 if(res.status=="Pending")
                 {
                     $("span#rejectstatus").css('color','#FFC300 ');
+                }
+                if(res.status=="Accepted")
+                {
+                    $("span#rejectstatus").css('color','green ');
+                }
+                if(res.status=="Rejected")
+                {
+                    $("span#rejectstatus").css('color','red');
                 }
                 $("#rejected_designbrief_modal_id").modal('show');
             }

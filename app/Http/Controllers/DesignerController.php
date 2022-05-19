@@ -34,7 +34,7 @@ class DesignerController extends Controller
         $id = \Crypt::decrypt($id);
         $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
-        $riskassessment = TempWorkUploadFiles::where(['file_type' => 5, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
+        $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
         $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id,'type'=>'normal'])->get();
         return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment'));
@@ -656,16 +656,16 @@ class DesignerController extends Controller
     //twc drawing comment
     public function twc_drawing_comment(Request $request)
     {
-       
+        
         $temp_work_id=TempWorkUploadFiles::find($request->drawingid);
-        $tempdata=TemporaryWork::select('twc_email')->find($temp_work_id->id);
+        $tempdata=TemporaryWork::select('twc_email')->find($temp_work_id->temporary_work_id);
         $model= new DrawingComment();
         $model->drawing_comment=$request->commment;
         $model->temp_work_upload_files_id=$request->drawingid;
         $model->sender_email=$tempdata->twc_email;
         if($model->save())
         {
-            Notification::route('mail', $temp_work_id->created_by)->notify(new DrawingCommentNotification($request->comment,'question'));
+            Notification::route('mail', $temp_work_id->created_by)->notify(new DrawingCommentNotification($request->commment,'twcquestion',$temp_work_id->created_by,$temp_work_id->temporary_work_id));
             toastSuccess('Comment Added  Successfully!');
             return Redirect::back();
         }
@@ -693,12 +693,20 @@ class DesignerController extends Controller
 
    public function get_assessment(Request $request)
    {
-     $riskassessment=TempWorkUploadFiles::where(['file_type'=>5,'temporary_work_id'=>$request->id])->get();
+     $riskassessment=TempWorkUploadFiles::where(['temporary_work_id'=>$request->id])->whereIn('file_type',[5,6])->get();
      $list='';
      $i=1;
      $path = config('app.url');
      foreach($riskassessment as $risk){
-        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">Risk Assessment-' . $i . '</a></td><td>'.date('d-m-Y',strtotime($risk->created_at)).'</td></tr>';
+        if($risk->file_type=="5")
+        {
+            $type="Risk Assessment";
+        }
+        if($risk->file_type=="6")
+        {
+            $type='Calculations';
+        }
+        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">File</a></td><td>'.date('d-m-Y',strtotime($risk->created_at)).'</td></tr>';
         $i++;
      }
      return $list;

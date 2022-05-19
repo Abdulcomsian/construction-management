@@ -276,13 +276,13 @@
                                             
                                         </div>
                                        <div class="form-check" style="padding-top:26px">
-                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="option1" checked>
+                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
                                           <label class="form-check-label" for="exampleRadios1">
                                             Preliminary/ For approval
                                           </label>
                                         </div>
                                         <div class="form-check" style="padding-top:26px">
-                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="option2">
+                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="2">
                                           <label class="form-check-label" for="exampleRadios2">
                                             For construction
                                           </label>
@@ -370,8 +370,8 @@
                                 <td>{{$uploads->comments}}</td>
                                 <td>{{$uploads->twd_name}}</td>
                                 <td>{{$uploads->drawing_title}}</td>
-                                <td>{{$uploads->preliminary_approval==1?'Yes':'No'}}</td>
-                                <td>{{$uploads->construction==1?'Yes':'No'}}</td>
+                                <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
+                                <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
                                 <td><form method="post" action="{{route('drawing.comment')}}">
                                         @csrf
                                         <textarea class="form-control" required name="comment"></textarea><br>
@@ -486,7 +486,8 @@
                                <span class="required">Document Type:</span>
                               </label>
                                <select class="form-control" name="type" style="width:30% !important">
-                                   <option value="5">Risk Assessment Calculations</option>
+                                   <option value="5">Risk Assessment</option>
+                                   <option value="6">Calculations</option>
                                </select>
                                &nbsp;&nbsp;
                                <button type="submit" class="btn btn-primary mb-2">Upload Rrisk Assessment Certificate</button>
@@ -499,16 +500,29 @@
                             <tr>
                                 <th>No</th>
                                 <th>Email</th>
-                                <th>Risk Assessment Certificate</th>
+                                <th>Document Type</th>
+                                <th>File</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                          <tbody>
                             @foreach($riskassessment as $riks)
+                            @php 
+                             $type='';
+                             if($riks->file_type=="5")
+                             {
+                                $type='Risk Assessment';
+                             }
+                             if($riks->file_type=="6")
+                             {
+                                $type='Calculations';
+                             }
+                             @endphp
                              <tr>
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$riks->created_by}}</td>
-                                <td><a href="{{asset($riks->file_name)}}" target="_blank">Risk Assessment-{{$loop->index+1}}</a></td>
+                                <td>{{$type}}</td>
+                                <td><a href="{{asset($riks->file_name)}}" target="_blank">File</a></td>
                                 <td>{{date("d-m-Y",strtotime($riks->created_at));}}</td>
                              </tr>
                             @endforeach

@@ -40,7 +40,6 @@ class DesignerController extends Controller
         return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment'));
         
     }
-
     public function store(Request $request)
     {
         try {

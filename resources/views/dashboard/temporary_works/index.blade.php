@@ -198,7 +198,15 @@
         border-radius: 8px;
         background: #9370DB !important;
     }
+    @media (max-width: 390px) {
+        .formDiv .form{
+            display:block !important;
+        }
+        #search-btn,  #terms{margin-top:20px !important;}
+        #view_btn{margin-left:auto !important; text-align:center;}
+    }
 
+    }
     /*.sweet-alert{
             z-index:99999999999 !important;
         }
@@ -311,18 +319,18 @@
                                         <form class="form-inline" method="get" action="{{route('tempwork.search')}}">
                                             <div class="row">
                                                 <div class="form-group  col-md-9">
-                                                    <input type="text" style="    padding: 0px 10px;" class="form-control" name="terms" required="required" />
+                                                    <input type="text" style="    padding: 0px 10px;" class="form-control" id="terms" name="terms" required="required" />
                                                 </div>
-                                                <div class="col-md-2 text-center">
+                                                <div class="col-md-2 text-center" id="search-btn">
                                                     <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="col-md-2" style="margin-left: 40px">
+                                    <div class="col-md-2" id="view_btn" style="margin-left: 40px">
                                         <div class="tableInputDiv">
                                             <div class="dropdown">
-                                                <button onclick="myFunction()" class="dropbtn" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 0px;text-transform: uppercase;width:55px !important;margin-bottom: 10px;">view</button>
+                                                <button onclick="myFunction()"  class="dropbtn" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 0px;text-transform: uppercase;width:55px !important;margin-bottom: 10px;">view</button>
                                                 <div id="myDropdown" class="dropdown-content">
 
 

@@ -276,13 +276,13 @@
                                             
                                         </div>
                                        <div class="form-check" style="padding-top:26px">
-                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="option1" checked>
+                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
                                           <label class="form-check-label" for="exampleRadios1">
                                             Preliminary/ For approval
                                           </label>
                                         </div>
                                         <div class="form-check" style="padding-top:26px">
-                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="option2">
+                                          <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="2">
                                           <label class="form-check-label" for="exampleRadios2">
                                             For construction
                                           </label>
@@ -370,8 +370,8 @@
                                 <td>{{$uploads->comments}}</td>
                                 <td>{{$uploads->twd_name}}</td>
                                 <td>{{$uploads->drawing_title}}</td>
-                                <td>{{$uploads->preliminary_approval==1?'Yes':'No'}}</td>
-                                <td>{{$uploads->construction==1?'Yes':'No'}}</td>
+                                <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
+                                <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
                                 <td><form method="post" action="{{route('drawing.comment')}}">
                                         @csrf
                                         <textarea class="form-control" required name="comment"></textarea><br>

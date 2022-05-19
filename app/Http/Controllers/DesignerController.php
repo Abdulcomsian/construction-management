@@ -476,14 +476,15 @@ class DesignerController extends Controller
         $i=1;
         $path = config('app.url');
         $acceptance_date='';
-        $rejdate='';
+        
         foreach($rejected as $rej)
         {
+            $rejdate='';
             if($rej->acceptance_date)
             {
                 $acceptance_date=date('H:i d-m-Y',strtotime($rej->acceptance_date));
             }
-            if($rej->comment)
+            if($rej->comment != null)
             {
                 $rejdate=date('H:i d-m-Y',strtotime($rej->updated_at));
             }
@@ -616,7 +617,12 @@ class DesignerController extends Controller
                         }
                     }
                 }
-            $list.='<tr style="padding:5px"><td>'.$i.'</td><td>'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td><form method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
+                $none='';
+                if (Auth::user()->email==$comment->sender_email) 
+                {
+                    $none='display:none;';
+                }
+            $list.='<tr style="padding:5px"><td>'.$i.'</td><td>'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td><form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="id" value="' . $comment->id . '"/>
                                    <input type="hidden" name="drawingid" value="'.$id.'" />
@@ -645,6 +651,24 @@ class DesignerController extends Controller
             return Redirect::back();
         }
 
+    }
+
+    //twc drawing comment
+    public function twc_drawing_comment(Request $request)
+    {
+       
+        $temp_work_id=TempWorkUploadFiles::find($request->drawingid);
+        $tempdata=TemporaryWork::select('twc_email')->find($temp_work_id->id);
+        $model= new DrawingComment();
+        $model->drawing_comment=$request->commment;
+        $model->temp_work_upload_files_id=$request->drawingid;
+        $model->sender_email=$tempdata->twc_email;
+        if($model->save())
+        {
+            Notification::route('mail', $temp_work_id->created_by)->notify(new DrawingCommentNotification($request->comment,'question'));
+            toastSuccess('Comment Added  Successfully!');
+            return Redirect::back();
+        }
     }
 
     public function risk_assessment_store(Request $request)

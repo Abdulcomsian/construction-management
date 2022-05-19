@@ -63,7 +63,7 @@ Route::get('/designRelief', function () {
     return view('dashboard/screens/new-design-relief');
 });
 Route::post('drawing-comment',[DesignerController::class,'drawing_comment'])->name('drawing.comment');
-
+Route::post('twc-drawing-comment',[DesignerController::class,'twc_drawing_comment'])->name('twcdrawing.comment');
 Route::group(['middleware' => ['auth']], function () {
     //All Resource Controller
     Route::resources([

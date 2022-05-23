@@ -978,6 +978,9 @@
                                         </td>
                                         <td>
                                             <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to <br>Unload</p>
+                                            @if(count($item->unloadpermits)>0)
+                                            <span  style="background:green;color: white;font-weight: bold;padding: 0 10px;">{{count($item->unloadpermits)}}</span>
+                                            @endif
                                         </td>
                                         <td data-type="2">
                                             <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS<br></p>

@@ -93,6 +93,17 @@
         justify-content: space-between;
         align-items: center;
     }
+    .border{
+        border:1px solid red !important;
+        border-bottom: 1px solid red !important;
+    }
+    .border-right{
+        border-right:1px solid red !important;
+         border-bottom: 1px solid red !important;
+    }
+    .border-bottom{
+        border-bottom: 1px solid red !important;
+    }
 </style>
 
 @endsection
@@ -336,7 +347,7 @@
                         </div>
                     </form>
                     <hr>
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="border-collapse: collapse;background: none;">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -365,14 +376,14 @@
                             $comments=\App\Models\DrawingComment::where('temp_work_upload_files_id',$uploads->id)->get();
                             @endphp
                             <tr style="background: {{$background ?? ''}}">
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$uploads->drawing_number}}</td>
-                                <td>{{$uploads->comments}}</td>
-                                <td>{{$uploads->twd_name}}</td>
-                                <td>{{$uploads->drawing_title}}</td>
-                                <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
-                                <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
-                                <td><form method="post" action="{{route('drawing.comment')}}">
+                                <td class="border">{{$loop->index+1}}</td>
+                                <td class="border">{{$uploads->drawing_number}}</td>
+                                <td class="border">{{$uploads->comments}}</td>
+                                <td class="border">{{$uploads->twd_name}}</td>
+                                <td class="border">{{$uploads->drawing_title}}</td>
+                                <td class="border">{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
+                                <td class="border">{{$uploads->construction==1 ? 'Yes':'No'}}</td>
+                                <td class="border"><form method="post" action="{{route('drawing.comment')}}">
                                         @csrf
                                         <textarea class="form-control" required name="comment"></textarea><br>
                                         <input type="hidden" name="drawingid" value="{{$uploads->id}}">
@@ -384,20 +395,20 @@
                             </tr>
                             @if(count($comments)>0)
                             @foreach($comments as $cments)
-                            <tr >
-                                <td><b>{{$l}} - {{$loop->index+1}}</b></td>
-                                <td><b>Comment/Reply</b></td>
-                                <td colspan="2"><b>{{$mail}}</b><br><b>{{$cments->drawing_comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
-                                <td colspan="2">
+                            <tr>
+                                <td class="border"><b>{{$l}} - {{$loop->index+1}}</b></td>
+                                <td class="border"><b>Comment/Reply</b></td>
+                                <td colspan="2" class="border-bottom"><b>{{$cments->drawing_comment}}</b><br>{{$mail}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</td>
+                                <td colspan="2" class="border-bottom">
                                     @if($cments->drawing_reply)
                                      @php $i=0;@endphp
                                      @foreach($cments->drawing_reply as $reply)
-                                      <p><b>{{$cments->reply_email}}</b><br><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p><hr>
+                                      <p><b>{{$reply}}</b><br>{{$cments->reply_email}}<br>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</p><hr>
                                       @php $i++; @endphp
                                      @endforeach
                                     @endif
                                 </td>
-                                <td colspan="2">
+                                <td colspan="2" class="border-right">
                                     @php
                                      $path = config('app.url');
                                      if(isset($cments->reply_image))
@@ -423,9 +434,6 @@
                                          }
                                      }
                                     @endphp
-                                </td>
-                                <td>
-                                    
                                 </td>
                             </tr>
                             @endforeach
@@ -485,7 +493,8 @@
                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                <span class="required">Document Type:</span>
                               </label>
-                               <select class="form-control" name="type" style="width:30% !important">
+                               <select class="form-control" name="type" style="width:30% !important" required>
+                                   <option value="" selected disabled>Risk Assessment-Calculations</option>
                                    <option value="5">Risk Assessment</option>
                                    <option value="6">Calculations</option>
                                </select>

@@ -49,6 +49,11 @@ class TemporaryWork extends Model
     {
          return $this->hasMany(PermitLoad::class)->whereIn('status',[1,5]);
     }
+
+    public function unloadpermits()
+    {
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[3]);
+    }
     public function scaffold() //this relation for open permit check in table
     {
         return $this->hasMany(Scaffolding::class)->where('status', '=', 1);

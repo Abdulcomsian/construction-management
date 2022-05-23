@@ -398,7 +398,7 @@
                             <tr>
                                 <td class="border"><b>{{$l}} - {{$loop->index+1}}</b></td>
                                 <td class="border"><b>Comment/Reply</b></td>
-                                <td colspan="2" class="border-bottom"><b>{{$cments->drawing_comment}}</b><br>{{$mail}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</td>
+                                <td colspan="2" style="max-width: 30px" class="border-bottom"><b>{{$cments->drawing_comment}}</b><br>{{$mail}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</td>
                                 <td colspan="2" class="border-bottom">
                                     @if($cments->drawing_reply)
                                      @php $i=0;@endphp

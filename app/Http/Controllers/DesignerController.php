@@ -132,7 +132,7 @@ class DesignerController extends Controller
         $path = config('app.url');
         
         if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')) {
-                $registerupload= TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->get();
+                $registerupload= TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->get();
                if($registerupload)
                 {
                     $list.="<h3>TWC Uploaded</h3>";            
@@ -189,6 +189,43 @@ class DesignerController extends Controller
                                 </td>';
                         }
                         $list .= '</tr>';
+                        if(count($uploads->comment)>0)
+                        {
+                            $j=1;
+
+                            foreach($uploads->comment as $comment)
+                            {
+                                 $reply='';
+                                 $replydate='';
+                                if(isset($comment->drawing_reply[0]))
+                                {
+                                    $reply=$comment->drawing_reply[0];
+                                }
+                                if(isset($comment->reply_date[0]))
+                                {
+                                    $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
+                                }
+                                $image = '';
+                                if (isset($comment->reply_image[0])) {
+                                    $n = strrpos($comment->reply_image[0], '.');
+                                    $ext = substr($comment->reply_image[0], $n + 1);
+                                    if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                                    } else {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
+                                    }
+                                }
+                                $list .='<tr>';
+                                $list .='<td>'.$i.'-'.$j.'</td>';
+                                $list .='<td>Comment/Reply</td>';
+                                $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                                $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                                $list .='</tr>';
+                                $j++;
+
+                            }
+                            
+                        }
                         $i++;
                     }
                     $list .= '</tbody></table>';
@@ -196,29 +233,8 @@ class DesignerController extends Controller
         }
         for($j=0;$j<count($designearray);$j++)
         {
-            // if($j==0)
-            // {
-            $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->get();
-            // }
-            // else
-            // {
-            //     $ids=[];
-            //     $drawingsid=ShareDrawing::select('temp_work_upload_files_id')->where('email',$designearray[$j])->get();
-            //     if(count($drawingsid)>0)
-            //     {
-            //         foreach($drawingsid as $drawing)
-            //         {
-            //             $ids[]=$drawing->temp_work_upload_files_id;
-            //         }
-            //     }
-            //     $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->where(function($query) use($ids,$designearray){
-            //         $query->whereIn('id',$ids)
-            //         ->orWhere('created_by',$designearray[1]);
-            //     })->get();
-            // }
-            
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->get();            
             $i = 1;
-            
             if($DesignerUploads)
             {
                 if($j==0)
@@ -280,6 +296,43 @@ class DesignerController extends Controller
                             </td>';
                     }
                     $list .= '</tr>';
+                    if(count($uploads->comment)>0)
+                    {
+                        $j=1;
+
+                        foreach($uploads->comment as $comment)
+                        {
+                             $reply='';
+                             $replydate='';
+                            if(isset($comment->drawing_reply[0]))
+                            {
+                                $reply=$comment->drawing_reply[0];
+                            }
+                            if(isset($comment->reply_date[0]))
+                            {
+                                $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
+                            }
+                             $image = '';
+                                if (isset($comment->reply_image[0])) {
+                                    $n = strrpos($comment->reply_image[0], '.');
+                                    $ext = substr($comment->reply_image[0], $n + 1);
+                                    if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                                    } else {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
+                                    }
+                                }
+                            $list .='<tr>';
+                            $list .='<td>'.$i.'-'.$j.'</td>';
+                            $list .='<td>Comment/Reply</td>';
+                            $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                            $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                            $list .='</tr>';
+                            $j++;
+
+                        }
+                        
+                    }
                     $i++;
                 }
                 $list .= '</tbody></table>';
@@ -592,36 +645,43 @@ class DesignerController extends Controller
         {
             //reply 
             $replylist = '';
+            $reply='';
                 $k = 1;
+                 $none='';
+                 $replyemail='';
                 if ($comment->drawing_reply) {
-                    for ($j = 0; $j < count($comment->drawing_reply); $j++) {
-                        if ($comment->drawing_reply[$j]) {
-                        
+                    $none='display:none;';
+                    // for ($j = 0; $j < count($comment->drawing_reply); $j++) {
+                        if ($comment->drawing_reply[0]) {
+                            
                             $image = '';
-                            if (isset($comment->reply_image[$j])) {
-                                $n = strrpos($comment->reply_image[$j], '.');
-                                $ext = substr($comment->reply_image[$j], $n + 1);
+                            if (isset($comment->reply_image[0])) {
+                                $n = strrpos($comment->reply_image[0], '.');
+                                $ext = substr($comment->reply_image[0], $n + 1);
                                 if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '"><img src="' . $path . $comment->reply_image[$j] . '" width="50px" height="50px"/></a>';
+                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
                                 } else {
-                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '">View File</a>';
+                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
                                 }
                             }
                             $date = '';
-                            if (isset($comment->reply_date[$j])) {
-                                $date = date("d-m-Y", strtotime($comment->reply_date[$j]));
+                            if (isset($comment->reply_date[0])) {
+                                $date = date("d-m-Y", strtotime($comment->reply_date[0]));
                             }
-                            $replylist .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' .$comment->reply_email.'<br>'. $comment->drawing_reply[$j] . '</td><td>'. $image . '<br>' . $date . '</td><td>' . $comment->created_at . '</td></tr><br>';
+                            $reply=$comment->drawing_reply[0];
+
+                            // $replylist .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td style="max-width:300px;overflow-x:scroll">' .$comment->reply_email.'<br>'. $comment->drawing_reply[$j] . '</td><td>'. $image . '<br>' . $date . '</td><td>' . $comment->created_at . '</td></tr><br>';
+                            $replyemail=$comment->reply_email;
                             $k++;
                         }
-                    }
+                   // }
                 }
-                $none='';
+               
                 if (Auth::user()->email==$comment->sender_email) 
                 {
                     $none='display:none;';
                 }
-            $list.='<tr style="padding:5px"><td>'.$i.'</td><td>'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td><form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
+            $list.='<tr style="padding:5px"><td>'.$i.'</td><td style="max-width:300px;overflow-x:scroll">'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td>'. $replyemail.'<br>'.$reply.'<br>'. $image.'<form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="id" value="' . $comment->id . '"/>
                                    <input type="hidden" name="drawingid" value="'.$id.'" />

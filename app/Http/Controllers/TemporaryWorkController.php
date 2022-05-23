@@ -992,7 +992,7 @@ class TemporaryWorkController extends Controller
         try {
             $tempdata = TemporaryWork::find($tempid);
             $twc_id_no = $tempdata->twc_id_no;
-            $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->where('status', '!=', 4)->orderBy('id', 'desc')->first();
+            $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->orderBy('id', 'desc')->first();
             if ($permitdata) {
                 $data = explode("-", $permitdata->permit_no);
                 if (isset($data[3])) {
@@ -1067,7 +1067,7 @@ class TemporaryWorkController extends Controller
                 $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention";
                 $message = "Load";
                 if (isset($request->type)) {
-                    PermitLoad::find($request->permitid)->update(['status' => 0]);
+                    PermitLoad::find($request->permitid)->update(['status' => 4]);
                     $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load which has been renewed created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention.";
                     $message = "Renew";
                 }
@@ -1126,7 +1126,7 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-        $permited = PermitLoad::where(['temporary_work_id' => $tempid])->latest()->get();
+        $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->latest()->get();
         $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         $list = '';
         if (count($permited) > 0) {
@@ -1400,12 +1400,12 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature'] = $image_name;
             }
-            $all_inputs['status'] = 4;
+            $all_inputs['status'] = 3;
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
                 //make status 0 if permit is 
-                PermitLoad::find($request->permitid)->update(['status' => 3]);
+                PermitLoad::find($request->permitid)->update(['status' => 4]);
                 //upload permit unload files
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);

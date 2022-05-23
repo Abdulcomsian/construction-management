@@ -649,12 +649,13 @@ class DesignerController extends Controller
                 $k = 1;
                  $none='';
                  $replyemail='';
+                  $image = '';
                 if ($comment->drawing_reply) {
                     $none='display:none;';
                     // for ($j = 0; $j < count($comment->drawing_reply); $j++) {
                         if ($comment->drawing_reply[0]) {
                             
-                            $image = '';
+                           
                             if (isset($comment->reply_image[0])) {
                                 $n = strrpos($comment->reply_image[0], '.');
                                 $ext = substr($comment->reply_image[0], $n + 1);

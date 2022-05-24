@@ -628,3 +628,28 @@ li.select2-selection__choice{
   #commenttable td form .replay{
       border: 1px solid #e4e6ef;
   }
+
+
+  /*obaid css here*/
+  .label.label-light-success {
+    color:#fff ;
+    background-color: #1BC5BD;
+}
+.label.label-inline.label-lg {
+    padding: 0.2rem 0.75rem;
+}
+.label.label-inline {
+    border-radius: 0.42rem;
+}
+.label.label-light-info {
+    color: #fff;
+    background-color: #8950FC;
+}
+.label.label-light-danger {
+    color:#fff;
+    background-color: #F64E60;
+}
+.label.label-light-yellow {
+    color: #F64E60;
+    background-color: #FFE2E5;
+}

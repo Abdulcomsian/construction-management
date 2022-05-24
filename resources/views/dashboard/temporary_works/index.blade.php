@@ -50,6 +50,7 @@
     table {
         margin-top: 20px;
     }
+    
 
     .mw-750px {
         max-width: 1050px !important;
@@ -207,26 +208,7 @@
     }
 
     }
-    /*.sweet-alert{
-            z-index:99999999999 !important;
-        }
-        .passionate{
-            font-size: 45px !important;
-        }
-        .sweet-alert h2{font-size:22px !important;}
-            @media (max-width: 768px) {
-                .margintop{margin-top:20px;}
-            }
-            @media (max-width: 480px) {
-            .passionate{
-            font-size:24px !important;
-            }
-                .btns_resp{
-                    display:block !important;
-                }
-                .project_details{width:250px !important;}
-            }*/
-
+ 
     .modal-backdrop {
         visibility: hidden !important;
     }
@@ -246,10 +228,18 @@
         position: initial !important;
         top: initial !important
     }
+
+   .active {
+     background: #3699FF !important;
+     color:white !important;
+   }
+   
+
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
+
 @endsection
 @section('content')
 
@@ -293,47 +283,114 @@
                 <!--begin::Card-->
                 <div class="card">
                     <!--begin::Card header-->
-                    <div class="card-header border-0 pt-6">
-                        <!--begin::Card title-->
-                        <div class="card-title btns_resp" style="width: 100%">
-
-
-                            <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works Register</h1>
+                    <div class="card-header border-0">
+                        <div class="card-title">
+                            <h3 class="card-label">Temporary Work Registers
+                            <span class="d-block text-muted pt-2 font-size-sm"></span></h3>
                         </div>
-                        <div class="card-title " style="width: 100%;    display: contents">
-                            <div class="formDiv">
-                                <div class="form" style="display: flex; align-items: baseline;">
-                                    <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}">
-                                        <div class="col-10">
-                                            <select name="projects[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select a Project" required>
-                                                @foreach($projects as $proj)
-                                                <option value="{{$proj->id}}">{{$proj->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-2 margintop">
-                                            <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
-                                        </div>
-                                    </form>
-                                    <div class="col-md-3" style="margin-left: 20px">
-                                        <form class="form-inline" method="get" action="{{route('tempwork.search')}}">
-                                            <div class="row">
-                                                <div class="form-group  col-md-9">
-                                                    <input type="text" style="    padding: 0px 10px;" class="form-control" id="terms" name="terms" required="required" />
+                        <div class="card-toolbar">
+
+                            <!--begin::Dropdown-->
+                            <div class="dropdown dropdown-inline mr-2 mt-0">
+                                <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="svg-icon svg-icon-md">
+                                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                            <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+                                            <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                    <!--end::Svg Icon-->
+                                </span>View Data</button>
+                                <!--begin::Dropdown Menu-->
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
+                                                    <!--begin::Navigation-->
+                                                    <ul class="navi flex-column navi-hover py-2">
+                                       
+                                                        <li class="navi-item">
+                                                            <a href="#" class="navi-link adddocument">
+                                                                <span class="navi-icon">
+                                                                    <i class="la la-print"></i>
+                                                                </span>
+                                                                <span class="navi-text">Add Document</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="navi-item">
+                                                            <a href="#" class="navi-link viewdocument">
+                                                                <span class="navi-icon">
+                                                                    <i class="la la-copy"></i>
+                                                                </span>
+                                                                <span class="navi-text">View Document</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="navi-item">
+                                                            <a  href="{{ route('Designbrief.export') }}" class="navi-link">
+                                                                <span class="navi-icon">
+                                                                    <i class="la la-file-excel-o"></i>
+                                                                </span>
+                                                                <span class="navi-text">Export</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                                    
                                                 </div>
-                                                <div class="col-md-2 text-center" id="search-btn">
-                                                    <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
+                              
+                                <!--end::Dropdown Menu-->
+                            </div>
+                            <!--end::Dropdown-->
+                            <!--begin::Button-->
+                            <a href="#" class="btn btn-primary font-weight-bolder" style="color:white !important">
+                              <span class="fa fa-plus"></span> Design Brief</a>
+                            <!--end::Button-->
+                        </div>
+                        
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+                        <div class="mb-7">
+                            <div class="row align-items-center">
+                                <div class="col-lg-9 col-xl-8">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}">
+                                                <div class="col-10">
+                                                    <select name="projects[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select a Project" required>
+                                                        @foreach($projects as $proj)
+                                                        <option value="{{$proj->id}}">{{$proj->name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                            </div>
+                                                <div class="col-2 ">
+                                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
+                                                </div>
+                                            </form>
+                                           
+                                        </div>
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <form class="form-inline d-flex" method="get" action="{{route('tempwork.search')}}">
+                                            
+                                                <div class="col-10">
+                                                    
+                                                        <input type="text" class="form-control" placeholder="Search..." id="terms" name="terms">
+                                                        <span>
+                                                            <i class="flaticon2-search-1 text-muted"></i>
+                                                        </span>
+                                                   
+                                                </div>
+                                                <div class="col-md-2 text-right" id="search-btn">
+                                                    <a href="#" class="btn btn-light-primary px-6 font-weight-bold" style="margin:0px 0px 0px 7px;"><span class="fa fa-search"></span></button></a>
+                                                </div>
+                                            
                                         </form>
-                                    </div>
-                                    <div class="col-md-2" id="view_btn" style="margin-left: 40px">
-                                        <div class="tableInputDiv">
-                                            <div class="dropdown">
-                                                <button onclick="myFunction()"  class="dropbtn" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 0px;text-transform: uppercase;width:55px !important;margin-bottom: 10px;">view</button>
-                                                <div id="myDropdown" class="dropdown-content">
-
-
+                                        </div>
+                                        <div class="col-md-4 my-2 my-md-0 text-center">
+                                            <div class="tableInputDiv">
+                                            <div class="dropdown mt-0">
+                                                <button onclick="myFunction()"  class="dropbtn btn btn-primary">view</button>
+                                                <div id="myDropdown" class="dropdown-content" style="text-align: left">
                                                     <div class="inputSpan">
                                                         <input type="checkbox" class="hidecol" id="col_1" checked>
                                                         <span>DESIGN BRIEF</span>
@@ -484,552 +541,450 @@
 
                                                 </div>
                                             </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="button desktopView">
-                                    <a style="color:#fff !important; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
-                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
-                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
-                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;width: 170px;" id="adddocument" class="hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
-                                    <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;width:35px !important;" id="crossdoc" class="showonclick newDesignBtn btn  project_details">x</a>
-                                </div>
-                                <div class="menuBtn">
-                                    <span class="fa fa-bars"></span>
-                                </div>
-
-                            </div>
-
-                            <div class="mobileView text-center">
-                                <a style="color:#fff !important; display:inline-block; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details adddocument">Add Documents</a>
-                                <a style=" color:#fff !important;   display:inline-block; padding:1px;font-size: 14px;text-transform: uppercase;" href="#" class="showonclick newDesignBtn btn project_details viewdocument">View Documents</a>
-                                <a style=" color:#fff !important;  display:inline-block;  padding:1px;font-size: 14px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="showonclick newDesignBtn btn project_details">Export Data</a>
-                                <a style=" color:#fff !important;  padding:1px;font-size: 14px;text-transform: uppercase;" id="adddocument" class="text-center hideonclick newDesignBtn btn document_data project_details">Documents & Data</a>
-
-                                <div class="tableInputDiv">
-                                    <div class="dropdown">
-                                        <button onclick="myFunctionMobile()" class="dropbtn" style="text-transform:uppercase;">view</button>
-                                        <div id="myDropdownMobile" class="dropdown-content">
-
-
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" id="col_1" checked>
-                                                <span>DESIGN BRIEF</span>
                                             </div>
-                                            @if(\Auth::user()->hasRole('admin'))
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_2">
-                                                <span>COMPANY</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_3">
-                                                <span>PROJECT NAME</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_4">
-                                                <span>DESCRIPTION OF TWS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_5">
-                                                <span>CAT CHECK</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_6">
-                                                <span>RISK CLASS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_7">
-                                                <span>ISSUE DATE</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_8">
-                                                <span>REQUIRED DATE</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_9">
-                                                <span>COMMENTS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_10">
-                                                <span>TW DESIGNER</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_11">
-                                                <span>DATE DESIGN</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_12">
-                                                <span>DATE DCC</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_13">
-                                                <span>DRAWINGS AND DESIGNS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_14">
-                                                <span>DESIGN CHECK CERT</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_15">
-                                                <span>PERMIT TO LOAD</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_16">
-                                                <span>PERMIT TO UNLOAD</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_17">
-                                                <span>RAMS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_18">
-                                                <span>QRCODE</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_19">
-                                                <span>ACTIONS</span>
-                                            </div>
-                                            @else
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_2">
-                                                <span>PROJECT NAME</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_3">
-                                                <span>DESCRIPTION OF TWS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_4">
-                                                <span>CAT CHECK</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_5">
-                                                <span>RISK CLASS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_6">
-                                                <span>ISSUE DATE</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_7">
-                                                <span>REQUIRED DATE</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_8">
-                                                <span>COMMENTS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_9">
-                                                <span>TW DESIGNER</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_10">
-                                                <span>DATE DESIGN</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_11">
-                                                <span>DATE DCC</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_12">
-                                                <span>DRAWINGS AND DESIGNS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_13">
-                                                <span>DESIGN CHECK CERT</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_14">
-                                                <span>PERMIT TO LOAD</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_15">
-                                                <span>PERMIT TO UNLOAD</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_16">
-                                                <span>RAMS</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_17">
-                                                <span>QRCODE</span>
-                                            </div>
-                                            <div class="inputSpan">
-                                                <input type="checkbox" class="hidecol" checked id="col_18">
-                                                <span>ACTIONS</span>
-                                            </div>
-                                            @endif
-
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
-                                        <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
-                                        @endif
-                                        <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 20px;text-transform: uppercase;" value="add">New Design Brief</a>
-                                    </div>
-                                    <div class="col-12 text-center">
-                                        <form class="form-inline" method="get" action="{{route('tempwork.search')}}">
-                                            <div class="row" style="margin:0 auto;">
-                                                <div class="form-group  col-md-2 text-center">
-                                                    <label class="text-white">Search</label>
-                                                    <input type="text" style="  margin:0 auto;    width: 240px;  padding: 0px 10px;" class="form-control" name="terms" placeholder="Search1 Description of TWS" required="required" />
-                                                </div>
-                                                <div class="col-md-4 mt-6 text-center">
-                                                    <button style="padding: 1px;width: 35px !important;" type="submit" class="btn btn-primary mb-2 w-100"><span class="fa fa-search"></span></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                
                             </div>
-                            <!-- <div class="row" style="display: contents;">
-                            <form class="form-inline d-flex" style="width: 40%" method="get" action="{{route('tempwork.proj.search')}}" >
-                                <div class="col-md-9 col-sm-6" >
-                                   <select name="projects[]"  class="form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
-                                       
-                                       <option value="">Select Projects</option>
-                                       @foreach($projects as $proj)
-                                       <option value="{{$proj->id}}">{{$proj->name}}</option>
-                                       @endforeach
-                                   </select>
-                                </div>
-                                <div class="col-md-2 col-sm-7 margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
-                                </div>
-                             </form>
-                            <div class="col-md-2 col-sm-7 text-center showonclick margintop "> <a style="color:#fff !important; padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="#" class="newDesignBtn btn project_details adddocument">Add Documents</a>
-                            </div>
-                            <div class="col-md-3  col-sm-7 text-center showonclick margintop "><a style=" color:#fff !important;  padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="#" class="newDesignBtn btn project_details viewdocument">View Documents</a> 
-                            </div>
-                            <div class="col-md-2 col-sm-7 text-center showonclick margintop "><a style=" color:#fff !important;  padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" href="{{ route('Designbrief.export') }}" class="newDesignBtn btn project_details">Export Data</a>
-                            </div>
-
-                            <div class="col-md-2 col-sm-7 hideonclick text-center margintop"><a style=" color:#fff !important;  padding:1px; width:170px;  font-size: 16px;text-transform: uppercase;" id="adddocument" class="newDesignBtn btn document_data project_details">Documents & Data</a>
-                            </div>
-                        </div> -->
                         </div>
-                        <!--begin::Card toolbar-->
+                        <!-- <div class="row desktopView"> -->
 
-                        <!--end::Card toolbar-->
-                    </div>
-                    <!--end::Card header-->
-                    <!--begin::Card body-->
-                    <div class="card-body pt-0">
-                        <div class="row desktopView">
-
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
                                 @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                                 @php $path = config('app.url');@endphp
                                 <img class="img img-thumbnail profileimg" src="{{$path.\auth()->user()->image}}" width="150px" height="150px">
                                 @endif
-                                <a class="newDesignBtn btn project_details" href="{{ route('temporary_works.create') }}" style="fornt-size:16px;margin-left:0px;width:100%;    padding: 1px;width: 150px;color:#fff !important; margin-top: 0px;text-transform: uppercase;margin-bottom: 10px;" value="add">New Design Brief</a>
-
-                            </div>
+                            </div> -->
 
 
-                        </div>
+                        <!-- </div> -->
                         <!--begin::Table-->
-                        <div class="table-responsive tableDiv" style="height: 1000px;">
-                            <div class="tableInputDiv">
-                                <div class="">
-
+                        <div>
+                            <nav style="width: 47%;float:right">
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Basic</span>
+                                    <span  class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</span>
+                                    
                                 </div>
-                            </div>
-                            <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
-                                <!--begin::Table head-->
-                                <thead>
-                                    <!--begin::Table row-->
-                                    <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                        <th style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
-                                        @if(\Auth::user()->hasRole('admin'))
-                                        <th class="">Company</th>
-                                        @endif
-                                        <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
-                                        <th class="" style="max-width:150px;">Description of TWS</th>
-                                        <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
-                                        <th style="min-width: 40px;" class="">Risk Class</th>
-                                        <th class="" style="min-width:60px;">Issue Date<br> of Design Brief</th>
-                                        <th class="" style="">Required<br>Date<br>of<br>Design</th>
-                                        <th class="">Comments</th>
-                                        <th class="">TW designer<br> (designer name and company)</th>
-                                        <!-- <th class="">Appointments</th>  -->
-                                        <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
-                                        <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
-                                        <th class="">DRAWINGS<br> and<br> DESIGNS</th>
-                                        <th class="">Design<br> Check<br> CERT</th>
-                                        <th class="">Permit to Load</th>
-                                        <th class="">Permit to Unload</th>
-                                        <th class="">RAMS</th>
-                                        <th class="">Qrcode</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
-                                <!--begin::Table body-->
-                                <tbody class="text-gray-600 fw-bold">
-                                    @forelse($temporary_works as $item)
+                            </nav>
+                        
+                        <div style="float:left;width:100%">
+                            <div class="table-responsive tab-content" id="nav-tabContent" style="height: 1000px;">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
+                                        <!--begin::Table head-->
+                                        <thead>
+                                            <!--begin::Table row-->
+                                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                                <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
+                                                @if(\Auth::user()->hasRole('admin'))
+                                                <th class="">Company</th>
+                                                @endif
+                                                <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
+                                                <th class="" style="max-width:150px;">Description of TWS</th>
+                                                <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
+                                                <th style="min-width: 40px;" class="">Risk Class</th>
+                                                <th class="" style="min-width:60px;">Issue Date<br> of Design Brief</th>
+                                                <th class="" style="">Required<br>Date<br>of<br>Design</th>
+                                                <th class="">Comments</th>
+                                                
+                                            </tr>
+                                            <!--end::Table row-->
+                                        </thead>
+                                        <!--end::Table head-->
+                                        <!--begin::Table body-->
+                                        <tbody class="text-gray-600 fw-bold">
+                                            @forelse($temporary_works as $item)
 
-                                    <tr>
-                                        <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
-                                            @if(count($item->rejecteddesign)>0)
-                                            <button style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-info rejecteddesign" data-id="{{Crypt::encrypt($item->id)}}"><i class="fa fa-eye"></i>
-                                            </button>
-                                            <br>
-                                            @endif
+                                            <tr>
+                                                <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
+                                                    @if(count($item->rejecteddesign)>0)
+                                                     <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
+                                                    </span>
+                                                    <br>
+                                                    @endif
 
-                                            <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                            </a>
-                                            @if($item->status==2)
-                                            <!-- <p class="rejectcomment cursor-pointer" data-id="{{$item->id}}" > <span class="text-danger">Rejected</span></p> -->
-                                            <a href="{{route('temporary_works.edit',$item->id)}}" style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                            @endif
-                                        </td>
-                                        @if(\Auth::user()->hasRole('admin'))
-                                        <td>
-                                            <p>{{ $item->company ?: '-' }}</p>
-                                        </td>
-                                        @endif
-                                        <td>{{ $item->project->name ?? '' }}</td>
-                                        <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
-                                            <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
-                                            <hr style="margin: 5px;;color:red;border:1px solid red">
-                                            <button style="background: #07d564;font-size: 12px;border-radius: 4px; padding: 2px;" class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
-                                                Description
-                                            </button>
-                                        </td>
-                                        <td style="">{{ $item->tw_category }}</td>
-                                        <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                        <td style="min-width: 100px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
-                                        <td style="min-width:100px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
-                                            <p><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p>
-                                        </td>
-                                        <td>
-                                            <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
-                                                <!-- <span class="fa fa-plus"></span> -->
-                                                <br> Comment
-                                            </p>
-                                            @php
-                                            $color="green";
-                                            if(count($item->comments)>0)
-                                            {
-                                            $color="red";
-                                            if(count($item->reply)== count($item->comments))
-                                            {
-                                            $color="blue";
-                                            }
+                                                    <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                    </a>
+                                                    <br>
+                                                    @if($item->status==2)
+                                                    
+                                                    <a href="{{route('temporary_works.edit',$item->id)}}">
+                                                        <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
+                                                            <span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-edit text-white"></i>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                    @endif
+                                                </td>
+                                                @if(\Auth::user()->hasRole('admin'))
+                                                <td>
+                                                    <p>{{ $item->company ?: '-' }}</p>
+                                                </td>
+                                                @endif
+                                                <td>{{ $item->project->name ?? '' }}</td>
+                                                <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
+                                                    <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
+                                                    <hr style="margin: 5px;;color:red;border:1px solid red">
 
-                                            }
-
-                                            @endphp
-                                            <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background:{{$color}};color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
-                                            <hr style="color:red;border:1px solid red; margin: 2px;">
-                                            <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
-
-                                                <!-- <span class="fa fa-plus"></span> -->
-                                                <br> Emails
-                                            </h3>
-
-                                            @php $i=0;@endphp
-                                            @foreach($item->uploadfile as $file)
-                                            @if($file->file_type==4)
-                                            @php $i++ @endphp
-                                            <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
-                                            @endif
-                                            @endforeach
-                                        </td>
-                                        <td style="">
-                                            <button style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-info designer-company" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}">View
-                                            </button>
-
-
-                                            <!-- {{$item->tw_name ?: '-'}} -->
-                                            @if(!$item->tw_name)
-                                            <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
-                                            @endif
-                                        </td>
-                                        <!-- <td>
-                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
-                                        @php $i=0;@endphp
-                                        @foreach($item->uploadfile as $file)
-                                        @if($file->file_type==5)
-                                        @php $i++ @endphp
-                                        <span><a href="{{asset($file->file_name)}}" target="_blank">App{{$i}}</a></span>
-                                        @endif
-                                        @endforeach
-                                    </td> -->
-                                        <td style="">
-                                            @php
-                                            $date='';
-                                            @endphp
-                                            @foreach($item->uploadfile as $file)
-                                            @php
-                                            if($file->file_type==1 && $file->construction==1)
-                                            {
-                                            $color='green';
-                                            $date=$file->created_at->todatestring();
-                                            }
-                                            elseif($file->file_type==1 && $file->preliminary_approval==1)
-                                            {
-                                            $color='#FFD700';
-                                            $date=$file->created_at->todatestring();
-                                            }
-                                            @endphp
-                                            @endforeach
-                                            @if($date)
-                                            <p class="dateclick cursor-pointer" style="color:{{$color ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
-                                            </p>
-                                            @endif
-                                        </td>
-                                        <!--  <td></td> -->
-                                        <td style="">
-                                            @foreach($item->uploadfile as $file)
-                                            @if($file->file_type==2)
-                                            <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
-                                            @break
-                                            @endif
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
-                                                <!-- Upload Drawings -->
-                                                <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
-                                            </p>
-                                            <br>
-                                            <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                                <!-- View Drawings -->
-                                                <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
-                                            </p>
-                                            <br>
-                                            <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                                <!-- View Drawings -->
-                                                <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
-                                            </p>
-                                            <!-- @php $i=0;@endphp
-                                        @foreach($item->uploadfile as $file)
-                                        @if($file->file_type==1)
-                                        @php $i++ @endphp
-                                        <span><a href="{{asset($file->file_name)}}" target="_blank">D{{$i}}</a></span>
-                                        @endif
-                                        @endforeach -->
-                                        </td>
-                                        <td>
-                                            <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
-                                            @php $i=0;@endphp
-                                            @foreach($item->uploadfile as $file)
-                                            @if($file->file_type==2)
-                                            @php $i++ @endphp
-                                            <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
-                                            @endif
-                                            @endforeach
-
-                                        </td>
-                                        <td>
-                                            <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                            <br>
-                                            @if(count($item->scancomment)>0)
-                                            @php 
-                                            
-                                            $n=count($item->scancomment);
-                                             if($item->scancomment[0]->status==2)
-                                             {
-                                                $scolor="red";
-                                             }elseif($item->scancomment[$n-1]->status==1)
-                                             {
-                                                $scolor="#FFA500";
-                                             }elseif($item->scancomment[0]->status==0)
-                                             {
-                                                $scolor="green";
-                                             }
-                                            @endphp
-                                            <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
-                                            </button>
-                                            <br><br>
-                                            @endif
-                                            @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
-                                            @php
-                                            $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-
-                                                $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-
-                                                    $color="orange";
-                                                    if($permitexpire>0 || $scaffoldexpire>0)
+                                                    <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
+                                                    </span>
+                                                </td>
+                                                <td style="">{{ $item->tw_category }}</td>
+                                                <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
+                                                <td style="min-width: 100px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
+                                                <td style="min-width:100px;">
+                                                    <span class="desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                                </td>
+                                                <td>
+                                                    <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
+                                                        <!-- <span class="fa fa-plus"></span> -->
+                                                        <br> Comment
+                                                    </p>
+                                                    @php
+                                                    $color="green";
+                                                    if(count($item->comments)>0)
                                                     {
                                                     $color="red";
+                                                    if(count($item->reply)== count($item->comments))
+                                                    {
+                                                    $color="blue";
                                                     }
 
+                                                    }
 
                                                     @endphp
+                                                    <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background:{{$color}};color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
+                                                    <hr style="color:red;border:1px solid red; margin: 2px;">
+                                                    <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
+
+                                                        <!-- <span class="fa fa-plus"></span> -->
+                                                        <br> Emails
+                                                    </h3>
+
+                                                    @php $i=0;@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==4)
+                                                    @php $i++ @endphp
+                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
+                                                    @endif
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                        <!--end::Table body-->
+                                    </table>
+                                </div>
+
+                                    <!-- second table -->
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                        <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
+                                        <!--begin::Table head-->
+                                        <thead>
+                                            <!--begin::Table row-->
+                                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                                <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
+                                                <th class="">Comments</th>
+                                                <th class="">TW designer<br> (designer name and company)</th>
+                                                <!-- <th class="">Appointments</th>  -->
+                                                <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
+                                                <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
+                                                <th class="">DRAWINGS<br> and<br> DESIGNS</th>
+                                                <th class="">Design<br> Check<br> CERT</th>
+                                                <th class="">Permit to Load</th>
+                                                <th class="">Permit to Unload</th>
+                                                <th class="">RAMS</th>
+                                                <th class="">Qrcode</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            <!--end::Table row-->
+                                        </thead>
+                                        <!--end::Table head-->
+                                        <!--begin::Table body-->
+                                        <tbody class="text-gray-600 fw-bold">
+                                            @forelse($temporary_works as $item)
+
+                                            <tr>
+                                               <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
+                                                    @if(count($item->rejecteddesign)>0)
+                                                     <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
+                                                    </span>
+                                                    <br>
+                                                    @endif
+
+                                                    <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                    </a>
+                                                    <br>
+                                                    @if($item->status==2)
                                                     
+                                                    <a href="{{route('temporary_works.edit',$item->id)}}">
+                                                        <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
+                                                            <span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-edit text-white"></i>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
+                                                        <!-- <span class="fa fa-plus"></span> -->
+                                                        <br> Comment
+                                                    </p>
+                                                    @php
+                                                    $color="green";
+                                                    if(count($item->comments)>0)
+                                                    {
+                                                    $color="red";
+                                                    if(count($item->reply)== count($item->comments))
+                                                    {
+                                                    $color="blue";
+                                                    }
+
+                                                    }
+
+                                                    @endphp
+                                                    <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background:{{$color}};color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
+                                                    <hr style="color:red;border:1px solid red; margin: 2px;">
+                                                    <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
+
+                                                        <!-- <span class="fa fa-plus"></span> -->
+                                                        <br> Emails
+                                                    </h3>
+
+                                                    @php $i=0;@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==4)
+                                                    @php $i++ @endphp
+                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
+                                                    @endif
+                                                    @endforeach
+                                                </td>
+                                                <td style="">
+                                                    <span class="designer-company cursor-pointer" style="width: 108px;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-light-success label-inline">View</span>
+                                                    </span>
+
+                                                    <!-- {{$item->tw_name ?: '-'}} -->
+                                                    @if(!$item->tw_name)
+                                                    <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
+                                                    @endif
+                                                </td>
+                                                <!-- <td>
+                                                <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
+                                                @php $i=0;@endphp
+                                                @foreach($item->uploadfile as $file)
+                                                @if($file->file_type==5)
+                                                @php $i++ @endphp
+                                                <span><a href="{{asset($file->file_name)}}" target="_blank">App{{$i}}</a></span>
+                                                @endif
+                                                @endforeach
+                                            </td> -->
+                                                <td style="">
+                                                    @php
+                                                    $date='';
+                                                    @endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @php
+                                                    if($file->file_type==1 && $file->construction==1)
+                                                    {
+                                                    $color='green';
+                                                    $date=$file->created_at->todatestring();
+                                                    }
+                                                    elseif($file->file_type==1 && $file->preliminary_approval==1)
+                                                    {
+                                                    $color='#FFD700';
+                                                    $date=$file->created_at->todatestring();
+                                                    }
+                                                    @endphp
+                                                    @endforeach
+                                                    @if($date)
+                                                    <p class="dateclick cursor-pointer" style="color:{{$color ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                                    </p>
+                                                    @endif
+                                                </td>
+                                                <!--  <td></td> -->
+                                                <td style="">
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==2)
+                                                    <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
+                                                    @break
+                                                    @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
+                                                        <!-- Upload Drawings -->
+                                                        <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
+                                                    </p>
+                                                    <br>
+                                                    <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
+                                                        <!-- View Drawings -->
+                                                        <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
+                                                    </p>
+                                                    <br>
+                                                    <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
+                                                        <!-- View Drawings -->
+                                                        <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
+                                                    </p>
+                                                    <!-- @php $i=0;@endphp
+                                                @foreach($item->uploadfile as $file)
+                                                @if($file->file_type==1)
+                                                @php $i++ @endphp
+                                                <span><a href="{{asset($file->file_name)}}" target="_blank">D{{$i}}</a></span>
+                                                @endif
+                                                @endforeach -->
+                                                </td>
+                                                <td>
+                                                    <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
+                                                    @php $i=0;@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==2)
+                                                    @php $i++ @endphp
+                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
+                                                    @endif
+                                                    @endforeach
+
+                                                </td>
+                                                <td>
+                                                    <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                                    <br>
+                                                    @if(count($item->scancomment)>0)
+                                                    @php 
+                                                    
+                                                    $n=count($item->scancomment);
+                                                     if($item->scancomment[0]->status==2)
+                                                     {
+                                                        $scolor="red";
+                                                     }elseif($item->scancomment[$n-1]->status==1)
+                                                     {
+                                                        $scolor="#FFA500";
+                                                     }elseif($item->scancomment[0]->status==0)
+                                                     {
+                                                        $scolor="green";
+                                                     }
+                                                    @endphp
+                                                    <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
+                                                    </button>
                                                     <br><br>
-                                                    @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                                    <span class="text-danger" style="">DNL</span>
                                                     @endif
-                                                    <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
-                                                    @else
-                                                    <button style="padding: 3px !important;border-radius: 4px; font-size: 12px;" class="btn btn-primary">Closed</button>
+                                                    @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
+                                                    @php
+                                                    $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+
+                                                        $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+
+                                                            $color="orange";
+                                                            if($permitexpire>0 || $scaffoldexpire>0)
+                                                            {
+                                                            $color="red";
+                                                            }
+
+
+                                                            @endphp
+                                                            
+                                                            <br><br>
+                                                            @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
+                                                            <span class="text-danger" style="">DNL</span>
+                                                            @endif
+                                                             <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
+                                                                <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                                            </span>
+                                                            <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->
+                                                            @else
+                                                            <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-danger label-inline">Closed</span></span>
+                                                            @endif
+                                                </td>
+                                                <td>
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to <br>Unload</p>
+                                                    @if(count($item->unloadpermits)>0)
+                                                    <span style="padding: 0 10px;">
+                                                        <span class="label label-lg font-weight-bold label-light-info label-inline">{{count($item->unloadpermits)}}
+                                                        </span>
+                                                    </span>
+                                                   <!--  <span  style="background:green;color: white;font-weight: bold;padding: 0 10px;"></span> -->
                                                     @endif
-                                        </td>
-                                        <td>
-                                            <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to <br>Unload</p>
-                                            @if(count($item->unloadpermits)>0)
-                                            <span  style="background:green;color: white;font-weight: bold;padding: 0 10px;">{{count($item->unloadpermits)}}</span>
-                                            @endif
-                                        </td>
-                                        <td data-type="2">
-                                            <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS<br></p>
-                                            @php $i=0;@endphp
-                                            @foreach($item->uploadfile as $file)
-                                            @if($file->file_type==3)
-                                            @php $i++ @endphp
-                                            <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
-                                            @endif
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @php
-                                            $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
-                                            @endphp
-                                            @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
-                                            <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
-                                                <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
-                                            </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if(\Auth::user()->hasRole('admin'))
-                                            <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1"><i class="fa fa-arrow-right"></i></a>
-                                            @endif
-                                            <br>
-                                            @if(\Auth::user()->hasRole([['admin', 'company','user']]))
-                                            <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
-                                                @method('Delete')
-                                                @csrf
-                                                <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
-                                                    <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
-                                                    <i style="padding:3px;" class="fa fa-trash-alt"></i>
-                                                    <!--end::Svg Icon-->
-                                                </button>
-                                            </form>
-                                            @endif
-                                            @if(\Auth::user()->hasRole([['admin', 'company','user']]))
-                                            <a href="#" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
-                                                <i style="padding:3px;" class="fa fa-share-alt"></i>
-                                            </a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    @endforelse
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
+                                                </td>
+                                                <td data-type="2">
+                                                    <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS<br></p>
+                                                    @php $i=0;@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==3)
+                                                    @php $i++ @endphp
+                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
+                                                    @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @php
+                                                    $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
+                                                    @endphp
+                                                    @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
+                                                    <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
+                                                        <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
+                                                    </a>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                     <span class="svg-icon svg-icon-md dropdown-toggle dropdownaction" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">                                
+                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">                                    
+                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">                                        
+                                                                    <rect x="0" y="0" width="24" height="24"></rect>                                        <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000">
+                                                                        
+                                                                    </path>                                    
+                                                                </g>                                
+                                                            </svg>                            
+                                                        </span>
+                                                        <!--begin::Dropdown Menu-->
+                                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right " style="text-align: center;">
+                                                            <!--begin::Navigation-->
+                                                            <ul class="navi flex-column navi-hover py-2" style="list-style: none">
+                                                                <li class="navi-item">
+                                                                     @if(\Auth::user()->hasRole('admin'))
+                                                                        <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1" ><i class="fa fa-arrow-right"></i></a>
+                                                                        @endif
+                                                                </li>
+                                                                <li class="navi-item">
+                                                                     @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                                        <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
+                                                                            @method('Delete')
+                                                                            @csrf
+                                                                            <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
+                                                                                <i style="padding:3px;" class="fa fa-trash-alt"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                        @endif
+                                                                </li>
+                                                                <li class="navi-item">
+                                                                    @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                                        <a href="#" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
+                                                                            <i style="padding:3px;" class="fa fa-share-alt"></i>
+                                                                        </a>
+                                                                        @endif
+                                                                </li>
+                                                            </ul>
+                                                            <!--end::Navigation-->
+                                                        </div>
+                                                        <!--end::Dropdown Menu-->
+                                                                    
+                                                </td>
+                                            </tr>
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                        <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                
+                            </div>
+
+                            <!-- second table -->
+                            <!-- <div class="table-responsive  tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" style="height: 1000px;">
+                                
+                                
+                            </div> -->
+                        </div>
                         </div>
                     </div>
                     <br>
@@ -1064,7 +1019,6 @@
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script> -->
 <script>
     $(document).ready(function() {
 
@@ -1678,5 +1632,15 @@
             }
         });
     })
+
+
+    $(".mydropdown").on('click',function(){
+        $(".mydrodownmenu").toggle();
+    })
+    
+
+
+
+   
 </script>
 @endsection

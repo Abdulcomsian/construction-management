@@ -359,7 +359,7 @@
                                             <div class="tableInputDiv">
                                             <div class="dropdown mt-0">
                                                 <!-- <button onclick="myFunction()"  class="dropbtn btn btn-primary">view</button> -->
-                                                <button type="button" onclick="myFunction()"  class="dropbtn btn btn-light-primary font-weight-bolder dropdown-toggle">
+                                                <button type="button" onclick="myFunction()"  class="dropbtn btn btn-primary font-weight-bolder dropdown-toggle">
                                                 <span class="svg-icon svg-icon-md">
                                                     <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
                                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

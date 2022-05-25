@@ -285,13 +285,15 @@
                   <!-- </div> -->
                   <!--begin::Table-->
                   <div class="row">
-                     <nav class="tabnave" style="width: 30%;float:left">
+                  <div class="col-md-4 my-2 my-md-0 ">
+                  <nav class="tabnave" style="width: 100%;float:left">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                            <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>
                            <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>
                            <span  class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</span>
                         </div>
                      </nav>
+</div>
                      <div class="col-md-2 my-2 my-md-0 text-center">
                         <div class="tableInputDiv">
                            <div class="dropdown mt-0">
@@ -465,7 +467,7 @@
 
                 <div class="col-md-2 my-2 offset-2 my-md-0 float-right">
                          <!--begin::Dropdown-->
-                     <div class="dropdown dropdown-inline mr-2 mt-0">
+                     <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
                         <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <span class="svg-icon svg-icon-md">
                               <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
@@ -513,13 +515,15 @@
                         <!--end::Dropdown Menu-->
                      </div>
                      </div>
-                     <div class="col-md-2 my-2 my-md-0 float-right">
+                     <div class="col-md-2 my-2 my-md-0 ">
                      <!--end::Dropdown-->
                      <!--begin::Button-->
-                     <a href="#" class="btn btn-primary font-weight-bolder" style="color:white !important">
+                     <a href="#" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important">
                      <span class="fa fa-plus"></span> Design Brief</a>
                      <!--end::Button-->
                 </div>
+                </div>
+                <div class="row">
                      <div style="float:left;width:100%">
                         <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">
                            <!-- aLL TAB -->

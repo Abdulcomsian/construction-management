@@ -431,11 +431,17 @@ input:focus {
 }
   @media screen and (min-width: 768px) {
     .desktopView{margin-top:20px;}
+    
+
   }
     @media screen and (max-width: 768px) {
         #submitbutton {
             right: 50%;
         }
+        .tabnave{
+        width: 100% !important;
+    }
+
    
     .dropbtn{
         font-size: 12px !important;
@@ -484,17 +490,28 @@ li.select2-selection__choice{
     #submitbutton {
         right: 45%;
     } 
+    .tabnave{
+        width: 100% !important;
+    }
+}
 }
 @media screen and (max-width: 414px){
     #submitbutton {
         right: 40%;
     } 
+    .tabnave{
+        width: 100% !important;
+    }
+
 }
 @media screen and (max-width: 390px){
     #submitbutton {
         right: 39%;
         bottom: 30px;
     } 
+    .tabnave{
+        width: 100% !important;
+    }
 }
 .aside-menu .menu-item.here>.menu-link, .aside-menu .menu-item.show>.menu-link{
     display: flex !important;

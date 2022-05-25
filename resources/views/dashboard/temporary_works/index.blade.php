@@ -542,7 +542,7 @@
                         <!-- </div> -->
                         <!--begin::Table-->
                         <div>
-                            <nav class="tabnave" style="width: 30%;float:right">
+                            <nav class="tabnave" style="width: 30%;float:left">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                      <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>
                                     <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>

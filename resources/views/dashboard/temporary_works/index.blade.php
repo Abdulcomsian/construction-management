@@ -355,7 +355,36 @@
                                             
                                         </form>
                                         </div>
-                                        <div class="col-md-4 my-2 my-md-0 text-center">
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- <div class="row desktopView"> -->
+
+                            <!-- <div class="col-md-2">
+                                @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
+                                @php $path = config('app.url');@endphp
+                                <img class="img img-thumbnail profileimg" src="{{$path.\auth()->user()->image}}" width="150px" height="150px">
+                                @endif
+                            </div> -->
+
+
+                        <!-- </div> -->
+                        <!--begin::Table-->
+                        <div class="row">
+                            <nav class="tabnave" style="width: 30%;float:left">
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                     <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>
+                                    <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>
+                                    <span  class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</span>
+                                    
+                                </div>
+                            </nav>
+                        
+
+                            <div class="col-md-2 my-2 my-md-0 text-center">
                                             <div class="tableInputDiv">
                                             <div class="dropdown mt-0">
                                                 <!-- <button onclick="myFunction()"  class="dropbtn btn btn-primary">view</button> -->
@@ -524,33 +553,8 @@
                                             </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <!-- <div class="row desktopView"> -->
-
-                            <!-- <div class="col-md-2">
-                                @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
-                                @php $path = config('app.url');@endphp
-                                <img class="img img-thumbnail profileimg" src="{{$path.\auth()->user()->image}}" width="150px" height="150px">
-                                @endif
-                            </div> -->
 
 
-                        <!-- </div> -->
-                        <!--begin::Table-->
-                        <div>
-                            <nav class="tabnave" style="width: 30%;float:left">
-                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                     <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>
-                                    <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>
-                                    <span  class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</span>
-                                    
-                                </div>
-                            </nav>
-                        
                         <div style="float:left;width:100%">
                             <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">
                                 <!-- aLL TAB -->

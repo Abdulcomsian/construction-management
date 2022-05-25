@@ -246,37 +246,6 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
     <div class="topMenu" style="padding-top:0px;">
-        <!-- <div class="card bg-white border-0 shadow rounded-lg" style="margin:0 auto;">
-		<div class="d-flex align-items-center justify-content-center flex-wrap px-5 py-5 px-md-10 py-md-9">
-			
-			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap5">Projects</a>
-			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
-			<a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap4">Companies</a>
-			@endif
-			@if(\Auth::user()->hasAnyRole(['admin', 'company']))
-			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('users.index') }}" target="">Users</a>
-			@endif
-			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.index') }}" target="">Temporary Work Register</a>
-			<a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.create') }}" target="">New Design Brief</a>
-            <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('temporary_works.shared')}}" target="">Shared Temporary Works</a>
-		</div>
-    </div> -->
-        <!--begin::Toolbar-->
-        <!-- <div class="toolbar" id="kt_toolbar"> -->
-        <!--begin::Container-->
-        <!-- <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack"> -->
-        <!--begin::Page title-->
-        <!-- <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;"> -->
-        <!--begin::Title-->
-
-        <!--end::Title-->
-        <!-- </div> -->
-        <!--end::Page title-->
-        <!-- </div> -->
-        <!--end::Container-->
-        <!-- </div> -->
-        <!--end::Toolbar-->
-        <!--begin::Post-->
         <div class="post d-flex flex-column-fluid" id="kt_post">
             <!--begin::Container-->
             <div id="kt_content_container" class="container">
@@ -381,7 +350,7 @@
                                                    
                                                 </div>
                                                 <div class="col-md-2 text-right" id="search-btn">
-                                                    <a href="#" class="btn btn-light-primary px-6 font-weight-bold" style="margin:0px 0px 0px 7px;"><span class="fa fa-search"></span></button></a>
+                                                    <button type="submit" class="btn btn-light-primary px-6 font-weight-bold" style="margin:0px 0px 0px 7px;"><span class="fa fa-search"></span></button>
                                                 </div>
                                             
                                         </form>

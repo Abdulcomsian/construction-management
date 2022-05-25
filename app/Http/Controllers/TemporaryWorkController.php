@@ -1670,9 +1670,9 @@ class TemporaryWorkController extends Controller
                 //coordinator query
                 // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
             }
-
+             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

@@ -44,12 +44,12 @@ License: -->
     <!--begin::Page-->
     <div class="page d-flex flex-row flex-column-fluid">
         <!--begin::Side bar-->
-        
+           @include('layouts.dashboard.side-bar')
         <!--end::Side bar-->
         <!--begin::Wrapper-->
         <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             <!--begin::Header-->
-            @include('layouts.dashboard.header-temporary')
+        @include('layouts.dashboard.header')
             <!--end::Header-->
             <!--begin::Content-->
             @yield('content')

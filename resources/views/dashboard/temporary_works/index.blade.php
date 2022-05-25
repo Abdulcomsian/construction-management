@@ -2,6 +2,28 @@
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+
+    .aside-enabled.aside-fixed[data-kt-aside-minimize=on] .wrapper{
+        padding-left: 75px !important;
+    }
+    .menu-title{
+        opacity: 0;
+    }
+    .menu-sub-accordion{
+        height: 0px;
+    }
+    .aside-fixed .aside{
+        width: 75px;
+    }
+    .aside-enabled.aside-fixed .wrapper{
+        padding-left: 60px !important;
+    }
+    .menu-item,
+    .menu-sub-accordion.show, .show:not(.menu-dropdown)>.menu-sub-accordion{
+    display: block !important;
+}
+
+
     ::-webkit-scrollbar {
         width: 30px;
         height: 30px;
@@ -12,21 +34,17 @@
         left: 0px !important;
     }
 
-    .aside-enabled.aside-fixed .wrapper {
-        padding-left: 0px !important;
-    }
-
     .aside-enabled.aside-fixed.header-fixed .header {
         border-bottom: 1px solid #e4e6ef !important;
     }
 
     .header-fixed.toolbar-fixed .wrapper {
-        padding-top: 60px !important;
+        padding-top: 60pximportant;
     }
 
     .content {
         padding-top: 0px !important;
-        background-color: #e9edf1 !important;
+        backgroun !d-color: #e9edf1 !important;
     }
 
     .newDesignBtn {
@@ -50,7 +68,15 @@
     table {
         margin-top: 20px;
     }
-    
+    #kt_wrapper.activeWrapper{
+        padding-left: 256px !important;
+    }
+    .activeAside{
+        width: 265px !important;
+    }
+    .activeSubMenu{
+        height: auto !important;
+    }
 
     .mw-750px {
         max-width: 1050px !important;
@@ -1841,7 +1867,21 @@
     
 
 
-
+    $("div#kt_aside_toggle").click(function(){
+       if($(".aside").hasClass("activeAside")){
+          $("#kt_wrapper").removeClass("activeWrapper");
+       $(".aside").removeClass("activeAside");
+       $(".aside-logo .logo").css("display","none");
+       $(".menu-title").css("opacity","0");
+       $(".menu-sub-accordion").removeClass("activeSubMenu");
+       } else {
+           $("#kt_wrapper").addClass("activeWrapper");
+           $(".aside").addClass("activeAside");
+           $(".aside-logo .logo").css("display","block");
+           $(".menu-title").css("opacity","1");
+           $(".menu-sub-accordion").addClass("activeSubMenu");
+       }
+    })
    
 </script>
 @endsection

@@ -1219,11 +1219,8 @@
                                             <td>
                                                 <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to <br>Unload</p>
                                                 @if(count($item->unloadpermits)>0)
-                                                <span style="padding: 0 10px;">
-                                                    <span class="label label-lg font-weight-bold label-light-info label-inline">{{count($item->unloadpermits)}}
+                                                <span  style="background:green;color: white;font-weight: bold;padding: 0 10px;border-radius: 5px">{{count($item->unloadpermits)}}
                                                     </span>
-                                                </span>
-                                               <!--  <span  style="background:green;color: white;font-weight: bold;padding: 0 10px;"></span> -->
                                                 @endif
                                             </td>
                                             <td data-type="2">

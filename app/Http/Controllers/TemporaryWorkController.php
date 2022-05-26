@@ -1067,7 +1067,7 @@ class TemporaryWorkController extends Controller
                 $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention";
                 $message = "Load";
                 if (isset($request->type)) {
-                    PermitLoad::find($request->permitid)->update(['status' => 4]);
+                    PermitLoad::find($request->permitid)->update(['status' => 0]);
                     $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load which has been renewed created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention.";
                     $message = "Renew";
                 }

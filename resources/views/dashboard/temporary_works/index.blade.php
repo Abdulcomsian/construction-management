@@ -349,14 +349,14 @@
                                        </select>
                                     </div>
                                     <div class="col-2 ">
-                                       <button type="submit" class="btn btn-primary mb-2 w-100" style="border-radius: 0px;padding-top: 8px;padding-left:10px;padding-bottom: 2px; margin:5px 0px 0px 10px;width: 35px !important;    background-color: #009ef7 !important;"><span class="fa fa-filter"></span></button>
+                                       <button type="submit" class="btn btn-light-primary mb-2 w-100" style="border-radius: 0px;padding-top: 8px;padding-left:10px;padding-bottom: 2px; margin:5px 0px 0px 10px;width: 35px !important;    "><span class="fa fa-filter"></span></button>
                                     </div>
                                  </form>
                               </div>
                               <div class="col-md-4 my-2 my-md-0">
                                  <form class="form-inline d-flex" method="get" action="{{route('tempwork.search')}}">
                                     <div class="col-10">
-                                       <input type="text" class="form-control" placeholder="Search..." id="terms" name="terms">
+                                       <input type="text" style="border-radius:0px;border-color:#e2e2e2;" class="form-control" placeholder="Search..." id="terms" name="terms">
                                        <span>
                                        <i class="flaticon2-search-1 text-muted"></i>
                                        </span>
@@ -613,7 +613,7 @@
                      <div class="col-md-2 my-2 my-md-0 ">
                      <!--end::Dropdown-->
                      <!--begin::Button-->
-                     <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important">
+                     <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important;border-radius:0px;">
                      <span class="fa fa-plus"></span> Design Brief</a>
                      <!--end::Button-->
                 </div>

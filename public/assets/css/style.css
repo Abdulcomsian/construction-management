@@ -271,6 +271,10 @@ input:focus {
 .active{
     background-color: #07d564 !important;
 }
+
+.aside-logo .active{
+    background-color: transparent !important;
+}
 #design_requirement_text{background:#f5f8fa;color:#000;}
 #design_requirement_text::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #000;
@@ -431,11 +435,17 @@ input:focus {
 }
   @media screen and (min-width: 768px) {
     .desktopView{margin-top:20px;}
+    
+
   }
     @media screen and (max-width: 768px) {
         #submitbutton {
             right: 50%;
         }
+        .tabnave{
+        width: 100% !important;
+    }
+
    
     .dropbtn{
         font-size: 12px !important;
@@ -484,17 +494,28 @@ li.select2-selection__choice{
     #submitbutton {
         right: 45%;
     } 
+    .tabnave{
+        width: 100% !important;
+    }
+}
 }
 @media screen and (max-width: 414px){
     #submitbutton {
         right: 40%;
     } 
+    .tabnave{
+        width: 100% !important;
+    }
+
 }
 @media screen and (max-width: 390px){
     #submitbutton {
         right: 39%;
         bottom: 30px;
     } 
+    .tabnave{
+        width: 100% !important;
+    }
 }
 .aside-menu .menu-item.here>.menu-link, .aside-menu .menu-item.show>.menu-link{
     display: flex !important;
@@ -553,7 +574,7 @@ li.select2-selection__choice{
 
 
 /* Dropdown Button */
-.dropbtn {
+/*.dropbtn {
     background-color: #08d564;
     color: white;
     padding: 3px 20px;
@@ -561,12 +582,12 @@ li.select2-selection__choice{
     border: none;
     border-radius: 8px;
     cursor: pointer;
-  }
+  }*/
   
   /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
+  /*.dropbtn:hover, .dropbtn:focus {
     background-color: #08d564;
-  }
+  }*/
   
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
@@ -628,3 +649,28 @@ li.select2-selection__choice{
   #commenttable td form .replay{
       border: 1px solid #e4e6ef;
   }
+
+
+  /*obaid css here*/
+  .label.label-light-success {
+    color:#fff ;
+    background-color: #1BC5BD;
+}
+.label.label-inline.label-lg {
+    padding: 0.2rem 0.75rem;
+}
+.label.label-inline {
+    border-radius: 0.42rem;
+}
+.label.label-light-info {
+    color: #fff;
+    background-color: #8950FC;
+}
+.label.label-light-danger {
+    color:#fff;
+    background-color: #F64E60;
+}
+.label.label-light-yellow {
+    color: #F64E60;
+    background-color: #FFE2E5;
+}

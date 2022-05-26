@@ -21,7 +21,9 @@ License: -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+
    <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
+
     <!-- work for signature -->
     
     
@@ -42,12 +44,12 @@ License: -->
     <!--begin::Page-->
     <div class="page d-flex flex-row flex-column-fluid">
         <!--begin::Side bar-->
-        
+           @include('layouts.dashboard.side-bar')
         <!--end::Side bar-->
         <!--begin::Wrapper-->
         <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             <!--begin::Header-->
-            @include('layouts.dashboard.header-temporary')
+      
             <!--end::Header-->
             <!--begin::Content-->
             @yield('content')
@@ -88,14 +90,17 @@ License: -->
 <!--begin::Javascript-->
 <!--begin::Global Javascript Bundle(used by all pages)-->
   @jquery  
-   <!--  <script src="{{asset('js/Jquery-ui-min.js')}}"></script>
-    <script src="{{ asset('js/signature.js')}}"></script> -->
+  
+   <!--  <script src="{{asset('js/Jquery-ui-min.js')}}"></script> -->
+   <!--  <script src="{{ asset('js/signature.js')}}"></script> -->
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
     <script type="text/javascript">
            $('.input-images').imageUploader({
                maxFiles: 1,
                 imagesInputName: 'file',
            });
+
     </script>
     <script type="text/javascript">
         // var sig1 = $('#sig1').signature({
@@ -135,6 +140,7 @@ License: -->
 @toastr_render
 
 @yield('scripts')
+
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->
 </body>

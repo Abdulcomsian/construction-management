@@ -1067,7 +1067,7 @@ class TemporaryWorkController extends Controller
                 $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention";
                 $message = "Load";
                 if (isset($request->type)) {
-                    PermitLoad::find($request->permitid)->update(['status' => 4]);
+                    PermitLoad::find($request->permitid)->update(['status' => 0]);
                     $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load which has been renewed created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention.";
                     $message = "Renew";
                 }
@@ -1670,9 +1670,9 @@ class TemporaryWorkController extends Controller
                 //coordinator query
                 // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
             }
-
+             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

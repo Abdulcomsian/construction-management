@@ -39,10 +39,20 @@
    height: 0px;
    }
    .aside-fixed .aside{
-   width: 75px;
+   width: 45px;
+   }
+   #kt_aside_toggle{
+      position: relative;
+      right: 15px;
+   }
+   .menu-icon i{
+      font-size: 22px !important;
+   }
+   #kt_aside:hover  #kt_aside_toggle{
+      right: 0px;
    }
    .aside-enabled.aside-fixed .wrapper{
-   padding-left: 60px !important;
+   padding-left: 30px !important;
    }
    .menu-item,
    .menu-sub-accordion.show, .show:not(.menu-dropdown)>.menu-sub-accordion{

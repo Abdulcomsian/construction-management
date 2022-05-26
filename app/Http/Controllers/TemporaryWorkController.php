@@ -992,7 +992,7 @@ class TemporaryWorkController extends Controller
         try {
             $tempdata = TemporaryWork::find($tempid);
             $twc_id_no = $tempdata->twc_id_no;
-            $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->where('status', '!=', 4)->orderBy('id', 'desc')->first();
+            $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->orderBy('id', 'desc')->first();
             if ($permitdata) {
                 $data = explode("-", $permitdata->permit_no);
                 if (isset($data[3])) {
@@ -1126,7 +1126,7 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-        $permited = PermitLoad::where(['temporary_work_id' => $tempid])->latest()->get();
+        $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->latest()->get();
         $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         $list = '';
         if (count($permited) > 0) {
@@ -1400,12 +1400,12 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature'] = $image_name;
             }
-            $all_inputs['status'] = 4;
+            $all_inputs['status'] = 3;
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
                 //make status 0 if permit is 
-                PermitLoad::find($request->permitid)->update(['status' => 3]);
+                PermitLoad::find($request->permitid)->update(['status' => 4]);
                 //upload permit unload files
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
@@ -1670,9 +1670,9 @@ class TemporaryWorkController extends Controller
                 //coordinator query
                 // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
             }
-
+             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

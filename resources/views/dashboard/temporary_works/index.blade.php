@@ -2,6 +2,14 @@
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+    #kt_content_container .card-header .topRightMenu {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
+    #kt_aside_toggle .rotate-180{
+        transform: rotateZ(180deg);
+    }
    .view_column::after{color:#000 !important;}
    .nav-tabs .nav-link.active{border-radius:8px !important;}
    ::-webkit-scrollbar {
@@ -63,6 +71,16 @@
    }
    table {
    margin-top: 20px;
+   }
+   #kt_wrapper{
+       padding-top: 0px !important;
+   }
+   .card-header{
+       display: block !important;
+   }
+   .card-header .card-title{
+       display: block !important;
+       text-align: center;
    }
    #kt_wrapper.activeWrapper{
    padding-left: 256px !important;
@@ -235,7 +253,84 @@
                         <span class="d-block text-muted pt-2 font-size-sm"></span>
                      </h3>
                   </div>
-                 
+                  <!--begin::Topbar-->
+            <div class="d-flex align-items-stretch flex-shrink-0 topRightMenu">
+                <!--begin::Toolbar wrapper-->
+                <div class="topbar d-flex align-items-stretch flex-shrink-0">
+                    <!--begin::User-->
+                    <div class="d-flex align-items-stretch" id="kt_header_user_menu_toggle">
+                        <!--begin::Menu wrapper-->
+                        <div
+                            class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px"
+                            data-kt-menu-trigger="click" data-kt-menu-attach="parent"
+                            data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                            @isset(auth()->user()->image)
+                                <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                            @else
+                                <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                    {{ \Illuminate\Support\Str::upper(auth()->user()->name[0])  ?: '' }}</div>
+                            @endisset
+                        </div>
+                        <!--begin::Menu-->
+                        <div
+                            class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px"
+                            data-kt-menu="true">
+                            <!--begin::Menu item-->
+                            <div class="menu-item px-3">
+                                <div class="menu-content d-flex align-items-center px-3">
+                                    <!--begin::Avatar-->
+                                    <div class="symbol symbol-50px me-5">
+                                        @isset(auth()->user()->image)
+                                            <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                        @else
+                                            <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                                {{ auth()->user()->name[0] ?: '' }}</div>
+                                        @endisset
+                                    </div>
+                                    <!--end::Avatar-->
+                                    <!--begin::Username-->
+                                    <div class="d-flex flex-column">
+                                        <div class="fw-bolder d-flex align-items-center fs-5">{{ auth()->user()->name ?: '' }}
+                                        </div>
+                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
+                                    </div>
+                                    <!--end::Username-->
+                                </div>
+                            </div>
+                            <!--end::Menu item-->
+                            <!--begin::Menu separator-->
+                            <div class="separator my-2"></div>
+                            <!--end::Menu separator-->
+                            <!--begin::Menu item-->
+                            <div class="menu-item px-5">
+                                <a href="{{ route('users.edit',auth()->id()) }}" class="menu-link px-5">Account Settings</a>
+                            </div>
+                            <!--end::Menu item-->
+                            <!--begin::Menu item-->
+                            <div class="menu-item px-5">
+                                <a class="menu-link px-5"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                            </div>
+                            <!--end::Menu item-->
+                        </div>
+                        <!--end::Menu-->
+                        <!--end::Menu wrapper-->
+                    </div>
+                    <!--end::User -->
+                    <!--begin::Heaeder menu toggle-->
+                    <div class="d-flex align-items-stretch d-lg-none px-3 me-n3" title="Show header menu">
+                        <div class="topbar-item" id="kt_header_menu_mobile_toggle">
+                            <i class="bi bi-text-left fs-1"></i>
+                        </div>
+                    </div>
+                    <!--end::Heaeder menu toggle-->
+                </div>
+                <!--end::Toolbar wrapper-->
+            </div>
+            <!--end::Topbar-->
                </div>
                <!--end::Card header-->
                <!--begin::Card body-->
@@ -254,7 +349,7 @@
                                        </select>
                                     </div>
                                     <div class="col-2 ">
-                                       <button type="submit" class="btn btn-primary mb-2 w-100" style="border-radius: 0px;padding-top: 8px;padding-left:10px;padding-bottom: 2px; margin:5px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
+                                       <button type="submit" class="btn btn-primary mb-2 w-100" style="border-radius: 0px;padding-top: 8px;padding-left:10px;padding-bottom: 2px; margin:5px 0px 0px 10px;width: 35px !important;    background-color: #009ef7 !important;"><span class="fa fa-filter"></span></button>
                                     </div>
                                  </form>
                               </div>
@@ -1767,12 +1862,15 @@
       $(".aside-logo .logo").css("display","none");
       $(".menu-title").css("opacity","0");
       $(".menu-sub-accordion").removeClass("activeSubMenu");
+      $("#kt_aside_toggle .rotate-180").css("transform","rotateZ(180deg)")
       } else {
           $("#kt_wrapper").addClass("activeWrapper");
           $(".aside").addClass("activeAside");
           $(".aside-logo .logo").css("display","block");
           $(".menu-title").css("opacity","1");
           $(".menu-sub-accordion").addClass("activeSubMenu");
+          $("#kt_aside_toggle .rotate-180").css("transform","rotateZ(0deg)")
+         
       }
    })
    

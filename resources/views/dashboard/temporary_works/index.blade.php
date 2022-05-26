@@ -7,6 +7,18 @@
         right: 15px;
         top: 15px;
     }
+    #kt_aside:hover{
+       width: 265px;
+    }
+    #kt_aside:hover .aside-logo img{
+       display: block !important;
+    }
+    #kt_aside:hover .menu-title{
+       opacity: 1 !important;
+    }
+    #kt_aside:hover .menu-sub-accordion{
+       height: auto !important;
+    }
     #kt_aside_toggle .rotate-180{
         transform: rotateZ(180deg);
     }
@@ -165,6 +177,14 @@
    .profileimg {
    border-radius: 50%;
    }
+   .symbol.symbol-md-35px .symbol-label {
+    width: 53px;
+    height: 42px;
+}
+.symbol.symbol-md-35px .symbol-label:hover{
+   background-color: #009ef7 !important;
+    color: #fff !important;
+}
    .btn.btn-primary {
    border-color: #07d564 !important;
    background-color: #07d564 !important;
@@ -349,7 +369,7 @@
                                        </select>
                                     </div>
                                     <div class="col-2 ">
-                                       <button type="submit" class="btn btn-light-primary mb-2 w-100" style="border-radius: 0px;padding-top: 8px;padding-left:10px;padding-bottom: 2px; margin:5px 0px 0px 10px;width: 35px !important;    "><span class="fa fa-filter"></span></button>
+                                       <button type="submit" class="btn btn-light-primary mb-2 w-100" style="border-radius: 0px;padding: 10px 19px; margin-left:10px;    margin-bottom: 0px !important;width: auto !important;    "><span class="fa fa-filter"></span></button>
                                     </div>
                                  </form>
                               </div>

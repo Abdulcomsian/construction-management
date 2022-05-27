@@ -1,6 +1,29 @@
 #kt_content_container {
     max-width: 100% !important;
 }
+.redBgBlink{
+    animation-duration: 1200ms;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    -webkit-animation:blink 1000ms infinite; /* Safari and Chrome */
+}
+@keyframes blink {
+    from {
+        background-color:red;
+    }
+    to {
+        background-color:white;
+    }
+}
+@-webkit-keyframes blink {
+    from {
+        background-color:red;
+    }
+    to {
+        background-color:white;
+    }
+}
 
 /*Using this for show validation error in red color*/
 .text-red-600 {

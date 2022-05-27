@@ -30,9 +30,14 @@
             <!--begin::Menu-->
 
             <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
-                <span class="menu-link">
-                    <span class="menu-icon">
-                        <i class="fas fa-user fs-3"></i>
+                <span class="menu-link userIconLink">
+                    <span class="menu-icon userIcon">
+                        <!-- <i class="fas fa-user fs-3"></i> -->
+                        <img src="{{asset('assets/media/images/alpha-capital.png')}}">
+                    </span>
+                    <span class="menu-icon-hover">
+                        <!-- <i class="fas fa-user fs-3"></i> -->
+                        <img src="{{asset('assets/media/images/1.png')}}">
                     </span>
                     <span class="menu-title">Companies & Projects</span>
                     <span class="menu-arrow"></span>
@@ -68,9 +73,12 @@
                     @endif
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
-                    <span class="menu-link">
-                        <span class="menu-icon">
-                            <i class="fas fa-user fs-3"></i>
+                    <span class="menu-link userIconTask">
+                        <span class="menu-icon userTask">
+                            <img src="{{asset('assets/media/images/12.png')}}">
+                        </span>
+                        <span class="menu-icon userHoverTask">
+                            <img src="{{asset('assets/media/images/23.png')}}">
                         </span>
                         <span class="menu-title">Temporary Works</span>
                         <span class="menu-arrow"></span>

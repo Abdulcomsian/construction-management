@@ -32,7 +32,7 @@
             <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                 <span class="menu-link">
                     <span class="menu-icon">
-                        <i class="bi bi-people fs-3"></i>
+                        <i class="fas fa-file fs-3"></i>
                     </span>
                     <span class="menu-title">Companies & Projects</span>
                     <span class="menu-arrow"></span>
@@ -70,7 +70,7 @@
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link">
                         <span class="menu-icon">
-                            <i class="bi bi-people fs-3"></i>
+                            <i class="fas fa-tasks fs-3"></i>
                         </span>
                         <span class="menu-title">Temporary Works</span>
                         <span class="menu-arrow"></span>

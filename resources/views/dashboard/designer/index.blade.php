@@ -488,7 +488,7 @@
                               <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                <span class="required">Risk Assessment Certificate:</span>
                               </label>
-                               <input type="file" style="width:20%"class="form-control" id="riskassesmentfile" name="designcheckfile" required="required">
+                               <input type="file" style="width:20%"class="form-control" id="riskassesmentfile" name="riskassesmentfile" required="required">
                                &nbsp;&nbsp;
                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                <span class="required">Document Type:</span>
@@ -499,7 +499,7 @@
                                    <option value="6">Calculations</option>
                                </select>
                                &nbsp;&nbsp;
-                               <button type="submit" class="btn btn-primary mb-2">Upload Rrisk Assessment Certificate</button>
+                               <button type="submit" class="btn btn-primary mb-2">Upload R/A Certificate</button>
                           </div>
                       
                     </form>

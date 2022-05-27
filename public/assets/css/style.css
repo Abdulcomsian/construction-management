@@ -674,3 +674,8 @@ li.select2-selection__choice{
     color: #F64E60;
     background-color: #FFE2E5;
 }
+
+.label.label-light-green {
+    color: #fff;
+    background-color: green;
+}

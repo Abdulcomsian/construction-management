@@ -1,6 +1,29 @@
 #kt_content_container {
     max-width: 100% !important;
 }
+.redBgBlink{
+    animation-duration: 1200ms;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    -webkit-animation:blink 1000ms infinite; /* Safari and Chrome */
+}
+@keyframes blink {
+    from {
+        background-color:red;
+    }
+    to {
+        background-color:white;
+    }
+}
+@-webkit-keyframes blink {
+    from {
+        background-color:red;
+    }
+    to {
+        background-color:white;
+    }
+}
 
 /*Using this for show validation error in red color*/
 .text-red-600 {
@@ -69,6 +92,22 @@ input:focus {
 #scope-of-design .common-requirment{
     width: 80%;
 }
+.menu-icon-hover,
+.userHoverTask{
+    display: none !important;
+ }
+ #kt_aside .userIconLink:hover .menu-icon-hover{
+    display: block !important;
+    margin-right: 10px;
+ }
+ .userIconTask:hover .userHoverTask{
+    display: block !important;
+    margin-right: 10px;
+ }
+ #kt_aside .userIconLink:hover .userIcon,
+ .userIconTask:hover .userTask{
+    display: none;
+ }
 #scope-of-design .requirment-second{
     width: 20%;
 }
@@ -458,6 +497,9 @@ input:focus {
 
   }
     @media screen and (max-width: 768px) {
+        .card-body .dropdown button{
+            border-radius: 0px !important;
+        }
         .card-body.indexTempory .mb-7{
             margin-bottom: 0px !important;
         }

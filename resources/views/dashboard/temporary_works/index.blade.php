@@ -10,8 +10,10 @@
     #kt_aside:hover{
        width: 265px;
     }
-    #kt_aside:hover .aside-logo img{
+  
+    #kt_aside .userIconLink:hover .aside-logo img{
        display: block !important;
+       
     }
     #kt_aside:hover .menu-title{
        opacity: 1 !important;
@@ -51,6 +53,9 @@
    #kt_aside:hover  #kt_aside_toggle{
       right: 0px;
    }
+   .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg{
+      padding: 0px 10px;
+   }
    .aside-enabled.aside-fixed .wrapper{
    padding-left: 30px;
    }
@@ -87,6 +92,9 @@
    }
    .newDesignBtn:hover {
    color: rgba(222, 13, 13, 0.66);
+   }
+   .nav-tabs .nav-link.active{
+      border-radius: 0px !important;
    }
    .card>.card-body {
    padding: 32px;
@@ -183,6 +191,9 @@
    }
    tbody.text-gray-600.fw-bold tr td {
    vertical-align: middle;
+   }
+   .form-control{
+      padding: 5px 10px;
    }
    table {
    margin-top: 20px;
@@ -382,7 +393,7 @@
                                        </select>
                                     </div>
                                     <div class="col-2 ">
-                                       <button type="submit" class="btn btn-light-primary mb-2 w-100" style="border-radius: 0px;padding: 10px 19px; margin-left:10px;    margin-bottom: 0px !important;width: auto !important;    "><span class="fa fa-filter"></span></button>
+                                       <button type="submit" class="btn btn-light-primary mb-2 w-100" style="border-radius: 0px;padding: 6px 19px; margin-left:10px;    margin-bottom: 0px !important;width: auto !important;    "><span class="fa fa-filter"></span></button>
                                     </div>
                                  </form>
                               </div>
@@ -395,7 +406,7 @@
                                        </span>
                                     </div>
                                     <div class="col-md-2 text-right" id="search-btn">
-                                       <button type="submit" class="btn btn-light-primary px-6 font-weight-bold" style="margin:0px 0px 0px 7px;"><span class="fa fa-search"></span></button>
+                                       <button type="submit" class="btn btn-light-primary px-6 font-weight-bold" style="    padding: 6px 10px;margin:0px 0px 0px 7px;"><span class="fa fa-search"></span></button>
                                     </div>
                                  </form>
                               </div>

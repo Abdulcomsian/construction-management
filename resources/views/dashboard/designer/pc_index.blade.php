@@ -23,9 +23,7 @@
     }
 
     table {
-        margin-top: 20px;
-        border-collapse: separate;
-        background-color: red;
+        margin-top: 20px;=
     }
 
     #kt_toolbar_container h1 {
@@ -48,11 +46,14 @@
     }
 
     table thead {
-        background-color: #000;
+        background-color: #f5f8fa;
+        position: sticky;
+        top: 0px;
+        z-index: 99;
     }
 
     table thead th {
-        color: #fff !important;
+        color: #000 !important;
         text-align: center;
     }
 

@@ -97,6 +97,7 @@ class HelperFunctions
 
     public function check_date($desingdate, $array)
     {
+        $blinkclass=" ";
         if (!isset($array[0])) {
             $current =  \Carbon\Carbon::now();
             $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
@@ -104,12 +105,13 @@ class HelperFunctions
             $result =  $current->gt($to);
             if ($result) {
                 $class = "background:red;color:black";
+                $blinkclass="redBgBlink ";
             } elseif ($diff_in_days >= 7) {
                 $class = "background:green;color:black";
             } elseif ($diff_in_days <= 7 && $diff_in_days >= 1) {
                 $class = "background:yellow;color:black";
             }
-            return $class;
+            return array($class,$blinkclass);
         } else {
             foreach ($array as $arr) {
                 if ($arr->file_type == 1) {
@@ -124,7 +126,7 @@ class HelperFunctions
                     } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
                         $class = "background:#f2f2f2;color:orange";
                     }
-                    return $class;
+                    return array($class,$blinkclass);
                     break;
                 } else {
                     $current =  \Carbon\Carbon::now();
@@ -133,6 +135,7 @@ class HelperFunctions
                     $result =  $current->gt($to);
                     if ($result) {
                         $class = "background:red";
+                        $blinkclass="redBgBlink ";
                     } elseif ($diff_in_days >= 7) {
                         $class = "background:green";
                     } elseif ($diff_in_days <= 7 && $diff_in_days >= 1) {
@@ -140,7 +143,7 @@ class HelperFunctions
                     }
                 }
             }
-            return $class;
+            return array($class,$blinkclass);
         }
     }
 

@@ -714,7 +714,7 @@
                                           @if($item->status==2)
                                           <a href="{{route('temporary_works.edit',$item->id)}}">
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                          <span class="label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
+                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
                                           </span>
                                           </span>
                                           </a>
@@ -736,7 +736,7 @@
                                        <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
                                        <td style="min-width: 100px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
                                        <td style="min-width:100px;">
-                                          <span class="desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                          <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1]}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
                                        </td>
                                        <td>
                                           <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
@@ -745,17 +745,20 @@
                                           </p>
                                           @php
                                           $color="green";
+                                          $class='';
                                           if(count($item->comments)>0)
                                           {
                                           $color="red";
+                                          $class='redBgBlink';
                                           if(count($item->reply)== count($item->comments))
                                           {
                                           $color="blue";
+                                          $class='';
                                           }
                                           }
                                           @endphp
                                           <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
-                                          <span class="label label-lg font-weight-bold label-inline">
+                                          <span class="{{$class}} label label-lg font-weight-bold label-inline">
                                           {{count($item->comments) ?? '-'}}
                                           </span>
                                           </span>
@@ -1097,7 +1100,7 @@
                                           @if($item->status==2)
                                           <a href="{{route('temporary_works.edit',$item->id)}}">
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                          <span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-edit text-white"></i>
+                                          <span class="redBgBlink label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-edit text-white"></i>
                                           </span>
                                           </span>
                                           </a>
@@ -1190,7 +1193,7 @@
                                           @endphp
                                           <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                           </button>
-                                          <br>
+                                          <br><br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                           @php
@@ -1210,9 +1213,10 @@
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
+                                          <br>
                                           <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->
                                           @else
-                                          <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-danger label-inline">Closed</span></span>
+                                          <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
                                           @endif
                                        </td>
                                        <td>

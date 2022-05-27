@@ -393,7 +393,7 @@
                                        </select>
                                     </div>
                                     <div class="col-2 ">
-                                       <button type="submit" class="btn btn-light-primary mb-2 w-100" style="border-radius: 0px;padding: 6px 19px; margin-left:10px;    margin-bottom: 0px !important;width: auto !important;    "><span class="fa fa-filter"></span></button>
+                                       <button type="submit" class="btn btn-light-primary mb-2 w-100" style="border-radius: 0px;padding: 6px 10px; margin-left:10px;    margin-bottom: 0px !important;width: auto !important;    "><span class="fa fa-filter"></span></button>
                                     </div>
                                  </form>
                               </div>
@@ -406,7 +406,7 @@
                                        </span>
                                     </div>
                                     <div class="col-md-2 text-right" id="search-btn">
-                                       <button type="submit" class="btn btn-light-primary px-6 font-weight-bold" style="    padding: 6px 10px;margin:0px 0px 0px 7px;"><span class="fa fa-search"></span></button>
+                                       <button type="submit" class="btn btn-light-primary px-6 font-weight-bold" style="    padding: 6px 10px !important;margin:0px 0px 0px 7px;"><span class="fa fa-search"></span></button>
                                     </div>
                                  </form>
                               </div>

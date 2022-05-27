@@ -1143,7 +1143,17 @@ class TemporaryWorkController extends Controller
                     $status = "Open";
                     $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     if (isset($request->type)) {
-                        $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>';
+                        $button = '
+                        <div>
+                                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>
+                                    <a class=" dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '">Close</a>
+                                  </div>
+                                </div>
+                        ';
                     }
                     if ($diff_in_days > 7) {
                         $class = "background:gray";
@@ -1778,6 +1788,21 @@ class TemporaryWorkController extends Controller
             $scaffoldid =  \Crypt::decrypt($id);
             $scaffolddata = Scaffolding::find($scaffoldid);
             Scaffolding::find($scaffoldid)->update(['status' => 4]);
+            return Redirect::back();
+        } catch (\Exception $exception) {
+
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+
+    public function permit_close($id)
+    {
+        try {
+            $permitid =  \Crypt::decrypt($id);
+            $permitdata = PermitLoad::find($permitid);
+           PermitLoad::find($permitid)->update(['status' => 4]);
             return Redirect::back();
         } catch (\Exception $exception) {
 

@@ -279,8 +279,8 @@
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
-                     <h3 class="card-label">Temporary Work Registers
-                        <span class="d-block text-muted pt-2 font-size-sm"></span>
+                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Work Registers
+                        <span class="d-block text-muted pt-25 font-size-sm"></span>
                      </h3>
                   </div>
                   <!--begin::Topbar-->
@@ -409,7 +409,7 @@
                      </div> -->
                   <!-- </div> -->
                   <!--begin::Table-->
-                  <div class="row">
+                  <div class="row" style="padding:10px">
                   <div class="col-md-4 my-2 my-md-0 ">
                   <nav class="tabnave" style="width: 100%;float:left">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -700,7 +700,7 @@
                                           @if($item->status==2)
                                           <a href="{{route('temporary_works.edit',$item->id)}}">
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                          <span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-edit text-white"></i>
+                                          <span class="label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
                                           </span>
                                           </span>
                                           </a>
@@ -789,12 +789,13 @@
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
                                           {
-                                          $color='#FFD700';
+                                          $color='orange';
                                           $date=$file->created_at->todatestring();
                                           }
                                           @endphp
                                           @endforeach
                                           @if($date)
+
                                           <p class="dateclick cursor-pointer" style="color:{{$color ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                           </p>
                                           @endif
@@ -813,23 +814,14 @@
                                              <!-- Upload Drawings -->
                                              <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                           </p>
-                                          <br>
                                           <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
                                              <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
-                                          <br>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
                                              <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
                                           </p>
-                                          <!-- @php $i=0;@endphp
-                                             @foreach($item->uploadfile as $file)
-                                             @if($file->file_type==1)
-                                             @php $i++ @endphp
-                                             <span><a href="{{asset($file->file_name)}}" target="_blank">D{{$i}}</a></span>
-                                             @endif
-                                             @endforeach -->
                                        </td>
                                        <td>
                                           <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
@@ -843,7 +835,6 @@
                                        </td>
                                        <td>
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                          <br>
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
@@ -872,16 +863,15 @@
                                           $color="red";
                                           }
                                           @endphp
-                                          <br><br>
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                           <span class="text-danger" style="">DNL</span>
                                           @endif
+                                          <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
-                                          <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->
                                           @else
-                                          <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-danger label-inline">Closed</span></span>
+                                          <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
                                           @endif
                                        </td>
                                        <td>
@@ -907,7 +897,7 @@
                                           @endphp
                                           @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
                                           <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
-                                          <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="100px" height="100px">
+                                          <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="60px" height="60px">
                                           </a>
                                           @endif
                                        </td>
@@ -1003,7 +993,6 @@
                                        </td>
                                        <td>
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                          <br>
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
@@ -1020,7 +1009,6 @@
                                           @endphp
                                           <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                           </button>
-                                          <br><br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                           @php
@@ -1032,16 +1020,18 @@
                                           $color="red";
                                           }
                                           @endphp
-                                          <br><br>
+                                          <br>
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                           <span class="text-danger" style="">DNL</span>
+                                          <br>
                                           @endif
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
+                                          <br>
                                           <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->
                                           @else
-                                          <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-danger label-inline">Closed</span></span>
+                                          <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
                                           @endif
                                        </td>
                                        <td>
@@ -1142,12 +1132,10 @@
                                              <!-- Upload Drawings -->
                                              <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                           </p>
-                                          <br>
                                           <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
                                              <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
-                                          <br>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
                                              <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
@@ -1172,7 +1160,6 @@
                                        </td>
                                        <td>
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                          <br>
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
@@ -1189,7 +1176,7 @@
                                           @endphp
                                           <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                           </button>
-                                          <br><br>
+                                          <br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                           @php
@@ -1201,10 +1188,11 @@
                                           $color="red";
                                           }
                                           @endphp
-                                          <br><br>
+                                          <br>
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                           <span class="text-danger" style="">DNL</span>
                                           @endif
+                                          <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>

@@ -52,7 +52,7 @@
       right: 0px;
    }
    .aside-enabled.aside-fixed .wrapper{
-   padding-left: 30px !important;
+   padding-left: 30px;
    }
    .menu-item,
    .menu-sub-accordion.show, .show:not(.menu-dropdown)>.menu-sub-accordion{

@@ -142,6 +142,9 @@
    text-align: center;
    padding: 5px !important;
    }
+   #kt_header{
+      display: none;
+   }
    table thead {
    background-color: #f5f8fa;
    position: sticky;
@@ -364,7 +367,7 @@
                </div>
                <!--end::Card header-->
                <!--begin::Card body-->
-               <div class="card-body pt-0">
+               <div class="card-body indexTempory pt-0">
                   <div class="mb-7">
                      <div class="row align-items-center">
                         <div class="col-lg-9 col-xl-8">
@@ -409,7 +412,7 @@
                      </div> -->
                   <!-- </div> -->
                   <!--begin::Table-->
-                  <div class="row" style="padding:10px">
+                  <div class="row " style="padding:10px;position:relative;">
                   <div class="col-md-4 my-2 my-md-0 ">
                   <nav class="tabnave" style="width: 100%;float:left">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -640,7 +643,7 @@
                         <!--end::Dropdown Menu-->
                      </div>
                      </div>
-                     <div class="col-md-2 my-2 my-md-0 ">
+                     <div class="col-md-2 my-2 my-md-0 positionChange">
                      <!--end::Dropdown-->
                      <!--begin::Button-->
                      <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important;border-radius:0px;">

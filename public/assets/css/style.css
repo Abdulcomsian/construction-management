@@ -292,7 +292,7 @@ input:focus {
       width: 100%;
   }
   #kt_header_nav .header-menu .menu{
-      display: block;
+      display: none;
   }
   .header .header-menu .menu>.menu-item{
       
@@ -407,6 +407,16 @@ input:focus {
 
   }
   @media screen and (max-width: 990px) {
+      .card-header .topbar,
+      .topbar-item .symbol-label{
+          display: none;
+      }
+      .menu-item a{
+          display: block;
+      }
+      #kt_header{
+        display: block;
+     }
     #submitbutton {
         right: 20%;
     }
@@ -448,6 +458,23 @@ input:focus {
 
   }
     @media screen and (max-width: 768px) {
+        .card-body.indexTempory .mb-7{
+            margin-bottom: 0px !important;
+        }
+        .indexTempory .tableDiv,
+        .indexTempory .datatable{
+            padding: 0px !important;
+            margin-top: 0px !important;
+        }
+        .indexTempory .tableDiv{
+            position: relative;
+            top: -50px;
+        }
+        .positionChange{
+            position: absolute;
+            bottom: 10px;
+            right: 150px;
+        }
         .card>.card-header .card-title .card-label{
             font-size: 14px !important;
             text-align: left;
@@ -458,9 +485,7 @@ input:focus {
         .card-body  .offset-2{
             margin-left: 0px !important;
         }
-        .card-body  .pull-right {
-            float: left;
-        }
+        
         .card-body .text-center{
             text-align: left !important;
         }

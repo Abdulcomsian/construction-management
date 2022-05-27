@@ -49,7 +49,7 @@ License: -->
         <!--begin::Wrapper-->
         <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             <!--begin::Header-->
-      
+            @include('layouts.dashboard.header')
             <!--end::Header-->
             <!--begin::Content-->
             @yield('content')

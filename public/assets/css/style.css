@@ -398,6 +398,14 @@ input:focus {
         width: 150px !important;
     }
   }
+  @media screen and (max-width: 1070px) {
+      .card-body .col-md-2 a,
+      .card-body .dropdown button{
+          padding: 10px !important;
+          font-size: 10px;
+      }
+
+  }
   @media screen and (max-width: 990px) {
     #submitbutton {
         right: 20%;
@@ -434,11 +442,28 @@ input:focus {
     } 
 }
   @media screen and (min-width: 768px) {
+    
     .desktopView{margin-top:20px;}
     
 
   }
     @media screen and (max-width: 768px) {
+        .card>.card-header .card-title .card-label{
+            font-size: 14px !important;
+            text-align: left;
+        }
+        .aside-enabled.aside-fixed .wrapper {
+            padding-left: 0px !important;
+        }
+        .card-body  .offset-2{
+            margin-left: 0px !important;
+        }
+        .card-body  .pull-right {
+            float: left;
+        }
+        .card-body .text-center{
+            text-align: left !important;
+        }
         #submitbutton {
             right: 50%;
         }

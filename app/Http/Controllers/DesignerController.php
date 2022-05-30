@@ -466,7 +466,8 @@ class DesignerController extends Controller
     {
         $id = \Crypt::decrypt($id);
         $permitload = PermitLoad::find($id);
-        return view('dashboard.designer.pc_permit_index', compact('permitload'));
+        $commetns = PermitComments::where(['permit_load_id' => $id])->latest()->get();
+        return view('dashboard.designer.pc_permit_index', compact('permitload','commetns'));
     }
 
     public function pc_permit_store(Request $request)
@@ -766,7 +767,7 @@ class DesignerController extends Controller
         {
             $type='Calculations';
         }
-        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">File</a></td><td>'.date('d-m-Y',strtotime($risk->created_at)).'</td></tr>';
+        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y',strtotime($risk->created_at)).'</td></tr>';
         $i++;
      }
      return $list;

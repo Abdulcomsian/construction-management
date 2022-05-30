@@ -796,24 +796,25 @@
                                        <td style="">
                                           @php
                                           $date='';
+                                          $dcolor='';
                                           @endphp
                                           @foreach($item->uploadfile as $file)
                                           @php
                                           if($file->file_type==1 && $file->construction==1)
                                           {
-                                          $color='green';
+                                          $dcolor='green';
                                           $date=$file->created_at->todatestring();
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
                                           {
-                                          $color='orange';
+                                          $dcolor='orange';
                                           $date=$file->created_at->todatestring();
                                           }
                                           @endphp
                                           @endforeach
                                           @if($date)
 
-                                          <p class="dateclick cursor-pointer" style="color:{{$color ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                          <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                           </p>
                                           @endif
                                        </td>
@@ -833,11 +834,11 @@
                                           </p>
                                           <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
-                                             <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
+                                             <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
-                                             <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
+                                             <span style="font-size: 18px;"  class="fa fa-file" title="View Calculation/Risk Assessment"></span>
                                           </p>
                                        </td>
                                        <td>
@@ -881,7 +882,7 @@
                                           }
                                           @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <span class="text-danger" style="">DNL</span>
+                                          <span class="text-danger redBgBlink" style="">DNL</span>
                                           @endif
                                           <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
@@ -992,6 +993,22 @@
                                           <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
                                           </span>
                                        </td>
+                                       @php
+                                          $date='';
+                                          $dcolor='';
+                                          @endphp
+                                          @foreach($item->uploadfile as $file)
+                                          @php
+                                          if($file->file_type==1 && $file->construction==1)
+                                          {
+                                          $dcolor='green';
+                                          }
+                                          elseif($file->file_type==1 && $file->preliminary_approval==1)
+                                          {
+                                          $dcolor='orange';
+                                          }
+                                          @endphp
+                                        @endforeach
                                        <td>
                                           <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
                                              <!-- Upload Drawings -->
@@ -1000,7 +1017,7 @@
                                           <br>
                                           <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
-                                             <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
+                                             <span style="font-size: 18px;color: {{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
                                           <br>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
@@ -1039,7 +1056,7 @@
                                           @endphp
                                           <br>
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <span class="text-danger" style="">DNL</span>
+                                          <span class="text-danger redBgBlink" style="">DNL</span>
                                           <br>
                                           @endif
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
@@ -1115,23 +1132,24 @@
                                        <td style="">
                                           @php
                                           $date='';
+                                          $dcolor='';
                                           @endphp
                                           @foreach($item->uploadfile as $file)
                                           @php
                                           if($file->file_type==1 && $file->construction==1)
                                           {
-                                          $color='green';
+                                          $dcolor='green';
                                           $date=$file->created_at->todatestring();
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
                                           {
-                                          $color='#FFD700';
+                                          $dcolor='#FFD700';
                                           $date=$file->created_at->todatestring();
                                           }
                                           @endphp
                                           @endforeach
                                           @if($date)
-                                          <p class="dateclick cursor-pointer" style="color:{{$color ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                          <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                           </p>
                                           @endif
                                        </td>
@@ -1151,7 +1169,7 @@
                                           </p>
                                           <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
-                                             <span style="font-size: 18px;"  class="fa fa-eye" title="View Drawings"></span>
+                                             <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
@@ -1207,7 +1225,7 @@
                                           @endphp
                                           <br>
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <span class="text-danger" style="">DNL</span>
+                                          <span class="text-danger redBgBlink" style="">DNL</span>
                                           @endif
                                           <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">

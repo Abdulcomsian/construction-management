@@ -104,6 +104,12 @@
     .border-bottom{
         border-bottom: 1px solid red !important;
     }
+    input#exampleRadios1:checked[type=radio]{
+        background: orange;
+    }
+    input#exampleRadios2:checked[type=radio]{
+        background: green;
+    }
 </style>
 
 @endsection
@@ -279,8 +285,8 @@
                                     <div class="col-md-6 d-flex">
                                         <div class="d-flex inputDiv d-block" style="width: 30%">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required"> Preliminary/Construction:</span>
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:65% !important">
+                                                <span class="required"> Drawing Status:</span>
 
                                             </label>
                                             <!--end::Label-->

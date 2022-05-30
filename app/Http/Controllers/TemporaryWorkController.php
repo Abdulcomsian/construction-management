@@ -513,13 +513,19 @@ class TemporaryWorkController extends Controller
 
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype', 'projno', 'projname', 'approval');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval');
+            //upload signature here
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
                 $image_name = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
             } else {
-                @unlink($folderPath . $temporaryWork->signature);
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
                 $image_type = explode("image/", $image[0]);

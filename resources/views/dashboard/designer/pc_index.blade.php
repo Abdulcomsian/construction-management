@@ -188,8 +188,8 @@
                                 <td>{{$loop->index+1}}</td>
                                  <td> {{$tempworkdetail->twc_id_no}}</td>
                                  <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
-                                 <td>{{$cmt->email}}</td>
-                                 <td>{{$cmt->comment}}<br>{{$tempworkdetail->pc_twc_email}}<br>{{$cmt->created_at}}</td>
+                                 <td><b>{{$cmt->email}}</b></td>
+                                 <td>{{$cmt->comment}}<br><b>{{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td>
                             </tr>
                             @endforeach
                         </tbody>

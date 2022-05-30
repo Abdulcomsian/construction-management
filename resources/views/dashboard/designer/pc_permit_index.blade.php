@@ -127,27 +127,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>Permit No</th>
-                                <th>PDF</th>
-                               
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-                            <tr >
-                                <td>1</td>
-                                <td> {{$permitload->permit_no}}</td>
-                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">Permit to load for Approval</a></td>
-                               
-                            
-                        </tbody>
-                    </table>
-                    <hr>
+
                     <form id="desingform" action="{{route('design.permit.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -166,7 +146,7 @@
                                             <textarea class="form-control" id="comments" name="comments" required="required"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="d-flex inputDiv requiredDiv">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <!-- <span class="required">Accept:</span> -->
@@ -185,13 +165,61 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-2">
+                                         <div class="d-flex inputDiv requiredDiv">
+                                            <label>   </label>
+                                            <button type="submit" class="btn btn-primary float-end">Submit</button>
+                                         </div>
+                                    <div>
                                 </div>
                                 
-                                <br>
-                                <button type="submit" class="btn btn-primary float-end">Submit</button>
+                                
+                                
                             </div>
                         </div>
                     </form>
+                     <hr>
+                     <h4>Comments/Summary</h4>
+                     <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>Permit No</th>
+                                 <th>comments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($commetns as $cmt)
+                            <tr>
+                                <td>{{$loop->index+1}}</td>
+                                 <td>{{$permitload->permit_no}}</td>
+                                 <td>{{$cmt->comment}}</td>         
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <hr>
+                    <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>Permit No</th>
+                                    <th>PDF</th>
+                                   
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                                <tr >
+                                    <td>1</td>
+                                    <td> {{$permitload->permit_no}}</td>
+                                    <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">Permit to load for Approval</a></td>
+                                   
+                                
+                            </tbody>
+                    </table>
+                    
                    
                    
                 </div>

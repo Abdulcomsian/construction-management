@@ -77,9 +77,9 @@
                             <!--begin::Label-->
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
                                <select name="status" class="form-control">
-                                   <option value="0">Green</option>
+                                   <option value="0">Good Practice</option>
                                    <option value="1">Amber</option>
-                                   <option value="2">Red</option>
+                                   <option value="2">Stop Work</option>
                                </select>
                             </div>
                             <!--begin::Label-->

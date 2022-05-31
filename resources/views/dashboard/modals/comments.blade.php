@@ -42,7 +42,7 @@
                         <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
-                                <span class="required">TWC Comments:</span>
+                                <span class="required">Comments:</span>
                             </label>
                             <!--begin::Label-->
                             <!--begin::Label-->
@@ -55,6 +55,20 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                          @if(isset($scantempwork) && $scantempwork=='scantempwork')
+                         <style>
+                             select option[value="0"] {
+                                  background: green;
+                                }
+
+                                select option[value="1"] {
+                                  background: orange;
+                                }
+                                select option[value="2"] {
+                                  background: red;
+                                }
+
+                                
+                         </style>
                          <input type="hidden" name="type" value="scan" />
                          <div class="col-md-12">
                             <!--begin::Label-->

@@ -97,7 +97,7 @@ border-radius: 8px;
                          <div class="col-md-4">
                             <div class="card" style="width: 28rem;">
                               <div class="card-body" style="text-align: center;">
-                                <button style="padding: 50px;font-size:14px" href="#" class=" addcomment btn btn-primary" data-id="{{$decrypttempid}}"><i class="fa fa-plus"></i> Add Comment</button>
+                                <button style="padding: 50px;font-size:14px" href="#" class=" addcomment btn btn-primary" data-id="{{$temporary_work_id}}"><i class="fa fa-plus"></i> Add Comment</button>
                               </div>
                             </div>
                         </div>

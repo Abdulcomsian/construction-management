@@ -85,24 +85,21 @@ border-radius: 8px;
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <div class="row">
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-md-5">
-                            <div class="card" style="width: 28rem;">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="card">
                               <div class="card-body" style="text-align: center;">
                                 <a href="{{route('show.scan.temporarywork',$id . '?temp=' .$tempid. '')}}" class="btn btn-primary" style="color:white;padding:50px;"><i class="fa fa-eye"></i> View</a>
                               </div>
                             </div>
                         </div>
-                         <div class="col-md-4">
-                            <div class="card" style="width: 28rem;">
+                         <div class="col-md-6 col-sm-12">
+                            <div class="card">
                               <div class="card-body" style="text-align: center;">
-                                <button style="padding: 50px;font-size:14px" href="#" class=" addcomment btn btn-primary" data-id="{{$temporary_work_id}}"><i class="fa fa-plus"></i> Add Comment</button>
+                                <button style="padding: 50px 18px 50px 29px;" href="#" class=" addcomment btn btn-primary" data-id="{{$temporary_work_id}}"><i class="fa fa-plus"></i> Add Comment</button>
                               </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
-                        </div>
+                        
                     </div>
                 </div>
                 <!--end::Card body-->

@@ -687,9 +687,10 @@ class TemporaryWorkController extends Controller
     public function load_scan_temporarywork(Request $request, $id)
     {
         $tempid =$request->temp;
-        $decrypttempid = Crypt::decryptString($request->temp);
+        $temporary_works = TemporaryWork::where(['project_id' => $id, 'tempid' => $tempid])->first();
+        $temporary_work_id=$temporary_works->id;
         $scantempwork = 'scantempwork';
-        return view('dashboard.temporary_works.temporarywork-scan', compact('tempid','id','decrypttempid','scantempwork'));
+        return view('dashboard.temporary_works.temporarywork-scan', compact('tempid','id','temporary_work_id','scantempwork'));
     }
 
     //show scan temporary work code here

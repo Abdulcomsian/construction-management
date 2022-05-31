@@ -884,10 +884,12 @@ class TemporaryWorkController extends Controller
                 $input = '';
                 if (isset($request->type) && $request->type == 'scan' || $request->type == 'qscan') {
                     $input = '<input type="hidden" name="scan" value="scan" />';
-                    if ($comment->user_id) {
-                        $colour = "#6A5ACD";
-                    } else {
-                        $colour = 'orange';
+                    if ($comment->status==0) {
+                        $colour = "green";
+                    } elseif($comment->status==1) {
+                        $colour = '#6A5ACD';
+                    }elseif($comment->status==2){
+                        $colour="red";
                     }
                     if ($comment->image) {
                         $n = strrpos($comment->image, '.');

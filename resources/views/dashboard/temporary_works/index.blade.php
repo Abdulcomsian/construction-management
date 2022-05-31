@@ -856,13 +856,13 @@
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
-                                          if($item->scancomment[0]->status==2)
+                                          if($item->scancomment[$n-1]->status==2)
                                           {
                                           $scolor="red";
                                           }elseif($item->scancomment[$n-1]->status==1)
                                           {
                                           $scolor="#FFA500";
-                                          }elseif($item->scancomment[0]->status==0)
+                                          }elseif($item->scancomment[$n-1]->status==0)
                                           {
                                           $scolor="green";
                                           }
@@ -1030,13 +1030,13 @@
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
-                                          if($item->scancomment[0]->status==2)
+                                          if($item->scancomment[$n-1]->status==2)
                                           {
                                           $scolor="red";
                                           }elseif($item->scancomment[$n-1]->status==1)
                                           {
                                           $scolor="#FFA500";
-                                          }elseif($item->scancomment[0]->status==0)
+                                          }elseif($item->scancomment[$n-1]->status==0)
                                           {
                                           $scolor="green";
                                           }
@@ -1198,13 +1198,13 @@
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
-                                          if($item->scancomment[0]->status==2)
+                                          if($item->scancomment[$n-1]->status==2)
                                           {
                                           $scolor="red";
                                           }elseif($item->scancomment[$n-1]->status==1)
                                           {
                                           $scolor="#FFA500";
-                                          }elseif($item->scancomment[0]->status==0)
+                                          }elseif($item->scancomment[$n-1]->status==0)
                                           {
                                           $scolor="green";
                                           }

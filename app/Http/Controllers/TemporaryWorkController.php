@@ -686,9 +686,18 @@ class TemporaryWorkController extends Controller
     //load scan file against temporary work
     public function load_scan_temporarywork(Request $request, $id)
     {
+        $tempid =$request->temp;
+        $decrypttempid = Crypt::decryptString($request->temp);
+        $scantempwork = 'scantempwork';
+        return view('dashboard.temporary_works.temporarywork-scan', compact('tempid','id','decrypttempid','scantempwork'));
+    }
+
+    //show scan temporary work code here
+    public function show_scan_temporarywork(Request $request,$id)
+    {
         $tempid = Crypt::decryptString($request->temp);
         $scantempwork = 'scantempwork';
-        $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where(['project_id' => $id, 'tempid' => $tempid])->get();
+        $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments','scancomment','permits', 'scaffold')->where(['project_id' => $id, 'tempid' => $tempid])->get();
         return view('dashboard.temporary_works.index_user', compact('temporary_works', 'scantempwork'));
     }
     //save comments against temp work

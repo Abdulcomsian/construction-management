@@ -75,7 +75,7 @@ border-radius: 8px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title" style="width: 100%"> 
-                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Scan Temporary Works Register</h1>
+                    <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Description of Temporary work</h1>
                     </div>
                     <!--begin::Card toolbar-->
                     

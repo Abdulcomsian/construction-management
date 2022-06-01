@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\TemporaryWorkRejected;
 use App\Models\ShareDrawing;
 use App\Models\DrawingComment;
+use App\Models\ChangeEmailHistory;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Notification;
@@ -21,6 +22,7 @@ use App\Notifications\DesignUpload;
 use App\Notifications\PermitNotification;
 use App\Notifications\ShareDrawingNotification;
 use App\Notifications\DrawingCommentNotification;
+use App\Notifications\TemporaryWorkNotification;
 
 class DesignerController extends Controller
 {
@@ -32,6 +34,16 @@ class DesignerController extends Controller
         }
         $mail=$_GET['mail'];
         $id = \Crypt::decrypt($id);
+        $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($id);
+        if($mail=$tempdata->designer_company_email)
+        {
+            ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Company'])->orderBy('id','desc')->update(['status'=>1]);
+        }
+        if($mail==$tempdata->desinger_email_2)
+        {
+            ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Checker'])->orderBy('id','desc')->update(['status'=>1]);
+        }
+        
         $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
@@ -345,6 +357,7 @@ class DesignerController extends Controller
     public function pc_index($id)
     {
         $id = \Crypt::decrypt($id);
+        ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Design Brief'])->orderBy('id','desc')->limit(1)->update(['status'=>1]);
         $tempworkdetail = TemporaryWork::find($id);
         $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
         $rejectedcomments=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
@@ -443,11 +456,21 @@ class DesignerController extends Controller
                 //Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 if($tempworkdata->designer_company_email)
                 {
+                    $chm= new ChangeEmailHistory();
+                    $chm->email=$tempworkdata->designer_company_email;
+                    $chm->type ='Designer Company';
+                    $chm->foreign_idd=$request->tempworkid;
+                    $chm->save();
                    $notify_admins_msg['body']['designer'] = 'designer1';
                    Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->designer_company_email)); 
                 }
                 if($tempworkdata->desinger_email_2)
                 {
+                    $chm= new ChangeEmailHistory();
+                    $chm->email=$tempworkdata->desinger_email_2;
+                    $chm->type ='Designer Checker';
+                    $chm->foreign_idd=$request->tempworkid;
+                    $chm->save();
                    $notify_admins_msg['body']['designer'] = 'designer1';
                    Notification::route('mail',  $tempworkdata->desinger_email_2 ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->desinger_email_2)); 
                 }
@@ -801,5 +824,93 @@ class DesignerController extends Controller
         toastSuccess('Desing Chcecker Not found!!!');
         return Redirect::back();
      }
+   }
+
+
+   //change emails
+   public function change_email(Request $request)
+   {
+      $id=\Crypt::decrypt($request->id);
+      $model=TemporaryWork::find($id);
+      //send mail to admin
+        $notify_admins_msg = [
+            'greeting' => 'Temporary Work Pdf',
+            'subject' => $model->design_requirement_text . '-' . $model->twc_id_no,
+            'body' => [
+                'company' => $model->company,
+                'filename' => $model->ped_url,
+                'links' => '',
+                'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                'designer' => '',
+                'pc_twc' => '',
+            ],
+            'thanks_text' => 'Thanks For Using our site',
+            'action_text' => '',
+            'action_url' => '',
+        ];
+        //for design brief approved
+        $subject = 'Design Brief Approved ' . $model->design_requirement_text . '-' .$model->twc_id_no;
+        $text = ' Welcome to the online i-works Web-Portal.Design Brief Approve by PC TWC.';
+        $notify_admins_msgg = [
+                    'greeting' => 'Design Brief Approved',
+                    'subject' => $subject,
+                    'body' => [
+                        'text' => $text,
+                        'filename' => $model->ped_url,
+                        'links' =>  '',
+                        'designer' => '',
+                        'name' => $model->design_requirement_text . '-' . $model->twc_id_no,
+                        'ext' => '',
+                        'id'=>$id,
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+      if($request->pc_twc_email)
+      {
+        $chm= new ChangeEmailHistory();
+        $chm->email=$request->pc_twc_email;
+        $chm->type ='Design Brief';
+        $chm->foreign_idd=$id;
+        if($chm->save())
+        {
+            $notify_admins_msg['body']['pc_twc'] = '1';
+            Notification::route('mail', $request->pc_twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id));
+        }
+        $model->pc_twc_email=$request->pc_twc_email;
+      }
+      if($request->d_email)
+      {
+        $chm= new ChangeEmailHistory();
+        $chm->email=$request->d_email;
+        $chm->type ='Designer Company';
+        $chm->foreign_idd=$id;
+        if($chm->save())
+        {
+            $notify_admins_msgg['body']['designer'] = 'designer1';
+             Notification::route('mail',  $request->d_email)->notify(new DesignUpload($notify_admins_msgg,$request->d_email)); 
+        }
+        $model->designer_company_email=$request->d_email;
+      }
+      if($request->dc_email)
+      {
+        $chm= new ChangeEmailHistory();
+        $chm->email=$request->dc_email;
+        $chm->type ='Designer Checker';
+        $chm->foreign_idd=$id;
+        if($chm->save())
+        {
+            $notify_admins_msgg['body']['designer'] = 'designer1';
+            Notification::route('mail',$request->dc_email)->notify(new DesignUpload($notify_admins_msgg,$request->dc_email)); 
+        }
+        $model->desinger_email_2=$request->dc_email;
+      }
+      if($model->save())
+      {
+         toastSuccess('Emails Changed Successfully');
+         return Redirect::back();
+      }
+
    }
 }

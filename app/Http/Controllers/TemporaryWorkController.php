@@ -20,6 +20,7 @@ use App\Models\CommentsAction;
 use App\Models\Tempworkshare;
 use App\Models\TemporaryWorkRejected;
 use App\Models\ScaffoldLoadImages;
+use App\Models\ChangeEmailHistory;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
 use App\Notifications\CommentsNotification;
@@ -341,6 +342,12 @@ class TemporaryWorkController extends Controller
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
+                //changing email history
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$request->pc_twc_email;
+                $cmh->type ='Design Brief';
+                $cmh->foreign_idd=$temporary_work->id;
+                $cmh->save();
 
                 //work for upload images here
                 $image_links = [];

@@ -51,6 +51,11 @@
                             <span class="menu-title">Projects</span>
                         </a>
                     </div>
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{route('projects.backup')}}">
+                            <span class="menu-title">Backup</span>
+                        </a>
+                    </div>
                     @if(\Auth::user()->hasAnyRole(['admin', 'company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('companies.index') }}">

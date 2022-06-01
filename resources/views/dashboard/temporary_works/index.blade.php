@@ -956,6 +956,13 @@
                                                    </a>
                                                    @endif
                                                 </li>
+                                                <li class="navi-item">
+                                                   @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                   <span class="btn btn-danger p-2 m-1 changeemail" style="border-radius: 21%;" title="Change Email" data-id={{Crypt::encrypt($item->id)}} >
+                                                     <i style="padding:3px;" class="fa fa-exchange-alt" ></i>
+                                                   </span>
+                                                   @endif
+                                                </li>
                                              </ul>
                                              <!--end::Navigation-->
                                           </div>
@@ -1287,6 +1294,7 @@
 @include('dashboard.modals.share_drawing_modal')
 @include('dashboard.modals.drawing_reply_modals')
 @include('dashboard.modals.risk_assessment')
+@include('dashboard.modals.change-emails-modal')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -1926,6 +1934,13 @@
           $("#kt_aside_toggle .rotate-180").css("transform","rotateZ(0deg)")
          
       }
+   })
+
+   //change email click event
+   $(".changeemail").on('click',function(){
+      var id=$(this).attr('data-id');
+      $("#design_brief_id").val(id);
+      $("#change_email_modal_id").modal('show');
    })
    
 </script>

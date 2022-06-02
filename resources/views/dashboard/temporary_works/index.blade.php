@@ -663,7 +663,7 @@
                 </div>
                 </div>
                 <div class="row">
-                     <div style="float:left;width:100%">
+                     <div style="float:left;width:100%;position:relative;top:-30px;">
                         <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">
                            <!-- aLL TAB -->
                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">

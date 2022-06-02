@@ -65,6 +65,22 @@
                     </div>
                     <!--end::Actions-->
                 </form>
+                <hr>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>S-NO</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="change_email_history">
+                        
+                    </tbody>
+                    
+                </table>
             </div>
             <!--end::Modal body-->
         </div>

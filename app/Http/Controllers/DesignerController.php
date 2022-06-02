@@ -913,4 +913,23 @@ class DesignerController extends Controller
       }
 
    }
+
+
+   public function change_email_history(Request $request)
+   {
+     $id=\Crypt::decrypt($request->id);
+     $changedemailhistory=ChangeEmailHistory::where('foreign_idd',$id)->get();
+     $list='';
+     $i=1;
+     foreach($changedemailhistory as $history)
+     {
+        $list.='<tr>';
+        $list.='<td>'.$i.'</td>';
+        $list.='<td>'.$history->email.'</td>';
+        $list.='<td>'.$history->type.'</td>';
+        $list.='<td>'.$history->status.'</td>';
+        $list.='<td>'.$history->created_at.'</td></tr>';
+     }
+     echo $list;
+   }
 }

@@ -8,6 +8,8 @@ use App\Models\ProjectQrCode;
 use App\Models\User;
 use App\Models\ProjectDocuments;
 use App\Models\TemporaryWork;
+use App\Models\TempWorkUploadFiles;
+use App\Models\PermitLoad;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -17,6 +19,10 @@ use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Crypt;
 use App\Utils\HelperFunctions;
 use DB;
+//use Artisan;
+use ZipArchive;
+use File;
+use Auth;
 
 class ProjectController extends Controller
 {
@@ -350,4 +356,48 @@ class ProjectController extends Controller
         }
         
     }
+
+    public function project_backup()
+    {
+        $zip = new ZipArchive;
+        $fileName = 'backup.zip';
+        $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('twc_email',Auth::user()->email)->get();
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
+            {
+                foreach($temporarydata as $tempdata)
+                {
+                        
+                    $briefpath=$tempdata->twc_id_no.'/pdf';
+                    $drawingpath=$tempdata->twc_id_no.'/drawings';
+                    //work for design breif pdf
+                    $zip->addFile(public_path('pdf/'.$tempdata->ped_url), $briefpath.'/brief.pdf');
+                    $dr=1;
+                    //work for drawingws and designs
+                    $drawings=TempWorkUploadFiles::select('file_name')->where('temporary_work_id',$tempdata->id)->get();
+                    foreach($drawings as $drw)
+                    {
+                        $n = strrpos($drw->file_name, '.');
+                        $ext = substr($drw->file_name, $n + 1);
+                        $zip->addFile(public_path($drw->file_name), $drawingpath.'/drawing'.$dr.'.'.$ext);
+                        $dr++;
+                    } 
+                    //working for permit
+                    $permitdata=PermitLoad::select('permit_no','ped_url')->where('temporary_work_id',$tempdata->id)->get();
+                     $dr=1;
+                    foreach($permitdata as $permit)
+                    {
+                        $permitpath=$tempdata->twc_id_no.'/permit/'.$permit->permit_no;
+                         $zip->addFile(public_path('pdf/'.$permit->ped_url), $permitpath.'/permit.pdf');
+                         $dr++;
+
+                    }    
+                }
+              }
+        
+           $zip->close();
+           return response()->download(public_path($fileName));
+    }
+
+   
+
 }

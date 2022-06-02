@@ -150,6 +150,7 @@ Route::group(['middleware' => ['auth']], function () {
      Route::get('get-rejected-designs',[DesignerController::class,'get_rejected_designbrief'])->name('rejected.designs');
      //change emails
      Route::post('change-emails',[DesignerController::class,'change_email'])->name('change-email');
+     Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
      //backup route
      
      Route::get('project-backup',[ProjectController::class,'project_backup'])->name('projects.backup');

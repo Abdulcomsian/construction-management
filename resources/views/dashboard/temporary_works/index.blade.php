@@ -1939,8 +1939,20 @@
    //change email click event
    $(".changeemail").on('click',function(){
       var id=$(this).attr('data-id');
-      $("#design_brief_id").val(id);
-      $("#change_email_modal_id").modal('show');
+      $.ajax({
+           url: "{{route('change-email-history')}}",
+           method: "get",
+           data: {
+               id
+           },
+           success: function(res) {
+               $("#design_brief_id").val(id);
+               $("#change_email_history").html(res);
+               $("#change_email_modal_id").modal('show');
+           }
+       });
+      
+      
    })
    
 </script>

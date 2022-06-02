@@ -362,40 +362,57 @@ class ProjectController extends Controller
         $zip = new ZipArchive;
         $fileName = 'backup.zip';
         $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('twc_email',Auth::user()->email)->get();
-        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
-            {
-                foreach($temporarydata as $tempdata)
+        if(count($temporarydata)>0)
+        {
+            if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
                 {
+                    foreach($temporarydata as $tempdata)
+                    {
+                            
+                        $briefpath=$tempdata->twc_id_no.'/pdf';
+                        $drawingpath=$tempdata->twc_id_no.'/drawings';
+                        //work for design breif pdf
+                        if (file_exists('pdf/'.$tempdata->ped_url) && is_file('pdf/'.$tempdata->ped_url))
+                        {
+                            $zip->addFile(public_path('pdf/'.$tempdata->ped_url), $briefpath.'/brief.pdf');
+                        }
                         
-                    $briefpath=$tempdata->twc_id_no.'/pdf';
-                    $drawingpath=$tempdata->twc_id_no.'/drawings';
-                    //work for design breif pdf
-                    $zip->addFile(public_path('pdf/'.$tempdata->ped_url), $briefpath.'/brief.pdf');
-                    $dr=1;
-                    //work for drawingws and designs
-                    $drawings=TempWorkUploadFiles::select('file_name')->where('temporary_work_id',$tempdata->id)->get();
-                    foreach($drawings as $drw)
-                    {
-                        $n = strrpos($drw->file_name, '.');
-                        $ext = substr($drw->file_name, $n + 1);
-                        $zip->addFile(public_path($drw->file_name), $drawingpath.'/drawing'.$dr.'.'.$ext);
-                        $dr++;
-                    } 
-                    //working for permit
-                    $permitdata=PermitLoad::select('permit_no','ped_url')->where('temporary_work_id',$tempdata->id)->get();
-                     $dr=1;
-                    foreach($permitdata as $permit)
-                    {
-                        $permitpath=$tempdata->twc_id_no.'/permit/'.$permit->permit_no;
-                         $zip->addFile(public_path('pdf/'.$permit->ped_url), $permitpath.'/permit.pdf');
-                         $dr++;
+                        $dr=1;
+                        //work for drawingws and designs
+                        $drawings=TempWorkUploadFiles::select('file_name')->where('temporary_work_id',$tempdata->id)->get();
+                        foreach($drawings as $drw)
+                        {
+                            $n = strrpos($drw->file_name, '.');
+                            $ext = substr($drw->file_name, $n + 1);
+                            if (file_exists($drw->file_name) && is_file($drw->file_name))
+                            {
+                              $zip->addFile(public_path($drw->file_name), $drawingpath.'/drawing'.$dr.'.'.$ext);
+                             }
+                            $dr++;
+                        } 
+                        //working for permit
+                        $permitdata=PermitLoad::select('permit_no','ped_url')->where('temporary_work_id',$tempdata->id)->get();
+                         $dr=1;
+                        foreach($permitdata as $permit)
+                        {
+                            $permitpath=$tempdata->twc_id_no.'/permit/'.$permit->permit_no;
+                            if (file_exists('pdf/'.$permit->ped_url) && is_file('pdf/'.$permit->ped_url))
+                            {
+                             $zip->addFile(public_path('pdf/'.$permit->ped_url), $permitpath.'/permit.pdf');
+                            }
+                             $dr++;
 
-                    }    
+                        }    
+                    }
                 }
-              }
-        
-           $zip->close();
-           return response()->download(public_path($fileName));
+            
+               $zip->close();
+               return response()->download(public_path($fileName));
+       }
+       else{
+            toastError('Not Created Any TemporaryWork');
+            return Redirect::back();
+       }
     }
 
    

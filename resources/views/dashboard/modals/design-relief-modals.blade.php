@@ -1,5 +1,9 @@
 <!------ Design Requiremnts Modal ---->
-
+<style>
+    .form-control.form-control-solid{
+        background: black;
+    }
+</style>
 <!--begin::Modal - Design Requirement-->
 <div class="modal fade" id="design-requirement" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
@@ -64,7 +68,7 @@
                                 <li data-id="Dewatering">Dewatering</li>
                                 <li data-id="State">Other Please State</li>
                                 <li>
-                                    <input class="otherInput" type="text" vlaue="" placeholder="If other: please state">
+                                    <input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state">
                                 </li>
                             </ul>
                             <!-- **************** Framework / Falsework **************  -->

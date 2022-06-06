@@ -43,11 +43,13 @@
                     <span class="menu-arrow"></span>
                 </span>
                 <div class="menu-sub menu-sub-accordion">
+                    @if(\Auth::user()->hasAnyRole(['admin']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('dashboard')}}">
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
+                    @endif
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('projects.index')}}">
                             <!-- <span class="menu-bullet">

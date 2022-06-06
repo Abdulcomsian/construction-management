@@ -66,7 +66,7 @@
                         <!--begin::Wrapper-->
                         <div class="d-flex flex-column mb-7">
                             <!--begin::Title-->
-                            <a href="/dashboard" class="text-dark text-hover-primary fw-bolder fs-3">Design Breif</a>
+                            <a href="/dashboard" class="text-dark text-hover-primary fw-bolder fs-3">Design Brief</a>
                             <!--end::Title-->
                         </div>
                         <!--end::Wrapper-->
@@ -192,7 +192,7 @@
                         <!--begin::Wrapper-->
                         <div class="d-flex flex-column mb-7">
                             <!--begin::Title-->
-                            <a href="/dashboard" class="text-dark text-hover-primary fw-bolder fs-3">Design Breif Dates</a>
+                            <a href="/dashboard" class="text-dark text-hover-primary fw-bolder fs-3">Design Brief Dates</a>
                             <!--end::Title-->
                         </div>
                         <!--end::Wrapper-->

@@ -758,6 +758,7 @@ class DesignerController extends Controller
     public function risk_assessment_store(Request $request)
     {
         $model= new TempWorkUploadFiles();
+        $tempworkdata=TemporaryWork::find($request->tempworkid);
         $model->file_type=$request->type;
         $model->created_by=$request->designermail;
         $filePath = HelperFunctions::temporaryworkuploadPath();
@@ -770,6 +771,23 @@ class DesignerController extends Controller
          $model->temporary_work_id=$request->tempworkid;
         if($model->save())
         {
+             $subject = 'Designer Uploaded Risk Assessment ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+                $text = ' Welcome to the online i-works Web-Portal. Designer have uploaded Risk Assessment. Please Login and view drawing.';
+            $notify_admins_msg = [
+                    'greeting' => 'Designer Upload Document',
+                    'subject' => $subject,
+                    'body' => [
+                        'text' => $text,
+                        'filename' => $tempworkdata->ped_url,
+                        'links' =>  '',
+                        'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
+                        'ext' => '',
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
             toastSuccess('Risk Assessment Uploaded Successfully!');
             return Redirect::back();
         }
@@ -790,7 +808,7 @@ class DesignerController extends Controller
         {
             $type='Calculations';
         }
-        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y',strtotime($risk->created_at)).'</td></tr>';
+        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y H:i:s',strtotime($risk->created_at)).'</td></tr>';
         $i++;
      }
      return $list;
@@ -923,12 +941,19 @@ class DesignerController extends Controller
      $i=1;
      foreach($changedemailhistory as $history)
      {
+         $status="Unread";
+         $date='';
+        if($history->status==1)
+        {
+            $status="Read";
+            $date=$history->created_at;
+        }
         $list.='<tr>';
         $list.='<td>'.$i.'</td>';
         $list.='<td>'.$history->email.'</td>';
         $list.='<td>'.$history->type.'</td>';
-        $list.='<td>'.$history->status.'</td>';
-        $list.='<td>'.$history->created_at.'</td></tr>';
+        $list.='<td>'.$status.'</td>';
+        $list.='<td>'.$date.'</td></tr>';
      }
      echo $list;
    }

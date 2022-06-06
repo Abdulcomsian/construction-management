@@ -886,7 +886,7 @@
                                           @endif
                                           <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
                                           @else
                                           <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
@@ -1067,7 +1067,7 @@
                                           <br>
                                           @endif
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
                                           <br>
                                           <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->
@@ -1236,7 +1236,7 @@
                                           @endif
                                           <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
                                           <br>
                                           <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->

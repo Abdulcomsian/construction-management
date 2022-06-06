@@ -1138,7 +1138,7 @@ class TemporaryWorkController extends Controller
                     // Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', 'hani@ctworks.co.uk')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                    Notification::route('mail', auth()->user()->email ?? '')->notify(new PermitNotification($notify_admins_msg));
+                    // Notification::route('mail', auth()->user()->email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 }
                 toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
@@ -1152,60 +1152,65 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-        $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->latest()->get();
+         if (isset($request->type)) {
+           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->latest()->get();
+         }else{
+             $permited = PermitLoad::where(['temporary_work_id' => $tempid])->latest()->get();
+         }
         $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         $list = '';
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();
             foreach ($permited as $permit) {
-                $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
-                $diff_in_days = $to->diffInDays($current);
-                $class = '';
-                $color = '';
-                $status = '';
-                $button = '';
-                $days = (7 - $diff_in_days);
-                if ($permit->status == 1) {
-                    $status = "Open";
-                    $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
-                    if (isset($request->type)) {
-                        $button = '
-                        <div>
-                                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Action
-                                  </button>
-                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Unload</a>
-                                    <a class=" dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '">Close</a>
-                                  </div>
-                                </div>
-                        ';
+               
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                    $diff_in_days = $to->diffInDays($current);
+                    $class = '';
+                    $color = '';
+                    $status = '';
+                    $button = '';
+                    $days = (7 - $diff_in_days);
+                    if ($permit->status == 1) {
+                        $status = "Open";
+                        $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
+                        if (isset($request->type)) {
+                            $button = '
+                            <div>
+                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Action
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square"></span> Unload</a>
+                                        <a class="confirm dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit to be closed. ARE YOU SURE?.">Close</a>
+                                      </div>
+                                    </div>
+                            ';
+                        }
+                        if ($diff_in_days > 7) {
+                            $class = "background:gray";
+                            $color = "text-danger";
+                        }
+                    } elseif ($permit->status == 0 || $permit->status == 4) {
+                        $status = "Closed";
+                    } elseif ($permit->status == 3) {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 2) {
+                        $status = "Pending";
+                    } elseif ($permit->status == 5) {
+                        $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='font-size:20px;' class='fa fa-edit'></i></a>";
                     }
-                    if ($diff_in_days > 7) {
-                        $class = "background:gray";
-                        $color = "text-danger";
+                    $path = config('app.url');
+                    if (isset($request->scanuser)) {
+                        $button = '';
                     }
-                } elseif ($permit->status == 0 || $permit->status == 4) {
-                    $status = "Closed";
-                } elseif ($permit->status == 3) {
-                    $status = "Unloaded";
-                } elseif ($permit->status == 2) {
-                    $status = "Pending";
-                } elseif ($permit->status == 5) {
-                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='font-size:20px;' class='fa fa-edit'></i></a>";
+                    if (isset($request->shared)) {
+                        $button = '';
+                    }
+                    if (auth()->user()->hasRole('scaffolder')) {
+                        $button = '';
+                    }
+                    $list .= '<tr style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;">' . $button . '</td></tr>';
                 }
-                $path = config('app.url');
-                if (isset($request->scanuser)) {
-                    $button = '';
-                }
-                if (isset($request->shared)) {
-                    $button = '';
-                }
-                if (auth()->user()->hasRole('scaffolder')) {
-                    $button = '';
-                }
-                $list .= '<tr style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;">' . $button . '</td></tr>';
-            }
             $list .= '<hr>';
         }
         if (count($scaffold) > 0) {

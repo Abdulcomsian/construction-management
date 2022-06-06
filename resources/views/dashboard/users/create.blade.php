@@ -59,6 +59,9 @@ background-color: #07d564 !important;
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
     }
+    .form-select.form-select-solid{
+    color:black !important;
+   }
 </style>
 
 @endsection

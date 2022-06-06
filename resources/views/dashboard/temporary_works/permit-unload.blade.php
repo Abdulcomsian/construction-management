@@ -8,11 +8,11 @@
     .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-
-    .content {
+   
+    /*.content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
-    }
+    }*/
 
     .newDesignBtn {
         border-radius: 8px;
@@ -134,7 +134,7 @@
     canvas{
         background: lightgray;
     }
-    .form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}
+  /*.form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}*/
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection

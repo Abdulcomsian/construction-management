@@ -5,6 +5,7 @@
         border-radius:8px;
         float: right;
     }
+  
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection

@@ -415,6 +415,25 @@ class ProjectController extends Controller
        }
     }
 
+
+    public function Dashboard()
+    {
+        $projects=Project::count();
+        $temporaryworks=TemporaryWork::count();
+        $company=User::role('company')->count(); 
+        $pendingtemp=TemporaryWork::where('status','0')->count();
+        $approvedtemp=TemporaryWork::where('status','1')->count();
+        $rejectedtemp=TemporaryWork::where('status','2')->count();
+        //red green and amber design breif count
+        $current_date=date('Y-m-d');
+        $reddesingcount=TemporaryWork::whereDate('design_required_by_date', '<', $current_date)->count();
+        $greendesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') >= 7')->count();
+        $amberdesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') < 7')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') > 1')->count();
+        //end of date
+        
+        return view('dashboard',compact('projects','temporaryworks','company','pendingtemp','approvedtemp','rejectedtemp','reddesingcount','greendesingcount','amberdesingcount'));
+    }
+
    
 
 }

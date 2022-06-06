@@ -135,10 +135,10 @@
         background: lightgray;
     }
 
-    .form-control.form-control-solid {
+    /*.form-control.form-control-solid {
         background-color: #000;
         color: #5e6278 !important;
-    }
+    }*/
     @media only screen and (max-width: 450px) {
         #sig{
             width:200px;

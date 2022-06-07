@@ -296,28 +296,13 @@
                     <div class="card-title btns_resp" style="width: 100%"> 
                         <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;     font-size: 22px !important; width: 100%; text-align: center;font-size:21px; text-transform: uppercase;">Shared Temporary Works</h1>
                     </div>
-                    <div class="form" style="float:left;width: 30% !important">
+                    <div class="form" style="width: 30% !important">
                             <form class="form-inline d-flex" method="get" action="{{route('sharedtempwork.proj.search')}}" >
                                 <div class="col-10" >
                                 <select name="projects[]"  class="form-control form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
                                     <option value="">Select Projects</option>
                                     @foreach($projects as $proj)
                                     <option value="{{$proj->id}}">{{$proj->name}}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-                                <div class="col-md-2 col-sm-7 margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="form" style="float:left;width: 30% !important">
-                            <form class="form-inline d-flex" method="get" action="{{route('sharedtempwork.proj.search')}}" >
-                                <div class="col-10" >
-                                <select name="company"  class="form-control form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select Company" data-allow-clear="true">
-                                    <option value="">Select Company</option>
-                                    @foreach($projects as $proj)
-                                    <option value="{{$proj->company->id}}">{{$proj->company->name}}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -342,7 +327,7 @@
                         </div>
                     </div>
                     <!--begin::Table-->
-                     <div class="table-responsive tableDiv " style="height: 1000px;">
+                    <div class="table-responsive" style="height: 1000px;">
                         <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>
@@ -378,7 +363,7 @@
                             <tbody class="text-gray-600 fw-bold">
                                 @forelse($temporary_works as $item)
                                 <tr>
-                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
+                                    <td style="padding: 0px !important;vertical-align: middle;min-width: 87px;font-size: 12px;"><a target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}</a></td>
                                     @if(\Auth::user()->hasRole('admin'))
                                     <td>{{ $item->company ?: '-' }}</td>
                                     @endif
@@ -386,39 +371,18 @@
                                     <td  style="min-width:210px;padding-left: 10px !important;padding-right: 10px !important;">
                                         <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                         <hr style="margin: 5px;;color:red;border:1px solid red">
-                                        <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
-                                        </span>
+                                        <button style="background: #07d564;font-size: 12px;border-radius: 10px" class="desc btn btn-info" data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}">
+                                            Description
+                                        </button>
                                     </td>
                                     <td style="">{{ $item->tw_category }}</td>
                                     <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
                                     <td style="min-width: 60px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
-                                    <td style="min-width:100px;">
-                                        <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1]}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
-                                    </td>
+                                    <td style="width:90px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)}};">
+                                        <p ><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></p> </td>
                                     <td >
-                                         <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
-                                             <!-- <span class="fa fa-plus"></span> -->
-                                             <br> Comment
-                                          </p>
-                                        @php
-                                          $color="green";
-                                          $class='';
-                                          if(count($item->comments)>0)
-                                          {
-                                          $color="red";
-                                          $class='redBgBlink';
-                                          if(count($item->reply)== count($item->comments))
-                                          {
-                                          $color="blue";
-                                          $class='';
-                                          }
-                                          }
-                                          @endphp
-                                          <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
-                                          <span class="{{$class}} label label-lg font-weight-bold label-inline">
-                                          {{count($item->comments) ?? '-'}}
-                                          </span>
-                                          </span>
+                                        <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-show="@if($item->tempshare->comments_email==1){{'show'}}@else{{'hide'}}@endif" data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add Comment</p>
+                                        <span data-id="{{$item->id}}" class="addcomment cursor-pointer" style="background: blue;color: white;font-weight: bold;padding: 0 10px;">{{count($item->comments) ?? '-'}}</span>
                                         <hr style="color:red;border:1px solid red; margin: 2px;">
                                        <h3 class="@if($item->tempshare->comments_email==1){{'uploadfile'}}@endif  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">Add emails</h3>
                                       
@@ -430,34 +394,31 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td style="">
-                                         <span class="designer-company cursor-pointer" style="width: 108px;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-light-success label-inline">View</span>
-                                          </span> 
-                                    </td>
+                                    <td style="">{{ $item->designer_company_name ?: '-' }}
+                                    <br><br>
+                                    {{$item->tw_name ?: '-'}}
+                                    @if(!$item->tw_name)
+                                    <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TW Name</p>
+                                @endif    
+                                </td>
+                                    <!-- <td>
+                                        <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
+                                        @php $i=0;@endphp
+                                        @foreach($item->uploadfile as $file)
+                                        @if($file->file_type==5)
+                                        @php $i++ @endphp
+                                        <span><a href="{{asset($file->file_name)}}" target="_blank">App{{$i}}</a></span>
+                                        @endif
+                                        @endforeach
+                                    </td> -->
                                     <td style=""> 
-                                         @php
-                                          $date='';
-                                          $dcolor='';
-                                          @endphp
-                                          @foreach($item->uploadfile as $file)
-                                          @php
-                                          if($file->file_type==1 && $file->construction==1)
-                                          {
-                                          $dcolor='green';
-                                          $date=$file->created_at->todatestring();
-                                          }
-                                          elseif($file->file_type==1 && $file->preliminary_approval==1)
-                                          {
-                                          $dcolor='orange';
-                                          $date=$file->created_at->todatestring();
-                                          }
-                                          @endphp
-                                          @endforeach
-                                          @if($date)
-
-                                          <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                        @foreach($item->uploadfile as $file)
+                                          @if($file->file_type==1)
+                                          <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}
                                           </p>
+                                            @break
                                           @endif
+                                        @endforeach
                                     </td>
                                    <!--  <td></td> -->
                                     <td style="">
@@ -489,7 +450,7 @@
 
                                     </td>
                                     <td>
-                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-desc="{{$item->design_requirement_text}}" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
+                                        <p class="permit-to-load cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id={{Crypt::encrypt($item->id)}}>Permit <br>to<br> load</p>
                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                         <button style="padding: 7px !important;border-radius: 10px;background-color:orange;" class="btn btn-info">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button>
                                         @else
@@ -497,7 +458,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-desc="{{$item->design_requirement_text}}" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
+                                         <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id={{Crypt::encrypt($item->id)}}>Permit<br> to <br>Unload</p>
                                     </td>
                                     <td  data-type="2">
                                         <p class="cursor-pointer" data-id="{{$item->id}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS</p>
@@ -559,7 +520,6 @@
 @include('dashboard.modals.permit_to_load');
 @include('dashboard.modals.description');
 @include('dashboard.modals.tempwork_share');
-@include('dashboard.modals.designername')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -604,10 +564,11 @@
       $.ajax({
         url:"{{route('temporarywork.get-comments')}}",
         method:"get",
-        data:{id:userid,temporary_work_id:temporary_work_id,type: 'normal'},
+        data:{id:userid,temporary_work_id:temporary_work_id},
         success:function(res)
         {
            $("#commenttable").html(res);
+           console.log(showhide);
            if(showhide=='show')
            {
             console.log("show");
@@ -626,15 +587,10 @@
 <script type="text/javascript">
     $(".permit-to-load").on('click',function(){
          id=$(this).attr('data-id');
-          desc = $(this).attr('data-desc');
             $.ajax({
             url:"{{route('permit.get')}}",
             method:"get",
-            data: {
-               id: id,
-               desc: desc,
-               shared:'shared',
-           },
+            data:{id:id,'shared':'shared'},
             success:function(res)
             {
                $("#permitheading").html('Permit To Load');
@@ -650,11 +606,10 @@
     //permit to unload
     $(".permit-to-unload").on('click',function(){
          id=$(this).attr('data-id');
-          desc = $(this).attr('data-desc');
             $.ajax({
             url:"{{route('permit.get')}}",
             method:"get",
-            data:{id:id,type:'unload','shared':'shared',desc: desc},
+            data:{id:id,type:'unload','shared':'shared'},
             success:function(res)
             {
                 console.log(res);
@@ -755,21 +710,7 @@
             }
 };
 
-$(".designer-company").on('click', function() {
-       var companies = $(this).attr('data-desing');
-       const names = companies.split("-");
-       var tw_name = $(this).attr('data-tw');
-       console.log(tw_name);
-       var list = '';
-       if (names[0] != '') {
-           list += '<tr><td>1</td><td>' + names[0] + '</td><td>' + tw_name + '</td></tr>';
-       }
-       if (names[1] != '') {
-           list += '<tr><td>2</td><td>' + names[1] + '</td><td>' + tw_name + '</td></tr>';
-       }
-       $("#desginerbody").html(list);
-       $("#desingername").modal('show');
-   })
+
 
 </script>
 @endsection

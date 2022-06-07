@@ -32,6 +32,7 @@
             </div>
             <!--end::Col-->
             <!--begin::Col-->
+            @if(\Auth::user()->hasRole([['admin']]))
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 14-->
                 <div class="card card-xxl-stretch mb-xl-10" style="background-color: #CBF0F4">
@@ -57,6 +58,7 @@
                 </div>
                 <!--end::Mixed Widget 14-->
             </div>
+            @endif
 
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 14-->

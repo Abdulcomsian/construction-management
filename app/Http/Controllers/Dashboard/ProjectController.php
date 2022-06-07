@@ -361,16 +361,16 @@ class ProjectController extends Controller
     {
         $zip = new ZipArchive;
         $fileName = 'backup.zip';
+        $user = auth()->user();
         //work for all temmporary work
-         $project_idds = DB::table('users_has_projects')->where('user_id',Auth::user()->id)->get();
-                $ids = [];
-                foreach ($project_idds as $id) {
-                    $ids[] = $id->project_id;
-                }
-                $temporarydata = TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
-                })->get();
-                //$temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('twc_email',Auth::user()->email)->get();
+         if ($user->hasRole('company')) {
+             $project= Project::where('company_id',$user->id)->first();
+             $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('project_id',$project->id)->get();
+         }elseif($user->hasRole('user'))
+         {
+             $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('created_by',$user->id)->get();
+         }       
+         
         if(count($temporarydata)>0)
         {
             if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
@@ -428,6 +428,7 @@ class ProjectController extends Controller
     public function Dashboard()
     {
          $user = auth()->user();
+         $current_date=date('Y-m-d');
         if ($user->hasRole('admin')) {
                 $projects=Project::count();
                 $temporaryworks=TemporaryWork::count();
@@ -436,7 +437,6 @@ class ProjectController extends Controller
                 $approvedtemp=TemporaryWork::where('status','1')->count();
                 $rejectedtemp=TemporaryWork::where('status','2')->count();
                 //red green and amber design breif count
-                $current_date=date('Y-m-d');
                 $reddesingcount=TemporaryWork::whereDate('design_required_by_date', '<', $current_date)->count();
                 $greendesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') >= 7')->count();
                 $amberdesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') < 7')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') > 1')->count();
@@ -474,8 +474,6 @@ class ProjectController extends Controller
         }
         elseif($user->hasRole('user'))
         {
-           
-             $current_date=date('Y-m-d');
             $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {

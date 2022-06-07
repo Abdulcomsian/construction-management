@@ -468,14 +468,15 @@
                                           @endif
                                         @endforeach
                                     </td>
-                                    <td><p  class="cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;">Upload Drawings</p>
-                                        @php $i=0;@endphp
-                                        @foreach($item->uploadfile as $file)
-                                        @if($file->file_type==1)
-                                        @php $i++ @endphp
-                                        <span><a href="{{asset($file->file_name)}}" target="_blank">D{{$i}}</a></span>
-                                        @endif
-                                        @endforeach
+                                    <td>
+                                          <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
+                                             <!-- View Drawings -->
+                                             <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
+                                          </p>
+                                          <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
+                                             <!-- View Drawings -->
+                                             <span style="font-size: 18px;"  class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                          </p>
                                     </td>
                                     <td >
                                         <p  class="cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
@@ -560,6 +561,8 @@
 @include('dashboard.modals.description');
 @include('dashboard.modals.tempwork_share');
 @include('dashboard.modals.designername')
+@include('dashboard.modals.drawingdesignlist')
+@include('dashboard.modals.risk_assessment')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -769,6 +772,40 @@ $(".designer-company").on('click', function() {
        }
        $("#desginerbody").html(list);
        $("#desingername").modal('show');
+   })
+
+
+ //upload drawing and design
+   $(".uploaddrawinglist").on('click', function() {
+       var tempworkid = $(this).attr('data-id');
+   
+       $.ajax({
+           url: "{{route('get-designs')}}",
+           method: "get",
+           data: {
+               tempworkid: tempworkid
+           },
+           success: function(res) {
+               $("#drawingdesigntable").html(res);
+               $("#drawinganddesignlist").modal('show');
+           }
+       });
+   
+   })
+
+   $(document).on('click','.assessmentlist',function(){
+       id=$(this).attr('data-id');
+        $.ajax({
+           url: "{{route('get.assessment')}}",
+           method: "get",
+           data: {
+               id
+           },
+           success: function(res) {
+               $("#risk_assessment_body").html(res);
+               $("#risk_assessment_modal_id").modal('show'); 
+           }
+       });
    })
 
 </script>

@@ -43,13 +43,14 @@
                     <span class="menu-arrow"></span>
                 </span>
                 <div class="menu-sub menu-sub-accordion">
-                    @if(\Auth::user()->hasAnyRole(['admin']))
+                    @if(\Auth::user()->hasRole([['admin', 'company','user']]))
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('dashboard')}}">
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
                     @endif
+
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('projects.index')}}">
                             <!-- <span class="menu-bullet">
@@ -58,11 +59,13 @@
                             <span class="menu-title">Projects</span>
                         </a>
                     </div>
+                     @if(\Auth::user()->hasRole(['user']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('projects.backup')}}">
                             <span class="menu-title">Backup</span>
                         </a>
                     </div>
+                    @endif
                     @if(\Auth::user()->hasAnyRole(['admin', 'company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('companies.index') }}">
@@ -98,20 +101,20 @@
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
                             <a class="menu-link" href="{{ route('temporary_works.index') }}">
-                                <!-- <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span> -->
                                 <span class="menu-title">Temporary Work Register</span>
+                            </a>
+                        </div>
+                         <div class="menu-item">
+                            <a class="menu-link" href="{{ route('temporary_works.shared') }}">
+                                <span class="menu-title">Shared Temporary Works</span>
                             </a>
                         </div>
                         <div class="menu-item">
                             <a class="menu-link" href="{{ route('temporary_works.create') }}">
-                                <!-- <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span> -->
                                 <span class="menu-title">New Design Brief</span>
                             </a>
                         </div>
+                        
                         
                     </div>
                 </div>

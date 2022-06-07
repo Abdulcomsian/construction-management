@@ -96,7 +96,7 @@ class TemporaryWorkController extends Controller
                 }
                 $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
-                $projects = Project::whereIn('id', $projects_id)->get();
+                $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } elseif ($user->hasRole('company')) {
                 $user = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -111,7 +111,7 @@ class TemporaryWorkController extends Controller
                 }
                 $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
-                $projects = Project::whereIn('id', $projects_id)->get();
+                $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } else {
                 $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();
                 $users = [];
@@ -123,7 +123,7 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
 
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
-                $projects = Project::whereIn('id', $projects_id)->get();
+                $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             }
             //dd($temporary_works);
             $scantempwork = 'sharedview';
@@ -1756,10 +1756,23 @@ class TemporaryWorkController extends Controller
     //sharedtemp work search according to projects
     public function shared_tempwork_project_search(Request $request)
     {
+
         $user = auth()->user();
+        if(isset($request->projects ))
+        {
+            $projectids=$request->projects;
+        }
+        else{
+            $projectids=[];
+        }
         try {
             if ($user->hasRole('admin')) {
-                $tempidds = DB::table('tempworkshares')->whereIn('project_id', $request->projects)->get();
+                if(isset($request->company))
+                {
+                    $projectdata=Project::select('id')->where('company_id',$request->company)->first();
+                    $projectids[]=$projectdata->id;
+                }
+                $tempidds = DB::table('tempworkshares')->whereIn('project_id', $projectids)->get();
                 $users = [];
                 $ids = [];
                 foreach ($tempidds as $u) {
@@ -1768,18 +1781,29 @@ class TemporaryWorkController extends Controller
                 }
                 $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
-                $projects = Project::whereIn('id', $projects_id)->get();
+                $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } elseif ($user->hasRole('company')) {
-                $tempidds = DB::table('tempworkshares')->whereIn('project_id', $request->projects)->where('user_id', $user->id)->get();
+                if(isset($request->company))
+                {
+                    $projectdata=Project::select('id')->where('company_id',$request->company)->first();
+                    $projectids[]=$projectdata->id;
+                }
+                $tempidds = DB::table('tempworkshares')->whereIn('project_id', $projectids)->where('user_id', $user->id)->get();
                 foreach ($tempidds as $u) {
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
                 $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
-                $projects = Project::whereIn('id', $projects_id)->get();
+                $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } else {
-                $tempidds = DB::table('tempworkshares')->whereIn('project_id', $request->projects)->where('user_id', $user->id)->get();
+                
+                if(isset($request->company))
+                {
+                    $projectdata=Project::select('id')->where('company_id',$request->company)->first();
+                    $projectids[]=$projectdata->id;
+                }
+                $tempidds = DB::table('tempworkshares')->whereIn('project_id', $projectids)->where('user_id', $user->id)->get();
                 $users = [];
                 $ids = [];
                 foreach ($tempidds as $u) {
@@ -1789,7 +1813,7 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
 
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
-                $projects = Project::whereIn('id', $projects_id)->get();
+                $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             }
             $scantempwork = 'sharedview';
             return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork', 'projects'));

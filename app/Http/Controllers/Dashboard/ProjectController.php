@@ -10,6 +10,7 @@ use App\Models\ProjectDocuments;
 use App\Models\TemporaryWork;
 use App\Models\TempWorkUploadFiles;
 use App\Models\PermitLoad;
+use App\Models\Tempworkshare;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -438,8 +439,12 @@ class ProjectController extends Controller
                 $rejectedtemp=TemporaryWork::where('status','2')->count();
                 //red green and amber design breif count
                 $reddesingcount=TemporaryWork::whereDate('design_required_by_date', '<', $current_date)->count();
-                $greendesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') >= 7')->count();
-                $amberdesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') < 7')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') > 1')->count();
+                $greendesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 7')->count();
+                $amberdesingcount=DB::table('temporary_works')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 1')->count();
+                $projectshares=Tempworkshare::with('project')->
+                               select(['project_id',DB::raw("COUNT(temporary_work_id) as total_temp")])
+                              ->groupBy('project_id')
+                              ->get();
         }
         elseif($user->hasRole('company'))
         {
@@ -449,28 +454,39 @@ class ProjectController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
+                
+                $pids=[];
+                $projectids=Project::select('id')->where('company_id',$user->id)->get();
+                 foreach ($projectids as $idees) {
+                    $pids[] = $idees->id;
+                }
                 $temporaryworks = TemporaryWork::with('project')->whereIn('created_by', $ids)->count();
                 $projects = Project::with('company')->where('company_id', $user->id)->count();
                 $company=User::role('company')->count();
-                $pendingtemp=TemporaryWork::with('project')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
+                $pendingtemp=TemporaryWork::with('project')->whereHas('project', function ($q) use ($pids) {
+                    $q->whereIn('project_id',$pids);
                 })->where('status','0')->count();
-                $approvedtemp=TemporaryWork::with('project')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
+                $approvedtemp=TemporaryWork::with('project')->whereHas('project', function ($q) use ($pids) {
+                    $q->whereIn('project_id', $pids);
                 })->where('status','1')->count();
-                $rejectedtemp=TemporaryWork::with('project')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
+                $rejectedtemp=TemporaryWork::with('project')->whereHas('project', function ($q) use ($pids) {
+                    $q->whereIn('project_id', $pids);
                 })->where('status','2')->count();
-                 $reddesingcount=TemporaryWork::with('project')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
+                 $reddesingcount=TemporaryWork::with('project')->whereHas('project', function ($q) use ($pids) {
+                    $q->whereIn('project_id', $pids);
                 })->whereDate('design_required_by_date', '<', $current_date)->count();
 
-                $greendesingcount=TemporaryWork::with('project')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
+                $greendesingcount=TemporaryWork::with('project')->whereHas('project', function ($q) use ($pids) {
+                    $q->whereIn('project_id', $pids);
                 })->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') >= 7')->count();
-                $amberdesingcount=TemporaryWork::with('project')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
-                })->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') < 7')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') > 1')->count();
+                $amberdesingcount=TemporaryWork::with('project')->whereHas('project', function ($q) use ($pids) {
+                    $q->whereIn('project_id', $pids);
+                })->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') <= 7')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') >= 1')->count();
+                $projectshares=Tempworkshare::with('project')->
+                               select(['project_id',DB::raw("COUNT(temporary_work_id) as total_temp")])
+                              ->groupBy('project_id')
+                              ->whereIn('user_id', $ids)
+                              ->get();
         }
         elseif($user->hasRole('user'))
         {
@@ -504,10 +520,16 @@ class ProjectController extends Controller
                 $amberdesingcount=TemporaryWork::with('project')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('project_id', $ids);
                 })->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') < 7')->whereRaw('DATEDIFF(design_required_by_date,'.$current_date.') > 1')->count();
+
+                 $projectshares=Tempworkshare::with('project')->
+                               select(['project_id',DB::raw("COUNT(temporary_work_id) as total_temp")])
+                              ->groupBy('project_id')
+                              ->where('user_id', Auth::user()->id)
+                              ->get();
         }
         //end of date
 
-        return view('dashboard',compact('projects','temporaryworks','company','pendingtemp','approvedtemp','rejectedtemp','reddesingcount','greendesingcount','amberdesingcount'));
+        return view('dashboard',compact('projects','temporaryworks','company','pendingtemp','approvedtemp','rejectedtemp','reddesingcount','greendesingcount','amberdesingcount','projectshares'));
     }
 
    

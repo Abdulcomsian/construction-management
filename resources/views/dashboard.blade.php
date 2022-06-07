@@ -1,4 +1,11 @@
 @extends('layouts.dashboard.master',['title' => 'Dashboard'])
+@section('style')
+<style type="text/css">
+    canvas{
+        width:100px !important;
+    }
+</style>
+@endsection
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" style="width:98%" id="kt_content">
        <div class="row gy-5 g-xl-10">
@@ -310,7 +317,181 @@
                 </div>
                 <!--end::Mixed Widget 14-->
             </div>
+
+
+            <div class="col-xl-12">
+                <div>
+                  <canvas id="myChart" width="1000" height="400"></canvas>
+                </div>
+            </div>
+            <hr>
+            <div class="col-xl-12">
+                 <canvas id="projectshare" width="1000" height="400"></canvas>
+            </div>
+            <hr>
+            <div class="col-xl-12">
+                 <div id="projectchart"></div>
+            </div>
                                
         </div>
     </div>
+    @php
+    $data=[];
+    $stu=[];
+    @endphp
+@foreach($projectshares as $value)
+    @php
+    $data[]=$value->project->name;
+    $stu[]=$value->total_temp;
+    @endphp
+
+
+
+@endforeach
+@endsection
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script>
+  const labels = [
+    'Approved',
+    'Pending',
+    'Rejected',
+  ];
+  var pending='{{$pendingtemp}}';
+  var approved='{{$approvedtemp}}';
+  var rejected='{{$rejectedtemp}}';
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Design Brief',
+      backgroundColor: ["green","orange","red"],
+      borderColor: 'rgb(255, 99, 132)',
+      data: [approved,rejected,pending],
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+       scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    min: 0, // minimum value
+                    stepSize: 1
+                }
+            }]
+           }
+    }
+  };
+
+   const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+<script type="text/javascript">
+    Highcharts.chart('projectchart', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Stacked column chart'
+    },
+    xAxis: {
+        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Total fruit consumption'
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: ( // theme
+                    Highcharts.defaultOptions.title.style &&
+                    Highcharts.defaultOptions.title.style.color
+                ) || 'gray',
+                textOutline: 'none'
+            }
+        }
+    },
+    legend: {
+        align: 'right',
+        x: -30,
+        verticalAlign: 'top',
+        y: 25,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || 'white',
+        borderColor: '#CCC',
+        borderWidth: 1,
+        shadow: false
+    },
+    tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        name: 'John',
+        data: [5, 3, 4, 7, 2]
+    }, {
+        name: 'Jane',
+        data: [2, 2, 3, 2, 1]
+    }, {
+        name: 'Joe',
+        data: [3, 4, 4, 2, 5]
+    }]
+});
+</script>
+
+<script type="text/javascript">
+ const labelss = <?php echo json_encode($data);?>;
+  const data1 = {
+    labels: labelss,
+    datasets: [{
+      label: 'Share Design Brief',
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgb(255, 99, 132)',
+      data:<?php echo json_encode($stu);?>,
+    }]
+  };
+
+  const config1 = {
+    type: 'bar',
+    data: data1,
+    options: {
+       scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    min: 0, // minimum value
+                    stepSize: 1
+                }
+            }]
+           }
+    }
+  };
+
+   const myChart1 = new Chart(
+    document.getElementById('projectshare'),
+    config1
+  );
+</script>
 @endsection

@@ -350,9 +350,9 @@ input:focus {
   }
   .header .header-menu .menu>.menu-item a{
     color: #07d564 !important;
-}canvas{
+}/*canvas{
     width: 58% !important;
-}
+}*/
 #submitbutton{
     position: relative;
     right: 21%;
@@ -411,9 +411,9 @@ input:focus {
 }
 @media screen and (min-width: 1200px) {
     
-    canvas{
+    /*canvas{
         width:270px !important;
-    }
+    }*/
 }
 @media screen and (max-width: 1150px) {
     

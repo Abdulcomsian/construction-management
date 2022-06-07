@@ -59,7 +59,7 @@
                             <span class="menu-title">Projects</span>
                         </a>
                     </div>
-                     @if(\Auth::user()->hasRole(['user']))
+                     @if(\Auth::user()->hasRole([['admin', 'company']]))
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('projects.backup')}}">
                             <span class="menu-title">Backup</span>

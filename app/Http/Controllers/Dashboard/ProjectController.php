@@ -361,16 +361,16 @@ class ProjectController extends Controller
     {
         $zip = new ZipArchive;
         $fileName = 'backup.zip';
+        $user = auth()->user();
         //work for all temmporary work
-         $project_idds = DB::table('users_has_projects')->where('user_id',Auth::user()->id)->get();
-                $ids = [];
-                foreach ($project_idds as $id) {
-                    $ids[] = $id->project_id;
-                }
-                $temporarydata = TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
-                })->get();
-                //$temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('twc_email',Auth::user()->email)->get();
+         if ($user->hasRole('company')) {
+             $project= Project::where('company_id',$user->id)->first();
+             $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('project_id',$project->id)->get();
+         }elseif($user->hasRole('user'))
+         {
+             $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('created_by',$user->id)->get();
+         }       
+         
         if(count($temporarydata)>0)
         {
             if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)

@@ -370,7 +370,7 @@
       label: 'Design Brief',
       backgroundColor: ["green","orange","red"],
       borderColor: 'rgb(255, 99, 132)',
-      data: [approved,rejected,pending],
+      data: [approved,pending,rejected],
     }]
   };
 

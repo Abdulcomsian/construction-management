@@ -338,16 +338,30 @@
     @php
     $data=[];
     $stu=[];
+    $projectlabels=[];
+    $projecttotalbreifs=[];
+    $redbriefs=[];
+    $greenbreifs=[];
+    $amberbreifs=[];
+    $i=0;
     @endphp
-@foreach($projectshares as $value)
+    @foreach($projectshares as $value)
     @php
     $data[]=$value->project->name;
     $stu[]=$value->total_temp;
     @endphp
+    @endforeach
 
-
-
-@endforeach
+    @foreach($projecttotalbrief as $projectlabel)
+        @php 
+         $projectlabels[]=$projectlabel->project->name;
+         $projecttotalbreifs[]=$projectlabel->totalbreif;
+         $redbriefs[]=$projectredbrief[$i]->redbreif ?? '';
+         $amberbreifs[]=$projectamberbrief[$i]->amberbreif ?? '';
+         $greenbreifs[]=$projectgreenbrief[$i]->greenbreif ?? '';
+         $i++;
+        @endphp
+    @endforeach
 @endsection
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
@@ -397,20 +411,21 @@
 </script>
 
 <script type="text/javascript">
+    
     Highcharts.chart('projectchart', {
     chart: {
-        type: 'column'
+        type: 'column',
     },
     title: {
-        text: 'Stacked column chart'
+        text: 'Project Wise Chart'
     },
     xAxis: {
-        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+        categories:<?php echo json_encode($projectlabels);?>
     },
     yAxis: {
         min: 0,
         title: {
-            text: 'Total fruit consumption'
+            text: 'Total Design Brief'
         },
         stackLabels: {
             enabled: true,
@@ -449,14 +464,22 @@
         }
     },
     series: [{
-        name: 'John',
-        data: [5, 3, 4, 7, 2]
+        color:'#6a5acd',
+        name: 'Total Brief',
+        data: <?php echo json_encode($projecttotalbreifs);?>
     }, {
-        name: 'Jane',
-        data: [2, 2, 3, 2, 1]
+        color:'#ff0000',
+        name: 'Red',
+        data: <?php echo json_encode($redbriefs);?>
     }, {
-        name: 'Joe',
-        data: [3, 4, 4, 2, 5]
+        color:'#3cb371',
+        name: 'Green',
+        data: <?php echo json_encode($greenbreifs);?>
+    },
+    {
+        color:'#ffa500',
+        name:'Yellow',
+        data:<?php echo json_encode($amberbreifs);?>
     }]
 });
 </script>

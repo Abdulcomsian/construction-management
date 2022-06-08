@@ -456,7 +456,7 @@ class ProjectController extends Controller
 
                 $projectgreenbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as greenbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->get();
                 
-                $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 1')->groupBy('project_id')->get();
+                $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->get();
                 
 
         }
@@ -491,7 +491,7 @@ class ProjectController extends Controller
                 })->whereDate('design_required_by_date', '<', $current_date)->count();
 
                 $greendesingcount=TemporaryWork::select(['project_id'])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->whereIn('project_id', $pids)->count();
-                $amberdesingcount=TemporaryWork::select(['project_id'])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 1')->groupBy('project_id')->whereIn('project_id', $pids)->count();
+                $amberdesingcount=TemporaryWork::select(['project_id'])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $pids)->count();
                 $projectshares=Tempworkshare::with('project')->
                                select(['project_id',DB::raw("COUNT(temporary_work_id) as total_temp")])
                               ->groupBy('project_id')
@@ -508,7 +508,7 @@ class ProjectController extends Controller
 
                 $projectgreenbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as greenbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->whereIn('project_id', $pids)->get();
                 
-                $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 1')->groupBy('project_id')->whereIn('project_id', $pids)->get();
+                $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $pids)->get();
         }
         elseif($user->hasRole('user'))
         {
@@ -538,7 +538,7 @@ class ProjectController extends Controller
 
                 $greendesingcount=TemporaryWork::select(['project_id'])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->whereIn('project_id', $ids)->count();
 
-                $amberdesingcount=TemporaryWork::select(['project_id'])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 1')->groupBy('project_id')->whereIn('project_id', $ids)->count();
+                $amberdesingcount=TemporaryWork::select(['project_id'])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $ids)->count();
 
 
                  $projectshares=Tempworkshare::with('project')->
@@ -556,7 +556,7 @@ class ProjectController extends Controller
 
                 $projectgreenbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as greenbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->whereIn('project_id', $ids)->get();
                 
-                $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 1')->groupBy('project_id')->whereIn('project_id', $ids)->get();
+                $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $ids)->get();
         }
         //end of date
 

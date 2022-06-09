@@ -386,7 +386,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px" {{$temporaryWork->pc_twc_email== '' ? '' :'checked'}}>
-                                     <span style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                     <span style="padding-left:3px;color:#000">Select if required.</span>
                                 </div>
                                 <div class="{{$temporaryWork->pc_twc_email== '' ? 'd-none' :'d-flex'}} inputDiv pc-twc">
                                     <!--begin::Label-->
@@ -403,10 +403,10 @@ height: 72px;
                                     <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
                                          <label style="" class="required d-flex align-items-center fs-6 fw-bold mb-2">
-                                           Design Requirement:
+                                           Design requirement:
                                         </label>
                                         <br>
-                                        <input type="text" style="width: 50%;color:white"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
+                                        <input type="text" style="width: 50%;color:white"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
                                         <!--end::Label-->
                                     </div>
                                 
@@ -415,9 +415,9 @@ height: 72px;
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                              <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
-                                              Description :
+                                              Description:
                                             </label>
-                                            <textarea class="form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required',$temporaryWork->description_temporary_work_required)}}</textarea>
+                                            <textarea class="form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" placeholder="Provide brief description of design requirements." cols="50" required>{{old('description_temporary_work_required',$temporaryWork->description_temporary_work_required)}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv d-block">
@@ -426,7 +426,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly></textarea>
+                                            <textarea class="form-control"  style="width:50%"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer" readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                   </div>

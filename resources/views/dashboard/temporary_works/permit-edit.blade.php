@@ -650,7 +650,7 @@
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px" {{$permitdata->pc_twc_email=='' ? '':'checked'}}>
-                                     <span style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                     <span style="padding-left:3px;color:#000">Select if required.</span>
                                 </div>
                                 <div class="inputDiv {{$permitdata->pc_twc_email=='' ? 'd-none':'d-flex'}}  pc-twc">
                                     <!--begin::Label-->

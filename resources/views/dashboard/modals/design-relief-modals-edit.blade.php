@@ -125,12 +125,12 @@
                                 <li>System Staircase</li>
                                 <li>Temporary Roof</li>
                                 <li>Loading Bay</li>
-                                <li>Cute Support</li>
+                                <li>Chute Support</li>
                                 <li>Mobile Tower</li>
-                                <li>Pedestrain Walkway Cover</li>
+                                <li>Pedestrian Walkway Cover</li>
                                 <li>Suspension System</li>
                                 <li>Pontoon</li>
-                                <li>Protection Shield (steel Shield to Cover Railway While Working with a Crane Above)</li>
+                                <li>Protection Shield (to cover railway while working with crane above)</li>
                                 <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Structure **************  -->

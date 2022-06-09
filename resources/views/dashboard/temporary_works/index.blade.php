@@ -467,7 +467,7 @@
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_4">
-                                    <span>DESCRIPTION OF TWS</span>
+                                    <span>DESCRIPTION OF TW</span>
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_5">

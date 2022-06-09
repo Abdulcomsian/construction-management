@@ -847,16 +847,16 @@ height: 72px;
             $(this).removeClass("blackBack")
             $("#projects span.form-select").removeClass("blackBack")
          //   $(".form-control[readonly]").removeClass("blackBack")
-            $("#no").removeClass("blackBack")
-            $("#name").removeClass("blackBack")
-            $("#design_issued_date").removeClass("blackBack")
-            $("#address").removeClass("blackBack")
-            $("#job_title").removeClass("blackBack")
-            $("#admin_name").removeClass("blackBack")
-            $("#companyadmin").removeClass("blackBack")
+            $("#no").removeClass("blackBack").addClass("whiteBack");
+            $("#name").removeClass("blackBack").addClass("whiteBack");
+            $("#design_issued_date").removeClass("blackBack").addClass("whiteBack");
+            $("#address").removeClass("blackBack").addClass("whiteBack");
+            $("#job_title").removeClass("blackBack").addClass("whiteBack");
+            $("#admin_name").removeClass("blackBack").addClass("whiteBack");
+            $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
             $(".form-select.form-select-solid").css("background-color","#f5f8fa")
-            $("#companyadmin").removeClass("blackBack")
-            $("#twc_name").removeClass("blackBack")
+            $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
+            $("#twc_name").removeClass("blackBack").addClass("whiteBack");
          //   $("#scopofdesign").addClass("blackBack")
         })
 

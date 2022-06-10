@@ -278,7 +278,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">MS / RA Number: [ MS/RA Number ]</span>
+                                        <span class="required">MS / RA Number:</span>
                                     </label>
                                     <input type="text" class="form-control" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>

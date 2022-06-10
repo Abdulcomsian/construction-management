@@ -42,7 +42,7 @@ input:focus {
     color: #000 !important;
     padding: 4;
     padding: 11px 15px;
-    margin: 20px 0px 0px;
+   /* margin: 20px 0px 0px;*/
     border: none;
     background-color: #f5f8fa;
 }

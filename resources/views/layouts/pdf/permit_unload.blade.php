@@ -18,7 +18,7 @@
     <div style="padding: 10px; width: 100%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText" style="float:left;width:70%">
-                <h3>Permit to UnLoad/Strike</h3>
+                <h3>Permit to Unload / Strike</h3>
                 <br>
                 <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
             </div>
@@ -52,18 +52,18 @@
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
-                                <b style="font-size: 12px;"> Project Number </b> </label>
+                                <b style="font-size: 12px;"> Project No </b> </label>
                         </td>
                         <td style="width: 200px;font-size: 12px;"> {{$data['projno']}}</td>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
-                                    Permit Number </b><label>
+                                    Permit No </b><label>
                         </td>
                         <td style="width: 200px;font-size: 12px;"> {{$data['permit_no']}}</td>
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Drawing Number</b> </label>
+                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Drawing No</b> </label>
                         </td>
                         <td style="width: 200px;font-size: 12px;"> {{$data['drawing_no']}}</td>
                         <td style="width: 200px;background:gray;color:white;">
@@ -97,7 +97,7 @@
                 <tbody>
                     <tr>
                         <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Location of the Temporary Works (Area)</b> </label>
+                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Location of the temporary works</b> </label>
                         </td>
                         <td style="font-size: 12px;"> {{$data['location_temp_work']}}</td>
 
@@ -105,8 +105,7 @@
 
                     <tr>
                         <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
-                                    of the structure which is ready for use</b> </label>
+                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description of structure</b> </label>
                         </td>
                         <td style="font-size: 12px;"> {{$data['description_structure']}}</td>
 
@@ -114,7 +113,7 @@
                     <tr>
                         <td style="width: 300px;background:gray;color:white;">
                             <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">
-                                    MS/RA number</b> </label>
+                                   MS / RA Number:</b> </label>
                         </td>
                         <td style="font-size: 12px;"> {{$data['ms_ra_no']}}</td>
                     </tr>
@@ -125,7 +124,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th style="font-size: 12px;">CONCRETE CUBE RESULTS (OR OVER-WRITE WITH STRENGTH BY MATURITY CURVE DATA)</th>
+                        <th style="font-size: 12px;">CONCRETE CUBE RESULTS (or overwrite with strength by maturity curve data)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -165,7 +164,7 @@
             </table>
             <table>
                 <tr>
-                    <th style="font-size: 12px;">Back-propping and additional requirements; limitations & exclusions; explanatory sketch references - if applicable:</th>
+                    <th style="font-size: 12px;">Back-propping and additional requirements; limitations and exclusions; explanatory sketches references (if applicable)</th>
                 </tr>
             </table>
             <table>
@@ -180,11 +179,11 @@
                     <tr>
                         <td style="font-size: 12px;">
                             <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
-                                <h4 style="text-align: center; font-size:12px;">Permit to UNLOAD/STRIKE</h4>
-                                1. Permanent Works supported by the above item of Temporary Works have gained sufficient strength to support the loading/use permitted (See concrete cube results below – or state any other PW design requirements if applicable) <br>
+                                <h4 style="text-align: center; font-size:12px;">Permit to Unload / Strike</h4>
+                                1. Permanent works support by this temporary works have gained sufficient strength to support the loading or use requirement. (See concrete cube results and other PW design requirements below, if applicable.) <br>
                                 2. Sequence of removal of TW, where specified by the TWD, is understood by the supervisor. <br>
-                                3. All standard safety measures executed i.e., holes covered and protected, leading edge protection etc <br>
-                                4. Risk Assessment, Method Statement and or associated Task Sheets in place
+                                3. All standard safety measure executed (i.e. holes covered and protected, leading edge protection, etc). <br>
+                                4. Risk assessment, method statement and/or associated task sheets in place.
                             </label>
                         </td>
 
@@ -203,7 +202,7 @@
 
                         <tbody style="margin-top: -10px;">
                             <tr>
-                                <td style="font-size: 12px;">Principal Contractor Approval required</td>
+                                <td style="font-size: 12px;">Principal contractor approval required?</td>
                                 <td style="font-size: 12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
                             </tr>
                         </tbody>

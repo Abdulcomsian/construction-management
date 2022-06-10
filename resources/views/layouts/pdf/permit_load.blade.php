@@ -46,15 +46,14 @@
                         <td><span style="font-size: 12px;">{{$data['projname']}}</span></td>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 200px; height: 70px; font-size: 10px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
-                                    Project
-                                    number </b> </label>
+                                    Project No </b> </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['projno']}}</span></td>
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
-                                <b style="font-size: 12px;"> Drawing Number </b> </label>
+                                <b style="font-size: 12px;"> Drawing No </b> </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['drawing_no']}}</span></td>
                         <td style="width: 200px;background:gray;color:white;">
@@ -65,8 +64,7 @@
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit
-                                    Number </b> </label>
+                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit No</b> </label>
                         </td>
                         <td style="font-size: 12px;">{{$data['permit_no']}}</td>
                         <td style="width: 200px;background:gray;color:white;">
@@ -90,15 +88,14 @@
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
                             <label for="" style="width: 400px; border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
-                                    Location of the Temporary<br>Works (Area)</b> </label>
+                                    Location of the temporary works</b> </label>
                         </td>
                         <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
 
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white;">
-                        <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">Description
-                                    of the<br>structure which is<br> ready for use</b> </label>
+                        <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">Description of structure </label>
                         </td>
                         <td  colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
 
@@ -126,35 +123,34 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="font-size:12px;">Equipment/materials used as specified/fit for purpose.</td>
+                        <td style="font-size:12px;">Equipment & materials used as specified & fit for purpose</td>
                         <td style="font-size:12px;">Y</td>
 
 
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Workmanship checked – all props, ties, struts, joints, stop-ends, checked/tight.</td>
+                        <td style="font-size:12px;">Workmanship checked (i.e. props, ties, struts, joints, stop-ends).</td>
                         <td style="font-size:12px;">Y</td>
 
 
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">TW checked to drawings/design output</td>
+                        <td style="font-size:12px;">TW checked against drawings / design output</td>
                         <td style="font-size:12px;">Y</td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Loading /use limitations understood <br>
-                            e.g. Rate of pour, sequence of loading, access/plant loading
+                        <td style="font-size:12px;">Loading / use limitations understood (e.g. rate of pour, sequence of loading, access/plant loading).
                         </td>
                         <td style="font-size:12px;">Y</td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Approval by Temp Works Coordinator Required?</td>
+                        <td style="font-size:12px;">Approval by TWC required?</td>
                         <td style="font-size:12px;">@if($data['works_coordinator']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
                     <tr style="height: 40px;">
                         <td style="font-size:10px;">
                             @if($data['works_coordinator']==1)
-                            completed Other criteria specified (e.g. strength of supporting structure, any back propping, ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)<br><br>
+                            Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)<br><br>
                             <span style="font-size:12px;">{{$data['description_approval_temp_works']}}</span>
                             @endif
                         </td>

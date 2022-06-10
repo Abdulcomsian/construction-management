@@ -199,7 +199,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Drawing Number:</span>
+                                        <span class="required">Drawing No:</span>
                                     </label>
                                     <input type="text" class="form-control" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
                                 </div>
@@ -239,7 +239,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing title :</span>
+                                            <span class="required">Drawing Title :</span>
                                         </label>
                                         <input type="text" class="form-control" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
@@ -260,7 +260,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Location of the Temporary Works (Area):
+                                        Location of the temporary works: [ Location of the temporary works ]
                                     </label>
                                     <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
@@ -269,7 +269,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Description of Structure which is ready for use:
+                                        Description of structure: [ Description of structure ]
                                     </label>
                                     <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
@@ -278,20 +278,20 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">MS/RA Number</span>
+                                        <span class="required">MS / RA Number: [ MS/RA Number ]</span>
                                     </label>
                                     <input type="text" class="form-control" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             <h5 style="color: #000">Permit to unload/Strike</h5>
                             <br>
-                            <p style="color: #000;">1. Permanent Works supported by the above item of Temporary Works have gained sufficient strength to support the loading/use permitted (See concrete cube results below – or state any other PW design requirements if applicable)
+                            <p style="color: #000;">1. Permanent works support by this temporary works have gained sufficient strength to support the loading or use requirement. (See concrete cube results and other PW design requirements below, if applicable.)
                                 <br>
                                 2. Sequence of removal of TW, where specified by the TWD, is understood by the supervisor.
                                 <br>
-                                3. All standard safety measures executed i.e., holes covered and protected, leading edge protection etc
+                                3. All standard safety measure executed (i.e. holes covered and protected, leading edge protection, etc).
                                 <br>
-                                4. Risk Assessment, Method Statement and or associated Task Sheets in place
+                                4. Risk assessment, method statement and/or associated task sheets in place.
 
                                 <!--end::Option-->
                         </div>
@@ -300,7 +300,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: left;" colspan="5">CONCRETE CUBE RESULTS (OR OVER-WRITE WITH STRENGTH BY MATURITY CURVE DATA)</th>
+                                        <th style="text-align: left;" colspan="5">CONCRETE CUBE RESULTS (or overwrite with strength by maturity curve data)</th>
 
                                     </tr>
                                 </thead>
@@ -343,7 +343,7 @@
                             <h6 style="color:black">Back-propping and additional requirements; limitations and exclusions; explanatory sketches refrences - if applicable</h6>
                             <textarea name="back_propping" rows="2"  style="width:100%;"></textarea>
                             <br>
-                            <p style="color: black;"> I hereby authorise the Temporary Works to be struck out/removed in accordance with the specified/approved unloading & striking method, subject to observing the extents, limits and controls listed above. </p>
+                            <p style="color: black;"> I hereby authorise the temporary works to be struck out or removed in accordance with the specified or approved unloading and striking method, subject to observing the extents, limits and controls listed above. </p>
 
                         </div>
                         <div class="d-flex inputDiv">
@@ -382,7 +382,7 @@
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Job title:</span>
+                                                <span class="required">Job Title:</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">

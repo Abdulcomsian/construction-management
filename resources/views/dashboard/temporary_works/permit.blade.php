@@ -293,7 +293,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Location of the Temporary Works (Area):
+                                        Location of the Temporary Works:
                                     </label>
                                     <textarea class="form-control" name="location_temp_work" rows="2" style="width:100%" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
                                 </div>
@@ -302,7 +302,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Description of Structure which is ready for use:
+                                        Description of structure ready for use:
                                     </label>
                                     <textarea class="form-control" name="description_structure" rows="2" style="width:100%" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
                                 </div>
@@ -319,7 +319,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Equipment/materials used as a specified/fit for purpose</span>
+                                    <span class="required">Equipment & materials used as specified & fit for purpose</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -339,7 +339,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, checked)</span>
+                                    <span class="required">Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, etc</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -399,7 +399,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Loading /use limitations understood e.g. Rate of pour, sequence of loading, access/plant loading</span>
+                                    <span class="required">Loading / use limitations understood (e.g. rate of pour, sequence of loading, access/plant loading, etc)</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -429,9 +429,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Approval by Temp Works Coordinator Required? <br>
-                                        completed Other criteria specified (e.g. strength of supporting structure, any back propping,
-                                        ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY BELOW)</span>
+                                    <span class="required">Approval by TWC required?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -475,7 +473,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Add rate of rise  (IF YES, SPECIFY BELOW)</span>
+                                    <span class="required">Add rate of rise?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -557,18 +555,15 @@
                                 </div>
                             </div>
                             <!--  -->
-                            <h5 style="color: #000">Permit To Load/USE</h5>
+                            <h5 style="color: #000">Permit to Load / Use</h5>
                             <br>
                             <p style="color: #000;">
 
-                                I confirm that I have inspected the above temporary structure and I
-                                am satisfied that it conforms to the above.
+                                I confirm that I have inpected this temporary structure and I am satisfied that it conforms to the criteria given above.
                                 <br>
-                                I consider that the temporary structure is ready to be loaded and
-                                taken into use.
+                                I consider that the temporary structure is ready to be loaded and put into use.
                                 <br>
-                                I confirm that I am authorised to issue a Permit to Load for this
-                                temporary structure.
+                                I confirm that I am authorised to use a Permit to Load for this temporary structure.
                             </p>
 
                             <!--end::Option-->
@@ -577,7 +572,7 @@
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Principle Contractor approved required?</span>
+                                    <span class="required">Other approval required?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -624,7 +619,7 @@
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Name::</span>
+                                                    <span class="required">Name:</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" class="form-control form-control-solid" placeholder="Name" id="name1" name="name1" value="{{old('name1', Auth::user()->name ?? '')}}" style="color:#5e6278">
@@ -632,7 +627,7 @@
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Job title:</span>
+                                                    <span class="required">Job Title:</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1', Auth::user()->job_title ?? '')}}">
@@ -726,7 +721,7 @@
                                                     <span>PC TWC Email:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                 <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                                                 <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
                                             </div>
                                             <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">

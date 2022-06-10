@@ -50,7 +50,7 @@
                                <select name="status" class="form-control">
                                    <option value="0">Good Practice</option>
                                    <option value="1">Minor Amendment</option>
-                                   <option value="2">Not Complaint Temporary works needs to be revised</option>
+                                   <option value="2">Not Compliant - TW to be Revised</option>
                                </select>
                             </div>
                             <!--begin::Label-->

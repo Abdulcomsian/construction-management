@@ -737,7 +737,7 @@ class TemporaryWorkController extends Controller
             if ($model->save()) {
                 Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id));
 
-                toastSuccess('Comment Save sucessfully!');
+                toastSuccess('Comment submitted successfully');
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
@@ -1090,11 +1090,12 @@ class TemporaryWorkController extends Controller
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
                 //make status 0 if permit is 
-                $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention";
+
+                $msg = " Attached in the i-Works web portal for your attention is a PDF permit to load which has been renewed created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                 $message = "Load";
                 if (isset($request->type)) {
                     PermitLoad::find($request->permitid)->update(['status' => 0]);
-                    $msg = "Welcome to the online i-works Portal. Attached is a PDF permit to load which has been renewed created by " . $request->company . " Ltd. (" . $request->design_requirement_text . "), for your attention.";
+                    $msg = "Attached in the i-Works web portal for your attention is a PDF permit to load created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                     $message = "Renew";
                 }
 
@@ -1181,7 +1182,7 @@ class TemporaryWorkController extends Controller
                                       </button>
                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square"></span> Unload</a>
-                                        <a class="confirm dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit to be closed. ARE YOU SURE?.">Close</a>
+                                        <a class="confirm dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="Are you sure?" when closing the permit">Close</a>
                                       </div>
                                     </div>
                             ';
@@ -1460,7 +1461,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Permit Unload Pdf',
                     'subject' => $request->design_requirement_text . '-' . $request->permit_no,
                     'body' => [
-                        'text' => 'Welcome to the online i-works Portal. Attached is a PDF permit to unload created by ' . $request->company . ' Ltd.(' . $request->design_requirement_text . '), for your attention.',
+                        'text' => 'Attached in the i-Works web portal for your attention is a PDF permit to unload created by ' . $request->company . ' Ltd (' . $request->design_requirement_text . ').',
                         'filename' => $filename,
                         'links' =>  '',
                         'name' => 'Permit Unload',
@@ -1618,9 +1619,9 @@ class TemporaryWorkController extends Controller
 
                 //work for images
                 $image_links = $this->scaffoldfiles($request, $scaffolding->id);
-                $design_requirement_text = TemporaryWork::select('design_requirement_text')->find($request->temporary_work_id);
+                $design_requirement_text = TemporaryWork::select('company','design_requirement_text')->find($request->temporary_work_id);
                 //pdf work here
-                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments, 'check_images' => $check_images, 'design_requirement_text' => $design_requirement_text]);
+                $pdf = PDF::loadView('layouts.pdf.scaffolding', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'check_radios' => $check_radios, 'check_comments' => $check_comments, 'check_images' => $check_images, 'design_requirement_text' => $design_requirement_text->design_requirement_text]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = Scaffolding::find($scaffolding->id);
@@ -1631,7 +1632,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Scaffolding Pdf',
                     'subject' => $request->drawing_title . '-' . $request->permit_no,
                     'body' => [
-                        'text' => 'A Permit to load has been completed for the scaffolding  as per the attached document.',
+                        'text' => 'Thank you for completing a Scaffolding Permit to Load for '.$design_requirement_text->company.' Ltd in the i-Works web portal. A PDF copy of the permit is attached. ',
                         'filename' => $filename,
                         'links' =>  '',
                         'name' => 'scaffold',

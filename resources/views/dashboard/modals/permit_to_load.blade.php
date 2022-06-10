@@ -46,7 +46,7 @@
                             <tr style="background: #f5f8fa;color:#000;">
                                 <td><b>Temporary Work</b></td>
                                 <td><b>Permit No</b></td>
-                                <td><b>Date</b></td>
+                                <td><b>Expiry Date</b></td>
                                 <td><b>Type</b></td>
                                 <td style="width:10%"><b>Status</b></td>
                                 <td><b>Action</b></td>

@@ -62,15 +62,14 @@
                   <td><span style="width: 180px;font-size: 12px;">{{$data['projname']}}</span></td>
                   <td style="width: 180px;background:gray;color:white;">
                      <label for="" style="width: 200px; height: 70px; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
-                           Project
-                           number </b> </label>
+                           Project No</b> </label>
                   </td>
                   <td><span style="font-size: 12px;">{{$data['projno']}}</span></td>
                </tr>
                <tr>
                   <td style="width: 180px;background:gray;color:white;">
                      <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
-                        <b style="font-size: 12px;"> Drawing Number </b> </label>
+                        <b style="font-size: 12px;"> Drawing No </b> </label>
                   </td>
                   <td><span style="font-size: 12px;">{{$data['drawing_no']}}</span></td>
                   <td style="width: 180px;background:gray;color:white;">
@@ -82,8 +81,7 @@
                </tr>
                <tr>
                   <td style="width: 180px;background:gray;color:white;">
-                     <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit
-                           Number </b> </label>
+                     <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit No</b> </label>
                   </td>
                   <td style="font-size: 12px;">{{$data['permit_no']}}</td>
                   <td style="width: 180px;background:gray;color:white;">
@@ -129,14 +127,13 @@
                <tr style="min-height: 150px;">
                   <td style="width: 180px;background:gray;color:white;">
                      <label for="" style="width: 200px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
-                           Location of the<br>Temporary Works (Area)</b> </label>
+                           Location of the temporary works</b> </label>
                   </td>
                   <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
                </tr>
                <tr>
                   <td style="width: 180px;background:gray;color:white;">
-                     <label for="" style="width: 400px; border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description
-                           of the <br>structure which is ready<br>for use</b> </label>
+                     <label for="" style="width: 400px; border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description of structure</label>
                   </td>
                   <td colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
                </tr>
@@ -171,7 +168,7 @@
             <tr>
                <td style="width: 200px;background:gray;color:white;">
                   <label for="" style="width: 200px;padding: 10px;display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
-                        Equipment/materials used as specified/fit for purpose </b></label>
+                        Equipment & materials used as specified & fit for purpose </b></label>
                </td>
                <td style="width: 20px;">
                   @if($data['equipment_materials']==1)
@@ -203,7 +200,7 @@
             <tr>
                <td style="width: 200px;background:gray;color:white;">
                   <label for="" style="width: 200px;padding: 10px;display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
-                        TW checked to drawings/ design output</b></label>
+                        TW checked against drawings / design output</b></label>
                </td>
                <td style="width: 20px;">
                   @if($data['drawings_design']==1)
@@ -219,7 +216,7 @@
             <tr>
                <td style="width: 200px;background:gray;color:white;">
                   <label for="" style="width: 200px;padding: 10px;display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
-                        Loading/use limitations understood eg. sequence of loading,access/plant loading</b></label>
+                        Loading / use limitations understood (e.g. sequence of loading, access/plant loading)</b></label>
                </td>
                <td style="width: 20px;">
                   @if($data['loading_limit']==1)
@@ -281,7 +278,7 @@
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;">Base Plates? </b>
+                        <b style="font-size: 12px;">Base plates? </b>
                      </label>
                   </td>
                   <td style="width:10%;" class="{{$check_radios['base_Plates_radio']==2 ? 'red' : 'green'}}">
@@ -310,7 +307,7 @@
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;"> Sole boards and plates insalled correctly ?</b>
+                        <b style="font-size: 12px;"> Sole boards and plates installed correctly?</b>
                      </label>
                   </td>
                   <td style="width:10%;"  class="{{$check_radios['sole_boards_radio']==2 ? 'red' : 'green'}}">
@@ -677,7 +674,7 @@
                   </td>
                </tr>
                <tr>
-                  <td style="width:5%;background:gray;color:white; " rowspan="3">Ledgers</td>
+                  <td style="width:5%;background:gray;color:white; " rowspan="3">Ledges</td>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
                         <b style="font-size: 12px;">Not level?
@@ -707,7 +704,7 @@
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;"> All all joint staggered?
+                        <b style="font-size: 12px;"> All joints staggered?
                         </b>
                      </label>
                   </td>
@@ -759,7 +756,7 @@
                   </td>
                </tr>
                <tr>
-                  <td style="width:5%;background:gray;color:white; " rowspan="3">Guard rails &<br>Toe boards</td>
+                  <td style="width:5%;background:gray;color:white; " rowspan="3">Guard Rails &<br>Toe Boards</td>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
                         <b style="font-size: 12px;"> Wrong height?
@@ -877,7 +874,7 @@
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;"> Some missing?
+                        <b style="font-size: 12px;"> Any missing?
                         </b>
                      </label>
                   </td>
@@ -1048,7 +1045,7 @@
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: auto; font-size: 14px; padding: 0 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;"> Some missing?
+                        <b style="font-size: 12px;"> Any missing?
                         </b>
                      </label>
                   </td>
@@ -1075,7 +1072,7 @@
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: auto; font-size: 14px; padding: 0 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;">Loose/ damaged or broken?
+                        <b style="font-size: 12px;">Loose/damaged or broken?
                         </b>
                      </label>
                   </td>
@@ -1129,7 +1126,7 @@
                <tr>
                   <td colspan="2" style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: auto; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;"> OTHER? Any further actions necessary?
+                        <b style="font-size: 12px;"> Any other actions necessary not listed above?
                         </b>
                      </label>
                   </td>

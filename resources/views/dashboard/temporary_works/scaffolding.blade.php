@@ -166,7 +166,7 @@
             <div class="card-header border-0 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    <h2>Scaffolding InspectionPermit to Load</h2>
+                    <h2>Scaffolding Inspection / Permit to Load</h2>
 
                 </div>
                 <!--begin::Card toolbar-->
@@ -215,7 +215,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Drawing Number:</span>
+                                        <span class="required">Drawing No:</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no', $latestuploadfile->drawing_number ?? '')}}" required>
                                 </div>
@@ -261,7 +261,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Permit Number :</span>
+                                            <span class="required">Permit No :</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>
@@ -270,7 +270,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing title :</span>
+                                            <span class="required">Drawing Title :</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title', $latestuploadfile->drawing_title ?? '')}}" required>
                                     </div>
@@ -279,7 +279,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required"> TWS or competent Scaffolder Name:</span>
+                                            <span class="required"> TWS or Scaffolder Name:</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name',auth()->user()->name)}}" required>
                                     </div>
@@ -288,7 +288,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span > MS/RA Number:</span>
+                                            <span > MS/RA Number  [ MS/RA Number ]</span>
                                         </label>
                                         <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}">
                                     </div>
@@ -319,7 +319,7 @@
                                 <div class="d-flex inputDiv" style=" height: 87px;">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">Equipment/materials used as a specified/fit for purpose</span>
+                                        <span class="required">Equipment & materials used as specified & fit for purpose</span>
                                     </label>
                                     <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid" style="margin-top: 32px;height: 50px;">
@@ -376,7 +376,7 @@
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">TW checked to drawings/design output</span>
+                                        <span class="required">TW checked against drawings / design output</span>
 
                                     </label>
                                     <!--begin::Radio group-->
@@ -412,7 +412,7 @@
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">Loading /use limitations understood e.g. sequence of loading, access/plant loading</span>
+                                        <span class="required">Loading / use limitations understood (e.g. sequence of loading, access/plant loading)</span>
                                     </label>
                                     <!--begin::Radio group-->
                                     <div class="nav-group nav-group-fluid">
@@ -440,7 +440,7 @@
                                         <textarea name="loading_limit_desc" rows="2" style="width:100%;" class="form-control"></textarea>
                                     </div>
                                 </div>
-                                <p style="color: #000;">Inspect each of the following items & tick off in the box provided if installed correctly as per the design. Where actions are required, identify with a number & detail comments in the space provided below.</p>
+                                <p style="color: #000;">Inspect each of the following items & select PASS if installed correctly as per the design. Where actions are required, identify with a number & give details in the space provided.</p>
 
                             </div>
                         </div>
@@ -494,7 +494,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Base Plates?</span>
+                                    <span class="required">Base plates?</span>
                                 </label>
 
                                 <!--begin::Radio group-->
@@ -1040,7 +1040,7 @@
                             </div>
                             <div class="d-flex inputDiv">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
-                                    Ledgers:
+                                   Ledges:
                                 </label>
                             </div>
                             <div class="d-flex inputDiv ipadnewline">
@@ -1274,7 +1274,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Wrong Fittings?</span>
+                                    <span class="required">Wrong fittings?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1309,7 +1309,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Some Missing?</span>
+                                    <span class="required">Any Missing?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1340,7 +1340,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Loose or Damaged?</span>
+                                    <span class="required">Loose or damaged?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1378,7 +1378,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Wrong Fittings?</span>
+                                    <span class="required">Wrong fittings?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1413,7 +1413,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Some Missing?</span>
+                                    <span class="required">Any Missing?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1444,7 +1444,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Loose or Damaged?</span>
+                                    <span class="required">Loose or damaged?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1477,14 +1477,14 @@
 
                             <div class="d-flex inputDiv">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
-                                    Debrings Netting:
+                                    Debris Netting:
                                 </label>
                             </div>
                             <!-- Debrings Netting -->
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Partially Removed?</span>
+                                    <span class="required">Partially removed?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1525,7 +1525,7 @@
                             <div class="d-flex inputDiv ipadnewline">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">Some Missing?</span>
+                                    <span class="required">Any Missing?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -1598,7 +1598,7 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
                                     <span class="required">
-                                        <h5>OTHER? Any further actions necessary? </h5>
+                                        <h5>Any other actions necessary not listed above? </h5>
                                     </span>
 
                                 </label>

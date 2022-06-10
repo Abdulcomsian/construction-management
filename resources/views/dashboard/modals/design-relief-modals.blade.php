@@ -38,7 +38,7 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <li data-id="Excavation">Excavation/ Earthworks</li>
+                                <li data-id="Excavation">Excavation / Earthworks</li>
                                 <li data-id="Formwork">Formwork / Falsework</li>
                                 <li data-id="Equipment">Equipment and Plant</li>
                                 <li data-id="Establishment">Site Establishment</li>
@@ -57,13 +57,13 @@
                                 <li data-id="Trench">Trench Sheeting</li>
                                 <li data-id="Manhole">Manhole / Trench Boxes</li>
                                 <li data-id="Cofferdams">Cofferdams</li>
-                                <li data-id="Excavation">Excavation shoring System</li>
+                                <li data-id="Excavation">Excavation Shoring System</li>
                                 <li data-id="Capping">Capping Beam Support</li>
                                 <li data-id="Temporary">Temporary Slopes</li>
-                                <li data-id="Headings">Headings/ Tunnel Support</li>
+                                <li data-id="Headings">Headings / Tunnel Support</li>
                                 <li data-id="Underpinning">Underpinning</li>
                                 <li data-id="Stockpiles">Stockpiles</li>
-                                <li data-id="PCC">PCC L Shape Wall</li>
+                                <li data-id="PCC">PCC L-Shaped Wall</li>
                                 <li data-id="Embankment">Embankment Bunds</li>
                                 <li data-id="Dewatering">Dewatering</li>
                                 <li data-id="State">Other Please State</li>
@@ -85,9 +85,9 @@
                                 <li>Push Pulls for Precast Walls and Columns</li>
                                 <li>Precast Stairs</li>
                                 <li>Crash Decks</li>
-                                <li>Metal Decking & Back Proppig</li>
+                                <li>Metal Decking & Back Propping</li>
                                 <li>Screen Protection</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other (please specify)"></li>
                             </ul>
                             <!-- **************** Equipment and Plant **************  -->
                             <ul class="d-none Equipment">
@@ -129,12 +129,12 @@
                                 <li>System Staircase</li>
                                 <li>Temporary Roof</li>
                                 <li>Loading Bay</li>
-                                <li>Cute Support</li>
+                                <li>Chute Support</li>
                                 <li>Mobile Tower</li>
-                                <li>Pedestrain Walkway Cover</li>
+                                <li>Pedestrian Walkway Cover</li>
                                 <li>Suspension System</li>
                                 <li>Pontoon</li>
-                                <li>Protection Shield (steel Shield to Cover Railway While Working with a Crane Above)</li>
+                                <li>Protection Shield (to cover railway while working with crane above)</li>
                                 <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Structure **************  -->
@@ -219,25 +219,22 @@
                                 <li data-id="Preliminary-Sketches">Preliminary Sketches (prior to full TW design for
                                     discussion with site team)
                                 </li>
-                                <li data-id="Construction-Drawings">Construction Drawings (with notes on loadings,
-                                    restrictions, critical components, etc.)
+                                <li data-id="Construction-Drawings">Construction Drawings (with notes on loadings, restrictions, critical components, etc)
                                 </li>
-                                <li data-id="Design-Calculations">Design Calculations (where needed for submission to
-                                    client etc.)
+                                <li data-id="Design-Calculations">Design Check Certificate (where needed for submission to client, etc)
                                 </li>
                                 <li data-id="Check-Certificate">Design Check Certificate (were needed for submission to
                                     client, etc.)
                                 </li>
                                 <li data-id="Loading-Criteria">Loading Criteria</li>
-                                <li data-id="Construction-Erection">Construction / Erection Sequence Information (to
-                                    include in method statement)
+                                <li data-id="Construction-Erection">Construction / Erection Sequence Information (to include in method statement)
                                 </li>
                                 <li data-id="Inspection-Checklist">Inspection Checklist (for erection, loading,
                                     inspection, dismantling, etc.)
                                 </li>
                                 <li data-id="Monitoring-Requirements">Monitoring Requirements</li>
                                 <li data-id="Specifications">Specifications</li>
-                                <li data-id="Design-Inspection">Design Inspection and Test Plans (ITP’s)</li>
+                                <li data-id="Design-Inspection">Design Inspection and Test Plans (ITPs)</li>
                                 <!-- <li data-id="user-input">
                                     <input type="text" placeholder="Other STATE">
                                 </li> -->
@@ -331,21 +328,17 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <li data-id="List-Attachment">List of attachments/sketches/ Photos / Specifications
-                                    /Drawings etc.
+                                <li data-id="List-Attachment">Attachments (sketches / photos / specifications / drawings, etc)
                                 </li>
                                 <li class="list_of_attach_comment d-none">
                                     <textarea type="text" style="background: black;color:white;" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                 </li>
-                                <li data-id="Report-Site">Reports including Site Investigations- relevant boreholes/
-                                    trial pits/ site investigation. Any Existing or proposed services above or below the
-                                    groundwhere appropriate minimum clearances and protection are required to be
-                                    maintained.
+                                <li data-id="Report-Site">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)
                                 </li>
                                 <li class="reports_including_site_investigations_comment d-none">
                                     <textarea style="background: black;color:white;ay:none" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                 </li>
-                                <li data-id="Exsisting-Ground">Existing Ground conditions:</li>
+                                <li data-id="Exsisting-Ground">Existing Ground conditions</li>
                                 <li class="existing_ground_conditions_comment d-none">
                                     <textarea style="background: black;color:white;ay:none" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                 </li>
@@ -355,11 +348,11 @@
                                 <li class="preferred_non_preferred_methods_comment d-none">
                                     <textarea style="background: black;color:white;ay:none" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                 </li>
-                                <li data-id="Limitations">Access limitations or edge protection requirements:</li>
+                                <li data-id="Limitations">Access Limitations (or edge protection requirements)</li>
                                 <li class="access_limitations_comment d-none">
                                     <textarea style="background: black;color:white;ay:none" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                 </li>
-                                <li data-id="Back-Propping">Back Propping / Re-Propping Sequence: (please attach)</li>
+                                <li data-id="Back-Propping">Back Propping  / Re-Propping Sequence</li>
                                 <li class="back_propping_comment d-none">
                                     <textarea style="background: black;color:white;ay:none" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                 </li>
@@ -405,7 +398,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports including Site Investigations- relevant boreholes/ trial pits/ site investigation. Any Existing or proposed services above or below the groundwhere appropriate minimum clearances and protection are required to be maintained." />
+                                            <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -456,7 +449,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="access_limitations" value="Access limitations or edge protection requirements:" />
+                                            <input class="form-check-input" type="hidden" name="access_limitations" value="Access Limitations (or edge protection requirements)" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 
@@ -473,7 +466,7 @@
                                     <div class="multi-Radio">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="back_propping" value="Back Propping / Re-Propping Sequence: (please attach)" />
+                                            <input class="form-check-input" type="hidden" name="back_propping" value="Back Propping  / Re-Propping Sequence" />
                                             <label class="form-check-label" for="flexRadioDefault1"> YES </label>
                                         </div>
 

@@ -2,6 +2,10 @@
 
 @section('styles')
 <style>
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff !important;
+  opacity: 1; /* Firefox */
+}
     #scope-of-design{
 
     }
@@ -470,7 +474,7 @@ height: 72px;
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
                                 
@@ -479,9 +483,9 @@ height: 72px;
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                              <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
-                                              Description :
+                                              Description:
                                             </label>
-                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv d-block">
@@ -490,7 +494,7 @@ height: 72px;
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="blackBack form-control"  style="width:50%; "  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required from the Temporary Works Engineer:"  readonly></textarea>
+                                            <textarea class="blackBack form-control"  style="width:50%; "  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     
@@ -500,7 +504,7 @@ height: 72px;
                                         <!--begin::Label-->
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                               Attachments / Spec:
-                                              <span style="">
+                                              <span style="margin-left: 10px;">
                                         <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:25px"></span></a>
                                     </span>
                                             </label>
@@ -513,7 +517,7 @@ height: 72px;
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name::</span>
+                                        <span class="required">Name:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
@@ -843,16 +847,16 @@ height: 72px;
             $(this).removeClass("blackBack")
             $("#projects span.form-select").removeClass("blackBack")
          //   $(".form-control[readonly]").removeClass("blackBack")
-            $("#no").removeClass("blackBack")
-            $("#name").removeClass("blackBack")
-            $("#design_issued_date").removeClass("blackBack")
-            $("#address").removeClass("blackBack")
-            $("#job_title").removeClass("blackBack")
-            $("#admin_name").removeClass("blackBack")
-            $("#companyadmin").removeClass("blackBack")
+            $("#no").removeClass("blackBack").addClass("whiteBack");
+            $("#name").removeClass("blackBack").addClass("whiteBack");
+            $("#design_issued_date").removeClass("blackBack").addClass("whiteBack");
+            $("#address").removeClass("blackBack").addClass("whiteBack");
+            $("#job_title").removeClass("blackBack").addClass("whiteBack");
+            $("#admin_name").removeClass("blackBack").addClass("whiteBack");
+            $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
             $(".form-select.form-select-solid").css("background-color","#f5f8fa")
-            $("#companyadmin").removeClass("blackBack")
-            $("#twc_name").removeClass("blackBack")
+            $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
+            $("#twc_name").removeClass("blackBack").addClass("whiteBack");
          //   $("#scopofdesign").addClass("blackBack")
         })
 

@@ -694,7 +694,7 @@
                                                 </label>
                                                 <!--end::Label-->
                                                  <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px">
-                                                 <span class="tickboxalign" style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                                 <span class="tickboxalign" style="padding-left:3px;color:#000">Select if required.</span>
                                             </div>
                                             <div class="d-none inputDiv pc-twc">
                                                 <!--begin::Label-->

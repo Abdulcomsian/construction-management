@@ -75,7 +75,7 @@
                     </tr>
                     @if(isset($data['desinger_email_2']))
                     <tr style="height: 150px;">
-                       <!--  <td style="width: 150px;background:gray;color:white">
+                        <!--  <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Company Name</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_company_name2'] ?? ''}}</td>
@@ -83,10 +83,10 @@
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Name</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger'] ?? ''}}</td> -->
-                    <td style="width: 150px;background:gray;color:white">
-                        <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Email</b></label>
-                    </td>
-                    <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_email_2'] ?? ''}}</td>
+                        <td style="width: 150px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Design Checker Email</b></label>
+                        </td>
+                        <td style="max-height:70px !important; font-size:12px;"> {{$data['desinger_email_2'] ?? ''}}</td>
                     </tr>
                     @endif
                     <!-- <tr style="height: 150px;">
@@ -141,7 +141,8 @@
             <table>
                 <thead style="background:gray;color:white">
                     <tr>
-                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Required from Temporary Works Designer </td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Scope of Design Output Required From TW Engineer
+                            DESIGNER</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Y</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">N</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Date Required</td>
@@ -158,8 +159,8 @@
                     @endif
                     @if($scopdesg['construction_rawings_date'])
                     <tr>
-                        <td style="font-size:12px;"><b style="font-size:12px;">Construction Drawings</b> (with notes on loadings, restrictions, critical components,
-                            etc.)</td>
+                        <td style="font-size:12px;"><b style="font-size:12px;">Construction Drawings</b> (with notes on loadings, restrictions, critical components, etc)
+                        </td>
                         <td style="font-size:12px;">@if($scopdesg['construction_rawings_date']){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['construction_rawings_date']==null){{'N'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['construction_rawings_date']){{ date('d-m-Y',strtotime($scopdesg['construction_rawings_date']))}}@endif</td>
@@ -168,7 +169,7 @@
                     @endif
                     @if($scopdesg['design_calculations_date'])
                     <tr>
-                        <td style="font-size:12px;"><b>Design Calculations</b> (where needed for submission to client etc.)</td>
+                        <td style="font-size:12px;"><b>Design Calculations</b> (where needed for submission to client, etc)</td>
                         <td style="font-size:12px;">@if($scopdesg['design_calculations_date']){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['design_calculations_date']==null){{'N'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['design_calculations_date']){{ date('d-m-Y',strtotime($scopdesg['design_calculations_date']))}}@endif</td>
@@ -177,7 +178,7 @@
                     @endif
                     @if($scopdesg['design_check_certificate_date'])
                     <tr>
-                        <td style="font-size:12px;"><b>Design Check Certificate</b> (were needed for submission to client, etc.)</td>
+                        <td style="font-size:12px;"><b>Design Check Certificate</b> (where needed for submission to client, etc)</td>
                         <td style="font-size:12px;">@if($scopdesg['design_check_certificate_date']){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['design_check_certificate_date']==null){{'N'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['design_check_certificate_date']){{ date('d-m-Y',strtotime($scopdesg['design_check_certificate_date']))}}@endif</td>
@@ -231,7 +232,7 @@
                     @endif
                     @if($scopdesg['design_inspection_test_plans_date'])
                     <tr>
-                        <td style="font-size:12px;"><b>Design Inspection and Test Plans (ITP’s)</b></td>
+                        <td style="font-size:12px;"><b>Design Inspection and Test Plans (ITPs)</b></td>
                         <td style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']){{'Y'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']==null){{'N'}}@endif</td>
                         <td style="font-size:12px;">@if($scopdesg['design_inspection_test_plans_date']){{ date('d-m-Y',strtotime($scopdesg['design_inspection_test_plans_date']))}}@endif</td>
@@ -254,7 +255,7 @@
                     @if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes")
                     <tr>
                         <td>
-                            <b style="font-size:12px;">List of attachments/sketches/ Photos / Specifications /Drawings etc.</b>
+                            <b style="font-size:12px;">Attachments (sketches / photos / specifications / drawings, etc)</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['list_of_attachments_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes"){{'Y'}}@endif</td>
@@ -266,7 +267,7 @@
                     @endif
                     @if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes")
                     <tr>
-                        <td><b style="font-size:12px;">Reports including Site Investigations- relevant boreholes/ trial pits/ site investigation</b>
+                        <td><b style="font-size:12px;">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['reports_including_site_investigations_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes"){{'Y'}}@endif</td>
@@ -279,7 +280,7 @@
                     @if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="yes")
                     <tr>
                         <td>
-                            <b style="font-size:12px;">Existing Ground conditions</b>
+                            <b style="font-size:12px;">Existing Ground Conditions</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['existing_ground_conditions_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="yes"){{'Y'}}@endif</td>
@@ -305,7 +306,7 @@
                     @if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="yes")
                     <tr>
                         <td>
-                            <b style="font-size:12px;">Access limitations or edge protection requirements:</b>
+                            <b style="font-size:12px;">Access Limitations (or edge protection requirements)</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['access_limitations_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="yes"){{'Y'}}@endif</td>
@@ -317,7 +318,7 @@
                     @endif
                     @if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes")
                     <tr>
-                        <td><b style="font-size:12px;">Back Propping / Re-Propping Sequence: (please attach)</b>
+                        <td><b style="font-size:12px;">Back Propping / Re-Propping Sequence</b>
                             <p style="font-size:11px;"> <b>Comment:</b> {{$comments['back_propping_comment'] ?? '' }}</p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes"){{'Y'}}@endif</td>
@@ -395,7 +396,7 @@
         <div class="multiDiv" style="display: flex; justify-content: space-between; margin: 30px 0px;">
             <div class="leftDiv" style="width: 100%;">
                 <div class="inputDiv">
-                    <label for="" style="float: left;width: 100%; border: 1px solid; padding: 10px;"><b style="font-size:12px;">I certify that the above information is accurate at the time of writing, as far as can reasonably be ascertained. 
+                    <label for="" style="float: left;width: 100%; border: 1px solid; padding: 10px;"><b style="font-size:12px;">I certify that the above information is accurate at the time of writing, as far as can reasonably be ascertained.
                         </b>
                     </label>
                 </div>

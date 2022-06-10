@@ -221,7 +221,7 @@
         <tr>
             <td colspan="6" border="1" style="width: 15%; text-align: left; padding: 5px 10px;color: #C5BCBC;font-size: 10px;
             font-weight: 700;">
-                <strong></strong>Scope of Design Output and date required from the Temporary work Engineer
+                <strong></strong>Scope of Design Output Required From TW Engineer
                 </strong>
                 @if(isset($scopdesg) && count($scopdesg)>0)
                 @php $i=1; @endphp

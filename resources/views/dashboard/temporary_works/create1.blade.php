@@ -379,7 +379,7 @@ height: 72px;
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design Requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
                                 
@@ -389,9 +389,9 @@ height: 72px;
                                     <div class="d-flex modalDiv">
                                         <!--begin::Label-->
                                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                              Description :
+                                              Description:
                                             </label>
-                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                  <div class="d-flex inputDiv">
@@ -468,7 +468,7 @@ height: 72px;
                                                 <input type="text" value="" class="requirment-first-value">
                                                 <div class="list-div">
                                                     <ul>
-                                                        <li data-id="Excavation">Excavation/ Earthworks</li>
+                                                        <li data-id="Excavation">Excavation / Earthworks</li>
                                                         <li data-id="Formwork">Formwork / Falsework</li>
                                                         <li data-id="Equipment">Equipment and Plant</li>
                                                         <li data-id="Establishment">Site Establishment</li>
@@ -487,13 +487,13 @@ height: 72px;
                                                         <li data-id="Trench">Trench Sheeting</li>
                                                         <li data-id="Manhole">Manhole / Trench Boxes</li>
                                                         <li data-id="Cofferdams">Cofferdams</li>
-                                                        <li data-id="Excavation">Excavation shoring System</li>
+                                                        <li data-id="Excavation">Excavation Shoring System</li>
                                                         <li data-id="Capping">Capping Beam Support</li>
                                                         <li data-id="Temporary">Temporary Slopes</li>
-                                                        <li data-id="Headings">Headings/ Tunnel Support</li>
+                                                        <li data-id="Headings">Headings / Tunnel Support</li>
                                                         <li data-id="Underpinning">Underpinning</li>
                                                         <li data-id="Stockpiles">Stockpiles</li>
-                                                        <li data-id="PCC">PCC L Shape Wall</li>
+                                                        <li data-id="PCC">PCC L-Shaped Wall</li>
                                                         <li data-id="Embankment">Embankment Bunds</li>
                                                         <li data-id="Dewatering">Dewatering</li>
                                                         <li data-id="State">Other Please State</li>
@@ -513,9 +513,9 @@ height: 72px;
                                                         <li>Push Pulls for Precast Walls and Columns</li>
                                                         <li>Precast Stairs</li>
                                                         <li>Crash Decks</li>
-                                                        <li>Metal Decking & Back Proppig</li>
+                                                        <li>Metal Decking & Back Propping</li>
                                                         <li>Screen Protection</li>
-                                                        <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                                        <li><input class="otherInput" type="text" vlaue="" placeholder="Other (please specify)"></li>
                                                     </ul>
                                                     <!-- **************** Equipment and Plant **************  -->
                                                     <ul class="d-none Equipment">
@@ -557,12 +557,12 @@ height: 72px;
                                                         <li>System Staircase</li>
                                                         <li>Temporary Roof</li>
                                                         <li>Loading Bay</li>
-                                                        <li>Cute Support</li>
+                                                        <li>Chute Support</li>
                                                         <li>Mobile Tower</li>
-                                                        <li>Pedestrain Walkway Cover</li>
+                                                        <li>Pedestrian Walkway Cover</li>
                                                         <li>Suspension System</li>
                                                         <li>Pontoon</li>
-                                                        <li>Protection Shield (steel Shield to Cover Railway While Working with a Crane Above)</li>
+                                                        <li>Protection Shield (to cover railway while working with crane above)</li>
                                                         <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                                     </ul>
                                                     <!-- **************** Structure **************  -->

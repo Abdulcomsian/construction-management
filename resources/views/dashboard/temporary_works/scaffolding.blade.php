@@ -288,7 +288,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span > MS/RA Number  [ MS/RA Number ]</span>
+                                            <span > MS/RA Number</span>
                                         </label>
                                         <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}">
                                     </div>

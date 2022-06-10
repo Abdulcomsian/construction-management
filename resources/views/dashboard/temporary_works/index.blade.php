@@ -467,7 +467,7 @@
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_4">
-                                    <span>DESCRIPTION OF TWS</span>
+                                    <span>DESCRIPTION OF TW</span>
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_5">
@@ -523,7 +523,7 @@
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_18">
-                                    <span>QRCODE</span>
+                                    <span>QR CODE</span>
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_19">
@@ -536,7 +536,7 @@
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_3">
-                                    <span>DESCRIPTION OF TWS</span>
+                                    <span>DESCRIPTION OF TW</span>
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_4">
@@ -592,7 +592,7 @@
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_17">
-                                    <span>QRCODE</span>
+                                    <span>QR CODE</span>
                                  </div>
                                  <div class="inputSpan">
                                     <input type="checkbox" class="hidecol" checked id="col_18">
@@ -672,27 +672,27 @@
                                  <thead>
                                     <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                       <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
+                                       <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                        @if(\Auth::user()->hasRole('admin'))
                                        <th class="">Company</th>
                                        @endif
                                        <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
-                                       <th class="" style="max-width:150px;">Description of TWS</th>
+                                       <th class="" style="max-width:150px;">DESCRIPTION OF TW</th>
                                        <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
                                        <th style="min-width: 40px;" class="">Risk Class</th>
-                                       <th class="" style="min-width:60px;">Issue Date<br> of Design Brief</th>
-                                       <th class="" style="">Required<br>Date<br>of<br>Design</th>
+                                       <th class="" style="min-width:60px;">Issue Date</th>
+                                       <th class="" style="">DESIGN REQUIRED BY</th>
                                        <th class="">Comments</th>
-                                       <th class="">TW designer<br> (designer name and company)</th>
+                                       <th class="">TW DESIGNER & COMPANY</th>
                                        <!-- <th class="">Appointments</th>  -->
                                        <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
                                        <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
-                                       <th class="">DRAWINGS<br> and<br> DESIGNS</th>
+                                       <th class="">DRAWINGS & DESIGNS</th>
                                        <th class="">Design<br> Check<br> CERT</th>
                                        <th class="">Permit to Load</th>
                                        <th class="">Permit to Unload</th>
                                        <th class="">RAMS</th>
-                                       <th class="">Qrcode</th>
+                                       <th class="">QR CODE</th>
                                        <th>Actions</th>
                                     </tr>
                                     <!--end::Table row-->
@@ -842,7 +842,13 @@
                                           </p>
                                        </td>
                                        <td>
-                                          <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
+                                          @php $dccstyle='';@endphp
+                                          @foreach($item->uploadfile as $file)
+                                          @if($file->file_type==2)
+                                          @php $dccstyle="display:none"; @endphp
+                                          @endif
+                                          @endforeach
+                                          <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
                                           @php $i=0;@endphp
                                           @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
@@ -982,8 +988,8 @@
                                  <thead>
                                     <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                       <th class="" style="max-width:150px;">Description of TWS</th>
-                                       <th class="">DRAWINGS<br> and<br> DESIGNS</th>
+                                       <th class="" style="max-width:150px;">DESCRIPTION OF TW</th>
+                                       <th class="">DRAWINGS & DESIGNS</th>
                                        <th class="">Permit to Load</th>
                                        <th class="">Permit to Unload</th>
                                     </tr>
@@ -1096,11 +1102,11 @@
                                  <thead>
                                     <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                       <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID<br>Design Brief</th>
-                                       <th class="" style="max-width:150px;">Description of TWS</th>
+                                       <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
+                                       <th class="" style="max-width:150px;">DESCRIPTION OF TW</th>
                                        <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
                                        <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
-                                       <th class="">DRAWINGS<br> and<br> DESIGNS</th>
+                                       <th class="">DRAWINGS & DESIGNS</th>
                                        <th class="">Design<br> Check<br> CERT</th>
                                        <th class="">Permit to Load</th>
                                        <th class="">Permit to Unload</th>

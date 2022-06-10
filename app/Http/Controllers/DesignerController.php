@@ -66,14 +66,14 @@ class DesignerController extends Controller
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
                 $subject = 'Designer Uploaded Design Check Certificate ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                $text = ' Welcome to the online i-works Web-Portal.Designer have uploaded Design Check Certificate. Please Login and view document.';
+                $text = 'The designer has uploaded a design check certificate to your design brief for '. $tempworkdata->company.' Ltd in the i-Works web portal.';
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
             } else {
                 $file = $request->file('file');
                 //$ext = $request->file[0]('file')->extension();
                 $subject = 'Designer Uploaded Drawing ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                $text = ' Welcome to the online i-works Web-Portal. Designer have uploaded Drawing. Please Login and view drawing.';
+                $text = 'The designer has uploaded a drawing to your design brief for '. $tempworkdata->company.' Ltd in the i-Works web portal. ';
                 $model->drawing_number = $request->drawing_number;
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
@@ -149,10 +149,10 @@ class DesignerController extends Controller
                 {
                     $list.="<h3>TWC Uploaded</h3>";            
                     $list .= '<table class="table table-hover"><thead><tr>';
-                    $list .= '<th>S-no</th>';
-                    $list .= '<th>Drawing Number</th>';
+                    $list .= '<th>No</th>';
+                    $list .= '<th>Drawing No</th>';
                     $list .= '<th>Comments</th>';
-                    $list .= '<th>TWD Name</th><th>Drawing Title</th><th>Preliminary/ For approval</th><th>For construction</th><th>Action</th>';
+                    $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action</th>';
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
                      $background='';
@@ -258,10 +258,12 @@ class DesignerController extends Controller
                 }
                 
                 $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<th>S-no</th>';
-                $list .= '<th>Drawing Number</th>';
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<th>No</th>';
+                $list .= '<th>Drawing No</th>';
                 $list .= '<th>Comments</th>';
-                $list .= '<th>TWD Name</th><th>Drawing Title</th><th>Preliminary/ For approval</th><th>For construction</th><th>Action</th>';
+                $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action</th>';
+                    $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';
                 foreach ($DesignerUploads as $uploads) {
@@ -390,7 +392,7 @@ class DesignerController extends Controller
                     $rejectedmodel->save();
 
                     $subject = 'Design Brief Rejected ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                    $text = ' Welcome to the online i-works Web-Portal.Design Brief Rejected by PC TWC.';
+                    $text = ' Thank you for submitting your design brief to the i-Works web portal.  Your design brief has been REJECTED by PC TWC. Please select the link below to amend your submission.';
                     $notify_admins_msg = [
                         'greeting' => 'Design Brief Rejected',
                         'subject' => $subject,
@@ -430,7 +432,7 @@ class DesignerController extends Controller
                     $rejectedmodel->save();
                 }
                 $subject = 'Design Brief Approved ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                     $text = ' Welcome to the online i-works Web-Portal.Design Brief Approve by PC TWC.';
+                     $text = ' Welcome to the online i-works Web-Portal.  Attached for your attention is an APPROVED PDF design brief created for '. $tempworkdata->company .' Ltd. Relevant documents are included as links in the design brief.';
                
                 $notify_admins_msg = [
                     'greeting' => 'Design Brief Approved',
@@ -772,7 +774,7 @@ class DesignerController extends Controller
         if($model->save())
         {
              $subject = 'Designer Uploaded Risk Assessment ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                $text = ' Welcome to the online i-works Web-Portal. Designer have uploaded Risk Assessment. Please Login and view drawing.';
+                $text = 'The designer has uploaded a risk assessment to your design brief for '.$tempworkdata->company.' Ltd in the i-Works web portal.';
             $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
                     'subject' => $subject,

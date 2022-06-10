@@ -24,13 +24,14 @@ class CommentsNotification extends Notification
     private $title;
     private $twc_id_no;
     private $scan;
+    private $company;
     public function __construct($comment,$type,$tempid,$mail=null,$scan=null)
     {
         $this->comment=$comment;
         $this->type=$type;
         $this->tempid=$tempid;
         $this->scan=$scan;
-        $tempdata=TemporaryWork::select('twc_email','design_requirement_text','twc_id_no')->find($tempid);
+        $tempdata=TemporaryWork::select('twc_email','design_requirement_text','twc_id_no','company')->find($tempid);
         if($this->type=='question')
         {
             $this->email=$tempdata->twc_email;
@@ -39,7 +40,7 @@ class CommentsNotification extends Notification
         {
             $this->email=$mail;
         }
-        
+        $this->company=$tempdata->company;
         $this->title=$tempdata->design_requirement_text;
         $this->twc_id_no=$tempdata->twc_id_no;
     }
@@ -66,7 +67,7 @@ class CommentsNotification extends Notification
         return (new MailMessage)
             ->greeting('Comments Notification')
             ->subject($this->title.'-'.$this->twc_id_no.' - Notification')
-            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'this->twc_id_no'=>$this->twc_id_no,'scan'=>$this->scan]);
+            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'this->twc_id_no'=>$this->twc_id_no,'scan'=>$this->scan,'company'=>$this->company]);
     }
 
     /**

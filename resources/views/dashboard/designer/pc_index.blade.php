@@ -139,7 +139,7 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Question for TWC/Comments/Reason:</span>
+                                                <span class="required">Comments for TWC:</span>
 
                                             </label>
                                             <!--end::Label-->
@@ -175,11 +175,11 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>NO</th>
-                                <th>TWC ID NO</th>
-                                 <th>Design Brief Updated</th>
-                                <th>Send by</th>
-                                <th>comments By Pc Twc</th>
+                                <th>No</th>
+                                <th>TWC ID</th>
+                                 <th>Update</th>
+                                <th>Sent By</th>
+                                <th>Comments by Pc Twc</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -59,7 +59,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>comments</th>
+                            <th>Comments</th>
                             <th>Reply</th>
                             <th>Date</th>
                         </tr>

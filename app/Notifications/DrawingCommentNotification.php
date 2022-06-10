@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\TemporaryWork;
 
 class DrawingCommentNotification extends Notification
 {
@@ -47,10 +48,15 @@ class DrawingCommentNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $tempdata='';
+        if($tempid)
+        {
+        $tempdata=TemporaryWork::find($this->tempid);
+        }
          return (new MailMessage)
             ->greeting('Greetings')
-            ->subject('Drawing Comment/Reply Notifications')
-            ->view('mail.drawingcomment',['comment'=> $this->data,'type'=>$this->type,'email'=>$this->mail,'tempid'=>$this->tempid]);
+            ->subject('Drawing Comment / Reply Notifications')
+            ->view('mail.drawingcomment',['comment'=> $this->data,'type'=>$this->type,'email'=>$this->mail,'tempid'=>$this->tempid,'tempdata'=>$tempdata]);
     }
 
     /**

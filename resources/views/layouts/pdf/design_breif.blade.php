@@ -35,19 +35,17 @@
                 <tbody>
                     <tr style="min-height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project
-                                    name</b></label>
+                            <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project Name</b></label>
                         </td>
                         <td style="width: 270px; font-size:12px;">{{$data['projname']}}</td>
                         <td style="width: 120px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Date</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Date Requested</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{date('d-m-Y',strtotime($data['design_issued_date']))}} </td>
                     </tr>
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project
-                                    number</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project No</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['projno']}}</td>
                         <td style="width: 150px;background:gray;color:white">
@@ -57,12 +55,11 @@
                     </tr>
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project
-                                    address</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project Address</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['projaddress'] ?? ''}}</td>
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWC Email Address</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWC Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['twc_email']}}</td>
                     </tr>
@@ -72,7 +69,7 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['designer_company_name']}}</td>
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Company<br>Email Address</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Company<br>Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['designer_company_email']}}</td>
                     </tr>
@@ -132,7 +129,7 @@
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works required</b></label>
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works Required</b></label>
                         </td>
                         <td colspan="3" style="width: 300px; font-size:11px;">{{$data['description_temporary_work_required']}}</td>
                     </tr>
@@ -144,8 +141,7 @@
             <table>
                 <thead style="background:gray;color:white">
                     <tr>
-                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Scope of Design Output Required from TEMPORARY WORKS
-                            DESIGNER</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Required from Temporary Works Designer </td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Y</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">N</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Date Required</td>
@@ -249,7 +245,7 @@
             <table>
                 <thead>
                     <tr>
-                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">List of attachments</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Attachments</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Y</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">N</td>
                     </tr>
@@ -399,8 +395,7 @@
         <div class="multiDiv" style="display: flex; justify-content: space-between; margin: 30px 0px;">
             <div class="leftDiv" style="width: 100%;">
                 <div class="inputDiv">
-                    <label for="" style="float: left;width: 100%; border: 1px solid; padding: 10px;"><b style="font-size:12px;">I certify that the above information is, as far as can be reasonably ascertained, accurate at the time of writing.
-                            (to be signed by the person responsible for the production of the Temporary Works Engineering Design Brief)
+                    <label for="" style="float: left;width: 100%; border: 1px solid; padding: 10px;"><b style="font-size:12px;">I certify that the above information is accurate at the time of writing, as far as can reasonably be ascertained. 
                         </b>
                     </label>
                 </div>

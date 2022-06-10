@@ -397,7 +397,7 @@
                 display: true,
                 ticks: {
                     min: 0, // minimum value
-                    stepSize: 1
+                    stepSize: 5
                 }
             }]
            }

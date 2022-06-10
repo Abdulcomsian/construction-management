@@ -31,9 +31,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Email sent for acceptance</th>
-                            <th>Acceptance/Reject-notes</th>
-                            <th>Design Brief Updated </th>
+                            <th>Submitted</th>
+                            <th>Comments</th>
+                            <th>Updated</th>
                             <!-- <th>Rejectd By</th>
                             <th>Date</th>  -->
                             <th>Actions</th>

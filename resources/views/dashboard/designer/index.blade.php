@@ -140,7 +140,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Upload questions for TWC if required</h2>
+                        <h2 style="display: inline-block;">Queries for TWC (if applicable)</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -150,7 +150,7 @@
                           <input type="hidden" name="mail" value="{{$mail}}">
                           <div class="form-group mx-sm-3 mb-2 d-flex">
                               <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                               <span >Any question or further requirement for the temporary works coordinator before design ? Type and submit:</span>
+                               <span >Ask questions or list further requirements for the TWC.</span>
                               </label>
                                <textarea rows="2" class="form-control" required="required" name="comment"></textarea>
                                &nbsp;&nbsp;
@@ -227,7 +227,7 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Drawing Number:</span>
+                                                <span class="required">Drawing No:</span>
 
                                             </label>
                                             <!--end::Label-->
@@ -295,7 +295,7 @@
                                        <div class="form-check" style="padding-top:26px">
                                           <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
                                           <label class="form-check-label" for="exampleRadios1">
-                                            Preliminary/ For approval
+                                            Preliminary / For approval
                                           </label>
                                         </div>
                                         <div class="form-check" style="padding-top:26px">
@@ -348,7 +348,7 @@
                                     </div> -->
                                 </div>
                                 <br>
-                                <button type="submit" class="btn btn-primary float-end">Submit</button>
+                                <button type="submit" class="btn btn-primary float-end">Upload</button>
                             </div>
                         </div>
                     </form>
@@ -461,7 +461,7 @@
                           </label>
                            <input type="file" style="width:50%"class="form-control" id="designcheckfile" name="designcheckfile" required="required">
                            &nbsp;&nbsp;
-                           <button type="submit" class="btn btn-primary mb-2">Upload Certificate</button>
+                           <button type="submit" class="btn btn-primary mb-2">Upload</button>
                       </div>
                       
                     </form>
@@ -505,7 +505,7 @@
                                    <option value="6">Calculations</option>
                                </select>
                                &nbsp;&nbsp;
-                               <button type="submit" class="btn btn-primary mb-2">Upload R/A Certificate</button>
+                               <button type="submit" class="btn btn-primary mb-2">Upload</button>
                           </div>
                       
                     </form>

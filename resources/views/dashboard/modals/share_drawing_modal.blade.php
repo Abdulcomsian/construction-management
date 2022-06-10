@@ -41,10 +41,10 @@
                         <!--begin::Col-->
                         <div class="col-md-12 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Email</label>
-                            <input type="email" class="form-control form-control-solid" placeholder="Enter Email" name="email" required />
+                            <input type="email" class="form-control form-control-solid" placeholder="Enter email address" name="email" required />
                         </div>
                         <div class="col-md-12 fv-row">
-                            <label class="fs-6 fw-bold mb-2">share Comment</label>
+                            <label class="fs-6 fw-bold mb-2">Share Comment</label>
                             <input type="checkbox"   name="commentcheckbox"/>
                         </div>
                         <!--end::Col-->
@@ -62,6 +62,7 @@
                     <!--end::Actions-->
                 </form>
                 <br>
+                <br>
                 <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('drawingchecker.share') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="sharedrwingwithchecckerid" value="">
@@ -75,7 +76,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">
-                            <span class="indicator-label">Share with Design Checker</span>
+                            <span class="indicator-label">Send</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
@@ -87,7 +88,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Share With</th>
+                            <th>Shared With</th>
                             <th>Date</th>
                         </tr>
                     </thead>

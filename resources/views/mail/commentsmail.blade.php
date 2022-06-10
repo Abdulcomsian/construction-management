@@ -25,7 +25,7 @@
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Welcome to the online i-works Web-Portal.
-                                                                        @if($type=='reply'){{\Auth::user()->name}} has replied to your question @else Designer has added the question @endif <br>
+                                                                        @if($type=='reply'){{\Auth::user()->name}} has replied to your question on the design brief for {{$company}} Ltd in the i-Works web portal.  @else The designer has added a question to your design brief for {{$company}} Ltd in the i-Works web portal.  @endif <br>
                                                                         <h2 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:14px;font-weight:bold;margin-top:0;text-align:left">
                                                                             @if($type=='question')
                                                                             Question
@@ -44,8 +44,9 @@
                                                                         <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">View Reply</a>
                                                                         @endif
                                                                     </p>
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>
-                                                                        City Temporary Works
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards<br>
+                                                                          i-Works Team<br>
+                                                                          If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk
                                                                    </p>
                                                                 </span>
                                                             </td>

@@ -24,7 +24,9 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Welcome to the online i-works Web-Portal. Attached is a PDF design brief created by {{$details['body']['company']}} Ltd., for your attention. Relevant attachments for the design brief are also included as links in the design brief.
+                                                                        Welcome to the online i-works Web-Portal. <br>
+                                                                        Attached for your attention is a PDF design brief created by {{$details['body']['company']}} Ltd. Relevant documents are included as links in the design brief.<br>
+                                                                        
                                                                    </p>
                                                                    @if($details['body']['designer'])
                                                                    <p>
@@ -34,10 +36,15 @@
                                                                    @if($details['body']['pc_twc'])
                                                                    <p>
                                                                        <a href="{{route('pc.approved',Crypt::encrypt($id))}}">View and Approve Design Breif</a>
+                                                                       <br>
+
                                                                    </p>
                                                                    @endif
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards,<br>
-                                                                        City Temporary Works
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you for your attention.<br>
+                                                                        Regards<br>
+                                                                        i-Works Team<br>
+                                                                        <br>
+                                                                        If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk
                                                                    </p>
                                                                 </span>
                                                             </td>

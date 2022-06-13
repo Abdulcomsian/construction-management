@@ -164,7 +164,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Designer's Comments</th>
-                                <th>Twc Reply</th>
+                                <th>TWC Reply</th>
                                 <th>Attachement</th>
                             </tr>
                         </thead>

@@ -228,7 +228,7 @@ height: 72px;
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="date"  class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date',$temporaryWork->design_issued_date)}}"  required>
+                                    <input readonly type="date"  class="customDate form-control" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date',$temporaryWork->design_issued_date)}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -237,7 +237,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color:#a9abb7;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date',$temporaryWork->design_required_by_date)}}"  required>
+                                        <input  type="date" class="customDate form-control" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date',$temporaryWork->design_required_by_date)}}"  required>
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -708,6 +708,23 @@ height: 72px;
             }
         });
   
+
+    if($("#designer_company_name").val() != "")
+    {
+        $("#designer_company_name").removeClass('form-control-solid');
+    }
+    if($("#designer_company_email").val() != "")
+    {
+        $("#designer_company_email").removeClass('form-control-solid');
+    }
+    if($("#desinger_company_name2").val() != "")
+    {
+        $("#desinger_company_name2").removeClass('form-control-solid');
+    }
+    if($("#desinger_email_2").val() != "")
+    {
+        $("#desinger_email_2").removeClass('form-control-solid');
+    }
             
 </script>
 

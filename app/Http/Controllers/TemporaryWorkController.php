@@ -1154,7 +1154,7 @@ class TemporaryWorkController extends Controller
     {
         $tempid = \Crypt::decrypt($request->id);
          if (isset($request->type)) {
-           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->latest()->get();
+           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
          }else{
              $permited = PermitLoad::where(['temporary_work_id' => $tempid])->latest()->get();
          }
@@ -1182,7 +1182,7 @@ class TemporaryWorkController extends Controller
                                       </button>
                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square"></span> Unload</a>
-                                        <a class="confirm dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="Are you sure?" when closing the permit">Close</a>
+                                        <a class="confirm dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '">Close</a>
                                       </div>
                                     </div>
                             ';

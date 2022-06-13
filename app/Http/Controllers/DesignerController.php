@@ -437,11 +437,11 @@ class DesignerController extends Controller
                     $rejectedmodel->updated_at=date('Y-m-d H:i:s');
                     $rejectedmodel->save();
                 }
-                $subject = 'Design Brief Approved ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                     $text = ' Welcome to the online i-works Web-Portal.  Attached for your attention is an APPROVED PDF design brief created for '. $tempworkdata->company .' Ltd. Relevant documents are included as links in the design brief.';
+                $subject = 'Design Brief Accepted ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+                     $text = "Welcome to the online i-works Web-Portal. \n Attached for your attention is an Accepted PDF design brief created for ". $tempworkdata->company ." Ltd. Relevant documents are included as links in the design brief.";
                
                 $notify_admins_msg = [
-                    'greeting' => 'Design Brief Approved',
+                    'greeting' => 'Design Brief Accepted',
                     'subject' => $subject,
                     'body' => [
                         'text' => $text,
@@ -485,7 +485,7 @@ class DesignerController extends Controller
                 }
                 
 
-                toastSuccess('Design Brief Approved Successfully!');
+                toastSuccess('Design Brief Accepted Successfully!');
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
@@ -519,9 +519,9 @@ class DesignerController extends Controller
                 $text = ' Welcome to the online i-works Web-Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
             } else {
-                $subject = 'Permit Load Approved';
-                $text = ' Welcome to the online i-works Web-Portal.Permit Load Approved by PC TWC.';
-                $msg = 'Permit Load Approved Successfully!';
+                $subject = 'Permit Load Accepted';
+                $text = ' Welcome to the online i-works Web-Portal.Permit Load Accepted by PC TWC.';
+                $msg = 'Permit Load Accepted Successfully!';
             }
             $notify_admins_msg = [
                 'greeting' => 'Permit Load Rejected',
@@ -877,10 +877,10 @@ class DesignerController extends Controller
             'action_url' => '',
         ];
         //for design brief approved
-        $subject = 'Design Brief Approved ' . $model->design_requirement_text . '-' .$model->twc_id_no;
-        $text = ' Welcome to the online i-works Web-Portal.Design Brief Approve by PC TWC.';
+        $subject = 'Design Brief Accepted ' . $model->design_requirement_text . '-' .$model->twc_id_no;
+        $text = ' Welcome to the online i-works Web-Portal.Design Brief Accepted by PC TWC.';
         $notify_admins_msgg = [
-                    'greeting' => 'Design Brief Approved',
+                    'greeting' => 'Design Brief Accepted',
                     'subject' => $subject,
                     'body' => [
                         'text' => $text,

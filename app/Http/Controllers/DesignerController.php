@@ -110,6 +110,7 @@ class DesignerController extends Controller
                     'subject' => $subject,
                     'body' => [
                         'text' => $text,
+                        'company'=>$tempworkdata->company,
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
@@ -444,6 +445,7 @@ class DesignerController extends Controller
                     'subject' => $subject,
                     'body' => [
                         'text' => $text,
+                        'company'=>$tempworkdata->company,
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'designer' => '',
@@ -785,6 +787,7 @@ class DesignerController extends Controller
                     'subject' => $subject,
                     'body' => [
                         'text' => $text,
+                        'company'=>$tempworkdata->company,
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
@@ -881,6 +884,7 @@ class DesignerController extends Controller
                     'subject' => $subject,
                     'body' => [
                         'text' => $text,
+                         'company' => $model->company,
                         'filename' => $model->ped_url,
                         'links' =>  '',
                         'designer' => '',

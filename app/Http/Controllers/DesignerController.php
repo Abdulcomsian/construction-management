@@ -144,7 +144,7 @@ class DesignerController extends Controller
         $path = config('app.url');
         
         if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')) {
-                $registerupload= TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->orWhere('created_by','hani.thaher@gmail.com')->get();
+                $registerupload= TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->orWhere(['created_by'=>'hani.thaher@gmail.com','temporary_work_id' => $tempworkid,'file_type' => 1])->get();
                if($registerupload)
                 {
                     $list.="<h3>TWC Uploaded</h3>";            

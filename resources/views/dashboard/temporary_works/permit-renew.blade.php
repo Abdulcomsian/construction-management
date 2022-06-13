@@ -267,7 +267,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                             <span class="required">Drawing title :</span>
+                                             <span class="required">Drawing Title :</span>
                                         </label>
                                          <input  type="text" class="form-control form-control-solid" placeholder="Drawing Title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}" required>
                                     </div>
@@ -287,7 +287,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">MS/RA Number</span>
                                     </label>
-                                     <input  type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" name="ms_ra_no" value="{{old('ms_ra_no',$permitdata->ms_ra_no ?? '')}}">
+                                     <input  type="text" class="form-control form-control-solid" placeholder="MS/RA Number" name="ms_ra_no" value="{{old('ms_ra_no',$permitdata->ms_ra_no ?? '')}}">
                                 </div>
                             </div>
                             </div>
@@ -297,9 +297,9 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Location of the Temporary Works (Area):
+                                        Location of the temporary works
                                     </label>
-                                    <textarea class="form-control" name="location_temp_work" rows="2"  style="width:100%;" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work',$permitdata->location_temp_work ?? '')}}</textarea>
+                                    <textarea class="form-control" name="location_temp_work" rows="2"  style="width:100%;" placeholder=" Location of the temporary works">{{old('location_temp_work',$permitdata->location_temp_work ?? '')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">

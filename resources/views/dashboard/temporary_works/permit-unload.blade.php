@@ -260,9 +260,9 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Location of the temporary works: [ Location of the temporary works ]
+                                        Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -280,7 +280,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">MS / RA Number:</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             <h5 style="color: #000">Permit to unload/Strike</h5>

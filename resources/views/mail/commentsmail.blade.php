@@ -44,9 +44,8 @@
                                                                         <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">View Reply</a>
                                                                         @endif
                                                                     </p>
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards<br>
-                                                                          i-Works Team<br>
-                                                                          If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards <br>i-Works Team<br>
+                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
                                                                    </p>
                                                                 </span>
                                                             </td>

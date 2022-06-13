@@ -44,7 +44,7 @@
                                                                         Regards<br>
                                                                         i-Works Team<br>
                                                                         <br>
-                                                                        If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk
+                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
                                                                    </p>
                                                                 </span>
                                                             </td>

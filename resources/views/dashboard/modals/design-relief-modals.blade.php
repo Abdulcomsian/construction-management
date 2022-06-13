@@ -87,7 +87,7 @@
                                 <li>Crash Decks</li>
                                 <li>Metal Decking & Back Propping</li>
                                 <li>Screen Protection</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="Other (please specify)"></li>
+                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="Other (please specify)"></li>
                             </ul>
                             <!-- **************** Equipment and Plant **************  -->
                             <ul class="d-none Equipment">
@@ -104,7 +104,7 @@
                                 <li>Canti Deck</li>
                                 <li>Soil Bases</li>
                                 <li>Lifting / Handling Devices</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Site Establishment **************  -->
                             <ul class="d-none Establishment">
@@ -120,7 +120,7 @@
                                 <li>Precast Facilities</li>
                                 <li>Wheel Wash Base</li>
                                 <li>Permanent Works</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Access / Scaffolding **************  -->
                             <ul class="d-none Scaffolding">
@@ -135,7 +135,7 @@
                                 <li>Suspension System</li>
                                 <li>Pontoon</li>
                                 <li>Protection Shield (to cover railway while working with crane above)</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Structure **************  -->
                             <ul class="d-none Structure">
@@ -146,7 +146,7 @@
                                 <li>Working Platform</li>
                                 <li>Formwork</li>
                                 <li>Falsework</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Structural Stability **************  -->
                             <ul class="d-none Stability">
@@ -159,13 +159,13 @@
                                 <li>Facade System</li>
                                 <li>Party Wall Propping</li>
                                 <li>Butresses</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                             <!-- **************** Permanent Works **************  -->
                             <ul class="d-none Permanent">
                                 <li>Partial / Permanent Support Conditions</li>
                                 <li>Demolition</li>
-                                <li><input class="otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>
                         </div>
                     </div>

@@ -36,7 +36,7 @@
                                                                    </p>
                                                                    @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        If you have any questions about this brief, please refer to Company.<br><br>
+                                                                        If you have any questions about this brief, please refer to  {{$details['body']['company'] ?? ''}} Company.<br><br>
                                                                         Thank you for your attention.<br><br>
                                                                         Regards<br>i-Works Team<br>
                                                                         <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>

@@ -144,7 +144,7 @@ class DesignerController extends Controller
         $path = config('app.url');
         
         if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')) {
-                $registerupload= TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->get();
+                $registerupload= TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>auth()->user()->email])->orWhere('created_by','hani.thaher@gmail.com')->get();
                if($registerupload)
                 {
                     $list.="<h3>TWC Uploaded</h3>";            
@@ -243,6 +243,8 @@ class DesignerController extends Controller
                     $list .= '</tbody></table>';
                 }
         }
+
+        
         for($j=0;$j<count($designearray);$j++)
         {
             $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->get();            

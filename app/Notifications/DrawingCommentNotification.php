@@ -49,7 +49,7 @@ class DrawingCommentNotification extends Notification
     public function toMail($notifiable)
     {
         $tempdata='';
-        if($tempid)
+        if($this->tempid)
         {
         $tempdata=TemporaryWork::find($this->tempid);
         }

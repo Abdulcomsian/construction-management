@@ -349,12 +349,12 @@
                         <div class="d-flex inputDiv">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span class="required">Principle Contractor approved required?</span>
+                                <span class="required">Principle Contractor approval required?</span>
 
                             </label>
 
                             <!--begin::Radio group-->
-                            <div class="nav-group nav-group-fluid d-none">
+                            <div class="nav-group nav-group-fluid">
                                 <label>
                                     <input type="radio" class="btn-check" name="principle_contractor" value="1" @if(isset($permitdata) && $permitdata->principle_contractor==1){{'checked'}}@endif/>
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>

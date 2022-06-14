@@ -139,7 +139,7 @@
                         <td style="font-size:12px;">Y</td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Loading / use limitations understood (e.g. rate of pour, sequence of loading, access/plant loading).
+                        <td style="font-size:12px;">Loading / use limitations understood(e.g. rate of pour, sequence of loading, access/plant loading)
                         </td>
                         <td style="font-size:12px;">Y</td>
                     </tr>
@@ -172,7 +172,7 @@
                         </td>
                     </tr>
                     <tr>
-                            <td style="font-size:12px;">Principal Contractor Approval required</td>
+                            <td style="font-size:12px;">Approval by TWC required?</td>
                             <td style="font-size:12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
                 </tbody>

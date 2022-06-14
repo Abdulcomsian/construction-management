@@ -293,7 +293,7 @@
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
-                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Work Registers
+                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Works Registers
                         <span class="d-block text-muted pt-25 font-size-sm"></span>
                      </h3>
                   </div>

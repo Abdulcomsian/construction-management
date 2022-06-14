@@ -101,7 +101,7 @@
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
                             <a class="menu-link" href="{{ route('temporary_works.index') }}">
-                                <span class="menu-title">Temporary Work Register</span>
+                                <span class="menu-title">Temporary Works Register</span>
                             </a>
                         </div>
                          <div class="menu-item">

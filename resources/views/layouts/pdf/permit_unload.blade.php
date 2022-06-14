@@ -37,52 +37,52 @@
             <table>
                 <tbody>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Project
                                     Name</b> </label>
                         </td>
-                        <td style="width: 200px; font-size: 12px;"> {{$data['projname']}}</td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px; font-size: 12px;"> {{$data['projname']}}</td>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Date</b> </label>
                         </td>
-                        <td style="width: 200px;font-size: 12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
+                        <td style="width: 150px;font-size: 12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
                                 <b style="font-size: 12px;"> Project No </b> </label>
                         </td>
-                        <td style="width: 200px;font-size: 12px;"> {{$data['projno']}}</td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;font-size: 12px;"> {{$data['projno']}}</td>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Permit No </b><label>
                         </td>
-                        <td style="width: 200px;font-size: 12px;"> {{$data['permit_no']}}</td>
+                        <td style="width: 150px;font-size: 12px;"> {{$data['permit_no']}}</td>
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Drawing No</b> </label>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Drawing No</b> </label>
                         </td>
-                        <td style="width: 200px;font-size: 12px;"> {{$data['drawing_no']}}</td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;font-size: 12px;"> {{$data['drawing_no']}}</td>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Drawing Title </b></label>
                         </td>
-                        <td style="width: 200px;font-size: 12px;"> {{$data['drawing_title']}}</td>
+                        <td style="width: 150px;font-size: 12px;"> {{$data['drawing_title']}}</td>
                     </tr>
 
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">TWC Name</b> </label>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">TWC Name</b> </label>
                         </td>
-                        <td style="width: 200px;font-size: 12px;"> {{$data['twc_name']}}</td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;font-size: 12px;"> {{$data['twc_name']}}</td>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     TWS Name </b></label>
                         </td>
-                        <td style="width: 200px;font-size: 12px;"> {{$data['tws_name']}}</td>
+                        <td style="width: 150px;font-size: 12px;"> {{$data['tws_name']}}</td>
                     </tr>
 
                 </tbody>

@@ -253,7 +253,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Permit Number :</span>
+                                            <span class="required">Permit No :</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>

@@ -342,12 +342,7 @@ class TemporaryWorkController extends Controller
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
-                //changing email history
-                $cmh= new ChangeEmailHistory();
-                $cmh->email=$request->pc_twc_email;
-                $cmh->type ='Design Brief';
-                $cmh->foreign_idd=$temporary_work->id;
-                $cmh->save();
+                
 
                 //work for upload images here
                 $image_links = [];
@@ -379,6 +374,13 @@ class TemporaryWorkController extends Controller
                         'pdf_url' => $filename,
                         'email' => Auth::user()->email,
                     ]);
+
+                    //changing email history
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->pc_twc_email;
+                    $cmh->type ='Design Brief';
+                    $cmh->foreign_idd=$temporary_work->id;
+                    $cmh->save();
                 }
                 //send mail to admin
                 $notify_admins_msg = [
@@ -713,7 +715,7 @@ class TemporaryWorkController extends Controller
     public function temp_savecomment(Request $request)
     {
         Validations::storeComment($request);
-        try {
+        // try {
             //get twc email
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
@@ -733,17 +735,21 @@ class TemporaryWorkController extends Controller
             }
             if (isset($request->type) && $request->type == 'twc') {
                 $model->type = 'twc';
+                $twc="twc";
             }
             if ($model->save()) {
-                Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id));
+                if(!isset($twc))
+                {
+                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id,'',$request->type ?? ''));
+                 }
 
                 toastSuccess('Comment submitted successfully');
                 return Redirect::back();
             }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again');
+        //     return Redirect::back();
+        // }
     }
 
     public function temp_savecommentreplay(Request $request)
@@ -844,11 +850,6 @@ class TemporaryWorkController extends Controller
     //get commetns
     public function get_comments(Request $request)
     {
-        // if (isset($request->id)) {
-        //     $commetns = TemporaryWorkComment::where(['user_id' => $request->id, 'temporary_work_id' => $request->temporary_work_id])->get();
-        // } else {
-        // $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
-        // }
         $table = '';
         $path = config('app.url');
         if ($request->type == 'normal') {
@@ -976,10 +977,9 @@ class TemporaryWorkController extends Controller
             }
 
             $table .= '</tbody></table>';
-            echo $table;
-        } else {
-            echo '';
-        }
+            
+        } 
+        echo $table;
     }
     //get file dates upload 
     public function file_upload_dates(Request $request)
@@ -1113,11 +1113,11 @@ class TemporaryWorkController extends Controller
             if ($permitload) {
                 //make status 0 if permit is 
 
-                $msg = " Attached in the i-Works web portal for your attention is a PDF permit to load which has been renewed created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
+                $msg = " Attached in the i-Works web portal for your attention is a PDF permit to load which has been created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                 $message = "Load";
                 if (isset($request->type)) {
                     PermitLoad::find($request->permitid)->update(['status' => 0]);
-                    $msg = "Attached in the i-Works web portal for your attention is a PDF permit to load created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
+                    $msg = "Attached in the i-Works web portal for your attention is a PDF permit to load Renew by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                     $message = "Renew";
                 }
 
@@ -1203,8 +1203,8 @@ class TemporaryWorkController extends Controller
                                         Action
                                       </button>
                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."></span> Unload</a>
-                                        <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '">Close</a>
+                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
+                                        <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?">Close</a>
                                       </div>
                                     </div>
                             ';
@@ -1694,7 +1694,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Scaffolding Pdf',
                     'subject' => $request->drawing_title . '-' . $request->permit_no,
                     'body' => [
-                        'text' => 'Thank you for completing a Scaffolding Permit to Load for'.$design_requirement_text->company.' Ltd in the i-Works web portal.',
+                        'text' => 'Thank you for completing a Scaffolding Permit to Load for '.$design_requirement_text->company.' Ltd in the i-Works web portal.',
                         'filename' => $filename,
                         'links' =>  '',
                         'name' => 'scaffold',

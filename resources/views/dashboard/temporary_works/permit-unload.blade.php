@@ -271,7 +271,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of structure: [ Description of structure ]
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -283,7 +283,7 @@
                                     <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
-                            <h5 style="color: #000">Permit to unload/Strike</h5>
+                            <h5 style="color: #000">Permit to Unload / Strike</h5>
                             <br>
                             <p style="color: #000;">1. Permanent works support by this temporary works have gained sufficient strength to support the loading or use requirement. (See concrete cube results and other PW design requirements below, if applicable.)
                                 <br>
@@ -374,7 +374,7 @@
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name::</span>
+                                                <span class="required">Name:</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Name"  id="name1" name="name1" value="{{old('name1',$permitdata->name1 ?? '')}}">

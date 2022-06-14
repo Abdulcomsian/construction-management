@@ -308,7 +308,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of Structure which is ready for use:
                                     </label>
-                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%;" placeholder="Description of Structure which is ready for use:">{{old('description_structure',$permitdata->description_structure ?? '')}}</textarea>
+                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%;" placeholder="Description of structure:">{{old('description_structure',$permitdata->description_structure ?? '')}}</textarea>
                                 </div>
                             </div>
                             

@@ -2,10 +2,11 @@
 <script>
     $(function () {
         //Delete Confirmation
-        $(document).on("click",".confirm",function(event) {
+        $(document).on("click",".confirm1",function(event) {
             event.preventDefault();
             let form_id = '';
             let link = '';
+             var text='';
             if($(event.target).is('button')){
                 console.log('Button clicked');
                 form_id = '#form_'+ $(this).attr('id');
@@ -23,13 +24,14 @@
 
             }else{
                 link = $(this).attr('href');
+                text=$(this).attr('data-text');
             }
             if($(this).hasClass('unload'))
             {
                 $("#permit_modal_id").hide();
             }
-            var text=$(this).attr('data-text');
-            if(!text)
+            
+            if(text=='')
             {
                 text="Are you sure? to Delete it.";
             }
@@ -44,11 +46,12 @@
                     //closeOnCancel: false
                 },
                 function(){
-                    swal("Deleted!", "Record has been deleted!", "success");
+                    
                     if (link){
                         window.location = link;
                     }
                     if (form_id){
+                        swal("Deleted!", "Record has been deleted!", "success");
                         $(form_id).submit();
                     }
                 });

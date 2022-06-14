@@ -1181,8 +1181,8 @@ class TemporaryWorkController extends Controller
                                         Action
                                       </button>
                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square"></span> Unload</a>
-                                        <a class="confirm dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '">Close</a>
+                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."></span> Unload</a>
+                                        <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '">Close</a>
                                       </div>
                                     </div>
                             ';
@@ -1227,7 +1227,7 @@ class TemporaryWorkController extends Controller
                 if ($permit->status == 1) {
                     $status = "Open";
                     if ($request->type == "unload") {
-                        $button = '<a  style="    height: 50px;line-height: 15px;" class="confirm unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."><span class="fa fa-plus-square"></span> Unload</a>';
+                        $button = '<a  style="    height: 50px;line-height: 15px;" class="confirm1 unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."><span class="fa fa-plus-square"></span> Unload</a>';
                     } else {
                         $button = '<a  style="    height: 50px;line-height: 15px;" class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }

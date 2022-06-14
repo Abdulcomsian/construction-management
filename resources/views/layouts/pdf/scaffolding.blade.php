@@ -960,7 +960,7 @@
                <tr>
                   <td style="width:30%;background:gray;color:white;">
                      <label style="border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;">
-                        <b style="font-size: 12px;"> Some missing?
+                        <b style="font-size: 12px;"> Any missing?
                         </b>
                      </label>
                   </td>

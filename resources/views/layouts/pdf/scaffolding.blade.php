@@ -36,7 +36,7 @@
             <h3>Scaffolding Inspection Permit to Load</h3>
             @endif
             <br>
-            <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$design_requirement_text->design_requirement_text}}</p>
+            <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$design_requirement_text}}</p>
             </div>
             <div class="logo" style="float:right;width:20%;">
                 @php

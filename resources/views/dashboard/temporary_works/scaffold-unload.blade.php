@@ -270,9 +270,9 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
-                                        Location of the Temporary Works (Area):
+                                         Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{$scaffolddata->location_temp_work ?? ''}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works:">{{$scaffolddata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">

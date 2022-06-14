@@ -553,7 +553,20 @@ height: 72px;
                                     <!--end::Label-->
                                     <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
-                                 <div class="d-flex inputDiv">
+                                 
+
+                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Signature:</span>
+                                    </label>
+                                    <br/>
+                                    <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
+                                    <br/>
+                                   <textarea id="signature" name="signed" style="display: none"></textarea>
+                                   <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                   
+                                </div>
+                                <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
                                         <span>Type Signature:</span>
@@ -581,18 +594,6 @@ height: 72px;
                                         <span class="required">Name Signature:</span>
                                     </label>
                                     <input type="text" name="namesign" class="form-control form-control-solid">
-                                </div>
-
-                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Signature:</span>
-                                    </label>
-                                    <br/>
-                                    <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
-                                    <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
-                                   <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                   
                                 </div>
                                 <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

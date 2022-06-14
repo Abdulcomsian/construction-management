@@ -262,7 +262,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing title :</span>
+                                            <span class="required">Drawing Title :</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}" required>
                                     </div>
@@ -282,7 +282,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>MS/RA Number</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
+                                        <input type="text" class="form-control form-control-solid" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
                                         <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
                                     </div>
                                 </div>
@@ -295,7 +295,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works:
                                     </label>
-                                    <textarea class="form-control" name="location_temp_work" rows="2" style="width:100%" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
+                                    <textarea class="form-control" name="location_temp_work" rows="2" style="width:100%" placeholder="Location of the Temporary Works:">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -304,7 +304,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of structure ready for use:
                                     </label>
-                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
+                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%" placeholder="Description of structure:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
                             <!-- <div class="d-flex inputDiv">
@@ -339,7 +339,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, etc</span>
+                                    <span class="required">Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, etc)</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -429,7 +429,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Approval by TWC required?</span>
+                                    <span class="required">Other criteria?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -671,7 +671,7 @@
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Name::</span>
+                                                    <span class="required">Name:</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name',  Auth::user()->name ?? '')}}">

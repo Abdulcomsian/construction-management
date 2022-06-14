@@ -251,10 +251,10 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">TWD Name:</span>
+                                                <span class="required">Designer Name:</span>
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="TWD Name" id="twd_name" name="twd_name" value="{{old('twd_name')}}" required>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Designer Name" id="twd_name" name="twd_name" value="{{old('twd_name')}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -295,13 +295,13 @@
                                        <div class="form-check" style="padding-top:26px">
                                           <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
                                           <label class="form-check-label" for="exampleRadios1">
-                                            Preliminary / For approval
+                                            Preliminary / For Approval
                                           </label>
                                         </div>
                                         <div class="form-check" style="padding-top:26px">
                                           <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="2">
                                           <label class="form-check-label" for="exampleRadios2">
-                                            For construction
+                                            For Construction
                                           </label>
                                         </div>
                                         

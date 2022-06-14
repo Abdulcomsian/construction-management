@@ -300,9 +300,9 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:50%">
-                                        Location of the Temporary Works (Area):
+                                         Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" class="form-control" style="width:100%" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" class="form-control" style="width:100%" placeholder=" Location of the temporary works">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">

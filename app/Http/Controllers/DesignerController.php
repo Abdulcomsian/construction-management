@@ -398,7 +398,7 @@ class DesignerController extends Controller
                     $rejectedmodel->save();
 
                     $subject = 'Design Brief Rejected ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                    $text = ' Thank you for submitting your design brief to the i-Works web portal.  Your design brief has been REJECTED by PC TWC. Please select the link below to amend your submission.';
+                    $text = ' Your design brief has been REJECTED by PC TWC. Please select the link below to amend your submission.';
                     $notify_admins_msg = [
                         'greeting' => 'Design Brief Rejected',
                         'subject' => $subject,
@@ -438,7 +438,7 @@ class DesignerController extends Controller
                     $rejectedmodel->save();
                 }
                 $subject = 'Design Brief Accepted ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                     $text = "Welcome to the online i-works Web-Portal. \n Attached for your attention is an Accepted PDF design brief created for ". $tempworkdata->company ." Ltd. Relevant documents are included as links in the design brief.";
+                     $text = " Attached for your attention is an Accepted PDF design brief created for ". $tempworkdata->company ." Ltd. Relevant documents are included as links in the design brief.";
                
                 $notify_admins_msg = [
                     'greeting' => 'Design Brief Accepted',

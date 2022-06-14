@@ -53,7 +53,13 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{ date('d-m-Y',strtotime($data['design_required_by_date']))}}</td>
                     </tr>
-                    <tr style="height: 150px;">
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project Address</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['projaddress'] ?? ''}}</td>
+                    </tr>
+                   <!--  <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project Address</b></label>
                         </td>
@@ -62,7 +68,7 @@
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWC Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['twc_email']}}</td>
-                    </tr>
+                    </tr> -->
                     <tr style="height: 150px;">
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Company<br>Name</b></label>
@@ -105,10 +111,10 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['twc_name']}}</td>
                         <td style="width: 150px;background:gray;color:white">
-                            <!-- <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWc Email Address</b></label> -->
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWc Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;">
-                            <!-- {{$data['twc_email']}} -->
+                            {{$data['twc_email']}}
                         </td>
                     </tr>
                     <tr style="height: 150px;">
@@ -141,7 +147,7 @@
             <table>
                 <thead style="background:gray;color:white">
                     <tr>
-                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Scope of Design Output Required From TW Engineer
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Required from Temporary Works Designer 
                             DESIGNER</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Y</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">N</td>

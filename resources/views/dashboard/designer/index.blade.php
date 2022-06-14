@@ -357,12 +357,12 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Drawing Number</th>
+                                <th>Drawing No</th>
                                 <th>Comments</th>
                                 <th>TWD Name</th>
                                 <th>Drawing Title</th>
-                                <th>Preliminary/ For approval</th>
-                                <th>For construction</th>
+                                <th>Preliminary / For Approval</th>
+                                <th>For Construction</th>
                                 <th></th>
                             </tr>
                         </thead>

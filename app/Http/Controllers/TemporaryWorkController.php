@@ -949,7 +949,7 @@ class TemporaryWorkController extends Controller
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
-                                   <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left"></textarea>
+                                   <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left" placeholder="Add comment here..."></textarea>
                                     <div class="submmitBtnDiv">
                                         <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
                                         <input type="hidden" name="commentid" value="' . $comment->id . '"/>
@@ -1047,13 +1047,14 @@ class TemporaryWorkController extends Controller
 
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
                 $all_inputs['name1'] = $request->name1;
                 $all_inputs['job_title1'] = $request->job_title1;
+                //old work =================================================
                 if ($request->signtype1 == 1) {
                     $all_inputs['signature1'] = $request->namesign1;
                 } else {
@@ -1072,6 +1073,27 @@ class TemporaryWorkController extends Controller
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+                $all_inputs['signature'] = $image_name;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+               $all_inputs['signature'] = $image_name;
+            }
+            //old work
+            /*if ($request->signtype == 1) {
+                $all_inputs['signature'] = $request->namesign;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -1082,7 +1104,7 @@ class TemporaryWorkController extends Controller
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature'] = $image_name;
-            }
+            }*/
             $all_inputs['created_by'] = auth()->user()->id;
             if (isset($request->approval)) {
                 $all_inputs['status'] = 2;
@@ -1409,7 +1431,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if (isset($request->signtype1)) {
@@ -1431,6 +1453,13 @@ class TemporaryWorkController extends Controller
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+                $all_inputs['signature'] = $image_name;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -1440,8 +1469,21 @@ class TemporaryWorkController extends Controller
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
-                $all_inputs['signature'] = $image_name;
+               $all_inputs['signature'] = $image_name;
             }
+            // if ($request->signtype == 1) {
+            //     $all_inputs['signature'] = $request->namesign;
+            // } else {
+            //     $folderPath = public_path('temporary/signature/');
+            //     $image = explode(";base64,", $request->signed);
+            //     $image_type = explode("image/", $image[0]);
+            //     $image_type_png = $image_type[1];
+            //     $image_base64 = base64_decode($image[1]);
+            //     $image_name = uniqid() . '.' . $image_type_png;
+            //     $file = $folderPath . $image_name;
+            //     file_put_contents($file, $image_base64);
+            //     $all_inputs['signature'] = $image_name;
+            // }
             $all_inputs['status'] = 3;
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
@@ -1578,6 +1620,13 @@ class TemporaryWorkController extends Controller
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+                $all_inputs['signature'] = $image_name;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -1587,8 +1636,21 @@ class TemporaryWorkController extends Controller
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
-                $all_inputs['signature'] = $image_name;
+               $all_inputs['signature'] = $image_name;
             }
+            // if ($request->signtype == 1) {
+            //     $all_inputs['signature'] = $request->namesign;
+            // } else {
+            //     $folderPath = public_path('temporary/signature/');
+            //     $image = explode(";base64,", $request->signed);
+            //     $image_type = explode("image/", $image[0]);
+            //     $image_type_png = $image_type[1];
+            //     $image_base64 = base64_decode($image[1]);
+            //     $image_name = uniqid() . '.' . $image_type_png;
+            //     $file = $folderPath . $image_name;
+            //     file_put_contents($file, $image_base64);
+            //     $all_inputs['signature'] = $image_name;
+            // }
 
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['type'] = 'load';

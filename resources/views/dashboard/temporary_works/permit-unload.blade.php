@@ -468,7 +468,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="d-flex inputDiv" >
+                                        <!-- <div class="d-flex inputDiv" >
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                 <span class="required">Name/signature:</span>
                                             </label>
@@ -481,29 +481,64 @@
                                                 <span class="required">Name Signature:</span>
                                             </label>
                                             <input type="text" name="namesign" class="form-control form-control-solid">
+                                        </div> -->
+                                        <div class="d-flex inputDiv">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:32% !important">
+                                                    <span>Type Signature:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                 <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                                  <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                                 <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
+                                                 &nbsp;
+                                                  <!--end::Label-->
+                                                 <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
+                                                  <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                                 <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
+
+                                            </div>
+                                            <div class="inputDiv d-none" id="pdfsign">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Upload Signature:</span>
+                                                </label>
+                                                <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                            </div>
+                                            
+                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Name Signature:</span>
+                                                </label>
+                                                <input type="text" name="namesign" class="form-control form-control-solid">
+                                            </div>
+                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Name Signature:</span>
+                                                </label>
+                                                <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                         </div>
                                         <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="signatureDiv">
-                                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                    <span class="required">Signature:</span>
-                                                                </label>
-                                                                <br />
-                                                                <canvas id="sig" ></canvas>
-                                                        </div>
+                                            <div class="col-md-8">
+                                                <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                    <div class="signatureDiv">
+                                                        <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span class="required">Signature:</span>
+                                                            </label>
+                                                            <br />
+                                                            <canvas id="sig" ></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                    <div class="uploadingDiv">
+                                                    <div class="uploadDiv" style="padding-left: 10px;">
+                                                            <div class="input-images"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        
                                         <!-- <div class="d-flex inputDiv principleno" id="sign">
                                             <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
@@ -585,22 +620,79 @@
     })
 
 
-    $("#flexCheckChecked").change(function() {
-        if ($(this).is(':checked')) {
-            $("#signtype").val(1);
-            $("#namesign").addClass('d-flex').show();
-            $("input[name='namesign']").attr('required', 'required');
-            $("#signature").removeAttr('required');
-            $("#sign").removeClass('d-flex').hide();
+    // $("#flexCheckChecked").change(function() {
+    //     if ($(this).is(':checked')) {
+    //         $("#signtype").val(1);
+    //         $("#namesign").addClass('d-flex').show();
+    //         $("input[name='namesign']").attr('required', 'required');
+    //         $("#signature").removeAttr('required');
+    //         $("#sign").removeClass('d-flex').hide();
 
-        } else {
-            $("#signtype").val(0);
+    //     } else {
+    //         $("#signtype").val(0);
+    //         $("#sign").addClass('d-flex').show();
+    //         $("#namesign").removeClass('d-flex').hide();
+    //         $("input[name='namesign']").removeAttr('required');
+    //         $("#signature").attr('required', 'required');
+    //     }
+    // })
+    $("#flexCheckChecked").change(function(){
+        alert();
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#signtype").val(1);
+             $("#pdfsign").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+             $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required','required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(2);
             $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
-            $("#signature").attr('required', 'required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
         }
     })
+
+    $("#pdfChecked").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#flexCheckChecked").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
+        }
+    })
+
+
     $('#drawing_no').change(function() {
         $('#drawing_no').css("background-color", "#f5f8fa ");
      });

@@ -1632,7 +1632,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Scaffolding Pdf',
                     'subject' => $request->drawing_title . '-' . $request->permit_no,
                     'body' => [
-                        'text' => 'Thank you for completing a Scaffolding Permit to Load for '.$design_requirement_text->company.' Ltd in the i-Works web portal. A PDF copy of the permit is attached. ',
+                        'text' => 'Thank you for completing a Scaffolding Permit to Load for'.$design_requirement_text->company.' Ltd in the i-Works web portal.',
                         'filename' => $filename,
                         'links' =>  '',
                         'name' => 'scaffold',

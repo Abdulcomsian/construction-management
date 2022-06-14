@@ -98,6 +98,7 @@ class HelperFunctions
     public function check_date($desingdate, $array)
     {
         $blinkclass=" ";
+        $class="";
         if (!isset($array[0])) {
             $current =  \Carbon\Carbon::now();
             $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
@@ -108,7 +109,7 @@ class HelperFunctions
                 $blinkclass="redBgBlink ";
             } elseif ($diff_in_days >= 7) {
                 $class = "background:green;color:black";
-            } elseif ($diff_in_days <= 7 && $diff_in_days >= 1) {
+            } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
                 $class = "background:yellow;color:black";
             }
             return array($class,$blinkclass);

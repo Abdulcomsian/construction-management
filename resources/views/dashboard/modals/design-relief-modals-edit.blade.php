@@ -51,7 +51,7 @@
                             <ul class="d-none Excavation">
 
                                 <li data-id="Trench">Trench Sheeting</li>
-                                <li data-id="Manhole">Manhold / Trench Boxes</li>
+                                <li data-id="Manhole">Manhole / Trench Boxes</li>
                                 <li data-id="Cofferdams">Cofferdams</li>
                                 <li data-id="Excavation">Excavation Shoring System</li>
                                 <li data-id="Capping">Capping Beam Support</li>

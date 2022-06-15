@@ -631,11 +631,13 @@ height: 72px;
         let project = projects.filter(function(p) {
             return p.id == id;
         });
+        console.log(project[0].address);
+        address=project[0].address.replace(/\n/g,',');
         if (project) {
             $('#no').val('').val(project[0].no);
             $('#name').val('').val(project[0].name);
             $('#date').val('').val(project[0].created_at);
-            $('#address').val('').val(project[0].address ? project[0].address : 'Not Set');
+            $('#address').val('').val(address ? address : 'Not Set');
             $("#companyadmin").val(project[0].company.name);
             $("#company_id").val(project[0].company.id);
             $.ajax({

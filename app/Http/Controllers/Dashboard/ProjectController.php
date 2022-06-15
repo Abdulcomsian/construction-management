@@ -37,9 +37,11 @@ class ProjectController extends Controller
         $user = auth()->user();
         abort_if(!$user->hasAnyRole(['admin', 'company', 'user']), 403);
         try {
+             $data = Project::latest()->get();
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
                     $data = Project::latest()->get();
+
                 } elseif ($user->hasRole('company')) {
                     $data = Project::where('company_id', $user->id)->get();
                 } else {
@@ -48,6 +50,7 @@ class ProjectController extends Controller
                         ->where('users_has_projects.user_id', auth()->user()->id)
                         ->get();
                 }
+
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->editColumn('address', function ($data) {
@@ -349,13 +352,8 @@ class ProjectController extends Controller
                   ->join('users_has_projects','users.id','=','users_has_projects.user_id')
                   ->where(['users.company_id'=>$companyid,'users_has_projects.project_id'=>$projectid,'user_id'=>$user->id])
                   ->first();
-        if($userdata->email)
-        {
-              return $userdata->email;
-        }
-        else{
-            return '';
-        }
+       
+              return $userdata->email ?? '';
         
     }
 

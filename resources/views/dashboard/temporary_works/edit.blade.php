@@ -264,7 +264,7 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email',$temporaryWork->designer_company_email)}}"  required>
+                                    <input type="email" class="form-control @if(!$temporaryWork->designer_company_email) form-control-solid @endif" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email',$temporaryWork->designer_company_email)}}"  required>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -291,7 +291,7 @@ height: 72px;
                                         <span class="required">Design Checker Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2',$temporaryWork->desinger_company_name2)}}">
+                                    <input type="text" class="form-control @if(!$temporaryWork->desinger_company_name2) form-control-solid @endif" placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2',$temporaryWork->desinger_company_name2)}}">
                                 </div>
                                  <div class="inputDiv {{$temporaryWork->tw_category==3 ?'d-flex':'d-none'}} desinger_company_name2">
                                     <!--begin::Label-->
@@ -299,7 +299,7 @@ height: 72px;
                                         <span class="required">Design Checker Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2',$temporaryWork->desinger_email_2)}}">
+                                    <input type="text" class="form-control @if(!$temporaryWork->desinger_email_2) form-control-solid @endif " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2',$temporaryWork->desinger_email_2)}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -394,7 +394,7 @@ height: 72px;
                                         <span>PC TWC Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email',$temporaryWork->pc_twc_email ?? '')}}">
+                                     <input  type="email" class="form-control @if(!$temporaryWork->pc_twc_email) form-control-solid @endif" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email',$temporaryWork->pc_twc_email ?? '')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -708,14 +708,9 @@ height: 72px;
             }
         });
   
-
-    if($("#designer_company_name").val() != "")
+    if($("#designer_company_name").val()!="")
     {
         $("#designer_company_name").removeClass('form-control-solid');
-    }
-    if($("#designer_company_email").val() != "")
-    {
-        $("#designer_company_email").removeClass('form-control-solid');
     }
     if($("#desinger_company_name2").val() != "")
     {
@@ -725,6 +720,7 @@ height: 72px;
     {
         $("#desinger_email_2").removeClass('form-control-solid');
     }
+   
             
 </script>
 

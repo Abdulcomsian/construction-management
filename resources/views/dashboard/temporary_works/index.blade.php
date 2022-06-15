@@ -136,7 +136,7 @@
    padding: 15px 0px;
    }
    .card {
-   margin: 30px 0px;
+   margin: 9px 0px;
    border-radius: 10px;
    }
    .toolbar-fixed .toolbar {
@@ -293,7 +293,7 @@
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
-                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Work Registers
+                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Works Registers
                         <span class="d-block text-muted pt-25 font-size-sm"></span>
                      </h3>
                   </div>
@@ -379,7 +379,7 @@
                <!--end::Card header-->
                <!--begin::Card body-->
                <div class="card-body indexTempory pt-0">
-                  <div class="mb-7">
+                  <div class="mb-2">
                      <div class="row align-items-center">
                         <div class="col-lg-9 col-xl-8">
                            <div class="row align-items-center">

@@ -72,7 +72,7 @@ class ProjectController extends Controller
                                     <form method="POST" action="' . route('projects.destroy', $data->id) . '"  id="form_' . $data->id . '" >
                                         ' . method_field('Delete') . csrf_field() . '
 
-                                        <button type="submit" id="' . $data->id . '" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                        <button type="submit" id="' . $data->id . '" class="confirm1 btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                             <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
                                           <i class="fa fa-trash" aria-hidden="true"></i>
                                             <!--end::Svg Icon-->
@@ -342,15 +342,16 @@ class ProjectController extends Controller
 
     public function project_twc_get(Request $request)
     {
+        $user = auth()->user();
         $projectid=$request->id;
         $companyid=$request->compayid;
         $userdata=DB::table('users')
                   ->join('users_has_projects','users.id','=','users_has_projects.user_id')
-                  ->where(['users.company_id'=>$companyid,'users_has_projects.project_id'=>$projectid])
+                  ->where(['users.company_id'=>$companyid,'users_has_projects.project_id'=>$projectid,'user_id'=>$user->id])
                   ->first();
         if($userdata->email)
         {
-            return $userdata->email;
+              return $userdata->email;
         }
         else{
             return '';

@@ -37,71 +37,71 @@
             <table>
                 <tbody>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 5px 10px; padding: 5px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 5px 10px; padding: 5px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Project
                                     Name</b>
                             </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['projname']}}</span></td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 10px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 10px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Project No </b> </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['projno']}}</span></td>
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;">
                                 <b style="font-size: 12px;"> Drawing No </b> </label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['drawing_no']}}</span></td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Date </b><label>
                         </td>
                         <td><span style="font-size: 12px;">{{ date('d-m-Y', strtotime($data['date'])) }}</span></td>
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit No</b> </label>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center;background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">Permit No</b> </label>
                         </td>
                         <td style="font-size: 12px;">{{$data['permit_no']}}</td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Drawing Title </b></label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['drawing_title']}}</span></td>
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     TWC Name </b></label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['twc_name']}}</span></td>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 200px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 150px; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     TWS Name </b></label>
                         </td>
                         <td><span style="font-size: 12px;">{{$data['tws_name']}}</span></td>
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
-                            <label for="" style="width: 400px; border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 350px; border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
                                     Location of the temporary works</b> </label>
                         </td>
                         <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
 
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
+                        <td style="width: 150px;background:gray;color:white;">
                         <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">Description of structure </label>
                         </td>
                         <td  colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
 
                     </tr>
                     <tr>
-                        <td style="width: 200px;background:gray;color:white;">
+                        <td style="width: 150px;background:gray;color:white;">
                             <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">
                                     MS/RA number</b> </label>
                         </td>
@@ -139,7 +139,7 @@
                         <td style="font-size:12px;">Y</td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Loading / use limitations understood (e.g. rate of pour, sequence of loading, access/plant loading).
+                        <td style="font-size:12px;">Loading / use limitations understood(e.g. rate of pour, sequence of loading, access/plant loading)
                         </td>
                         <td style="font-size:12px;">Y</td>
                     </tr>
@@ -172,7 +172,7 @@
                         </td>
                     </tr>
                     <tr>
-                            <td style="font-size:12px;">Principal Contractor Approval required</td>
+                            <td style="font-size:12px;">Approval by TWC required?</td>
                             <td style="font-size:12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
                 </tbody>

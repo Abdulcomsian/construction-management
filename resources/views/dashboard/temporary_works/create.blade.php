@@ -67,7 +67,7 @@ height: 72px;
         
     }
     .card{
-        margin: 30px 0px;
+        margin: 9px 0px;
         border-radius: 10px !important;   
         border: none !important; 
     }
@@ -209,19 +209,16 @@ height: 72px;
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
-    <div class="toolbar" id="kt_toolbar">
-        <!--begin::Container-->
+   <!--  <div class="toolbar" id="kt_toolbar">
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-            <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
-                <!--begin::Title-->
                 <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Temporary Works</h1>
-                <!--end::Title-->
+               
             </div>
-            <!--end::Page title-->
+            
         </div>
-        <!--end::Container-->
-    </div>
+        
+    </div> -->
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -232,10 +229,11 @@ height: 72px;
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title list_top" style="width:98%">
+                    <div class="card-title list_top d-flex" style="width:98%">
                         <h2 style="display: inline-block;">Design Brief</h2>
-                        <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a> -->
-                        <!-- <button style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" class="newDesignBtn hazardlist">BS5975 Checklist</button> -->
+                         <h3  style="font-size:1.6rem;">Temporary Work Registers
+                             <span class="d-block text-muted pt-25 font-size-sm"></span>
+                         </h3>
                         <a style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         
@@ -555,15 +553,28 @@ height: 72px;
                                     <!--end::Label-->
                                     <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
-                                 <div class="d-flex inputDiv">
+                                 
+
+                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Signature:</span>
+                                    </label>
+                                    <br/>
+                                    <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
+                                    <br/>
+                                   <textarea id="signature" name="signed" style="display: none"></textarea>
+                                   <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                   
+                                </div>
+                                <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
-                                        <span>Name signature:</span>
+                                        <span>Type Signature:</span>
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
                                       <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
-                                     <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">Do you want name signature?</span>
+                                     <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
                                      &nbsp;
                                       <!--end::Label-->
                                      <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
@@ -583,18 +594,6 @@ height: 72px;
                                         <span class="required">Name Signature:</span>
                                     </label>
                                     <input type="text" name="namesign" class="form-control form-control-solid">
-                                </div>
-
-                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Signature:</span>
-                                    </label>
-                                    <br/>
-                                    <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
-                                    <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
-                                   <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                   
                                 </div>
                                 <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

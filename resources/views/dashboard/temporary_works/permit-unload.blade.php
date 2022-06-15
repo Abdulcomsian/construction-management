@@ -181,7 +181,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Project No :</span>
+                                        <span class="required">Project No:</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
                                 </div>
@@ -190,7 +190,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Project Name :</span>
+                                        <span class="required">Project Name:</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
                                 </div>
@@ -208,7 +208,7 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">TWC Name :</span>
+                                        <span class="required">TWC Name:</span>
                                     </label>
                                     <input type="text" class="form-control " placeholder="TWC Name" name="twc_name" id="twc_name" value="{{$permitdata->twc_name ?? ''}}">
                                      <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
@@ -221,7 +221,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            Date :
+                                            Date:
                                         </label>
                                         <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa" name="date">
                                     </div>
@@ -230,7 +230,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Permit Number :</span>
+                                            <span class="required">Permit No:</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>
@@ -239,7 +239,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing Title :</span>
+                                            <span class="required">Drawing Title:</span>
                                         </label>
                                         <input type="text" class="form-control" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
@@ -248,7 +248,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">TWS Name :</span>
+                                            <span class="required">TWS Name:</span>
                                         </label>
                                         <input type="text" class="form-control" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
                                     </div>
@@ -260,18 +260,18 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Location of the temporary works: [ Location of the temporary works ]
+                                        Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Description of structure: [ Description of structure ]
+                                        Description of structure:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -280,10 +280,10 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">MS / RA Number:</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
-                            <h5 style="color: #000">Permit to unload/Strike</h5>
+                            <h5 style="color: #000">Permit to Unload / Strike</h5>
                             <br>
                             <p style="color: #000;">1. Permanent works support by this temporary works have gained sufficient strength to support the loading or use requirement. (See concrete cube results and other PW design requirements below, if applicable.)
                                 <br>
@@ -340,7 +340,7 @@
                             <h6 style="color:black">TWC to define the extents, limits and controls for this PTS (where applicable)</h6>
                             <textarea name="twc_control_pts" rows="2" style="width:100%;"></textarea>
 
-                            <h6 style="color:black">Back-propping and additional requirements; limitations and exclusions; explanatory sketches refrences - if applicable</h6>
+                            <h6 style="color:black">Back-propping and additional requirements; limitations and exclusions; explanatory sketches references (if applicable)</h6>
                             <textarea name="back_propping" rows="2"  style="width:100%;"></textarea>
                             <br>
                             <p style="color: black;"> I hereby authorise the temporary works to be struck out or removed in accordance with the specified or approved unloading and striking method, subject to observing the extents, limits and controls listed above. </p>
@@ -349,12 +349,12 @@
                         <div class="d-flex inputDiv">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span class="required">Principle Contractor approved required?</span>
+                                <span class="required">Principle Contractor approval required?</span>
 
                             </label>
 
                             <!--begin::Radio group-->
-                            <div class="nav-group nav-group-fluid d-none">
+                            <div class="nav-group nav-group-fluid">
                                 <label>
                                     <input type="radio" class="btn-check" name="principle_contractor" value="1" @if(isset($permitdata) && $permitdata->principle_contractor==1){{'checked'}}@endif/>
                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
@@ -374,7 +374,7 @@
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name::</span>
+                                                <span class="required" style="width: 27%">Name:</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Name"  id="name1" name="name1" value="{{old('name1',$permitdata->name1 ?? '')}}">
@@ -382,7 +382,7 @@
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Job Title:</span>
+                                                <span class="required" style="width: 27%">Job Title:</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
@@ -433,24 +433,24 @@
                                         </div>
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name::</span>
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 27%">
+                                                <span class="required">Name:</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Name" id="name2" name="name" value="{{old('name',$permitdata->name ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv principleno">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Job title:</span>
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 27%">
+                                                <span class="required" >Job title:</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title',$permitdata->job_title ?? '')}}">
                                         </div>
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Company: </span>
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 27%">
+                                                <span class="required" >Company: </span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
@@ -458,7 +458,7 @@
                                         </div>
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2" style="width: 27%">
                                                 <span class="required">Date:</span>
                                             </label>
                                             <!--end::Label-->
@@ -468,7 +468,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="d-flex inputDiv" >
+                                        <!-- <div class="d-flex inputDiv" >
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                 <span class="required">Name/signature:</span>
                                             </label>
@@ -481,29 +481,65 @@
                                                 <span class="required">Name Signature:</span>
                                             </label>
                                             <input type="text" name="namesign" class="form-control form-control-solid">
-                                        </div>
+                                        </div> -->
+                                        
                                         <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="signatureDiv">
-                                                            <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                    <span class="required">Signature:</span>
-                                                                </label>
-                                                                <br />
-                                                                <canvas id="sig" ></canvas>
-                                                        </div>
+                                            <div class="col-md-8">
+                                                <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                    <div class="signatureDiv">
+                                                        <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span class="required">Signature:</span>
+                                                            </label>
+                                                            <br />
+                                                            <canvas id="sig" ></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                    <div class="uploadingDiv">
+                                                    <div class="uploadDiv" style="padding-left: 10px;">
+                                                            <div class="input-images"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="d-flex inputDiv">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:22% !important">
+                                                    <span>Type Signature:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                 <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                                  <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                                 <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
+                                                 &nbsp;
+                                                  <!--end::Label-->
+                                                 <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
+                                                  <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                                 <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
+
+                                            </div>
+                                            <div class="inputDiv d-none" id="pdfsign">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Upload Signature:</span>
+                                                </label>
+                                                <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                            </div>
+                                            
+                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Name Signature:</span>
+                                                </label>
+                                                <input type="text" name="namesign" class="form-control form-control-solid">
+                                            </div>
+                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Name Signature:</span>
+                                                </label>
+                                                <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
+                                        </div>
+                                        
                                         <!-- <div class="d-flex inputDiv principleno" id="sign">
                                             <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
@@ -585,22 +621,79 @@
     })
 
 
-    $("#flexCheckChecked").change(function() {
-        if ($(this).is(':checked')) {
-            $("#signtype").val(1);
-            $("#namesign").addClass('d-flex').show();
-            $("input[name='namesign']").attr('required', 'required');
-            $("#signature").removeAttr('required');
-            $("#sign").removeClass('d-flex').hide();
+    // $("#flexCheckChecked").change(function() {
+    //     if ($(this).is(':checked')) {
+    //         $("#signtype").val(1);
+    //         $("#namesign").addClass('d-flex').show();
+    //         $("input[name='namesign']").attr('required', 'required');
+    //         $("#signature").removeAttr('required');
+    //         $("#sign").removeClass('d-flex').hide();
 
-        } else {
-            $("#signtype").val(0);
+    //     } else {
+    //         $("#signtype").val(0);
+    //         $("#sign").addClass('d-flex').show();
+    //         $("#namesign").removeClass('d-flex').hide();
+    //         $("input[name='namesign']").removeAttr('required');
+    //         $("#signature").attr('required', 'required');
+    //     }
+    // })
+    $("#flexCheckChecked").change(function(){
+        alert();
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#signtype").val(1);
+             $("#pdfsign").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+             $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required','required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(2);
             $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
-            $("#signature").attr('required', 'required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
         }
     })
+
+    $("#pdfChecked").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#flexCheckChecked").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
+        }
+    })
+
+
     $('#drawing_no').change(function() {
         $('#drawing_no').css("background-color", "#f5f8fa ");
      });

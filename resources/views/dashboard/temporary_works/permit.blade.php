@@ -253,7 +253,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Permit Number :</span>
+                                            <span class="required">Permit No :</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>
@@ -262,7 +262,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing title :</span>
+                                            <span class="required">Drawing Title :</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}" required>
                                     </div>
@@ -282,7 +282,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>MS/RA Number</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Ms/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
+                                        <input type="text" class="form-control form-control-solid" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
                                         <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
                                     </div>
                                 </div>
@@ -295,7 +295,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Location of the Temporary Works:
                                     </label>
-                                    <textarea class="form-control" name="location_temp_work" rows="2" style="width:100%" placeholder="Location of the Temporary Works (Area):">{{old('location_temp_work')}}</textarea>
+                                    <textarea class="form-control" name="location_temp_work" rows="2" style="width:100%" placeholder="Location of the Temporary Works:">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -304,7 +304,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Description of structure ready for use:
                                     </label>
-                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%" placeholder="Description of Structure which is ready for use:">{{old('description_structure')}}</textarea>
+                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%" placeholder="Description of structure:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
                             <!-- <div class="d-flex inputDiv">
@@ -339,7 +339,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, etc</span>
+                                    <span class="required">Workmanship checked (i.e. all props, ties, struts, joints, stop-ends, etc)</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -369,7 +369,7 @@
                             <div class="d-flex inputDiv requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">TW checked to drawings/design output</span>
+                                    <span class="required">TW checked to drawings / design output</span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -465,7 +465,7 @@
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv" >
-                                    <textarea name="description_approval_temp_works" rows="2" class="form-control" style="display: none">{{old('description_approval_temp_works')}}</textarea>
+                                    <textarea name="description_approval_temp_works" rows="2" class="form-control" style="display: none" placeholder="Please specify">{{old('description_approval_temp_works')}}</textarea>
                                 </div>
                             </div>
                             <!-- new work here -->
@@ -509,7 +509,7 @@
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
-                                    <textarea name="rate_rise_comment" rows="2" class="form-control" style="display: none">{{old('rate_rise_comment')}}</textarea>
+                                    <textarea name="rate_rise_comment" rows="2" class="form-control" style="display: none" placeholder="Please specify">{{old('rate_rise_comment')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
@@ -551,7 +551,7 @@
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="d-flex modalDiv">
-                                    <textarea name="construction_methodology_comment" rows="2" class="form-control" style="display: none">{{old('construction_methodology_comment')}}</textarea>
+                                    <textarea name="construction_methodology_comment" rows="2" class="form-control" style="display: none" placeholder="Please specify">{{old('construction_methodology_comment')}}</textarea>
                                 </div>
                             </div>
                             <!--  -->
@@ -559,7 +559,7 @@
                             <br>
                             <p style="color: #000;">
 
-                                I confirm that I have inpected this temporary structure and I am satisfied that it conforms to the criteria given above.
+                                I confirm that I have inspected this temporary structure and I am satisfied that it conforms to the criteria given above.
                                 <br>
                                 I consider that the temporary structure is ready to be loaded and put into use.
                                 <br>
@@ -630,7 +630,7 @@
                                                     <span class="required">Job Title:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title1" name="job_title1" value="{{old('job_title1', Auth::user()->job_title ?? '')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title1" name="job_title1" value="{{old('job_title1', Auth::user()->job_title ?? '')}}">
                                             </div>
 
                                         </div>
@@ -650,6 +650,7 @@
                                                 </label>
                                                 <input type="text" name="namesign1" id="namesign_id2" class="form-control form-control-solid">
                                             </div>
+                                            
                                             <div class="d-flex inputDiv principleno" id="sign1" style="">
                                                 <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Signature:</span>
@@ -671,7 +672,7 @@
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Name::</span>
+                                                    <span class="required">Name:</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name',  Auth::user()->name ?? '')}}">
@@ -679,10 +680,10 @@
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Job title:</span>
+                                                    <span class="required">Job Title:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control form-control-solid" placeholder="Job title" id="job_title" name="job_title" value="{{old('job_title',Auth::user()->job_title ?? '')}}">
+                                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="{{old('job_title',Auth::user()->job_title ?? '')}}">
                                             </div>
                                             <div class="d-flex inputDiv ">
                                                 <!--begin::Label-->
@@ -723,20 +724,15 @@
                                                 <!--end::Label-->
                                                  <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
                                             </div>
-                                            <div class="d-flex inputDiv" style="">
+                                            <!-- <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                     <span>Name/signature:</span>
                                                 </label>
                                                 <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
                                                 <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
                                                 <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want name signature?</span>
-                                            </div>
-                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Name Signature:</span>
-                                                </label>
-                                                <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
-                                            </div>
+                                            </div> -->
+                                             
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="d-flex inputDiv principleno" id="sign" style="">
@@ -758,6 +754,40 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="d-flex inputDiv">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:32% !important">
+                                                    <span>Type Signature:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                 <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                                  <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                                 <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
+                                                 &nbsp;
+                                                  <!--end::Label-->
+                                                 <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
+                                                  <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                                 <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
+
+                                            </div>
+                                            <div class="inputDiv d-none" id="pdfsign">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Upload Signature:</span>
+                                                </label>
+                                                <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                            </div>
+                                            
+                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Name Signature:</span>
+                                                </label>
+                                                <input type="text" name="namesign" class="form-control form-control-solid">
+                                            </div>
+                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Name Signature:</span>
+                                                </label>
+                                                <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                             </div>
                                             <!-- <div class="d-flex inputDiv principleno" id="sign" style="">
                                                <div class="signatureDiv">
@@ -871,20 +901,75 @@
     })
 
 
-    $("#flexCheckChecked").change(function() {
-        if ($(this).is(':checked')) {
-            $("#signtype").val(1);
-            $("#namesign").addClass('d-flex').show();
-            $("input[name='namesign']").attr('required', 'required');
-            $("#signature").removeAttr('required');
-            $("#sign").removeClass('d-flex').hide();
+    // $("#flexCheckChecked").change(function() {
+    //     if ($(this).is(':checked')) {
+    //         $("#signtype").val(1);
+    //         $("#namesign").addClass('d-flex').show();
+    //         $("input[name='namesign']").attr('required', 'required');
+    //         $("#signature").removeAttr('required');
+    //         $("#sign").removeClass('d-flex').hide();
 
-        } else {
-            $("#signtype").val(0);
+    //     } else {
+    //         $("#signtype").val(0);
+    //         $("#sign").addClass('d-flex').show();
+    //         $("#namesign").removeClass('d-flex').hide();
+    //         $("input[name='namesign']").removeAttr('required');
+    //         $("#signature").attr('required', 'required');
+    //     }
+    // })
+
+    $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#signtype").val(1);
+             $("#pdfsign").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+             $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required','required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(2);
             $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
-            $("#signature").attr('required', 'required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
+    })
+
+    $("#pdfChecked").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#flexCheckChecked").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
         }
     })
     $('#drawing_no').change(function() {

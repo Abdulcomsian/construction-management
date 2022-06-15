@@ -54,7 +54,7 @@ class UserController extends Controller
                                 <form method="POST" action="' . route('users.destroy', $data->id) . '"  id="form_' . $data->id . '" >
                                     ' . method_field('Delete') . csrf_field() . '
 
-                                    <button type="submit" id="' . $data->id . '" class="confirm btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                    <button type="submit" id="' . $data->id . '" class="confirm1 btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                         <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
                                       <i class="fa fa-trash" aria-hidden="true"></i>
                                         <!--end::Svg Icon-->

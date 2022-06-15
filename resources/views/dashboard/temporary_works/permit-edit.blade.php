@@ -265,7 +265,7 @@
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                             <span class="required">Drawing title :</span>
+                                             <span class="required">Drawing Title :</span>
                                         </label>
                                          <input  type="text" class="form-control" placeholder="Drawing Title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
@@ -285,7 +285,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                          <span class="required">MS/RA Number</span>
                                     </label>
-                                     <input  type="text" class="form-control" placeholder="Ms/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                     <input  type="text" class="form-control" placeholder="MS/RA Number" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             </div>
@@ -295,18 +295,18 @@
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Location of the Temporary Works (Area):
+                                         Location of the temporary works
                                     </label>
-                                    <textarea class="form-control" name="location_temp_work" rows="2"  style="width:100%;" placeholder="Location of the Temporary Works (Area):">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea class="form-control" name="location_temp_work" rows="2"  style="width:100%;" placeholder=" Location of the temporary works:">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Description of Structure which is ready for use:
+                                        Description of structure:
                                     </label>
-                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%;" placeholder="Description of Structure which is ready for use:">{{$permitdata->description_structure ?? ''}}</textarea>
+                                    <textarea class="form-control" name="description_structure" rows="2" style="width:100%;" placeholder="Description of structure:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">

@@ -342,12 +342,7 @@ class TemporaryWorkController extends Controller
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
-                //changing email history
-                $cmh= new ChangeEmailHistory();
-                $cmh->email=$request->pc_twc_email;
-                $cmh->type ='Design Brief';
-                $cmh->foreign_idd=$temporary_work->id;
-                $cmh->save();
+                
 
                 //work for upload images here
                 $image_links = [];
@@ -379,6 +374,13 @@ class TemporaryWorkController extends Controller
                         'pdf_url' => $filename,
                         'email' => Auth::user()->email,
                     ]);
+
+                    //changing email history
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->pc_twc_email;
+                    $cmh->type ='Design Brief';
+                    $cmh->foreign_idd=$temporary_work->id;
+                    $cmh->save();
                 }
                 //send mail to admin
                 $notify_admins_msg = [
@@ -713,7 +715,7 @@ class TemporaryWorkController extends Controller
     public function temp_savecomment(Request $request)
     {
         Validations::storeComment($request);
-        try {
+        // try {
             //get twc email
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
@@ -733,17 +735,21 @@ class TemporaryWorkController extends Controller
             }
             if (isset($request->type) && $request->type == 'twc') {
                 $model->type = 'twc';
+                $twc="twc";
             }
             if ($model->save()) {
-                Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id));
+                if(!isset($twc))
+                {
+                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id,'',$request->type ?? ''));
+                 }
 
                 toastSuccess('Comment submitted successfully');
                 return Redirect::back();
             }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again');
+        //     return Redirect::back();
+        // }
     }
 
     public function temp_savecommentreplay(Request $request)
@@ -844,11 +850,6 @@ class TemporaryWorkController extends Controller
     //get commetns
     public function get_comments(Request $request)
     {
-        // if (isset($request->id)) {
-        //     $commetns = TemporaryWorkComment::where(['user_id' => $request->id, 'temporary_work_id' => $request->temporary_work_id])->get();
-        // } else {
-        // $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id])->get();
-        // }
         $table = '';
         $path = config('app.url');
         if ($request->type == 'normal') {
@@ -949,7 +950,7 @@ class TemporaryWorkController extends Controller
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
-                                   <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left"></textarea>
+                                   <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left" placeholder="Add comment here..."></textarea>
                                     <div class="submmitBtnDiv">
                                         <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
                                         <input type="hidden" name="commentid" value="' . $comment->id . '"/>
@@ -976,10 +977,9 @@ class TemporaryWorkController extends Controller
             }
 
             $table .= '</tbody></table>';
-            echo $table;
-        } else {
-            echo '';
-        }
+            
+        } 
+        echo $table;
     }
     //get file dates upload 
     public function file_upload_dates(Request $request)
@@ -1047,13 +1047,14 @@ class TemporaryWorkController extends Controller
 
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
                 $all_inputs['name1'] = $request->name1;
                 $all_inputs['job_title1'] = $request->job_title1;
+                //old work =================================================
                 if ($request->signtype1 == 1) {
                     $all_inputs['signature1'] = $request->namesign1;
                 } else {
@@ -1072,6 +1073,27 @@ class TemporaryWorkController extends Controller
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+                $all_inputs['signature'] = $image_name;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+               $all_inputs['signature'] = $image_name;
+            }
+            //old work
+            /*if ($request->signtype == 1) {
+                $all_inputs['signature'] = $request->namesign;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -1082,7 +1104,7 @@ class TemporaryWorkController extends Controller
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature'] = $image_name;
-            }
+            }*/
             $all_inputs['created_by'] = auth()->user()->id;
             if (isset($request->approval)) {
                 $all_inputs['status'] = 2;
@@ -1091,11 +1113,11 @@ class TemporaryWorkController extends Controller
             if ($permitload) {
                 //make status 0 if permit is 
 
-                $msg = " Attached in the i-Works web portal for your attention is a PDF permit to load which has been renewed created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
+                $msg = " Attached in the i-Works web portal for your attention is a PDF permit to load which has been created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                 $message = "Load";
                 if (isset($request->type)) {
                     PermitLoad::find($request->permitid)->update(['status' => 0]);
-                    $msg = "Attached in the i-Works web portal for your attention is a PDF permit to load created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
+                    $msg = "Attached in the i-Works web portal for your attention is a PDF permit to load Renew by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                     $message = "Renew";
                 }
 
@@ -1154,11 +1176,13 @@ class TemporaryWorkController extends Controller
     {
         $tempid = \Crypt::decrypt($request->id);
          if (isset($request->type)) {
-           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->latest()->get();
+           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+            $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
          }else{
              $permited = PermitLoad::where(['temporary_work_id' => $tempid])->latest()->get();
+             $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
          }
-        $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
+       
         $list = '';
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();
@@ -1181,8 +1205,8 @@ class TemporaryWorkController extends Controller
                                         Action
                                       </button>
                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square"></span> Unload</a>
-                                        <a class="confirm dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="Are you sure?" when closing the permit">Close</a>
+                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
+                                        <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?">Close</a>
                                       </div>
                                     </div>
                             ';
@@ -1227,7 +1251,7 @@ class TemporaryWorkController extends Controller
                 if ($permit->status == 1) {
                     $status = "Open";
                     if ($request->type == "unload") {
-                        $button = '<a  style="    height: 50px;line-height: 15px;" class="confirm unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."><span class="fa fa-plus-square"></span> Unload</a>';
+                        $button = '<a  style="    height: 50px;line-height: 15px;" class="confirm1 unload btn btn-primary" href="' . route("scaffold.close", \Crypt::encrypt($permit->id)) . '" data-text="You have selected Permit of scaffolding to be closed. ARE YOU SURE?."><span class="fa fa-plus-square"></span> Unload</a>';
                     } else {
                         $button = '<a  style="    height: 50px;line-height: 15px;" class="btn btn-primary" href="' . route("scaffold.unload", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                     }
@@ -1409,7 +1433,7 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             if (isset($request->signtype1)) {
@@ -1431,6 +1455,13 @@ class TemporaryWorkController extends Controller
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+                $all_inputs['signature'] = $image_name;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -1440,8 +1471,21 @@ class TemporaryWorkController extends Controller
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
-                $all_inputs['signature'] = $image_name;
+               $all_inputs['signature'] = $image_name;
             }
+            // if ($request->signtype == 1) {
+            //     $all_inputs['signature'] = $request->namesign;
+            // } else {
+            //     $folderPath = public_path('temporary/signature/');
+            //     $image = explode(";base64,", $request->signed);
+            //     $image_type = explode("image/", $image[0]);
+            //     $image_type_png = $image_type[1];
+            //     $image_base64 = base64_decode($image[1]);
+            //     $image_name = uniqid() . '.' . $image_type_png;
+            //     $file = $folderPath . $image_name;
+            //     file_put_contents($file, $image_base64);
+            //     $all_inputs['signature'] = $image_name;
+            // }
             $all_inputs['status'] = 3;
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
@@ -1578,6 +1622,13 @@ class TemporaryWorkController extends Controller
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+                $all_inputs['signature'] = $image_name;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -1587,8 +1638,21 @@ class TemporaryWorkController extends Controller
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
-                $all_inputs['signature'] = $image_name;
+               $all_inputs['signature'] = $image_name;
             }
+            // if ($request->signtype == 1) {
+            //     $all_inputs['signature'] = $request->namesign;
+            // } else {
+            //     $folderPath = public_path('temporary/signature/');
+            //     $image = explode(";base64,", $request->signed);
+            //     $image_type = explode("image/", $image[0]);
+            //     $image_type_png = $image_type[1];
+            //     $image_base64 = base64_decode($image[1]);
+            //     $image_name = uniqid() . '.' . $image_type_png;
+            //     $file = $folderPath . $image_name;
+            //     file_put_contents($file, $image_base64);
+            //     $all_inputs['signature'] = $image_name;
+            // }
 
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['type'] = 'load';
@@ -1632,7 +1696,7 @@ class TemporaryWorkController extends Controller
                     'greeting' => 'Scaffolding Pdf',
                     'subject' => $request->drawing_title . '-' . $request->permit_no,
                     'body' => [
-                        'text' => 'Thank you for completing a Scaffolding Permit to Load for '.$design_requirement_text->company.' Ltd in the i-Works web portal. A PDF copy of the permit is attached. ',
+                        'text' => 'Thank you for completing a Scaffolding Permit to Load for '.$design_requirement_text->company.' Ltd in the i-Works web portal.',
                         'filename' => $filename,
                         'links' =>  '',
                         'name' => 'scaffold',

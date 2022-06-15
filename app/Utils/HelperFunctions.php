@@ -98,6 +98,7 @@ class HelperFunctions
     public function check_date($desingdate, $array)
     {
         $blinkclass=" ";
+        $class="";
         if (!isset($array[0])) {
             $current =  \Carbon\Carbon::now();
             $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
@@ -108,7 +109,7 @@ class HelperFunctions
                 $blinkclass="redBgBlink ";
             } elseif ($diff_in_days >= 7) {
                 $class = "background:green;color:black";
-            } elseif ($diff_in_days <= 7 && $diff_in_days >= 1) {
+            } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
                 $class = "background:yellow;color:black";
             }
             return array($class,$blinkclass);
@@ -149,14 +150,14 @@ class HelperFunctions
 
     public static function generatetwcid($projecno, $company, $project_id)
     {
-        $count = TemporaryWork::where('project_id', $project_id)->count();
+        $count = TemporaryWork::withTrashed()->where('project_id', $project_id)->count();
         $count = $count + 1;
         $twc_id_no = $projecno . '-' . strtoupper(substr($company, 0, 2)) . '-00' . $count;
         return $twc_id_no;
     }
     public static function generatetempid($project_id)
     {
-        $check = TemporaryWork::where('project_id', $project_id)->orderBy('id', 'desc')->first();
+        $check = TemporaryWork::withTrashed()->where('project_id', $project_id)->orderBy('id', 'desc')->first();
         if ($check) {
             $j = $check->tempid + 1;
         } else {

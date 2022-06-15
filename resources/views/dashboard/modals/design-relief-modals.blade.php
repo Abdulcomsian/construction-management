@@ -221,7 +221,7 @@
                                 </li>
                                 <li data-id="Construction-Drawings">Construction Drawings (with notes on loadings, restrictions, critical components, etc)
                                 </li>
-                                <li data-id="Design-Calculations">Design Check Certificate (where needed for submission to client, etc)
+                                <li data-id="Design-Calculations">Design Calculations (where needed for submission to client etc.)
                                 </li>
                                 <li data-id="Check-Certificate">Design Check Certificate (were needed for submission to
                                     client, etc.)

@@ -35,6 +35,7 @@ class DesignerController extends Controller
         $mail=$_GET['mail'];
         $id = \Crypt::decrypt($id);
         $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($id);
+       
         if($mail=$tempdata->designer_company_email)
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Company'])->orderBy('id','desc')->update(['status'=>1]);

@@ -635,7 +635,7 @@
 
                                         </div>
 
-                                        <div class="col">
+                                        <div class="col-md-6">
                                             <div class="d-flex inputDiv" style="">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                     <span>Name/signature:</span>
@@ -665,7 +665,7 @@
                                      </div>
                                     <!-- Second person -->
                                     <div class="row" id="second_member">
-                                        <div class="col" style="flex:100% !important;">
+                                        <div class="col-md-6" style="flex:100% !important;">
 
                                             <div class="d-flex inputDiv">
                                             </div>
@@ -724,38 +724,8 @@
                                                 <!--end::Label-->
                                                  <input  type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
                                             </div>
-                                            <!-- <div class="d-flex inputDiv" style="">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                                    <span>Name/signature:</span>
-                                                </label>
-                                                <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
-                                                <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                                <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want name signature?</span>
-                                            </div> -->
-                                             
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="signatureDiv">
-                                                            <label style="width:48%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                                    <span class="required">Signature:</span>
-                                                                </label>
-                                                                <br />
-                                                                <canvas id="sig" ></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex inputDiv">
+                                            
+                                             <div class="d-flex inputDiv">
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:32% !important">
                                                     <span>Type Signature:</span>
                                                 </label>
@@ -789,6 +759,29 @@
                                                 </label>
                                                 <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="signatureDiv">
+                                                            <label style="width:48%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                    <span class="required">Signature:</span>
+                                                                </label>
+                                                                <br />
+                                                                <canvas id="sig" ></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                        <div class="uploadingDiv">
+                                                        <div class="uploadDiv" style="padding-left: 10px;">
+                                                                <div class="input-images"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
                                             <!-- <div class="d-flex inputDiv principleno" id="sign" style="">
                                                <div class="signatureDiv">
                                                 <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">

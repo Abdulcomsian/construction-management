@@ -486,29 +486,27 @@
                     <!-- Risk Assessment and calculations -->
                     <br>
                      <hr>
-                    <form class="form-inline" action="{{route('riskassesment.store')}}" method="post" enctype="multipart/form-data">
+                    <form class="form-group" action="{{route('riskassesment.store')}}" method="post" enctype="multipart/form-data" style="width: 50%;margin: auto 0;">
                         @csrf
-                         <input type="hidden" name="tempworkid" value="{{$id}}">
+                        <input type="hidden" name="tempworkid" value="{{$id}}">
                           <input type="hidden" name="designermail" value="{{$mail}}">
-                          <div class="form-group mx-sm-3 mb-2 d-flex">
-                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                               <span class="required">Risk Assessment Certificate:</span>
-                              </label>
-                               <input type="file" style="width:20%"class="form-control" id="riskassesmentfile" name="riskassesmentfile" required="required">
-                               &nbsp;&nbsp;
-                               <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                               <span class="required">Document Type:</span>
-                              </label>
-                               <select class="form-control" name="type" style="width:30% !important" required>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Risk Assessment Certificate:</label>
+                        <input type="file" class="form-control" id="riskassesmentfile" name="riskassesmentfile" required="required">
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Document Type:</label>
+                        <select class="form-control" name="type"  required>
                                    <option value="" selected disabled>Risk Assessment-Calculations</option>
                                    <option value="5">Risk Assessment</option>
                                    <option value="6">Calculations</option>
-                               </select>
-                               &nbsp;&nbsp;
-                               <button type="submit" class="btn btn-primary mb-2">Upload</button>
-                          </div>
-                      
+                        </select>
+                      </div>
+                      <br>
+                      <button type="submit" class="btn btn-primary">Upload</button>
                     </form>
+                    
                    
                     <table class="table table-hover">
                         <thead>

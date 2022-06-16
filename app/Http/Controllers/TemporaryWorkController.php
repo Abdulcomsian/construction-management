@@ -612,6 +612,13 @@ class TemporaryWorkController extends Controller
                         'pdf_url' => $filename,
                         'email' => Auth::user()->email,
                     ]);
+
+                     //changing email history
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->pc_twc_email;
+                    $cmh->type ='Design Brief';
+                    $cmh->foreign_idd=$temporaryWork->id;
+                    $cmh->save();
                 }
                 //send mail to admin
                 $notify_admins_msg = [
@@ -1180,7 +1187,7 @@ class TemporaryWorkController extends Controller
            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
             $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
          }else{
-             $permited = PermitLoad::where(['temporary_work_id' => $tempid])->latest()->get();
+             $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
          }
        
@@ -1216,9 +1223,13 @@ class TemporaryWorkController extends Controller
                             $class = "background:gray";
                             $color = "text-danger";
                         }
-                    } elseif ($permit->status == 0 || $permit->status == 4) {
+                    } elseif ($permit->status == 0 ) {
                         $status = "Closed";
-                    } elseif ($permit->status == 3) {
+                    } elseif($permit->status == 4)
+                    {
+                        $status = "Unloaded";
+                    }
+                    elseif ($permit->status == 3) {
                         $status = "Unloaded";
                     } elseif ($permit->status == 2) {
                         $status = "Pending";
@@ -1474,19 +1485,6 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name;
             }
-            // if ($request->signtype == 1) {
-            //     $all_inputs['signature'] = $request->namesign;
-            // } else {
-            //     $folderPath = public_path('temporary/signature/');
-            //     $image = explode(";base64,", $request->signed);
-            //     $image_type = explode("image/", $image[0]);
-            //     $image_type_png = $image_type[1];
-            //     $image_base64 = base64_decode($image[1]);
-            //     $image_name = uniqid() . '.' . $image_type_png;
-            //     $file = $folderPath . $image_name;
-            //     file_put_contents($file, $image_base64);
-            //     $all_inputs['signature'] = $image_name;
-            // }
             $all_inputs['status'] = 3;
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
@@ -1923,7 +1921,7 @@ class TemporaryWorkController extends Controller
         try {
             $permitid =  \Crypt::decrypt($id);
             $permitdata = PermitLoad::find($permitid);
-           PermitLoad::find($permitid)->update(['status' => 4]);
+           PermitLoad::find($permitid)->update(['status' => 0]);
             return Redirect::back();
         } catch (\Exception $exception) {
 

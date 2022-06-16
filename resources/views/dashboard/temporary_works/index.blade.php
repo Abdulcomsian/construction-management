@@ -1395,8 +1395,8 @@
                type: 'pc'
            },
            success: function(res) {
-
-               $("#commenttable").html(res);
+                 res=JSON.parse(res);
+               $("#commenttable").html(res.comment);
                $(".comments_form").hide();
                $("#comment_modal_id").modal('show');
            }
@@ -1666,8 +1666,9 @@
                type: 'permit'
            },
            success: function(res) {
+               res=JSON.parse(res);
                $("#permit_modal_id").modal('hide');
-               $("#commenttable").html(res);
+               $("#commenttable").html(res.comment);
                $(".comments_form").hide();
                $("#comment_modal_id").modal('show');
            }
@@ -1826,7 +1827,8 @@
                type: 'scan'
            },
            success: function(res) {
-               $("#commenttable").html(res);
+               res=JSON.parse(res);
+               $("#commenttable").html(res.comment);
                $(".comments_form").hide();
                $("#comment_modal_id").modal('show');
            }

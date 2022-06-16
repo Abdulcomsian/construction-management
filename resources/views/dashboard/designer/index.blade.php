@@ -172,12 +172,12 @@
                             @foreach($comments as $cments)
                             <tr >
                                 <td><b>{{$loop->index+1}}</b></td>
-                                <td><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
+                                <td>{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
                                 <td>
                                     @if($cments->replay)
                                      @php $i=0;@endphp
                                      @foreach($cments->replay as $reply)
-                                      <p><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p><hr>
+                                      <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
                                       @php $i++; @endphp
                                      @endforeach
                                     @endif
@@ -486,23 +486,23 @@
                     <!-- Risk Assessment and calculations -->
                     <br>
                      <hr>
-                    <form class="form-group" action="{{route('riskassesment.store')}}" method="post" enctype="multipart/form-data" style="width: 50%;margin: auto 0;">
+                    <form class="form-group" action="{{route('riskassesment.store')}}" method="post" enctype="multipart/form-data" style="width: 25%;margin: auto 0;">
                         @csrf
                         <input type="hidden" name="tempworkid" value="{{$id}}">
                           <input type="hidden" name="designermail" value="{{$mail}}">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Risk Assessment Certificate:</label>
-                        <input type="file" class="form-control" id="riskassesmentfile" name="riskassesmentfile" required="required">
-                      </div>
-                      <br>
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Document Type:</label>
-                        <select class="form-control" name="type"  required>
-                                   <option value="" selected disabled>Risk Assessment-Calculations</option>
-                                   <option value="5">Risk Assessment</option>
-                                   <option value="6">Calculations</option>
-                        </select>
-                      </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1" style="margin: 5px;">Select Document:</label><br>
+                            <input type="file" class="form-control" id="riskassesmentfile" name="riskassesmentfile" required="required">
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1" style="margin: 5px">Select Document Type:</label><br>
+                            <select class="form-control" name="type"  required>
+                                       <option value="" selected disabled>Risk Assessment-Calculations</option>
+                                       <option value="5">Risk Assessment</option>
+                                       <option value="6">Calculations</option>
+                            </select>
+                          </div>
                       <br>
                       <button type="submit" class="btn btn-primary">Upload</button>
                     </form>

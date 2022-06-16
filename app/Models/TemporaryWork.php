@@ -37,7 +37,7 @@ class TemporaryWork extends Model
 
     public function reply()
     {
-        return $this->hasMany(TemporaryWorkComment::class)->where('replay','!=','');
+        return $this->hasMany(TemporaryWorkComment::class)->where('type','normal')->where('replay','!=','');
     }
 
     public function rejectedpermits() //this relation for open permit check in table

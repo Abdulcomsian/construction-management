@@ -675,7 +675,9 @@
                                                     <span class="required">Name:</span>
                                                 </label>
                                                 <!--end::Label-->
+                                                <div class="input">
                                                 <input type="text" class="form-control form-control-solid" placeholder="Name" id="name2" name="name" value="{{old('name',  Auth::user()->name ?? '')}}">
+                                                </div>
                                             </div>
                                             <div class="d-flex inputDiv principleno">
                                                 <!--begin::Label-->
@@ -683,7 +685,9 @@
                                                     <span class="required">Job Title:</span>
                                                 </label>
                                                 <!--end::Label-->
+                                                <div class="input">
                                                 <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title" name="job_title" value="{{old('job_title',Auth::user()->job_title ?? '')}}">
+                                                </div>
                                             </div>
                                             <div class="d-flex inputDiv ">
                                                 <!--begin::Label-->
@@ -691,8 +695,10 @@
                                                     <span class="required">Company: </span>
                                                 </label>
                                                 <!--end::Label-->
+                                                <div class="input">
                                                 <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
                                                 <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                                </div>
                                             </div>
                                             <div class="d-flex inputDiv ">
                                                 <!--begin::Label-->
@@ -700,7 +706,9 @@
                                                     <span class="required">Date:</span>
                                                 </label>
                                                 <!--end::Label-->
+                                                <div class="input">
                                                 <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                                </div>
                                             </div>
 
                                         </div>
@@ -767,18 +775,22 @@
                                                                     <span class="required">Signature:</span>
                                                                 </label>
                                                                 <br />
+                                                                <div class="canva_signature_div">
+                                                                <div class="inputDiv principleno" id="sign" style="">
+                                                                    <div class="uploadingDiv">
+                                                                    <div class="uploadDiv">
+                                                                            <div class="input-images"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <br>
                                                                 <canvas id="sig" ></canvas>
+                                                                </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                             

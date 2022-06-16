@@ -748,12 +748,12 @@
                                           $class='';
                                           if(count($item->comments)>0)
                                           {
-                                          $color="red";
-                                          $class='redBgBlink';
+                                            $color="red";
+                                            $class='redBgBlink';
                                           if(count($item->reply)== count($item->comments))
                                           {
-                                          $color="blue";
-                                          $class='';
+                                            $color="blue";
+                                            $class='';
                                           }
                                           }
                                           @endphp

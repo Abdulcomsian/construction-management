@@ -851,6 +851,7 @@ class TemporaryWorkController extends Controller
     public function get_comments(Request $request)
     {
         $table = '';
+        $tabletwc='';
         $path = config('app.url');
         if ($request->type == 'normal') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
@@ -866,20 +867,20 @@ class TemporaryWorkController extends Controller
         }
         //twc comments here
         if (isset($twccommetns) && count($twccommetns) > 0) {
-            $table = '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+            $tabletwc.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($twccommetns as $comment) {
-                $table .= '<tr style="background:white">
+                 $tabletwc .= '<tr style="background:white">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
                                <td>' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                            </tr>';
                 $i++;
             }
-            $table .= '</tbody></table>';
+             $tabletwc .= '</tbody></table>';
         }
         if (count($commetns) > 0) {
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
-                $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+                $table.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
                 $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Designer Comment</th><th style="width:40%">TWC Reply</th><th></th><th style="width:25%;">Date</th></tr></thead><tbody>';
             }
@@ -979,7 +980,7 @@ class TemporaryWorkController extends Controller
             $table .= '</tbody></table>';
             
         } 
-        echo $table;
+        echo  json_encode(array('comment'=>$table,'twccomment'=>$tabletwc));
     }
     //get file dates upload 
     public function file_upload_dates(Request $request)

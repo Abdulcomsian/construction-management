@@ -24,6 +24,11 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
+                <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Comments</h1>
+                        <!--end::Title-->
+                    </div>
                 <div id="commenttable">
 
                 </div>
@@ -40,6 +45,9 @@
                         <!--begin::Title-->
                         <h1 class="mb-3">TWC Comments</h1>
                         <!--end::Title-->
+                    </div>
+                    <div id="twccommenttable">
+
                     </div>
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->

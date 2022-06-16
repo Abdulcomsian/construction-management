@@ -1366,7 +1366,9 @@
                type: 'normal'
            },
            success: function(res) {
-               $("#commenttable").html(res);
+               res=JSON.parse(res);
+               $("#commenttable").html(res.comment);
+               $("#twccommenttable").html(res.twccomment);
                $(".comments_form").show();
                $("#comment_modal_id").modal('show');
            }
@@ -1393,6 +1395,7 @@
                type: 'pc'
            },
            success: function(res) {
+
                $("#commenttable").html(res);
                $(".comments_form").hide();
                $("#comment_modal_id").modal('show');

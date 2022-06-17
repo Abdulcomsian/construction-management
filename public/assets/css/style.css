@@ -355,8 +355,9 @@ input:focus {
 }*/
 #submitbutton{
     position: relative;
-    right: 21%;
+    left: 18%;
     bottom: 20px;
+    float: left !important;
 }
 .formDiv{
     width: 100%;
@@ -408,7 +409,7 @@ input:focus {
 }
 @media screen and (max-width: 1600px) {
     .temporary_work_create #submitbutton {
-        right: 21% !important;
+        right: 22% !important;
     }
     #submitbutton {
         right: 75%;
@@ -418,6 +419,9 @@ input:focus {
 
 }
 @media screen and (max-width: 1440px) {
+    .temporary_work_create #submitbutton {
+        right: 20% !important;
+    }
     
     #submitbutton {
         right: 73.6%;
@@ -629,6 +633,9 @@ li.select2-selection__choice{
 
 }
 @media screen and (max-width: 568px){
+    #submitbutton{
+        left: 30%;
+    }
     .temporary_work_create #submitbutton {
         right: 42% !important;
     }
@@ -855,4 +862,12 @@ li.select2-selection__choice{
 .temporary_blade .tableDiv{
     position: relative;
     top: -10px;
+}
+.temporary_work_create #submitbutton{
+    float: right !important;
+    right: 22%;
+    left: initial !important;
+}
+.unload_Permit #submitbutton{
+    left: 22%;
 }

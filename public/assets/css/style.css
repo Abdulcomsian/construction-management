@@ -385,6 +385,9 @@ input:focus {
     }
 }
 @media screen and (min-width: 1800px) {
+    .temporary_work_create #submitbutton {
+        right: 24% !important;
+    }
     #submitbutton {
         right: 76.2%;
     }
@@ -395,6 +398,9 @@ input:focus {
     }
 }
 @media screen and (max-width: 1600px) {
+    .temporary_work_create #submitbutton {
+        right: 21% !important;
+    }
     #submitbutton {
         right: 75%;
     }
@@ -409,6 +415,9 @@ input:focus {
     }
 }
 @media screen and (max-width: 1310px) {
+    .temporary_work_create #submitbutton {
+        right: 20% !important;
+    }
     #submitbutton {
         right: 72%;
     }
@@ -501,6 +510,11 @@ input:focus {
 
   }
     @media screen and (max-width: 768px) {
+        .temporary_work_create #submitbutton {
+            right: 49% !important;
+        }
+        
+        
         .upload_signature_div .principleno {
             width: 45% !important;
         }
@@ -596,6 +610,10 @@ li.select2-selection__choice{
 
 }
 @media screen and (max-width: 568px){
+    .temporary_work_create #submitbutton {
+        right: 42% !important;
+    }
+    
     .upload_signature_div .principleno {
         width: 60% !important;
     }

@@ -385,19 +385,37 @@ input:focus {
     }
 }
 @media screen and (min-width: 1800px) {
+    .unload_Permit  #submitbutton {
+        right: 71.9%;
+    }
+    .temporary_work_create #submitbutton {
+        right: 24% !important;
+    }
     #submitbutton {
         right: 76.2%;
     }
 }
 @media screen and (max-width: 1800px) {
+    .unload_Permit  #submitbutton {
+        right: 70.9%;
+    }
     #submitbutton {
         right: 75.9%;
     }
+    .temporary_work_create #submitbutton{
+        right: 23% !important;
+    }
 }
 @media screen and (max-width: 1600px) {
+    .temporary_work_create #submitbutton {
+        right: 21% !important;
+    }
     #submitbutton {
         right: 75%;
     }
+}
+@media screen and (max-width: 1500px) {
+
 }
 @media screen and (max-width: 1440px) {
     
@@ -409,6 +427,9 @@ input:focus {
     }
 }
 @media screen and (max-width: 1310px) {
+    .temporary_work_create #submitbutton {
+        right: 20% !important;
+    }
     #submitbutton {
         right: 72%;
     }
@@ -430,6 +451,9 @@ input:focus {
       max-width: 100%;
       margin-left: 0px;
     }
+    .temporary_blade .tableDiv{
+        top: 0px !important;
+    }
   }
   @media screen and (max-width: 1200px) {
     #submitbutton {
@@ -450,6 +474,10 @@ input:focus {
 
   }
   @media screen and (max-width: 990px) {
+    .temporary_blade .tableDiv {
+        position: relative;
+        top: -30px !important;
+    }
       .card-header .topbar,
       .topbar-item .symbol-label{
           display: none;
@@ -501,6 +529,11 @@ input:focus {
 
   }
     @media screen and (max-width: 768px) {
+        .temporary_work_create #submitbutton {
+            right: 49% !important;
+        }
+        
+        
         .upload_signature_div .principleno {
             width: 45% !important;
         }
@@ -596,6 +629,10 @@ li.select2-selection__choice{
 
 }
 @media screen and (max-width: 568px){
+    .temporary_work_create #submitbutton {
+        right: 42% !important;
+    }
+    
     .upload_signature_div .principleno {
         width: 60% !important;
     }
@@ -800,4 +837,22 @@ li.select2-selection__choice{
 }
 .upload_signature_div .principleno{
     width: 30%;
+}
+.temporary_work_create .inputDiv input,
+.temporary_work_create .select2-container{
+    width: 50% !important;
+}
+.temporary_work_create .inputDiv input[type="checkbox"]{
+    width: 12px !important;
+}
+.unload_Permit textarea{
+    width: 100%;
+}
+.temporary_blade .datatable{
+    margin: 0px !important;
+    
+}
+.temporary_blade .tableDiv{
+    position: relative;
+    top: -10px;
 }

@@ -397,7 +397,7 @@ input:focus {
 }
 @media screen and (max-width: 1800px) {
     .unload_Permit  #submitbutton {
-        right: 69.9%;
+        right: 70.9%;
     }
     #submitbutton {
         right: 75.9%;
@@ -411,7 +411,7 @@ input:focus {
         right: 21% !important;
     }
     #submitbutton {
-        right: 70%;
+        right: 75%;
     }
 }
 @media screen and (max-width: 1440px) {

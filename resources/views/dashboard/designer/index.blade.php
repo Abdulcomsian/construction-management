@@ -24,8 +24,6 @@
 
     table {
         margin-top: 20px;
-        border-collapse: separate;
-        background-color: red;
     }
 
     #kt_toolbar_container h1 {
@@ -48,12 +46,13 @@
     }
 
     table thead {
-        background-color: gray;
+        background-color: #f5f8fa;
     }
 
     table thead th {
-        color: #fff !important;
+        color: #000 !important;
         text-align: center;
+        font-weight: 900 !important;
     }
 
     tbody tr:nth-child(odd) {

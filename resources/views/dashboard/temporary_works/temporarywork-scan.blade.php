@@ -126,7 +126,8 @@ border-radius: 8px;
         data:{temporary_work_id:temporary_work_id,type:'qscan'},
         success:function(res)
         {
-           $("#commenttable").html(res);
+            res=JSON.parse(res);
+           $("#commenttable").html(res.comment);
            $("#comment_modal_id").modal('show');
         }
       });

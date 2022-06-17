@@ -193,7 +193,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form id="permitrenew" action="{{route('permit.save')}}" method="post" enctype="multipart/form-data">
+                <form id="permitrenew" class="from-prevent-multiple-submits" action="{{route('permit.save')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
@@ -913,7 +913,7 @@
 
                                 <br>
                                 <button id="submitbutton" type="submit"
-                                    class="btn btn-primary float-end">Submit</button>
+                                    class="btn btn-primary float-end from-prevent-multiple-submits">Submit</button>
                             </div>
                 </form>
             </div>
@@ -1113,6 +1113,13 @@
             }, {
                 once: true
             });
+
+
+            (function(){
+                $('.from-prevent-multiple-submits').on('submit', function(){
+                    $('.from-prevent-multiple-submits').attr('disabled','true');
+                })
+            })();
 
             // $("#submitbutton").on('click',function(){
             //      $("#signature").val(signaturePad.toDataURL('image/png'));

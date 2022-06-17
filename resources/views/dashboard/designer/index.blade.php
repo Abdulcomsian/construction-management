@@ -352,7 +352,7 @@
                         </div>
                     </form>
                     <hr>
-                    <table class="table table-hover" style="border-collapse: collapse;background: none;">
+                    <table class="table" style="border-collapse: collapse;background: none;">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -458,14 +458,14 @@
                           <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                            <span class="required">Design Check Certificate:</span>
                           </label>
-                           <input type="file" style="width:50%"class="form-control" id="designcheckfile" name="designcheckfile" required="required">
+                           <input type="file" style="width:25%"class="form-control" id="designcheckfile" name="designcheckfile" required="required">
                            &nbsp;&nbsp;
                            <button type="submit" class="btn btn-primary mb-2">Upload</button>
                       </div>
                       
                     </form>
                    
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="width: 48%">
                         <thead>
                             <tr>
                                 <th>No</th>

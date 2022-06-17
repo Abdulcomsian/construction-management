@@ -26,10 +26,7 @@
                 link = $(this).attr('href');
                 text=$(this).attr('data-text');
             }
-            if($(this).hasClass('unload'))
-            {
-                $("#permit_modal_id").hide();
-            }
+            
             
             if(text=='')
             {

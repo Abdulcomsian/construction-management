@@ -657,11 +657,11 @@
     },
     series: [{
         color:'#50C878',
-        name: 'Open Permit',
+        name: 'Open Permits',
         data: <?php echo json_encode($openpemit);?>
     },{
         color:'#C70039',
-        name:'Expire Permit',
+        name:'Expired Permits',
         data:[<?php echo $expirepermit;?>]
     }]
 });

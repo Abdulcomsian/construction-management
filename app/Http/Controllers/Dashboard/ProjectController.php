@@ -456,6 +456,28 @@ class ProjectController extends Controller
                 $projectgreenbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as greenbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->get();
                 
                 $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->get();
+
+
+                $typestemporarywork=TemporaryWork::
+                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
+                              ->groupBy('design_requirement_text')
+                              ->get();
+                $companyopenpermit=PermitLoad::
+                               select(['company',DB::raw("COUNT(id) as total")])
+                              ->groupBy('company')
+                              ->where('status', 1)
+                              ->get();
+                $companyexpirepermit=PermitLoad::
+                               select(['company',DB::raw("COUNT(id) as total")])
+                              ->groupBy('company')
+                              ->whereRaw('status = 1')
+                              ->whereRaw('DATEDIFF(created_at,"'.$current_date.'") <= -7')
+                              ->get();
+
+                
+               
+               
+                
                 
 
         }
@@ -508,6 +530,29 @@ class ProjectController extends Controller
                 $projectgreenbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as greenbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->whereIn('project_id', $pids)->get();
                 
                 $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $pids)->get();
+
+                $typestemporarywork=TemporaryWork::
+                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
+                              ->groupBy('design_requirement_text')
+                              ->get();
+
+                $typestemporarywork=TemporaryWork::
+                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
+                              ->groupBy('design_requirement_text')
+                              ->get();
+                $companyopenpermit=PermitLoad::
+                               select(['company',DB::raw("COUNT(id) as total")])
+                              ->groupBy('company')
+                              ->where('status', 1)
+                              ->where('company',Auth::user()->id)
+                              ->get();
+                $companyexpirepermit=PermitLoad::
+                               select(['company',DB::raw("COUNT(id) as total")])
+                              ->groupBy('company')
+                              ->whereRaw('status = 1')
+                              ->whereRaw('company = '.$user->id.'')
+                              ->whereRaw('DATEDIFF(created_at,"'.$current_date.'") <= -7')
+                              ->get();
         }
         elseif($user->hasRole('user'))
         {
@@ -556,10 +601,31 @@ class ProjectController extends Controller
                 $projectgreenbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as greenbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") > 7')->groupBy('project_id')->whereIn('project_id', $ids)->get();
                 
                 $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $ids)->get();
+
+                $typestemporarywork=TemporaryWork::
+                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
+                              ->groupBy('design_requirement_text')
+                              ->get();
+
+                 $typestemporarywork=TemporaryWork::
+                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
+                              ->groupBy('design_requirement_text')
+                              ->get();
+                $companyopenpermit=PermitLoad::
+                               select(['company',DB::raw("COUNT(id) as total")])
+                              ->groupBy('company')
+                              ->where('status', 1)
+                              ->get();
+                $companyexpirepermit=PermitLoad::
+                               select(['company',DB::raw("COUNT(id) as total")])
+                              ->groupBy('company')
+                              ->whereRaw('status = 1')
+                              ->whereRaw('DATEDIFF(created_at,"'.$current_date.'") <= -7')
+                              ->get();
         }
         //end of date
 
-        return view('dashboard',compact('projects','temporaryworks','company','pendingtemp','approvedtemp','rejectedtemp','reddesingcount','greendesingcount','amberdesingcount','projectshares','projecttotalbrief','projectredbrief','projectgreenbrief','projectamberbrief'));
+        return view('dashboard',compact('projects','temporaryworks','company','pendingtemp','approvedtemp','rejectedtemp','reddesingcount','greendesingcount','amberdesingcount','projectshares','projecttotalbrief','projectredbrief','projectgreenbrief','projectamberbrief','typestemporarywork','companyopenpermit','companyexpirepermit'));
     }
 
    

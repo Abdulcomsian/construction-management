@@ -332,6 +332,16 @@
             <div class="col-xl-12">
                  <div id="projectchart"></div>
             </div>
+            <hr>
+            <div class="col-xl-12">
+                <div>
+                  <canvas id="typechart" width="1000" height="400"></canvas>
+                </div>
+            </div>
+            <hr>
+            <div class="col-xl-12">
+                 <div id="permitchart"></div>
+            </div>
                                
         </div>
     </div>
@@ -344,6 +354,14 @@
     $greenbreifs=[];
     $amberbreifs=[];
     $i=0;
+    $typelabel=[];
+    $typedata=[];
+    $typecolor=[];
+
+    $permitlable=[];
+    $openpemit=[];
+    $current =  \Carbon\Carbon::now();
+    $expirepermit=0;
     @endphp
     @foreach($projectshares as $value)
     @php
@@ -362,6 +380,33 @@
          $i++;
         @endphp
     @endforeach
+
+
+    @foreach($typestemporarywork as $type)
+       @php 
+
+          $typelabel[]=$type->design_requirement_text;
+          $typedata[]=$type->total;
+          $typecolor[]='#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+       @endphp
+
+    @endforeach
+
+    @foreach($companyopenpermit as $x => $permit)
+    @php
+
+     if(isset($companyexpirepermit[$x]->total))
+     {
+        if($permit->company == $companyexpirepermit[$x]->company)
+        {
+            $expirepermit++;
+        }
+     }
+     $permitlable[]=$permit->company;
+     $openpemit[]= $permit->total;
+     @endphp
+    @endforeach
+
 @endsection
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
@@ -389,7 +434,7 @@
   };
 
   const config = {
-    type: 'bar',
+    type: 'pie',
     data: data,
     options: {
        scales: {
@@ -401,7 +446,8 @@
                 }
             }]
            }
-    }
+    },
+
   };
 
    const myChart = new Chart(
@@ -417,7 +463,7 @@
         type: 'column',
     },
     title: {
-        text: 'Project Wise Chart'
+        text: 'Designs completed on time as per the request'
     },
     xAxis: {
         categories:<?php echo json_encode($projectlabels);?>
@@ -425,7 +471,7 @@
     yAxis: {
         min: 0,
         title: {
-            text: 'Total Design Brief'
+            text: 'Total Counts'
         },
         stackLabels: {
             enabled: true,
@@ -440,6 +486,7 @@
         }
     },
     legend: {
+        layout: 'horizontal',
         align: 'right',
         x: -30,
         verticalAlign: 'top',
@@ -456,8 +503,7 @@
         pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
     },
     plotOptions: {
-        column: {
-            stacking: 'normal',
+        bar: {
             dataLabels: {
                 enabled: true
             }
@@ -465,20 +511,20 @@
     },
     series: [{
         color:'#6a5acd',
-        name: 'Total Brief',
+        name: 'Design Brief',
         data: <?php echo json_encode($projecttotalbreifs);?>
     }, {
         color:'#ff0000',
-        name: 'Red',
+        name: 'Designs received later than requested',
         data: <?php echo json_encode($redbriefs);?>
     }, {
         color:'#3cb371',
-        name: 'Green',
+        name: 'Designs received on time',
         data: <?php echo json_encode($greenbreifs);?>
     },
     {
         color:'#ffa500',
-        name:'Yellow',
+        name:'Designs received on time (within 7 days)',
         data:<?php echo json_encode($amberbreifs);?>
     }]
 });
@@ -516,5 +562,106 @@
     document.getElementById('projectshare'),
     config1
   );
+</script>
+
+<script>
+  const typelabels =<?php echo json_encode($typelabel);?>;
+  const typedata = {
+    labels: typelabels,
+    datasets: [{
+      label: 'Types of temporary works ',
+      backgroundColor:<?php echo json_encode($typecolor);?>,
+      borderColor: 'rgb(255, 99, 132)',
+      data: <?php echo json_encode($typedata);?>,
+    }]
+  };
+
+  const typeconfig = {
+    type: 'pie',
+    data: typedata,
+    options: {
+       scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    min: 0, // minimum value
+                    stepSize: 5
+                }
+            }]
+           }
+    },
+
+  };
+
+   const typechart = new Chart(
+    document.getElementById('typechart'),
+    typeconfig
+  );
+</script>
+
+<!-- permit chart -->
+<script type="text/javascript">
+    
+    Highcharts.chart('permitchart', {
+    chart: {
+        type: 'column',
+    },
+    title: {
+        text: 'Companies Compliance'
+    },
+    xAxis: {
+        categories:<?php echo json_encode($permitlable);?>
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Total Counts'
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: ( // theme
+                    Highcharts.defaultOptions.title.style &&
+                    Highcharts.defaultOptions.title.style.color
+                ) || 'gray',
+                textOutline: 'none'
+            }
+        }
+    },
+    legend: {
+        layout: 'horizontal',
+        align: 'right',
+        x: -30,
+        verticalAlign: 'top',
+        y: 25,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || 'white',
+        borderColor: '#CCC',
+        borderWidth: 1,
+        shadow: false
+    },
+    tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    series: [{
+        color:'#50C878',
+        name: 'Open Permit',
+        data: <?php echo json_encode($openpemit);?>
+    },{
+        color:'#C70039',
+        name:'Expire Permit',
+        data:[<?php echo $expirepermit;?>]
+    }]
+});
 </script>
 @endsection

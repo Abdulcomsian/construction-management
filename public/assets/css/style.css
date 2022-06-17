@@ -396,6 +396,9 @@ input:focus {
     #submitbutton {
         right: 75.9%;
     }
+    .temporary_work_create #submitbutton{
+        right: 23% !important;
+    }
 }
 @media screen and (max-width: 1600px) {
     .temporary_work_create #submitbutton {

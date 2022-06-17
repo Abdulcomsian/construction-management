@@ -414,6 +414,9 @@ input:focus {
         right: 75%;
     }
 }
+@media screen and (max-width: 1500px) {
+
+}
 @media screen and (max-width: 1440px) {
     
     #submitbutton {
@@ -448,6 +451,9 @@ input:focus {
       max-width: 100%;
       margin-left: 0px;
     }
+    .temporary_blade .tableDiv{
+        top: 0px !important;
+    }
   }
   @media screen and (max-width: 1200px) {
     #submitbutton {
@@ -468,6 +474,10 @@ input:focus {
 
   }
   @media screen and (max-width: 990px) {
+    .temporary_blade .tableDiv {
+        position: relative;
+        top: -30px !important;
+    }
       .card-header .topbar,
       .topbar-item .symbol-label{
           display: none;
@@ -837,4 +847,12 @@ li.select2-selection__choice{
 }
 .unload_Permit textarea{
     width: 100%;
+}
+.temporary_blade .datatable{
+    margin: 0px !important;
+    
+}
+.temporary_blade .tableDiv{
+    position: relative;
+    top: -10px;
 }

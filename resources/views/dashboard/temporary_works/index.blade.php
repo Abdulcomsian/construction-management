@@ -283,7 +283,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+<div class="content d-flex flex-column flex-column-fluid temporary_blade" id="kt_content">
    <div class="topMenu" style="padding-top:0px;">
       <div class="post d-flex flex-column-fluid" id="kt_post">
          <!--begin::Container-->

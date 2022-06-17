@@ -385,6 +385,9 @@ input:focus {
     }
 }
 @media screen and (min-width: 1800px) {
+    .unload_Permit  #submitbutton {
+        right: 71.9%;
+    }
     .temporary_work_create #submitbutton {
         right: 24% !important;
     }
@@ -393,6 +396,9 @@ input:focus {
     }
 }
 @media screen and (max-width: 1800px) {
+    .unload_Permit  #submitbutton {
+        right: 69.9%;
+    }
     #submitbutton {
         right: 75.9%;
     }
@@ -828,4 +834,7 @@ li.select2-selection__choice{
 }
 .temporary_work_create .inputDiv input[type="checkbox"]{
     width: 12px !important;
+}
+.unload_Permit textarea{
+    width: 100%;
 }

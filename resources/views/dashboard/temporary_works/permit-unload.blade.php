@@ -144,7 +144,7 @@
 @section('content')
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
-    <div id="kt_content_container" class="container">
+    <div id="kt_content_container" class="container unload_Permit">
         <!--begin::Card-->
         <div class="card">
             <!--begin::Card header-->

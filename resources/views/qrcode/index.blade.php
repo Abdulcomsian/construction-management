@@ -218,7 +218,7 @@ background-color: #07d564 !important;
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px">No.</th>
+                                    <th class="min-w-100px">QRcode</th>
                                     <th class="min-w-100px">QRcode</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -237,7 +237,7 @@ background-color: #07d564 !important;
                                             <td>
                                                 <img src="{{asset('qrcode/projects'.'/'.$code->qrcode)}}" width="auto" height="250px">
                                                 <br><br><br>
-                                                
+                                                 <p><b>{{$code->tempwork->twc_id_no ?? ''}}</b></p>
                                                 <p><b>{{$code->tempwork->design_requirement_text ?? ''}}</b></p>
                                                 <p><b>{{$code->tempwork->description_temporary_work_required ?? '' }}</b></p>
                                             </td>

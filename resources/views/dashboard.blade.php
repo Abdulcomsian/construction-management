@@ -333,6 +333,7 @@
                  <div id="projectchart"></div>
             </div>
             <hr>
+             @if(\Auth::user()->hasRole([['admin', 'company']]))
             <div class="col-xl-12">
                 <div>
                   <canvas id="typechart" width="1000" height="400"></canvas>
@@ -342,6 +343,7 @@
             <div class="col-xl-12">
                  <div id="permitchart"></div>
             </div>
+            @endif
                                
         </div>
     </div>
@@ -655,11 +657,11 @@
     },
     series: [{
         color:'#50C878',
-        name: 'Open Permit',
+        name: 'Open Permits',
         data: <?php echo json_encode($openpemit);?>
     },{
         color:'#C70039',
-        name:'Expire Permit',
+        name:'Expired Permits',
         data:[<?php echo $expirepermit;?>]
     }]
 });

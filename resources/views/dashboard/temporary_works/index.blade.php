@@ -707,6 +707,7 @@
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
                                           </span>
                                           <br>
+                                          <br>
                                           @endif
                                           <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                           </a>
@@ -873,9 +874,10 @@
                                           $scolor="green";
                                           }
                                           @endphp
+                                          <br>
                                           <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                           </button>
-                                          <br><br>
+                                          <br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                           @php
@@ -888,13 +890,17 @@
                                           }
                                           @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <span class="text-danger redBgBlink" style="">DNL</span>
-                                          @endif
                                           <br>
+                                          <span class="text-danger redBgBlink" style="">DNL</span>
+                                           
+                                          @endif
+                                           <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
+                                          
                                           @else
+                                          <br>
                                           <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
                                           @endif
                                        </td>
@@ -949,7 +955,7 @@
                                                    <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
                                                       @method('Delete')
                                                       @csrf
-                                                      <button type="submit" id="{{$item->id}}" class="confirm btn btn-danger p-2 m-1 ">
+                                                      <button type="submit" id="{{$item->id}}" class="confirm1 btn btn-danger p-2 m-1 " >
                                                       <i style="padding:3px;" class="fa fa-trash-alt"></i>
                                                       </button>
                                                    </form>
@@ -1054,8 +1060,10 @@
                                           $scolor="green";
                                           }
                                           @endphp
+                                          <br>
                                           <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                           </button>
+                                          <br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                           @php
@@ -1067,17 +1075,18 @@
                                           $color="red";
                                           }
                                           @endphp
-                                          <br>
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <span class="text-danger redBgBlink" style="">DNL</span>
                                           <br>
+                                          <span class="text-danger redBgBlink" style="">DNL</span>
+                                           
                                           @endif
+                                           <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
-                                          <br>
-                                          <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->
+                                          
                                           @else
+                                          <br>
                                           <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
                                           @endif
                                        </td>
@@ -1222,9 +1231,10 @@
                                           $scolor="green";
                                           }
                                           @endphp
+                                          <br>
                                           <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                           </button>
-                                          <br><br>
+                                          <br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                           @php
@@ -1236,17 +1246,18 @@
                                           $color="red";
                                           }
                                           @endphp
-                                          <br>
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <span class="text-danger redBgBlink" style="">DNL</span>
-                                          @endif
                                           <br>
+                                          <span class="text-danger redBgBlink" style="">DNL</span>
+                                           
+                                          @endif
+                                           <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
-                                          <br>
-                                          <!-- <button style="padding: 7px !important;border-radius: 10px;background-color:{{$color}};" class="permit-to-load-btn btn btn-info" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Live ({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</button> -->
+                                          
                                           @else
+                                          <br>
                                           <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
                                           @endif
                                        </td>

@@ -35,7 +35,7 @@ class DesignerController extends Controller
         $mail=$_GET['mail'];
         $id = \Crypt::decrypt($id);
         $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($id);
-       
+
         if($mail=$tempdata->designer_company_email)
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Company'])->orderBy('id','desc')->update(['status'=>1]);
@@ -319,7 +319,7 @@ class DesignerController extends Controller
                     $list .= '</tr>';
                     if(count($uploads->comment)>0)
                     {
-                        $j=1;
+                        $k=1;
 
                         foreach($uploads->comment as $comment)
                         {
@@ -344,12 +344,12 @@ class DesignerController extends Controller
                                     }
                                 }
                             $list .='<tr>';
-                            $list .='<td>'.$i.'-'.$j.'</td>';
+                            $list .='<td>'.$i.'-'.$k.'</td>';
                             $list .='<td>Comment/Reply</td>';
                             $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
                             $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                             $list .='</tr>';
-                            $j++;
+                            $k++;
 
                         }
                         

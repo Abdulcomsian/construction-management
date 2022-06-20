@@ -269,14 +269,24 @@ class ProjectController extends Controller
     }
     public function proj_qrcode(Request $request, $id)
     {
+        
         if (isset($request->tempstart)) {
             $start = $request->tempstart;
             $end = $request->tempend;
-            $qrcodes = ProjectQrCode::with('tempwork')->where('project_id', $id)->where('tempid', '>=', $start)->where('tempid', '<=', $end)->get();
+            $qrcodes = ProjectQrCode::with('tempwork')->whereHas(
+                    'tempwork',
+                    function ($q) use($id) {
+                        $q->where('project_id',$id);
+                    }
+                )->where('project_id', $id)->where('tempid', '>=', $start)->where('tempid', '<=', $end)->get();
         } else {
-            $qrcodes = ProjectQrCode::with('tempwork')->where('project_id', $id)->get();
+            $qrcodes = ProjectQrCode::with('tempwork')->whereHas(
+                    'tempwork',
+                    function ($q) use($id) {
+                        $q->where('project_id',$id);
+                    }
+                )->where('project_id', $id)->get();
         }
-        //dd($qrcodes);
         return view('qrcode.index', compact('qrcodes', 'id'));
     }
 

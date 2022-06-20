@@ -114,18 +114,21 @@ class HelperFunctions
             }
             return array($class,$blinkclass);
         } else {
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
+            $diff_in_days = $to->diffInDays($current);
+            $result =  $current->gt($to);
+            if ($result) {
+                $class = "background:red";
+                $blinkclass="redBgBlink ";
+            } elseif ($diff_in_days >= 7) {
+                $class = "background:green";
+                 $blinkclass="";
+            } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
+                $class = "background:yellow";
+                 $blinkclass="";
+            }
             foreach ($array as $arr) {
-                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
-                    $diff_in_days = $to->diffInDays($current);
-                    $result =  $current->gt($to);
-                    if ($result) {
-                        $class = "background:red";
-                        $blinkclass="redBgBlink ";
-                    } elseif ($diff_in_days >= 7) {
-                        $class = "background:green";
-                    } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                        $class = "background:yellow";
-                    }
+                    
                 if ($arr->file_type == 1) {
                     $current = $arr->created_at;
                     $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);

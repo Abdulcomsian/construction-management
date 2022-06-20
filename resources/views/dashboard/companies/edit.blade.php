@@ -129,6 +129,11 @@
                             </div>
                             <!--end::Col-->
                         </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-12 fv-row">
+                                <label class="fs-6 fw-bold mb-2">Auto Backup</label>
+                                <input type="checkbox" name="auto_backup"  {{$company->auto_backup==1 ? 'checked':''}}>
+                            </div>
 
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Update Company

@@ -122,10 +122,10 @@ class HelperFunctions
                 $blinkclass="redBgBlink ";
             } elseif ($diff_in_days >= 7) {
                 $class = "background:green";
-                 $blinkclass="";
+                 $blinkclass=" ";
             } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
                 $class = "background:yellow";
-                 $blinkclass="";
+                 $blinkclass=" ";
             }
             foreach ($array as $arr) {
                     
@@ -136,11 +136,13 @@ class HelperFunctions
                     $result =  $current->gt($to);
                     if ($result) {
                         $class = "background:#f2f2f2;color:red";
-                         $blinkclass="";
+                         $blinkclass=" ";
                     } elseif ($diff_in_days >= 7) {
                         $class = "background:#f2f2f2;color:green";
+                         $blinkclass=" ";
                     } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
                         $class = "background:#f2f2f2;color:orange";
+                         $blinkclass=" ";
                     }
                     return array($class,$blinkclass);
                     break;

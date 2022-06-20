@@ -891,7 +891,7 @@
                                           @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                           <br>
-                                          <span class="text-danger redBgBlink" style="">DNL</span>
+                                          <span class="text-danger redBgBlink" style="">DNL</span><br>
                                            
                                           @endif
                                            <br>
@@ -1077,7 +1077,7 @@
                                           @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                           <br>
-                                          <span class="text-danger redBgBlink" style="">DNL</span>
+                                          <span class="text-danger redBgBlink" style="">DNL</span><br>
                                            
                                           @endif
                                            <br>
@@ -1248,7 +1248,7 @@
                                           @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
                                           <br>
-                                          <span class="text-danger redBgBlink" style="">DNL</span>
+                                          <span class="text-danger redBgBlink" style="">DNL</span><br>
                                            
                                           @endif
                                            <br>

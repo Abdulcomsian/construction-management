@@ -99,8 +99,8 @@ class HelperFunctions
     {
         $blinkclass=" ";
         $class="";
+        $current =  \Carbon\Carbon::now();
         if (!isset($array[0])) {
-            $current =  \Carbon\Carbon::now();
             $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
             $diff_in_days = $to->diffInDays($current);
             $result =  $current->gt($to);
@@ -115,22 +115,6 @@ class HelperFunctions
             return array($class,$blinkclass);
         } else {
             foreach ($array as $arr) {
-                if ($arr->file_type == 1) {
-                    $current = $arr->created_at;
-                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
-                    $diff_in_days = $to->diffInDays($current);
-                    $result =  $current->gt($to);
-                    if ($result) {
-                        $class = "background:#f2f2f2;color:red";
-                    } elseif ($diff_in_days >= '7') {
-                        $class = "background:#f2f2f2;color:green";
-                    } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                        $class = "background:#f2f2f2;color:orange";
-                    }
-                    return array($class,$blinkclass);
-                    break;
-                } else {
-                    $current =  \Carbon\Carbon::now();
                     $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
                     $diff_in_days = $to->diffInDays($current);
                     $result =  $current->gt($to);
@@ -139,10 +123,39 @@ class HelperFunctions
                         $blinkclass="redBgBlink ";
                     } elseif ($diff_in_days >= 7) {
                         $class = "background:green";
-                    } elseif ($diff_in_days <= 7 && $diff_in_days >= 1) {
+                    } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
                         $class = "background:yellow";
                     }
-                }
+                if ($arr->file_type == 1) {
+                    $current = $arr->created_at;
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
+                    $diff_in_days = $to->diffInDays($current);
+                    $result =  $current->gt($to);
+                    if ($result) {
+                        $class = "background:#f2f2f2;color:red";
+                         $blinkclass="";
+                    } elseif ($diff_in_days >= 7) {
+                        $class = "background:#f2f2f2;color:green";
+                    } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
+                        $class = "background:#f2f2f2;color:orange";
+                    }
+                    return array($class,$blinkclass);
+                    break;
+                } 
+                // else {
+                //     $current =  \Carbon\Carbon::now();
+                //     $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
+                //     $diff_in_days = $to->diffInDays($current);
+                //     $result =  $current->gt($to);
+                //     if ($result) {
+                //         $class = "background:red";
+                //         $blinkclass="redBgBlink ";
+                //     } elseif ($diff_in_days >= 7) {
+                //         $class = "background:green";
+                //     } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
+                //         $class = "background:yellow";
+                //     }
+                // }
             }
             return array($class,$blinkclass);
         }

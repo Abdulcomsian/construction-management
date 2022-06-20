@@ -320,6 +320,9 @@
 
 
             <div class="col-xl-12">
+                <div style="text-align: center;">
+                    <h3>Design Briefs</h3>
+                </div>
                 <div>
                   <canvas id="myChart" width="1000" height="400"></canvas>
                 </div>
@@ -335,6 +338,9 @@
             <hr>
              @if(\Auth::user()->hasRole([['admin', 'company']]))
             <div class="col-xl-12">
+                <div style="text-align: center;">
+                    <h3>Types of temporary works </h3>
+                </div>
                 <div>
                   <canvas id="typechart" width="1000" height="400"></canvas>
                 </div>
@@ -342,6 +348,15 @@
             <hr>
             <div class="col-xl-12">
                  <div id="permitchart"></div>
+            </div>
+            <hr>
+            <div class="col-xl-12">
+                <div style="text-align: center;">
+                    <h3>Company Comments</h3>
+                </div>
+                <div>
+                  <canvas id="commentchart" width="1000" height="400"></canvas>
+                </div>
             </div>
             @endif
                                
@@ -364,6 +379,9 @@
     $openpemit=[];
     $current =  \Carbon\Carbon::now();
     $expirepermit=0;
+
+    $commentlabel=[];
+    $commentcount=[];
     @endphp
     @foreach($projectshares as $value)
     @php
@@ -395,29 +413,47 @@
     @endforeach
 
     @foreach($companyopenpermit as $x => $permit)
-    @php
+        @php
 
-     if(isset($companyexpirepermit[$x]->total))
-     {
-        if($permit->company == $companyexpirepermit[$x]->company)
-        {
-            $expirepermit++;
-        }
-     }
-     $permitlable[]=$permit->company;
-     $openpemit[]= $permit->total;
-     @endphp
+         if(isset($companyexpirepermit[$x]->total))
+         {
+            if($permit->company == $companyexpirepermit[$x]->company)
+            {
+                $expirepermit++;
+            }
+         }
+         $permitlable[]=$permit->company;
+         $openpemit[]= $permit->total;
+         @endphp
+    @endforeach
+
+    @foreach($companywisecomment as $copcomment)
+            @php 
+              if(\Auth::user()->hasRole([['company']]) && \Auth::user()->name==$copcomment->company)
+              {
+               $commentlabel[]=$copcomment->company;
+               $commentcount[]=$copcomment->count;
+              }elseif(\Auth::user()->hasRole([['admin']]))
+              {
+                $commentlabel[]=$copcomment->company;
+                $commentcount[]=$copcomment->count;
+              }
+              
+            @endphp
+
     @endforeach
 
 @endsection
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 <script>
-  const labels = [
+    var labels = [
     'Approved',
     'Pending',
     'Rejected',
@@ -425,7 +461,7 @@
   var pending='{{$pendingtemp}}';
   var approved='{{$approvedtemp}}';
   var rejected='{{$rejectedtemp}}';
-  const data = {
+  var data = {
     labels: labels,
     datasets: [{
       label: 'Design Brief',
@@ -435,27 +471,66 @@
     }]
   };
 
-  const config = {
-    type: 'pie',
-    data: data,
-    options: {
-       scales: {
-            yAxes: [{
-                display: true,
-                ticks: {
-                    min: 0, // minimum value
-                    stepSize: 5
-                }
-            }]
-           }
-    },
+var options = {
+  tooltips: {
+    enabled: true
+  },
+  plugins: {
+    datalabels: {
+      formatter: (value, ctx) => {
 
+        let sum = ctx.dataset._meta[0].total;
+        let percentage = (value * 100 / sum).toFixed(2) + "%";
+        return percentage;
+
+
+      },
+      color: '#fff',
+    }
+  }
+};
+
+
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'pie',
+  data: data,
+  options: options
+});
+  
+</script>
+
+<!-- commpany comment -->
+<script>
+    var labels = <?php echo json_encode($commentlabel);?>;
+    var data = {
+    labels: labels,
+    datasets: [{
+      label: 'Company Comments',
+      backgroundColor: ["green","orange","red"],
+      borderColor: 'rgb(255, 99, 132)',
+      data:<?php echo json_encode($commentcount);?>,
+    }]
   };
 
-   const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
+var options = {
+  tooltips: {
+    enabled: true
+  },
+  plugins: {
+    datalabels: {
+      color: '#fff',
+    }
+  }
+};
+
+var cctx = document.getElementById("commentchart").getContext('2d');
+var commentChart = new Chart(cctx, {
+  type: 'pie',
+  data: data,
+  options: options
+});
+  
 </script>
 
 <script type="text/javascript">

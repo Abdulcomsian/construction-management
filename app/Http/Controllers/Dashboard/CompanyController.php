@@ -179,6 +179,11 @@ class CompanyController extends Controller
                 $filePath = HelperFunctions::profileImagePath();
                 $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
             }
+            $all_inputs['auto_backup']=0;
+            if(isset($request->auto_backup))
+            {
+                $all_inputs['auto_backup']=1;
+            }
             $user = User::find($id);
             $user->update($all_inputs);
             $user->companyProjects()->update(['company_id' => null]);

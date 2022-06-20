@@ -11,7 +11,9 @@ use App\Models\TemporaryWork;
 use App\Models\TempWorkUploadFiles;
 use App\Models\PermitLoad;
 use App\Models\Tempworkshare;
+use App\Models\TemporaryWorkComment;
 use App\Utils\Validations;
+use App\Notifications\BackupNotification;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -24,6 +26,7 @@ use DB;
 use ZipArchive;
 use File;
 use Auth;
+use Notification;
 
 class ProjectController extends Controller
 {
@@ -433,7 +436,81 @@ class ProjectController extends Controller
             return Redirect::back();
        }
     }
+    
+    public function auto_project_backup()
+    {
 
+        $users = User::role('company')->get();
+        User::role('company')->chunk(30, function($users) {
+            foreach ($users as $user) 
+            {
+              if($user->auto_backup==1)
+              {
+                $zip = new ZipArchive;
+                $fileName = 'backup.zip';
+                    if ($user->hasRole('company')) {
+                        $project= Project::where('company_id',$user->id)->first();
+                        $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('project_id',$project->id)->get();
+                     }
+                     //
+                    if(count($temporarydata)>0)
+                    {
+                      if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
+                        {
+                            foreach($temporarydata as $tempdata)
+                            {
+                                    
+                                $briefpath=$tempdata->twc_id_no.'/pdf';
+                                $drawingpath=$tempdata->twc_id_no.'/drawings';
+                                //work for design breif pdf
+                                if (file_exists('pdf/'.$tempdata->ped_url) && is_file('pdf/'.$tempdata->ped_url))
+                                {
+                                    $zip->addFile(public_path('pdf/'.$tempdata->ped_url), $briefpath.'/brief.pdf');
+                                }
+                                
+                                $dr=1;
+                                //work for drawingws and designs
+                                $drawings=TempWorkUploadFiles::select('file_name')->where('temporary_work_id',$tempdata->id)->get();
+                                foreach($drawings as $drw)
+                                {
+                                    $n = strrpos($drw->file_name, '.');
+                                    $ext = substr($drw->file_name, $n + 1);
+                                    if (file_exists($drw->file_name) && is_file($drw->file_name))
+                                    {
+                                      $zip->addFile(public_path($drw->file_name), $drawingpath.'/drawing'.$dr.'.'.$ext);
+                                     }
+                                    $dr++;
+                                } 
+                                //working for permit
+                                $permitdata=PermitLoad::select('permit_no','ped_url')->where('temporary_work_id',$tempdata->id)->get();
+                                 $dr=1;
+                                foreach($permitdata as $permit)
+                                {
+                                    $permitpath=$tempdata->twc_id_no.'/permit/'.$permit->permit_no;
+                                    if (file_exists('pdf/'.$permit->ped_url) && is_file('pdf/'.$permit->ped_url))
+                                    {
+                                     $zip->addFile(public_path('pdf/'.$permit->ped_url), $permitpath.'/permit.pdf');
+                                    }
+                                     $dr++;
+
+                                }    
+                            }
+                        }
+                    
+                       $zip->close();
+                       Notification::route('mail',$user->email ?? '')->notify(new BackupNotification($fileName));
+                       response()->download(public_path($fileName))->deleteFileAfterSend(true);;
+                    }
+                   else{
+                        toastError('Not Created Any TemporaryWork');
+                        return Redirect::back();
+                   }
+               }
+
+            }
+        });
+        
+    }
 
     public function Dashboard()
     {
@@ -483,12 +560,13 @@ class ProjectController extends Controller
                               ->whereRaw('status = 1')
                               ->whereRaw('DATEDIFF(created_at,"'.$current_date.'") <= -7')
                               ->get();
-
-                
-               
-               
-                
-                
+                //work for comment
+                $companywisecomment=DB::table('temporary_work_comments')
+                                    ->join('temporary_works', 'temporary_work_comments.temporary_work_id', '=', 'temporary_works.id')
+                                    ->select(DB::raw('count(*) as count'), 'temporary_works.company as company')
+                                    ->groupBy('company')
+                                    ->where('type','normal')
+                                    ->get();
 
         }
         elseif($user->hasRole('company'))
@@ -563,6 +641,12 @@ class ProjectController extends Controller
                               ->whereRaw('company = '.$user->id.'')
                               ->whereRaw('DATEDIFF(created_at,"'.$current_date.'") <= -7')
                               ->get();
+                $companywisecomment=DB::table('temporary_work_comments')
+                                    ->join('temporary_works', 'temporary_work_comments.temporary_work_id', '=', 'temporary_works.id')
+                                    ->select(DB::raw('count(*) as count'), 'temporary_works.company as company')
+                                    ->groupBy('company')
+                                    ->where('type','normal')
+                                    ->get();
         }
         elseif($user->hasRole('user'))
         {
@@ -632,10 +716,11 @@ class ProjectController extends Controller
                               ->whereRaw('status = 1')
                               ->whereRaw('DATEDIFF(created_at,"'.$current_date.'") <= -7')
                               ->get();
+                $companywisecomment=[];
         }
         //end of date
 
-        return view('dashboard',compact('projects','temporaryworks','company','pendingtemp','approvedtemp','rejectedtemp','reddesingcount','greendesingcount','amberdesingcount','projectshares','projecttotalbrief','projectredbrief','projectgreenbrief','projectamberbrief','typestemporarywork','companyopenpermit','companyexpirepermit'));
+        return view('dashboard',compact('projects','temporaryworks','company','pendingtemp','approvedtemp','rejectedtemp','reddesingcount','greendesingcount','amberdesingcount','projectshares','projecttotalbrief','projectredbrief','projectgreenbrief','projectamberbrief','typestemporarywork','companyopenpermit','companyexpirepermit','companywisecomment'));
     }
 
    

@@ -525,6 +525,7 @@ height: 72px;
                                            
                                         </label>
                                         <br/>
+                                        <button  type="submit" style="margin-left: 10px;" class="updateBtn btn btn-primary float-end">Update</button>
                                         <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->
                                 </div>
                                 
@@ -538,7 +539,7 @@ height: 72px;
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals-edit')
-                        <button  type="submit" style="margin-left: 10px;" class="updateBtn btn btn-primary float-end">Update</button>
+                        
                         
                     </form>
                 </div>

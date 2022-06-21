@@ -38,6 +38,16 @@
                     <span class="menu-arrow"></span>
                 </span>
                 <div class="menu-sub menu-sub-accordion">
+                     @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{route('dashboard')}}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </div>
+                    @endif
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('projects.index')}}">
                             <span class="menu-bullet">

@@ -405,7 +405,7 @@
     @foreach($typestemporarywork as $type)
        @php 
 
-          $typelabel[]=$type->design_requirement_text;
+          $typelabel[]=$type->category_label;
           $typedata[]=$type->total;
           $typecolor[]='#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
        @endphp

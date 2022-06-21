@@ -336,7 +336,8 @@ class TemporaryWorkController extends Controller
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $all_inputs['photo'] = $imagename;
             }
-
+            $categorylabel=explode("-",$request->design_requirement_text);
+            $all_inputs['category_label']=$categorylabel[0];
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -557,6 +558,8 @@ class TemporaryWorkController extends Controller
             } else {
                 $all_inputs['status'] = '1';
             }
+            $categorylabel=explode("-",$request->design_requirement_text);
+            $all_inputs['category_label']=$categorylabel[0];
             $temporary_work = TemporaryWork::find($temporaryWork->id)->update($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::where('temporary_work_id', $temporaryWork->id)->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork->id]));

@@ -546,8 +546,9 @@ class ProjectController extends Controller
 
 
                 $typestemporarywork=TemporaryWork::
-                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
-                              ->groupBy('design_requirement_text')
+                               select(['category_label',DB::raw("COUNT(category_label) as total")])
+                              ->groupBy('category_label')
+                              ->where('category_label','!=',NULL)
                               ->get();
                 $companyopenpermit=PermitLoad::
                                select(['company',DB::raw("COUNT(id) as total")])
@@ -619,14 +620,14 @@ class ProjectController extends Controller
                 
                 $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $pids)->get();
 
-                $typestemporarywork=TemporaryWork::
-                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
-                              ->groupBy('design_requirement_text')
-                              ->get();
+                
 
                 $typestemporarywork=TemporaryWork::
-                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
-                              ->groupBy('design_requirement_text')
+                               select(['category_label','company',DB::raw("COUNT(category_label) as total")])
+                              ->groupBy('category_label')
+                              ->groupBy('company')
+                              ->where('category_label','!=',NULL)
+                              ->where('company',$user->name)
                               ->get();
                 $companyopenpermit=PermitLoad::
                                select(['company',DB::raw("COUNT(id) as total")])
@@ -645,6 +646,7 @@ class ProjectController extends Controller
                                     ->join('temporary_works', 'temporary_work_comments.temporary_work_id', '=', 'temporary_works.id')
                                     ->select(DB::raw('count(*) as count'), 'temporary_works.company as company')
                                     ->groupBy('company')
+                                    ->where('company',$user->name)
                                     ->where('type','normal')
                                     ->get();
         }
@@ -697,8 +699,8 @@ class ProjectController extends Controller
                 $projectamberbrief=TemporaryWork::select(['project_id',DB::raw('COUNT(id) as amberbreif')])->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") <= 7')->whereRaw('DATEDIFF(design_required_by_date,"'.$current_date.'") >= 0')->groupBy('project_id')->whereIn('project_id', $ids)->get();
 
                 $typestemporarywork=TemporaryWork::
-                               select(['design_requirement_text',DB::raw("COUNT(design_requirement_text) as total")])
-                              ->groupBy('design_requirement_text')
+                               select(['category_label',DB::raw("COUNT(category_label) as total")])
+                              ->groupBy('category_label')
                               ->get();
 
                  $typestemporarywork=TemporaryWork::

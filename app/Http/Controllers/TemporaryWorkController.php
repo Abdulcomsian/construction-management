@@ -406,7 +406,7 @@ class TemporaryWorkController extends Controller
                     Notification::route('mail', $request->pc_twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
                 } else {
                     //send email to admin
-                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
+                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
 
                     //send to twc email
                     Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
@@ -645,7 +645,7 @@ class TemporaryWorkController extends Controller
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                 } else {
-                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                     Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                     //designer
                     if ($request->designer_company_email) {
@@ -1170,7 +1170,7 @@ class TemporaryWorkController extends Controller
                     //     }
                     // )->where('company_id', $request->companyid)->first();
                     // Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                     // Notification::route('mail', auth()->user()->email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 }
@@ -1395,7 +1395,7 @@ class TemporaryWorkController extends Controller
                     //     }
                     // )->where('company_id', $request->companyid)->first();
                     // Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 }
                 toastSuccess('Permit Updatd sucessfully!');
@@ -1895,7 +1895,7 @@ class TemporaryWorkController extends Controller
     {
         try {
             $data = TemporaryWork::with('temp_work_images', 'uploadfile', 'permits', 'scaffold')->find($id);
-            Notification::route('mail', 'hani@ctworks.co.uk')->notify(new TempAttachmentNotifications($data));
+            Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TempAttachmentNotifications($data));
             toastSuccess('Attachements sent successfully!');
             return Redirect::back();
         } catch (\Exception $exception) {

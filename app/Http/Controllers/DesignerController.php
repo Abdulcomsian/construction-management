@@ -414,7 +414,7 @@ class DesignerController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ];
-                    Notification::route('mail', 'hani@ctworks.co.uk')->notify(new DesignUpload($notify_admins_msg));
+                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
 
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
                     //Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
@@ -459,7 +459,7 @@ class DesignerController extends Controller
                     'action_url' => '',
                 ];
 
-                Notification::route('mail', 'hani@ctworks.co.uk')->notify(new DesignUpload($notify_admins_msg));
+                Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
 
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 

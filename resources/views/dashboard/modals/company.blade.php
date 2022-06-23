@@ -37,14 +37,18 @@
                     <!--end::Heading-->
 
                     <div class="row g-9 mb-8">
+                        <div class="col-md-4 fv-row">
+                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Name" name="representative_name" value="{{old('representative_name')}}" />
+                        </div>
                         <!--begin::Col-->
-                        <div class="col-md-6 fv-row">
+                        <div class="col-md-4 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Company Title</label>
                             <input type="text" class="form-control form-control-solid" placeholder="Company Name" name="name" value="{{old('name')}}" />
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
-                        <div class="col-md-6 fv-row">
+                        <div class="col-md-4 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Company Email</label>
                             <input type="email" class="form-control form-control-solid" placeholder="Company Email" name="email" value="{{old('email')}}" />
                         </div>

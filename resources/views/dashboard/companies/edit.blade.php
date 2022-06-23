@@ -23,6 +23,9 @@
         margin: 30px 0px;
         border-radius: 10px;
     }
+    .select2-selection__choice__display{
+        color:black;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -86,14 +89,18 @@
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row g-9 mb-8">
+                            <div class="col-md-4 fv-row">
+                                <label class="required fs-6 fw-bold mb-2">Name</label>
+                                <input type="text" class="form-control form-control-solid" placeholder="Name" name="representative_name" value="{{old('representative_name') ?: $company->representative_name }}" />
+                            </div>
                             <!--begin::Col-->
-                            <div class="col-md-6 fv-row">
+                            <div class="col-md-4 fv-row">
                                 <label class="required fs-6 fw-bold mb-2">Company Title</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Company Name" name="name" value="{{old('name') ?: $company->name }}" />
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
-                            <div class="col-md-6 fv-row">
+                            <div class="col-md-4 fv-row">
                                 <label class="required fs-6 fw-bold mb-2">Company Email</label>
                                 <input type="email" class="form-control form-control-solid" placeholder="Company Email" name="email" value="{{old('email') ?: $company->email }}" />
                             </div>

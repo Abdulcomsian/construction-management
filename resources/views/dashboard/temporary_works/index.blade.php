@@ -839,7 +839,14 @@
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
-                                             <span style="font-size: 18px;"  class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                             @php 
+                                             $color="";
+                                             if(count($item->riskassesment)>0)
+                                             {
+                                                $color="green";
+                                             }
+                                             @endphp
+                                            <span style="font-size: 18px; color:{{$color}}" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
                                           </p>
                                        </td>
                                        <td>
@@ -1041,7 +1048,14 @@
                                           <br>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
-                                             <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
+                                              @php 
+                                                 $color="";
+                                                 if(count($item->riskassesment)>0)
+                                                 {
+                                                    $color="green";
+                                                 }
+                                             @endphp
+                                             <span style="font-size: 18px; color:{{$color}}"  class="fa fa-file" title="View File"></span>
                                           </p>
                                        </td>
                                        <td>
@@ -1195,7 +1209,14 @@
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
-                                             <span style="font-size: 18px;"  class="fa fa-file" title="View File"></span>
+                                             @php
+                                             $color="";
+                                                 if(count($item->riskassesment)>0)
+                                                 {
+                                                    $color="green";
+                                                 }
+                                            @endphp
+                                             <span style="font-size: 18px; color:{{$color}}"  class="fa fa-file" title="View File"></span>
                                           </p>
                                           <!-- @php $i=0;@endphp
                                              @foreach($item->uploadfile as $file)

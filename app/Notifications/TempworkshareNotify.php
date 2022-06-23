@@ -54,7 +54,7 @@ class TempworkshareNotify extends Notification
         return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Temporary Work Share Notifications')
-            ->view('mail.tempshare', ['details' => $tempworkdetails,'multiple'=>$multiple]);
+            ->view('mail.tempshare', ['details' => $tempworkdetails,'multiple'=>$multiple,'iscomment'=>$this->check]);
     }
 
     /**

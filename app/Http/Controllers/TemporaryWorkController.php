@@ -414,12 +414,23 @@ class TemporaryWorkController extends Controller
                     //designer
                     if ($request->designer_company_email) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
+                         //changing email history
+                        $cmh= new ChangeEmailHistory();
+                        $cmh->email=$request->designer_company_email;
+                        $cmh->type ='Design Brief';
+                        $cmh->foreign_idd=$temporary_work->id;
+                        $cmh->save();
                         Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->designer_company_email));
                     }
 
                     //designer email second
                     if ($request->desinger_email_2) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
+                        $cmh= new ChangeEmailHistory();
+                        $cmh->email=$request->desinger_email_2;
+                        $cmh->type ='Designer Checker';
+                        $cmh->foreign_idd=$temporary_work->id;
+                        $cmh->save();
                         Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                     }
                 }

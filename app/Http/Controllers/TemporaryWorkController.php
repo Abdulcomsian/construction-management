@@ -725,7 +725,7 @@ class TemporaryWorkController extends Controller
     public function temp_savecomment(Request $request)
     {
         Validations::storeComment($request);
-        // try {
+        try {
             //get twc email
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
@@ -733,6 +733,7 @@ class TemporaryWorkController extends Controller
             $model->temporary_work_id = $request->temp_work_id;
             $model->user_id = auth()->user()->id ?? NULL;
             $model->sender_email = $request->mail ?? NULL;
+            $model->sender_name = $request->sender_name ?? NULL;
             $model->status = $request->status ?? '0';
             if ($request->file('image')) {
                 $filePath = HelperFunctions::temporaryworkcommentPath();
@@ -756,10 +757,10 @@ class TemporaryWorkController extends Controller
                 toastSuccess('Comment submitted successfully');
                 return Redirect::back();
             }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
 
     public function temp_savecommentreplay(Request $request)
@@ -955,7 +956,7 @@ class TemporaryWorkController extends Controller
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
 
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td>' . $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
+                               <td>' . $i . '</td><td>'.$comment->sender_name.'<br>'. $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
                                <td style=" flex-direction: column;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">

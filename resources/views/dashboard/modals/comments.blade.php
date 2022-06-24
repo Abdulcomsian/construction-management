@@ -115,6 +115,18 @@
                             </div>
                             <!--begin::Label-->
                         </div>
+                        <div class="col-md-12">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+                                <span>Name:</span>
+                            </label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                               <input type="text" name="sender_name" class="form-control">
+                            </div>
+                            <!--begin::Label-->
+                        </div>
                          <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">

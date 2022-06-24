@@ -745,6 +745,7 @@
                                              <br> Comment
                                           </p>
                                           @php
+                                          $drawingscount=0;
                                           $color="green";
                                           $class='';
                                           if(count($item->comments)>0)
@@ -804,6 +805,7 @@
                                           if($file->file_type==1 && $file->construction==1)
                                           {
                                           $dcolor='green';
+                                          $drawingscount=1;
                                           $date=$file->created_at->todatestring();
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
@@ -970,7 +972,7 @@
                                                 </li>
                                                 <li class="navi-item">
                                                    @if(\Auth::user()->hasRole([['admin', 'company','user']]))
-                                                   <a href="#" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
+                                                   <a href="javascript:void(0)" class="btn btn-danger p-2 m-1 {{$drawingscount==1 ? 'sharebutton' : '' }}" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
                                                    <i style="padding:3px;" class="fa fa-share-alt"></i>
                                                    </a>
                                                    @endif
@@ -1175,6 +1177,7 @@
                                           if($file->file_type==1 && $file->construction==1)
                                           {
                                           $dcolor='green';
+
                                           $date=$file->created_at->todatestring();
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)

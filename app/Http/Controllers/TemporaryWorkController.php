@@ -50,7 +50,7 @@ class TemporaryWorkController extends Controller
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','riskassesment')->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
@@ -94,7 +94,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','riskassesment')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
                 $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } elseif ($user->hasRole('company')) {
@@ -414,12 +414,23 @@ class TemporaryWorkController extends Controller
                     //designer
                     if ($request->designer_company_email) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
+                         //changing email history
+                        $cmh= new ChangeEmailHistory();
+                        $cmh->email=$request->designer_company_email;
+                        $cmh->type ='Design Brief';
+                        $cmh->foreign_idd=$temporary_work->id;
+                        $cmh->save();
                         Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->designer_company_email));
                     }
 
                     //designer email second
                     if ($request->desinger_email_2) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
+                        $cmh= new ChangeEmailHistory();
+                        $cmh->email=$request->desinger_email_2;
+                        $cmh->type ='Designer Checker';
+                        $cmh->foreign_idd=$temporary_work->id;
+                        $cmh->save();
                         Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                     }
                 }
@@ -725,7 +736,7 @@ class TemporaryWorkController extends Controller
     public function temp_savecomment(Request $request)
     {
         Validations::storeComment($request);
-        // try {
+        try {
             //get twc email
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
@@ -733,6 +744,7 @@ class TemporaryWorkController extends Controller
             $model->temporary_work_id = $request->temp_work_id;
             $model->user_id = auth()->user()->id ?? NULL;
             $model->sender_email = $request->mail ?? NULL;
+            $model->sender_name = $request->sender_name ?? NULL;
             $model->status = $request->status ?? '0';
             if ($request->file('image')) {
                 $filePath = HelperFunctions::temporaryworkcommentPath();
@@ -756,10 +768,10 @@ class TemporaryWorkController extends Controller
                 toastSuccess('Comment submitted successfully');
                 return Redirect::back();
             }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
 
     public function temp_savecommentreplay(Request $request)
@@ -955,7 +967,7 @@ class TemporaryWorkController extends Controller
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
 
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td>' . $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
+                               <td>' . $i . '</td><td>'.$comment->sender_name.'<br>'. $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
                                <td style=" flex-direction: column;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
@@ -1846,7 +1858,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','riskassesment')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->groupBy('project_id')->get();
                 $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } elseif ($user->hasRole('company')) {
@@ -1860,7 +1872,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','riskassesment')->whereIn('id', $ids)->latest()->paginate(20);
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
                 $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } else {
@@ -1877,7 +1889,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->temporary_work_id;
                     $users[] = $u->user_id;
                 }
-                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits')->whereIn('id', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','riskassesment')->whereIn('id', $ids)->latest()->paginate(20);
 
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
                 $projects = Project::with('company')->whereIn('id', $projects_id)->get();

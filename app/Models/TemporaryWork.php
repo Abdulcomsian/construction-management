@@ -20,6 +20,10 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(TempWorkUploadFiles::class);
     }
+    public function riskassesment()
+    {
+        return $this->hasMany(TempWorkUploadFiles::class)->whereIn('file_type',[5,6]);
+    }
     public function comments()
     {
         return $this->hasMany(TemporaryWorkComment::class)->where('type','normal');

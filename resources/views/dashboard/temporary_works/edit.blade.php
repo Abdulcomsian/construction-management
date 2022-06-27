@@ -129,7 +129,7 @@ height: 72px;
         .modalDiv{
             width:100% ;
         }
-     .form-control.form-control-solid{width:250px;background-color:#000;}
+     .form-control.form-control-solid{background-color:#000;}
      @media only screen and (min-width: 470px) {
         .list_top{display:inline !important;}
      }
@@ -169,7 +169,7 @@ height: 72px;
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container">
+        <div id="kt_content_container" class="container temporary_work_create">
             <!--begin::Card-->
             <div class="card">
                 <!--begin::Card header-->

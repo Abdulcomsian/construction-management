@@ -4,6 +4,9 @@
     canvas{
         width:100px !important;
     }
+    .dcard{
+        height: 230px;
+    }
 </style>
 @endsection
 @section('content')
@@ -12,7 +15,7 @@
             <!--begin::Col-->
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 13-->
-                <div class="card card-xl-stretch mb-xl-10" style="background-color: #F7D9E3">
+                <div class="card card-xl-stretch mb-xl-10 dcard" style="background-color: #F7D9E3">
                     <!--begin::Body-->
                     <div class="card-body d-flex flex-column">
                         <!--begin::Wrapper-->
@@ -42,7 +45,7 @@
             @if(\Auth::user()->hasRole([['admin']]))
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 14-->
-                <div class="card card-xxl-stretch mb-xl-10" style="background-color: #CBF0F4">
+                <div class="card card-xxl-stretch mb-xl-10 dcard" style="background-color: #CBF0F4">
                     <!--begin::Body-->
                     <div class="card-body d-flex flex-column">
                         <!--begin::Wrapper-->
@@ -69,7 +72,7 @@
 
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 14-->
-                <div class="card card-xxl-stretch mb-5 mb-xl-10" style="background-color: #CBD4F4">
+                <div class="card card-xxl-stretch mb-5 mb-xl-10 dcard" style="background-color: #CBD4F4">
                     <!--begin::Body-->
                     <div class="card-body d-flex flex-column">
                         <!--begin::Wrapper-->
@@ -195,7 +198,7 @@
             <!-- red green amber -->
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 14-->
-                <div class="card card-xxl-stretch mb-5 mb-xl-10" style="background-color: #CBD4F4">
+                <div class="card card-xxl-stretch mb-5 mb-xl-10 dcard" style="background-color: #CBD4F4">
                     <!--begin::Body-->
                     <div class="card-body d-flex flex-column">
                         <!--begin::Wrapper-->
@@ -317,9 +320,9 @@
                 </div>
                 <!--end::Mixed Widget 14-->
             </div>
-
-
-            <div class="col-xl-12">
+        </div>
+            <div class="row gy-5 g-xl-10">
+            <div class="col-xl-6">
                 <div style="text-align: center;">
                     <h3>Design Briefs</h3>
                 </div>
@@ -327,8 +330,7 @@
                   <canvas id="myChart" width="1000" height="400"></canvas>
                 </div>
             </div>
-            <hr>
-            <div class="col-xl-12">
+            <div class="col-xl-6">
                  <canvas id="projectshare" width="1000" height="400"></canvas>
             </div>
             <hr>
@@ -337,7 +339,7 @@
             </div>
             <hr>
              @if(\Auth::user()->hasRole([['admin', 'company']]))
-            <div class="col-xl-12">
+            <div class="col-xl-6">
                 <div style="text-align: center;">
                     <h3>Types of temporary works </h3>
                 </div>
@@ -345,12 +347,7 @@
                   <canvas id="typechart" width="1000" height="400"></canvas>
                 </div>
             </div>
-            <hr>
-            <div class="col-xl-12">
-                 <div id="permitchart"></div>
-            </div>
-            <hr>
-            <div class="col-xl-12">
+            <div class="col-xl-6">
                 <div style="text-align: center;">
                     <h3>Company Comments</h3>
                 </div>
@@ -358,6 +355,12 @@
                   <canvas id="commentchart" width="1000" height="400"></canvas>
                 </div>
             </div>
+            <hr>
+            <div class="col-xl-12">
+                 <div id="permitchart"></div>
+            </div>
+            <hr>
+            
             @endif
                                
         </div>
@@ -485,6 +488,10 @@ var options = {
 
 
       },
+      font: {
+          weight: 'bold',
+          size: 6,
+        },
       color: '#fff',
     }
   }
@@ -628,7 +635,7 @@ var commentChart = new Chart(cctx, {
                 display: true,
                 ticks: {
                     min: 0, // minimum value
-                    stepSize: 1
+                    stepSize: 3
                 }
             }]
            }
@@ -656,18 +663,6 @@ var commentChart = new Chart(cctx, {
   const typeconfig = {
     type: 'pie',
     data: typedata,
-    options: {
-       scales: {
-            yAxes: [{
-                display: true,
-                ticks: {
-                    min: 0, // minimum value
-                    stepSize: 5
-                }
-            }]
-           }
-    },
-
   };
 
    const typechart = new Chart(

@@ -7,6 +7,7 @@
     .dcard{
         height: 230px;
     }
+   
 </style>
 @endsection
 @section('content')
@@ -326,7 +327,7 @@
                 <div style="text-align: center;">
                     <h3>Design Briefs</h3>
                 </div>
-                <div>
+                <div class="canvasouter">
                   <canvas id="myChart" width="1000" height="400"></canvas>
                 </div>
             </div>

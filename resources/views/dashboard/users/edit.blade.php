@@ -5,6 +5,9 @@
         border-radius: 8px;
         float: right;
     }
+    .form-select.form-select-solid{
+    color:black !important;
+   }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection

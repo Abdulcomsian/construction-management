@@ -141,6 +141,10 @@ height: 72px;
     canvas{width:270px;height:110px;}
     /* .inputDiv  #design_required_by_date{color:#fff;} */
     .form-control.form-control-solid:focus{color:#000 !important;}
+    input {
+  /* custom */
+  caret-color: gray;
+}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')

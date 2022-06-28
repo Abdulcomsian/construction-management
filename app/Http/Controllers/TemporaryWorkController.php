@@ -1993,7 +1993,7 @@ class TemporaryWorkController extends Controller
             foreach ($permits as $permit) {
                 $notify_admins_msg['body']['filename'] = $permit->ped_url;
                 $notify_admins_msg['body']['text'] = str_replace("description of TWS top part", $permit->tempwork->design_requirement_text, $notify_admins_msg['body']['text']);
-                Notification::route('mail', $permit->user->email ?? 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                Notification::route('mail', $permit->user->email ?? 'ctwcoordinator@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
 

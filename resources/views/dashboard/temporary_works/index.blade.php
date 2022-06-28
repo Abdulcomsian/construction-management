@@ -972,7 +972,7 @@
                                                 </li>
                                                 <li class="navi-item">
                                                    @if(\Auth::user()->hasRole([['admin', 'company','user']]))
-                                                   <a href="javascript:void(0)" class="btn btn-danger p-2 m-1 {{$drawingscount==1 ? 'sharebutton' : '' }}" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
+                                                   <a href="javascript:void(0)" class="btn btn-danger p-2 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
                                                    <i style="padding:3px;" class="fa fa-share-alt"></i>
                                                    </a>
                                                    @endif

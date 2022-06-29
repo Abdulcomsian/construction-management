@@ -54,6 +54,11 @@ class TemporaryWork extends Model
          return $this->hasMany(PermitLoad::class)->whereIn('status',[1,5]);
     }
 
+    public function closedpermits()
+    {
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[0]);
+    }
+
     public function unloadpermits()
     {
          return $this->hasMany(PermitLoad::class)->whereIn('status',[3]);

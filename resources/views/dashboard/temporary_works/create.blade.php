@@ -20,6 +20,10 @@
     .form-control[readonly] {
     background-color: #000;
 }
+input {
+  /* custom */
+  caret-color: gray;
+}
 .customDate::-webkit-calendar-picker-indicator {   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>'); }
 input::placeholder{
     color: #fff !important;
@@ -229,12 +233,9 @@ height: 72px;
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title list_top d-flex" style="width:98%">
-                        <h2 style="display: inline-block;">Design Brief</h2>
-                         <h3  style="font-size:1.6rem;">Temporary Work Registers
-                             <span class="d-block text-muted pt-25 font-size-sm"></span>
-                         </h3>
-                        <a style="width: 235px; text-align:center;float: right;color:#fff;padding:0px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
+                    <div class="card-title list_top" style="width:98%">
+                        <h2 style="display: inline-block;width:17%">Design Brief</h2>
+                        <a style="width: 235px; text-align:center;color:#fff;padding:5px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         
                     </div>
@@ -626,13 +627,16 @@ height: 72px;
     
     
     var projects = {!!$projects!!};
+    var address='';
     $('#projects').change(function() {
         let id = $(this).val();
         let project = projects.filter(function(p) {
             return p.id == id;
         });
-        console.log(project[0].address);
+        if(project[0].address)
+        {
         address=project[0].address.replace(/\n/g,',');
+        }
         if (project) {
             $('#no').val('').val(project[0].no);
             $('#name').val('').val(project[0].name);

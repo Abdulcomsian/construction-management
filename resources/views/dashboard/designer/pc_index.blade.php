@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv requiredDiv">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 14%">
                                                 <span class="required">Accept:</span>
 
                                             </label>
@@ -160,7 +160,7 @@
                                                 </label>
                                                 <label>
                                                     <input type="radio" datacheck1='no' class="btn-check" name="status" value="2" />
-                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                                 </label>
                                             </div>
                                         </div>

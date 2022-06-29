@@ -20,6 +20,10 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(TempWorkUploadFiles::class);
     }
+    public function riskassesment()
+    {
+        return $this->hasMany(TempWorkUploadFiles::class)->whereIn('file_type',[5,6]);
+    }
     public function comments()
     {
         return $this->hasMany(TemporaryWorkComment::class)->where('type','normal');
@@ -48,6 +52,11 @@ class TemporaryWork extends Model
     public function permits() //this relation for open permit check in table
     {
          return $this->hasMany(PermitLoad::class)->whereIn('status',[1,5]);
+    }
+
+    public function closedpermits()
+    {
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[0]);
     }
 
     public function unloadpermits()

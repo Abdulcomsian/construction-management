@@ -34,11 +34,13 @@
                                                                     <a style="text-decoration: none" href="{{asset('pdf'.'/'.$data->ped_url)}}">Design Breif - {{$data->twc_id_no}} ({{$data->design_requirement_text}}) </a><br>
                                                                     @if(count($data->comments)>0)
                                                                     <h4>Comments -</h4>
+                                                                    @if($iscomment)
                                                                     <ul>
                                                                         @foreach($data->comments as $comments)
                                                                         <li>{{$comments->comment}}</li>
                                                                         @endforeach
                                                                     </ul>
+                                                                    @endif
                                                                     @endif
                                                                     @if(count($data->uploadfile)>0)
                                                                     <h4>Drawings and calculations -</h4>

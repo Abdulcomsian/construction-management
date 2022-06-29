@@ -30,22 +30,20 @@
    <div style="padding: 0px; width: 100%; max-width: 70%; margin: auto;">
       <div class="topDiv d-flex" style="display: flex; justify-content: space-between;">
         <div class="logoText" style="float:left;width:70%">
-            @if(isset($data['type']) && $data['type']=="scaffoldunload")
-            <h3>Scaffolding Inspection Permit to UnLoad</h3>
-            @else
-            <h3>Scaffolding Inspection Permit to Load</h3>
-            @endif
-            <br>
-            <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$design_requirement_text}}</p>
+                @if(isset($data['type']) && $data['type']=="scaffoldunload")
+                <h3>Scaffolding Inspection Permit to UnLoad</h3>
+                @else
+                <h3>Scaffolding Inspection Permit to Load</h3>
+                @endif
+                <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$design_requirement_text}}</p>
             </div>
+      
             <div class="logo" style="float:right;width:20%;">
                 @php
                 $logodata=\App\Models\User::where('id',$data['companyid'])->first();
                 @endphp
                 @if($logodata->image != NULL)
                 <img src="{{public_path($logodata->image)}}" width="auto" height="80px" />
-                @else
-               <!--  <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" /> -->
                 @endif
             </div>
       </div>

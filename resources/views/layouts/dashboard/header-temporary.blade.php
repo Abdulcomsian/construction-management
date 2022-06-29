@@ -35,6 +35,12 @@
                             <!-- <a class=" href="{{url('dashboard')}}">
                                 <span class="menu-title">Dashboard</span>
                             </a> -->
+                             @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                <a class="menu-link" href="{{route('dashboard')}}">
+                                    <span class="menu-title">Dashboard</span>
+                                </a>
+                    
+                             @endif
                             <a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
                             @if(\Auth::user()->hasAnyRole(['admin', 'company']))
                                 <a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>

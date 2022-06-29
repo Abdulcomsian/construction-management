@@ -129,7 +129,7 @@ height: 72px;
         .modalDiv{
             width:100% ;
         }
-     .form-control.form-control-solid{width:250px;background-color:#000;}
+     .form-control.form-control-solid{background-color:#000;}
      @media only screen and (min-width: 470px) {
         .list_top{display:inline !important;}
      }
@@ -141,6 +141,10 @@ height: 72px;
     canvas{width:270px;height:110px;}
     /* .inputDiv  #design_required_by_date{color:#fff;} */
     .form-control.form-control-solid:focus{color:#000 !important;}
+    input {
+  /* custom */
+  caret-color: gray;
+}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -169,7 +173,7 @@ height: 72px;
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container">
+        <div id="kt_content_container" class="container temporary_work_create">
             <!--begin::Card-->
             <div class="card">
                 <!--begin::Card header-->
@@ -525,6 +529,7 @@ height: 72px;
                                            
                                         </label>
                                         <br/>
+                                        <button  type="submit" style="margin-left: 10px;" class="updateBtn btn btn-primary float-end">Update</button>
                                         <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->
                                 </div>
                                 
@@ -538,7 +543,7 @@ height: 72px;
                         </div>
                           <br>
                         @include('dashboard.modals.design-relief-modals-edit')
-                        <button  type="submit" style="margin-left: 10px;" class="updateBtn btn btn-primary float-end">Update</button>
+                        
                         
                     </form>
                 </div>

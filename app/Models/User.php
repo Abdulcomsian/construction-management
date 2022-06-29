@@ -28,6 +28,8 @@ class User extends Authenticatable
         'address',
         'company_id',
         'job_title',
+        'auto_backup',
+        'representative_name',
     ];
 
     /**

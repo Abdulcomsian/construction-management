@@ -154,6 +154,8 @@ Route::group(['middleware' => ['auth']], function () {
      //backup route
      
      Route::get('project-backup',[ProjectController::class,'project_backup'])->name('projects.backup');
+     //auto backup
+     Route::get('auto-project-backup',[ProjectController::class,'auto_project_backup'])->name('autoprojects.backup');
 
 });
 

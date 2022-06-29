@@ -920,35 +920,15 @@
 
                                             </div>
                                         </div>
-
-                                        <!-- <div class="d-flex inputDiv principleno" id="sign" style="">
-                                               <div class="signatureDiv">
-                                                <label style="width:33%;" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                        <span class="required">Signature:</span>
-                                                    </label>
-                                                    <br />
-                                                    <canvas id="sig" ></canvas>
-                                               </div>
-                                               <div class="uploadingDiv">
-                                               <div class="uploadDiv" style="padding-left: 10px;">
-                                                    <div class="input-images"></div>
-                                                </div>
-                                               </div>
-                                            </div> -->
-                                        <div class="d-flex inputDiv principleno" id="sign" style="">
-                                            <textarea id="signature" name="signed" style="opacity: 0"></textarea>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- </div> -->
-
-                            <!-- <div class="uploadDiv" style="padding-left: 10px;">
-                                <div class="input-images"></div>
-                            </div> -->
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
+                            <div class="d-flex inputDiv principleno" id="sign" style="">
+                                            <textarea id="signature" name="signed" style="opacity: 0"></textarea>
+                                        </div>
 
                         </div>
                     </div>

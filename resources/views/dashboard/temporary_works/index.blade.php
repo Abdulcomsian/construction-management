@@ -889,28 +889,36 @@
                                           <br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
-                                          @php
-                                          $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                          $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                          $color="orange";
-                                          if($permitexpire>0 || $scaffoldexpire>0)
-                                          {
-                                          $color="red";
-                                          }
-                                          @endphp
-                                          @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <br>
-                                          <span class="text-danger redBgBlink" style="">DNL</span><br>
-                                           
-                                          @endif
-                                           <br>
-                                          <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
-                                          </span>
+                                              @php
+                                              $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                              $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                              $color="orange";
+                                              if($permitexpire>0 || $scaffoldexpire>0)
+                                              {
+                                              $color="red";
+                                              }
+                                              @endphp
+                                              @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
+                                              <br>
+                                              <span class="text-danger redBgBlink" style="">DNL</span><br>
+                                               
+                                              @endif
+                                               <br>
+                                              <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
+                                              <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                              </span>
                                           
                                           @else
                                           <br>
-                                          <span style="width: 108px;"><span class="label label-lg font-weight-bold label-light-green label-inline">Closed</span></span>
+                                          <span style="width: 108px;">
+                                            <span class="label label-lg font-weight-bold label-light-green label-inline">
+                                              @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
+                                              Closed
+                                              @else
+                                              0
+                                              @endif
+                                            </span>
+                                          </span>
                                           @endif
                                        </td>
                                        <td>

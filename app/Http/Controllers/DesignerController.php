@@ -966,6 +966,7 @@ class DesignerController extends Controller
         $list.='<td>'.$history->type.'</td>';
         $list.='<td>'.$status.'</td>';
         $list.='<td>'.$date.'</td></tr>';
+        $i++;
      }
      echo $list;
    }

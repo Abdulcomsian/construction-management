@@ -106,7 +106,7 @@ class HelperFunctions
             $result =  $current->gt($to);
             if ($result) {
                 $class = "background:red;color:black";
-                $blinkclass="redBgBlink ";
+                $blinkclass="redBgBlink";
             } elseif ($diff_in_days >= 7) {
                 $class = "background:green;color:black";
             } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {

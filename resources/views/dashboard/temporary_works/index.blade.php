@@ -893,9 +893,11 @@
                                               $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                               $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                               $color="orange";
+                                              $class='';
                                               if($permitexpire>0 || $scaffoldexpire>0)
                                               {
                                               $color="red";
+                                              $class="redBgBlink";
                                               }
                                               @endphp
                                               @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
@@ -905,7 +907,7 @@
                                               @endif
                                                <br>
                                               <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                              <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                              <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                               </span>
                                           
                                           @else
@@ -1094,9 +1096,11 @@
                                           $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                           $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                           $color="orange";
+                                          $class='';
                                           if($permitexpire>0 || $scaffoldexpire>0)
                                           {
                                           $color="red";
+                                          $class='redBgBlink';
                                           }
                                           @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
@@ -1106,7 +1110,7 @@
                                           @endif
                                            <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
                                           
                                           @else
@@ -1273,9 +1277,11 @@
                                           $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                           $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                           $color="orange";
+                                          $class='';
                                           if($permitexpire>0 || $scaffoldexpire>0)
                                           {
                                           $color="red";
+                                          $class='redBgBlink';
                                           }
                                           @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
@@ -1285,7 +1291,7 @@
                                           @endif
                                            <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                          <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                           </span>
                                           
                                           @else

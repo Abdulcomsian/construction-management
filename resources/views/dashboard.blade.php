@@ -469,8 +469,7 @@
     labels: labels,
     datasets: [{
       label: 'Design Brief',
-      backgroundColor: ["green","orange","red"],
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: ["#07d564","orange","red"],
       data: [approved,pending,rejected],
     }]
   };
@@ -515,8 +514,7 @@ var myChart = new Chart(ctx, {
     labels: labels,
     datasets: [{
       label: 'Company Comments',
-      backgroundColor: ["green","orange","red"],
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: ["#07d564","orange","red"],
       data:<?php echo json_encode($commentcount);?>,
     }]
   };
@@ -656,7 +654,6 @@ var commentChart = new Chart(cctx, {
     datasets: [{
       label: 'Types of temporary works ',
       backgroundColor:<?php echo json_encode($typecolor);?>,
-      borderColor: 'rgb(255, 99, 132)',
       data: <?php echo json_encode($typedata);?>,
     }]
   };
@@ -727,11 +724,11 @@ var commentChart = new Chart(cctx, {
         }
     },
     series: [{
-        color:'#50C878',
+        color:'#07d564',
         name: 'Open Permits',
         data: <?php echo json_encode($openpemit);?>
     },{
-        color:'#C70039',
+        color:'red',
         name:'Expired Permits',
         data:[<?php echo $expirepermit;?>]
     }]

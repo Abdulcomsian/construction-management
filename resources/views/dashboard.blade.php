@@ -729,7 +729,7 @@ var commentChart = new Chart(cctx, {
             }
         },
         series: {
-                pointWidth: 50
+                pointWidth: 35
             }
     },
     series: [{

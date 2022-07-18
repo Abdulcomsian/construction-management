@@ -14,7 +14,7 @@
     <div class="content d-flex flex-column flex-column-fluid" style="width:98%" id="kt_content">
        <div class="row gy-5 g-xl-10">
             <!--begin::Col-->
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <!--begin::Mixed Widget 13-->
                 <div class="card card-xl-stretch mb-xl-10 dcard" style="background-color: #F7D9E3">
                     <!--begin::Body-->
@@ -44,7 +44,7 @@
             <!--end::Col-->
             <!--begin::Col-->
             @if(\Auth::user()->hasRole([['admin']]))
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <!--begin::Mixed Widget 14-->
                 <div class="card card-xxl-stretch mb-xl-10 dcard" style="background-color: #CBF0F4">
                     <!--begin::Body-->
@@ -71,7 +71,7 @@
             </div>
             @endif
 
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <!--begin::Mixed Widget 14-->
                 <div class="card card-xxl-stretch mb-5 mb-xl-10 dcard" style="background-color: #CBD4F4">
                     <!--begin::Body-->
@@ -197,7 +197,7 @@
             </div>
 
             <!-- red green amber -->
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <!--begin::Mixed Widget 14-->
                 <div class="card card-xxl-stretch mb-5 mb-xl-10 dcard" style="background-color: #CBD4F4">
                     <!--begin::Body-->
@@ -323,7 +323,7 @@
             </div>
         </div>
             <div class="row gy-5 g-xl-10">
-            <div class="col-xl-6">
+            <div class="col-xl-12">
                 <div style="text-align: center;">
                     <h3>Design Briefs</h3>
                 </div>
@@ -331,7 +331,25 @@
                   <canvas id="myChart" width="1000" height="400"></canvas>
                 </div>
             </div>
-            <div class="col-xl-6">
+            @if(\Auth::user()->hasRole([['admin', 'company']]))
+            <div class="col-xl-12">
+                <div style="text-align: center;">
+                    <h3>Types of temporary works </h3>
+                </div>
+                <div>
+                  <canvas id="typechart" width="1000" height="400"></canvas>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div style="text-align: center;">
+                    <h3>Company Comments</h3>
+                </div>
+                <div>
+                  <canvas id="commentchart" width="1000" height="400"></canvas>
+                </div>
+            </div>
+            @endif
+            <div class="col-xl-12">
                  <canvas id="projectshare" width="1000" height="400"></canvas>
             </div>
             <hr>
@@ -340,23 +358,6 @@
             </div>
             <hr>
              @if(\Auth::user()->hasRole([['admin', 'company']]))
-            <div class="col-xl-6">
-                <div style="text-align: center;">
-                    <h3>Types of temporary works </h3>
-                </div>
-                <div>
-                  <canvas id="typechart" width="1000" height="400"></canvas>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div style="text-align: center;">
-                    <h3>Company Comments</h3>
-                </div>
-                <div>
-                  <canvas id="commentchart" width="1000" height="400"></canvas>
-                </div>
-            </div>
-            <hr>
             <div class="col-xl-12">
                  <div id="permitchart"></div>
             </div>
@@ -618,6 +619,7 @@ var commentChart = new Chart(cctx, {
   const data1 = {
     labels: labelss,
     datasets: [{
+
       label: 'Share Design Brief',
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderColor: 'rgb(255, 99, 132)',
@@ -631,11 +633,15 @@ var commentChart = new Chart(cctx, {
     options: {
        scales: {
             yAxes: [{
+              
                 display: true,
                 ticks: {
                     min: 0, // minimum value
                     stepSize: 3
                 }
+            }],
+            xAxes: [{
+                barPercentage: 0.06
             }]
            }
     }
@@ -721,7 +727,10 @@ var commentChart = new Chart(cctx, {
             dataLabels: {
                 enabled: true
             }
-        }
+        },
+        series: {
+                pointWidth: 50
+            }
     },
     series: [{
         color:'#07d564',

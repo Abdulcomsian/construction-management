@@ -4,9 +4,9 @@
     canvas{
         width:100px !important;
     }
-    .dcard{
+   /* .dcard{
         height: 230px;
-    }
+    }*/
    
 </style>
 @endsection
@@ -492,7 +492,7 @@ var options = {
       },
       font: {
           weight: 'bold',
-          size: 6,
+          size: 9,
         },
       color: '#fff',
     }

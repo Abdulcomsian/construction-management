@@ -54,7 +54,7 @@ class DesignerController extends Controller
         
     }
     public function store(Request $request)
-    {
+    {  
         try {
             $tempworkdata = TemporaryWork::find($request->tempworkid);
             $tempworkdata->tw_name=$request->twd_name;
@@ -79,16 +79,22 @@ class DesignerController extends Controller
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
                 $model->drawing_title = $request->drawing_title;
-                if($request->status==1)
+                if(isset($request->status))
                 {
-                    //$model->preliminary_approval = $request->preliminary_approval;
-                    //$model->construction = $request->construction;
-                    $model->preliminary_approval = 1;
-                    $model->construction = 2;
+                    if($request->status==1)
+                    {
+                        
+                        $model->preliminary_approval = 1;
+                        $model->construction = 2;
+                    }
+                    else{
+                        $model->preliminary_approval = 2;
+                        $model->construction = 1;
+                    }
                 }
                 else{
-                    $model->preliminary_approval = 2;
-                    $model->construction = 1;
+                    $model->preliminary_approval = $request->preliminary_approval;
+                    $model->construction = $request->construction;
                 }
                 
                 

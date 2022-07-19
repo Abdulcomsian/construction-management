@@ -100,6 +100,10 @@ License: -->
                maxFiles: 1,
                 imagesInputName: 'file',
            });
+           $('.input-imagess').imageUploader({
+               maxFiles: 5,
+                imagesInputName: 'file',
+           });
 
     </script>
     <script type="text/javascript">

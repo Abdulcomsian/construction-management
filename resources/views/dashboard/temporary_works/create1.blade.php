@@ -253,15 +253,15 @@ height: 72px;
                                         <span class="required">Upload Existing Design Brief:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="form-control form-control-solid"  id="pdf" name="pdf" accept="application/pdf">
+                                    <input  type="file" class="form-control form-control-solid"  id="pdf" name="pdf" required="required">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Issued Date:</span>
+                                        <span class="">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="date" class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}"  required>
+                                    <input  type="date" class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}">
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
@@ -291,7 +291,7 @@ height: 72px;
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Date DCC Returned:</span>
+                                        <span class="">Date DCC Returned:</span>
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
@@ -375,11 +375,11 @@ height: 72px;
                                 
                                     <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
-                                         <label style="" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                         <label style="" class="required d-flex align-items-center fs-6 fw-bold mb-2">
                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}" required>
                                         <!--end::Label-->
                                     </div>
                                 
@@ -388,7 +388,7 @@ height: 72px;
                                   <div class="d-flex inputDiv">
                                     <div class="d-flex modalDiv">
                                         <!--begin::Label-->
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
                                               Description:
                                             </label>
                                             <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
@@ -397,7 +397,7 @@ height: 72px;
                                  <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Upload Drawings and Design:</span>
+                                        <span class="">Upload Drawings and Design:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input  type="file" class="whiteBack form-control form-control-solid" id="drawing" name="drawing" >
@@ -409,13 +409,13 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date"  class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}"  >
+                                        <input  style=" cursor: pointer;color: #a9abb7;" type="date"  class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}" required="required" >
                                     <!-- </p> -->
                                 </div>
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Upload Design Check Certificate:</span>
+                                        <span class="">Upload Design Check Certificate:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input  type="file" class="whiteBack form-control form-control-solid" id="dcc" name="dcc" >

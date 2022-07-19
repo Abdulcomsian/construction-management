@@ -703,6 +703,7 @@
                                     @forelse($temporary_works as $item)
                                     <tr>
                                        <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
+                                          <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span><br>
                                           @if(count($item->rejecteddesign)>0)
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
                                           </span>
@@ -735,7 +736,7 @@
                                        </td>
                                        <td style="">{{ $item->tw_category }}</td>
                                        <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                       <td style="min-width: 100px; max-width: 80px;">{{ date('d-m-Y', strtotime($item->design_issued_date)) ?: '-' }}</td>
+                                       <td style="min-width: 100px; max-width: 80px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</td>
                                        <td style="min-width:100px;">
                                           <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1]}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
                                        </td>
@@ -1350,6 +1351,7 @@
 @include('dashboard.modals.drawing_reply_modals')
 @include('dashboard.modals.risk_assessment')
 @include('dashboard.modals.change-emails-modal')
+@include('dashboard.modals.upload-photo')
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
@@ -2012,6 +2014,21 @@
            }
        });
       
+      
+   })
+   //upload photo
+   $(".addphoto").on('click',function(){
+    let id=$(this).attr('data-id');
+    $.ajax({
+           url: "{{route('tempwork.get.photo')}}",
+           method: "get",
+           data: {id},
+           success: function(res) {
+               $("#photo_dev").html(res);
+               $("#temp_work_id_photo").val(id);
+               $("#upload_photo_id").modal('show');
+           }
+       });
       
    })
    

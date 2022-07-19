@@ -188,6 +188,7 @@ class TemporaryWorkController extends Controller
     //manually design brief form store 
     public function store1(Request $request)
     {
+
         Validations::storeManuallyTemporaryWork($request);
         try {
             $all_inputs  = $request->except('_token', 'pdf', 'projaddress', 'projno', 'projname', 'dcc_returned', 'drawing', 'dcc', 'design_returned');
@@ -2075,5 +2076,50 @@ class TemporaryWorkController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+    //upload photo
+    public function temp_photo_uplaod(Request $request)
+    {
+        if(!isset($request->file))
+        {
+             toastError('Please Select File');
+             return Redirect::back();
+        }
+        //work for upload images here
+        if ($request->file('file')) {
+            $filePath = HelperFunctions::temporaryworkImagePath();
+            $files = $request->file('file');
+            foreach ($files  as $key => $file) {
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model = new TemporayWorkImage();
+                $model->image = $imagename;
+                $model->temporary_work_id =$request->temp_work_id;
+                $model->save();
+            }
+            toastSuccess('Document Upload Successfully!!');
+            return Redirect::back();
+        }
+    }
+    //get photo
+    public function get_temp_photo(Request $request)
+    {
+        
+        $path = config('app.url');
+        $data=TemporayWorkImage::where('temporary_work_id',$request->id)->get();
+        //echo"<pre>";print_r($data);exit;
+        $list='';
+        if(count($data)>0)
+        {
+            $list.='<table class="table"><thead><tr><th>#NO</th><th>File</th></tr></thead><tbody>';
+            foreach($data as $key => $dt)
+            {
+                $key++;
+                $list.='<tr><td>'.$key.'</td><td><a href='. $path . $dt->image .' target="_blank">'.$dt->image.'</a></td></tr>';
+            }
+            $list.='</tbody></table>';
+            
+        }
+        
+        echo $list;exit;
     }
 }

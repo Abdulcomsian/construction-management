@@ -82,6 +82,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('user/update/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('company/update/password', [CompanyController::class, 'updatePassword'])->name('company.updatePassword');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
+    //upload photo
+    Route::post('temporary_works/uploadphoto', [TemporaryWorkController::class, 'temp_photo_uplaod'])->name('tempwork.upload.photo');
+    //get upload photo or document
+    Route::get('temporary_works_photo', [TemporaryWorkController::class, 'get_temp_photo'])->name('tempwork.get.photo');
+    
    
     Route::post('temporary_works/twname', [TemporaryWorkController::class, 'temp_savetwname'])->name('temporarywork.twname');
     // Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');

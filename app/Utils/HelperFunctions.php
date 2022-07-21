@@ -119,7 +119,7 @@ class HelperFunctions
             $result =  $current->gt($to);
             if ($result) {
                 $class = "background:red";
-                $blinkclass="redBgBlink ";
+                $blinkclass="redBgBlink";
             } elseif ($diff_in_days >= 7) {
                 $class = "background:green";
                  $blinkclass=" ";
@@ -147,20 +147,6 @@ class HelperFunctions
                     return array($class,$blinkclass);
                     break;
                 } 
-                // else {
-                //     $current =  \Carbon\Carbon::now();
-                //     $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
-                //     $diff_in_days = $to->diffInDays($current);
-                //     $result =  $current->gt($to);
-                //     if ($result) {
-                //         $class = "background:red";
-                //         $blinkclass="redBgBlink ";
-                //     } elseif ($diff_in_days >= 7) {
-                //         $class = "background:green";
-                //     } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                //         $class = "background:yellow";
-                //     }
-                // }
             }
             return array($class,$blinkclass);
         }

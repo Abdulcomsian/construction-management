@@ -118,6 +118,7 @@ class DesignerController extends Controller
                 $chm->type ='Designer Company';
                 $chm->foreign_idd=$tempworkdata->id;
                 $chm->message='Designer Uploaded Design';
+                $chm->status = 2;
                 $chm->save();
                 $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
@@ -416,6 +417,7 @@ class DesignerController extends Controller
                     $chm->type ='Designer Brief';
                     $chm->foreign_idd=$request->tempworkid;
                     $chm->message='Design Breif Rejected by Pc Twc';
+                    $chm->status=2;
                     $chm->save();
 
                     $subject = 'Design Brief Rejected ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
@@ -463,6 +465,7 @@ class DesignerController extends Controller
                     $chm->type ='Designer Brief';
                     $chm->foreign_idd=$request->tempworkid;
                     $chm->message='Design Breif Approved by Pc Twc';
+                    $chm->status=2;
                     $chm->save();
                 }
                 $subject = 'Design Brief Accepted ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
@@ -696,6 +699,7 @@ class DesignerController extends Controller
         $chm->type ='Designer Company';
         $chm->foreign_idd=$createdby->temporary_work_id;
         $chm->message='Twc reply to Comment';
+        $chm->status= 2;
         $chm->save();
          Notification::route('mail', $createdby->created_by)->notify(new DrawingCommentNotification($request->reply,'reply',$createdby->created_by,$createdby->temporary_work_id));
         toastSuccess('Reply send  Successfully!');
@@ -775,10 +779,11 @@ class DesignerController extends Controller
         $model->sender_email=$request->mail;
         if($model->save())
         {
-                $chm= new ChangeEmailHistory();
+                $chm = new ChangeEmailHistory();
                 $chm->email=$tempdata->twc_email;
                 $chm->type ='Designer Company';
                 $chm->foreign_idd=$request->tempid;
+                $chm->status = 2;
                 $chm->message='Designer Company Added Comment';
                 $chm->save();
             Notification::route('mail',$tempdata->twc_email)->notify(new DrawingCommentNotification($request->comment,'question'));
@@ -1000,13 +1005,21 @@ class DesignerController extends Controller
      $i=1;
      foreach($changedemailhistory as $history)
      {
-         $status="Unread";
+        
          $cdate=$history->created_at;
-         $rdate='';
         if($history->status==1)
         {
             $status="Read";
             $rdate=$history->updated_at;
+        }
+        elseif($history->status==0)
+        {
+             $status="Unread";
+             $rdate='';
+        }
+        else{
+             $status="";
+             $rdate=$history->updated_at;
         }
         $list.='<tr>';
         $list.='<td>'.$i.'</td>';

@@ -382,6 +382,7 @@ class TemporaryWorkController extends Controller
                     $cmh->email=$request->pc_twc_email;
                     $cmh->type ='Design Brief';
                     $cmh->foreign_idd=$temporary_work->id;
+                    $cmh->message='Email sent for approval';
                     $cmh->save();
                 }
                 //send mail to admin
@@ -420,6 +421,7 @@ class TemporaryWorkController extends Controller
                         $cmh->email=$request->designer_company_email;
                         $cmh->type ='Designer Company';
                         $cmh->foreign_idd=$temporary_work->id;
+                        $cmh->message='Email send to Desinger Company';
                         $cmh->save();
                         Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->designer_company_email));
                     }
@@ -431,6 +433,7 @@ class TemporaryWorkController extends Controller
                         $cmh->email=$request->desinger_email_2;
                         $cmh->type ='Designer Checker';
                         $cmh->foreign_idd=$temporary_work->id;
+                        $cmh->message='Email send to Desinger Checker';
                         $cmh->save();
                         Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                     }

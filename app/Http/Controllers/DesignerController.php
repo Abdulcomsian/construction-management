@@ -115,11 +115,12 @@ class DesignerController extends Controller
                 //
                 $chm= new ChangeEmailHistory();
                 $chm->email=$tempworkdata->twc_email;
-                $chm->type ='Designer Company';
+                $chm->type ='Design Upload';
                 $chm->foreign_idd=$tempworkdata->id;
                 $chm->message='Designer Uploaded Design';
                 $chm->status = 2;
                 $chm->save();
+                // dd($chm->status);
                 $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
                     'subject' => $subject,
@@ -414,7 +415,7 @@ class DesignerController extends Controller
                     //
                     $chm= new ChangeEmailHistory();
                     $chm->email=$tempworkdata->twc_email;
-                    $chm->type ='Designer Brief';
+                    $chm->type ='Design Brief Rejected';
                     $chm->foreign_idd=$request->tempworkid;
                     $chm->message='Design Breif Rejected by Pc Twc';
                     $chm->status=2;
@@ -462,7 +463,7 @@ class DesignerController extends Controller
                     //
                     $chm= new ChangeEmailHistory();
                     $chm->email=$tempworkdata->twc_email;
-                    $chm->type ='Designer Brief';
+                    $chm->type ='Design Brief Accepted';
                     $chm->foreign_idd=$request->tempworkid;
                     $chm->message='Design Breif Approved by Pc Twc';
                     $chm->status=2;
@@ -696,7 +697,7 @@ class DesignerController extends Controller
         $comments->update(['drawing_reply'=>$replyarray,'reply_date'=>$reply_date,'reply_image'=>$arrayimage,'reply_email'=>Auth::user()->email]);
         $chm= new ChangeEmailHistory();
         $chm->email=$createdby->created_by;
-        $chm->type ='Designer Company';
+        $chm->type ='Design Reply';
         $chm->foreign_idd=$createdby->temporary_work_id;
         $chm->message='Twc reply to Comment';
         $chm->status= 2;
@@ -781,7 +782,7 @@ class DesignerController extends Controller
         {
                 $chm = new ChangeEmailHistory();
                 $chm->email=$tempdata->twc_email;
-                $chm->type ='Designer Company';
+                $chm->type ='Design Comment';
                 $chm->foreign_idd=$request->tempid;
                 $chm->status = 2;
                 $chm->message='Designer Company Added Comment';

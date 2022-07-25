@@ -1351,7 +1351,10 @@
                                  <!--begin::Table body-->
                                  <tbody class="text-gray-600 fw-bold">
                                     @forelse($temporary_works as $item)
-                                    @if(HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1]=='redBgBlink' || $item->status==2)
+                                     $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                     $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                    @if(HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1]=='redBgBlink' || $item->status==2 || count($item->comments)>0 && count($item->reply)!=count($item->comments) || $permitexpire>0 || $scaffoldexpire >0)
+                                         
                                     <tr>
                                        <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span><br>

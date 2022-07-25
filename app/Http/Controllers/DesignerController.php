@@ -699,7 +699,7 @@ class DesignerController extends Controller
         $chm->type ='Designer Company';
         $chm->foreign_idd=$createdby->temporary_work_id;
         $chm->message='Twc reply to Comment';
-        $chm->status=2;
+        $chm->status= 2;
         $chm->save();
          Notification::route('mail', $createdby->created_by)->notify(new DrawingCommentNotification($request->reply,'reply',$createdby->created_by,$createdby->temporary_work_id));
         toastSuccess('Reply send  Successfully!');
@@ -779,12 +779,12 @@ class DesignerController extends Controller
         $model->sender_email=$request->mail;
         if($model->save())
         {
-                $chm= new ChangeEmailHistory();
+                $chm = new ChangeEmailHistory();
                 $chm->email=$tempdata->twc_email;
                 $chm->type ='Designer Company';
                 $chm->foreign_idd=$request->tempid;
-                $chm->message='Designer Company Added Comment';
                 $chm->status = 2;
+                $chm->message='Designer Company Added Comment';
                 $chm->save();
             Notification::route('mail',$tempdata->twc_email)->notify(new DrawingCommentNotification($request->comment,'question'));
             toastSuccess('Comment Added  Successfully!');

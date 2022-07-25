@@ -73,7 +73,9 @@
                             <th>Email</th>
                             <th>Type</th>
                             <th>Status</th>
-                            <th>Date</th>
+                             <th>description</th>
+                            <th>Send date</th>
+                            <th>Read date</th>
                         </tr>
                     </thead>
                     <tbody id="change_email_history">

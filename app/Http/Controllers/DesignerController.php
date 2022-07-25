@@ -112,6 +112,13 @@ class DesignerController extends Controller
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
             if ($model->save()) {
+                //
+                $chm= new ChangeEmailHistory();
+                $chm->email=$tempworkdata->twc_email;
+                $chm->type ='Designer Company';
+                $chm->foreign_idd=$tempworkdata->id;
+                $chm->message='Designer Uploaded Design';
+                $chm->save();
                 $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
                     'subject' => $subject,
@@ -403,6 +410,13 @@ class DesignerController extends Controller
                     $rejectedmodel->pdf_url=$tempworkdata->ped_url;
                     $rejectedmodel->updated_at=date('Y-m-d H:i:s');
                     $rejectedmodel->save();
+                    //
+                    $chm= new ChangeEmailHistory();
+                    $chm->email=$tempworkdata->twc_email;
+                    $chm->type ='Designer Brief';
+                    $chm->foreign_idd=$request->tempworkid;
+                    $chm->message='Design Breif Rejected by Pc Twc';
+                    $chm->save();
 
                     $subject = 'Design Brief Rejected ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                     $text = ' Your design brief has been REJECTED by PC TWC. Please select the link below to amend your submission.';
@@ -443,6 +457,13 @@ class DesignerController extends Controller
                     $rejectedmodel->pdf_url=$tempworkdata->ped_url;
                     $rejectedmodel->updated_at=date('Y-m-d H:i:s');
                     $rejectedmodel->save();
+                    //
+                    $chm= new ChangeEmailHistory();
+                    $chm->email=$tempworkdata->twc_email;
+                    $chm->type ='Designer Brief';
+                    $chm->foreign_idd=$request->tempworkid;
+                    $chm->message='Design Breif Approved by Pc Twc';
+                    $chm->save();
                 }
                 $subject = 'Design Brief Accepted ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                      $text = " Attached for your attention is an Accepted PDF design brief created for ". $tempworkdata->company ." Ltd. Relevant documents are included as links in the design brief.";
@@ -476,6 +497,7 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->designer_company_email;
                     $chm->type ='Designer Company';
                     $chm->foreign_idd=$request->tempworkid;
+                    $chm->message='Email send to Designer Company';
                     $chm->save();
                    $notify_admins_msg['body']['designer'] = 'designer1';
                    Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->designer_company_email)); 
@@ -486,6 +508,7 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->desinger_email_2;
                     $chm->type ='Designer Checker';
                     $chm->foreign_idd=$request->tempworkid;
+                    $chm->message='Email send to Designer Checker';
                     $chm->save();
                    $notify_admins_msg['body']['designer'] = 'designer1';
                    Notification::route('mail',  $tempworkdata->desinger_email_2 ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->desinger_email_2)); 
@@ -668,6 +691,12 @@ class DesignerController extends Controller
             
 
         $comments->update(['drawing_reply'=>$replyarray,'reply_date'=>$reply_date,'reply_image'=>$arrayimage,'reply_email'=>Auth::user()->email]);
+        $chm= new ChangeEmailHistory();
+        $chm->email=$createdby->created_by;
+        $chm->type ='Designer Company';
+        $chm->foreign_idd=$createdby->temporary_work_id;
+        $chm->message='Twc reply to Comment';
+        $chm->save();
          Notification::route('mail', $createdby->created_by)->notify(new DrawingCommentNotification($request->reply,'reply',$createdby->created_by,$createdby->temporary_work_id));
         toastSuccess('Reply send  Successfully!');
         return Redirect::back();
@@ -746,6 +775,12 @@ class DesignerController extends Controller
         $model->sender_email=$request->mail;
         if($model->save())
         {
+                $chm= new ChangeEmailHistory();
+                $chm->email=$tempdata->twc_email;
+                $chm->type ='Designer Company';
+                $chm->foreign_idd=$request->tempid;
+                $chm->message='Designer Company Added Comment';
+                $chm->save();
             Notification::route('mail',$tempdata->twc_email)->notify(new DrawingCommentNotification($request->comment,'question'));
             toastSuccess('Comment Added  Successfully!');
             return Redirect::back();
@@ -765,6 +800,12 @@ class DesignerController extends Controller
         $model->sender_email=$tempdata->twc_email;
         if($model->save())
         {
+            $chm= new ChangeEmailHistory();
+            $chm->email=$temp_work_id->created_by;
+            $chm->type ='Designer Company';
+            $chm->foreign_idd=$temp_work_id->temporary_work_id;
+            $chm->message='Twc Added Comment';
+            $chm->save();
             Notification::route('mail', $temp_work_id->created_by)->notify(new DrawingCommentNotification($request->commment,'twcquestion',$temp_work_id->created_by,$temp_work_id->temporary_work_id));
             toastSuccess('Comment Added  Successfully!');
             return Redirect::back();
@@ -960,18 +1001,20 @@ class DesignerController extends Controller
      foreach($changedemailhistory as $history)
      {
          $status="Unread";
-         $date='';
+         $cdate=$history->created_at;
+         $rdate='';
         if($history->status==1)
         {
             $status="Read";
-            $date=$history->created_at;
+            $rdate=$history->updated_at;
         }
         $list.='<tr>';
         $list.='<td>'.$i.'</td>';
         $list.='<td>'.$history->email.'</td>';
         $list.='<td>'.$history->type.'</td>';
         $list.='<td>'.$status.'</td>';
-        $list.='<td>'.$date.'</td></tr>';
+         $list.='<td>'.$history->message.'</td>';
+        $list.='<td>'.$cdate.'</td><td>'.$rdate.'</td></tr>';
         $i++;
      }
      echo $list;

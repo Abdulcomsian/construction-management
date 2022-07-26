@@ -14,6 +14,7 @@ use App\Models\TemporaryWorkRejected;
 use App\Models\ShareDrawing;
 use App\Models\DrawingComment;
 use App\Models\ChangeEmailHistory;
+use App\Models\Project;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Notification;
@@ -62,7 +63,6 @@ class DesignerController extends Controller
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles();
-            $file_type = 1;
             if (isset($request->designcheckfile)) {
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
@@ -71,6 +71,7 @@ class DesignerController extends Controller
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
             } else {
+                $file_type = 1;
                 $file = $request->file('file');
                 //$ext = $request->file[0]('file')->extension();
                 $subject = 'Designer Uploaded Drawing ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
@@ -151,7 +152,7 @@ class DesignerController extends Controller
     {
         $tempworkid = $request->tempworkid;
         $designearray=[];
-        $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2')->find($tempworkid);
+        $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
         $designearray[0]=$ramsno->designer_company_email;
         if($ramsno->desinger_email_2)
         {
@@ -161,10 +162,23 @@ class DesignerController extends Controller
         $path = config('app.url');
         
         if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')) {
-               $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) {
-                       $query->where(['created_by'=>auth()->user()->email])
-                       ->orWhere('created_by', 'hani.thaher@gmail.com');
+               
+               if(auth()->user()->hasRole('admin'))
+               {
+                $company=Project::find($ramsno->project_id);
+                $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
+                       $query->whereIn('created_by',$coordinators)
+                       ->orWhere('created_by',auth()->user()->email);
                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->get();
+               }
+               else{
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
+                       $query->where(['created_by'=>auth()->user()->email])
+                       ->orWhere('created_by','hani.thaher@gmail.com');
+                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->get();
+               }
+               
                if($registerupload)
                 {
                     $list.="<h3>TWC Uploaded</h3>";            

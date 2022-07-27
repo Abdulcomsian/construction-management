@@ -913,6 +913,8 @@ class TemporaryWorkController extends Controller
 
             $i = 1;
             foreach ($commetns as $comment) {
+                 $image = '';
+                  $date = '';
                 $colour = 'white';
                 $a = '';
                 $status = '';

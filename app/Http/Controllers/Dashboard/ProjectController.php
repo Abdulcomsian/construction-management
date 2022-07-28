@@ -381,7 +381,14 @@ class ProjectController extends Controller
              $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('project_id',$project->id)->get();
          }elseif($user->hasRole('user'))
          {
-             $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->where('created_by',$user->id)->get();
+             $project_ids=[];
+             $usersproject=DB::table('users_has_projects')->select('project_id')->where('user_id',$user->id)->get();
+             foreach($usersproject as $project)
+             {
+                $project_ids[]=$project->project_id;
+             }
+            
+             $temporarydata=TemporaryWork::select('id','twc_id_no','ped_url','twc_email')->whereIn('project_id',$project_ids)->get();
          }       
          
         if(count($temporarydata)>0)

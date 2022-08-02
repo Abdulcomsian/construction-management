@@ -101,6 +101,14 @@
                         </div>
                         <!--end::Col-->
                     </div>
+                    <div class="row g-9 mb-8">
+                        <!--begin::Col-->
+                        <div class="col-md-12 fv-row">
+                            <label class="fs-6 fw-bold mb-2">Nomination</label>
+                            <input type="checkbox"  rows="3"  name="nomination" value="{{old('nomination')}}">
+                        </div>
+                        <!--end::Col-->
+                    </div>
                     <!--begin::Actions-->
                     <div class="text-center">
                         <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-white me-3">Reset

@@ -84,11 +84,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //        try {
-        //        }catch (\Exception $exception){
-        //            toastError('Something went wrong, try again');
-        //            return Redirect::back();
-        //        }
+        
     }
 
     /**
@@ -105,6 +101,10 @@ class CompanyController extends Controller
             if ($request->file('image')) {
                 $filePath = HelperFunctions::profileImagePath();
                 $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
+            }
+            if(isset($request->nomination))
+            {
+                $all_inputs['nomination'] =1;
             }
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
@@ -130,12 +130,7 @@ class CompanyController extends Controller
      */
     public function show(User $user)
     {
-        //        dd('show');
-        //        try {
-        //        }catch (\Exception $exception){
-        //            toastError('Something went wrong, try again');
-        //            return Redirect::back();
-        //        }
+        
     }
 
     /**

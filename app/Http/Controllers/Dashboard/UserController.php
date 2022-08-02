@@ -14,6 +14,8 @@ use Illuminate\Validation\Rule;
 use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
+use App\Notifications\Nomination;
+use Notification;
 
 class UserController extends Controller
 {
@@ -107,15 +109,20 @@ class UserController extends Controller
                 $filePath = HelperFunctions::profileImagePath();
                 $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
             }
+            if(isset($request->nomination))
+            {
+                $all_inputs['nomination']=1;
+                $all_inputs['nomination_status']='pending';
+            }
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
 
             $user = User::create($all_inputs);
             //Assigned role to user. role is already created during seeder
-            //$user->assignRole('user');
             $user->assignRole($request->role);
             //Add projects for user
             $user->userProjects()->sync($all_inputs['projects']);
+            Notification::route('mail',$user->email ?? '')->notify(new Nomination());
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {

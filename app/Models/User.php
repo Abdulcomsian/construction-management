@@ -30,6 +30,7 @@ class User extends Authenticatable
         'job_title',
         'auto_backup',
         'representative_name',
+        'nomination',
     ];
 
     /**

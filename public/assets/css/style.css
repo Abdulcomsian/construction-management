@@ -1,27 +1,33 @@
 #kt_content_container {
     max-width: 100% !important;
 }
-.redBgBlink{
+
+.redBgBlink {
     animation-duration: 1200ms;
     animation-name: blink;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    -webkit-animation:blink 1000ms infinite; /* Safari and Chrome */
+    -webkit-animation: blink 1000ms infinite;
+    /* Safari and Chrome */
 }
+
 @keyframes blink {
     from {
-        background-color:red;
+        background-color: red;
     }
+
     to {
-        background-color:white;
+        background-color: white;
     }
 }
+
 @-webkit-keyframes blink {
     from {
-        background-color:red;
+        background-color: red;
     }
+
     to {
-        background-color:white;
+        background-color: white;
     }
 }
 
@@ -37,12 +43,17 @@ input:focus {
     outline: none;
 }
 
+.nom_table td {
+    text-align: left;
+    padding: 12px;
+}
+
 .modalDiv input {
     width: 100%;
     color: #000 !important;
     padding: 4;
     padding: 11px 15px;
-   /* margin: 20px 0px 0px;*/
+    /* margin: 20px 0px 0px;*/
     border: none;
     background-color: #f5f8fa;
 }
@@ -66,6 +77,7 @@ input:focus {
     height: 58px;
     display: flex;
 }
+
 /* #scope-of-design .modal-content{
     width:80% !important;
 } */
@@ -89,28 +101,34 @@ input:focus {
     border: none;
 }
 
-#scope-of-design .common-requirment{
+#scope-of-design .common-requirment {
     width: 80%;
 }
+
 .menu-icon-hover,
-.userHoverTask{
+.userHoverTask {
     display: none !important;
- }
- #kt_aside .userIconLink:hover .menu-icon-hover{
+}
+
+#kt_aside .userIconLink:hover .menu-icon-hover {
     display: block !important;
     margin-right: 10px;
- }
- .userIconTask:hover .userHoverTask{
+}
+
+.userIconTask:hover .userHoverTask {
     display: block !important;
     margin-right: 10px;
- }
- #kt_aside .userIconLink:hover .userIcon,
- .userIconTask:hover .userTask{
+}
+
+#kt_aside .userIconLink:hover .userIcon,
+.userIconTask:hover .userTask {
     display: none;
- }
-#scope-of-design .requirment-second{
+}
+
+#scope-of-design .requirment-second {
     width: 20%;
 }
+
 #design-requirement .common-requirment {
     width: 50%;
 }
@@ -138,7 +156,8 @@ input:focus {
 }
 
 .submit-requirment button {
-    opacity: 1 !important;;
+    opacity: 1 !important;
+    ;
     width: 100%;
     margin-right: 20px !important;
 }
@@ -167,7 +186,7 @@ input:focus {
 
 .list-div ul li {
     padding: 10px;
-   background-color: #f5f8fa;
+    background-color: #f5f8fa;
     color: #000 !important;
     margin: 10px 0px;
     cursor: pointer;
@@ -177,7 +196,7 @@ input:focus {
 
 .list-check-div ul li {
     padding: 10px;
-   background-color: #f5f8fa;
+    background-color: #f5f8fa;
     color: #000 !important;
     margin: 10px 0px;
     cursor: pointer;
@@ -186,7 +205,7 @@ input:focus {
 }
 
 #scope-of-design .common-requirment input {
-   background-color: #f5f8fa;
+    background-color: #f5f8fa;
     color: #000 !important;
     cursor: pointer;
     position: relative;
@@ -202,9 +221,11 @@ input:focus {
     font-size: 18px;
     top: 7px;
 }
-.requirment-second .list-div ul li:after{
+
+.requirment-second .list-div ul li:after {
     content: "";
 }
+
 .submit-requirment button {
     width: 100%;
     padding: 8px;
@@ -288,10 +309,12 @@ input:focus {
 #DataTables_Table_0_filter label {
     color: #000 !important;
 }
-.btn-check:checked+.btn.btn-active-primary2{
+
+.btn-check:checked+.btn.btn-active-primary2 {
     background-color: red;
-    color:#fff;
+    color: #fff;
 }
+
 .btn-check:checked+.btn.btn-active-primary,
 .btn.btn-primary:hover:not(.btn-active),
 .btn.btn-primary,
@@ -307,34 +330,47 @@ input:focus {
 
 }
 
-.active{
+.active {
     background-color: #07d564 !important;
 }
 
-.aside-logo .active{
+.aside-logo .active {
     background-color: transparent !important;
 }
-#design_requirement_text{background:#f5f8fa;color:#000;}
-#design_requirement_text::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+
+#design_requirement_text {
+    background: #f5f8fa;
     color: #000;
-    opacity: 1; /* Firefox */
-  }
-  
-  #design_requirement_text:-ms-input-placeholder { /* Internet Explorer 10-11 */
+}
+
+#design_requirement_text::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #000;
+    opacity: 1;
+    /* Firefox */
+}
+
+#design_requirement_text:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: #fff;
-  }
-  
-  #design_requirement_text::-ms-input-placeholder { /* Microsoft Edge */
+}
+
+#design_requirement_text::-ms-input-placeholder {
+    /* Microsoft Edge */
     color: #fff;
-  }
-  #kt_header_nav, #kt_header_nav .header-menu {
-      width: 100%;
-  }
-  #kt_header_nav .header-menu .menu{
-      display: none;
-  }
-  .header .header-menu .menu>.menu-item{
-      
+}
+
+#kt_header_nav,
+#kt_header_nav .header-menu {
+    width: 100%;
+}
+
+#kt_header_nav .header-menu .menu {
+    display: none;
+}
+
+.header .header-menu .menu>.menu-item {
+
     width: 100%;
     max-width: 70%;
     margin: auto;
@@ -343,352 +379,436 @@ input:focus {
     justify-content: center;
     margin-left: 18%;
 
-  }
-  .menu-item .menu-link{
-      display: grid;
-    
-  }
-  .header .header-menu .menu>.menu-item a{
+}
+
+.menu-item .menu-link {
+    display: grid;
+
+}
+
+.header .header-menu .menu>.menu-item a {
     color: #07d564 !important;
-}/*canvas{
+}
+
+/*canvas{
     width: 58% !important;
 }*/
-#submitbutton{
+#submitbutton {
     position: relative;
     left: 18%;
     bottom: 20px;
     float: left !important;
 }
-.formDiv{
+
+.formDiv {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.formDiv .newDesignBtn{
+
+.formDiv .newDesignBtn {
     margin-left: 0px !important;
 }
-.menuBtn{
+
+.menuBtn {
     display: none;
 }
-.mobileView{
+
+.mobileView {
     display: none;
     width: 100%;
     text-align: end;
     margin: 10px 0px;
 }
-.mobileView a{
+
+.mobileView a {
     margin-bottom: 10px;
 }
+
 @media screen and (min-width: 1900px) {
     #submitbutton {
         right: 24%;
     }
 }
+
 @media screen and (min-width: 1800px) {
-    .unload_Permit  #submitbutton {
+    .unload_Permit #submitbutton {
         right: 71.9%;
     }
+
     .temporary_work_create #submitbutton {
         right: 24% !important;
     }
+
     #submitbutton {
         right: 76.2%;
     }
 }
+
 @media screen and (max-width: 1800px) {
-    .unload_Permit  #submitbutton {
+    .unload_Permit #submitbutton {
         right: 70.9%;
     }
+
     #submitbutton {
         right: 75.9%;
     }
-    .temporary_work_create #submitbutton{
+
+    .temporary_work_create #submitbutton {
         right: 23% !important;
     }
 }
+
 @media screen and (max-width: 1600px) {
     .temporary_work_create #submitbutton {
         right: 22% !important;
     }
+
     #submitbutton {
         right: 75%;
     }
 }
-@media screen and (max-width: 1500px) {
 
-}
+@media screen and (max-width: 1500px) {}
+
 @media screen and (max-width: 1440px) {
     .temporary_work_create #submitbutton {
         right: 20% !important;
     }
-    
+
     #submitbutton {
         right: 73.6%;
     }
-    .unload_button{
+
+    .unload_button {
         right: 68.6% !important;
     }
 }
+
 @media screen and (max-width: 1310px) {
     .temporary_work_create #submitbutton {
         right: 20% !important;
     }
+
     #submitbutton {
         right: 72%;
     }
 }
+
 @media screen and (min-width: 1200px) {
-    
+
     /*canvas{
         width:270px !important;
     }*/
 }
+
 @media screen and (max-width: 1150px) {
-    
+
     #submitbutton {
         right: 20.5%;
     }
 }
+
 @media screen and (max-width: 1500px) {
     .header .header-menu .menu>.menu-item {
-      max-width: 100%;
-      margin-left: 0px;
+        max-width: 100%;
+        margin-left: 0px;
     }
-    .temporary_blade .tableDiv{
+
+    .temporary_blade .tableDiv {
         top: 0px !important;
     }
-  }
-  @media screen and (max-width: 1200px) {
+}
+
+@media screen and (max-width: 1200px) {
     #submitbutton {
-        right:71%;
+        right: 71%;
     }
-    .newDesignBtn{
+
+    .newDesignBtn {
         margin-left: 0px !important;
         font-size: 14px !important;
         width: 150px !important;
     }
-  }
-  @media screen and (max-width: 1070px) {
-      .card-body .col-md-2 a,
-      .card-body .dropdown button{
-          padding: 10px !important;
-          font-size: 10px;
-      }
+}
 
-  }
-  @media screen and (max-width: 990px) {
+@media screen and (max-width: 1070px) {
+
+    .card-body .col-md-2 a,
+    .card-body .dropdown button {
+        padding: 10px !important;
+        font-size: 10px;
+    }
+
+}
+
+@media screen and (max-width: 990px) {
     .temporary_blade .tableDiv {
         position: relative;
         top: -30px !important;
     }
-      .card-header .topbar,
-      .topbar-item .symbol-label{
-          display: none;
-      }
-      .menu-item a{
-          display: block;
-      }
-      #kt_header{
+
+    .card-header .topbar,
+    .topbar-item .symbol-label {
+        display: none;
+    }
+
+    .menu-item a {
         display: block;
-     }
+    }
+
+    #kt_header {
+        display: block;
+    }
+
     #submitbutton {
         right: 72%;
     }
-      .formDiv .form{
-          width: 100%;
-      }
-      .formDiv .form button{
+
+    .formDiv .form {
+        width: 100%;
+    }
+
+    .formDiv .form button {
         padding: 10px !important;
         margin: -6px 0px 0px 10px !important;
-      }
+    }
+
     .menu-item {
         display: grid !important;
     }
-    .menu-item a{
+
+    .menu-item a {
         text-align: left;
     }
-    .drawer.drawer-on{
+
+    .drawer.drawer-on {
         z-index: 9999999999999999;
     }
-    .menuBtn{
+
+    .menuBtn {
         display: block;
     }
-    .desktopView{
+
+    .desktopView {
         display: none;
     }
-    .dropdown button{
+
+    .dropdown button {
         border-radius: 8px;
     }
-  }
-  @media screen and (max-width: 820px){
+}
+
+@media screen and (max-width: 820px) {
     #submitbutton {
         right: 69%;
-    } 
+    }
 }
-  @media screen and (min-width: 768px) {
-    
-    .desktopView{margin-top:20px;}
-    
 
-  }
-    @media screen and (max-width: 768px) {
-        .temporary_work_create #submitbutton {
-            right: 49% !important;
-        }
-        
-        
-        .upload_signature_div .principleno {
-            width: 45% !important;
-        }
-        .signatureDiv label{
-            width: 17% !important;
-        }
-        .card-body .dropdown button{
-            border-radius: 0px !important;
-        }
-        .card-body.indexTempory .mb-7{
-            margin-bottom: 0px !important;
-        }
-        .indexTempory .tableDiv,
-        .indexTempory .datatable{
-            padding: 0px !important;
-            margin-top: 0px !important;
-        }
-        .indexTempory .tableDiv{
-            position: relative;
-            top: -30px;
-        }
-        .positionChange{
-            position: absolute;
-            bottom: 10px;
-            right: 120px;
-        }
-        .card>.card-header .card-title .card-label{
-            font-size: 14px !important;
-            text-align: left;
-        }
-        .aside-enabled.aside-fixed .wrapper {
-            padding-left: 0px !important;
-        }
-        .card-body  .offset-2{
-            margin-left: 0px !important;
-        }
-        
-        .card-body .text-center{
-            text-align: left !important;
-        }
-        #submitbutton {
-            right: 70%;
-        }
-        .tabnave{
-        width: 100% !important;
-    }
-    #second_member .inputDiv .input input{
-        width: 100% !important;
+@media screen and (min-width: 768px) {
+
+    .desktopView {
+        margin-top: 20px;
     }
 
-   
-    .dropbtn{
+
+}
+
+@media screen and (max-width: 768px) {
+    .temporary_work_create #submitbutton {
+        right: 49% !important;
+    }
+
+
+    .upload_signature_div .principleno {
+        width: 45% !important;
+    }
+
+    .signatureDiv label {
+        width: 17% !important;
+    }
+
+    .card-body .dropdown button {
+        border-radius: 0px !important;
+    }
+
+    .card-body.indexTempory .mb-7 {
+        margin-bottom: 0px !important;
+    }
+
+    .indexTempory .tableDiv,
+    .indexTempory .datatable {
+        padding: 0px !important;
+        margin-top: 0px !important;
+    }
+
+    .indexTempory .tableDiv {
+        position: relative;
+        top: -30px;
+    }
+
+    .positionChange {
+        position: absolute;
+        bottom: 10px;
+        right: 120px;
+    }
+
+    .card>.card-header .card-title .card-label {
+        font-size: 14px !important;
+        text-align: left;
+    }
+
+    .aside-enabled.aside-fixed .wrapper {
+        padding-left: 0px !important;
+    }
+
+    .card-body .offset-2 {
+        margin-left: 0px !important;
+    }
+
+    .card-body .text-center {
+        text-align: left !important;
+    }
+
+    #submitbutton {
+        right: 70%;
+    }
+
+    .tabnave {
+        width: 100% !important;
+    }
+
+    #second_member .inputDiv .input input {
+        width: 100% !important;
+    }
+
+
+    .dropbtn {
         font-size: 12px !important;
     }
-  .form-inline .form-group  input{
-      width: auto !important;
-  }
-  .nav-group.nav-group-fluid{
-      height: 40px;
-  }
- .d-block{
-     display: block !important;
- }
- .card>.card-body {
-    padding: 33px 10px !important;
-}
-#scaffolding .inputDiv label{
-    width: 50% !important;
-}
-.signatureDiv{
-    display: flex;
-    width: 100% !important;
-    margin-bottom: 20px;
-}
-.uploadingDiv{
-    width: 100% !important;
+
+    .form-inline .form-group input {
+        width: auto !important;
+    }
+
+    .nav-group.nav-group-fluid {
+        height: 40px;
+    }
+
+    .d-block {
+        display: block !important;
+    }
+
+    .card>.card-body {
+        padding: 33px 10px !important;
+    }
+
+    #scaffolding .inputDiv label {
+        width: 50% !important;
+    }
+
+    .signatureDiv {
+        display: flex;
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+
+    .uploadingDiv {
+        width: 100% !important;
+    }
+
+    .select2-container--bootstrap5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice .select2-selection__choice__remove {
+        top: 77% !important;
+        position: absolute;
+        left: -10px !important;
+        height: 0.6rem !important;
+        width: 0.6rem !important;
+        background-size: 51px 9px;
+    }
+
+    li.select2-selection__choice {
+        width: 100% !important;
+    }
+
+    .tickboxalign {
+        line-height: 24px;
+    }
+
 }
 
-.select2-container--bootstrap5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice .select2-selection__choice__remove{
-    top:77% !important;
-    position: absolute;
-    left:-10px !important;
-    height: 0.6rem !important;
-    width: 0.6rem !important;
-    background-size: 51px 9px;
-}
-li.select2-selection__choice{
-    width: 100% !important;
-}
-.tickboxalign{
-    line-height: 24px;
-}
-
-}
-@media screen and (max-width: 568px){
-    #submitbutton{
+@media screen and (max-width: 568px) {
+    #submitbutton {
         left: 30%;
     }
+
     .temporary_work_create #submitbutton {
         right: 42% !important;
     }
-    
+
     .upload_signature_div .principleno {
         width: 60% !important;
     }
+
     #second_member .inputDiv label {
         width: 30% !important;
     }
+
     #submitbutton {
         right: 55%;
-    } 
-    .tabnave{
+    }
+
+    .tabnave {
         width: 100% !important;
     }
 }
-@media screen and (max-width: 414px){
+
+@media screen and (max-width: 414px) {
     #submitbutton {
         right: 50%;
-    } 
-    .tabnave{
+    }
+
+    .tabnave {
         width: 100% !important;
     }
 
 }
-@media screen and (max-width: 390px){
+
+@media screen and (max-width: 390px) {
     #submitbutton {
         right: 43%;
         bottom: 30px;
-    } 
-    .tabnave{
+    }
+
+    .tabnave {
         width: 100% !important;
     }
 }
-.aside-menu .menu-item.here>.menu-link, .aside-menu .menu-item.show>.menu-link{
+
+.aside-menu .menu-item.here>.menu-link,
+.aside-menu .menu-item.show>.menu-link {
     display: flex !important;
 }
-.signatureDiv{
+
+.signatureDiv {
     display: flex;
     width: 100%;
 }
-.uploadingDiv{
+
+.uploadingDiv {
     width: 100%;
 }
-.modal-content{
+
+.modal-content {
     border-radius: 10px !important;
 }
-.tableDiv{
+
+.tableDiv {
     overflow-x: scroll;
     transform: rotateX(180deg);
     height: auto !important;
 }
+
 .hide-col {
     width: 0px !important;
     height: 0px !important;
@@ -698,27 +818,33 @@ li.select2-selection__choice{
     padding: 0 !important;
     border: none !important;
     min-width: 0px !important;
-  }
-  table td,
-  table th{
+}
+
+table td,
+table th {
     width: auto;
     transition: width .5s, margin .5s;
-  }
-  .tableDiv table{
+}
+
+.tableDiv table {
     transform: rotateX(180deg);
-  }
-  .table>:not(:last-child)>:last-child>*{
+}
+
+.table>:not(:last-child)>:last-child>* {
     vertical-align: middle !important;
-  }
-  .tableInputDiv strong{
-      margin-bottom: 20px;
-  }
-  .tableInputDiv span {
+}
+
+.tableInputDiv strong {
+    margin-bottom: 20px;
+}
+
+.tableInputDiv span {
     font-size: 10px;
     padding: 0px 5px;
     font-weight: 700;
 }
-.tableInputDiv div input{
+
+.tableInputDiv div input {
     position: relative;
     top: 3px;
 }
@@ -737,93 +863,107 @@ li.select2-selection__choice{
     border-radius: 8px;
     cursor: pointer;
   }*/
-  
-  /* Dropdown button on hover & focus */
-  /*.dropbtn:hover, .dropbtn:focus {
+
+/* Dropdown button on hover & focus */
+/*.dropbtn:hover, .dropbtn:focus {
     background-color: #08d564;
   }*/
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
     position: relative;
     display: inline-block;
     margin-top: 20px;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #fff;
     min-width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 9999;
     height: 300px;
     overflow: scroll;
     padding: 5px;
     width: 200px;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+    display: block;
+}
 
 
-  #commenttable td form{
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-  }
-  .submmitBtnDiv{
+#commenttable td form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.submmitBtnDiv {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  .submmitBtnDiv input,
-  .submmitBtnDiv button{
-      margin: 10px 0px !important;
-  }
-  #commenttable td{
-      vertical-align: middle;
-      padding: 10px !important;
-  }
-  #commenttable td form button{
-      padding: 5px;
-  }
-  #commenttable td form .replay{
-      border: 1px solid #e4e6ef;
-  }
+}
+
+.submmitBtnDiv input,
+.submmitBtnDiv button {
+    margin: 10px 0px !important;
+}
+
+#commenttable td {
+    vertical-align: middle;
+    padding: 10px !important;
+}
+
+#commenttable td form button {
+    padding: 5px;
+}
+
+#commenttable td form .replay {
+    border: 1px solid #e4e6ef;
+}
 
 
-  /*obaid css here*/
-  .label.label-light-success {
-    color:#fff ;
+/*obaid css here*/
+.label.label-light-success {
+    color: #fff;
     background-color: #1BC5BD;
 }
+
 .label.label-inline.label-lg {
     padding: 0.2rem 0.75rem;
 }
+
 .label.label-inline {
     border-radius: 0.42rem;
 }
+
 .label.label-light-info {
     color: #fff;
     background-color: #8950FC;
 }
+
 .label.label-light-danger {
-    color:#fff;
+    color: #fff;
     background-color: #F64E60;
 }
+
 .label.label-light-yellow {
     color: #F64E60;
     background-color: #FFE2E5;
@@ -833,41 +973,52 @@ li.select2-selection__choice{
     color: #fff;
     background-color: green;
 }
-#second_member .inputDiv .input{
+
+#second_member .inputDiv .input {
     width: 100%;
 }
-#second_member .inputDiv .input input{
+
+#second_member .inputDiv .input input {
     width: 50%;
 }
-#second_member .inputDiv label{
+
+#second_member .inputDiv label {
     width: 20%;
 }
-.upload_signature_div .principleno{
+
+.upload_signature_div .principleno {
     width: 30%;
 }
+
 .temporary_work_create .inputDiv input,
-.temporary_work_create .select2-container{
+.temporary_work_create .select2-container {
     width: 50% !important;
 }
-.temporary_work_create .inputDiv input[type="checkbox"]{
+
+.temporary_work_create .inputDiv input[type="checkbox"] {
     width: 12px !important;
 }
-.unload_Permit textarea{
+
+.unload_Permit textarea {
     width: 100%;
 }
-.temporary_blade .datatable{
+
+.temporary_blade .datatable {
     margin: 0px !important;
-    
+
 }
-.temporary_blade .tableDiv{
+
+.temporary_blade .tableDiv {
     position: relative;
     top: -10px;
 }
-.temporary_work_create #submitbutton{
+
+.temporary_work_create #submitbutton {
     float: right !important;
     right: 22%;
     left: initial !important;
 }
-.unload_Permit #submitbutton{
+
+.unload_Permit #submitbutton {
     left: 22%;
 }

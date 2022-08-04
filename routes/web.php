@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\TemporaryWorkController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DesignerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -47,24 +48,33 @@ Route::post('design/permit-store',[DesignerController::class,'pc_permit_store'])
 Route::post('Risk-Assessment/store',[DesignerController::class,'risk_assessment_store'])->name('riskassesment.store');
 
 
-Route::get('/addProject', function () {
-    return view('dashboard/projects/create');
-});
-Route::get('/addUser', function () {
-    return view('dashboard/users/create');
-});
-Route::view('/companies/index', 'dashboard/companies/index');
-Route::view('/companies/create', 'dashboard/companies/create');
-Route::view('/temporary-works/index', 'dashboard/temporary_works/index');
-Route::view('/temporary-works/create', 'dashboard/temporary_works/create');
-Route::get('/temporaryWork', function () {
-    return view('dashboard/admin/screens/temporary-work');
-});
+//noimination Form
+
+Route::get('/nomination-form/{id}',[HomeController::class,'nomination_form']);
+Route::post('/nomination-save',[HomeController::class,'nomination_save']);
+
+
+// Route::get('/addProject', function () {
+//     return view('dashboard/projects/create');
+// });
+// Route::get('/addUser', function () {
+//     return view('dashboard/users/create');
+// });
+// Route::view('/companies/index', 'dashboard/companies/index');
+// Route::view('/companies/create', 'dashboard/companies/create');
+// Route::view('/temporary-works/index', 'dashboard/temporary_works/index');
+// Route::view('/temporary-works/create', 'dashboard/temporary_works/create');
+// Route::get('/temporaryWork', function () {
+//     return view('dashboard/admin/screens/temporary-work');
+// });
 Route::get('/designRelief', function () {
     return view('dashboard/screens/new-design-relief');
 });
 Route::post('drawing-comment',[DesignerController::class,'drawing_comment'])->name('drawing.comment');
 Route::post('twc-drawing-comment',[DesignerController::class,'twc_drawing_comment'])->name('twcdrawing.comment');
+
+
+
 Route::group(['middleware' => ['auth']], function () {
     //All Resource Controller
     Route::resources([

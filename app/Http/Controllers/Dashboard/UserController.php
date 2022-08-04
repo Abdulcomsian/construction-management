@@ -122,7 +122,7 @@ class UserController extends Controller
             $user->assignRole($request->role);
             //Add projects for user
             $user->userProjects()->sync($all_inputs['projects']);
-            Notification::route('mail',$user->email ?? '')->notify(new Nomination());
+            Notification::route('mail',$user->email ?? '')->notify(new Nomination($user));
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {

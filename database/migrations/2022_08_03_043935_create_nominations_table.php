@@ -24,6 +24,14 @@ class CreateNominationsTable extends Migration
             $table->string('Description_limits_authority')->nullable();
             $table->string('authority_issue_permit')->nullable();
 
+            $table->string('print_name')->nullable();
+            $table->string('job_title')->nullable();
+            $table->string('signature')->nullable();
+
+            $table->string('print_name1')->nullable();
+            $table->string('job_title1')->nullable();
+            $table->string('signature1')->nullable();
+
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');

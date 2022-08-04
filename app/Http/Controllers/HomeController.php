@@ -20,6 +20,23 @@ class HomeController extends Controller
     //save nomination form
     public function nomination_save(Request $request)
     {
+        $all_inputs=[
+            'project'=>$request->project,
+            'project_manager'=>$request->project_manager,
+            'nominated_person'=>$request->nominated_person,
+            'nominated_person_employer'=>$request->nominated_person_employer,
+            'description_of_role'=>$request->description_of_role,
+            'Description_limits_authority'=>$request->Description_limits_authority,
+            'authority_issue_permit'=>$request->authority_issue_permit,
+            'print_name'=>$request->print_name,
+            'job_title'=>$request->job_title,
+            'signature'=>$request->signature,
+            'print_name1'=>$request->print_name1,
+            'job_title1'=>$request->job_title1,
+            'signature1'=>$request->signature1,
+            'user_id'=>$request->user_id,
+
+        ];
 
       $nomination=Nomination::create($all_inputs);
       if($nomination)
@@ -29,17 +46,17 @@ class HomeController extends Controller
         {
             $model=new NominationCourses();
             $model->course=$request->course[$i];
-            $model->date=$request->date[$i];
+            $model->date=$request->course_date[$i];
             $model->nomination_id=$nomination->id;
             $model->save();
         }
 
         //nomination qualifications
-        for($i=0;$i<count($request->qualifications);$i++)
+        for($i=0;$i<count($request->qualification);$i++)
         {
             $model=new NominationQualification();
-            $model->qualification=$request->qualifications[$i];
-            $model->date=$request->date[$i];
+            $model->qualification=$request->qualification[$i];
+            $model->date=$request->qualification_date[$i];
             $model->nomination_id=$nomination->id;
             $model->save();
         }
@@ -47,15 +64,93 @@ class HomeController extends Controller
         //nomination experience
         for($i=0;$i<count($request->project_title);$i++)
         {
-            $model=new NominationQualification();
+            $model=new NominationExperience();
             $model->project_title=$request->project_title[$i];
-            $model->role=$request->role[$i];
-            $model->description_involvment=$request->description_involvment;
+            $model->role=$request->project_role[$i];
+            $model->description_involvment=$request->desc_of_involvement[$i];
             $model->nomination_id=$nomination->id;
             $model->save();
         }
 
         //nomination competence
+        $siteestablishment=[
+                'Temporary offices'=>$request->Temporary_offices,
+                'Sign boards'=>$request->Sign_boards,
+                'Hoardings'=>$request->Hoardings,
+                'Access gantries'=>$request->Access_gantries,
+                'Fuel storage'=>$request->Fuel_storage,
+                'Temporary roads'=>$request->Temporary_roads,
+                'Barriers'=>$request->Barriers,
+                'Welfare facilities'=>$request->Welfare_facilities,
+                'Precast facilities'=>$request->Precast_facilities,
+                'Access bridges'=>$request->Access_bridges,
+        ];
+
+        $Access_scaffolding=[
+                'Tube & fitting'=>$request->Tube_fitting,
+                'System scaffolding'=>$request->System_scaffolding,
+                'System staircases'=>$request->System_staircases,
+                'Temporary roofs'=>$request->Temporary_roofs,
+                'Loading bays'=>$request->Loading_bays,
+                'Chute support'=>$request->Chute_support,
+                'Mobile towers'=>$request->Mobile_towers,
+                'Edge protection'=>$request->Edge_protection,
+                'Suspension systems'=>$request->Suspension_systems,
+                'Suspension systems'=>$request->Suspension_systems,
+        ];
+
+        $Formwork_falsework=[
+                'Formwork'=>$request->Formwork,
+                'Falsework'=>$request->Falsework,
+                'Back propping'=>$request->Back_propping,
+                'Support systems'=>$request->Support_systems,
+        ];
+
+        $Construction_plant=[
+                'Crane supports & foundations'=>$request->Crane_supports_foundations,
+                'Hoist ties & foundations'=>$request->Hoist_ties_foundations,
+                'BMast climbers & foundations'=>$request->Mast_climbers_foundations,
+                'Mobile crane foundations'=>$request->Mobile_crane_foundations,
+                'MPiling mats & working platforms'=>$request->Piling_mats_working_platforms,
+                'Lifting/ handling devices'=>$request->Lifting_handling_devices,
+        ];
+
+
+        $Excavation_earthworks=[
+                'Excavation support'=>$request->Excavation_support,
+                'Cofferdams'=>$request->Cofferdams,
+                'Embankment/ bunds'=>$request->Embankment_bunds,
+                'Ground anchor/ soil nailing'=>$request->Ground_anchor_soil_nailing,
+                'Open excavations'=>$request->Open_excavations,
+                'Dewatering'=>$request->Dewatering,
+        ];
+
+        $Structural_stability=[
+                'Existing structures during construction'=>$request->Existing_structures_during_construction,
+                'New structures during construction'=>$request->New_structures_during_construction,
+                'Structural steelwork erection'=>$request->Structural_steelwork_erection,
+                'Needling'=>$request->Needling,
+                'Temporary underpinning'=>$request->Temporary_underpinning,
+                'Façade system'=>$request->Façade_system,
+        ];
+
+        $Permanent_works=[
+                'Partial permanent support conditions'=>$request->Partial_permanent_support_conditions,
+                'Demolitions'=>$request->Demolitions,
+                
+        ];
+
+
+        $model=new NominationCompetence();
+        $model->Site_establishment=$siteestablishment;
+        $model->Access_scaffolding= $Access_scaffolding;
+        $model->Formwork_falsework=$Formwork_falsework;
+        $model->Construction_plant=$Construction_plant;
+        $model->Excavation_earthworks=$Excavation_earthworks;
+        $model->Structural_stability=$Structural_stability;
+        $model->Permanent_works=$Permanent_works;
+        $model->nomination_id =$nomination->id;
+        $model->save();
 
 
       }

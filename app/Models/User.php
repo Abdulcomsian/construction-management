@@ -31,6 +31,7 @@ class User extends Authenticatable
         'auto_backup',
         'representative_name',
         'nomination',
+        'nomination_status',
     ];
 
     /**
@@ -65,5 +66,10 @@ class User extends Authenticatable
     public function userCompany()
     {
         return $this->belongsTo(User::class, 'company_id');
+    }
+
+    public function usernomination()
+    {
+         return $this->hasOne(Nomination::class);
     }
 }

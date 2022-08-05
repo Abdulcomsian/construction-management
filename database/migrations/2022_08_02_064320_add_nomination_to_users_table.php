@@ -15,7 +15,7 @@ class AddNominationToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->tinyinteger('nomination')->default(0);
-            $table->enum('nomination_status', array('pending','acepted.','rejected'))->nullable();
+            $table->tinyinteger('nomination_status')->default(0);
         });
     }
 

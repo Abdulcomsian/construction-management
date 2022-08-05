@@ -24,6 +24,8 @@ class CreateNominationsTable extends Migration
             $table->string('Description_limits_authority')->nullable();
             $table->string('authority_issue_permit')->nullable();
 
+            $table->string('pdf_url')->nullable();
+
             $table->string('print_name')->nullable();
             $table->string('job_title')->nullable();
             $table->string('signature')->nullable();

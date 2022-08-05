@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Companies'])
+@extends('layouts.nomination',['title' => 'Companies'])
 @section('styles')
 <style>
     .aside-enabled.aside-fixed.header-fixed .header {
@@ -199,22 +199,6 @@
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Toolbar-->
-    <!-- <div class="toolbar" id="kt_toolbar"> -->
-        <!--begin::Container-->
-        <!-- <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack"> -->
-            <!--begin::Page title-->
-            <!-- <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;"> -->
-                <!--begin::Title-->
-                <!-- <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Company</h1> -->
-                <!--end::Title-->
-            <!-- </div> -->
-            <!--end::Page title-->
-        <!-- </div> -->
-        <!--end::Container-->
-    <!-- </div> -->
-    <!--end::Toolbar-->
-    <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
@@ -226,18 +210,11 @@
                     <div class="card-title">
                         <h2>Nomination Form</h2>
                     </div>
-                    <!--begin::Card toolbar-->
-                    
-                    
-                    
-                    <!--end::Card toolbar-->
                 </div>
-                <!--end::Card header-->
 
-                <!--begin::Card body-->
                 <form action="{{url('nomination-save')}}" method="post">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{$userid}}">
+                    <input type="hidden" name="user_id" value="{{$user->id}}">
                     <div class="card-body pt-0">
                         <h2>Temporary Works Person Nomination</h2>
                         <p>Provide supporting evidence to xxxxx of the competence, qualifications, training and experience of the individuals nominated to work as Temporary Works Supervisor, Temporary Works Coordinator or Temporary Works Designer. This form will enable xxxxx to assess the competence of the individual to undertake the appropriate role.</p>
@@ -785,6 +762,7 @@
                     
                     <!--end::Card body-->
                 </form>
+               
             </div>
             <!--end::Card-->
         </div>

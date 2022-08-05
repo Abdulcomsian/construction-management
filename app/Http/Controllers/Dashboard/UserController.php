@@ -15,7 +15,9 @@ use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
 use App\Notifications\Nomination;
+use App\Models\Nominationcomment;
 use Notification;
+use Auth;
 
 class UserController extends Controller
 {
@@ -28,12 +30,14 @@ class UserController extends Controller
     {
         $user = auth()->user();
         abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
-        try {
+        // try {
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
                     $data = User::role(['user', 'supervisor', 'scaffolder'])->latest()->get();
                 } elseif ($user->hasRole('company')) {
-                    $data = User::role(['user', 'supervisor', 'scaffolder'])->where('company_id', auth()->user()->id)->get();
+                    $data = User::role(['user', 'supervisor', 'scaffolder'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
+
+               
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')
@@ -62,7 +66,21 @@ class UserController extends Controller
                                         <!--end::Svg Icon-->
                                     </button>
                                 </form></div>';
-                        } else {
+                        } elseif($user->hasRole('company')){
+                             $btn='';
+                            if(isset($data->usernomination) && $data->nomination==1)
+                            {
+                                
+                                $btn .= '<a type="button" href="pdf/'.$data->usernomination->pdf_url.'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                      <i class="fa fa-download" aria-hidden="true"></i>  
+                                    </a>
+                                    <button type="button" userid="'.$data->id.'" nominationid="' . $data->usernomination->id . '" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                      <i class="fa fa-comment" aria-hidden="true"></i>
+                                        
+                                    </button>';
+                            }
+                            
+                        }else {
                             $btn = '';
                         }
                         return $btn;
@@ -72,10 +90,10 @@ class UserController extends Controller
             }
 
             return view('dashboard.users.index');
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again');
+        //     return Redirect::back();
+        // }
     }
 
     /**
@@ -122,6 +140,17 @@ class UserController extends Controller
             $user->assignRole($request->role);
             //Add projects for user
             $user->userProjects()->sync($all_inputs['projects']);
+
+
+            $model=new Nominationcomment();
+            $model->email=Auth::user()->email;
+            $model->comment="Admin/Company send nomination form to ".$user->email."";
+            $model->type="Nomination";
+            $model->send_date=date('Y-m-d');
+            $model->user_id=$user->id;
+            $model->save();
+
+
             Notification::route('mail',$user->email ?? '')->notify(new Nomination($user));
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
@@ -228,5 +257,47 @@ class UserController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+    public function nomination_status(Request $request)
+    {
+            $user=User::find($request->userid);
+
+            $model=new Nominationcomment();
+            $model->email=Auth::user()->email;
+            if($request->status==1)
+            {
+                User::find($user->id)->update(['nomination_status'=>"acepted"]);
+                $message="Admin/Company accept nomination form of ".$user->email."";
+            }
+            else
+            {
+                User::find($user->id)->update(['nomination_status'=>"rejected"]);
+                $message="Admin/Company reject nomination form of ".$user->email."";
+            }
+           
+            $model->comment=$message;
+            $model->type="Nomination";
+            $model->send_date=date('Y-m-d');
+            $model->user_id=$user->id;
+            $model->save();
+    }
+
+    public function nomination_get_comments()
+    {
+        $id=$_GET['id'];
+        $userid=$_GET['userid'];
+
+        $ncomments=Nominationcomment::where('user_id',$userid)->get();
+        $list='';
+        $i=1;
+        foreach($ncomments as $comment)
+        {
+            $list.="<tr><td>".$i."</td><td>".$comment->email."</td><td>".$comment->comment."</td>";
+            $list.="<td>".$comment->type."</td><td>".$comment->send_date."</td><td>".$comment->read_date."</td></tr>";
+            $i++;
+        }
+        echo $list;
+
     }
 }

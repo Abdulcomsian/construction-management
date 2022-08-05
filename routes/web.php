@@ -10,6 +10,7 @@ use App\Http\Controllers\DesignerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,12 +23,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/checkpdf',function(){
-    $pdf = PDF::loadView('layouts.pdf.nomination');
-                $path = public_path('pdf');
-                $filename ='nomination.pdf';
-                $pdf->save($path . '/' . $filename);
-});
+// Route::get('/checkpdf',function(){
+//     $pdf = PDF::loadView('layouts.pdf.nomination');
+//                 $path = public_path('pdf');
+//                 $filename =rand().'nomination.pdf';
+//                 $pdf->save($path . '/' . $filename);
+// });
 Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 Route::get('show-scan-temporary-work/{id}', [TemporaryWorkController::class, 'show_scan_temporarywork'])->name('show.scan.temporarywork');
@@ -177,6 +178,10 @@ Route::group(['middleware' => ['auth']], function () {
      Route::get('project-backup',[ProjectController::class,'project_backup'])->name('projects.backup');
      //auto backup
      Route::get('auto-project-backup',[ProjectController::class,'auto_project_backup'])->name('autoprojects.backup');
+
+
+     Route::post('nomination-chagnestatus',[UserController::class,'nomination_status']);
+     Route::get('nomination-get-commetns',[UserController::class,'nomination_get_comments']);
 
 });
 

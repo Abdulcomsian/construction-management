@@ -15,13 +15,13 @@ class CreateNominationCompetencesTable extends Migration
     {
         Schema::create('nomination_competences', function (Blueprint $table) {
             $table->id();
-            $table->string('Site_establishment')->nullable();
-            $table->string('Access_scaffolding')->nullable();
-            $table->string('Formwork_falsework')->nullable();
-            $table->string('Construction_plant')->nullable();
-            $table->string('Excavation_earthworks')->nullable();
-            $table->string('Structural_stability')->nullable();
-            $table->string('Permanent_works')->nullable();
+            $table->text('Site_establishment')->nullable();
+            $table->text('Access_scaffolding')->nullable();
+            $table->text('Formwork_falsework')->nullable();
+            $table->text('Construction_plant')->nullable();
+            $table->text('Excavation_earthworks')->nullable();
+            $table->text('Structural_stability')->nullable();
+            $table->text('Permanent_works')->nullable();
 
             $table->unsignedBigInteger('nomination_id')->nullable();
             $table->foreign('nomination_id')->references('id')->on('nominations');

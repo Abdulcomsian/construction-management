@@ -236,6 +236,7 @@ $data = [
 @include('layouts.sweetalert.sweetalert_js')
 @include('layouts.datatables.datatables_js',['data' => $data])
 @include('layouts.dashboard.ajax_call')
+@include('dashboard.modals.nomination_comment')
 <script>
     $(document).ready(function() {
         //When validation error occur
@@ -276,5 +277,24 @@ $data = [
             }
         });
     });
+
+
+    $(document).on("click",".nominationcomment",function(){
+        let nomination_id=$(this).attr('nominationid');
+        let userid=$(this).attr('userid');
+        $("#nominationid").val(nomination_id);
+
+        $.ajax({
+                type: 'GET',
+                url: '{{url("nomination-get-commetns")}}',
+                data:{id:nomination_id,userid:userid},
+                success: function(data) {
+                    $("#nomination_result").html(data);
+                    $("#nominationid").val(nomination_id);
+                    $("#userid").val(userid);
+                    $("#nomination_comment_modal_id").modal('show');
+                }
+            });
+    })
 </script>
 @endsection

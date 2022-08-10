@@ -130,7 +130,7 @@ class UserController extends Controller
             if(isset($request->nomination))
             {
                 $all_inputs['nomination']=1;
-                $all_inputs['nomination_status']='pending';
+                $all_inputs['nomination_status']='0';
             }
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
@@ -267,12 +267,12 @@ class UserController extends Controller
             $model->email=Auth::user()->email;
             if($request->status==1)
             {
-                User::find($user->id)->update(['nomination_status'=>"acepted"]);
+                User::find($user->id)->update(['nomination_status'=>1]);
                 $message="Admin/Company accept nomination form of ".$user->email."";
             }
             else
             {
-                User::find($user->id)->update(['nomination_status'=>"rejected"]);
+                User::find($user->id)->update(['nomination_status'=>2]);
                 $message="Admin/Company reject nomination form of ".$user->email."";
             }
            
@@ -281,6 +281,8 @@ class UserController extends Controller
             $model->send_date=date('Y-m-d');
             $model->user_id=$user->id;
             $model->save();
+            toastError('status changed successfully');
+            return Redirect::back();
     }
 
     public function nomination_get_comments()

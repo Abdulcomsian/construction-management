@@ -79,7 +79,7 @@
                                     <th>Email</th>
                                     <th>Comment</th>
                                     <th>Type</th>
-                                    <th>Send Date</th>
+                                    <th>Sent Date</th>
                                     <th>Read Date</th>
                                 </tr>
                             </thead>

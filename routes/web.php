@@ -57,7 +57,8 @@ Route::post('Risk-Assessment/store',[DesignerController::class,'risk_assessment_
 
 //noimination Form
 
-Route::get('/nomination-form/{id}',[HomeController::class,'nomination_form']);
+Route::get('/nomination-form/{id}',[HomeController::class,'nomination_form'])->name('nomination-form');
+Route::get('/nomination-formm/{id}',[HomeController::class,'nomination_formm'])->name('nomination-formm');
 Route::post('/nomination-save',[HomeController::class,'nomination_save']);
 
 

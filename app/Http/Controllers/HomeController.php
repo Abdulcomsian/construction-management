@@ -13,10 +13,19 @@ use App\Models\User;
 use App\Models\NominationComment;
 use PDF;
 use Notification;
+use Redirect;
 class HomeController extends Controller
 {
     // nomination form
     public function nomination_form($id)
+    {
+         $userid= \Crypt::decrypt($id);
+        $user=User::find($userid);
+       return view('nomination',compact('user'));
+    }
+
+    //
+    public function nomination_formm($id)
     {
        $userid= \Crypt::decrypt($id);
        $user=User::find($userid);
@@ -29,9 +38,8 @@ class HomeController extends Controller
        $model->read_date=date('Y-m-d');
        $model->user_id=$userid;
        $model->save();
-
-
-       return view('nomination',compact('user'));
+       return Redirect::route('nomination-form', $id);
+       
     }
 
     //save nomination form

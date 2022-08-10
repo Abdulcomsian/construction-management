@@ -188,8 +188,8 @@ background-color: #07d564 !important;
                                 </div>
                                 <!--begin::Col-->
                                 <div class="col-md-12 fv-row">
-                                    <label class="fs-6 fw-bold mb-2">Nomination</label>
-                                    <input type="checkbox"  rows="3"  name="nomination">
+                                    <input type="checkbox"  name="nomination">
+                                    <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
                                 </div>
                             </div>
                         </div>

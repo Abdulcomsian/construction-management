@@ -26,7 +26,7 @@
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Welcome to the online i-works Web-Portal. <br><br>
                                                                         Link for your attention is a Nomination .<br>
-                                                                        <a href="{{url('nomination-form',Crypt::encrypt($user->id))}}">Click Here</a>
+                                                                        <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a>
                                                                         
                                                                    </p>
                                                                    

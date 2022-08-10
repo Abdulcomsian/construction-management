@@ -179,6 +179,11 @@ class CompanyController extends Controller
             {
                 $all_inputs['auto_backup']=1;
             }
+             $all_inputs['nomination'] =0;
+            if(isset($request->nomination))
+            {
+                $all_inputs['nomination'] =1;
+            }
             $user = User::find($id);
             $user->update($all_inputs);
             $user->companyProjects()->update(['company_id' => null]);
@@ -221,7 +226,8 @@ class CompanyController extends Controller
             if (!empty($projects)) {
                 $data = [
                     'status' => true,
-                    'projects' => $projects
+                    'projects' => $projects,
+                    'company_nomination'=>$company->nomination,
                 ];
             } else {
                 $data = [

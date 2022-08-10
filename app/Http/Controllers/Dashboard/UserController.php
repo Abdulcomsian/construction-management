@@ -210,10 +210,23 @@ class UserController extends Controller
         Validations::updateUser($request, $user->id);
         try {
             $all_inputs = $request->except('_token', '_method');
+            if(isset($request->nomination))
+            {
+                $all_inputs['nomination']=1;
+                $all_inputs['nomination_status']='0';
+                 Notification::route('mail',$user->email ?? '')->notify(new Nomination($user));
+            }
+            else
+            {
+                $all_inputs['nomination']=0;
+                $all_inputs['nomination_status']='0';
+            }
             $user->update([
                 'name' => $all_inputs['name'],
                 'email' => $all_inputs['email'],
-                'company_id' => $all_inputs['company_id']
+                'company_id' => $all_inputs['company_id'],
+                'nomination'=> $all_inputs['nomination'],
+                'nomination_status' => $all_inputs['nomination_status'],
             ]);
             $user->assignRole($request->role);
             $user->userProjects()->sync($all_inputs['projects']);

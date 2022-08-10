@@ -102,10 +102,9 @@
                         <!--end::Col-->
                     </div>
                     <div class="row g-9 mb-8">
-                        <!--begin::Col-->
                         <div class="col-md-12 fv-row">
-                            <label class="fs-6 fw-bold mb-2">Nomination</label>
-                            <input type="checkbox"  rows="3"  name="nomination" value="{{old('nomination')}}">
+                            <input type="checkbox"  name="nomination">
+                            <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
                         </div>
                         <!--end::Col-->
                     </div>

@@ -186,7 +186,11 @@ background-color: #07d564 !important;
                                     </select>
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
-
+                                <!--begin::Col-->
+                                <div class="col-md-12 fv-row">
+                                    <input type="checkbox"  name="nomination">
+                                    <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
+                                </div>
                             </div>
                         </div>
 

@@ -138,6 +138,13 @@
                         </div>
                         <div class="row g-9 mb-8">
                             <div class="col-md-12 fv-row">
+                                <input type="checkbox"  name="nomination" {{$company->nomination==1 ? 'checked':''}}>
+                                <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
+                            </div>
+                            <!--end::Col-->
+                       </div>
+                        <div class="row g-9 mb-8">
+                            <div class="col-md-12 fv-row">
                                 <label class="fs-6 fw-bold mb-2">Auto Backup</label>
                                 <input type="checkbox" name="auto_backup"  {{$company->auto_backup==1 ? 'checked':''}}>
                             </div>

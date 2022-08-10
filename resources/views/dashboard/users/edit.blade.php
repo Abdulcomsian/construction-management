@@ -138,6 +138,11 @@
                                     </select>
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
+                                <!--begin::Col-->
+                                <div class="col-md-12 fv-row nomination-flow">
+                                    <input type="checkbox"  name="nomination" {{$user->nomination==1 ? 'checked':''}}>
+                                    <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
+                                </div>
 
                             </div>
                         </div>
@@ -199,6 +204,14 @@
                     console.log(data);
                     if (data.status == true) {
                         let projects = data.projects;
+                        let company_nomination=data.company_nomination;
+                        if(company_nomination==0)
+                        {
+                            $(".nomination-flow").hide();
+                        }
+                        else{
+                            $(".nomination-flow").show();
+                        }
                         $('#projects').empty();
                         $.each(projects, function(key, item) {
                             $('#projects').append(`<option value="${item.id}">${item.name}</option>`);

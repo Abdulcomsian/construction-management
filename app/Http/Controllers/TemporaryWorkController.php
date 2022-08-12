@@ -140,10 +140,13 @@ class TemporaryWorkController extends Controller
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
-        if(!auth()->user()->userCompany->nomination && 1auth()->user()->nomination && !auth()->user()->nomination_status)
-        {
-            toastError('You can no create temporary work until your nomination form appprove thanks ');
-              return Redirect::back();
+
+        if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
+           if(Auth::user()->nomination == 1 && Auth::user()->nomination_status == 0)
+            {
+                toastError('You can no create temporary work until your nomination form appprove thanks ');
+                  return Redirect::back();
+            }
         }
         //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
         try {
@@ -170,6 +173,13 @@ class TemporaryWorkController extends Controller
     public function create1()
     {
         abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
+           if(Auth::user()->nomination == 1 && Auth::user()->nomination_status == 0)
+            {
+                toastError('You can no create temporary work until your nomination form appprove thanks ');
+                  return Redirect::back();
+            }
+        }
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -177,20 +187,12 @@ class TemporaryWorkController extends Controller
             } elseif ($user->hasRole(['company'])) {
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
-                if(auth()->user()->nomination==1 && auth()->user()->nomination_status==1)
-                {
-                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                   $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                     $ids = [];
                     foreach ($project_idds as $id) {
                         $ids[] = $id->project_id;
                     }
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
-                }
-                else
-                {
-                     toastError('You can no create temporary work until your nomination form appprove thanks ');
-                      return Redirect::back();
-                }
             }
             return view('dashboard.temporary_works.create1', compact('projects'));
         } catch (\Exception $exception) {

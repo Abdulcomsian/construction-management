@@ -140,10 +140,13 @@ class TemporaryWorkController extends Controller
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
-        if(!auth()->user()->userCompany->nomination && 1auth()->user()->nomination && !auth()->user()->nomination_status)
-        {
-            toastError('You can no create temporary work until your nomination form appprove thanks ');
-              return Redirect::back();
+
+        if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
+           if(Auth::user()->nomination == 1 && Auth::user()->nomination_status == 0)
+            {
+                toastError('You can no create temporary work until your nomination form appprove thanks ');
+                  return Redirect::back();
+            }
         }
         //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
         try {

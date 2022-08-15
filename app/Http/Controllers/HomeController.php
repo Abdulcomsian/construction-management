@@ -31,7 +31,7 @@ class HomeController extends Controller
        $user=User::find($userid);
 
 
-       $model=new Nominationcomment();
+       $model=new NominationComment();
        $model->email=$user->email;
        $model->comment="User Read the email";
        $model->type="Nomination";
@@ -182,7 +182,7 @@ class HomeController extends Controller
                 $company=User::find($user->company_id);
 
 
-                $model=new Nominationcomment();
+                $model=new NominationComment();
                 $model->email=$user->email;
                 $model->comment="User submit the nominatin form to company ".$company->email."";
                 $model->type="Nomination";

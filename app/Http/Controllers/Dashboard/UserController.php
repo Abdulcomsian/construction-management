@@ -142,7 +142,7 @@ class UserController extends Controller
             $user->userProjects()->sync($all_inputs['projects']);
 
 
-            $model=new Nominationcomment();
+            $model=new NominationComment();
             $model->email=Auth::user()->email;
             $model->comment="Admin/Company send nomination form to ".$user->email."";
             $model->type="Nomination";
@@ -276,7 +276,7 @@ class UserController extends Controller
     {
             $user=User::find($request->userid);
 
-            $model=new Nominationcomment();
+            $model=new NominationComment();
             $model->email=Auth::user()->email;
             if($request->status==1)
             {
@@ -303,7 +303,7 @@ class UserController extends Controller
         $id=$_GET['id'];
         $userid=$_GET['userid'];
 
-        $ncomments=Nominationcomment::where('user_id',$userid)->get();
+        $ncomments=NominationComment::where('user_id',$userid)->get();
         $list='';
         $i=1;
         foreach($ncomments as $comment)

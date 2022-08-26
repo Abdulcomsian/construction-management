@@ -523,7 +523,14 @@
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Signature</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['signature']}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">
+                            @if($data['signtype']=='1')
+                            {{ucwords($signature)}}
+                            @else
+                            <img src="temporary/signature/{{$signature}}" width="auto" height="120">
+                            @endif
+                         
+                        </td>
                     </tr>
          
                     

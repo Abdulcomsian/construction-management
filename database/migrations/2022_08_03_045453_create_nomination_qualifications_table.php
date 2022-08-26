@@ -18,7 +18,7 @@ class CreateNominationQualificationsTable extends Migration
 
             $table->string('qualification')->nullable();
             $table->date('date')->nullable();
-
+            $table->string('qualification_certificate')->nullable();
             $table->unsignedBigInteger('nomination_id')->nullable();
             $table->foreign('nomination_id')->references('id')->on('nominations');
 

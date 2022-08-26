@@ -1,4 +1,4 @@
-@extends('layouts.nomination',['title' => 'Companies'])
+@extends('layouts.nomination',['title' => 'Nomination'])
 @section('styles')
 <style>
     .aside-enabled.aside-fixed.header-fixed .header {
@@ -193,6 +193,11 @@
     .tableBordered td{
         border: 1px solid grey;
     }
+    .tdhight
+    {
+        height: 57px !important;
+
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @include('layouts.datatables.datatables_css')
@@ -212,50 +217,59 @@
                     </div>
                 </div>
 
-                <form action="{{url('nomination-save')}}" method="post">
+                <form action="{{url('nomination-save')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="user_id" value="{{$user->id}}">
                     <div class="card-body pt-0">
                         <h2>Temporary Works Person Nomination</h2>
-                        <p>Provide supporting evidence to xxxxx of the competence, qualifications, training and experience of the individuals nominated to work as Temporary Works Supervisor, Temporary Works Coordinator or Temporary Works Designer. This form will enable xxxxx to assess the competence of the individual to undertake the appropriate role.</p>
+                        <p>Provide supporting evidence to {{$user->userCompany->name}} of the competence, qualifications, training and experience of the individuals nominated to work as Temporary Works Supervisor, Temporary Works Coordinator or Temporary Works Designer. This form will enable {{$user->userCompany->name}} to assess the competence of the individual to undertake the appropriate role.</p>
                         <!-- table  -->
                         <table class="table nom_table table-bordered">
                             <tbody>
                                 <tr>
                                     <td>Project</td>
-                                    <td><input type="text" name="project" required></td>
+                                    <td>
+                                        <select name="project" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
+                                        <option value="">Select Option</option>
+                                        @forelse($projects as $item)
+                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                        @empty
+                                        @endforelse
+                                        </select>
+                                        <!-- <input type="text" name="project" required> -->
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Project Manager</td>
                                     <td><input type="text" name="project_manager" required></td>
                                 </tr>
                                 <tr>
-                                    <td>Nominated person</td>
+                                    <td>Nominated person (Your name)</td>
                                     <td><input type="text" name="nominated_person" required></td>
                                 </tr>
                                 <tr>
                                     <td>Nominated person’s employer</td>
-                                    <td><input type="text" name="nominated_person_employer" required></td>
+                                    <td><input type="text" name="nominated_person_employer" value="{{$user->userCompany->name ?? ''}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Nominated role</td>
                                     <td>
-                                        <input type="text" name="nominated_role" required>
+                                        <input type="text" name="nominated_role" value="{{ $user->roles->pluck('name')[0] ?? '' }}" required>
                                             <p>*Temporary Works Coordinator</p>    
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Description of role being proposed:
                                         (Include details of the type of temporary works that the individual will be managing)</td>
-                                   <td><input type="text" name="description_of_role"></td>
+                                   <td><input type="text" name="description_of_role" value="{{$user->description_of_role}}"></td>
                                 </tr>
                                 <tr>
                                     <td>Description of the limits of authority of the individual (if applicable)</td>
-                                   <td><input type="text" name="Description_limits_authority"></td>
+                                   <td><input type="text" name="Description_limits_authority" value="{{$user->Description_limits_authority}}"></td>
                                 </tr>
                                 <tr>
                                     <td>Does the individual have authority to issue permits to load / take into use and or permit to dismantle?</td>
-                                   <td><input type="text" name="authority_issue_permit"></td>
+                                   <td><input type="text" name="authority_issue_permit" value="{{$user->authority_issue_permit}}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -271,12 +285,14 @@
                                     <tr>
                                         <th>Qualification</th>
                                         <th>Date</th>
+                                        <th>Upload Certificate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="text" name="qualification[]" required></td>
-                                        <td><input type="date" name="qualification_date[]" required></td>
+                                        <td class="tdhight"><input type="text" name="qualification[]" required></td>
+                                        <td class="tdhight"><input type="date" name="qualification_date[]" required></td>
+                                        <td class="tdhight" style="width:22%"><input type="file" name="qualification_file[]"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -297,12 +313,14 @@
                                     <tr>
                                         <th>Course title</th>
                                         <th>Date</th>
+                                        <th>Upload Certificate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="text" name="course[]" required></td>
-                                        <td><input type="date" name="course_date[]" required></td>
+                                        <td class="tdhight"><input type="text" name="course[]" required></td>
+                                        <td class="tdhight"><input type="date" name="course_date[]" required></td>
+                                        <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -328,9 +346,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="text" name="project_title[]" required></td>
-                                        <td><input type="text" name="project_role[]" required></td>
-                                        <td><input type="text" name="desc_of_involvement[]" required></td>
+                                        <td class="tdhight"><input type="text" name="project_title[]" required></td>
+                                        <td class="tdhight"><input type="text" name="project_role[]" required></td>
+                                        <td class="tdhight"><input type="text" name="desc_of_involvement[]" required></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -721,8 +739,58 @@
                                             <td><input type="text" name="job_title"></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-end w-50">Name Signature</td>
-                                            <td><input type="text" name="signature"></td>
+
+                                            
+                                            <td class="text-end w-50">
+                                                <!--begin::Label-->
+                                                <label >
+                                                    <span>Signature:</span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
+                                                 <canvas id="sig" style="background: lightgray"></canvas>
+                                                  <br/>
+                                                  <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                 </div>
+
+                                                  <div class="inputDiv d-none" id="pdfsign">
+                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Upload Signature:</span>
+                                                    </label>
+                                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                                 </div>
+                                                
+                                                 <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Name Signature:</span>
+                                                    </label>
+                                                    <input type="text" name="namesign" class="form-control form-control-solid">
+                                                </div>   
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            
+                                            <td class="text-end w-50">
+                                                <!--begin::Label-->
+                                                <label >
+                                                    <span>Type Signature:</span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input mx-0 position-relative" type="checkbox" id="flexCheckChecked" >
+                                                  <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                                  <label class="form-check-label" for="inlineCheckbox1">name signature?</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input mx-0 position-relative" type="checkbox" id="pdfChecked">
+                                                  <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                                  <label class="form-check-label" for="inlineCheckbox2">Pdf signature?</label>
+                                                </div>
+                                               
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -777,25 +845,91 @@
 <script>
     $('#table3Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table3 tbody', `<tr><td><input type="text" name="qualification[]"></td><td><input type="date" name="qualification_date[]"></td> </tr>`)
+        addNewRow('.table3 tbody', `<tr><td class="tdhight"><input type="text" name="qualification[]"></td><td class="tdhight"><input type="date" name="qualification_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="qualification_file[]"></td> </tr>`)
     });
 
     $('#table4Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table4 tbody', `<tr><td><input type="text" name="course"></td><td><input type="date" name="course_date[]"></td> </tr>`)
+        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course"></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
     });
 
     $('#table5Btn').click(function(e) {
         e.preventDefault();
         addNewRow('.table5 tbody', ` <tr>
-                                    <td><input type="text" name="project_title[]"></td>
-                                    <td><input type="text" name="project_role[]"></td>
-                                    <td><input type="text" name="desc_of_involvement[]"></td>
+                                    <td class="tdhight"><input type="text" name="project_title[]"></td>
+                                    <td class="tdhight"><input type="text" name="project_role[]"></td>
+                                    <td class="tdhight"><input type="text" name="desc_of_involvement[]"></td>
                                 </tr>`)
     });
 
     function addNewRow(selector, row){
         $(selector).append(row);
     }
+</script>
+
+<script type="text/javascript">
+       var canvas = document.getElementById("sig");
+     var signaturePad = new SignaturePad(canvas);
+     signaturePad.addEventListener("endStroke", () => {
+        console.log("hello");
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+            });
+</script>
+
+<script type="text/javascript">
+    $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#signtype").val(1);
+             $("#pdfsign").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+             $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required','required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
+    })
+
+    $("#pdfChecked").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#flexCheckChecked").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
+        }
+    })
 </script>
 @endsection

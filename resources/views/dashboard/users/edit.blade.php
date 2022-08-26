@@ -140,9 +140,25 @@
                                 </div>
                                 <!--begin::Col-->
                                 <div class="col-md-12 fv-row nomination-flow">
-                                    <input type="checkbox"  name="nomination" {{$user->nomination==1 ? 'checked':''}}>
+                                    <input type="checkbox"  name="nomination" id="nomination" {{$user->nomination==1 ? 'checked':''}}>
                                     <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
                                 </div>
+
+
+                                <!-- <div class="col-md-12 fv-row nominationdesc">
+                                    <label class="fs-6 fw-bold mb-2">Description of role being proposed:</label>
+                                    <textarea cols="40" rows="2" class="form-control"></textarea>
+                                </div>
+                                <div class="col-md-12 fv-row nominationdesc">
+                                    <label class="fs-6 fw-bold mb-2">Description of the limits of authority of the individual:</label>
+                                    <textarea cols="40" rows="2" class="form-control"></textarea>
+                                </div>
+                                <div class="col-md-12 fv-row nominationdesc">
+                                    <label class="fs-6 fw-bold mb-2"> Does the individual have authority to issue permits to load:</label>
+                                    <textarea cols="40" rows="2" class="form-control"></textarea>
+                                </div> -->
+
+                        
 
                             </div>
                         </div>
@@ -191,6 +207,14 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
+        let nomination_flo='{{$user->nomination}}';
+        if(nomination_flo=='1')
+        {
+             $(".nominationdesc").show();
+        }
+        else{
+             $(".nominationdesc").hide();
+        }
         $("#company_id").change(function() {
             console.log('Here in id changes');
             let id = $(this).val();
@@ -222,6 +246,18 @@
             });
 
         });
+
+      //nomination checkbox work here
+        $("#nomination").change(function(){
+            if($(this).is(':checked'))
+            {
+                $(".nominationdesc").show();
+            }
+            else{
+                $(".nominationdesc").hide();
+            }
+        })
+
 
     });
 </script>

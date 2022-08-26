@@ -60,9 +60,11 @@ License: -->
 			</span>
     <!--end::Svg Icon-->
 </div>
-  @jquery  
+@jquery  
    
 @include('layouts.dashboard.scripts')
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
 @toastr_js
 @toastr_render
 

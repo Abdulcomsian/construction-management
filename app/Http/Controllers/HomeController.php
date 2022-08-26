@@ -11,17 +11,32 @@ use App\Models\NominationCompetence;
 use App\Notifications\NominatinCompanyEmail;
 use App\Models\User;
 use App\Models\NominationComment;
+use App\Models\Project;
+use App\Utils\HelperFunctions;
 use PDF;
 use Notification;
 use Redirect;
+use DB;
 class HomeController extends Controller
 {
     // nomination form
     public function nomination_form($id)
     {
-         $userid= \Crypt::decrypt($id);
-        $user=User::find($userid);
-       return view('nomination',compact('user'));
+        try 
+        {
+            $userid= \Crypt::decrypt($id);
+            $user=User::with('userCompany')->find($userid);
+            $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                    $ids = [];
+                    foreach ($project_idds as $id) {
+                        $ids[] = $id->project_id;
+                    }
+            $projects = Project::with('company')->whereIn('id', $ids)->get();
+           return view('nomination',compact('user','projects'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return back();
+        }
     }
 
     //
@@ -45,7 +60,29 @@ class HomeController extends Controller
     //save nomination form
     public function nomination_save(Request $request)
     {
-      try {
+
+      // try {
+            //upload signature here
+            $image_name = '';
+            if ($request->signtype == 1) {
+                $image_name = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+            }
+
             $all_inputs=[
                 'project'=>$request->project,
                 'project_manager'=>$request->project_manager,
@@ -56,13 +93,14 @@ class HomeController extends Controller
                 'authority_issue_permit'=>$request->authority_issue_permit,
                 'print_name'=>$request->print_name,
                 'job_title'=>$request->job_title,
-                'signature'=>$request->signature,
+                'signature'=>$image_name,
                 'print_name1'=>$request->print_name1,
                 'job_title1'=>$request->job_title1,
                 'signature1'=>$request->signature1,
                 'user_id'=>$request->user_id,
 
             ];
+
 
             $nomination=Nomination::create($all_inputs);
             if($nomination)
@@ -71,6 +109,14 @@ class HomeController extends Controller
                 for($i=0;$i<count($request->course);$i++)
                 {
                     $model=new NominationCourses();
+                    if ($request->file('course_file')) {
+                        $filePath = HelperFunctions::nominationcoursepath();
+                        $file = $request->file('course_file');
+                        $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
+                        $model->course_certificate=$imagename;
+                    
+                    }
+                    
                     $model->course=$request->course[$i];
                     $model->date=$request->course_date[$i];
                     $model->nomination_id=$nomination->id;
@@ -81,6 +127,13 @@ class HomeController extends Controller
                 for($i=0;$i<count($request->qualification);$i++)
                 {
                     $model=new NominationQualification();
+                    if ($request->file('qualification_file')) {
+                        $filePath = HelperFunctions::nominationqualificationpath();
+                        $file = $request->file('qualification_file');
+                        $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
+                        $model->qualification_certificate=$imagename;
+                    
+                    }
                     $model->qualification=$request->qualification[$i];
                     $model->date=$request->qualification_date[$i];
                     $model->nomination_id=$nomination->id;
@@ -191,7 +244,7 @@ class HomeController extends Controller
                 $model->user_id=$user->id;
                 $model->save();
 
-            $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all()]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
@@ -206,9 +259,9 @@ class HomeController extends Controller
 
             }
 
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return back();
+        // }
     }
 }

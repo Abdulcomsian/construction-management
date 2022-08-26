@@ -188,8 +188,22 @@ background-color: #07d564 !important;
                                 </div>
                                 <!--begin::Col-->
                                 <div class="col-md-12 fv-row nomination-flow">
-                                    <input type="checkbox"  name="nomination">
+                                    <input type="checkbox"  name="nomination" id="nomination">
                                     <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
+                                </div>
+
+                                <!-- nomination descritpion -->
+                                <div class="col-md-12 fv-row nominationdesc">
+                                    <label class="fs-6 fw-bold mb-2 ">Description of role being proposed:</label>
+                                    <textarea cols="40" rows="2" class="form-control" name="description_of_role"></textarea>
+                                </div>
+                                <div class="col-md-12 fv-row nominationdesc">
+                                    <label class="fs-6 fw-bold mb-2 ">Description of the limits of authority of the individual:</label>
+                                    <textarea cols="40" rows="2" class="form-control" name="Description_limits_authority"></textarea>
+                                </div>
+                                <div class="col-md-12 fv-row nominationdesc">
+                                    <label class="fs-6 fw-bold mb-2 "> Does the individual have authority to issue permits to load:</label>
+                                    <textarea cols="40" rows="2" class="form-control" name="authority_issue_permit"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -212,6 +226,7 @@ background-color: #07d564 !important;
 @section('scripts')
 <script>
     $(document).ready(function() {
+        $(".nominationdesc").hide();
         $("#company_id").change(function() {
             console.log('Here in id changes');
             let id = $(this).val();
@@ -243,6 +258,17 @@ background-color: #07d564 !important;
             });
 
         });
+
+          //nomination checkbox work here
+        $("#nomination").change(function(){
+            if($(this).is(':checked'))
+            {
+                $(".nominationdesc").show();
+            }
+            else{
+                $(".nominationdesc").hide();
+            }
+        })
 
     });
 </script>

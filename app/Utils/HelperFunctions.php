@@ -194,6 +194,14 @@ class HelperFunctions
         return $project->project_id;
     }
 
+    public static function nominationcoursepath($user=null){
+        return $path  = 'uploads/course/';
+    }
+
+     public static function nominationqualificationpath($user=null){
+        return $path  = 'uploads/qualification/';
+    }
+
     public static function sharetemwork($useremail, $condition, $tempid, $projectid, $commentsandother)
     {
         //check use exist or not

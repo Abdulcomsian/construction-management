@@ -17,7 +17,7 @@ class CreateNominationCoursesTable extends Migration
             $table->id();
             $table->string('course')->nullable();
             $table->date('date')->nullable();
-
+            $table->string('course_certificate')->nullable();
             $table->unsignedBigInteger('nomination_id')->nullable();
             $table->foreign('nomination_id')->references('id')->on('nominations');
 

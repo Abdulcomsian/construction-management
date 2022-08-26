@@ -32,6 +32,9 @@ class User extends Authenticatable
         'representative_name',
         'nomination',
         'nomination_status',
+        'description_of_role',
+        'Description_limits_authority',
+        'authority_issue_permit',
     ];
 
     /**
@@ -70,6 +73,6 @@ class User extends Authenticatable
 
     public function usernomination()
     {
-         return $this->hasOne(Nomination::class);
+         return $this->hasOne(Nomination::class)->orderBy('id','desc');
     }
 }

@@ -31,13 +31,12 @@ class UserController extends Controller
         $user = auth()->user();
         abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
         // try {
+        
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
                     $data = User::role(['user', 'supervisor', 'scaffolder'])->latest()->get();
                 } elseif ($user->hasRole('company')) {
                     $data = User::role(['user', 'supervisor', 'scaffolder'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
-
-               
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')
@@ -45,8 +44,9 @@ class UserController extends Controller
                         return $data->userCompany->name ?? '';
                     })
                     ->addColumn('action', function ($data) use ($user) {
+                         $btn ='';
                         if ($user->hasRole('admin')) {
-                            $btn = '<div class="d-flex">
+                            $btn .= '<div class="d-flex">
                                 <a href="' . route('users.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                     <span class="svg-icon svg-icon-3">
@@ -66,8 +66,8 @@ class UserController extends Controller
                                         <!--end::Svg Icon-->
                                     </button>
                                 </form></div>';
-                        } elseif($user->hasRole('company')){
-                             $btn='';
+                        } if($user->hasRole(['admin','company'])){
+                            
                             if(isset($data->usernomination) && $data->nomination==1)
                             {
                                 
@@ -134,7 +134,6 @@ class UserController extends Controller
             }
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
-
             $user = User::create($all_inputs);
             //Assigned role to user. role is already created during seeder
             $user->assignRole($request->role);
@@ -142,7 +141,7 @@ class UserController extends Controller
             $user->userProjects()->sync($all_inputs['projects']);
 
 
-            $model=new NominationComment();
+            $model= new NominationComment();
             $model->email=Auth::user()->email;
             $model->comment="Admin/Company send nomination form to ".$user->email."";
             $model->type="Nomination";

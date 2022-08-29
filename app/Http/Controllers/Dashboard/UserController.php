@@ -15,7 +15,7 @@ use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
 use App\Notifications\Nomination;
-use App\Models\Nominationcomment;
+use App\Models\NominationComment;
 use Notification;
 use Auth;
 

@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\User;
 use App\Utils\HelperFunctions;
+use App\Models\Nomination;
+use App\Models\NominationCourses;
+use App\Models\NominationQualification;
+use App\Models\NominationCompetence;
+use App\Models\NominationExperience;
 use App\Utils\Validations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,10 +19,12 @@ use Illuminate\Validation\Rule;
 use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
-use App\Notifications\Nomination;
+use App\Notifications\Nominations;
 use App\Models\NominationComment;
 use Notification;
 use Auth;
+use PDF;
+use DB;
 
 class UserController extends Controller
 {
@@ -30,7 +37,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
         abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
-        // try {
+        try {
         
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
@@ -90,10 +97,10 @@ class UserController extends Controller
             }
 
             return view('dashboard.users.index');
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
 
     /**
@@ -150,7 +157,7 @@ class UserController extends Controller
             $model->save();
 
 
-            Notification::route('mail',$user->email ?? '')->notify(new Nomination($user));
+            Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {
@@ -213,7 +220,7 @@ class UserController extends Controller
             {
                 $all_inputs['nomination']=1;
                 $all_inputs['nomination_status']='0';
-                 Notification::route('mail',$user->email ?? '')->notify(new Nomination($user));
+                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             }
             else
             {
@@ -227,7 +234,7 @@ class UserController extends Controller
                 'nomination'=> $all_inputs['nomination'],
                 'nomination_status' => $all_inputs['nomination_status'],
             ]);
-            $user->assignRole($request->role);
+            $user->syncRoles($request->role);
             $user->userProjects()->sync($all_inputs['projects']);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
@@ -273,8 +280,11 @@ class UserController extends Controller
 
     public function nomination_status(Request $request)
     {
-            $user=User::find($request->userid);
 
+           DB::beginTransaction();
+           try
+           {
+            $user=User::with('userCompany')->find($request->userid);
             $model=new NominationComment();
             $model->email=Auth::user()->email;
             if($request->status==1)
@@ -293,8 +303,58 @@ class UserController extends Controller
             $model->send_date=date('Y-m-d');
             $model->user_id=$user->id;
             $model->save();
-            toastError('status changed successfully');
+            if($request->status==1)
+            {
+                 $image_name = '';
+                if ($request->signtype == 1) {
+                    $image_name = $request->namesign;
+                } elseif ($request->pdfsigntype == 1) {
+                    $folderPath = public_path('temporary/signature/');
+                    $file = $request->file('pdfphoto');
+                    $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                    $file->move($folderPath, $filename);
+                    $image_name = $filename;
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name;
+                    file_put_contents($file, $image_base64);
+                }
+
+                $all_inputs=[
+                    'print_name1'=>Auth::user()->name,
+                    'job_title1'=>Auth::user()->job_title,
+                    'signature1'=>$image_name,
+
+                ];
+                
+                Nomination::find($request->nominationid)->update($all_inputs);
+                $nomination=Nomination::find($request->nominationid);
+                $courses=NominationCourses::where('nomination_id',$request->nominationid)->get();
+                $qualifications=NominationQualification::where('nomination_id',$request->nominationid)->get();
+                $experience=NominationExperience::where('nomination_id',$request->nominationid)->get();
+                $competence=NominationCompetence::where('nomination_id',$request->nominationid)->first();
+                $pdf = PDF::loadView('layouts.pdf.companynomination',['nomination'=>$nomination,'courses'=>$courses,'qualifications'=>$qualifications,'experience'=>$experience,'competence'=>$competence,'user'=>$user]);
+                    $path = public_path('pdf');
+                    $filename =rand().'nomination.pdf';
+                    $pdf->save($path . '/' . $filename);
+                @unlink($nomination->pdf_url);
+                Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+
+                
+            }
+            DB::commit();
+            toastSuccess('status changed successfully');
             return Redirect::back();
+         } catch (\Exception $exception) {
+            DB::rollback();
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
     }
 
     public function nomination_get_comments()

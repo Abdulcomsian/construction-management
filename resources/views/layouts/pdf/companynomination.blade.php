@@ -32,59 +32,60 @@
                     <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$project_no ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->project ?? ''}}</td>
                     </tr>
                     <tr style="height: 150px;">
                     <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project Manager</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['project_manager'] ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->project_manager?? ''}}</td>
                     </tr>
                     <tr>
                         <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Nominated person</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['nominated_person'] ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->nominated_person ?? ''}}</td>
                     </tr>
          
                     <tr style="height: 150px;">
                     <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Nominated person’s employer</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['nominated_person_employer'] ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->nominated_person_employer ?? ''}}</td>
                     </tr>
                     <tr style="height: 150px;">
                     <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Nominated role</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['nominated_role'] ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->nominated_role ?? ''}}</td>
                     </tr>
                     <tr style="height: 150px;">
                     <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of role being proposed:
                             (Include details of the type of temporary works that the individual will be managing)</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['description_of_role'] ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->description_of_role ?? ''}}</td>
                     </tr>
                     <tr>
                         <td style="width: 400px;background:gray;color:white">
                             <label for="" style="font-weight:900;float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of the limits of authority of the individual (if applicable)</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:11px;">{{$data['Description_limits_authority'] ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:11px;">{{$nomination->Description_limits_authority ?? ''}}</td>
                     </tr>
                     <tr>
                         <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Does the individual have authority to issue permits to load / take into use and or permit to dismantle?</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:11px;">{{$data['authority_issue_permit'] ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:11px;">{{$nomination->authority_issue_permit ?? ''}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
         <div class="tableDiv paddingTable" style="margin: 10px 0px;">
             <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
-                    <h4 style="margin: 0;">Temporary works qualifications</h4>
-                    <p style="margin: 0;">List highest temporary works related qualifications held
+                    <h4 style="margin-bottom: 0;">Temporary works qualifications</h4>
+                    <p style="margin-bottom: 0;">List highest temporary works related qualifications held
                     </p>
                 </div>
             <table>
@@ -95,13 +96,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php $i=0;@endphp
-                    @foreach($data['qualification'] as $qualification)
+                    @foreach($qualifications as $qualification)
                     <tr>
-                        <td style="font-size:12px;">{{$data['qualification'][$i]}}</td>
-                        <td style="font-size:12px;">{{$data['qualification_date'][$i]}}</td>
+                        <td style="font-size:12px;">{{$qualification->qualification}}</td>
+                        <td style="font-size:12px;">{{$qualification->date}}</td>
+                         @php $images[]=$qualification->qualification_certificate;@endphp
                     </tr>
-                     @php $i++; @endphp
                     @endforeach
                 </tbody>
             </table>
@@ -120,19 +120,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                   @php $i=0;@endphp
-                    @foreach($data['course'] as $course)
+                    @foreach($courses as $course)
                     <tr>
                         <td>
-                            {{$data['course'][$i]}}
+                            {{$course->course}}
                          </td>
                         <td style="font-size:12px;">
-                            {{$data['course_date'][$i]}}
+                            {{$course->date}}
                         </td>
-                            
-                        </td>
+                        @php $images[]=$course->course_certificate;@endphp
                     </tr>
-                    @php $i++; @endphp
                     @endforeach
                     
                     
@@ -149,14 +146,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                   @php $i=0;@endphp
-                    @foreach($data['project_title'] as $proj)
+                    @foreach($experience as $proj)
                     <tr>
-                       <td>{{$data['project_title'][$i]}}</td>
-                       <td>{{$data['project_role'][$i]}}</td>
-                       <td>{{$data['desc_of_involvement'][$i]}}</td>
+                       <td>{{$proj->project_title}}</td>
+                       <td>{{$proj->role}}</td>
+                       <td>{{$proj->description_involvment}}</td>
                     </tr>
-                    @php $i++; @endphp
                     @endforeach
                 </tbody>
             </table>
@@ -178,6 +173,9 @@
                         </thead>
                         <tbody>
                             <tr>
+                                @php 
+                                $data= $competence->Site_establishment;
+                                @endphp
                                 <td rowspan="10">Site establishment</td>
                                 <td>Temporary offices</td>
                                 <td>{{$data['Temporary_offices']=="N" ? $data['Temporary_offices'] : ''}}</td>
@@ -249,6 +247,7 @@
                                 <td>{{$data['Access_bridges']=="E" ? $data['Access_bridges'] : ''}}</td>
                             </tr>
                             <!-- 2 -->
+                              @php $data= $competence->Access_scaffolding;@endphp
                             <tr>
                                 <td rowspan="9">Access/ scaffolding</td>
                                 <td>Tube & fitting</td>
@@ -314,6 +313,7 @@
                                 <td>{{$data['Suspension_systems']=="E" ? $data['Suspension_systems'] : ''}}</td>
                             </tr>
                             <!-- 3 -->
+                             @php $data= $competence->Formwork_falsework;@endphp
                             <tr>
                                 <td rowspan="4">Formwork/ falsework</td>
                                 <td>Formwork</td>
@@ -345,6 +345,7 @@
                                 <td>{{$data['Support_systems']=="E" ? $data['Support_systems'] : ''}}</td>
                             </tr>
                             <!-- 4 -->
+                             @php $data= $competence->Construction_plant;@endphp
                             <tr>
                                 <td rowspan="6">Construction plant</td>
                                 <td>Crane supports & foundations</td>
@@ -376,10 +377,10 @@
                             </tr>
                             <tr>
                                 <td>Piling mats & working platforms</td>
-                                 <td>{{$data['Piling_mats_working_platforms']=="N" ? $data['Piling_mats_working_platforms'] : ''}}</td>
-                                <td>{{$data['Piling_mats_working_platforms']=="A" ? $data['Piling_mats_working_platforms'] : ''}}</td>
-                                <td>{{$data['Piling_mats_working_platforms']=="K" ? $data['Piling_mats_working_platforms'] : ''}}</td>
-                                <td>{{$data['Piling_mats_working_platforms']=="E" ? $data['Piling_mats_working_platforms'] : ''}}</td>
+                                 <td>{{$data['MPiling_mats_working-platforms']=="N" ? $data['MPiling_mats_working-platforms'] : ''}}</td>
+                                <td>{{$data['MPiling_mats_working-platforms']=="A" ? $data['MPiling_mats_working-platforms'] : ''}}</td>
+                                <td>{{$data['MPiling_mats_working-platforms']=="K" ? $data['MPiling_mats_working-platforms'] : ''}}</td>
+                                <td>{{$data['MPiling_mats_working-platforms']=="E" ? $data['MPiling_mats_working-platforms'] : ''}}</td>
                             </tr>
                             <tr>
                                 <td>Lifting/ handling devices</td>
@@ -389,6 +390,7 @@
                                 <td>{{$data['Lifting_handling_devices']=="E" ? $data['Lifting_handling_devices'] : ''}}</td>
                             </tr>
                             <!-- 5 -->
+                            @php $data= $competence->Excavation_earthworks;@endphp
                             <tr>
                                 <td rowspan="6">Excavation/ earthworks</td>
                                 <td>Excavation support</td>
@@ -433,6 +435,7 @@
                                 <td>{{$data['Dewatering']=="E" ? $data['Dewatering'] : ''}}</td>
                             </tr>
                             <!--  -->
+                            @php $data= $competence->Structural_stability;@endphp
                             <tr>
                                 <td rowspan="6">Structural stability</td>
                                 <td>Existing structures during construction</td>
@@ -477,6 +480,7 @@
                                 <td>{{$data['Façade_system']=="E" ? $data['Façade_system'] : ''}}</td>
                             </tr>
                             <!--  -->
+                             @php $data= $competence->Permanent_works;@endphp
                             <tr>
                                 <td rowspan="2">Permanent works</td>
                                 <td>Partial permanent support conditions</td>
@@ -497,7 +501,7 @@
         </div>
 
         <div class="tableDiv paddingTable">
-             <div style="background:gray; padding: 12px; margin-top: 10px; color: white;">
+             <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
                 <h4 style="margin: 0;">Individual being nominated</h4>
                 <p style="margin: 0;">I confirm that this is a true record of my experience and qualifications. <br>
                     I have read and understood the xxxx Temporary Works procedure. <br>
@@ -510,24 +514,31 @@
                     <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Print name</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;"> {{$data['print_name']}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;"> {{$nomination->print_name}}</td>
                     </tr>
                     <tr style="height: 150px;">
                     <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Job title</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$data['job_title']}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->job_title}}</td>
                     </tr>
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Signature</b></label>
                         </td>
                         <td colspan="3" style="width: 300px; font-size:12px;">
-                            @if($data['signtype']=='1')
-                            {{ucwords($signature)}}
+                            @php 
+                            $signature=$nomination->signature;
+                            $n = strrpos($signature, '.');
+                            $ext=substr($signature, $n+1);
+                            @endphp
+                            
+                            @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                <img src="temporary/signature/{{$signature}}" width="auto" height="120">
                             @else
-                            <img src="temporary/signature/{{$signature}}" width="auto" height="120">
+                            {{ucwords($signature)}}
                             @endif
+                           
                          
                         </td>
                     </tr>
@@ -537,13 +548,57 @@
             </table>
         </div>
 
-        
+        <div class="tableDiv paddingTable">
+            <div style="background:gray; padding: 8px; margin-top: 10px; color: white;">
+                <h4>Designated Individual from contractor nominating the individual for the role</h4>
+                <p style="margin: 0;">I have assessed the competence of the individual being nominated for this role. <br>
+                    I can confirm that they are competent to perform the duties that they have been nominated for.  <br>
+                    I have formally appointed the individual to act in this position. <br>
+                    My company will ensure that this individual will have suitable support to perform these duties.
+                </p>
+            </div>
+            <table>
+                <tbody>
+                    <tr style="min-height: 150px;">
+                    <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Print name</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->print_name1}}</td>
+                    </tr>
+                    <tr style="height: 150px;">
+                    <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Job title</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->job_title1}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Signature</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">
+                            @php 
+                            $signature1=$nomination->signature1;
+                            $n = strrpos($signature1, '.');
+                            $ext=substr($signature1, $n+1);
+                            @endphp
+                            
+                            @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                <img src="temporary/signature/{{$signature1}}" width="auto" height="120">
+                            @else
+                            {{ucwords($signature1)}}
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         @if(isset($images) && count($images)>0)
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <tbody>
                 @foreach($images as $image)
+                @if($image!=NULL)
                 @php 
                     $n = strrpos($image, '.');
                     $ext=substr($image, $n+1);
@@ -558,6 +613,7 @@
                             @endif
                         </td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>

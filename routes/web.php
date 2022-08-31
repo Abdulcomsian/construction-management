@@ -60,6 +60,9 @@ Route::post('Risk-Assessment/store',[DesignerController::class,'risk_assessment_
 Route::get('/nomination-form/{id}',[HomeController::class,'nomination_form'])->name('nomination-form');
 Route::get('/nomination-formm/{id}',[HomeController::class,'nomination_formm'])->name('nomination-formm');
 Route::post('/nomination-save',[HomeController::class,'nomination_save']);
+Route::get('/nomination-edit/{id}',[HomeController::class,'nomination_edit'])->name('nomination-edit');
+Route::post('/nomination-update',[HomeController::class,'nomination_update']);
+Route::get('/nomination-commetns',[HomeController::class,'nomination_get_comments']);
 
 
 // Route::get('/addProject', function () {

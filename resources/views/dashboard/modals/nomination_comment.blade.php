@@ -1,6 +1,6 @@
 <div class="modal fade" id="nomination_comment_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-750px">
+    <div class="modal-dialog modal-dialog-centered mw-1000px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -41,6 +41,7 @@
                                             <textarea class="form-control" id="comments" name="comments" required="required"></textarea>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-4">
                                         <div class="inputDiv requiredDiv">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 14%">
@@ -60,6 +61,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                        <div class="d-flex inputDiv my-3" id="sign">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:20% !important">
+                                                <span class="required">Signature</span>
+
+                                            </label>
+                                            <!--end::Label-->
+                                             <div class="d-flex inputDiv" >
+                                                <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
+                                                <br/>
+                                               <textarea id="signature" name="signed" style="display: none"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex inputDiv">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:20% !important">
+                                                <span>Type Signature:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                             <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                              <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                             <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
+                                             &nbsp;
+                                              <!--end::Label-->
+                                             <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
+                                              <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                             <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
+
+                                        </div>
+                                        <div class="inputDiv d-none" id="pdfsign">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Upload Signature:</span>
+                                            </label>
+                                            <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                        </div>
+                                        
+                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Name Signature:</span>
+                                            </label>
+                                            <input type="text" name="namesign" class="form-control form-control-solid">
+                                        </div>
                                 </div>
                                 
                                 <br>

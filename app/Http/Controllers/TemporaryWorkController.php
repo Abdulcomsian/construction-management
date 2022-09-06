@@ -305,9 +305,34 @@ class TemporaryWorkController extends Controller
                 }
             }
 
+            // $req = [];
+            
+            // foreach ($request->req_name as $x => $key) {
+            //         if(isset($request->req_check[$key]))
+            //         {
+            //             $check='Y';
+            //         }
+            //         else{
+            //             $check='N';
+            //         }
+            //         dd($request->req_comment);exit;
+            //         $data = [
+            //             $key => $key,
+            //             'check'=>$check,
+            //             'comment'=>$request->req_comment[$x]
+            //         ];
+            //         dd($data);
+                    
+            //          $req=array_merge($req, $data);
+                    
+            //     }
+                
+            //     dd($req);
+            
+
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {

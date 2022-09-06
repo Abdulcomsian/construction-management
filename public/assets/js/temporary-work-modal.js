@@ -47,6 +47,17 @@ $(document).ready(function () {
         var full_val = val_first + " - " + val_second;
         val.attr("value", full_val);
         $("#design_requirement_text").css("background", "#f5f8fa");
+        let key=full_val.replace(/\//g, "_");
+            key=key.replace(/\-/g, "_");
+            key=key.replace(/\s/g, '');
+            var list='';
+            list='<h3><input type="hidden" name="req_type" value="'+full_val+'"/>'+full_val+'</h3><table class="table"><tbody>';
+            for (let x in jsondata[key]) {
+               list += '<tr><td><input type="hidden" name="req_name[]" value="'+x+'"/> '+x+'</td><td><input type="checkbox" name="req_check['+x+']" value="2"/></td><td><input type="text" name="req_notes[]" class="form-control"/></td></tr>';
+            }
+            list+='</tbody></table>';
+            $("#req_details_data").html(list);
+                   
     });
     var show_val = "";
     $("#scope-of-design .requirment-first ul li").click(function () {

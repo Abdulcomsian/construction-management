@@ -622,10 +622,32 @@ height: 72px;
 @include('dashboard.modals.hazardlist')
 @endsection
 @section('scripts')
-<script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script>
-    
-    
+    var jsondata="";
+    $(document).ready(function(){
+        getText("http://127.0.0.1:8000/js/myfile.json");
+
+            async function getText(file) {
+               await fetch(file).then(response => response.json()).then(json => {
+                  jsondata=json;
+               });
+            }
+    });
+</script>
+<script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
+ <script type="text/javascript">
+    $(document).on("change","[name='req_check[]']",function(){
+        if($(this).is(':checked'))
+        {
+            $(this).val(1);
+        }
+        else{
+            $(this).val(0);
+        }
+    })
+ </script>
+<script>
+
     var projects = {!!$projects!!};
     var address='';
     $('#projects').change(function() {

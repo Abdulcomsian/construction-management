@@ -252,6 +252,27 @@
             <table>
                 <thead>
                     <tr>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Design Requirements Details</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Y</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Comments</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['req_name'] as $key => $req)
+                    <tr>
+                        <td><b style="font-size:12px;">{{$req}}</b></td>
+                        <td style="font-size:12px;">@if(isset($data['req_check'][$req])) Y @else N @endif</td>
+                        <td style="font-size:12px;">{{$data['req_notes'][$key]}}</td>
+                    </tr>
+                    @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <table>
+                <thead>
+                    <tr>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Attachments</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Y</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">N</td>

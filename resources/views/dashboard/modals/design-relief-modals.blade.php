@@ -325,6 +325,9 @@
             <div class="modal-body py-lg-10 px-lg-10">
                 <div class="multi-list">
                     <div class="common-requirment requirment-first">
+                        <div id="req_details_data">
+
+                        </div>
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>

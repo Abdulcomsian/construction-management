@@ -50,6 +50,7 @@ $(document).ready(function () {
         let key=full_val.replace(/\//g, "_");
             key=key.replace(/\-/g, "_");
             key=key.replace(/\s/g, '');
+            console.log(key);
             var list='';
             list='<h3><input type="hidden" name="req_type" value="'+full_val+'"/>'+full_val+'</h3><table class="table"><tbody>';
             for (let x in jsondata[key]) {

@@ -17,6 +17,7 @@ use PDF;
 use Notification;
 use Redirect;
 use DB;
+use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 class HomeController extends Controller
 {
     // nomination form
@@ -70,7 +71,7 @@ class HomeController extends Controller
     public function nomination_save(Request $request)
     {
         DB::beginTransaction();
-        try {
+         try {
             $user=User::with('userCompany')->find($request->user_id);
             //upload signature here
             $image_name = '';
@@ -261,6 +262,22 @@ class HomeController extends Controller
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
+                    //merge pdf files
+                    $pdf = PDFMerger::init();
+                    $pdf->addPDF($path . '/' . $filename, 'all');
+                     //nomination courses
+                    foreach($images as $img)
+                    {
+                         $n = strrpos($img, '.');
+                         $ext=substr($img, $n+1);
+                         if($ext=='pdf')
+                         {
+                            $pdf->addPDF($img, 'all'); 
+                         }
+                       
+                    }
+                    $pdf->merge();
+                    $pdf->save($path . '/' . $filename);
 
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
 
@@ -276,10 +293,12 @@ class HomeController extends Controller
 
         } catch (\Exception $exception) {
             DB::rollback();
-            toastError('Something went wrong, try again!');
+            toastError($exception->getMessage());
             return back();
         }
     }
+
+
 
     //edit nomination ofrm
     public function nomination_edit($id)
@@ -368,6 +387,10 @@ class HomeController extends Controller
                         $images[]=$imagename;
                     
                     }
+                    else
+                    {
+                        $images[]= $model->course_certificate;
+                    }
                     
                     $model->course=$request->course[$i];
                     $model->date=$request->course_date[$i];
@@ -386,6 +409,10 @@ class HomeController extends Controller
                         $model->qualification_certificate=$imagename;
                         $images[]=$imagename;
                     
+                    }
+                    else
+                    {
+                        $images[]=$model->qualification_certificate;
                     }
                     $model->qualification=$request->qualification[$i];
                     $model->date=$request->qualification_date[$i];
@@ -501,8 +528,23 @@ class HomeController extends Controller
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
-
                     @unlink($nomination->pdf_url);
+                    //merge pdf files
+                    $pdf = PDFMerger::init();
+                    $pdf->addPDF($path . '/' . $filename, 'all');
+                     //nomination courses
+                    foreach($images as $img)
+                    {
+                         $n = strrpos($img, '.');
+                         $ext=substr($img, $n+1);
+                         if($ext=='pdf')
+                         {
+                            $pdf->addPDF($img, 'all'); 
+                         }
+                       
+                    }
+                    $pdf->merge();
+                    $pdf->save($path . '/' . $filename);
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
 
                    
@@ -516,7 +558,7 @@ class HomeController extends Controller
 
         } catch (\Exception $exception) {
             DB::rollback();
-            toastError('Something went wrong, try again!');
+            toastError($exception->getMessage());
             return back();
         }
     }

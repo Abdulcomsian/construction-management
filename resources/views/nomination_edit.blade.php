@@ -279,7 +279,20 @@
                                 <tr>
                                     <td>Nominated role</td>
                                     <td>
-                                        <input type="text" name="nominated_role" value="{{ $user->roles->pluck('name')[0] ?? '' }}" required>
+                                        @php
+                                         if($user->roles->pluck('name')[0]=='user')
+                                         {
+                                            $role="Temporary works co-ordinator";
+                                         }elseif($user->roles->pluck('name')[0]=='supervisor')
+                                         {
+                                             $role="Temporary works supervisor";
+                                         }
+                                         elseif($user->roles->pluck('name')[0]=='scaffolder')
+                                         {
+                                            $role="Scaffolder";
+                                         }
+                                        @endphp
+                                        <input type="text" name="nominated_role" value="{{ $role ?? '' }}" required>
                                             <p>*Temporary Works Coordinator</p>    
                                     </td>
                                 </tr>

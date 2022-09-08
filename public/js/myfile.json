@@ -1,12 +1,113 @@
 {
-     "Excavation_Earthworks_TrenchSheeting":{
-     "Location on site":"",
-     "Overall size and weights":"",
-     "Single/double/triple stacked":""
+     "SiteEstablishment_TemporaryOffice_Cabinsfoundations":{
+          "Location on site":"",
+          "Overall size and weights":"",
+          "Single/double/triple stacked":"",
+          "Any adjacent stairs?":"",
+          "Support points of cabins":"",
+          "Geotechnical report/loading test":"",
+          "Any other information?":""
      },
-     "Excavation_Earthworks_Manhole_TrenchBoxes":{
-     "test1":"",
-     "test2":"",
-     "test3":""
+     "SiteEstablishment_StackedCabinstability(cabinsonly)":{
+          "Location on site":"",
+          "Overall size and weights":"",
+          "Single/double/triple stacked":"",
+          "Any adjacent stairs?":"",
+          "Support points of cabins":"",
+          "Geotechnical report/loading test":"",
+          "Any other information?":""
+     },
+     "SiteEstablishment_Hoarding_TowerCraneHoarding":{
+          "Required height, shape and extent":"",
+          "Access gates locations":"",
+          "Preferred materials":"",
+          "Site plan showing layout":"",
+          "Is hoarding internal?":"",
+          "If internal, what is the supporting structure?":"",
+          "If internal, is it exposed to external wind?":"",
+          "Any other information?":""
+     },
+     "SiteEstablishment_Sitehoarding_Heras":{
+          "Required height, shape and extent":"",
+          "Access gates locations":"",
+          "Preferred materials":"",
+          "Site plan showing layout":"",
+          "Is hoarding internal?":"",
+          "If internal, what is the supporting structure?":"",
+          "If internal, is it exposed to external wind?":"",
+          "Any other information?":""
+     },
+     "SiteEstablishment_Access_Scaffolding":{
+          "Location on site":"",
+          "Required use/Load class":"",
+          "Is structure heritage listed":"",
+          "Tied/freestanding":"",
+          "Required width":"",
+          "Working levels (number and height)":"",
+          "Sheeted (monarflex)/debris netting / unsheeted":"",
+          "Ladder/stair access?":"",
+          "Boarded levels":"",
+          "Loading bays":"",
+          "Any equipment to be used on the platforms":"",
+          "Who is responsible for verifying the structure for tie loads":"",
+          "Existing structural details":"",
+          "Nature, stability and bearing capacity of existing ground":"",
+          "Duration and start on site":"",
+          "Any partial erection or dismantling process":"",
+          "Any other information?":""
+     },
+     "SiteEstablishment_AccessGantries_Platform":{
+          "Location on site":"",
+          "Required use/Load class":"",
+          "Is structure heritage listed":"",
+          "Tied/freestanding":"",
+          "Required width":"",
+          "Working levels (number and height)":"",
+          "Sheeted (monarflex)/debris netting / unsheeted":"",
+          "Ladder/stair access?":"",
+          "Boarded levels":"",
+          "Loading bays":"",
+          "Any equipment to be used on the platforms":"",
+          "Who is responsible for verifying the structure for tie loads":"",
+          "Existing structural details":"",
+          "Nature, stability and bearing capacity of existing ground":"",
+          "Duration and start on site":"",
+          "Any partial erection or dismantling process":"",
+          "Any other information?":""
+     },
+     "SiteEstablishment_Barriers":{
+          "Location on site":"",
+          "Site plan drawing":"",
+          "Barrier specifications":"",
+          "Sheeted (monarflex)/debris netting / unsheeted":"",
+          "Tied/freestanding":"",
+          "Nature and stability of existing ground":"",
+          "Duration and start on site":"",
+          "Any partial erection or dismantling process":"",
+          "Any other information?":""
+     },
+     "SiteEstablishment_Barriers":{
+          "Location on site":"",
+          "Site plan drawing":"",
+          "Barrier specifications":"",
+          "Sheeted (monarflex)/debris netting / unsheeted":"",
+          "Tied/freestanding":"",
+          "Nature and stability of existing ground":"",
+          "Duration and start on site":"",
+          "Any partial erection or dismantling process":"",
+          "Any other information?":""
+     },
+     "SiteEstablishment_Barriers":{
+          "Location on site":"",
+          "Site plan drawing":"",
+          "Barrier specifications":"",
+          "Sheeted (monarflex)/debris netting / unsheeted":"",
+          "Tied/freestanding":"",
+          "Nature and stability of existing ground":"",
+          "Duration and start on site":"",
+          "Any partial erection or dismantling process":"",
+          "Any other information?":""
      }
 }
+
+

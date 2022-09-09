@@ -124,9 +124,12 @@ class HomeController extends Controller
                     if ($request->file('course_file')) {
                         $filePath = HelperFunctions::nominationcoursepath();
                         $file = $request->file('course_file');
+                        if(isset($file[$i]))
+                        {
                         $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
                         $model->course_certificate=$imagename;
                         $images[]=$imagename;
+                        }
                     
                     }
                     
@@ -143,9 +146,12 @@ class HomeController extends Controller
                     if ($request->file('qualification_file')) {
                         $filePath = HelperFunctions::nominationqualificationpath();
                         $file = $request->file('qualification_file');
+                        if(isset($file[$i]))
+                        {
                         $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
                         $model->qualification_certificate=$imagename;
                         $images[]=$imagename;
+                        }
                     
                     }
                     $model->qualification=$request->qualification[$i];
@@ -382,9 +388,12 @@ class HomeController extends Controller
                     if ($request->file('course_file')) {
                         $filePath = HelperFunctions::nominationcoursepath();
                         $file = $request->file('course_file');
+                        if(isset($file[$i]))
+                        {
                         $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
                         $model->course_certificate=$imagename;
                         $images[]=$imagename;
+                        }
                     
                     }
                     else
@@ -405,9 +414,12 @@ class HomeController extends Controller
                     if ($request->file('qualification_file')) {
                         $filePath = HelperFunctions::nominationqualificationpath();
                         $file = $request->file('qualification_file');
+                        if(isset($file[$i]))
+                        {
                         $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
                         $model->qualification_certificate=$imagename;
                         $images[]=$imagename;
+                        }
                     
                     }
                     else

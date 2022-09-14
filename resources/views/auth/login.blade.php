@@ -17,7 +17,13 @@
   padding: 20px;
 }
 
-@media ( max-width: 1250px ){
+@media (max-width: 1250px){
+#myVideo {
+    object-fit: cover;
+}
+}
+
+/* @media ( max-width: 1250px ){
   body {
     background: url(https://i.ibb.co/J3tNNwG/ezgif-com-gif-maker.gif);
     background-repeat:no-repeat;
@@ -26,7 +32,7 @@
   #myVideo { 
      display: none !important;
   }
-}
+} */
 
 </style>
 <video autoplay muted loop id="myVideo">

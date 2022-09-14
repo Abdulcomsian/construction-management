@@ -17,6 +17,17 @@
   padding: 20px;
 }
 
+@media ( max-width: 1250px ){
+  body {
+    background: url(https://i.ibb.co/J3tNNwG/ezgif-com-gif-maker.gif);
+    background-repeat:no-repeat;
+    background-size:cover;
+  }
+  #myVideo { 
+     display: none !important;
+  }
+}
+
 </style>
 <video autoplay muted loop id="myVideo">
   <source src="{{asset('temporary/login.mp4')}}" type="video/mp4">

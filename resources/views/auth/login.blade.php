@@ -1,4 +1,27 @@
-<x-guest-layout style="background:#000;">
+<style>
+    #myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* Add some content at the bottom of the video/page */
+.text-gray-900 {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+</style>
+<video autoplay muted loop id="myVideo">
+  <source src="{{asset('temporary/login.mp4')}}" type="video/mp4">
+</video>
+<x-guest-layout style=" "> 
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">

@@ -29,6 +29,9 @@ use Illuminate\Support\Facades\Route;
 //                 $filename =rand().'nomination.pdf';
 //                 $pdf->save($path . '/' . $filename);
 // });
+Route::get('/',function(){
+    return view('auth.login');
+});
 Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 Route::get('show-scan-temporary-work/{id}', [TemporaryWorkController::class, 'show_scan_temporarywork'])->name('show.scan.temporarywork');

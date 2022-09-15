@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 //                 $filename =rand().'nomination.pdf';
 //                 $pdf->save($path . '/' . $filename);
 // });
+
 Route::get('/',function(){
     return view('auth.login');
 });

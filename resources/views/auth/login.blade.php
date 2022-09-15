@@ -38,7 +38,7 @@
 <video autoplay muted loop id="myVideo">
   <source src="{{asset('temporary/login.mp4')}}" type="video/mp4">
 </video>
-<x-guest-layout style="background:#000;">
+<x-guest-layout style="background:transparent;">
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">

@@ -70,6 +70,7 @@ class HomeController extends Controller
     //save nomination form
     public function nomination_save(Request $request)
     {
+       
         DB::beginTransaction();
          try {
             $user=User::with('userCompany')->find($request->user_id);

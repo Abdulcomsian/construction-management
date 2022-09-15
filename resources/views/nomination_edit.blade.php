@@ -924,7 +924,7 @@
 
     $('#table4Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course"></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
+        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course[]"></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
     });
 
     $('#table5Btn').click(function(e) {

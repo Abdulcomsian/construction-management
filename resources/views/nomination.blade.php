@@ -435,7 +435,7 @@
                                <!-- <h5>Temporary works qualifications</h5> -->
                                <p class="mb-0"><b>Competence</b> - Indicate level of experience gained on the various types of temporary works, using key below and ticking the relevant boxes in the table on the subsequent page</p>
                             </div>
-                            <table class="table table3 nom_table qualif table-bordered mt-0">
+                            <table class="table nom_table qualif table-bordered mt-0">
                                 <!-- <thead>
                                     <tr>
                                         <th>Qualification</th>
@@ -981,7 +981,7 @@
 
     $('#table4Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course"></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
+        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course[]"></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
     });
 
     $('#table5Btn').click(function(e) {

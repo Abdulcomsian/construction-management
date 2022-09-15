@@ -70,9 +70,9 @@ class HomeController extends Controller
     //save nomination form
     public function nomination_save(Request $request)
     {
-       
+
         DB::beginTransaction();
-         try {
+         // try {
             $user=User::with('userCompany')->find($request->user_id);
             //upload signature here
             $image_name = '';
@@ -298,11 +298,11 @@ class HomeController extends Controller
 
             }
 
-        } catch (\Exception $exception) {
-            DB::rollback();
-            toastError($exception->getMessage());
-            return back();
-        }
+        // } catch (\Exception $exception) {
+        //     DB::rollback();
+        //     toastError($exception->getMessage());
+        //     return back();
+        // }
     }
 
 
@@ -385,7 +385,14 @@ class HomeController extends Controller
                 $images=[];
                 for($i=0;$i<count($request->course);$i++)
                 {
-                    $model=NominationCourses::where('id',$request->course_ids[$i])->first();
+                    if(isset($request->course_ids[$i]))
+                    {
+                        $model=NominationCourses::where('id',$request->course_ids[$i])->first();
+                    }
+                    else{
+                        $model= new NominationCourses();
+                    }
+                    
                     if ($request->file('course_file')) {
                         $filePath = HelperFunctions::nominationcoursepath();
                         $file = $request->file('course_file');
@@ -411,7 +418,13 @@ class HomeController extends Controller
                 //nomination qualifications
                 for($i=0;$i<count($request->qualification);$i++)
                 {
+                    if(isset($request->qualifications_ids[$i]))
+                    {
                     $model=NominationQualification::where('id',$request->qualifications_ids[$i])->first();
+                    }
+                    else{
+                        $model= new NominationQualification();
+                    }
                     if ($request->file('qualification_file')) {
                         $filePath = HelperFunctions::nominationqualificationpath();
                         $file = $request->file('qualification_file');
@@ -434,9 +447,17 @@ class HomeController extends Controller
                 }
 
                 //nomination experience
+              
                 for($i=0;$i<count($request->project_title);$i++)
                 {
-                    $model=NominationExperience::where('id',$request->experience_ids[$i])->first();
+                    if(isset($request->$request->experience_ids[$i]))
+                    {
+                         $model=NominationExperience::where('id',$request->experience_ids[$i])->first();
+                    }
+                    else{
+                         $model=new NominationExperience();
+                    }
+                   
                     $model->project_title=$request->project_title[$i];
                     $model->role=$request->project_role[$i];
                     $model->description_involvment=$request->desc_of_involvement[$i];

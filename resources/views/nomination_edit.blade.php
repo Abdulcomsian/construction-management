@@ -856,8 +856,10 @@
                                                  <div class="d-flex inputDiv" id="sign" style="align-items: center;">
                                                  <canvas id="sig" style="background: lightgray"></canvas>
                                                   <br/>
-                                                  <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                  <textarea id="signature" name="signed" style="display: none" required></textarea>
+                                                  <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
                                                  </div>
+                                                  <span id="sigimage" class="text-danger">Singnature Not Added<span>
 
                                                   <div class="inputDiv d-none" id="pdfsign">
                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -942,12 +944,20 @@
 </script>
 
 <script type="text/javascript">
-       var canvas = document.getElementById("sig");
+     var canvas = document.getElementById("sig");
      var signaturePad = new SignaturePad(canvas);
      signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
+        console.log("here");
               $("#signature").val(signaturePad.toDataURL('image/png'));
+              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
             });
+
+     $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+         $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+    });
 </script>
 
 <script type="text/javascript">

@@ -336,7 +336,7 @@ class HomeController extends Controller
     public function nomination_update(Request $request)
     {
         DB::beginTransaction();
-        try {
+        // try {
             $user=User::with('userCompany')->find($request->user_id);
             //upload signature here
             $image_name = '';
@@ -590,11 +590,11 @@ class HomeController extends Controller
 
             }
 
-        } catch (\Exception $exception) {
-            DB::rollback();
-            toastError($exception->getMessage());
-            return back();
-        }
+        // } catch (\Exception $exception) {
+        //     DB::rollback();
+        //     toastError($exception->getMessage());
+        //     return back();
+        // }
     }
 
     public function nomination_get_comments(Request $request)

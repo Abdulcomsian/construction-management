@@ -856,8 +856,10 @@
                                                  <div class="d-flex inputDiv" id="sign" style="align-items: center;">
                                                  <canvas id="sig" style="background: lightgray"></canvas>
                                                   <br/>
-                                                  <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                  <textarea id="signature" name="signed" style="display: none" required></textarea>
+                                                  <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
                                                  </div>
+                                                  <span id="sigimage" class="text-danger">Signature Not Added<span>
 
                                                   <div class="inputDiv d-none" id="pdfsign">
                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -942,12 +944,20 @@
 </script>
 
 <script type="text/javascript">
-       var canvas = document.getElementById("sig");
+     var canvas = document.getElementById("sig");
      var signaturePad = new SignaturePad(canvas);
      signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
+        console.log("here");
               $("#signature").val(signaturePad.toDataURL('image/png'));
+              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
             });
+
+     $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+         $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+    });
 </script>
 
 <script type="text/javascript">
@@ -965,6 +975,8 @@
             $("input[name='namesign']").attr('required','required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
+            $("#signature").removeAttr('required');
+
            
         }
         else{
@@ -975,6 +987,7 @@
             $("#clear").show();
             $(".customSubmitButton").addClass("hideBtn");
             $(".customSubmitButton").removeClass("showBtn");
+             $("#signature").attr('required','required');
         }
     })
 
@@ -991,6 +1004,7 @@
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
+             $("#signature").removeAttr('required');
            
         }
         else{
@@ -1002,6 +1016,7 @@
             $("input[name='namesign']").removeAttr('required');
             $("input[name='pdfsign']").removeAttr('required');
             $("#clear").show();
+             $("#signature").attr('required','required');
              
         }
     })

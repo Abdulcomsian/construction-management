@@ -22,9 +22,15 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1> {{$user->name}}
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello! {{$company->name}}</h1> 
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Welcome to the online i-works Web-Portal. <br><br>
+                                                                        User with following information has filled Nomination form.<br><br>
+                                                                        Name: {{$user->name}}
+                                                                        <br>
+                                                                        Email: {{$user->email}}
+                                                                        <br><br>
+                                                                        Please <a href="{{url('/users')}}">click here</a> to accept or reject
+                                                                        <br>
                                                                         Attach is nomination pdf .<br>  
                                                                    </p>
                                                                    

@@ -17,12 +17,14 @@ class NominatinCompanyEmail extends Notification
      * @return void
      */
 
-    private $user;
+    private $company;
     private $file;
-    public function __construct($data,$file)
+    private $user;
+    public function __construct($data,$file,$user)
     {
-        $this->user=$data;
+        $this->company=$data;
         $this->file=$file;
+        $this->user=$user;
     }
 
     /**
@@ -47,7 +49,7 @@ class NominatinCompanyEmail extends Notification
         return (new MailMessage)
             ->greeting('Nomination')
             ->subject('Nomination')
-            ->view('mail.nominationcompany',['user'=>$this->user])
+            ->view('mail.nominationcompany',['company'=>$this->company,'user'=>$this->user])
              ->attach(public_path('pdf/' . $this->file), [
                 'as' => 'nomination.pdf',
                 'mime' => 'text/pdf',

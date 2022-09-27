@@ -391,14 +391,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
                                         @foreach($experience as $ex)
+                                        <tr>
                                         <input type="hidden" name="experience_ids[]" value="{{$ex->id}}">
                                         <td class="tdhight"><input type="text" name="project_title[]" value="{{$ex->project_title}}" required></td>
                                         <td class="tdhight"><input type="text" name="project_role[]" value="{{$ex->role}}" required></td>
                                         <td class="tdhight"><input type="text" name="desc_of_involvement[]" value="{{$ex->description_involvment}}" required></td>
+                                         </tr>
                                         @endforeach
-                                    </tr>
                                 </tbody>
                             </table>
                               <!-- add btn -->

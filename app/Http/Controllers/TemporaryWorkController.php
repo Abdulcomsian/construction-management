@@ -176,7 +176,7 @@ class TemporaryWorkController extends Controller
         if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
            if(Auth::user()->nomination == 1 && Auth::user()->nomination_status == 0)
             {
-                toastError('You can no create temporary work until your nomination form appprove thanks ');
+                toastError('You can not create temporary work until your nomination form appproval thanks ');
                   return Redirect::back();
             }
         }

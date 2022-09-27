@@ -288,7 +288,7 @@ class HomeController extends Controller
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
 
                    
-                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename));
+                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
                     DB::commit();
                     toastSuccess('Nomination Form save successfully!');
@@ -446,10 +446,9 @@ class HomeController extends Controller
                 }
 
                 //nomination experience
-              
                 for($i=0;$i<count($request->project_title);$i++)
                 {
-                    if(isset($request->$request->experience_ids[$i]))
+                    if(isset($request->experience_ids[$i]))
                     {
                          $model=NominationExperience::where('id',$request->experience_ids[$i])->first();
                     }
@@ -581,7 +580,7 @@ class HomeController extends Controller
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
 
                    
-                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename));
+                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
                     DB::commit();
                     toastSuccess('Nomination Form save successfully!');

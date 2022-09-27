@@ -77,12 +77,22 @@ class UserController extends Controller
                             
                             if(isset($data->usernomination) && $data->nomination==1)
                             {
-                                
+                                $class='';
+                                if($data->nomination_status==0)
+                                {
+                                    $class="text-warning";
+                                }elseif($data->nomination_status==1)
+                                {
+                                    $class="text-success";
+                                }
+                                else{
+                                    $class="text-danger";
+                                }
                                 $btn .= '<a type="button" href="pdf/'.$data->usernomination->pdf_url.'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                     </a>
-                                    <button type="button" userid="'.$data->id.'" nominationid="' . $data->usernomination->id . '" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                                      <i class="fa fa-comment" aria-hidden="true"></i>
+                                    <button type="button" userid="'.$data->id.'" nominationid="' . $data->usernomination->id . '" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm ">
+                                      <i class="fa fa-comment '.$class.'" aria-hidden="true"></i>
                                         
                                     </button>';
                             }

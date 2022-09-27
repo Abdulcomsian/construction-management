@@ -22,17 +22,20 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1> {{$user->name}}
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Dear {{$user->name}}</h1> 
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Welcome to the online i-works Web-Portal. <br><br>
-                                                                        Link for your attention is a Nomination .<br>
-                                                                        <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a>
-                                                                        
+                                                                        You have been nominated to be a temporary works coordinator / Supervisor / designer company’s designated individual.
+                                                                   </p>
+                                                                   <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        Once your designated individual has accepted and appointed you, you can log into you temporary works portal, with your user name :{{$user->email}}
+                                                                   </p>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        For now, please <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a> and complete your nomination form.<br>   
                                                                    </p>
                                                                    
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you for your attention.<br><br>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you<br><br>
                                                                         Regards<br><br>
-                                                                        i-Works Team<br><br>
+                                                                        TWportal team<br><br>
                                                                         <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
                                                                    </p>
                                                                 </span>

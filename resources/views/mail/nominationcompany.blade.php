@@ -29,7 +29,7 @@
                                                                         <br>
                                                                         Email: {{$user->email}}
                                                                         <br><br>
-                                                                        Please <a href="{{url('/users')}}">click here</a> to accept or reject
+                                                                        Please <a href="{{url('/users?name=').$user->name}}">click here</a> to accept or reject
                                                                         <br>
                                                                         Attach is nomination pdf .<br>  
                                                                    </p>

@@ -282,8 +282,14 @@ class HomeController extends Controller
                          }
                        
                     }
-                    $pdf->merge();
-                    $pdf->save($path . '/' . $filename);
+                    if($pdf->merge())
+                    {
+                       $pdf->save($path . '/' . $filename);
+                    }
+                    else{
+                        $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>true]);
+                         $pdf->save($path . '/' . $filename);
+                    }
 
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
 
@@ -556,7 +562,7 @@ class HomeController extends Controller
                 $model->user_id=$user->id;
                 $model->save();
 
-               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>false]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
@@ -575,11 +581,16 @@ class HomeController extends Controller
                          }
                        
                     }
-                    $pdf->merge();
-                    $pdf->save($path . '/' . $filename);
-                    Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
-
+                    if($pdf->merge())
+                    {
+                       $pdf->save($path . '/' . $filename);
+                    }
+                    else{
+                         $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>true]);
+                         $pdf->save($path . '/' . $filename);
+                    }
                    
+                    Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
                     DB::commit();

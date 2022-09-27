@@ -556,7 +556,9 @@
                         <td>
                             @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
                             <img src="{{$image}}" width="500" alt="img"/>
-                            @else
+                            @elseif($ext!='pdf')
+                            <a href="{{asset($image)}}" target="_blank">Attachment</a>
+                            @elseif($nomerge)
                             <a href="{{asset($image)}}" target="_blank">Attachment</a>
                             @endif
                         </td>

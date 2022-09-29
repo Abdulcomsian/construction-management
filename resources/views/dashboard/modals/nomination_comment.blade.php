@@ -122,7 +122,7 @@
                             <thead>
                                 <tr>
                                     <th>S-No</th>
-                                    <th>Email</th>
+                                    <th>Email Sent From</th>
                                     <th>Comment</th>
                                     <th>Type</th>
                                     <th>Sent Date</th>

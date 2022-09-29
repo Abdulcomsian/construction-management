@@ -172,7 +172,7 @@ background-color: #07d564 !important;
                         <h2>Users</h2>
                     </div>
                     <!--begin::Card toolbar-->
-                     @if(\Auth::user()->hasRole(['admin']))
+                     @if(\Auth::user()->hasRole(['admin', 'company']))
                       <a href="{{ route('users.create') }}" value="add" class="newDesignBtn btn">Add User</a>
                      @endif
                     <!--end::Card toolbar-->

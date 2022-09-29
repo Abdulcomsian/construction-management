@@ -121,7 +121,7 @@ class UserController extends Controller
     public function create()
     {
         $user = auth()->user();
-        abort_if(!$user->hasAnyRole(['admin']), 403);
+        abort_if(!$user->hasAnyRole(['admin','company']), 403);
         try {
             $companies = User::role('company')->latest()->get();
             return view('dashboard.users.create', compact('companies'));

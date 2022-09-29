@@ -119,10 +119,21 @@
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Select Company</label>
                                     <select id="company_id" name="company_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                        <option value="">Select Company</option>
+                                        @if(Auth::user()->hasRole(['company']))
+                                           @forelse($companies as $item)
+                                           @if($item->id==Auth::user()->id)
+                                           <option value="{{$item->id}}" {{ $item->id == $user->company_id ? 'selected' : '' }} {{ $item->id == old('company_id') ? 'selected' : '' }}>{{$item->name}}</option>
+                                           @endif
+                                           @empty
+                                        @endforelse
+                                        @else
                                         @forelse($companies as $item)
                                         <option value="{{$item->id}}" {{ $item->id == $user->company_id ? 'selected' : '' }} {{ $item->id == old('company_id') ? 'selected' : '' }}>{{$item->name}}</option>
                                         @empty
                                         @endforelse
+                                        @endif
+                                       
                                     </select>
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>

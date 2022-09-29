@@ -280,13 +280,14 @@ class HomeController extends Controller
                          {
                             $pdf->addPDF($img, 'all'); 
                          }
-                       
                     }
+
                     $pdf->merge();
                     $pdf->save($path . '/' . $filename);
+                   
                     // if($pdf->merge())
                     // {
-                       
+                        
                     // }
                     // else{
                     //     $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>true]);
@@ -294,8 +295,6 @@ class HomeController extends Controller
                     // }
 
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
-
-                   
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
                     DB::commit();
@@ -568,6 +567,7 @@ class HomeController extends Controller
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
+                     @unlink($nomination->pdf_url);
                     //merge pdf files
                     $pdf = PDFMerger::init();
                     $pdf->addPDF($path . '/' . $filename, 'all');
@@ -578,12 +578,16 @@ class HomeController extends Controller
                          $ext=substr($img, $n+1);
                          if($ext=='pdf')
                          {
-                            $pdf->addPDF($img, 'all'); 
+                             $pdf = new Pdf($img);
+                             if( $pdf->getData() )
+                             {
+                                  $pdf->addPDF($img, 'all'); 
+                             }
+                            
                          }
                        
                     }
                     $pdf->merge();
-                    @unlink($nomination->pdf_url);
                     $pdf->save($path . '/' . $filename);
                     // if($pdf->merge())
                     // {

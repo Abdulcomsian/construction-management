@@ -581,14 +581,16 @@ class HomeController extends Controller
                          }
                        
                     }
-                    if($pdf->merge())
-                    {
-                       $pdf->save($path . '/' . $filename);
-                    }
-                    else{
-                         $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>true]);
-                         $pdf->save($path . '/' . $filename);
-                    }
+                    $pdf->merge();
+                    $pdf->save($path . '/' . $filename);
+                    // if($pdf->merge())
+                    // {
+                    //    $pdf->save($path . '/' . $filename);
+                    // }
+                    // else{
+                    //      $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>true]);
+                    //      $pdf->save($path . '/' . $filename);
+                    // }
                    
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));

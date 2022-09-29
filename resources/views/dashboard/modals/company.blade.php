@@ -96,8 +96,7 @@
                         <!--begin::Col-->
                         <div class="col-md-12 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Address</label>
-                            <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Enter Company Address" name="address">{{old('address')}}
-                            </textarea>
+                            <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Enter Company Address" name="address">{{old('address')}}</textarea>
                         </div>
                         <!--end::Col-->
                     </div>

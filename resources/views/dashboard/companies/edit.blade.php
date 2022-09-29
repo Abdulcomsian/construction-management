@@ -23,7 +23,7 @@
         margin: 30px 0px;
         border-radius: 10px;
     }
-    .select2-selection__choice__display{
+    .select2-selection__choice__display, .form-select.form-select-solid{
         color:black;
     }
 </style>

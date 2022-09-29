@@ -150,6 +150,9 @@
         border-color: #07d564 !important;
         background-color: #07d564 !important;
     }
+    .form-select.form-select-solid{
+        color:#000 !important;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @include('layouts.datatables.datatables_css')

@@ -282,7 +282,7 @@ class HomeController extends Controller
                          }
                        
                     }
-                    $pdf->merge()
+                    $pdf->merge();
                     $pdf->save($path . '/' . $filename);
                     // if($pdf->merge())
                     // {

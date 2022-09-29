@@ -52,7 +52,7 @@ class UserController extends Controller
                     })
                     ->addColumn('action', function ($data) use ($user) {
                          $btn ='';
-                        if ($user->hasRole('admin')) {
+                        if ($user->hasRole(['admin','company'])) {
                             $btn .= '<div class="d-flex">
                                 <a href="' . route('users.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->

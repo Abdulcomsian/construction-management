@@ -623,10 +623,10 @@ height: 72px;
 @endsection
 @section('scripts')
 <script>
+    var url="{{asset('js/myfile.json')}}";
     var jsondata="";
     $(document).ready(function(){
-        getText("http://127.0.0.1:8000/js/myfile.json");
-
+        getText(url);
             async function getText(file) {
                await fetch(file).then(response => response.json()).then(json => {
                   jsondata=json;

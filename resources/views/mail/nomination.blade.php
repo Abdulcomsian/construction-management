@@ -23,6 +23,15 @@
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Dear {{$user->name}}</h1> 
+                                                                    @if($status && $status==1)
+                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                         Company Accepted your nomination form.
+                                                                   </p>
+                                                                    @elseif($status==2)
+                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                         Company Rejected your nomination form.
+                                                                   </p>
+                                                                    @else
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         You have been nominated to be a temporary works coordinator / Supervisor / designer company’s designated individual.
                                                                    </p>
@@ -32,6 +41,7 @@
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         For now, please <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a> and complete your nomination form.<br>   
                                                                    </p>
+                                                                   @endif
                                                                    
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you<br><br>
                                                                         Regards<br><br>

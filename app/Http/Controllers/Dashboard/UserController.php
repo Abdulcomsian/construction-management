@@ -162,7 +162,7 @@ class UserController extends Controller
             $model->email=Auth::user()->email;
             $model->comment="Admin/Company send nomination form to ".$user->email."";
             $model->type="Nomination";
-            $model->send_date=date('Y-m-d');
+            $model->send_date=date('Y-m-d H:i:s');
             $model->user_id=$user->id;
             $model->save();
 
@@ -301,16 +301,18 @@ class UserController extends Controller
             {
                 User::find($user->id)->update(['nomination_status'=>1]);
                 $message="Admin/Company accept nomination form of ".$user->email."";
+                $status=1;
             }
             else
             {
                 User::find($user->id)->update(['nomination_status'=>2]);
                 $message="Admin/Company reject nomination form of ".$user->email."";
+                $status=2;
             }
            
             $model->comment=$message;
             $model->type="Nomination";
-            $model->send_date=date('Y-m-d');
+            $model->send_date=date('Y-m-d H:i:s');
             $model->user_id=$user->id;
             $model->save();
             if($request->status==1)
@@ -354,6 +356,8 @@ class UserController extends Controller
                     $pdf->save($path . '/' . $filename);
                 @unlink($nomination->pdf_url);
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+
+                Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status));
 
                 
             }

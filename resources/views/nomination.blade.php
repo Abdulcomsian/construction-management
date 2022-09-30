@@ -266,8 +266,8 @@
                                 <a type="button" href="{{url('nomination-edit',$id)}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                       <i class="fa fa-edit" aria-hidden="true"></i>  
                                 </a>
-                                <button type="button"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-id="$nomination->id">
-                                      <i class="fa fa-comment" aria-hidden="true"></i>  
+                                <button type="button"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" >
+                                      <i class="fa fa-comment" aria-hidden="true" data-id="{{$user->id}}"></i>  
                                 </button>
                             </td>
                         </tr>

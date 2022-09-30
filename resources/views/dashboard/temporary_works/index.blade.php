@@ -802,6 +802,7 @@
                                           @php
                                           $date='';
                                           $dcolor='';
+                                          $drawingscount=0;
                                           @endphp
                                           @foreach($item->uploadfile as $file)
                                           @php
@@ -871,7 +872,9 @@
                                           @endforeach
                                        </td>
                                        <td>
+                                        @if($drawingscount)
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                          @endif
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
@@ -1037,12 +1040,14 @@
                                        @php
                                           $date='';
                                           $dcolor='';
+                                          $drawingscount=0;
                                           @endphp
                                           @foreach($item->uploadfile as $file)
                                           @php
                                           if($file->file_type==1 && $file->construction==1)
                                           {
                                           $dcolor='green';
+                                           $drawingscount=1;
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
                                           {
@@ -1074,7 +1079,9 @@
                                           </p>
                                        </td>
                                        <td>
+                                        @if($drawingscount)
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                          @endif
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
@@ -1186,12 +1193,14 @@
                                           @php
                                           $date='';
                                           $dcolor='';
+                                           $drawingscount=0;
                                           @endphp
                                           @foreach($item->uploadfile as $file)
                                           @php
                                           if($file->file_type==1 && $file->construction==1)
                                           {
                                           $dcolor='green';
+                                           $drawingscount=1;
 
                                           $date=$file->created_at->todatestring();
                                           }
@@ -1255,7 +1264,9 @@
                                           @endforeach
                                        </td>
                                        <td>
+                                        @if($drawingscount)
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                          @endif
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);
@@ -1352,6 +1363,7 @@
                                  <tbody class="text-gray-600 fw-bold">
                                     @forelse($temporary_works as $item)
                                     @php
+                                     $drawingscount=0;
                                      $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                      $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                      @endphp
@@ -1402,7 +1414,7 @@
                                              <br> Comment
                                           </p>
                                           @php
-                                          $drawingscount=0;
+                                         
                                           $color="green";
                                           $class='';
                                           if(count($item->comments)>0)
@@ -1525,7 +1537,10 @@
                                           @endforeach
                                        </td>
                                        <td>
+                                        
+                                          @if($drawingscount)
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                          @endif
                                           @if(count($item->scancomment)>0)
                                           @php 
                                           $n=count($item->scancomment);

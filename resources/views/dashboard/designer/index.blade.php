@@ -403,8 +403,21 @@
                             <tr>
                                 <td class="border"><b>{{$l}} - {{$loop->index+1}}</b></td>
                                 <td class="border"><b>Comment/Reply</b></td>
-                                <td colspan="2" style="max-width: 30px" class="border-bottom"><b>{{$cments->drawing_comment}}</b><br>{{$mail}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</td>
-                                <td colspan="2" class="border-bottom">
+                                @php $style='';@endphp
+                                @if($mail==$cments->sender_email)
+                                <td colspan="2" style="max-width: 30px;{{$style}}" class="border-bottom" >
+                                    <b>{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}
+                                </td>
+                                @else
+                                <td colspan="2" style="max-width: 30px;" class="border-bottom" >
+                                   
+                                </td>
+                                @endif
+                                
+                                <td colspan="2" class="border-bottom" style="color: red">
+                                     @if($mail!=$cments->sender_email)
+                                       <b>{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}
+                                     @endif
                                     @if($cments->drawing_reply)
                                      @php $i=0;@endphp
                                      @foreach($cments->drawing_reply as $reply)

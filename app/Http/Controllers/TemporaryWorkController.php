@@ -203,10 +203,9 @@ class TemporaryWorkController extends Controller
     //manually design brief form store 
     public function store1(Request $request)
     {
-
         Validations::storeManuallyTemporaryWork($request);
-        try {
-            $all_inputs  = $request->except('_token', 'pdf', 'projaddress', 'projno', 'projname', 'dcc_returned', 'drawing', 'dcc', 'design_returned');
+        // try {
+            $all_inputs  = $request->except('_token', 'pdf', 'projaddress', 'projno', 'projname', 'dcc_returned', 'drawing', 'dcc','design_returned','drawing_number','drawing_title');
             $all_inputs['created_by'] = auth()->user()->id;
             //work for qrcode
             $j = HelperFunctions::generatetempid($request->project_id);
@@ -231,6 +230,9 @@ class TemporaryWorkController extends Controller
                     $model->created_at = $request->design_required_by_date;
                     $model->temporary_work_id = $temporary_work->id;
                     $model->created_by = Auth::user()->email;
+                    $model->construction=1;
+                    $model->drawing_number=$request->drawing_number;
+                    $model->drawing_title=$request->drawing_title;
                     $model->save();
                 }
 
@@ -250,11 +252,11 @@ class TemporaryWorkController extends Controller
                 toastSuccess('Temporary Work successfully added!');
                 return redirect()->route('temporary_works.index');
             }
-        } catch (\Exception $exception) {
-            //dd($exception->getMessage());
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     //dd($exception->getMessage());
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
     //store desing brief
     public function store(Request $request)

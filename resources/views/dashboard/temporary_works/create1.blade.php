@@ -405,6 +405,23 @@ height: 72px;
                                 <div class="d-flex inputDiv">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Drawing Number:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number"  value="{{old('drawing_number')}}">
+                                </div>
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Drawing Title:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
+                                </div>
+                                
+                                <div class="d-flex inputDiv">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Date Design Returned:</span>
                                     </label>
                                     <!--end::Label-->

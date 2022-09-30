@@ -27,14 +27,15 @@ class HomeController extends Controller
         {
 
             $userid= \Crypt::decrypt($id);
+            $user=User::with('userCompany')->find($userid);
             //check if already nomination is submited
             $nomination=Nomination::where('user_id',$userid)->first();
             if($nomination)
             {
-                 return view('nomination',compact('nomination','id'));
+                 return view('nomination',compact('nomination','id','user'));
             }
             else{
-                $user=User::with('userCompany')->find($userid);
+                
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                         $ids = [];
                         foreach ($project_idds as $id) {
@@ -60,7 +61,7 @@ class HomeController extends Controller
        $model->email=$user->email;
        $model->comment="User Read the email";
        $model->type="Nomination";
-       $model->read_date=date('Y-m-d');
+       $model->read_date=date('Y-m-d H:i:s');
        $model->user_id=$userid;
        $model->save();
        return Redirect::route('nomination-form', $id);
@@ -70,8 +71,9 @@ class HomeController extends Controller
     //save nomination form
     public function nomination_save(Request $request)
     {
-        DB::beginTransaction();
+         DB::beginTransaction();
          try {
+            
             $user=User::with('userCompany')->find($request->user_id);
             //upload signature here
             $image_name = '';
@@ -259,12 +261,13 @@ class HomeController extends Controller
                 $model->email=$user->email;
                 $model->comment="User submit the nominatin form to company ".$company->email."";
                 $model->type="Nomination";
-                $model->send_date=date('Y-m-d');
-                $model->read_date=date('Y-m-d');
+                $model->send_date=date('Y-m-d H:i:s');
+                // $model->read_date=date('Y-m-d');
                 $model->user_id=$user->id;
+                $model->nomination_id=$nomination->id;
                 $model->save();
 
-               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>false]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
@@ -277,22 +280,14 @@ class HomeController extends Controller
                          $n = strrpos($img, '.');
                          $ext=substr($img, $n+1);
                          if($ext=='pdf')
-                         {
-                            $pdf->addPDF($img, 'all'); 
+                         {  
+                           $pdf->addPDF($img, 'all');   
                          }
                     }
 
                     $pdf->merge();
                     $pdf->save($path . '/' . $filename);
                    
-                    // if($pdf->merge())
-                    // {
-                        
-                    // }
-                    // else{
-                    //     $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>true]);
-                    //      $pdf->save($path . '/' . $filename);
-                    // }
 
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
@@ -305,9 +300,22 @@ class HomeController extends Controller
             }
 
         } catch (\Exception $exception) {
-            DB::rollback();
-            toastError($exception->getMessage());
-            return back();
+             if($exception->getMessage()=="This PDF document is encrypted and cannot be processed with FPDI.")
+            {
+                 $pdf->save($path . '/' . $filename);
+                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
+                    DB::commit();
+                      toastSuccess('Nomination Form save successfully!');
+                    return back();
+
+            }
+            else{
+                DB::rollback();
+                toastError($exception->getMessage());
+                return back();
+            }
+            
         }
     }
 
@@ -558,16 +566,18 @@ class HomeController extends Controller
                 $model->email=$user->email;
                 $model->comment="User Update the nominatin form to company ".$company->email."";
                 $model->type="Nomination";
-                $model->send_date=date('Y-m-d');
-                $model->read_date=date('Y-m-d');
+                $model->send_date=date('Y-m-d H:i:s');
+                // $model->read_date=date('Y-m-d');
                 $model->user_id=$user->id;
+                $model->nomination_id=$nomination->id;
                 $model->save();
 
-               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
+                    @unlink($nomination->pdf_url);
                     $pdf->save($path . '/' . $filename);
-                     @unlink($nomination->pdf_url);
+                     
                     //merge pdf files
                     $pdf = PDFMerger::init();
                     $pdf->addPDF($path . '/' . $filename, 'all');
@@ -578,25 +588,16 @@ class HomeController extends Controller
                          $ext=substr($img, $n+1);
                          if($ext=='pdf')
                          {
-                             $pdf = new Pdf($img);
-                             if( $pdf->getData() )
-                             {
+                            
                                   $pdf->addPDF($img, 'all'); 
-                             }
+                             
                             
                          }
                        
                     }
                     $pdf->merge();
                     $pdf->save($path . '/' . $filename);
-                    // if($pdf->merge())
-                    // {
-                    //    $pdf->save($path . '/' . $filename);
-                    // }
-                    // else{
-                    //      $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'nomerge'=>true]);
-                    //      $pdf->save($path . '/' . $filename);
-                    // }
+                  
                    
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
@@ -608,17 +609,29 @@ class HomeController extends Controller
             }
 
         } catch (\Exception $exception) {
-            DB::rollback();
-            toastError($exception->getMessage());
-            return back();
+            if($exception->getMessage()=="This PDF document is encrypted and cannot be processed with FPDI.")
+            {
+                 $pdf->save($path . '/' . $filename);
+                  Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
+                      toastSuccess('Nomination Form save successfully!');
+                    return back();
+
+            }
+            else{
+                DB::rollback();
+                toastError($exception->getMessage());
+                return back();
+            }
+            
+            
         }
     }
 
     public function nomination_get_comments(Request $request)
     {
         $id=$request->nominationId;
-       
-        $ncomments=NominationComment::where(['nomination_id'=>$id])->get();
+        $ncomments=NominationComment::where(['user_id'=>$id])->get();
         $list='';
         $i=1;
         foreach($ncomments as $comment)

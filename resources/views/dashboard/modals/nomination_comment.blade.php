@@ -34,11 +34,10 @@
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Comments</span>
-
+                                                <span>Comments</span>
                                             </label>
                                             <!--end::Label-->
-                                            <textarea class="form-control" id="comments" name="comments" required="required"></textarea>
+                                            <textarea class="form-control" id="comments" name="comments"></textarea>
                                         </div>
                                     </div>
                                     

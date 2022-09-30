@@ -258,6 +258,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if(isset($data['req_name']))
                     @foreach($data['req_name'] as $key => $req)
                     <tr>
                         <td><b style="font-size:12px;">{{$req}}</b></td>
@@ -265,6 +266,7 @@
                         <td style="font-size:12px;">{{$data['req_notes'][$key]}}</td>
                     </tr>
                     @endforeach
+                    @endif
                     
                 </tbody>
             </table>

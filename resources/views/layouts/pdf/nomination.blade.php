@@ -21,10 +21,20 @@
 <page pageset="old">
     <div style="padding: 10px; width: 100%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
-            <div class="logoText" style="float:left;">
+            <!-- <div class="logoText" style="float:left;">
+                <h3>Temporary Works Person Nomination:</h3>
+                <p style="font-size:12px">Provide supporting evidence to {{$user->userCompany->name}} of the competence, qualifications, training and experience of the individuals nominated to work as {{$data['nominated_role']}}. This form will enable {{$user->userCompany->name}} to assess the competence of the individual to undertake the appropriate role.</p>
+            </div> -->
+            <div class="logoText" style="float:left;width:70%">
                 <h3>Temporary Works Person Nomination:</h3>
                 <p style="font-size:12px">Provide supporting evidence to {{$user->userCompany->name}} of the competence, qualifications, training and experience of the individuals nominated to work as {{$data['nominated_role']}}. This form will enable {{$user->userCompany->name}} to assess the competence of the individual to undertake the appropriate role.</p>
             </div>
+            <div class="logo" style="float:right;width:20%;">
+                @if(isset($company->image) && $company->image != NULL)
+                <img src="{{public_path($company->image)}}" width="auto" height="80px" />
+                @endif
+            </div>
+
             
         </div>
         <div class="tableDiv paddingTable">
@@ -556,10 +566,8 @@
                         <td>
                             @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
                             <img src="{{$image}}" width="500" alt="img"/>
-                            @elseif($ext!='pdf')
-                            <a href="{{asset($image)}}" target="_blank">Attachment</a>
-                            @elseif($nomerge)
-                            <a href="{{asset($image)}}" target="_blank">Attachment</a>
+                            @else
+                           <p>{{asset($image)}}</p><a href="{{asset($image)}}" >Attachment</a></button>
                             @endif
                         </td>
                     </tr>

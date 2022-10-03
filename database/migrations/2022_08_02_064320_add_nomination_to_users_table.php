@@ -19,6 +19,9 @@ class AddNominationToUsersTable extends Migration
             $table->text('description_of_role')->nullable();
             $table->text('Description_limits_authority')->nullable();
             $table->text('authority_issue_permit')->nullable();
+            $table->string('appointment_pdf')->nullable();
+            $table->string('appointment_signature')->nullable();
+            $table->string('appointment_date')->nullable();
         });
     }
 

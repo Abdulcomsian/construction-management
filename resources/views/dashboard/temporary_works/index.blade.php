@@ -621,7 +621,7 @@
                               </svg>
                               <!--end::Svg Icon-->
                            </span>
-                           View Data
+                           View Document
                         </button>
                         <!--begin::Dropdown Menu-->
                         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
@@ -636,7 +636,7 @@
                                  </a>
                               </li>
                               <li class="navi-item">
-                                 <a href="#" class="navi-link viewdocument">
+                                 <a href="#" class="navi-link viewdocument" data-type="document">
                                  <span class="navi-icon">
                                  <i class="la la-copy"></i>
                                  </span>
@@ -649,6 +649,22 @@
                                  <i class="la la-file-excel-o"></i>
                                  </span>
                                  <span class="navi-text">Export</span>
+                                 </a>
+                              </li>
+                              <li class="navi-item">
+                                 <a  href="#" class="navi-link viewdocument" data-type="nominations">
+                                 <span class="navi-icon">
+                                 <i class="la la-file-excel-o"></i>
+                                 </span>
+                                 <span class="navi-text">View Nominations</span>
+                                 </a>
+                              </li>
+                              <li class="navi-item">
+                                 <a  href="#" class="navi-link viewdocument" data-type="appointments">
+                                 <span class="navi-icon">
+                                 <i class="la la-file-excel-o"></i>
+                                 </span>
+                                 <span class="navi-text">View Appointments</span>
                                  </a>
                               </li>
                            </ul>
@@ -1958,17 +1974,40 @@
    //view documents
    $(".viewdocument").on('click', function(e) {
        e.preventDefault();
-       $.ajax({
+       if($(this).attr("data-type")=="nominations")
+       {
+               $(".project_doc_form").hide();
+               $("#project-documents").hide();
+               $("#nominations-documents").show()
+               $("#Appointment-documents").hide();
+               $("#project_document_modal_id").modal('show');
+       }
+       else if($(this).attr("data-type")=="appointments")
+       {
+               $(".project_doc_form").hide();
+               $("#project-documents").hide();
+               $("#nominations-documents").hide()
+               $("#Appointment-documents").show();
+               $("#project_document_modal_id").modal('show');
+
+       }else
+       {
+        $("#nominations-documents").hide();
+        $("#Appointment-documents").hide();
+        $.ajax({
            url: "{{route('project.document.get')}}",
            method: "GET",
            data: {},
            success: function(res) {
                $(".project_doc_form").hide();
+
                $("#project-documents").html(res);
                $("#project-documents").show();
                $("#project_document_modal_id").modal('show');
            }
        });
+       }
+       
    
    });
    

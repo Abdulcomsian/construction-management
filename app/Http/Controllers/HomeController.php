@@ -642,4 +642,34 @@ class HomeController extends Controller
         }
         echo $list;
     }
+
+
+    //user Appointment letter
+    public function User_Appointment($id)
+    {
+         $userid= \Crypt::decrypt($id);
+         $user=User::with('userCompany')->find($userid);
+         $nomination=Nomination::with('projectt')->where('user_id',$userid)->first();
+         return view('dashboard.users.appointment',compact('id','user','nomination'));
+    }
+
+    //appointment save
+    public function User_Appointment_save(Request $request)
+    {
+        $user=User::with('userCompany')->find($request->user_id);
+        $nomination=Nomination::with('projectt')->where('user_id',$request->user_id)->first();
+        $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'nomination'=>$nomination,'data'=>$request->all()]);
+                    $path = public_path('pdf');
+                    $filename =$user->id.'appointment.pdf';
+                    @unlink(($path . '/' . $filename)
+                    $pdf->save($path . '/' . $filename);
+        User::find($request->user_id)->update([
+            'appointment_pdf'=>$filename,
+            'appointment_signature'=>$request->signature,
+            'appointment_date'=>$request->date,
+        ]);
+         toastSuccess('Appointment Form submitted successfully!');
+         return back();
+
+    }
 }

@@ -9,4 +9,9 @@ class Nomination extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function projectt()
+    {
+        return $this->belongsTo(Project::class,'project','id');
+    }
 }

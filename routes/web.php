@@ -11,17 +11,6 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 
 // Route::get('/checkpdf',function(){
 //     $pdf = PDF::loadView('layouts.pdf.nomination');
@@ -69,19 +58,11 @@ Route::post('/nomination-update',[HomeController::class,'nomination_update']);
 Route::get('/nomination-commetns',[HomeController::class,'nomination_get_comments']);
 
 
-// Route::get('/addProject', function () {
-//     return view('dashboard/projects/create');
-// });
-// Route::get('/addUser', function () {
-//     return view('dashboard/users/create');
-// });
-// Route::view('/companies/index', 'dashboard/companies/index');
-// Route::view('/companies/create', 'dashboard/companies/create');
-// Route::view('/temporary-works/index', 'dashboard/temporary_works/index');
-// Route::view('/temporary-works/create', 'dashboard/temporary_works/create');
-// Route::get('/temporaryWork', function () {
-//     return view('dashboard/admin/screens/temporary-work');
-// });
+//Application appointement form
+Route::get('/user-appointment/{id}',[HomeController::class,'User_Appointment']);
+Route::post('/user-appointment-save',[HomeController::class,'User_Appointment_save']);
+
+
 Route::get('/designRelief', function () {
     return view('dashboard/screens/new-design-relief');
 });

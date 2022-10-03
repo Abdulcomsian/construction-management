@@ -21,6 +21,7 @@ use App\Models\Tempworkshare;
 use App\Models\TemporaryWorkRejected;
 use App\Models\ScaffoldLoadImages;
 use App\Models\ChangeEmailHistory;
+use App\Models\Nomination;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
 use App\Notifications\CommentsNotification;
@@ -47,13 +48,15 @@ class TemporaryWorkController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
+        $user = User::with('userCompany')->find(Auth::user()->id);
         try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+                $nominations=[];
+                $users=[];
             } elseif ($user->hasRole('company')) {
-                $users = User::select('id')->where('company_id', $user->id)->get();
+                $users = User::select(['id','appointment_pdf'])->where('company_id', $user->id)->get();
                 $ids = [];
                 foreach ($users as $u) {
                     $ids[] = $u->id;
@@ -61,6 +64,7 @@ class TemporaryWorkController extends Controller
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->latest()->paginate(20);
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
+                $nominations=Nomination::select('pdf_url')->whereIn('user_id',$ids)->get();
             } else {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
@@ -71,11 +75,21 @@ class TemporaryWorkController extends Controller
                     $q->whereIn('project_id', $ids);
                 })->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
+                if($user->hasRole('user'))
+                {
+                    $users = User::select(['id','appointment_pdf'])->where('company_id', $user->userCompany->id)->get();
+                    $ids = [];
+                    foreach ($users as $u) {
+                        $ids[] = $u->id;
+                    }
+                    $ids[] = $user->id;
+                     $nominations=Nomination::select('pdf_url')->whereIn('user_id',$ids)->get();
+                }
             }
             //work for datatable
             $scantempwork = '';
 
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork','nominations','users'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

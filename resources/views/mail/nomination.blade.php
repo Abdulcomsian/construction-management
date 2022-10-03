@@ -25,7 +25,8 @@
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Dear {{$user->name}}</h1> 
                                                                     @if($status && $status==1)
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                         Company Accepted your nomination form.
+                                                                         Company Accepted your nomination form.<br>
+                                                                         <a href="{{url('user-appointment',Crypt::encrypt($user->id))}}">Click Here</a> and complete your Appointement letter.<br> 
                                                                    </p>
                                                                     @elseif($status==2)
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">

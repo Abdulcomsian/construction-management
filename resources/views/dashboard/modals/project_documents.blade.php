@@ -99,6 +99,46 @@
 
                 <div id="project-documents">
                 </div>
+                <div id="nominations-documents">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S-no</th>
+                                <th>Nomination PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($nominations as $nom)
+                            <tr>
+                                <td>
+                                {{$loop->index+1}}
+                                </td>
+                                <td><a href="{{asset('pdf/'.$nom->pdf_url)}}" target="_blank">PDF</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div id="Appointment-documents">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S-no</th>
+                                <th>Appointment PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($users as $user)
+                            <tr>
+                                <td>
+                                {{$loop->index+1}}
+                                </td>
+                                <td><a href="{{asset('pdf/'.$user->appointment_pdf)}}" target="_blank">PDF</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!--end::Modal body-->
         </div>

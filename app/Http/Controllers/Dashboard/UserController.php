@@ -356,10 +356,7 @@ class UserController extends Controller
                     $pdf->save($path . '/' . $filename);
                 @unlink($nomination->pdf_url);
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
-
-                Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status));
-
-                
+                Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status));  
             }
             DB::commit();
             toastSuccess('status changed successfully');

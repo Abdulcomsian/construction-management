@@ -23,6 +23,15 @@
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello! {{$company->name}}</h1> 
+                                                                    @if(isset($type) && $type=="appointment")
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        User with following information has Signed Appointment form.<br><br>
+                                                                        Name: {{$user->name}}
+                                                                        <br>
+                                                                        Email: {{$user->email}}
+                                                                        <br>
+                                                                        Attach is Appointment pdf .<br>
+                                                                    @else
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         User with following information has filled Nomination form.<br><br>
                                                                         Name: {{$user->name}}
@@ -33,6 +42,7 @@
                                                                         <br>
                                                                         Attach is nomination pdf .<br>  
                                                                    </p>
+                                                                   @endif
                                                                    
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you for your attention.<br><br>
                                                                         Regards<br><br>

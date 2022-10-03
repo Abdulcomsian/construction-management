@@ -72,7 +72,7 @@ class HomeController extends Controller
     public function nomination_save(Request $request)
     {
          DB::beginTransaction();
-         try {
+         // try {
             
             $user=User::with('userCompany')->find($request->user_id);
             //upload signature here
@@ -299,24 +299,24 @@ class HomeController extends Controller
 
             }
 
-        } catch (\Exception $exception) {
-             if($exception->getMessage()=="This PDF document is encrypted and cannot be processed with FPDI.")
-            {
-                 $pdf->save($path . '/' . $filename);
-                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
-                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
-                    DB::commit();
-                      toastSuccess('Nomination Form save successfully!');
-                    return back();
+        // } catch (\Exception $exception) {
+        //      if($exception->getMessage()=="This PDF document is encrypted and cannot be processed with FPDI.")
+        //     {
+        //          $pdf->save($path . '/' . $filename);
+        //          Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+        //             Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
+        //             DB::commit();
+        //               toastSuccess('Nomination Form save successfully!');
+        //             return back();
 
-            }
-            else{
-                DB::rollback();
-                toastError($exception->getMessage());
-                return back();
-            }
+        //     }
+        //     else{
+        //         DB::rollback();
+        //         toastError($exception->getMessage());
+        //         return back();
+        //     }
             
-        }
+        // }
     }
 
 
@@ -657,6 +657,7 @@ class HomeController extends Controller
     public function User_Appointment_save(Request $request)
     {
         $user=User::with('userCompany')->find($request->user_id);
+        $company=User::find($user->userCompany->id);
         $nomination=Nomination::with('projectt')->where('user_id',$request->user_id)->first();
         $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'nomination'=>$nomination,'data'=>$request->all()]);
                     $path = public_path('pdf');
@@ -668,6 +669,8 @@ class HomeController extends Controller
             'appointment_signature'=>$request->signature,
             'appointment_date'=>$request->date,
         ]);
+        $type='appointment';
+         Notification::route('mail',$user->userCompany->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user,$type));
          return redirect()->route('nomination-form',\Crypt::encrypt($request->user_id));
 
     }

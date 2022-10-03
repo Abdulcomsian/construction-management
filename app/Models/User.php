@@ -35,6 +35,9 @@ class User extends Authenticatable
         'description_of_role',
         'Description_limits_authority',
         'authority_issue_permit',
+        'appointment_pdf',
+        'appointment_signature',
+        'appointment_date',
     ];
 
     /**

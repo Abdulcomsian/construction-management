@@ -668,8 +668,7 @@ class HomeController extends Controller
             'appointment_signature'=>$request->signature,
             'appointment_date'=>$request->date,
         ]);
-         toastSuccess('Appointment Form submitted successfully!');
-         return back();
+         return redirect()->route('nomination-form',\Crypt::encrypt($request->user_id));
 
     }
 }

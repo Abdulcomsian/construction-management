@@ -56,7 +56,7 @@ class TemporaryWorkController extends Controller
                 $nominations=[];
                 $users=[];
             } elseif ($user->hasRole('company')) {
-                $users = User::select(['id','appointment_pdf'])->where('company_id', $user->id)->get();
+                $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->id)->get();
                 $ids = [];
                 foreach ($users as $u) {
                     $ids[] = $u->id;
@@ -64,7 +64,8 @@ class TemporaryWorkController extends Controller
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->latest()->paginate(20);
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
-                $nominations=Nomination::select('pdf_url')->whereIn('user_id',$ids)->get();
+                $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
+               
             } else {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
@@ -77,13 +78,13 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 if($user->hasRole('user'))
                 {
-                    $users = User::select(['id','appointment_pdf'])->where('company_id', $user->userCompany->id)->get();
+                    $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
                     $ids = [];
                     foreach ($users as $u) {
                         $ids[] = $u->id;
                     }
                     $ids[] = $user->id;
-                     $nominations=Nomination::select('pdf_url')->whereIn('user_id',$ids)->get();
+                     $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                 }
             }
             //work for datatable

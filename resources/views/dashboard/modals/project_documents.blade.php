@@ -104,6 +104,7 @@
                         <thead>
                             <tr>
                                 <th>S-no</th>
+                                <th>User Name</th>
                                 <th>Nomination PDF</th>
                             </tr>
                         </thead>
@@ -113,6 +114,7 @@
                                 <td>
                                 {{$loop->index+1}}
                                 </td>
+                                <td>{{$nom->user->name ?? ''}}</td>
                                 <td><a href="{{asset('pdf/'.$nom->pdf_url)}}" target="_blank">PDF</a></td>
                             </tr>
                             @endforeach
@@ -124,6 +126,7 @@
                         <thead>
                             <tr>
                                 <th>S-no</th>
+                                <th>User Name</th>
                                 <th>Appointment PDF</th>
                             </tr>
                         </thead>
@@ -133,6 +136,7 @@
                                 <td>
                                 {{$loop->index+1}}
                                 </td>
+                                <td>{{$user->name}}</td>
                                 <td><a href="{{asset('pdf/'.$user->appointment_pdf)}}" target="_blank">PDF</a></td>
                             </tr>
                             @endforeach

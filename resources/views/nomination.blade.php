@@ -248,7 +248,8 @@
                             <th>#NO</th>
                             <th>Project no</th>
                             <th>Project Manager</th>
-                            <th>PDF</th>
+                            <th>Nomination PDF</th>
+                            <th>Appointment PDF</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -261,6 +262,11 @@
                                 <a type="button" href="{{asset('pdf').'/'.$nomination->pdf_url}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                 </a>
+                            </td>
+                            <td>
+                                <a type="button" href="{{asset('pdf').'/'.$user->appointment_pdf}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                      <i class="fa fa-download" aria-hidden="true"></i>  
+                                </a> 
                             </td>
                             <td>
                                 <a type="button" href="{{url('nomination-edit',$id)}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">

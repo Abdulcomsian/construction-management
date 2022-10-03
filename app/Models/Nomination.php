@@ -14,4 +14,9 @@ class Nomination extends Model
     {
         return $this->belongsTo(Project::class,'project','id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

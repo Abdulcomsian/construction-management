@@ -666,8 +666,16 @@ class HomeController extends Controller
     {
          $userid= \Crypt::decrypt($id);
          $user=User::with('userCompany')->find($userid);
-         $nomination=Nomination::with('projectt')->where('user_id',$userid)->first();
-         return view('dashboard.users.appointment',compact('id','user','nomination'));
+         if($user->appointment_pdf)
+         {
+             return redirect()->route('nomination-form',$id);
+         }
+         else
+         {
+           $nomination=Nomination::with('projectt')->where('user_id',$userid)->first();
+           return view('dashboard.users.appointment',compact('id','user','nomination')); 
+         }
+         
     }
 
     //appointment save

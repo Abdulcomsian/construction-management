@@ -264,9 +264,11 @@
                                 </a>
                             </td>
                             <td>
+                                @if($user->appointment_pdf)
                                 <a type="button" href="{{asset('pdf').'/'.$user->appointment_pdf}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                 </a> 
+                                @endif
                             </td>
                             <td>
                                 <a type="button" href="{{url('nomination-edit',$id)}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">

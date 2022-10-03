@@ -567,7 +567,7 @@
                             @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
                             <img src="{{$image}}" width="500" alt="img"/>
                             @else
-                           <p>{{asset($image)}}</p><a href="{{asset($image)}}" >Attachment</a></button>
+                           <p>{{asset($image)}}</p>
                             @endif
                         </td>
                     </tr>

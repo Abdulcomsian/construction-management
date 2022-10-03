@@ -661,7 +661,7 @@ class HomeController extends Controller
         $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'nomination'=>$nomination,'data'=>$request->all()]);
                     $path = public_path('pdf');
                     $filename =$user->id.'appointment.pdf';
-                    @unlink(($path . '/' . $filename)
+                    @unlink(($path . '/' . $filename);
                     $pdf->save($path . '/' . $filename);
         User::find($request->user_id)->update([
             'appointment_pdf'=>$filename,

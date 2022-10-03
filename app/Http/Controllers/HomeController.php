@@ -72,7 +72,7 @@ class HomeController extends Controller
     public function nomination_save(Request $request)
     {
          DB::beginTransaction();
-         // try {
+         try {
             
             $user=User::with('userCompany')->find($request->user_id);
             //upload signature here
@@ -299,24 +299,32 @@ class HomeController extends Controller
 
             }
 
-        // } catch (\Exception $exception) {
-        //      if($exception->getMessage()=="This PDF document is encrypted and cannot be processed with FPDI.")
-        //     {
-        //          $pdf->save($path . '/' . $filename);
-        //          Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
-        //             Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
-        //             DB::commit();
-        //               toastSuccess('Nomination Form save successfully!');
-        //             return back();
+        } catch (\Exception $exception) {
+             if($exception->getMessage()=="This PDF document is encrypted and cannot be processed with FPDI.")
+            {
+                 $pdf->save($path . '/' . $filename);
+                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
+                    DB::commit();
+                      toastSuccess('Nomination Form save successfully!');
+                    return back();
 
-        //     }
-        //     else{
-        //         DB::rollback();
-        //         toastError($exception->getMessage());
-        //         return back();
-        //     }
+            }elseif($exception->getMessage()=="This PDF document probably uses a compression technique which is not supported by the free parser shipped with FPDI. (See https://www.setasign.com/fpdi-pdf-parser for more details)")
+            {
+                $pdf->save($path . '/' . $filename);
+                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
+                    DB::commit();
+                      toastSuccess('Nomination Form save successfully!');
+                    return back();
+            }
+            else{
+                DB::rollback();
+                toastError($exception->getMessage());
+                return back();
+            }
             
-        // }
+        }
     }
 
 
@@ -617,8 +625,17 @@ class HomeController extends Controller
                       toastSuccess('Nomination Form save successfully!');
                     return back();
 
+            }elseif($exception->getMessage()=="This PDF document probably uses a compression technique which is not supported by the free parser shipped with FPDI. (See https://www.setasign.com/fpdi-pdf-parser for more details)")
+            {
+                $pdf->save($path . '/' . $filename);
+                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                    Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
+                    DB::commit();
+                      toastSuccess('Nomination Form save successfully!');
+                    return back();
             }
             else{
+                dd($exception->getMessage());
                 DB::rollback();
                 toastError($exception->getMessage());
                 return back();

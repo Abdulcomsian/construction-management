@@ -56,7 +56,7 @@ class DesignerController extends Controller
     }
     public function store(Request $request)
     {  
-        // try {
+        try {
             $tempworkdata = TemporaryWork::find($request->tempworkid);
             $tempworkdata->tw_name=$request->twd_name;
             $tempworkdata->save();
@@ -138,14 +138,14 @@ class DesignerController extends Controller
                     'action_url' => '',
                 ];
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 toastSuccess('Desinger Uploaded Successfully!');
                 return Redirect::back();
             }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     public function get_desings(Request $request)

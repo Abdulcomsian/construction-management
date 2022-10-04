@@ -118,29 +118,7 @@ class HomeController extends Controller
             $nomination=Nomination::create($all_inputs);
             if($nomination)
             {
-                //nomination courses
-                $images=[];
-                for($i=0;$i<count($request->course);$i++)
-                {
-                    $model=new NominationCourses();
-                    if ($request->file('course_file')) {
-                        $filePath = HelperFunctions::nominationcoursepath();
-                        $file = $request->file('course_file');
-                        if(isset($file[$i]))
-                        {
-                        $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
-                        $model->course_certificate=$imagename;
-                        $images[]=$imagename;
-                        }
-                    
-                    }
-                    
-                    $model->course=$request->course[$i];
-                    $model->date=$request->course_date[$i];
-                    $model->nomination_id=$nomination->id;
-                    $model->save();
-                }
-
+                 $images=[];
                 //nomination qualifications
                 for($i=0;$i<count($request->qualification);$i++)
                 {
@@ -162,6 +140,30 @@ class HomeController extends Controller
                     $model->save();
                 }
 
+                //nomination courses
+               
+                for($i=0;$i<count($request->course);$i++)
+                {
+                    $model=new NominationCourses();
+                    if ($request->file('course_file')) {
+                        $filePath = HelperFunctions::nominationcoursepath();
+                        $file = $request->file('course_file');
+                        if(isset($file[$i]))
+                        {
+                        $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
+                        $model->course_certificate=$imagename;
+                        $images[]=$imagename;
+                        }
+                    
+                    }
+                    
+                    $model->course=$request->course[$i];
+                    $model->date=$request->course_date[$i];
+                    $model->nomination_id=$nomination->id;
+                    $model->save();
+                }
+
+                
                 //nomination experience
                 for($i=0;$i<count($request->project_title);$i++)
                 {
@@ -403,8 +405,41 @@ class HomeController extends Controller
                $nomination=Nomination::where('user_id',$request->user_id)->first();
             if($nomination)
             {
+                 $images=[];
+                //nomination qualifications
+                for($i=0;$i<count($request->qualification);$i++)
+                {
+                    if(isset($request->qualifications_ids[$i]))
+                    {
+                    $model=NominationQualification::where('id',$request->qualifications_ids[$i])->first();
+                    }
+                    else{
+                        $model= new NominationQualification();
+                    }
+                    if ($request->file('qualification_file')) {
+                        $filePath = HelperFunctions::nominationqualificationpath();
+                        $file = $request->file('qualification_file');
+                        if(isset($file[$i]))
+                        {
+                        $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
+                        $model->qualification_certificate=$imagename;
+                        $images[]=$imagename;
+                        }
+                    
+                    }
+                    else
+                    {
+                        $images[]=$model->qualification_certificate;
+                    }
+                    $model->qualification=$request->qualification[$i];
+                    $model->date=$request->qualification_date[$i];
+                    $model->nomination_id=$nomination->id;
+                    $model->save();
+                }
+
+                
                 //nomination courses
-                $images=[];
+               
                 for($i=0;$i<count($request->course);$i++)
                 {
                     if(isset($request->course_ids[$i]))
@@ -437,36 +472,7 @@ class HomeController extends Controller
                     $model->save();
                 }
 
-                //nomination qualifications
-                for($i=0;$i<count($request->qualification);$i++)
-                {
-                    if(isset($request->qualifications_ids[$i]))
-                    {
-                    $model=NominationQualification::where('id',$request->qualifications_ids[$i])->first();
-                    }
-                    else{
-                        $model= new NominationQualification();
-                    }
-                    if ($request->file('qualification_file')) {
-                        $filePath = HelperFunctions::nominationqualificationpath();
-                        $file = $request->file('qualification_file');
-                        if(isset($file[$i]))
-                        {
-                        $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
-                        $model->qualification_certificate=$imagename;
-                        $images[]=$imagename;
-                        }
-                    
-                    }
-                    else
-                    {
-                        $images[]=$model->qualification_certificate;
-                    }
-                    $model->qualification=$request->qualification[$i];
-                    $model->date=$request->qualification_date[$i];
-                    $model->nomination_id=$nomination->id;
-                    $model->save();
-                }
+                
 
                 //nomination experience
                 for($i=0;$i<count($request->project_title);$i++)

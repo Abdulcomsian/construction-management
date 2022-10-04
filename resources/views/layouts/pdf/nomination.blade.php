@@ -554,6 +554,11 @@
 
         @if(isset($images) && count($images)>0)
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 10px; color: white;">
+                <p style="margin: 0;font-size:12px;">
+                    Click on links below to view copies of Certification
+                </p>
+            </div>
             <table>
                 <tbody>
                 @foreach($images as $image)

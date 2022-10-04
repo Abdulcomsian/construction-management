@@ -358,6 +358,9 @@ class UserController extends Controller
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status));  
             }
+            else{
+                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status));
+            }
             DB::commit();
             toastSuccess('status changed successfully');
             return Redirect::back();

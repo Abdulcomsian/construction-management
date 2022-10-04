@@ -44,7 +44,7 @@ class Nominations extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Nomination')
+            ->greeting('Nomination Form')
             ->subject('Nomination')
             ->view('mail.nomination',['user'=>$this->user,'status'=>$this->accepte_or_reject]);
     }

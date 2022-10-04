@@ -49,8 +49,8 @@ class NominatinCompanyEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Nomination')
-            ->subject('Nomination')
+            ->greeting('Nomination Form')
+            ->subject('Nomination For User')
             ->view('mail.nominationcompany',['company'=>$this->company,'user'=>$this->user,'type'=>$this->type])
              ->attach(public_path('pdf/' . $this->file), [
                 'as' => $this->type ? 'appointment.pdf':'nomination.pdf',

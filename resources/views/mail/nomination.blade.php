@@ -47,7 +47,7 @@
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you<br><br>
                                                                         Regards<br><br>
                                                                         TWportal team<br><br>
-                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
+                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on </span> info@ctworks.co.uk
                                                                    </p>
                                                                 </span>
                                                             </td>

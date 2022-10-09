@@ -690,14 +690,28 @@ class HomeController extends Controller
         $user=User::with('userCompany')->find($request->user_id);
         $company=User::find($user->userCompany->id);
         $nomination=Nomination::with('projectt')->where('user_id',$request->user_id)->first();
-        $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'nomination'=>$nomination,'data'=>$request->all()]);
+        //upload signature here
+        $image_name = '';
+        if ($request->signtype == 1) {
+            $image_name = $request->namesign;
+        }else {
+            $folderPath = public_path('temporary/signature/');
+            $image = explode(";base64,", $request->signed);
+            $image_type = explode("image/", $image[0]);
+            $image_type_png = $image_type[1];
+            $image_base64 = base64_decode($image[1]);
+            $image_name = uniqid() . '.' . $image_type_png;
+            $file = $folderPath . $image_name;
+            file_put_contents($file, $image_base64);
+        }
+        $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]);
                     $path = public_path('pdf');
                     $filename =$user->id.'appointment.pdf';
                     @unlink($path . '/' . $filename);
                     $pdf->save($path . '/' . $filename);
         User::find($request->user_id)->update([
             'appointment_pdf'=>$filename,
-            'appointment_signature'=>$request->signature,
+            'appointment_signature'=>$image_name,
             'appointment_date'=>$request->date,
         ]);
         $type='appointment';

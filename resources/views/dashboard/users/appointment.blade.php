@@ -130,8 +130,28 @@
                             <p class="paragraph">Please sign and date the enclosed copy of this letter, to confirm your acceptance of the above.</p>
                         </div>
                         <div class="row">
-                            <div class="col-6 d-flex"><label for="sign" class="paragraph">Signed:</label><input id="sign" type="text" name="signature" class="w-100" required> </div>  
-                             <div class="col-6 d-flex"><label for="date" class="paragraph">Dated:</label><input id="date" type="date" name="date" class="w-100" required>  </div>  
+                            <div class="col-6 d-flex">
+                                <label for="sign" class="paragraph">Signed:</label>
+                                <div class="d-flex inputDiv" id="sign" style="align-items: center;">
+                                 <canvas id="sig" style="border: 1px solid lightgray"></canvas>
+                                  <textarea id="signature" name="signed" style="display: none" required></textarea>
+                                   <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                 </div>
+                                
+                                    <input type="text" id="namesign" name="namesign" class="w-100" style="display: none !important">
+                                
+                                
+                                
+                                <!-- <input id="sign" type="text" name="signature" class="w-100" required> --> 
+                            </div>  
+                             <div class="col-6 d-flex" style="height: 25px"><label for="date" class="paragraph">Dated:</label><input id="date" type="date" name="date" class="w-100" required>  </div>
+                             <div class="col-6 form-check d-flex">
+
+                                  <input class="form-check-input mx-0 position-relative" type="checkbox" id="flexCheckChecked" >
+                                  <label for="flexCheckChecked">Change Signature</label>
+                                  <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                 
+                            </div>  
                            
                         </div>
                         <p class="paragraph mt-4"> Name from the nomination form Temporary Works Coordinator</p>
@@ -159,81 +179,53 @@
 
 
 <script type="text/javascript">
-     // var canvas = document.getElementById("sig");
-     // var signaturePad = new SignaturePad(canvas);
-     // signaturePad.addEventListener("endStroke", () => {
-     //    console.log("here");
-     //          $("#signature").val(signaturePad.toDataURL('image/png'));
-     //          $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-     //        });
+     var canvas = document.getElementById("sig");
+     var signaturePad = new SignaturePad(canvas);
+     signaturePad.addEventListener("endStroke", () => {
+        console.log("here");
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+            });
 
-    //  $('#clear').click(function(e) {
-    //     e.preventDefault();
-    //     signaturePad.clear();
-    //     $("#signature").val('');
-    //      $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
-    // });
+     $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+         $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+    });
 </script>
 
 <script type="text/javascript">
-    // $("#flexCheckChecked").change(function(){
-    //     if($(this).is(':checked'))
-    //     {
-    //         $("#pdfChecked").prop('checked',false);
-    //         $("#signtype").val(1);
-    //          $("#pdfsign").val(0);
-    //         $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-    //         $("#namesign").addClass('d-flex').show();
-    //         $(".customSubmitButton").removeClass("hideBtn");
-    //         $(".customSubmitButton").addClass("showBtn");
-    //          $("input[name='pdfsign']").removeAttr('required');
-    //         $("input[name='namesign']").attr('required','required');
-    //         $("#clear").hide();
-    //         $("#sign").removeClass('d-flex').hide();
-    //         $("#signature").removeAttr('required');
+    $("#flexCheckChecked").change(function(){
+         if($(this).is(':checked'))
+         {
+             $("#pdfChecked").prop('checked',false);
+             $("#signtype").val(1);
+              $("#pdfsign").val(0);
+             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+             $("#namesign").addClass('d-flex').show();
+             $(".customSubmitButton").removeClass("hideBtn");
+             $(".customSubmitButton").addClass("showBtn");
+              $("input[name='pdfsign']").removeAttr('required');
+             $("input[name='namesign']").attr('required','required');
+             $("#clear").hide();
+             $("#sign").removeClass('d-flex').hide();
+             $("#signature").removeAttr('required');
            
-    //     }
-    //     else{
-    //         $("#signtype").val(2);
-    //         $("#sign").addClass('d-flex').show();
-    //         $("#namesign").removeClass('d-flex').hide();
-    //         $("input[name='namesign']").removeAttr('required');
-    //         $("#clear").show();
-    //         $(".customSubmitButton").addClass("hideBtn");
-    //         $(".customSubmitButton").removeClass("showBtn");
-    //         $("#signature").attr('required','required');
-    //     }
-    // })
+        }
+        else{
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+            $("#signature").attr('required','required');
+        }
+    })
 
-    // $("#pdfChecked").change(function(){
-
-    //     if($(this).is(':checked'))
-    //     {
-    //         $("#flexCheckChecked").prop('checked',false);
-    //         $("#pdfsign").val(1);
-    //         $("#signtype").val(0);
-    //         $("input[name='pdfsign']").attr('required','required');
-    //         $("div#pdfsign").removeClass('d-none').addClass('d-flex');
-    //         $("#namesign").removeClass('d-flex').hide();
-    //         $("input[name='namesign']").removeAttr('required');
-    //         $("#clear").hide();
-    //         $("#sign").removeClass('d-flex').hide();
-    //         $("#signature").removeAttr('required');
-           
-    //     }
-    //     else{
-    //         $("#pdfsign").val(0);
-    //         $("#signtype").val(2);
-    //         $("#sign").addClass('d-flex').show();
-    //         $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-    //         $("#namesign").removeClass('d-flex').hide();
-    //         $("input[name='namesign']").removeAttr('required');
-    //         $("input[name='pdfsign']").removeAttr('required');
-    //         $("#clear").show();
-    //         $("#signature").attr('required','required');
-             
-    //     }
-    // })
+   
 
     
 </script>

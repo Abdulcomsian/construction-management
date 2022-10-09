@@ -90,11 +90,35 @@
                                 <tr>
                                     <td style="width:60px">Signed:</td>
                                     <td style="border-bottom: 1px solid;text-align: center;">
-                                        {{$data['signature']}}
+                                        @if($data['signtype']==1)
+                                        {{signature}}
+                                        @else
+                                         <img src="temporary/signature/{{$signature}}" width="auto" height="120">
+                                        @endif
                                     </td>
                                     <td style="width: 40px">Date:</td>
                                     <td style="border-bottom: 1px solid;text-align: center;">
                                         {{$data['date']}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:60px">Company Signed:</td>
+                                    <td style="border-bottom: 1px solid;text-align: center;">
+                                        @php 
+                                            $image=$nomination->signature1;
+                                            $n = strrpos($image, '.');
+                                            $ext=substr($image, $n+1);
+                                             
+                                        @endphp
+                                         @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                            <img src="temporary/signature/{{$image}}" width="500" alt="img" width="auto" height="120"/>
+                                            @else
+                                           <p>{{$image}}</p>
+                                        @endif
+                                    </td>
+                                    <td style="width: 40px">Date:</td>
+                                    <td style="border-bottom: 1px solid;text-align: center;">
+                                        
                                     </td>
                                 </tr>
                                 

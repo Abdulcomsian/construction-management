@@ -299,13 +299,13 @@ class UserController extends Controller
             $model->email=Auth::user()->email;
             if($request->status==1)
             {
-                User::find($user->id)->update(['nomination_status'=>1]);
+                User::find($user->id)->update(['nomination_status'=>1,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                 $message="Admin/Company accept nomination form of ".$user->email."";
                 $status=1;
             }
             else
             {
-                User::find($user->id)->update(['nomination_status'=>2]);
+                User::find($user->id)->update(['nomination_status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                 $message="Admin/Company reject nomination form of ".$user->email."";
                 $status=2;
             }

@@ -718,8 +718,9 @@
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
                                  <tbody class="text-gray-600 fw-bold">
+                                 
                                     @forelse($temporary_works as $item)
-                                    <tr>
+                                    <tr style="height: {{count($temporary_works)==1 ? '200px':''}}">
                                        <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span><br>
                                           @if(count($item->rejecteddesign)>0)

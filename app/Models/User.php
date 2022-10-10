@@ -38,6 +38,7 @@ class User extends Authenticatable
         'appointment_pdf',
         'appointment_signature',
         'appointment_date',
+        'nomination_approve_reject_date',
     ];
 
     /**

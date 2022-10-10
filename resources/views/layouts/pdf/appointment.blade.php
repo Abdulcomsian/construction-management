@@ -87,13 +87,22 @@
                         <div>
                             <table style="border-collapse: collapse;width: 100%;">
                             <tbody>
+                                
                                 <tr>
-                                    <td style="width:60px">Signed:</td>
+                                    <td style="width:60px">
+                                        User:
+                                    </td>
+                                    <td>
+                                        {{$user->name}}
+                                    </td>
+                                    <td style="width:80px">
+                                     Signature:
+                                    </td>
                                     <td style="border-bottom: 1px solid;text-align: center;">
                                         @if($data['signtype']==1)
                                         {{signature}}
                                         @else
-                                         <img src="temporary/signature/{{$signature}}" width="auto" height="120">
+                                         <img src="temporary/signature/{{$signature}}" width="auto" height="40">
                                         @endif
                                     </td>
                                     <td style="width: 40px">Date:</td>
@@ -101,8 +110,18 @@
                                         {{$data['date']}}
                                     </td>
                                 </tr>
+                                
+                                <br>
                                 <tr>
-                                    <td style="width:60px">Company Signed:</td>
+                                    <td style="width:60px">
+                                        Company:
+                                    </td>
+                                    <td>
+                                        {{$user->userCompany->name}}
+                                    </td>
+                                    <td style="width:80px">
+                                        Signature:
+                                    </td>
                                     <td style="border-bottom: 1px solid;text-align: center;">
                                         @php 
                                             $image=$nomination->signature1;
@@ -111,14 +130,14 @@
                                              
                                         @endphp
                                          @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                                            <img src="temporary/signature/{{$image}}" width="500" alt="img" width="auto" height="120"/>
+                                            <img src="temporary/signature/{{$image}}" width="500" alt="img" width="auto" height="40"/>
                                             @else
                                            <p>{{$image}}</p>
                                         @endif
                                     </td>
                                     <td style="width: 40px">Date:</td>
                                     <td style="border-bottom: 1px solid;text-align: center;">
-                                        
+                                        {{date('Y-m-d',strtotime($user->nomination_approve_reject_date))}}
                                     </td>
                                 </tr>
                                 

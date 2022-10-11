@@ -417,7 +417,7 @@
                                <!-- <h5>Temporary works qualifications</h5> -->
                                <p class="mb-0"><b>Competence</b> - Indicate level of experience gained on the various types of temporary works, using key below and ticking the relevant boxes in the table on the subsequent page</p>
                             </div>
-                            <table class="table table3 nom_table qualif table-bordered mt-0">
+                            <table class="table table6 nom_table qualif table-bordered mt-0">
                                 <!-- <thead>
                                     <tr>
                                         <th>Qualification</th>

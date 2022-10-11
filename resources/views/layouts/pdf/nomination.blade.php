@@ -577,7 +577,7 @@
                             @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
                             <img src="{{$image}}" width="500" alt="img"/>
                             @else
-                           <p>{{asset($image)}}</p>
+                           <p style="color:blue">{{asset($image)}}</p>
                             @endif
                         </td>
                     </tr>

@@ -166,8 +166,10 @@ class UserController extends Controller
             $model->user_id=$user->id;
             $model->save();
 
-
-            Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
+            if(Auth::user()->userCompany->nomination==1 && isset($request->nomination))
+            {
+              Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
+            }
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {

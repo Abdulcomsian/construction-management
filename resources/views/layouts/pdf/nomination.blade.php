@@ -25,15 +25,20 @@
                 <h3>Temporary Works Person Nomination:</h3>
                 <p style="font-size:12px">Provide supporting evidence to {{$user->userCompany->name}} of the competence, qualifications, training and experience of the individuals nominated to work as {{$data['nominated_role']}}. This form will enable {{$user->userCompany->name}} to assess the competence of the individual to undertake the appropriate role.</p>
             </div> -->
-            <div class="logoText" style="float:left;width:70%">
-                <h3>Temporary Works Person Nomination:</h3>
-                <p style="font-size:12px">Provide supporting evidence to {{$user->userCompany->name}} of the competence, qualifications, training and experience of the individuals nominated to work as {{$data['nominated_role']}}. This form will enable {{$user->userCompany->name}} to assess the competence of the individual to undertake the appropriate role.</p>
+            <div class="logoText">
+                <div>
+                    <h3  style="float:left;width:70%;margin-top:15px;">Temporary Works Person Nomination:</h3>
+                     <div class="logo" style="float:right;width:20%;">
+                       @if(isset($company->image) && $company->image != NULL)
+                       <img src="{{public_path($company->image)}}" width="auto" height="60px" />
+                       @endif
+                    </div>
+                 </div>
             </div>
-            <div class="logo" style="float:right;width:20%;">
-                @if(isset($company->image) && $company->image != NULL)
-                <img src="{{public_path($company->image)}}" width="auto" height="80px" />
-                @endif
+                
+                <p style="font-size:12px;width:100%">Provide supporting evidence to {{$user->userCompany->name}} of the competence, qualifications, training and experience of the individuals nominated to work as {{$data['nominated_role']}}. This form will enable {{$user->userCompany->name}} to assess the competence of the individual to undertake the appropriate role.</p>
             </div>
+           
 
             
         </div>

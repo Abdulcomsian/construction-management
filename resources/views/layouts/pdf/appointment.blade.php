@@ -49,7 +49,7 @@
                                 <tr>
                                     <td style="border: 1px solid black;">Name of Project Manager:</td>
                                     <td style="border: 1px solid black;">
-                                        {{$nomination->project_manager}}
+                                        {{$user->userCompany->name ?? ''}}
                                     </td>
                                 </tr>
                                 

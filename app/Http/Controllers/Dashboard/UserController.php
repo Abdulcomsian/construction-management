@@ -302,13 +302,13 @@ class UserController extends Controller
             if($request->status==1)
             {
                 User::find($user->id)->update(['nomination_status'=>1,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
-                $message="Admin/Company accept nomination form of ".$user->email."";
+                $message="Admin/Company accept nomination form of ".$user->email." having comment is".$request->comments;
                 $status=1;
             }
             else
             {
                 User::find($user->id)->update(['nomination_status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
-                $message="Admin/Company reject nomination form of ".$user->email."";
+                $message="Admin/Company reject nomination form of ".$user->email." having comment is ".$request->comments;
                 $status=2;
             }
            
@@ -358,10 +358,10 @@ class UserController extends Controller
                     $pdf->save($path . '/' . $filename);
                 @unlink($nomination->pdf_url);
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
-                Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status));  
+                Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));  
             }
             else{
-                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status));
+                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));
             }
             DB::commit();
             toastSuccess('status changed successfully');

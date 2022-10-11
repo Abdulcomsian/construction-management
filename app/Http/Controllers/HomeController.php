@@ -573,6 +573,8 @@ class HomeController extends Controller
 
 
                 $user=User::find($request->user_id);
+                $user->nomination_status=0;
+                $user->save();
                 $company=User::find($user->company_id);
 
 
@@ -617,8 +619,9 @@ class HomeController extends Controller
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
                     DB::commit();
-                    toastSuccess('Nomination Form save successfully!');
-                    return back();
+                    toastSuccess('Nomination Form updated successfully!');
+                    $id=\Crypt::encrypt($user->id);
+                    return view('nomination',compact('nomination','id','user'));
 
             }
 

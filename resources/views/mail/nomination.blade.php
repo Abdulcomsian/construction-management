@@ -32,6 +32,9 @@
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                          Company Rejected your nomination form.
                                                                          <br>
+                                                                         <b>Comments:</b><br>
+                                                                         {{$comments}}
+                                                                         <br>
                                                                          <a href="{{url('nomination-edit',Crypt::encrypt($user->id))}}">Click Here</a> and edit nomination.<br>
 
                                                                    </p>

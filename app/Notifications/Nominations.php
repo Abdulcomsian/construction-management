@@ -18,10 +18,12 @@ class Nominations extends Notification
      */
     private $user;
     private $accepte_or_reject;
-    public function __construct($data,$status=null)
+    private $comments;
+    public function __construct($data,$status=null,$comments)
     {
         $this->user=$data;
         $this->accepte_or_reject=$status;
+        $this->comments=$comments;
     }
 
     /**
@@ -46,7 +48,7 @@ class Nominations extends Notification
         return (new MailMessage)
             ->greeting('Nomination Form')
             ->subject('Nomination')
-            ->view('mail.nomination',['user'=>$this->user,'status'=>$this->accepte_or_reject]);
+            ->view('mail.nomination',['user'=>$this->user,'status'=>$this->accepte_or_reject,'comments'=>$this->comments]);
     }
 
     /**

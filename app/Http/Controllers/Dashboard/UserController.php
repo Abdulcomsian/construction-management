@@ -166,7 +166,7 @@ class UserController extends Controller
             $model->user_id=$user->id;
             $model->save();
 
-            if(Auth::user()->userCompany->nomination==1 && isset($request->nomination))
+            if($user->userCompany->nomination==1 && isset($request->nomination))
             {
               Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             }

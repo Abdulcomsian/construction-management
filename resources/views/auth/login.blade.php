@@ -17,10 +17,17 @@
   padding: 20px;
 }
 
+
 @media (max-width: 1250px){
 #myVideo {
     object-fit: cover;
 }
+}
+
+body{
+    background-image: url('https://i.ibb.co/yB2v00g/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* @media ( max-width: 1250px ){
@@ -35,9 +42,9 @@
 } */
 
 </style>
-<video autoplay muted loop id="myVideo">
+<!-- <video autoplay muted loop id="myVideo">
   <source src="{{asset('temporary/login.mp4')}}" type="video/mp4">
-</video>
+</video> -->
 <x-guest-layout style="background:transparent;">
     <x-auth-card>
         <x-slot name="logo">

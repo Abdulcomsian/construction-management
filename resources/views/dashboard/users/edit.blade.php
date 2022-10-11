@@ -156,18 +156,18 @@
                                 </div>
 
 
-                                <!-- <div class="col-md-12 fv-row nominationdesc">
+                                <div class="col-md-12 fv-row nominationdesc" style="display: {{$user->nomination==1 ? 'block':'none';}}">
                                     <label class="fs-6 fw-bold mb-2">Description of role being proposed:</label>
-                                    <textarea cols="40" rows="2" class="form-control"></textarea>
+                                    <textarea cols="40" rows="2" class="form-control" name="description_of_role">{{$user->description_of_role ?? ''}}</textarea>
                                 </div>
-                                <div class="col-md-12 fv-row nominationdesc">
+                                <div class="col-md-12 fv-row nominationdesc" style="display: {{$user->nomination==1 ? 'block':'none';}}">
                                     <label class="fs-6 fw-bold mb-2">Description of the limits of authority of the individual:</label>
-                                    <textarea cols="40" rows="2" class="form-control"></textarea>
+                                    <textarea cols="40" rows="2" class="form-control">{{$user->Description_limits_authority ?? ''}}</textarea>
                                 </div>
-                                <div class="col-md-12 fv-row nominationdesc">
+                                <div class="col-md-12 fv-row nominationdesc" style="display: {{$user->nomination==1 ? 'block':'none';}}">
                                     <label class="fs-6 fw-bold mb-2"> Does the individual have authority to issue permits to load:</label>
-                                    <textarea cols="40" rows="2" class="form-control"></textarea>
-                                </div> -->
+                                    <textarea cols="40" rows="2" class="form-control">{{$user->authority_issue_permit ?? ''}}</textarea>
+                                </div>
 
                         
 

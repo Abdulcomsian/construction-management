@@ -94,6 +94,7 @@ input[type="checkbox"]{
 .forgotPass{
     color: #26a23f;
     text-decoration: none !important;
+    font-size: 16px !important;
 }
 
 .submitBTN{
@@ -120,6 +121,12 @@ input[type="checkbox"]{
         margin-top: 100px;
         display: block;
     }
+    .forgotPass {
+    font-size: 14px !important;
+}
+.rememberMe {
+    font-size: 14px;
+}
 }
 
 </style>

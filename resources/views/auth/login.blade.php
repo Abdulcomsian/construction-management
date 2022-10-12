@@ -17,6 +17,10 @@
   padding: 20px;
 }
 
+.rememberMe{
+    color: #f6f6f6;
+}
+
 
 @media (max-width: 1250px){
 #myVideo {
@@ -49,7 +53,7 @@ body{
 .login_text span{
     font-size: 20px;
     display: block;
-    margin: 15px 0;
+    margin: 30px 0 10px;
 }
 
 .login_text h2{
@@ -75,14 +79,16 @@ body{
 input{
     border-left: 4px solid #26a23f !important;
     border-radius: 0 !important;
-    height: 42px;
+    height: 50px;
     box-shadow: none !important;
     outline: none !important;
     padding-left: 10px !important;
+    margin-bottom: 20px !important;
 }
 
 input[type="checkbox"]{
     border-left: none !important;
+    margin-bottom: 0px !important;
 }
 
 .forgotPass{
@@ -91,12 +97,22 @@ input[type="checkbox"]{
 }
 
 .submitBTN{
-    display: block !important;
+        display: flex !important;
     width: 100% !important;
+    align-items: center !important;
     margin: 0 !important;
+    justify-content: center;
     border-radius: 25px !important;
-    height: 42px !important;
-    background: #33cc33 !important;
+    height: 50px !important;
+    background: #35c64a !important;
+    font-size: 16px !important;
+}
+
+
+@media (min-width: 1200px){
+    .login_text h2 {
+    font-size: 42px;
+    }
 }
 
 @media (max-width: 720px){
@@ -113,7 +129,7 @@ input[type="checkbox"]{
 <x-guest-layout style="background:transparent;">
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/" style="margin-top: -15px;">
+            <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
@@ -146,10 +162,10 @@ input[type="checkbox"]{
             </div>
 
             <!-- Remember Me -->
-            <div class="flex justify-between my-5">
+            <div class="flex justify-between" style="margin: 26px 0 32px">
                 <label for="remember_me" class="inline-flex items-center">
                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="ml-2 rememberMe">{{ __('Keep me signed in') }}</span>
                 </label>
                   @if (Route::has('password.request'))
                     <a class="underline text-sm forgotPass" href="{{ route('password.request') }}">
@@ -161,7 +177,7 @@ input[type="checkbox"]{
             <div class="flex items-center justify-end mt-4">
               
 
-                <x-button class="ml-3">
+                <x-button class="ml-3 mt-2">
                     {{ __('Log in') }}
                 </x-button>
             </div>

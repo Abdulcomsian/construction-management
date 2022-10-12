@@ -37,7 +37,15 @@
                     </div>
                 </div>
                     <div class="card-body pt-0">
-                        <h4 style="float:right">{{date('d F Y')}}</h4>
+                        <div style="margin-bottom: 15px;">
+                            <h3  style="float:left;width:70%;margin-top:15px;">{{date('d F Y')}}</h3>
+                            <div class="logo" style="float:right;width:20%;">
+                            @if(isset($user->userCompany->image) && $user->userCompany->image != NULL)
+                            <img src="{{public_path($user->userCompany->image)}}" width="auto" height="60px" />
+                            @endif
+                            </div>
+                         </div>
+                    
                         <table style="border-collapse: collapse;width: 100%; border: 1px solid black;">
                             <tbody>
                                 <tr>
@@ -89,12 +97,6 @@
                             <tbody>
                                 
                                 <tr>
-                                    <td style="width:60px">
-                                        User:
-                                    </td>
-                                    <td>
-                                        {{$user->name}}
-                                    </td>
                                     <td style="width:80px">
                                      Signature:
                                     </td>
@@ -113,12 +115,6 @@
                                 
                                 <br>
                                 <tr>
-                                    <td style="width:60px">
-                                        Company:
-                                    </td>
-                                    <td>
-                                        {{$user->userCompany->name}}
-                                    </td>
                                     <td style="width:80px">
                                         Signature:
                                     </td>

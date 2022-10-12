@@ -19,7 +19,7 @@ class Nominations extends Notification
     private $user;
     private $accepte_or_reject;
     private $comments;
-    public function __construct($data,$status=null,$comments)
+    public function __construct($data,$status=null,$comments=null)
     {
         $this->user=$data;
         $this->accepte_or_reject=$status;

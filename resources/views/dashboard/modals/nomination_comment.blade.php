@@ -65,8 +65,7 @@
                                         <div class="d-flex inputDiv my-3" id="sign">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:20% !important">
-                                                <span class="required">Signature</span>
-
+                                                <span class="required">Signature:</span>
                                             </label>
                                             <!--end::Label-->
                                              <div class="d-flex inputDiv" >
@@ -74,7 +73,10 @@
                                                 <br/>
                                                <textarea id="signature" name="signed" style="display: none"></textarea>
                                             </div>
+
+
                                         </div>
+                                        <span style="font-size:12px">This signature will be used in the appointment letter which will be sent upon acceptance.</span>
                                         
                                         <div class="d-flex inputDiv">
                                             <!--begin::Label-->

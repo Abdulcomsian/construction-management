@@ -67,7 +67,6 @@
                                 <li data-id="Stockpiles">Welfare Facilities</li>
                                 <li data-id="precast">Precast Facilities</li>
                                 <li data-id="PCC">Wheel Wash Base</li>
-                                <li data-id="Embankment">Permanent Works</li>
                                 <li data-id="gates">Gates - Steel Mesh</li>
                                 <li data-id="flag">Flag Pole Bases</li>
                                 <li data-id="Dewatering">Haul Road</li>
@@ -81,6 +80,7 @@
                                 <li>Pile Mat & Working Platform</li>
                                 <li>Crane Platform</li>
                                 <li>Crane Support & Foundations</li>
+                                <li>Crane Bases  - Out rigger concrete padsmissing </li>
                                 <li>Tower Crane Base (piled)</li>
                                 <li>Tower Crane Base (mass concrete)</li>
                                 <li>Access Platform for Machines and Temporary Ramps </li>
@@ -142,7 +142,8 @@
                                 <li>Temporary access ramp construction</li>
                                 <li>Piling Mat</li>
                                 <li>Excavation batters</li>
-                                <li>Shoring to pile caps during excavation earth works retention for basement, deep services  or attenuation tank  construction</li>
+                                <li>Shoring to pile caps during excavation</li>
+                                <li>earth works retention for basement, deep services  or attenuation tank construction</li>
                                 <li>Slope Stability</li>
                                 <li>Piled/ sheet piled wall propping</li>
                                 <li>Kingpost retaining walls</li>

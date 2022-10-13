@@ -143,7 +143,7 @@
                                 <li>Piling Mat</li>
                                 <li>Excavation batters</li>
                                 <li>Shoring to pile caps during excavation</li>
-                                <li>earth works retention for basement, deep services  or attenuation tank construction</li>
+                                <li>Earth works retention for basement, deep services  or attenuation tank construction</li>
                                 <li>Slope Stability</li>
                                 <li>Piled/ sheet piled wall propping</li>
                                 <li>Kingpost retaining walls</li>

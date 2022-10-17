@@ -78,6 +78,7 @@ class TemporaryWorkController extends Controller
                 })->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
+                $users=[];
                 if($user->hasRole('user'))
                 {
                     $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
@@ -90,7 +91,6 @@ class TemporaryWorkController extends Controller
             }
             //work for datatable
             $scantempwork = '';
-            dd("this");
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork','nominations','users'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');

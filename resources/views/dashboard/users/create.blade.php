@@ -196,10 +196,29 @@ background-color: #07d564 !important;
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--begin::Col-->
-                                <div class="col-md-12 fv-row nomination-flow">
+                                <div class="col-md-6">
+                                    <div class="d-flex inputDiv requiredDiv">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" >
+                                            <span>Is Nomination Flow required ?:</span>
+
+                                        </label>
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid">
+                                            <label>
+                                                <input type="radio" datacheck1='yes' class="btn-check" name="nomination" value="1" checked />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" datacheck1='no' class="btn-check" name="nomination" value="2" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                               <!--  <div class="col-md-12 fv-row nomination-flow">
                                     <input type="checkbox"  name="nomination" id="nomination">
                                     <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
-                                </div>
+                                </div> -->
 
                                 <!-- nomination descritpion -->
                                 <div class="col-md-12 fv-row nominationdesc">
@@ -235,7 +254,7 @@ background-color: #07d564 !important;
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $(".nominationdesc").hide();
+        //$(".nominationdesc").hide();
         $("#company_id").change(function() {
             console.log('Here in id changes');
             let id = $(this).val();
@@ -269,8 +288,8 @@ background-color: #07d564 !important;
         });
 
           //nomination checkbox work here
-        $("#nomination").change(function(){
-            if($(this).is(':checked'))
+        $("input[name='nomination']").change(function(){
+            if($(this).val()==1)
             {
                 $(".nominationdesc").show();
             }

@@ -878,7 +878,7 @@
                                                     <input type="file" name="pdfphoto" class="form-control" accept="image/*">
                                                  </div>
                                                 
-                                                 <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                 <div class="d-none inputDiv" id="namesign">
                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                         <span class="required">Name Signature:</span>
                                                     </label>
@@ -1033,20 +1033,20 @@
             $("#signtype").val(1);
              $("#pdfsign").val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-            $("#namesign").addClass('d-flex').show();
+            $("#namesign").addClass('d-flex').removeClass('d-none')
             $(".customSubmitButton").removeClass("hideBtn");
             $(".customSubmitButton").addClass("showBtn");
              $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required','required');
             $("#clear").hide();
-            $("#sign").removeClass('d-flex').hide();
+            $("#sign").removeClass('d-flex').addClass('d-none');
             $("#signature").removeAttr('required');
            
         }
         else{
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
-            $("#namesign").removeClass('d-flex').hide();
+            $("#sign").addClass('d-flex').removeClass('d-none')
+            $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").show();
             $(".customSubmitButton").addClass("hideBtn");
@@ -1064,19 +1064,19 @@
             $("#signtype").val(0);
             $("input[name='pdfsign']").attr('required','required');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
-            $("#namesign").removeClass('d-flex').hide();
+            $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
-            $("#sign").removeClass('d-flex').hide();
+            $("#sign").removeClass('d-flex').addClass('d-none');
             $("#signature").removeAttr('required');
            
         }
         else{
             $("#pdfsign").val(0);
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
+            $("#sign").addClass('d-flex').removeClass('d-none');
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-            $("#namesign").removeClass('d-flex').hide();
+            $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("input[name='pdfsign']").removeAttr('required');
             $("#clear").show();

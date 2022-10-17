@@ -150,10 +150,29 @@
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--begin::Col-->
-                                <div class="col-md-12 fv-row nomination-flow">
+                                 <div class="col-md-6">
+                                    <div class="d-flex inputDiv requiredDiv">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" >
+                                            <span>Is Nomination Flow required ?:</span>
+
+                                        </label>
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid">
+                                            <label>
+                                                <input type="radio" datacheck1='yes' class="btn-check" name="nomination" value="1" {{$user->nomination==1 ? 'checked':''}} />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" datacheck1='no' class="btn-check" name="nomination" value="2" {{$user->nomination==0 ? 'checked':''}}/>
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12 fv-row nomination-flow">
                                     <input type="checkbox"  name="nomination" id="nomination" {{$user->nomination==1 ? 'checked':''}}>
                                     <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
-                                </div>
+                                </div> -->
 
 
                                 <div class="col-md-12 fv-row nominationdesc" style="display: {{$user->nomination==1 ? 'block':'none';}}">
@@ -258,16 +277,17 @@
 
         });
 
-      //nomination checkbox work here
-        $("#nomination").change(function(){
-            if($(this).is(':checked'))
+       //nomination checkbox work here
+        $("input[name='nomination']").change(function(){
+            if($(this).val()==1)
             {
                 $(".nominationdesc").show();
             }
             else{
                 $(".nominationdesc").hide();
+
             }
-        })
+           });
 
 
     });

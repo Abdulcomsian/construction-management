@@ -144,7 +144,7 @@ class UserController extends Controller
                 $filePath = HelperFunctions::profileImagePath();
                 $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
             }
-            if(isset($request->nomination))
+            if($request->nomination==1)
             {
                 $all_inputs['nomination']=1;
                 $all_inputs['nomination_status']='0';
@@ -228,7 +228,7 @@ class UserController extends Controller
         Validations::updateUser($request, $user->id);
         try {
             $all_inputs = $request->except('_token', '_method');
-            if(isset($request->nomination))
+            if($request->nomination==1)
             {
                 $all_inputs['nomination']=1;
                 $all_inputs['nomination_status']='0';

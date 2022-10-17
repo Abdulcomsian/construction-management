@@ -43,7 +43,7 @@
                                                                         You have been nominated to be a temporary works coordinator / Supervisor / designer company’s designated individual.
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Once your designated individual has accepted and appointed you, you can log into you temporary works portal, with your user email {{$user->email}} and Password is {{}} .
+                                                                        Once your designated individual has accepted and appointed you, you can log into you temporary works portal, with your user email {{$user->email}}.
                                                                    </p>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         For now, please <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a> and complete your nomination form.<br>   

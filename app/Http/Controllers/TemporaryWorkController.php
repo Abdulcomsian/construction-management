@@ -48,7 +48,7 @@ class TemporaryWorkController extends Controller
 {
     public function index()
     {
-        
+        dd("here");
         $user = User::with('userCompany')->find(Auth::user()->id);
         try {
             if ($user->hasRole('admin')) {

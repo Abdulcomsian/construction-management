@@ -90,7 +90,7 @@ class TemporaryWorkController extends Controller
             }
             //work for datatable
             $scantempwork = '';
-
+            dd("this");
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork','nominations','users'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');

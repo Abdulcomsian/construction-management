@@ -77,9 +77,9 @@ class TemporaryWorkController extends Controller
                     $q->whereIn('project_id', $ids);
                 })->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
+                $nominations=[];
                 if($user->hasRole('user'))
                 {
-                    dd("this");
                     $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
                     $ids = [];
                     foreach ($users as $u) {

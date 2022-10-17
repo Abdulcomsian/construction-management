@@ -48,7 +48,7 @@ class TemporaryWorkController extends Controller
 {
     public function index()
     {
-        dd("here");
+
         $user = User::with('userCompany')->find(Auth::user()->id);
         try {
             if ($user->hasRole('admin')) {
@@ -68,6 +68,7 @@ class TemporaryWorkController extends Controller
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                
             } else {
+                dd("dkfjdk");
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {

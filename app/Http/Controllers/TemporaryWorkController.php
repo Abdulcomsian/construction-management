@@ -68,7 +68,6 @@ class TemporaryWorkController extends Controller
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                
             } else {
-                dd("dkfjdk");
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {
@@ -80,12 +79,12 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 if($user->hasRole('user'))
                 {
+                    dd("this");
                     $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
                     $ids = [];
                     foreach ($users as $u) {
                         $ids[] = $u->id;
                     }
-                    $ids[] = $user->id;
                      $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                 }
             }

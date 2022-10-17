@@ -138,20 +138,28 @@
                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
                                  </div>
                                 
-                                    <input type="text" id="namesign" name="namesign" class="w-100" style="display: none !important">
+                                    <input type="text" id="namesign" name="namesign" class="w-100 d-none" >
+                                    <input type="file" name="pdfsign" class="w-100 d-none" >
                                 
                                 
                                 
                                 <!-- <input id="sign" type="text" name="signature" class="w-100" required> --> 
                             </div>  
-                             <div class="col-6 d-flex" style="height: 25px"><label for="date" class="paragraph">Dated:</label><input id="date" type="date" name="date" class="w-100" required>  </div>
-                             <div class="col-6 form-check d-flex">
+                             <div class="col-6 d-flex" style="height: 25px"><label for="date" class="paragraph">Dated:</label><input id="date" type="date" name="date" class="w-100" value="<?php echo date('Y-m-d'); ?>" required>  </div>
+                             <div class="col-2 form-check d-flex mt-5">
 
                                   <input class="form-check-input mx-0 position-relative" type="checkbox" id="flexCheckChecked" >
-                                  <label for="flexCheckChecked">Change Signature</label>
-                                  <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
-                                 
+                                  <label for="flexCheckChecked">Name Signature</label>
+                                  <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">  
                             </div>  
+                             <div class="col-2 form-check d-flex mt-5">
+
+                                  <input class="form-check-input mx-0 position-relative" type="checkbox" id="pdfChecked" >
+                                  <label for="pdfChecked">Pdf Signature</label>
+                                  <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+
+                                 
+                            </div> 
                            
                         </div>
                         <p class="paragraph mt-4"> Name from the nomination form Temporary Works Coordinator</p>
@@ -176,7 +184,6 @@
 @endsection
 
 @section('scripts')
-
 
 <script type="text/javascript">
      var canvas = document.getElementById("sig");
@@ -222,6 +229,36 @@
             $(".customSubmitButton").addClass("hideBtn");
             $(".customSubmitButton").removeClass("showBtn");
             $("#signature").attr('required','required');
+        }
+    })
+
+    $("#pdfChecked").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#flexCheckChecked").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("input[name='pdfsign']").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').addClass('d-none');
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').addClass('d-none');
+             $("#signature").removeAttr('required');
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').removeClass('d-none');
+            $("input[name='pdfsign']").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').addClass('d-none');
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             $("#signature").attr('required','required');
+             
         }
     })
 

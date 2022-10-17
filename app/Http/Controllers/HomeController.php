@@ -697,15 +697,21 @@ class HomeController extends Controller
         $image_name = '';
         if ($request->signtype == 1) {
             $image_name = $request->namesign;
-        }else {
+        }elseif($request->pdfsigntype == 1) {
             $folderPath = public_path('temporary/signature/');
-            $image = explode(";base64,", $request->signed);
-            $image_type = explode("image/", $image[0]);
-            $image_type_png = $image_type[1];
-            $image_base64 = base64_decode($image[1]);
-            $image_name = uniqid() . '.' . $image_type_png;
-            $file = $folderPath . $image_name;
-            file_put_contents($file, $image_base64);
+            $file = $request->file('pdfsign');
+            $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+            $file->move($folderPath, $filename);
+            $image_name = $filename;
+        }else{
+        $folderPath = public_path('temporary/signature/');
+        $image = explode(";base64,", $request->signed);
+        $image_type = explode("image/", $image[0]);
+        $image_type_png = $image_type[1];
+        $image_base64 = base64_decode($image[1]);
+        $image_name = uniqid() . '.' . $image_type_png;
+        $file = $folderPath . $image_name;
+        file_put_contents($file, $image_base64);
         }
         $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]);
                     $path = public_path('pdf');

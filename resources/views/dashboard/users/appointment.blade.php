@@ -209,21 +209,21 @@
              $("#pdfChecked").prop('checked',false);
              $("#signtype").val(1);
               $("#pdfsign").val(0);
-             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-             $("#namesign").addClass('d-flex').show();
+             $("input[name='pdfsign']").removeClass('d-flex').addClass('d-none');
+             $("#namesign").addClass('d-flex').removeClass("d-none");
              $(".customSubmitButton").removeClass("hideBtn");
              $(".customSubmitButton").addClass("showBtn");
               $("input[name='pdfsign']").removeAttr('required');
              $("input[name='namesign']").attr('required','required');
              $("#clear").hide();
-             $("#sign").removeClass('d-flex').hide();
+             $("#sign").removeClass('d-flex').addClass('d-none');
              $("#signature").removeAttr('required');
            
         }
         else{
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
-            $("#namesign").removeClass('d-flex').hide();
+            $("#sign").addClass('d-flex').removeClass('d-none');
+            $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").show();
             $(".customSubmitButton").addClass("hideBtn");

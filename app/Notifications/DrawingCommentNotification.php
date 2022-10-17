@@ -49,13 +49,15 @@ class DrawingCommentNotification extends Notification
     public function toMail($notifiable)
     {
         $tempdata='';
+        $subject='Drawing Comment / Reply Notifications';
         if($this->tempid)
         {
         $tempdata=TemporaryWork::find($this->tempid);
+         $subject=$tempdata->design_requirement_text.'-Drawing Comment / Reply Notifications';
         }
          return (new MailMessage)
             ->greeting('Greetings')
-            ->subject('Drawing Comment / Reply Notifications')
+            ->subject($subject)
             ->view('mail.drawingcomment',['comment'=> $this->data,'type'=>$this->type,'email'=>$this->mail,'tempid'=>$this->tempid,'tempdata'=>$tempdata]);
     }
 

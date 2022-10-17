@@ -802,7 +802,7 @@ class DesignerController extends Controller
                 $chm->status = 2;
                 $chm->message='Designer Company Added Comment';
                 $chm->save();
-            Notification::route('mail',$tempdata->twc_email)->notify(new DrawingCommentNotification($request->comment,'question'));
+            Notification::route('mail',$tempdata->twc_email)->notify(new DrawingCommentNotification($request->comment,'question','',$request->tempid));
             toastSuccess('Comment Added  Successfully!');
             return Redirect::back();
         }
@@ -849,7 +849,12 @@ class DesignerController extends Controller
          $model->temporary_work_id=$request->tempworkid;
         if($model->save())
         {
-             $subject = 'Designer Uploaded Risk Assessment ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+            $subject = 'Designer Uploaded Risk Assessment ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+            if($request->type==6)
+            {
+                $subject = 'calculations/design notes ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+            }
+             
                 $text = 'The designer has uploaded a risk assessment to your design brief for '.$tempworkdata->company.' Ltd in the i-Works web portal.';
             $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',

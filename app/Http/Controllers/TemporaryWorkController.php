@@ -1205,8 +1205,8 @@ class TemporaryWorkController extends Controller
                 $pdf->save($path . '/' . $filename);
 
                 $notify_admins_msg = [
-                    'greeting' => 'Permit Pdf',
-                    'subject' => $request->design_requirement_text . '-' . $request->permit_no,
+                    'greeting' => 'Permit to Load',
+                    'subject' => 'Permit to load '.$request->design_requirement_text . '-' . $request->permit_no,
                     'body' => [
                         'text' => $msg,
                         'filename' => $filename,

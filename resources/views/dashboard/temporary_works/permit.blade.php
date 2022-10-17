@@ -849,7 +849,7 @@
                                                 style="width:16%">
 
                                             </label>
-                                            <div class="inputDiv principleno" id="sign" style="">
+                                            <div class="inputDiv principleno"  style="">
                                                 <div class="uploadingDiv">
                                                     <div class="uploadDiv">
                                                         <div class="input-images"></div>
@@ -892,16 +892,9 @@
                                             </label>
                                             <input type="text" name="namesign" class="form-control form-control-solid">
                                         </div>
-                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name Signature:</span>
-                                            </label>
-                                            <input type="text" name="namesign" id="namesign_id"
-                                                class="form-control form-control-solid">
-                                        </div>
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                <div class="d-flex inputDiv principleno" id="sign">
                                                     <div class="signatureDiv">
                                                         <label style="width:26%;"
                                                             class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -926,9 +919,9 @@
                             </div>
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
-                            <div class="d-flex inputDiv principleno" id="sign" style="">
-                                            <textarea id="signature" name="signed" style="opacity: 0"></textarea>
-                                        </div>
+                            <div class="d-flex inputDiv principleno"  style="">
+                                <textarea id="signature" name="signed" style="opacity: 0"></textarea>
+                            </div>
 
                         </div>
                     </div>
@@ -1037,21 +1030,17 @@
             $("#pdfsign").val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").addClass('d-flex').show();
-            $(".customSubmitButton").removeClass("hideBtn");
-            $(".customSubmitButton").addClass("showBtn");
             $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required', 'required');
             $("#clear").hide();
-            $("#sign").removeClass('d-flex').hide();
+            $("#sign").removeClass('d-flex').addClass('d-none');
 
         } else {
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
+            $("#sign").addClass('d-flex').removeClass('d-none')
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
             $("#clear").show();
-            $(".customSubmitButton").addClass("hideBtn");
-            $(".customSubmitButton").removeClass("showBtn");
         }
     })
 
@@ -1071,7 +1060,7 @@
         } else {
             $("#pdfsign").val(0);
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
+            $("#sign").addClass('d-flex').removeClass('d-none')
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');

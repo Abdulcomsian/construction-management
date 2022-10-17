@@ -28,8 +28,14 @@
 }
 }
 
-body{
+/* body{
     background-image: url('https://i.ibb.co/yB2v00g/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+
+body .antialiased{
+     background-image: url('https://i.ibb.co/yB2v00g/bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -88,10 +88,10 @@ class UserController extends Controller
                                 else{
                                     $class="text-danger";
                                 }
-                                $btn .= '<a type="button" href="pdf/'.$data->usernomination->pdf_url.'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                $btn .= '<a type="button" href="pdf/'.$data->usernomination->pdf_url.'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download title="View Nomination Pdf">
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                     </a>
-                                    <button type="button" userid="'.$data->id.'" nominationid="' . $data->usernomination->id . '" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm ">
+                                    <button type="button" userid="'.$data->id.'" nominationid="' . $data->usernomination->id . '" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm " title="View Nomination Comments">
                                       <i class="fa fa-comment '.$class.'" aria-hidden="true"></i>
                                         
                                     </button>';

@@ -310,7 +310,7 @@
                                 </tr>
                                 <tr>
                                     <td>Nominated person (Your name)</td>
-                                    <td><input type="text" name="nominated_person" required></td>
+                                    <td><input type="text" name="nominated_person"  value="{{$user->name}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Nominated person’s employer</td>

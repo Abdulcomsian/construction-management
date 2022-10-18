@@ -110,17 +110,23 @@
                     <tr>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Qualification</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Date</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Documents</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @php $i=0;@endphp
+                    @php 
+                    $i=0;
+                    $arraycount=0;
+                    @endphp
                     @foreach($data['qualification'] as $qualification)
                     <tr>
                         <td style="font-size:12px;">{{$data['qualification'][$i]}}</td>
                         <td style="font-size:12px;">{{$data['qualification_date'][$i]}}</td>
+                        <td style="font-size:12px;"><p style="color:blue">{{asset($images[$i] ?? '')}}</p></td>
                     </tr>
                      @php $i++; @endphp
                     @endforeach
+                    @php $arraycount=$i;@endphp
                 </tbody>
             </table>
         </div>
@@ -135,10 +141,11 @@
                     <tr>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Course title</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Date</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Documents</td>
                     </tr>
                 </thead>
                 <tbody>
-                   @php $i=0;@endphp
+                    @php $i=0;@endphp
                     @foreach($data['course'] as $course)
                     <tr>
                         <td style="font-size:12px;">
@@ -147,10 +154,11 @@
                         <td style="font-size:12px;">
                             {{$data['course_date'][$i]}}
                         </td>
-                            
+                        <td style="font-size:12px;">
+                            <p style="color:blue">{{asset($images[$qualificationscount] ?? '')}}</p>
                         </td>
                     </tr>
-                    @php $i++; @endphp
+                    @php $i++; $qualificationscount++;@endphp
                     @endforeach
                     
                     
@@ -554,38 +562,5 @@
                 </tbody>
             </table>
         </div>
-
-        
-
-        @if(isset($images) && count($images)>0)
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
-            <div style="background:gray; padding: 12px; margin-top: 10px; color: white;">
-                <p style="margin: 0;font-size:12px;">
-                    Click on links below to view copies of Certification
-                </p>
-            </div>
-            <table>
-                <tbody>
-                @foreach($images as $image)
-                @php 
-                    $n = strrpos($image, '.');
-                    $ext=substr($image, $n+1);
-                     
-                @endphp
-                    <tr>
-                        <td>
-                            @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                            <img src="{{$image}}" width="500" alt="img"/>
-                            @else
-                           <p style="color:blue">{{asset($image)}}</p>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        @endif
-
     </div>
 </page>

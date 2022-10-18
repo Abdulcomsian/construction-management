@@ -119,6 +119,7 @@ class HomeController extends Controller
             if($nomination)
             {
                  $images=[];
+                 $qualificationscount=0;
                 //nomination qualifications
                 for($i=0;$i<count($request->qualification);$i++)
                 {
@@ -131,6 +132,7 @@ class HomeController extends Controller
                         $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
                         $model->qualification_certificate=$imagename;
                         $images[]=$imagename;
+                        $qualificationscount++;
                         }
                     
                     }
@@ -269,7 +271,7 @@ class HomeController extends Controller
                 $model->nomination_id=$nomination->id;
                 $model->save();
 
-               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company,'qualificationscount'=>$qualificationscount]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);

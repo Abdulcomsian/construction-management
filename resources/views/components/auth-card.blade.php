@@ -4,8 +4,8 @@
     </div>
 
     <div class="login_text">
-        <span>Nice to see you again</span>
-        <h2>Welcome Back</h2>
+        <span>Your Temporary Works Portal</span>
+        <h2>GROUND BREAKING HUB</h2>
     </div>
 
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg">

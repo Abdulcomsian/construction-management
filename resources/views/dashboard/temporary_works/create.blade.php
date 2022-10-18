@@ -193,6 +193,14 @@ height: 72px;
             .list_top{margin-top:20px;display:block !important;}
             .newDesignBtn{margin-top:20px; margin-bottom:10px;}
             .inputDiv label{font-size:11px !important;}
+           
+    }
+    @media only screen and (max-width: 550px) {
+        .db_mr{
+                display:block !important;
+                width:100% !important; 
+                margin-bottom:20px !important;
+            }
     }
     #scopofdesign::placeholder {
         /* modern browser */
@@ -234,7 +242,7 @@ height: 72px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;width:17%">Design Brief</h2>
+                        <h2 class="db_mr" style="display: inline-block;width:17%">Design Brief</h2>
                         <a style="width: 235px; text-align:center;color:#fff;padding:5px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         

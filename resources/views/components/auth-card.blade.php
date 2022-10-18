@@ -4,8 +4,8 @@
     </div>
 
     <div class="login_text">
-        <span>Your Temporary Works Portal</span>
-        <h2>GROUND BREAKING HUB</h2>
+        <h2>Your Temporary Works Portal</h2>
+        <span>GROUND BREAKING HUB</span>
     </div>
 
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg">

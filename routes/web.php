@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::get('/checkpdf',function(){
-//     $pdf = PDF::loadView('layouts.pdf.nomination');
-//                 $path = public_path('pdf');
-//                 $filename =rand().'nomination.pdf';
-//                 $pdf->save($path . '/' . $filename);
-// });
 
 Route::get('/',function(){
     return view('auth.login');

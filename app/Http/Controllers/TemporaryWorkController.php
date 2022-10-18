@@ -1871,6 +1871,8 @@ class TemporaryWorkController extends Controller
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+                $nominations=[];
+                $users=[];
             } elseif ($user->hasRole('company')) {
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
@@ -1880,6 +1882,7 @@ class TemporaryWorkController extends Controller
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('created_by', $ids)->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
+                $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
             } else {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
@@ -1888,10 +1891,21 @@ class TemporaryWorkController extends Controller
                 }
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
+                $nominations=[];
+                $users=[];
+                if($user->hasRole('user'))
+                {
+                    $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
+                    $ids = [];
+                    foreach ($users as $u) {
+                        $ids[] = $u->id;
+                    }
+                     $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
+                }
             }
             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects', 'scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

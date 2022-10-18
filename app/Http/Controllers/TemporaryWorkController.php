@@ -1818,7 +1818,10 @@ class TemporaryWorkController extends Controller
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+                $nominations=[];
+                $users=[];
             } elseif ($user->hasRole('company')) {
+                
                 $users = User::select('id')->where('company_id', $user->id)->get();
                 $ids = [];
                 foreach ($users as $u) {
@@ -1827,6 +1830,7 @@ class TemporaryWorkController extends Controller
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
+                $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
             } else {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
@@ -1837,13 +1841,23 @@ class TemporaryWorkController extends Controller
                     $q->whereIn('id', $ids);
                 })->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
-
+                $nominations=[];
+                $users=[];
+                if($user->hasRole('user'))
+                {
+                    $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
+                    $ids = [];
+                    foreach ($users as $u) {
+                        $ids[] = $u->id;
+                    }
+                     $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
+                }
                 //coordinator query
                 // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'permits', 'scaffold')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where('created_by', $user->id)->latest()->paginate(20);
             }
              $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','scantempwork'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects','scantempwork'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

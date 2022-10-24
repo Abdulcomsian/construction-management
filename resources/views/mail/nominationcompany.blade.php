@@ -25,7 +25,7 @@
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello! {{$company->name}}</h1> 
                                                                     @if(isset($type) && $type=="appointment")
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        User with following information has Signed Appointment form.<br><br>
+                                                                        A User with following information has Signed Appointment form.<br><br>
                                                                         Name: {{$user->name}}
                                                                         <br>
                                                                         Email: {{$user->email}}
@@ -33,21 +33,19 @@
                                                                         Attach is Appointment pdf .<br>
                                                                     @else
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        User with following information has filled Nomination form.<br><br>
-                                                                        Name: {{$user->name}}
-                                                                        <br>
+                                                                       A User with the following information has submitted a nomination form. Name: {{$user->name}}<br>
                                                                         Email: {{$user->email}}
                                                                         <br><br>
-                                                                        Please <a href="{{url('/users?name=').$user->name}}">click here</a> to accept or reject
+                                                                        A pdf with the nomination form is attached. 
+                                                                        <br><br>
+                                                                        Please <a href="{{url('/users?name=').$user->name}}">click here</a> to accept or reject (with or without comments). 
                                                                         <br>
-                                                                        Attach is nomination pdf .<br>  
                                                                    </p>
                                                                    @endif
                                                                    
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you for your attention.<br><br>
-                                                                        Regards<br><br>
-                                                                        i-Works Team<br><br>
-                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
+                                                                        Regards,The Temporary Works Portal Team <br><br>
+                                                                        <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk</span>
                                                                    </p>
                                                                 </span>
                                                             </td>

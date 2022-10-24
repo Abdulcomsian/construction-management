@@ -22,38 +22,43 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Dear {{$user->name}}</h1> 
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello {{$user->name}}</h1> 
                                                                     @if($status && $status==1)
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                         Company Accepted your nomination form.<br>
-                                                                         <a href="{{url('user-appointment',Crypt::encrypt($user->id))}}">Click Here</a> and complete your Appointement letter.<br> 
+                                                                         The Company has accepted your nomination form.<br> 
+                                                                         You must now <a href="{{url('user-appointment',Crypt::encrypt($user->id))}}">Click Here</a> to complete your appointment letter.<br> 
+                                                                         Please complete the appointment letter at your earliest convenience.<br>
                                                                    </p>
                                                                     @elseif($status==2)
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                         Company Rejected your nomination form.
+                                                                        @if($comments)
+                                                                        The Company has rejected your nomination form.<br> 
+                                                                        The designated individual comments are:<br>
+                                                                        <b>Comments</b>:<br>
+                                                                        {{$comments}}<br><br>
+                                                                        Please <a href="{{url('nomination-edit',Crypt::encrypt($user->id))}}">Click Here</a> to edit your nomination form and provide any additional information requested.
+                                                                        @else
+                                                                        The designated individual has rejected your nomination form, therefore you will not be appointed as a TWC or TWS for the project.
+                                                                        @endif
                                                                          <br>
-                                                                         <b>Comments:</b><br>
-                                                                         {{$comments}}
-                                                                         <br>
-                                                                         <a href="{{url('nomination-edit',Crypt::encrypt($user->id))}}">Click Here</a> and edit nomination.<br>
-
                                                                    </p>
                                                                     @else
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        You have been nominated to be a temporary works coordinator / Supervisor / designer company’s designated individual.
+                                                                        {{$user->userCompany->name}} designated individual has nominated you as a Temporary Works Coordinator/Supervisor/Designer.
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Once your designated individual has accepted and appointed you, you can log into you temporary works portal, with your user email {{$user->email}}.
+                                                                        Please  <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a> and complete your nomination form. 
+                                                                        <br>   
                                                                    </p>
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        For now, please <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a> and complete your nomination form.<br>   
+                                                                   <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                       when {{$user->userCompany->name}} designated individual has accepted and appointed you, you can log into you temporary works portal, with your user email {{$user->email}}.
                                                                    </p>
+                                                                    
                                                                    @endif
                                                                    
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you<br><br>
-                                                                        Regards<br><br>
-                                                                        TWportal team<br><br>
-                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
+                                                                        Regards, The Temporary Works Portal Team <br><br>
+                                                                        <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk</span>
                                                                    </p>
                                                                 </span>
                                                             </td>

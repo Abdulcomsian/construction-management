@@ -24,25 +24,32 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                         Welcome to the i-Works web portal. <br><br>{{$details['body']['text']}}<br>
+                                                                         Welcome to the Temporary Works Portal.  <br><br>{{$details['body']['text']}}<br>
                                                                          @if(isset($details['body']['comments']))
                                                                          <b>Comments:</b><br>
                                                                          {{$details['body']['comments']}}
                                                                          @endif
                                                                    </p>
                                                                    @if(isset($details['body']['designer']) && $details['body']['designer']=='designer1')
-                                                                   <p>
+                                                                   <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($details['body']['id']).'/?mail='.$email)}}">View and Upload Design</a>
                                                                    </p>
+                                                                   <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                       
+                                                                        Within the Temporary Works Portal, you will be able to:<br> 
+                                                                        1. Send comments or ask a question to the person who<br>provided the design brief.<br> 
+                                                                        2. Upload preliminary and construction issue drawings.<br>
+                                                                        3. Upload design check certificates.<br>
+                                                                        4. Upload calculations or design notes.
+
                                                                    @else
                                                                     <p>
                                                                         <a href="{{url('temporary_works')}}">View Details</a>
                                                                    </p>
                                                                    @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        If you have any questions about this brief, please refer to  {{$details['body']['company'] ?? ''}} Company.<br><br>
-                                                                        Thank you for your attention.<br><br>
-                                                                        Regards<br><br>i-Works Team<br><br>
+                                                                        If you have any queries regarding the drawing, you can communicate them to the designer through the Temporary Works Portal.<br><br>
+                                                                        Regards, The Temporary Works Portal Team <br><br>
                                                                         <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
                                                                    </p>
                                                                 </span>

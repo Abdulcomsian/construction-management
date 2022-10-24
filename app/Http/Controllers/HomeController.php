@@ -258,6 +258,7 @@ class HomeController extends Controller
 
 
                 $user=User::find($request->user_id);
+                $user->project=$request->project;
                 $company=User::find($user->company_id);
 
 
@@ -577,6 +578,7 @@ class HomeController extends Controller
                 $user=User::find($request->user_id);
                 $user->nomination_status=0;
                 $user->save();
+                $user->project=$request->project;
                 $company=User::find($user->company_id);
 
 
@@ -726,6 +728,7 @@ class HomeController extends Controller
             'appointment_date'=>$request->date,
         ]);
         $type='appointment';
+        $user->project=$nomination->project;
          Notification::route('mail',$user->userCompany->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user,$type));
          return redirect()->route('nomination-form',\Crypt::encrypt($request->user_id));
 

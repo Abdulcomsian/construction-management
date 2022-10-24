@@ -52,8 +52,8 @@ class DrawingCommentNotification extends Notification
         $subject='Drawing Comment / Reply Notifications';
         if($this->tempid)
         {
-        $tempdata=TemporaryWork::find($this->tempid);
-         $subject=$tempdata->design_requirement_text.'-Drawing Comment / Reply Notifications';
+        $tempdata=TemporaryWork::with('project:name,no,id')->find($this->tempid);
+         $subject='TWP– Design Comments from TWC - '.$tempdata->project->name.' and '.$tempdata->no;
         }
          return (new MailMessage)
             ->greeting('Greetings')

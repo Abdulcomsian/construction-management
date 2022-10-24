@@ -137,6 +137,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         Validations::storeUser($request);
         try {
             $all_inputs = $request->except('_token', 'role');
@@ -152,6 +153,7 @@ class UserController extends Controller
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
             $user = User::create($all_inputs);
+            $user->project= $all_inputs['projects'][0];
             //Assigned role to user. role is already created during seeder
             $user->assignRole($request->role);
             //Add projects for user
@@ -294,8 +296,8 @@ class UserController extends Controller
     {
 
            DB::beginTransaction();
-           try
-           {
+           // try
+           //{
             $user=User::with('userCompany')->find($request->userid);
             $model=new NominationComment();
             $model->email=Auth::user()->email;
@@ -358,19 +360,22 @@ class UserController extends Controller
                     $pdf->save($path . '/' . $filename);
                 @unlink($nomination->pdf_url);
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                $user->project=$nomination->project;
                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));  
             }
             else{
+                 $nomination=Nomination::find($request->nominationid);
+                  $user->project=$nomination->project;
                  Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));
             }
             DB::commit();
             toastSuccess('status changed successfully');
             return Redirect::back();
-         } catch (\Exception $exception) {
-            DB::rollback();
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-         }
+         // } catch (\Exception $exception) {
+         //    DB::rollback();
+         //    toastError('Something went wrong, try again!');
+         //    return Redirect::back();
+         // }
     }
 
     public function nomination_get_comments()

@@ -25,7 +25,8 @@
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Welcome to the online i-works Web-Portal. <br><br>
-                                                                        Attached for your attention is a PDF design brief created by {{$details['body']['company']}} Ltd. Relevant documents are included as links in the design brief.<br>
+                                                                        Attached for your attention is a PDF design brief created by {{$details['body']['company']}} for your attention.
+                                                                        The design brief includes all relevant documents. <br>
                                                                         
                                                                    </p>
                                                                    @if($details['body']['designer'])
@@ -35,15 +36,14 @@
                                                                    @endif
                                                                    @if($details['body']['pc_twc'])
                                                                    <p>
-                                                                       <a href="{{route('pc.approved',Crypt::encrypt($id))}}">View and Approve Design Breif</a>
+                                                                        Please <a href="{{route('pc.approved',Crypt::encrypt($id))}}">review</a> the design brief and either accept it, reject it or reject it with comments. 
                                                                        <br>
 
                                                                    </p>
                                                                    @endif
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">If you have any questions about this brief, please refer to {{$details['body']['company']}} Ltd. <br><br>Thank you for your attention.<br><br>
-                                                                    Regards, <br><br>
-                                                                    The Temporary Works Portal Team <br><br>
-                                                                        <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">If you have any questions about this brief, please refer to {{$details['body']['company']}} Ltd. <br><br>
+                                                                    Regards, The Temporary Works Portal Team <br><br>
+                                                                    <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>
                                                                    </p>
                                                                 </span>
                                                             </td>

@@ -23,17 +23,19 @@
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Welcome to the i-Works web portal. <br><br>{{$details['body']['text']}}</p>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">{{$details['body']['text']}}</p>
                                                                    @if(isset($details['body']['pc_twc']) && $details['body']['pc_twc']==1)
                                                                    <p>
+                                                                       
                                                                        <a href="{{route('pc.permit.approved',Crypt::encrypt($details['body']['id']))}}">view to accept or reject permit to load</a>
+                                                                       
                                                                    </p>
                                                                    @else
                                                                    <p>
-                                                                    <a href="{{url('temporary_works')}}">View Details</a>
+                                                                    <a href="{{url('temporary_works')}}">View Permit</a>
                                                                    </p>
                                                                    @endif
-                                                                    
+                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">If you have any queries regarding the permit, you can communicate them through the Temporary Works Portal. </p>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"> Regards, <br><br>
                                                                     The Temporary Works Portal Team <br><br>
                                                                         <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>

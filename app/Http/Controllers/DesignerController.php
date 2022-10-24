@@ -57,25 +57,32 @@ class DesignerController extends Controller
     public function store(Request $request)
     {  
         try {
-            $tempworkdata = TemporaryWork::find($request->tempworkid);
+            $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
             $tempworkdata->tw_name=$request->twd_name;
             $tempworkdata->save();
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles();
+             if(isset($request->designermail))
+            {
+                $model->created_by = $request->designermail;
+            }
+            else{
+                $model->created_by =Auth::user()->email;
+            }
             if (isset($request->designcheckfile)) {
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
-                $subject = 'Designer Uploaded Design Check Certificate ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                $text = 'The designer has uploaded a design check certificate to your design brief for '. $tempworkdata->company.' Ltd in the i-Works web portal.';
+                $subject = 'TWP– Design Check Certificate Uploaded - '. $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $text = $model->created_by.' has uploaded a design check certificate to the Temporary Works Portal.';
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
             } else {
                 $file_type = 1;
                 $file = $request->file('file');
                 //$ext = $request->file[0]('file')->extension();
-                $subject = 'Designer Uploaded Drawing ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                $text = 'The designer has uploaded a drawing to your design brief for '. $tempworkdata->company.' Ltd in the i-Works web portal. ';
+                $subject = 'TWP – Design/Drawing Uploaded-' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $text =$model->created_by .' has uploaded a new drawing to the Temporary Works Portal.';
                 $model->drawing_number = $request->drawing_number;
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
@@ -101,13 +108,7 @@ class DesignerController extends Controller
                 
                 $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
             }
-            if(isset($request->designermail))
-            {
-                $model->created_by = $request->designermail;
-            }
-            else{
-                $model->created_by =Auth::user()->email;
-            }
+           
             
             $model->file_name = $imagename;
             $model->file_type = $file_type;
@@ -407,7 +408,7 @@ class DesignerController extends Controller
     public function pc_store(Request $request)
     {
         try {
-            $tempworkdata = TemporaryWork::find($request->tempworkid);
+            $tempworkdata = TemporaryWork::with('project')->find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
             TemporaryWork::find($request->tempworkid)->update([
                 'status' => $request->status,
@@ -435,8 +436,8 @@ class DesignerController extends Controller
                     $chm->status=2;
                     $chm->save();
 
-                    $subject = 'Design Brief Rejected ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                    $text = ' Your design brief has been REJECTED by PC TWC. Please select the link below to amend your submission.';
+                    $subject = 'TWP – Design Brief Rejected - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                    $text = ' The Principal Contractors Temporary Coordinator has rejected your design. Please follow the link below to amend your submission: ';
                     $notify_admins_msg = [
                         'greeting' => 'Design Brief Rejected',
                         'subject' => $subject,
@@ -453,10 +454,7 @@ class DesignerController extends Controller
                         'action_url' => '',
                     ];
                     Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
-
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                    //Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                    //Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
                     toastSuccess('Design Brief Rejected Successfully!');
                     return Redirect::back();
@@ -484,8 +482,8 @@ class DesignerController extends Controller
                     $chm->status=2;
                     $chm->save();
                 }
-                $subject = 'Design Brief Accepted ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
-                     $text = " Attached for your attention is an Accepted PDF design brief created for ". $tempworkdata->company ." Ltd. Relevant documents are included as links in the design brief.";
+                $subject = 'TWP – Design Brief Accepted - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $text = "We have attached the accepted PDF design brief for  ". $tempworkdata->company .". The design brief includes relevant documents as links.";
                
                 $notify_admins_msg = [
                     'greeting' => 'Design Brief Accepted',
@@ -509,7 +507,6 @@ class DesignerController extends Controller
 
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
-                //Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 if($tempworkdata->designer_company_email)
                 {
                     $chm= new ChangeEmailHistory();
@@ -836,7 +833,7 @@ class DesignerController extends Controller
     public function risk_assessment_store(Request $request)
     {
         $model= new TempWorkUploadFiles();
-        $tempworkdata=TemporaryWork::find($request->tempworkid);
+        $tempworkdata=TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
         $model->file_type=$request->type;
         $model->created_by=$request->designermail;
         $filePath = HelperFunctions::temporaryworkuploadPath();
@@ -849,13 +846,15 @@ class DesignerController extends Controller
          $model->temporary_work_id=$request->tempworkid;
         if($model->save())
         {
-            $subject = 'Designer Uploaded Risk Assessment ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+            $subject = 'TWP– Risk Assessment Uploaded -  ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+            $text = $request->designermail.' has uploaded a risk assessment to the Temporary Works Portal.';
             if($request->type==6)
             {
-                $subject = 'calculations/design notes ' . $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+                $subject = 'TWP– Calculation/Design Notes Uploaded -  ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $text = $request->designermail.' has uploaded new calculations/design notes to the Temporary Works Portal.';
             }
              
-                $text = 'The designer has uploaded a risk assessment to your design brief for '.$tempworkdata->company.' Ltd in the i-Works web portal.';
+                
             $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
                     'subject' => $subject,

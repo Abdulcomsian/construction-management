@@ -24,7 +24,7 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1>Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                    <h3>{{ $type=="question" ? 'Welcome to the online i-works portal':'You have a message from the i-Works web portal'}}
+                                                                    <h3>@if($type=="question")'Welcome to the online i-works portal'@else {{\Auth::user()->mail.' has replied to your question/comment.'}}  @endif
                                                                     </h3>
                                                                    
                                                                     <h4>{{ $type=="question" ? 'Qutesion':'Reply'}}-</h4>
@@ -35,7 +35,12 @@
                                                                     @elseif($type=='twcquestion')
                                                                         <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">View Question</a>
                                                                     @else
-                                                                     <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">View Reply</a>
+                                                                     <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here  to View Reply</a><br><br>
+                                                                    Within the Temporary Works Portal, you will be able to:<br>
+                                                                    1. Send comments or ask a question to the person who provided the reply.<br> 
+                                                                    2. Upload preliminary and construction issue drawings.<br> 
+                                                                    3. Upload design check certificates.<br>
+                                                                    4. Upload calculations or design notes.<br> 
                                                                     @endif
                                                                     </p>
                                                                     <br>

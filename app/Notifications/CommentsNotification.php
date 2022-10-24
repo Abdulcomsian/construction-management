@@ -21,28 +21,18 @@ class CommentsNotification extends Notification
     private $type;
     private $tempid;
     private $email;
-    private $title;
-    private $twc_id_no;
     private $scan;
-    private $company;
     public function __construct($comment,$type,$tempid,$mail=null,$scan=null)
     {
         $this->comment=$comment;
         $this->type=$type;
         $this->tempid=$tempid;
         $this->scan=$scan;
-        $tempdata=TemporaryWork::select('twc_email','design_requirement_text','twc_id_no','company')->find($tempid);
-        if($this->type=='question')
+        if($this->type=="reply")
         {
-            $this->email=$tempdata->twc_email;
+             $this->email=$mail;
+            
         }
-        elseif($this->type=='reply')
-        {
-            $this->email=$mail;
-        }
-        $this->company=$tempdata->company;
-        $this->title=$tempdata->design_requirement_text;
-        $this->twc_id_no=$tempdata->twc_id_no;
     }
 
     /**
@@ -64,10 +54,29 @@ class CommentsNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $tempdata=TemporaryWork::with('project:name,no,id')->select('project_id','twc_email','design_requirement_text','twc_id_no','company')->find($this->tempid);
+        $company=$tempdata->company;
+        $title=$tempdata->design_requirement_text;
+        $twc_id_no=$tempdata->twc_id_no;
+        if($this->type=='question')
+        {
+            $this->email=$tempdata->twc_email;
+            $subject='TWP – Designer Comments/Question -'.$tempdata->project->name.'-'.$tempdata->project->no;
+        }
+
+        if($this->type=="reply")
+        {
+             $subject='TWP – TWC Answered Question  -'.$tempdata->project->name.'-'.$tempdata->project->no;
+        }
+
+        if($this->scan=="scan")
+        {
+            $subject='TWP– Live T.W. comment on site (QR code) - '.$tempdata->project->name.'-'.$tempdata->project->no;
+        }
         return (new MailMessage)
             ->greeting('Comments Notification')
-            ->subject($this->title.'-'.$this->twc_id_no.' - Notification')
-            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'this->twc_id_no'=>$this->twc_id_no,'scan'=>$this->scan,'company'=>$this->company]);
+            ->subject($subject)
+            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company]);
     }
 
     /**

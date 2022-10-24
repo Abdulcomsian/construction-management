@@ -34,8 +34,10 @@
                                                                    </p>
                                                                    @endif
                                                                     
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards:<br><br>i-Works Team<br><br>
-                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span></p>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"> Regards, <br><br>
+                                                                    The Temporary Works Portal Team <br><br>
+                                                                        <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>
+                                                                    </p>
                                                                 </span>
                                                             </td>
                                                         </tr>

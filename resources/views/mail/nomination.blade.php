@@ -26,7 +26,7 @@
                                                                     @if($status && $status==1)
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                          The Company has accepted your nomination form.<br> 
-                                                                         You must now <a href="{{url('user-appointment',Crypt::encrypt($user->id))}}">Click Here</a> to complete your appointment letter.<br> 
+                                                                         You must now <a href="{{url('user-appointment',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($user->project)}}">Click Here</a> to complete your appointment letter.<br> 
                                                                          Please complete the appointment letter at your earliest convenience.<br>
                                                                    </p>
                                                                     @elseif($status==2)
@@ -47,7 +47,7 @@
                                                                         {{$user->userCompany->name}} designated individual has nominated you as a Temporary Works Coordinator/Supervisor/Designer.
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Please  <a href="{{url('nomination-formm',Crypt::encrypt($user->id))}}">Click Here</a> and complete your nomination form. 
+                                                                        Please  <a href="{{url('nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($user->project)}}">Click Here</a> and complete your nomination form. 
                                                                         <br>   
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">

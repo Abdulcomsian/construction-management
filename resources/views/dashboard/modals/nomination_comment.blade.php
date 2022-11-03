@@ -27,6 +27,7 @@
                         @csrf
                         <input type="hidden" name="nominationid" id="nominationid">
                         <input type="hidden" name="userid" id="userid">
+                        <input type="hidden" name="project_id" id="project_id">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -119,7 +120,7 @@
                         <h1 class="mb-3">Nomination Comments</h1>
                         <!--end::Title-->
 
-                        <table>
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>S-No</th>

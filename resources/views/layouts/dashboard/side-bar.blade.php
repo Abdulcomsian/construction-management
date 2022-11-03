@@ -86,6 +86,13 @@
                         </a>
                     </div>
                     @endif
+                     @if(\Auth::user()->hasAnyRole(['company']))
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('users.assign.project') }}">
+                            <span class="menu-title">Project Nomination</span>
+                        </a>
+                    </div>
+                    @endif
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">

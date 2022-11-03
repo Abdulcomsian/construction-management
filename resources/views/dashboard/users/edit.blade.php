@@ -141,7 +141,7 @@
                                     <label class="required fs-6 fw-bold mb-2">Select Project</label>
                                     @php
                                     @endphp
-                                    <select id="projects" multiple="multiple" name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                    <select id="projects"  name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                         @forelse($company_projects as $item)
                                         <option value="{{$item->id}}" @isset($user_projects) {{ in_array($item->id,$user_projects) ? 'selected' : '' }} @endisset>{{$item->name}}</option>
                                         @empty

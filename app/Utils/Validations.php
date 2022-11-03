@@ -70,6 +70,19 @@ class Validations
         ]);
     }
 
+    public static function assignProject($request)
+    {
+        $request->validate([
+            'user_id' => ['required', 'min:1',],
+            'projects' => ['required', 'array', 'min:1',],
+
+        ], [
+            'projects.*' => 'The project name field is required.',
+            'user_id.*' => 'The user name field is required.',
+        ]);
+
+    }
+
     public static function updateUser($request, $id)
     {
         $request->validate([

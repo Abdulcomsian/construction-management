@@ -15,13 +15,6 @@ class AddNominationToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->tinyinteger('nomination')->default(0);
-            $table->tinyinteger('nomination_status')->default(0);
-            $table->text('description_of_role')->nullable();
-            $table->text('Description_limits_authority')->nullable();
-            $table->text('authority_issue_permit')->nullable();
-            $table->string('appointment_pdf')->nullable();
-            $table->string('appointment_signature')->nullable();
-            $table->string('appointment_date')->nullable();
         });
     }
 

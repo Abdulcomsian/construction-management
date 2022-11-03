@@ -24,7 +24,9 @@ class CreateNominationCommentsTable extends Migration
             $table->unsignedBigInteger('nomination_id')->nullable();
             $table->foreign('nomination_id')->references('id')->on('nominations');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');                                                              
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('project_id')->nullable();
+            $table->foreign('project_id')->references('id')->on('projects');                                                              
             $table->timestamps();
         });
     }

@@ -39,6 +39,10 @@ class CreateNominationsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->tinyinteger('status')->default(0);
+            $table->string('appointment_pdf')->nullable();
+            $table->string('appointment_signature')->nullable();
+            $table->string('appointment_date')->nullable();
+            $table->string('nomination_approve_reject_date')->nullable();
             
 
             $table->timestamps();

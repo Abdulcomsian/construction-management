@@ -81,6 +81,7 @@
                 <form id="nominationform" action="{{url('user-appointment-save')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="user_id" value="{{$user->id}}">
+                    <input type="hidden" name="nominationId" value="{{$nomination->id}}">
                     <div class="card-body pt-0">
                         <h4 class="float-end text-sucess">{{date('d F Y')}}</h4>
                         <table class="table nom_table table-bordered">

@@ -25,24 +25,21 @@ class HomeController extends Controller
     {
         try 
         {
-
-            $userid= \Crypt::decrypt($id);
+            $userdata=explode(' ',$id);
+            $userid= \Crypt::decrypt($userdata[0]);
+            $projectid=\Crypt::decrypt($userdata[1]);
             $user=User::with('userCompany')->find($userid);
             //check if already nomination is submited
-            $nomination=Nomination::where('user_id',$userid)->first();
-            if($nomination)
+            $nomination=Nomination::with('projectt')->where(['user_id'=>$userid,'project'=>$projectid])->get();
+            if(count($nomination)>0)
             {
-                 return view('nomination',compact('nomination','id','user'));
+                 return view('nomination',compact('nomination','user'));
             }
             else{
                 
-                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
-                        $ids = [];
-                        foreach ($project_idds as $id) {
-                            $ids[] = $id->project_id;
-                        }
-                $projects = Project::with('company')->whereIn('id', $ids)->get();
-                return view('nomination',compact('user','projects'));
+                $project_data= DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$projectid])->first();
+                $projects = Project::with('company')->where('id', $project_data->project_id)->get();
+                return view('nomination',compact('user','projects','project_data'));
              }
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
@@ -54,17 +51,23 @@ class HomeController extends Controller
     public function nomination_formm($id)
     {
        $userid= \Crypt::decrypt($id);
+       $project='';
+       if(isset($_GET['project']))
+       {
+        $project=$_GET['project'];
+       }
        $user=User::find($userid);
-
-
        $model=new NominationComment();
        $model->email=$user->email;
        $model->comment="User Read the email";
        $model->type="Nomination";
        $model->read_date=date('Y-m-d H:i:s');
        $model->user_id=$userid;
+       $model->project_id=\Crypt::decrypt($project);
        $model->save();
-       return Redirect::route('nomination-form', $id);
+
+       $userdata=$id.' '.$project;
+       return Redirect::route('nomination-form',$userdata);
        
     }
 
@@ -269,6 +272,7 @@ class HomeController extends Controller
                 $model->send_date=date('Y-m-d H:i:s');
                 // $model->read_date=date('Y-m-d');
                 $model->user_id=$user->id;
+                $model->project_id=$request->project;
                 $model->nomination_id=$nomination->id;
                 $model->save();
 
@@ -339,15 +343,11 @@ class HomeController extends Controller
     {
         try 
         {
-            $userid= \Crypt::decrypt($id);
-            $user=User::with('userCompany')->find($userid);
-            $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
-            $ids = [];
-            foreach ($project_idds as $id) {
-                $ids[] = $id->project_id;
-            }
-            $projects = Project::with('company')->whereIn('id', $ids)->get();
-            $nomination=Nomination::where('user_id',$userid)->first();
+            $nominationid= \Crypt::decrypt($id);
+            $nomination=Nomination::find($nominationid);
+            $user=User::with('userCompany')->find($nomination->user_id);
+            $projectdata = DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$nomination->project])->first();
+            $projects = Project::with('company')->where('id', $projectdata->id)->get();
             $courses=NominationCourses::where('nomination_id',$nomination->id)->get();
             $qualifications=NominationQualification::where('nomination_id', $nomination->id)->get();
             $experience=NominationExperience::where('nomination_id',$nomination->id)->get();
@@ -589,6 +589,7 @@ class HomeController extends Controller
                 $model->send_date=date('Y-m-d H:i:s');
                 // $model->read_date=date('Y-m-d');
                 $model->user_id=$user->id;
+                $model->project_id=$request->project;
                 $model->nomination_id=$nomination->id;
                 $model->save();
 
@@ -660,8 +661,9 @@ class HomeController extends Controller
 
     public function nomination_get_comments(Request $request)
     {
-        $id=$request->nominationId;
-        $ncomments=NominationComment::where(['user_id'=>$id])->get();
+        $id=$request->Userid;
+        $projectId=$request->project;
+        $ncomments=NominationComment::where(['user_id'=>$id,'project_id'=>$projectId])->get();
         $list='';
         $i=1;
         foreach($ncomments as $comment)
@@ -679,13 +681,21 @@ class HomeController extends Controller
     {
          $userid= \Crypt::decrypt($id);
          $user=User::with('userCompany')->find($userid);
-         if($user->appointment_pdf)
+           $project='';
+           if(isset($_GET['project']))
+           {
+            $project=\Crypt::decrypt($_GET['project']);
+           }
+
+        $nomination=Nomination::with('projectt')->where(['user_id'=>$userid,'project'=>$project])->first();
+         
+         if($nomination->appointment_pdf)
          {
-             return redirect()->route('nomination-form',$id);
+             $userdata=$id.' '.$_GET['project'];
+             return redirect()->route('nomination-form', $userdata);
          }
          else
          {
-           $nomination=Nomination::with('projectt')->where('user_id',$userid)->first();
            return view('dashboard.users.appointment',compact('id','user','nomination')); 
          }
          
@@ -696,7 +706,7 @@ class HomeController extends Controller
     {
         $user=User::with('userCompany')->find($request->user_id);
         $company=User::find($user->userCompany->id);
-        $nomination=Nomination::with('projectt')->where('user_id',$request->user_id)->first();
+        $nomination=Nomination::with('projectt')->find($request->nominationId);
         //upload signature here
         $image_name = '';
         if ($request->signtype == 1) {
@@ -722,7 +732,21 @@ class HomeController extends Controller
                     $filename =$user->id.'appointment.pdf';
                     @unlink($path . '/' . $filename);
                     $pdf->save($path . '/' . $filename);
-        User::find($request->user_id)->update([
+        //old senerio work
+
+        // User::find($request->user_id)->update([
+        //     'appointment_pdf'=>$filename,
+        //     'appointment_signature'=>$image_name,
+        //     'appointment_date'=>$request->date,
+        // ]);
+
+        //new senerio work
+        // DB::table('users_has_projects')->where(['user_id'=>$request->user_id,'project_id'=>$nomination->project])->update([
+        //     'appointment_pdf'=>$filename,
+        //     'appointment_signature'=>$image_name,
+        //     'appointment_date'=>$request->date,
+        // ]);
+        Nomination::find($request->nominationId)->update([
             'appointment_pdf'=>$filename,
             'appointment_signature'=>$image_name,
             'appointment_date'=>$request->date,
@@ -730,7 +754,8 @@ class HomeController extends Controller
         $type='appointment';
         $user->project=$nomination->project;
          Notification::route('mail',$user->userCompany->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user,$type));
-         return redirect()->route('nomination-form',\Crypt::encrypt($request->user_id));
+         $userdata=\Crypt::encrypt($request->user_id).' '.\Crypt::encrypt($nomination->project);
+         return redirect()->route('nomination-form',$userdata);
 
     }
 }

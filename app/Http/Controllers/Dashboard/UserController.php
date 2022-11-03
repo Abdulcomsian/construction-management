@@ -72,34 +72,39 @@ class UserController extends Controller
                                       <i class="fa fa-trash" aria-hidden="true"></i>
                                         <!--end::Svg Icon-->
                                     </button>
-                                </form></div>';
-                        } if($user->hasRole(['admin','company'])){
-                            
-                            if(isset($data->usernomination) && $data->nomination==1)
-                            {
-                                $class='';
-                                if($data->nomination_status==0)
-                                {
-                                    $class="text-warning";
-                                }elseif($data->nomination_status==1)
-                                {
-                                    $class="text-success";
-                                }
-                                else{
-                                    $class="text-danger";
-                                }
-                                $btn .= '<a type="button" href="pdf/'.$data->usernomination->pdf_url.'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download title="View Nomination Pdf">
-                                      <i class="fa fa-download" aria-hidden="true"></i>  
-                                    </a>
-                                    <button type="button" userid="'.$data->id.'" nominationid="' . $data->usernomination->id . '" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm " title="View Nomination Comments">
-                                      <i class="fa fa-comment '.$class.'" aria-hidden="true"></i>
-                                        
-                                    </button>';
+                                </form></div>
+                                <a href="'.route('user.project.nomination', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                ';
                             }
+                        // } if($user->hasRole(['admin','company'])){
                             
-                        }else {
-                            $btn = '';
-                        }
+                        //     if(isset($data->usernomination) && $data->nomination==1)
+                        //     {
+                        //         $class='';
+                        //         if($data->nomination_status==0)
+                        //         {
+                        //             $class="text-warning";
+                        //         }elseif($data->nomination_status==1)
+                        //         {
+                        //             $class="text-success";
+                        //         }
+                        //         else{
+                        //             $class="text-danger";
+                        //         }
+                        //         $btn .= '<a type="button" href="pdf/'.$data->usernomination->pdf_url.'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download title="View Nomination Pdf">
+                        //               <i class="fa fa-download" aria-hidden="true"></i>  
+                        //             </a>
+                        //             <button type="button" userid="'.$data->id.'" nominationid="' . $data->usernomination->id . '" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm " title="View Nomination Comments">
+                        //               <i class="fa fa-comment '.$class.'" aria-hidden="true"></i>
+                                        
+                        //             </button>';
+                        //     }
+                            
+                        // }else {
+                        //     $btn = '';
+                        // }
                         return $btn;
                     })
                     ->rawColumns(['company_id', 'action'])
@@ -137,27 +142,31 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
+       
         Validations::storeUser($request);
         try {
-            $all_inputs = $request->except('_token', 'role');
+            $userprojectdata=[];
+            $all_inputs = $request->except('_token', 'role','description_of_role','Description_limits_authority','authority_issue_permit');
             if ($request->file('image')) {
                 $filePath = HelperFunctions::profileImagePath();
                 $all_inputs['image'] = HelperFunctions::saveFile(null, $request->file('image'), $filePath);
             }
+            $nomination_status=0;
             if($request->nomination==1)
             {
                 $all_inputs['nomination']=1;
-                $all_inputs['nomination_status']='0';
+
+                //$all_inputs['nomination_status']='0';
             }
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
             $user = User::create($all_inputs);
+            
             $user->project= $all_inputs['projects'][0];
             //Assigned role to user. role is already created during seeder
             $user->assignRole($request->role);
             //Add projects for user
-            $user->userProjects()->sync($all_inputs['projects']);
+            $user->userProjects()->syncWithPivotValues($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
 
 
             $model= new NominationComment();
@@ -233,23 +242,20 @@ class UserController extends Controller
             if($request->nomination==1)
             {
                 $all_inputs['nomination']=1;
-                $all_inputs['nomination_status']='0';
                  Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             }
             else
             {
                 $all_inputs['nomination']=0;
-                $all_inputs['nomination_status']='0';
             }
             $user->update([
                 'name' => $all_inputs['name'],
                 'email' => $all_inputs['email'],
                 'company_id' => $all_inputs['company_id'],
                 'nomination'=> $all_inputs['nomination'],
-                'nomination_status' => $all_inputs['nomination_status'],
             ]);
             $user->syncRoles($request->role);
-            $user->userProjects()->sync($all_inputs['projects']);
+            $user->userProjects()->syncWithPivotValues($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {
@@ -297,19 +303,27 @@ class UserController extends Controller
 
            DB::beginTransaction();
            // try
-           //{
+           // {
             $user=User::with('userCompany')->find($request->userid);
             $model=new NominationComment();
             $model->email=Auth::user()->email;
             if($request->status==1)
             {
-                User::find($user->id)->update(['nomination_status'=>1,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
+                //old senerio code
+                // User::find($user->id)->update(['nomination_status'=>1,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
+
+                //new senerio code
+                // DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$request->project_id])->update(['nomination_status'=>1,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                 $message="Admin/Company accept nomination form of ".$user->email." having comment is".$request->comments;
                 $status=1;
             }
             else
             {
-                User::find($user->id)->update(['nomination_status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
+                //old senerio code
+                // User::find($user->id)->update(['nomination_status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
+
+                //new senerio code
+                // DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$request->project_id])->update(['nomination_status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                 $message="Admin/Company reject nomination form of ".$user->email." having comment is ".$request->comments;
                 $status=2;
             }
@@ -318,6 +332,7 @@ class UserController extends Controller
             $model->type="Nomination";
             $model->send_date=date('Y-m-d H:i:s');
             $model->user_id=$user->id;
+            $model->project_id=$request->project_id;
             $model->save();
             if($request->status==1)
             {
@@ -345,6 +360,8 @@ class UserController extends Controller
                     'print_name1'=>Auth::user()->name,
                     'job_title1'=>Auth::user()->job_title,
                     'signature1'=>$image_name,
+                    'status'=>1,
+                    'nomination_approve_reject_date'=>date('Y-m-d H:i:s')
 
                 ];
                 
@@ -364,6 +381,7 @@ class UserController extends Controller
                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));  
             }
             else{
+                 Nomination::find($request->nominationid)->update(['status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                  $nomination=Nomination::find($request->nominationid);
                   $user->project=$nomination->project;
                  Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));
@@ -382,8 +400,9 @@ class UserController extends Controller
     {
         $id=$_GET['id'];
         $userid=$_GET['userid'];
+        $projectId=$_GET['project'];
 
-        $ncomments=NominationComment::where('user_id',$userid)->get();
+        $ncomments=NominationComment::where(['user_id'=>$userid,'project_id'=>$projectId])->get();
         $list='';
         $i=1;
         foreach($ncomments as $comment)
@@ -394,5 +413,79 @@ class UserController extends Controller
         }
         echo $list;
 
+    }
+
+    public function User_Project_Nomination($id)
+    {
+        $project_wise_nominations=Nomination::with('user.userCompany','projectt')->where('user_id',$id)->get();
+        return view('dashboard.users.details',compact('project_wise_nominations'));
+    }
+
+    public function User_Assign_Project()
+    {
+        $user = auth()->user();
+        abort_if(!$user->hasAnyRole(['company']), 403);
+        try {
+            $companies_users = User::where('company_id',$user->id)->latest()->get();
+            return view('dashboard.users.user_assign_project', compact('companies_users'));
+        } catch (\Exception $exception) {
+        }
+    }
+
+    public function userProjects(Request $request)
+    {
+        try {
+            $id = $request->id;
+            $projectids=DB::table('users_has_projects')->select('project_id')->where('user_id',$id)->pluck('project_id')->toArray();
+            $projects=Project::where('company_id',Auth::user()->id)->whereNotIn('id',$projectids)->get();
+            if (!empty($projects)) {
+                $data = [
+                    'status' => true,
+                    'projects' => $projects,
+                ];
+            } else {
+                $data = [
+                    'status' => false,
+                ];
+            }
+            return response()->json($data);
+        } catch (\Exception $exception) {
+            $data = [
+                'status' => false,
+            ];
+            return response()->json($data);
+        }
+    }
+
+    public function User_Save_Assign_Project(Request $request)
+    {
+        Validations::assignProject($request);
+         try {
+            
+            $all_inputs = $request->except('_token');
+            $user = User::find($request->user_id);
+            $user->project= $request->projects[0];
+            //Add projects for user
+            $user->userProjects()->attach($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
+
+
+            $model= new NominationComment();
+            $model->email=Auth::user()->email;
+            $model->comment="Admin/Company send nomination form to ".$user->email."";
+            $model->type="Nomination";
+            $model->send_date=date('Y-m-d H:i:s');
+            $model->user_id=$user->id;
+            $model->save();
+
+            if($user->userCompany->nomination==1 && isset($request->nomination))
+            {
+              Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
+            }
+            toastSuccess('User successfully added!');
+            return redirect()->route('users.index');
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
 }

@@ -131,14 +131,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
-                            @if($user->appointment_pdf)
+                           @foreach($nominations as $nom)
+                            @if($nom->appointment_pdf)
                             <tr>
                                 <td>
                                 {{$loop->index+1}}
                                 </td>
-                                <td>{{$user->name}}</td>
-                                <td><a href="{{asset('pdf/'.$user->appointment_pdf)}}" target="_blank">PDF</a></td>
+                                <td>{{$nom->user->name ?? ''}}</td>
+                                <td><a href="{{asset('pdf/'.$nom->appointment_pdf)}}" target="_blank">PDF</a></td>
                             </tr>
                             @endif
                             @endforeach

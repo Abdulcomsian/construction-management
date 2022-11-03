@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('temporary_work_shared_delete',[TemporaryWorkController::class,'Delete_shared_temp'])->name('temporary_works.sharedelete');
 
     Route::get('company/projects', [CompanyController::class, 'companyProjects'])->name('company.projects');
+    Route::get('user/projects', [UserController::class, 'userProjects'])->name('user.projects');
+    
     Route::put('user/update/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('company/update/password', [CompanyController::class, 'updatePassword'])->name('company.updatePassword');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
@@ -165,6 +167,13 @@ Route::group(['middleware' => ['auth']], function () {
 
      Route::post('nomination-chagnestatus',[UserController::class,'nomination_status']);
      Route::get('nomination-get-commetns',[UserController::class,'nomination_get_comments']);
+
+     //user project nominations
+     Route::get('user/project-nomination/{id}',[UserController::class,'User_Project_Nomination'])->name('user.project.nomination');
+
+     //user assigns projects
+     Route::get('user/assing-project',[UserController::class,'User_Assign_Project'])->name('users.assign.project');
+     Route::post('user/save-assing-project',[UserController::class,'User_Save_Assign_Project'])->name('users.save.assign.project');
 
 });
 

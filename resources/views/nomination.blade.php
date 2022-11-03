@@ -235,18 +235,21 @@
             <!--begin::Card-->
             <div class="card shadow-lg">
                 <!--begin::Card header-->
+                 @if(isset($nomination))
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title">
                         <h2>Nomination Form</h2>
                     </div>
+                     <h3><a href="#" class="btn btn-primary">View All Nominations</a></h3>
                 </div>
-                 @if(isset($nomination))
+                
+                
                 <table class="table table-responsive">
                     <thead>
                         <tr>
                             <th>#NO</th>
-                            <th>Project no</th>
+                            <th>Project name</th>
                             <th>Project Manager</th>
                             <th>Nomination PDF</th>
                             <th>Appointment PDF</th>
@@ -254,31 +257,33 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($nomination as $nom)
                         <tr>
-                            <td>1</td>
-                            <td>{{$nomination->project}}</td>
-                            <td>{{$nomination->project_manager}}</td>
+                            <td>{{$loop->index+1}}</td>
+                            <td>{{$nom->projectt->name}}</td>
+                            <td>{{$nom->project_manager}}</td>
                             <td>
-                                <a type="button" href="{{asset('pdf').'/'.$nomination->pdf_url}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                <a type="button" href="{{asset('pdf').'/'.$nom->pdf_url}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                 </a>
                             </td>
                             <td>
-                                @if($user->appointment_pdf)
-                                <a type="button" href="{{asset('pdf').'/'.$user->appointment_pdf}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                @if($nom->appointment_pdf)
+                                <a type="button" href="{{asset('pdf').'/'.$nom->appointment_pdf}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                 </a> 
                                 @endif
                             </td>
                             <td>
-                                <a type="button" href="{{url('nomination-edit',$id)}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                <a type="button" href="{{url('nomination-edit',\Crypt::encrypt($nom->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                       <i class="fa fa-edit" aria-hidden="true"></i>  
                                 </a>
                                 <button type="button"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" >
-                                      <i class="fa fa-comment" aria-hidden="true" data-id="{{$user->id}}"></i>  
+                                      <i class="fa fa-comment" aria-hidden="true" data-id="{{$user->id}}" data-project="{{$nom->project}}"></i>  
                                 </button>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 @else
@@ -297,7 +302,7 @@
                                         <select name="project" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
                                         <option value="">Select Option</option>
                                         @forelse($projects as $item)
-                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                        <option value="{{$item->id}}" selected>{{$item->name .' - '. $item->no}}</option>
                                         @empty
                                         @endforelse
                                         </select>
@@ -338,15 +343,15 @@
                                 <tr>
                                     <td>Description of role being proposed:
                                         (Include details of the type of temporary works that the individual will be managing)</td>
-                                   <td><input type="text" name="description_of_role" value="{{$user->description_of_role}}"></td>
+                                   <td><input type="text" name="description_of_role" value="{{$project_data->description_of_role}}"></td>
                                 </tr>
                                 <tr>
                                     <td>Description of the limits of authority of the individual (if applicable)</td>
-                                   <td><input type="text" name="Description_limits_authority" value="{{$user->Description_limits_authority}}"></td>
+                                   <td><input type="text" name="Description_limits_authority" value="{{$project_data->Description_limits_authority}}"></td>
                                 </tr>
                                 <tr>
                                     <td>Does the individual have authority to issue permits to load / take into use and or permit to dismantle?</td>
-                                   <td><input type="text" name="authority_issue_permit" value="{{$user->authority_issue_permit}}"></td>
+                                   <td><input type="text" name="authority_issue_permit" value="{{$project_data->authority_issue_permit}}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1086,11 +1091,12 @@
     })
 
     $(".fa-comment").click(function(){
-        let nominationId=$(this).attr('data-id');
+        let Userid=$(this).attr('data-id');
+        let project=$(this).attr('data-project');
         $.ajax({
                 type: 'GET',
                 url: '{{url("nomination-commetns")}}',
-                data:{nominationId},
+                data:{Userid,project},
                 success: function(data) {
                     $("#nomination_result").html(data);
                     $("#nomination_comment_modal_id").modal('show');

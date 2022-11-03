@@ -57,7 +57,7 @@ class TemporaryWorkController extends Controller
                 $nominations=[];
                 $users=[];
             } elseif ($user->hasRole('company')) {
-                $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->id)->get();
+                $users = User::select(['id','name'])->where('company_id', $user->id)->get();
                 $ids = [];
                 foreach ($users as $u) {
                     $ids[] = $u->id;
@@ -81,7 +81,7 @@ class TemporaryWorkController extends Controller
                 $users=[];
                 if($user->hasRole('user'))
                 {
-                    $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
+                    $users = User::select(['id','name'])->where('company_id', $user->userCompany->id)->get();
                     $ids = [];
                     foreach ($users as $u) {
                         $ids[] = $u->id;
@@ -1852,7 +1852,7 @@ class TemporaryWorkController extends Controller
                 $users=[];
                 if($user->hasRole('user'))
                 {
-                    $users = User::select(['id','appointment_pdf','name'])->where('company_id', $user->userCompany->id)->get();
+                    $users = User::select(['id','name'])->where('company_id', $user->userCompany->id)->get();
                     $ids = [];
                     foreach ($users as $u) {
                         $ids[] = $u->id;

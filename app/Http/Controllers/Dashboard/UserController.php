@@ -475,6 +475,7 @@ class UserController extends Controller
             $model->type="Nomination";
             $model->send_date=date('Y-m-d H:i:s');
             $model->user_id=$user->id;
+            $model->project_id=$request->projects[0];
             $model->save();
 
             if($user->userCompany->nomination==1 && isset($request->nomination))

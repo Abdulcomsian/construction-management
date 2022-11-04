@@ -241,7 +241,7 @@
                     <div class="card-title">
                         <h2>Nomination Form</h2>
                     </div>
-                     <h3><a href="#" class="btn btn-primary">View All Nominations</a></h3>
+                     <!-- <h3><a href="#" class="btn btn-primary">View All Nominations</a></h3> -->
                 </div>
                 
                 
@@ -257,33 +257,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($nomination as $nom)
                         <tr>
-                            <td>{{$loop->index+1}}</td>
-                            <td>{{$nom->projectt->name}}</td>
-                            <td>{{$nom->project_manager}}</td>
+                            <td>1</td>
+                            <td>{{$nomination->projectt->name ?? ''}}</td>
+                            <td>{{$nomination->project_manager}}</td>
                             <td>
-                                <a type="button" href="{{asset('pdf').'/'.$nom->pdf_url}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                <a type="button" href="{{asset('pdf').'/'.$nomination->pdf_url}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                 </a>
                             </td>
                             <td>
-                                @if($nom->appointment_pdf)
-                                <a type="button" href="{{asset('pdf').'/'.$nom->appointment_pdf}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                @if($nomination->appointment_pdf)
+                                <a type="button" href="{{asset('pdf').'/'.$nomination->appointment_pdf}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                       <i class="fa fa-download" aria-hidden="true"></i>  
                                 </a> 
                                 @endif
                             </td>
                             <td>
-                                <a type="button" href="{{url('nomination-edit',\Crypt::encrypt($nom->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                <a type="button" href="{{url('nomination-edit',\Crypt::encrypt($nomination->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                       <i class="fa fa-edit" aria-hidden="true"></i>  
                                 </a>
                                 <button type="button"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" >
-                                      <i class="fa fa-comment" aria-hidden="true" data-id="{{$user->id}}" data-project="{{$nom->project}}"></i>  
+                                      <i class="fa fa-comment" aria-hidden="true" data-id="{{$user->id}}" data-project="{{$nomination->project}}"></i>  
                                 </button>
                             </td>
                         </tr>
-                        @endforeach
+
                     </tbody>
                 </table>
                 @else

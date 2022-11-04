@@ -258,7 +258,7 @@
                                         <select name="project" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
                                         <option value="">Select Option</option>
                                         @forelse($projects as $item)
-                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($nomination->project) {{ $item->id==$nomination->project ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                        <option value="{{$item->id}}" selected>{{$item->name .' - '. $item->no}}</option>
                                         @empty
                                         @endforelse
                                         </select>

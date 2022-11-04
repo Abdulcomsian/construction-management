@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNominationToUsersTable extends Migration
+class AddColumnsToUsersHasProjectsCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class AddNominationToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->tinyinteger('nomination')->default(0);
+        Schema::table('users_has_projects', function (Blueprint $table) {
             $table->tinyinteger('nomination_status')->default(0);
             $table->text('description_of_role')->nullable();
             $table->text('Description_limits_authority')->nullable();
             $table->text('authority_issue_permit')->nullable();
-            $table->string('appointment_pdf')->nullable();
-            $table->string('appointment_signature')->nullable();
-            $table->string('appointment_date')->nullable();
         });
     }
 
@@ -32,7 +28,7 @@ class AddNominationToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users_has_projects', function (Blueprint $table) {
             //
         });
     }

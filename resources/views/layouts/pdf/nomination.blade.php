@@ -145,7 +145,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php $i=0;@endphp
+                    @php $i=0;$qualificationscount=0;@endphp
                     @foreach($data['course'] as $course)
                     <tr>
                         <td style="font-size:12px;">

@@ -30,7 +30,7 @@ class HomeController extends Controller
             $projectid=\Crypt::decrypt($userdata[1]);
             $user=User::with('userCompany')->find($userid);
             //check if already nomination is submited
-            $nomination=Nomination::with('projectt')->where(['user_id'=>$userid,'project'=>$projectid])->get();
+            $nomination=Nomination::with('projectt')->where(['user_id'=>$userid,'project'=>$projectid])->first();
             if(count($nomination)>0)
             {
                  return view('nomination',compact('nomination','user'));
@@ -347,7 +347,7 @@ class HomeController extends Controller
             $nomination=Nomination::find($nominationid);
             $user=User::with('userCompany')->find($nomination->user_id);
             $projectdata = DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$nomination->project])->first();
-            $projects = Project::with('company')->where('id', $projectdata->id)->get();
+            $projects = Project::with('company')->where('id', $projectdata->project_id)->get();
             $courses=NominationCourses::where('nomination_id',$nomination->id)->get();
             $qualifications=NominationQualification::where('nomination_id', $nomination->id)->get();
             $experience=NominationExperience::where('nomination_id',$nomination->id)->get();
@@ -401,11 +401,12 @@ class HomeController extends Controller
                 'job_title1'=>$request->job_title1,
                 'signature1'=>$request->signature1,
                 'user_id'=>$request->user_id,
+                'status'=>0,
 
             ];
 
-               Nomination::where('user_id',$request->user_id)->update($all_inputs);
-               $nomination=Nomination::where('user_id',$request->user_id)->first();
+               Nomination::where(['user_id'=>$request->user_id,'project'=>$request->project])->update($all_inputs);
+               $nomination=Nomination::with('projectt')->where(['user_id'=>$request->user_id,'project'=>$request->project])->first();
             if($nomination)
             {
                  $images=[];

@@ -461,7 +461,6 @@ class UserController extends Controller
     {
         Validations::assignProject($request);
          try {
-            
             $all_inputs = $request->except('_token');
             $user = User::find($request->user_id);
             $user->project= $request->projects[0];

@@ -23,15 +23,15 @@ class HomeController extends Controller
     // nomination form
     public function nomination_form($id)
     {
-        try 
-        {
+        // try 
+        // {
             $userdata=explode(' ',$id);
             $userid= \Crypt::decrypt($userdata[0]);
             $projectid=\Crypt::decrypt($userdata[1]);
             $user=User::with('userCompany')->find($userid);
             //check if already nomination is submited
             $nomination=Nomination::with('projectt')->where(['user_id'=>$userid,'project'=>$projectid])->first();
-            if(count($nomination)>0)
+            if($nomination)
             {
                  return view('nomination',compact('nomination','user'));
             }
@@ -41,10 +41,10 @@ class HomeController extends Controller
                 $projects = Project::with('company')->where('id', $project_data->project_id)->get();
                 return view('nomination',compact('user','projects','project_data'));
              }
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return back();
+        // }
     }
 
     //

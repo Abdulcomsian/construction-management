@@ -138,7 +138,7 @@
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="required fs-6 fw-bold mb-2">Select Project</label>
+                                   <!--  <label class="required fs-6 fw-bold mb-2">Select Project</label>
                                     @php
                                     @endphp
                                     <select id="projects"  name="projects[]" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
@@ -147,16 +147,16 @@
                                         @empty
                                         @endforelse
                                     </select>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    <div class="fv-plugins-message-container invalid-feedback"></div> -->
                                 </div>
                                 <!--begin::Col-->
-                                 <div class="col-md-6">
+                                 <!-- <div class="col-md-6">
                                     <div class="d-flex inputDiv requiredDiv">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" >
                                             <span>Is Nomination Flow required ?:</span>
 
                                         </label>
-                                        <!--begin::Radio group-->
+                                    
                                         <div class="nav-group nav-group-fluid">
                                             <label>
                                                 <input type="radio" datacheck1='yes' class="btn-check" name="nomination" value="1" {{$user->nomination==1 ? 'checked':''}} />
@@ -168,14 +168,14 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- <div class="col-md-12 fv-row nomination-flow">
                                     <input type="checkbox"  name="nomination" id="nomination" {{$user->nomination==1 ? 'checked':''}}>
                                     <label class="fs-6 fw-bold mb-2">Is Nomination Flow required ?</label>
                                 </div> -->
 
 
-                                <div class="col-md-12 fv-row nominationdesc" style="display: {{$user->nomination==1 ? 'block':'none';}}">
+                                <!-- <div class="col-md-12 fv-row nominationdesc" style="display: {{$user->nomination==1 ? 'block':'none';}}">
                                     <label class="fs-6 fw-bold mb-2">Description of role being proposed:</label>
                                     <textarea cols="40" rows="2" class="form-control" name="description_of_role">{{$user->description_of_role ?? ''}}</textarea>
                                 </div>
@@ -186,7 +186,7 @@
                                 <div class="col-md-12 fv-row nominationdesc" style="display: {{$user->nomination==1 ? 'block':'none';}}">
                                     <label class="fs-6 fw-bold mb-2"> Does the individual have authority to issue permits to load:</label>
                                     <textarea cols="40" rows="2" class="form-control">{{$user->authority_issue_permit ?? ''}}</textarea>
-                                </div>
+                                </div> -->
 
                         
 
@@ -225,6 +225,28 @@
                         </button>
 
                     </form>
+                </div>
+                <hr>
+                <div class="card-body pt-7">
+                    <h3>User Has Following Assign Project</h3>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#No</th>
+                                <th>User</th>
+                                <th>Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($user->userProjects as $project)
+                            <tr>
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$project->name}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!--end::Card-->

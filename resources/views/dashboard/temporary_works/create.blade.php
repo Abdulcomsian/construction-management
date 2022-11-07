@@ -171,7 +171,7 @@ height: 72px;
         }
 
         #sig canvas {
-            width: 100% !important;
+            width: 50% !important;
             max-height: 200px;
         }
         .modalDiv{
@@ -207,7 +207,7 @@ height: 72px;
         color: #fff;
     }
     
-    canvas{width:270px;height:110px;}
+    canvas{width:50%;height:110px;}
     /* .inputDiv  #design_required_by_date{color:#fff;} */
     .form-control.form-control-solid:focus{color:#000 !important;}
 </style>

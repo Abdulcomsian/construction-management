@@ -302,8 +302,8 @@ class UserController extends Controller
     {
 
            DB::beginTransaction();
-           // try
-           // {
+           try
+           {
             $user=User::with('userCompany')->find($request->userid);
             $model=new NominationComment();
             $model->email=Auth::user()->email;
@@ -389,11 +389,11 @@ class UserController extends Controller
             DB::commit();
             toastSuccess('status changed successfully');
             return Redirect::back();
-         // } catch (\Exception $exception) {
-         //    DB::rollback();
-         //    toastError('Something went wrong, try again!');
-         //    return Redirect::back();
-         // }
+         } catch (\Exception $exception) {
+            DB::rollback();
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
     }
 
     public function nomination_get_comments()

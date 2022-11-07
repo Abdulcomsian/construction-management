@@ -133,6 +133,7 @@
 
     canvas {
         background: lightgray;
+        width:100%;
     }
 
     /*.form-control.form-control-solid {

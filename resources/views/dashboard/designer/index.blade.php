@@ -512,7 +512,7 @@
                             <select class="form-control" name="type"  required>
                                        <option value="" selected disabled>Risk Assessment-Calculations</option>
                                        <option value="5">Risk Assessment</option>
-                                       <option value="6">Calculations</option>
+                                       <option value="6">Calculations (Design Notes)</option>
                             </select>
                           </div>
                       <br>

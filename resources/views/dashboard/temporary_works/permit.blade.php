@@ -896,15 +896,15 @@
                                             <div class="col-md-8">
                                                 <div class="d-flex inputDiv principleno" id="sign">
                                                     <div class="signatureDiv">
-                                                        <label style="width:26%;"
+                                                        <label style="width:24%;"
                                                             class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                             <span class="required">Signature:</span>
                                                         </label>
                                                         <br />
-                                                        <div class="canva_signature_div">
+                                                        <div class="canva_signature_div" style="width: 76%">
 
                                                             <br>
-                                                            <canvas id="sig"></canvas>
+                                                            <canvas id="sig" style="width:60%"></canvas>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -166,7 +166,7 @@ class UserController extends Controller
             //Assigned role to user. role is already created during seeder
             $user->assignRole($request->role);
             //Add projects for user
-            $user->userProjects()->syncWithPivotValues($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
+            $user->userProjects()->syncWithPivotValues($all_inputs['projects'],['nomination'=>$request->nomination,'description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
 
 
             $model= new NominationComment();
@@ -177,7 +177,7 @@ class UserController extends Controller
             $model->user_id=$user->id;
             $model->save();
 
-            if($user->userCompany->nomination==1 && isset($request->nomination))
+            if($user->userCompany->nomination==1 && $request->nomination==1)
             {
               Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             }
@@ -313,7 +313,7 @@ class UserController extends Controller
                 // User::find($user->id)->update(['nomination_status'=>1,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
 
                 //new senerio code
-                // DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$request->project_id])->update(['nomination_status'=>1,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
+                DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$request->project_id])->update(['nomination_status'=>1]);
                 $message="Admin/Company accept nomination form of ".$user->email." having comment is".$request->comments;
                 $status=1;
             }
@@ -323,7 +323,7 @@ class UserController extends Controller
                 // User::find($user->id)->update(['nomination_status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
 
                 //new senerio code
-                // DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$request->project_id])->update(['nomination_status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
+                DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$request->project_id])->update(['nomination_status'=>2]);
                 $message="Admin/Company reject nomination form of ".$user->email." having comment is ".$request->comments;
                 $status=2;
             }
@@ -465,7 +465,7 @@ class UserController extends Controller
             $user = User::find($request->user_id);
             $user->project= $request->projects[0];
             //Add projects for user
-            $user->userProjects()->attach($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
+            $user->userProjects()->attach($all_inputs['projects'],['nomination'=>$request->nomination,'description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
 
 
             $model= new NominationComment();
@@ -477,7 +477,7 @@ class UserController extends Controller
             $model->project_id=$request->projects[0];
             $model->save();
 
-            if($user->userCompany->nomination==1 && isset($request->nomination))
+            if($user->userCompany->nomination==1 && $request->nomination==1)
             {
               Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             }

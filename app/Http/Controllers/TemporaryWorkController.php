@@ -157,13 +157,13 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
 
-        if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
-           if(Auth::user()->nomination == 1 && Auth::user()->nomination_status !=1)
-            {
-                toastError('You can no create temporary work until your nomination form appprove thanks ');
-                  return Redirect::back();
-            }
-        }
+        // if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
+        //    if(Auth::user()->nomination == 1 && Auth::user()->nomination_status !=1)
+        //     {
+        //         toastError('You can no create temporary work until your nomination form appprove thanks ');
+        //           return Redirect::back();
+        //     }
+        // }
         //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
         try {
             $user = auth()->user();
@@ -172,10 +172,18 @@ class TemporaryWorkController extends Controller
             } elseif ($user->hasRole(['company'])) {
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
             } else {
-                  $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                  $project_idds = DB::table('users_has_projects')->where(['user_id'=>$user->id])->get();
                     $ids = [];
                     foreach ($project_idds as $id) {
-                        $ids[] = $id->project_id;
+                        if($id->nomination==1 && $id->nomination_status==1)
+                        {
+                            $ids[] = $id->project_id;
+                        }
+                        if($id->nomination==2)
+                        {
+                            $ids[] = $id->project_id;
+                        }
+                        
                     }
                     $projects = Project::with('company')->whereIn('id', $ids)->get();  
             }
@@ -189,13 +197,13 @@ class TemporaryWorkController extends Controller
     public function create1()
     {
         abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
-        if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
-           if(Auth::user()->nomination == 1 && Auth::user()->nomination_status != 1)
-            {
-                toastError('You can not create temporary work until your nomination form appproval thanks ');
-                  return Redirect::back();
-            }
-        }
+        // if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
+        //    if(Auth::user()->nomination == 1 && Auth::user()->nomination_status != 1)
+        //     {
+        //         toastError('You can not create temporary work until your nomination form appproval thanks ');
+        //           return Redirect::back();
+        //     }
+        // }
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -206,7 +214,14 @@ class TemporaryWorkController extends Controller
                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                     $ids = [];
                     foreach ($project_idds as $id) {
-                        $ids[] = $id->project_id;
+                        if($id->nomination==1 && $id->nomination_status==1)
+                        {
+                            $ids[] = $id->project_id;
+                        }
+                        if($id->nomination==2)
+                        {
+                            $ids[] = $id->project_id;
+                        }
                     }
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
             }

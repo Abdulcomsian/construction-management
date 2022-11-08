@@ -133,7 +133,7 @@
                                     </td>
                                     <td style="width: 40px">Date:</td>
                                     <td style="border-bottom: 1px solid;text-align: center;">
-                                        {{date('Y-m-d',strtotime($user->nomination_approve_reject_date))}}
+                                         {{$data['date']}}
                                     </td>
                                 </tr>
                                 
@@ -144,7 +144,7 @@
                                 
                            
                         </div>
-                        <p class="paragraph mt-4"> Name from the nomination form Temporary Works Coordinator</p>
+                      
                         <div class="mb-3">
                             <p class="paragraph">This record should be kept by the TWC in the Temporary Works file and be updated, as necessary. The Designated Individual will keep a register of all TWC and dTWC appointments.</p></div>
                         

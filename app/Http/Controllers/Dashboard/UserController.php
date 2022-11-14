@@ -25,6 +25,7 @@ use Notification;
 use Auth;
 use PDF;
 use DB;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -181,6 +182,9 @@ class UserController extends Controller
             {
               Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             }
+            Password::sendResetLink(
+            $request->only('email')
+            );
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {

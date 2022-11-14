@@ -78,13 +78,18 @@
                         @csrf
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
-                            <div class="col-md-6">
+                               <div class="col-md-6">
                                     <input type="number" class="form-control form-control-solid" placeholder="Project No"
                                         name="target_title">
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control form-control-solid"
                                         placeholder="Project Name" name="target_title">
+                                </div>
+                                <div class="col-md-12 fv-row">
+                                    <label class="required fs-6 fw-bold mb-2">Maximum QR Code</label>
+                                    <input type="number" class="form-control form-control-solid" placeholder="Enter NO of qrcode to generate" name="qrcodeno" required="">
+                                    <input type="hidden" name="projectid" id="projectid" value="6">
                                 </div>
 
 

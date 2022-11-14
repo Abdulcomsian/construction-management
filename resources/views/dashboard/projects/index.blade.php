@@ -258,7 +258,7 @@ background-color: #07d564 !important;
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-12 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Maximum QR Code</label>
+                            <label class="required fs-6 fw-bold mb-2">Number of QR codes:</label>
                             <input type="number" class="form-control form-control-solid" placeholder="Enter NO of qrcode to generate" name="qrcodeno" required />
                             <input type="hidden" name="projectid" name="projectid" id="projectid">
                         </div>
@@ -319,6 +319,7 @@ $data = [
 
             if (type == 'add') {
                 $("textarea[name='address']").text('');
+                $(".projectqrcodeinput").show();
                 $('#project_modal_id').modal('show');
             } else if (type == 'edit') {
                 let id = $(this).data('id');
@@ -334,6 +335,7 @@ $data = [
                             $("input[name='no']").val(data.no);
                             $("input[name='name']").val(data.name);
                             $("textarea[name='address']").text(data.address);
+                            $(".projectqrcodeinput").hide();
                             $('#project_modal_id').modal('show');
                         } else {
                             alert('Something went wrong,try again');

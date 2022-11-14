@@ -135,22 +135,34 @@ class ProjectController extends Controller
             Validations::updateProjectId($request);
         }
         try {
-            $all_inputs  = $request->except('_token');
+            $all_inputs  = $request->except('_token','qrcodeno');
             if ($request->has('id')) {
                 try {
                     unset($all_inputs['id']);
                     Project::where('id', $request->id)
                         ->update($all_inputs);
+                    
                     $message = 'updated';
                 } catch (DecryptException $decryptException) {
                     toastError('Something went wrong,try again');
                     return Redirect::back();
                 }
             } else {
-                Project::create($all_inputs);
-                $message = 'added';
-            }
-
+                $project=Project::create($all_inputs);
+                for ($i = 1; $i <= $request->qrcodeno; $i++) {
+                      $j = $i;
+                    \QrCode::size(500)
+                        ->format('png')
+                        ->generate(route('qrlink', $project->id . '?temp=' .  Crypt::encryptString($j) . ''), public_path('qrcode/projects/qrcode' .$project->id .  $j . '.png'));
+                    $model = new ProjectQrCode();
+                    $model->project_id = $project->id;
+                    $model->tempid =  $j;
+                    $model->qrcode = 'qrcode' . $project->id .  $j . '.png';
+                    $model->save();
+                    
+                }
+            $message = 'added';
+           }
             toastSuccess('Project successfully ' . $message . '!');
             return Redirect::back();
         } catch (\Exception $exception) {

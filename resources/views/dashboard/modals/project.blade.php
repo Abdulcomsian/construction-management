@@ -50,7 +50,12 @@
                             <input type="text" class="form-control form-control-solid" placeholder="Enter Project Name" name="name" value="{{old('name')}}" />
                         </div>
                         <!--end::Col-->
+                         <div class="col-md-12 projectqrcodeinput">
+                            <label class="required fs-6 fw-bold mb-2">Number of QR codes:</label>
+                            <input type="number" class="form-control form-control-solid" placeholder="Enter NO of qrcode to generate" name="qrcodeno" required value="1">
+                        </div>
                     </div>
+
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-12">
@@ -68,6 +73,7 @@
                         </div>
                         <!--end::Col-->
                     </div>
+
                     <!--end::Input group-->
                     <!--begin::Actions-->
                     <div class="text-center">

@@ -9,6 +9,7 @@ use App\Models\NominationQualification;
 use App\Models\NominationExperience;
 use App\Models\NominationCompetence;
 use App\Notifications\NominatinCompanyEmail;
+use App\Notifications\DatabaseNotification;
 use App\Models\User;
 use App\Models\NominationComment;
 use App\Models\Project;
@@ -300,7 +301,8 @@ class HomeController extends Controller
 
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
-
+                    $company->notify(new DatabaseNotification($user,'Nomination Form submited by user'));
+                  
                     DB::commit();
                     toastSuccess('Nomination Form save successfully!');
                     return back();
@@ -324,7 +326,7 @@ class HomeController extends Controller
                  Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
                     DB::commit();
-                      toastSuccess('Nomination Form save successfully!');
+                    toastSuccess('Nomination Form save successfully!');
                     return back();
             }
             else{
@@ -758,5 +760,17 @@ class HomeController extends Controller
          $userdata=\Crypt::encrypt($request->user_id).' '.\Crypt::encrypt($nomination->project);
          return redirect()->route('nomination-form',$userdata);
 
+    }
+
+    public function markNotification(Request $request)
+    {
+            auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+
+        return response()->noContent();
     }
 }

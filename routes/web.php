@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',function(){
     return view('auth.login');
 });
+
+//cron job for permit
 Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
+//cron job for desing
+Route::get('/cron-design', [TemporaryWorkController::class, 'cron_design']);
+
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 Route::get('show-scan-temporary-work/{id}', [TemporaryWorkController::class, 'show_scan_temporarywork'])->name('show.scan.temporarywork');
 Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
@@ -174,6 +179,11 @@ Route::group(['middleware' => ['auth']], function () {
      //user assigns projects
      Route::get('user/assing-project',[UserController::class,'User_Assign_Project'])->name('users.assign.project');
      Route::post('user/save-assing-project',[UserController::class,'User_Save_Assign_Project'])->name('users.save.assign.project');
+
+     //route for cmpleted design brief
+     Route::get('temp-completed',[TemporaryWorkController::class,'temp_completed'])->name('temp-completed');
+     // This should be under 'auth' middleware group
+    Route::post('/mark-as-read', [HomeController::class,'markNotification'])->name('company.markNotification');
 
 });
 

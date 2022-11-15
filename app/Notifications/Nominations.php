@@ -74,7 +74,7 @@ class Nominations extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            
         ];
     }
 }

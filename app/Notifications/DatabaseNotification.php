@@ -7,20 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PermitNotification extends Notification
+class DatabaseNotification extends Notification
 {
     use Queueable;
-    private $offerData;
-    public $type;
+    public $details;
+    public $message;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData,$type=null)
+    public function __construct($details,$message)
     {
-        $this->offerData = $offerData;
-        $this->type=$type;
+        $this->details=$details;
+        $this->message=$message;
     }
 
     /**
@@ -31,7 +32,7 @@ class PermitNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -43,16 +44,9 @@ class PermitNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting($this->offerData['greeting'])
-            ->subject($this->offerData['subject'])
-            ->view('mail.scaffoldmail', ['details' => $this->offerData,'type'=>$this->type])
-            ->attach(
-                public_path('pdf/' . $this->offerData['body']['filename']),
-                [
-                    'as' => $this->offerData['body']['name'] . '.pdf',
-                    'mime' => 'text/pdf',
-                ]
-            );
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -64,7 +58,10 @@ class PermitNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            "user_id" => $this->details['id'],
+            "name"    => $this->details['name'],
+            "email"   => $this->details['email'],
+            'message' => $this->message,
         ];
     }
 }

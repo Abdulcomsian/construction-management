@@ -50,9 +50,21 @@ class TemporaryWorkController extends Controller
     {
 
         $user = User::with('userCompany')->find(Auth::user()->id);
+        $status=[1,2,3];
+        if(isset($_GET['status']))
+        {
+            if($_GET['status']=="pending")
+            {
+                $status=[1];
+            }
+            if($_GET['status']=="completed")
+            {
+                $status=[3];
+            }
+        }
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
@@ -63,7 +75,7 @@ class TemporaryWorkController extends Controller
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->latest()->paginate(20);
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                
@@ -75,7 +87,7 @@ class TemporaryWorkController extends Controller
                 }
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('project_id', $ids);
-                })->latest()->paginate(20);
+                })->whereIn('status',$status)->latest()->paginate(20);
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -1984,7 +1996,7 @@ class TemporaryWorkController extends Controller
 
     public function permit_close($id)
     {
-        // try {
+        try {
             $permitid =  \Crypt::decrypt($id);
             $permitdata = PermitLoad::find($permitid);
             $pojectdata=Project::select('name','no')->find($permitdata->project_id);
@@ -2007,11 +2019,11 @@ class TemporaryWorkController extends Controller
             Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
             return Redirect::back();
-        // } catch (\Exception $exception) {
+        } catch (\Exception $exception) {
 
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
     //Scaffolod unlaod
     public function scaffolding_unload($id)
@@ -2086,6 +2098,55 @@ class TemporaryWorkController extends Controller
                 Notification::route('mail', $permit->user->email ?? 'hani.thaher@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             }
         });
+    }
+
+    //cron job for design brief desing remainings 3 days or 7 days
+    public function cron_design()
+    {
+
+        $current =  \Carbon\Carbon::now();
+        $notify_msg = [
+            'greeting' => 'Design Upload notificaton',
+            'subject' => 'Desing Upload Expire Notification',
+            'body' => [
+                'text' => 'Welcome to the online i-works Portal. there is #days days  left for the design to be completed with construction issue as well as the design check certificate.',
+                'filename' => '',
+                'links' =>  '',
+                'name' => '',
+            ],
+            'thanks_text' => 'Thanks For Using our site',
+            'action_text' => '',
+            'action_url' => '',
+        ];
+        //get all design breifs who have not submiteed ye design
+        $temp_design_data=TemporaryWork::whereDoesntHave('checkdesignuploadfile', function ($q) {
+                $q->where('file_type',1);
+             })->where('status',1)->chunk(50, function ($tempwork) use ($notify_msg,$current) {
+            foreach ($tempwork as $temp) {
+                $notify_msg['body']['filename'] = $temp->ped_url;
+                
+                //check date difference
+                $to = \Carbon\Carbon::createFromFormat('Y-m-d', $temp->design_required_by_date);
+                $diff_in_days = $to->diffInDays($current);
+                if($diff_in_days >= 3 && $diff_in_days <= 3)
+                {
+                     $notify_msg['body']['text'] = str_replace("#days",'3', $notify_msg['body']['text']);
+                     Notification::route('mail',$temp->twc_email)->notify(new PermitNotification($notify_msg,'tempwork'));
+                     Notification::route('mail',$temp->designer_company_email)->notify(new PermitNotification($notify_msg,'tempwork'));
+                }
+
+                if($diff_in_days > 5 && $diff_in_days < 8)
+                {
+                    $notify_msg['body']['text'] = str_replace("#days",'7', $notify_msg['body']['text']);
+                    Notification::route('mail',$temp->twc_email)->notify(new PermitNotification($notify_msg,'tempwork'));
+                    Notification::route('mail',$temp->designer_company_email)->notify(new PermitNotification($notify_msg,'tempwork'));
+                }
+                
+               
+            }
+        });
+        
+        
     }
     //export to excel
     public function export_excel()
@@ -2189,5 +2250,17 @@ class TemporaryWorkController extends Controller
         }
         
         echo $list;exit;
+    }
+
+    //temp work completed
+    public function temp_completed(Request $request)
+    {
+        try {
+         $id=\Crypt::decrypt($request->id);
+         $tempwork=TemporaryWork::find($id)->update(['status'=>$request->status]);
+         return response()->json(['message' => 'Completd'], 201); 
+         } catch (\Exception $exception) {
+            return response()->json(['message' => 'Something Went Wrong!'], 500); 
+         }
     }
 }

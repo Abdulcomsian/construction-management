@@ -278,6 +278,10 @@
    background: #3699FF !important;
    color:white !important;
    }
+
+   .rowcolor{
+    background: #D5D8DC !important;
+   }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -424,8 +428,8 @@
                   <!-- </div> -->
                   <!--begin::Table-->
                   <div class="row " style="padding:10px;position:relative;">
-                  <div class="col-md-4 my-2 my-md-0 ">
-                  <nav class="tabnave" style="width: 100%;float:left">
+                    <div class="col-md-4 my-2 my-md-0 ">
+                        <nav class="tabnave" style="width: 100%;float:left">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                            <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>
                            <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>
@@ -604,81 +608,125 @@
                            </div>
                         </div>
                      </div>
-
-
-                <div class="col-md-2 my-2 offset-2 my-md-0 float-right">
-                         <!--begin::Dropdown-->
-                     <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
-                        <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <span class="svg-icon svg-icon-md">
-                              <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                    <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
-                                    <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
-                                 </g>
-                              </svg>
-                              <!--end::Svg Icon-->
-                           </span>
-                           View Document
-                        </button>
-                        <!--begin::Dropdown Menu-->
-                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
-                           <!--begin::Navigation-->
-                           <ul class="navi flex-column navi-hover py-2">
-                              <li class="navi-item">
-                                 <a href="#" class="navi-link adddocument">
-                                 <span class="navi-icon">
-                                 <i class="la la-print"></i>
-                                 </span>
-                                 <span class="navi-text">Add Document</span>
-                                 </a>
-                              </li>
-                              <li class="navi-item">
-                                 <a href="#" class="navi-link viewdocument" data-type="document">
-                                 <span class="navi-icon">
-                                 <i class="la la-copy"></i>
-                                 </span>
-                                 <span class="navi-text">View Document</span>
-                                 </a>
-                              </li>
-                              <li class="navi-item">
-                                 <a  href="{{ route('Designbrief.export') }}" class="navi-link">
-                                 <span class="navi-icon">
-                                 <i class="la la-file-excel-o"></i>
-                                 </span>
-                                 <span class="navi-text">Export</span>
-                                 </a>
-                              </li>
-                              <li class="navi-item">
-                                 <a  href="#" class="navi-link viewdocument" data-type="nominations">
-                                 <span class="navi-icon">
-                                 <i class="la la-file-excel-o"></i>
-                                 </span>
-                                 <span class="navi-text">View Nominations</span>
-                                 </a>
-                              </li>
-                              <li class="navi-item">
-                                 <a  href="#" class="navi-link viewdocument" data-type="appointments">
-                                 <span class="navi-icon">
-                                 <i class="la la-file-excel-o"></i>
-                                 </span>
-                                 <span class="navi-text">View Appointments</span>
-                                 </a>
-                              </li>
-                           </ul>
+                         <div class="col-md-2 my-2  my-md-0">
+                             <!--begin::Dropdown-->
+                             <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
+                                <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   <span class="svg-icon svg-icon-md">
+                                      <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                            <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+                                            <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+                                         </g>
+                                      </svg>
+                                      <!--end::Svg Icon-->
+                                   </span>
+                                   Status
+                                </button>
+                                <!--begin::Dropdown Menu-->
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
+                                   <!--begin::Navigation-->
+                                   <ul class="navi flex-column navi-hover py-2">
+                                     <li class="navi-item">
+                                         <a href="{{url('/temporary_works?status=all')}}" class="navi-link ">
+                                        
+                                         <span class="navi-text">All</span>
+                                         </a>
+                                      </li>
+                                      <li class="navi-item">
+                                         <a href="{{url('/temporary_works?status=pending')}}" class="navi-link ">
+                                         
+                                         <span class="navi-text">Pending</span>
+                                         </a>
+                                      </li>
+                                      <li class="navi-item">
+                                         <a href="{{url('/temporary_works?status=completed')}}" class="navi-link">
+                                        
+                                         <span class="navi-text">Completed</span>
+                                         </a>
+                                      </li>
+                                     
+                                   </ul>
+                                </div>
+                                <!--end::Dropdown Menu-->
+                             </div>
                         </div>
-                        <!--end::Dropdown Menu-->
-                     </div>
-                     </div>
+
+                        <div class="col-md-2 my-2  my-md-0 float-right">
+                         <!--begin::Dropdown-->
+                         <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
+                            <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="svg-icon svg-icon-md">
+                                  <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+                                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+                                        <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+                                     </g>
+                                  </svg>
+                                  <!--end::Svg Icon-->
+                               </span>
+                               View Document
+                            </button>
+                            <!--begin::Dropdown Menu-->
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
+                               <!--begin::Navigation-->
+                               <ul class="navi flex-column navi-hover py-2">
+                                  <li class="navi-item">
+                                     <a href="#" class="navi-link adddocument">
+                                     <span class="navi-icon">
+                                     <i class="la la-print"></i>
+                                     </span>
+                                     <span class="navi-text">Add Document</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a href="#" class="navi-link viewdocument" data-type="document">
+                                     <span class="navi-icon">
+                                     <i class="la la-copy"></i>
+                                     </span>
+                                     <span class="navi-text">View Document</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a  href="{{ route('Designbrief.export') }}" class="navi-link">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">Export</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a  href="#" class="navi-link viewdocument" data-type="nominations">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">View Nominations</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a  href="#" class="navi-link viewdocument" data-type="appointments">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">View Appointments</span>
+                                     </a>
+                                  </li>
+                               </ul>
+                            </div>
+                            <!--end::Dropdown Menu-->
+                         </div>
+                        </div>
                      <div class="col-md-2 my-2 my-md-0 positionChange">
                      <!--end::Dropdown-->
                      <!--begin::Button-->
                      <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important;border-radius:0px;">
                      <span class="fa fa-plus"></span> Design Brief</a>
                      <!--end::Button-->
-                </div>
+                    </div>
                 </div>
                 <div class="row">
                      <div style="float:left;width:100%;position:relative;top:-5px;">
@@ -720,8 +768,16 @@
                                  <tbody class="text-gray-600 fw-bold">
                                  
                                     @forelse($temporary_works as $item)
-                                    <tr style="height: {{count($temporary_works)==1 ? '200px':''}}">
+                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
                                        <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
+                                          @if(\Auth::user()->hasRole([['company','admin']]))
+                                            @if($item->status==3)
+                                                <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
+                                            @else
+                                                <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}" >
+                                                
+                                            @endif
+                                         @endif
                                           <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span><br>
                                           @if(count($item->rejecteddesign)>0)
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
@@ -1017,6 +1073,7 @@
                                                    </span>
                                                    @endif
                                                 </li>
+                                                 
                                              </ul>
                                              <!--end::Navigation-->
                                           </div>
@@ -2421,6 +2478,37 @@
       
       
    })
+   //check to complete desing breif
+    $(".temp_design_complete").on('click',function(){
+      let input=$(this);
+      var id=$(this).val();
+      let status;
+      if($(this).is(":checked"))
+      {
+        status=3;
+      }
+      else{
+        status=1;
+      }
+      $.ajax({
+           url: "{{route('temp-completed')}}",
+           method: "get",
+           data: {"id":id,"status":status},
+           success: function(res) {
+             if(status==1)
+             {
+                input.parent().parent().removeClass('rowcolor');
+             }
+             else{
+                input.parent().parent().addClass('rowcolor');
+             }
+               
+           }
+       });
+      
+      
+   })
+   
    //upload photo
    $(".addphoto").on('click',function(){
     let id=$(this).attr('data-id');

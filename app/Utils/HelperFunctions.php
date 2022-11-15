@@ -254,4 +254,11 @@ class HelperFunctions
             }
         }
     }
+
+    //get notifications
+    public static function  getNotificaions()
+    {
+        $notifications = auth()->user()->unreadNotifications;
+        return $notifications;
+    }
 }

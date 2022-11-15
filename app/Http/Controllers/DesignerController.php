@@ -162,7 +162,7 @@ class DesignerController extends Controller
         $list='';
         $path = config('app.url');
         
-        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')) {
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
                
                if(auth()->user()->hasRole('admin'))
                {
@@ -171,13 +171,13 @@ class DesignerController extends Controller
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
                        $query->whereIn('created_by',$coordinators)
                        ->orWhere('created_by',auth()->user()->email);
-                      })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->get();
+                      })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->latest()->get();
                }
                else{
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
                        $query->where(['created_by'=>auth()->user()->email])
                        ->orWhere('created_by','hani.thaher@gmail.com');
-                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->get();
+                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->latest()->get();
                }
                
                if($registerupload)
@@ -191,11 +191,20 @@ class DesignerController extends Controller
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
                      $background='';
+                     $checksamenodesign='';
                     foreach ($registerupload as $uploads) {
                         $papproval = 'No';
                         $construction = 'No';
                         if ($uploads->preliminary_approval == 1) {
-                            $background = 'yellow';
+                            if($uploads->drawing_number==$checksamenodesign)
+                            {
+                                $background = '';
+                            }else{
+                                 $background = 'yellow'; 
+                                 $checksamenodesign=$uploads->drawing_number;
+                            }
+                            
+                            
                             $papproval = 'Yes';
                         } elseif ($uploads->construction == 1) {
                             $background = 'lightgreen';
@@ -303,11 +312,18 @@ class DesignerController extends Controller
                     $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';
+                $checksamenodesign='';
                 foreach ($DesignerUploads as $uploads) {
                     $papproval = 'No';
                     $construction = 'No';
                     if ($uploads->preliminary_approval == 1) {
-                        $background = 'yellow';
+                        if($uploads->drawing_number==$checksamenodesign)
+                        {
+                            $background = '';
+                        }else{
+                             $background = 'yellow'; 
+                             $checksamenodesign=$uploads->drawing_number;
+                        }
                         $papproval = 'Yes';
                     } elseif ($uploads->construction == 1) {
                         $background = 'lightgreen';

@@ -196,7 +196,14 @@ background-color: #07d564 !important;
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--begin::Col-->
-                                <div class="col-md-6">
+                                @php 
+                                $hide="";
+                                if(Auth::user()->hasRole('company') && Auth::user()->nomination==0)
+                                {
+                                    $hide="display:none";
+                                }
+                                @endphp
+                                <div class="col-md-6 nomination-flow" style="{{$hide}}">
                                     <div class="d-flex inputDiv requiredDiv">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" >
                                             <span>Is Nomination Flow required ?:</span>
@@ -221,15 +228,15 @@ background-color: #07d564 !important;
                                 </div> -->
 
                                 <!-- nomination descritpion -->
-                                <div class="col-md-12 fv-row nominationdesc">
+                                <div class="col-md-12 fv-row nominationdesc" style="{{$hide}}">
                                     <label class="fs-6 fw-bold mb-2 ">Description of role being proposed:</label>
                                     <textarea cols="40" rows="2" class="form-control" name="description_of_role"></textarea>
                                 </div>
-                                <div class="col-md-12 fv-row nominationdesc">
+                                <div class="col-md-12 fv-row nominationdesc" style="{{$hide}}">
                                     <label class="fs-6 fw-bold mb-2 ">Description of the limits of authority of the individual:</label>
                                     <textarea cols="40" rows="2" class="form-control" name="Description_limits_authority"></textarea>
                                 </div>
-                                <div class="col-md-12 fv-row nominationdesc">
+                                <div class="col-md-12 fv-row nominationdesc" style="{{$hide}}">
                                     <label class="fs-6 fw-bold mb-2 "> Does the individual have authority to issue permits to load:</label>
                                     <textarea cols="40" rows="2" class="form-control" name="authority_issue_permit"></textarea>
                                 </div>
@@ -272,9 +279,11 @@ background-color: #07d564 !important;
                         if(company_nomination==0)
                         {
                             $(".nomination-flow").hide();
+                            $(".nominationdesc").hide();
                         }
                         else{
                             $(".nomination-flow").show();
+                            $(".nominationdesc").show();
                         }
                         $('#projects').empty();
                         $.each(projects, function(key, item) {

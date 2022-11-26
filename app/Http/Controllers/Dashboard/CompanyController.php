@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 use App\Utils\HelperFunctions;
+use Illuminate\Support\Facades\Password;
 
 class CompanyController extends Controller
 {
@@ -113,6 +114,9 @@ class CompanyController extends Controller
             $user->assignRole('company');
             $projects = Project::whereIn('id', $all_inputs['projects'])->get();
             $user->companyProjects()->saveMany($projects);
+            Password::sendResetLink(
+            $request->only('email')
+            );
             toastSuccess('Company successfully added!');
             return Redirect::back();
         } catch (\Exception $exception) {

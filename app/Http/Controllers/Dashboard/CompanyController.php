@@ -96,6 +96,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+       
         Validations::storeCompany($request);
         try {
             $all_inputs  = $request->except('_token');
@@ -114,9 +115,7 @@ class CompanyController extends Controller
             $user->assignRole('company');
             $projects = Project::whereIn('id', $all_inputs['projects'])->get();
             $user->companyProjects()->saveMany($projects);
-            Password::sendResetLink(
-            $request->only('email')
-            );
+            Password::sendResetLink($request->only('email'));
             toastSuccess('Company successfully added!');
             return Redirect::back();
         } catch (\Exception $exception) {

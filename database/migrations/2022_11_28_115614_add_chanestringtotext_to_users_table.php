@@ -14,9 +14,9 @@ class AddChanestringtotextToUsersTable extends Migration
     public function up()
     {
         Schema::table('nominations', function (Blueprint $table) {
-            $table->text('description_of_role')->nullable();
-            $table->text('Description_limits_authority')->nullable();
-            $table->text('authority_issue_permit')->nullable();
+            $table->text('description_of_role')->nullable()->change();
+            $table->text('Description_limits_authority')->nullable()->change();
+            $table->text('authority_issue_permit')->nullable()->change();
         });
     }
 

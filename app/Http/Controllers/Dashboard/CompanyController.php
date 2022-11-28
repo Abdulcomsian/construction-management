@@ -14,6 +14,11 @@ use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 use App\Utils\HelperFunctions;
 use Illuminate\Support\Facades\Password;
+use App\Notifications\PasswordResetNotification;
+use Notification;
+use DB;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CompanyController extends Controller
 {
@@ -115,7 +120,16 @@ class CompanyController extends Controller
             $user->assignRole('company');
             $projects = Project::whereIn('id', $all_inputs['projects'])->get();
             $user->companyProjects()->saveMany($projects);
-            Password::sendResetLink($request->only('email'));
+            //$token = Str::random(62);
+            $token = app(\Illuminate\Auth\Passwords\PasswordBroker::class)->createToken($user);
+  
+            DB::table('password_resets')->insert([
+              'email' => $request->email, 
+              'token' => $token, 
+              'created_at' => Carbon::now()
+            ]);
+            Notification::route('mail', $request->email)->notify(new PasswordResetNotification($token,$request->email));
+            //Password::sendResetLink($request->only('email'));
             toastSuccess('Company successfully added!');
             return Redirect::back();
         } catch (\Exception $exception) {

@@ -39,7 +39,7 @@
                                                                    </p>
                                                                    @if(isset($details['body']['designer']) && $details['body']['designer']=='designer1')
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                       <a href="{{route('designer.uploaddesign',Crypt::encrypt($details['body']['id']).'/?mail='.$email)}}">View and Upload Design</a>
+                                                                       <a href="{{route('designer.uploaddesign',Crypt::encrypt($details['body']['id']).'/?mail='.$email)}}">Click here to view the design brief.</a>
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                        

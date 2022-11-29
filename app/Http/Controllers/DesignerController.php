@@ -886,7 +886,7 @@ class DesignerController extends Controller
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                         'ext' => '',
-                        'filetype'=$request->type,
+                        'filetype'=>$request->type,
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',

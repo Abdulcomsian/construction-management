@@ -58,7 +58,8 @@
                                                                         @elseif(isset($details['body']['filetype']) && $details['body']['filetype']=6)
                                                                         <a href="{{url('temporary_works')}}">View Calculations/Design Notes.</a>
                                                                         @else
-                                                                         <a href="{{url('temporary_works')}}">View Details</a>
+                                                                         <a href="{{url('temporary_works')}}">view Details.</a>
+
                                                                         @endif
                                                                    </p>
                                                                    @endif

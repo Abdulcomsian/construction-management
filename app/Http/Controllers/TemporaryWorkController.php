@@ -50,7 +50,7 @@ class TemporaryWorkController extends Controller
     {
 
         $user = User::with('userCompany')->find(Auth::user()->id);
-        $status=[1,2,3];
+        $status=[0,1,2,3];
         if(isset($_GET['status']))
         {
             if($_GET['status']=="pending")

@@ -195,10 +195,10 @@ class TemporaryWorkController extends Controller
                         {
                             $ids[] = $id->project_id;
                         }
-                        // if($id->nomination==2)
-                        // {
-                        //     $ids[] = $id->project_id;
-                        // }
+                        if($id->nomination==2)
+                        {
+                            $ids[] = $id->project_id;
+                        }
                         
                     }
                     $projects = Project::with('company')->whereIn('id', $ids)->get();  

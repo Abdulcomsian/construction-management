@@ -191,10 +191,6 @@ class TemporaryWorkController extends Controller
                         {
                             $ids[] = $id->project_id;
                         }
-                        elseif($id->nomination==0)
-                        {
-                            $ids[] = $id->project_id;
-                        }
                         if($id->nomination==2)
                         {
                             $ids[] = $id->project_id;

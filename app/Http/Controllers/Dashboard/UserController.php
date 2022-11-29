@@ -143,7 +143,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       
+      
         Validations::storeUser($request);
         try {
             $userprojectdata=[];

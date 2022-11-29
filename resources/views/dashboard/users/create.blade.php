@@ -283,7 +283,7 @@ background-color: #07d564 !important;
                         }
                         else{
                             $(".nomination-flow").show();
-                            $(".nominationdesc").show();
+                            //$(".nominationdesc").show();
                         }
                         $('#projects').empty();
                         $.each(projects, function(key, item) {

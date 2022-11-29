@@ -40,9 +40,9 @@
                                                                     @endif
                                                                    </p>
                                                                    @endif
-                                                                     @if($type==null)
+                                                                    
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">If you have any queries regarding the permit, you can communicate them through the Temporary Works Portal. </p>
-                                                                     @endif
+                                                                    
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"> Regards, <br><br>
                                                                     The Temporary Works Portal Team <br><br>
                                                                         <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>

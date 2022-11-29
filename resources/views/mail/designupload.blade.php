@@ -28,7 +28,10 @@
                                                                         @endif --}}
                                                                     </h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                         Welcome to the Temporary Works Portal.  <br><br>{{$details['body']['text']}}<br>
+                                                                         @if(!isset($details['body']['filetype']))
+                                                                         Welcome to the Temporary Works Portal.<br><br>
+                                                                         @endif
+                                                                         {{$details['body']['text']}}<br>
                                                                          {{-- @if(isset($details['body']['comments']))
                                                                          <b>Comments:</b><br>
                                                                          {{$details['body']['comments']}}
@@ -48,7 +51,15 @@
 
                                                                    @else
                                                                     <p>
-                                                                        <a href="{{url('temporary_works')}}">View Details</a>
+                                                                        @if(isset($details['body']['filetype']) && $details['body']['filetype']=2)
+                                                                        <a href="{{url('temporary_works')}}">View Design Check Certificate</a>
+                                                                        @elseif(isset($details['body']['filetype']) && $details['body']['filetype']=5)
+                                                                         <a href="{{url('temporary_works')}}">View Risk Assessment. </a>
+                                                                        @elseif(isset($details['body']['filetype']) && $details['body']['filetype']=6)
+                                                                        <a href="{{url('temporary_works')}}">View Calculations/Design Notes.</a>
+                                                                        @else
+                                                                         <a href="{{url('temporary_works')}}">View Details</a>
+                                                                        @endif
                                                                    </p>
                                                                    @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">

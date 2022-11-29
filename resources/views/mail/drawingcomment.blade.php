@@ -24,7 +24,7 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1>Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                    <h3>@if($type=="question")'Welcome to the Temporary Works Portal '@else {{\Auth::user()->mail.' has replied to your question/comment.'}}  @endif
+                                                                    <h3>@if($type=="question")'Welcome to the Temporary Works Portal '@else {{Auth::user()->name .' has replied to your question/comment.'}}  @endif
                                                                     </h3>
                                                                    
                                                                     {{-- <h4>{{ $type=="question" ? 'Qutesion':'Reply'}}-</h4>

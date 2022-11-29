@@ -191,10 +191,14 @@ class TemporaryWorkController extends Controller
                         {
                             $ids[] = $id->project_id;
                         }
-                        if($id->nomination==2)
+                        elseif($id->nomination==0)
                         {
                             $ids[] = $id->project_id;
                         }
+                        // if($id->nomination==2)
+                        // {
+                        //     $ids[] = $id->project_id;
+                        // }
                         
                     }
                     $projects = Project::with('company')->whereIn('id', $ids)->get();  
@@ -468,7 +472,7 @@ class TemporaryWorkController extends Controller
                         'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
                         'designer' => '',
                         'pc_twc' => '',
-                        
+
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',

@@ -578,11 +578,11 @@ class DesignerController extends Controller
                 $model->permit_load_id = $request->permitid;
                 $model->save();
                 $subject = 'Permit Load Rejected ';
-                $text = ' Welcome to the online i-works Web-Portal.Permit Load Rejected by PC TWC.';
+                $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
             } else {
                 $subject = 'Permit Load Accepted';
-                $text = ' Welcome to the online i-works Web-Portal.Permit Load Accepted by PC TWC.';
+                $text = ' Welcome to the online Temporary Works Portal.Permit Load Accepted by PC TWC.';
                 $msg = 'Permit Load Accepted Successfully!';
             }
             $notify_admins_msg = [
@@ -967,7 +967,7 @@ class DesignerController extends Controller
         ];
         //for design brief approved
         $subject = 'Design Brief Accepted ' . $model->design_requirement_text . '-' .$model->twc_id_no;
-        $text = ' Welcome to the online i-works Web-Portal.Design Brief Accepted by PC TWC.';
+        $text = ' Welcome to the online Temporary Works Portal.Design Brief Accepted by PC TWC.';
         $notify_admins_msgg = [
                     'greeting' => 'Design Brief Accepted',
                     'subject' => $subject,

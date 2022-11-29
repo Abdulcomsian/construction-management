@@ -2061,7 +2061,7 @@ class TemporaryWorkController extends Controller
             'greeting' => 'Permit Expire',
             'subject' => 'Permit Load Expire',
             'body' => [
-                'text' => 'Welcome to the online i-works Portal. your permit to load for (description of TWS top part) has expired. If the structure is still in use, please renew the permit to load. If the structure has been removed , not in use and not supporting any other element, please close permit.',
+                'text' => 'Welcome to the Temporary Works Portal. your permit to load for (description of TWS top part) has expired. If the structure is still in use, please renew the permit to load. If the structure has been removed , not in use and not supporting any other element, please close permit.',
                 'filename' => '',
                 'links' =>  '',
                 'name' => '',
@@ -2082,7 +2082,7 @@ class TemporaryWorkController extends Controller
             'greeting' => 'Scaffold Expire',
             'subject' => 'Scaffold Load Expire',
             'body' => [
-                'text' => 'Welcome to the online i-works Portal. your permit to load for (description of TWS top part) has expired. If the structure is still in use, please renew the permit to load. If the structure has been removed , not in use and not supporting any other element, please close permit.',
+                'text' => 'Welcome to the online Temporary Works Portal. your permit to load for (description of TWS top part) has expired. If the structure is still in use, please renew the permit to load. If the structure has been removed , not in use and not supporting any other element, please close permit.',
                 'filename' => '',
                 'links' =>  '',
                 'name' => '',
@@ -2109,7 +2109,7 @@ class TemporaryWorkController extends Controller
             'greeting' => 'Design Upload notificaton',
             'subject' => 'Desing Upload Expire Notification',
             'body' => [
-                'text' => 'Welcome to the online i-works Portal. there is #days days  left for the design to be completed with construction issue as well as the design check certificate.',
+                'text' => 'Welcome to the online Temporary Works Portal. there is #days days  left for the design to be completed with construction issue as well as the design check certificate.',
                 'filename' => '',
                 'links' =>  '',
                 'name' => '',

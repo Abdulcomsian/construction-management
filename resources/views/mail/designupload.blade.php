@@ -22,13 +22,17 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello! 
+                                                                        {{-- @if(isset($details['body']['type']) && $details['body']['type']=='desingbrief')
+                                                                         {{ $details['body']['company'] }}
+                                                                        @endif --}}
+                                                                    </h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                          Welcome to the Temporary Works Portal.  <br><br>{{$details['body']['text']}}<br>
-                                                                         @if(isset($details['body']['comments']))
+                                                                         {{-- @if(isset($details['body']['comments']))
                                                                          <b>Comments:</b><br>
                                                                          {{$details['body']['comments']}}
-                                                                         @endif
+                                                                         @endif --}}
                                                                    </p>
                                                                    @if(isset($details['body']['designer']) && $details['body']['designer']=='designer1')
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
@@ -48,9 +52,15 @@
                                                                    </p>
                                                                    @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        @if(isset($details['body']['type']) && $details['body']['type']=='desingbrief')
+                                                                        If you have questions about the brief, please refer them to {{ $details['body']['company'] }}<br><br>
+                                                                        Thank you for your attention.<br><br>
+                                                                        @else
                                                                         If you have any queries regarding the drawing, you can communicate them to the designer through the Temporary Works Portal.<br><br>
-                                                                        Regards, The Temporary Works Portal Team <br><br>
-                                                                        <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
+                                                                        
+                                                                        @endif
+                                                                        Regards,<br>The Temporary Works Portal Team <br><br>
+                                                                        <span style="font-size: 10px">If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk</span>
                                                                    </p>
                                                                 </span>
                                                             </td>

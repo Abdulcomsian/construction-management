@@ -24,7 +24,7 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        @if($type=='reply'){{\Auth::user()->name}} has replied to your question/comment.
+                                                                        @if($type=='reply'){{Auth::user()->name}} has replied to your question/comment.
                                                                         @elseif($type=='question' && $scan=="") The designer has added a question or comment to your design brief for {{$company}} that requires your reply.
                                                                         @elseif($type=='question' && $scan=="scan") A new comment (and photo) requires your action.  @endif<br>
                                                                         <h2 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:14px;font-weight:bold;margin-top:0;text-align:left">

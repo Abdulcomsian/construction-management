@@ -43,7 +43,7 @@
                                                                    </p>
                                                                    @endif
                                                                    
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you for your attention.<br><br>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Regards,The Temporary Works Portal Team <br><br>
                                                                         <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk</span>
                                                                    </p>

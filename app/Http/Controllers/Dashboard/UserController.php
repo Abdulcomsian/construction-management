@@ -382,12 +382,14 @@ class UserController extends Controller
                 @unlink($nomination->pdf_url);
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                 $user->project=$nomination->project;
+                $user->nominationid=$nomination->id;
                 Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));  
             }
             else{
                  Nomination::find($request->nominationid)->update(['status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                  $nomination=Nomination::find($request->nominationid);
                   $user->project=$nomination->project;
+                  $user->nominationid=$nomination->id;
                  Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));
             }
             DB::commit();

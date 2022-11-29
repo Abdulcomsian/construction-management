@@ -468,6 +468,7 @@ class TemporaryWorkController extends Controller
                         'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
                         'designer' => '',
                         'pc_twc' => '',
+                        
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',

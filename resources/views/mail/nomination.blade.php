@@ -33,10 +33,9 @@
                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         @if($comments)
                                                                         The Company has rejected your nomination form.<br> 
-                                                                        The designated individual comments are:<br>
-                                                                        <b>Comments</b>:<br>
+                                                                        The designated individual comments are:<br><br>
                                                                         {{$comments}}<br><br>
-                                                                        Please <a href="{{url('nomination-edit',Crypt::encrypt($user->id))}}">Click Here</a> to edit your nomination form and provide any additional information requested.
+                                                                        Please <a href="{{url('nomination-edit',Crypt::encrypt($user->nominationid))}}">Click Here</a> to edit your nomination form and provide any additional information requested.
                                                                         @else
                                                                         The designated individual has rejected your nomination form, therefore you will not be appointed as a TWC or TWS for the project.
                                                                         @endif
@@ -44,19 +43,33 @@
                                                                    </p>
                                                                     @else
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        {{$user->userCompany->name}} designated individual has nominated you as a Temporary Works Coordinator/Supervisor/Designer.
+                                                                        {{$user->userCompany->name}} designated individual has nominated you as a 
+                                                                        @php
+                                                                         if($user->roles->pluck('name')[0]=='user')
+                                                                         {
+                                                                            $role="Temporary works co-ordinator";
+                                                                         }elseif($user->roles->pluck('name')[0]=='supervisor')
+                                                                         {
+                                                                             $role="Temporary works supervisor";
+                                                                         }
+                                                                         elseif($user->roles->pluck('name')[0]=='scaffolder')
+                                                                         {
+                                                                            $role="Scaffolder";
+                                                                         }
+                                                                        @endphp
+                                                                        {{$role}}
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Please  <a href="{{url('nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($user->project)}}">Click Here</a> and complete your nomination form. 
                                                                         <br>   
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                       when {{$user->userCompany->name}} designated individual has accepted and appointed you, you can log into you temporary works portal, with your user email {{$user->email}}.
+                                                                       when {{$user->userCompany->name}} designated individual has accepted your nomination form, you will be able to log into your temporary works portal with your user email:  {{$user->email}}.
                                                                    </p>
                                                                     
                                                                    @endif
                                                                    
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Thank you<br><br>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Regards, The Temporary Works Portal Team <br><br>
                                                                         <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk</span>
                                                                    </p>

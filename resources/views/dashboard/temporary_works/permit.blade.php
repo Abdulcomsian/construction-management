@@ -904,7 +904,7 @@
                                                         <div class="canva_signature_div" style="width: 76%">
 
                                                             <br>
-                                                            <canvas id="sig" style="width:60%"></canvas>
+                                                            <canvas id="sig" ></canvas>
                                                         </div>
                                                     </div>
                                                 </div>

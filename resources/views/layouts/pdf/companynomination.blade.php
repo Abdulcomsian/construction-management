@@ -32,7 +32,7 @@
                     <td style="width: 400px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Project</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:12px;">{{$nomination->project ?? ''}}</td>
+                        <td colspan="3" style="width: 300px; font-size:12px;">{{$projectno?? ''}}</td>
                     </tr>
                     <tr style="height: 150px;">
                     <td style="width: 400px;background:gray;color:white">

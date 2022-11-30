@@ -377,11 +377,12 @@ class UserController extends Controller
                 
                 Nomination::find($request->nominationid)->update($all_inputs);
                 $nomination=Nomination::find($request->nominationid);
+                $projectdata=Project::find($nomination->project);
                 $courses=NominationCourses::where('nomination_id',$request->nominationid)->get();
                 $qualifications=NominationQualification::where('nomination_id',$request->nominationid)->get();
                 $experience=NominationExperience::where('nomination_id',$request->nominationid)->get();
                 $competence=NominationCompetence::where('nomination_id',$request->nominationid)->first();
-                $pdf = PDF::loadView('layouts.pdf.companynomination',['nomination'=>$nomination,'courses'=>$courses,'qualifications'=>$qualifications,'experience'=>$experience,'competence'=>$competence,'user'=>$user]);
+                $pdf = PDF::loadView('layouts.pdf.companynomination',['nomination'=>$nomination,'courses'=>$courses,'qualifications'=>$qualifications,'experience'=>$experience,'competence'=>$competence,'user'=>$user,'projectno'=>$projectdata->no]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);

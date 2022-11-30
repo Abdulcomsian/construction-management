@@ -1203,11 +1203,13 @@ class TemporaryWorkController extends Controller
                 $msg= Auth::user()->name .' has uploaded a permit to load to the Temporary Works Portal.';
                 // $msg = " Attached in the i-Works web portal for your attention is a PDF permit to load which has been created by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                 $message = "Load";
+                $actiontext="View Permit";
                 if (isset($request->type)) {
                     PermitLoad::find($request->permitid)->update(['status' => 0]);
                     $msg= Auth::user()->name .' has renewed a permit to load.';
                     // $msg = "Attached in the i-Works web portal for your attention is a PDF permit to load Renew by " . $request->company . " Ltd (" . $request->design_requirement_text . ").";
                     $message = "Renew";
+                    $actiontext="View Permit Renewal";
                 }
 
                 //save permit image
@@ -1233,7 +1235,7 @@ class TemporaryWorkController extends Controller
                         'name' => 'Permit Load',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
+                    'action_text' => $actiontext,
                     'action_url' => '',
                 ];
 
@@ -1450,7 +1452,7 @@ class TemporaryWorkController extends Controller
                         'name' => 'Permit Load',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
+                    'action_text' => 'View Permit',
                     'action_url' => '',
                 ];
 
@@ -1576,7 +1578,7 @@ class TemporaryWorkController extends Controller
                         'name' => 'Permit Unload',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
+                    'action_text' => 'View Permit',
                     'action_url' => '',
                 ];
                 Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
@@ -1752,7 +1754,7 @@ class TemporaryWorkController extends Controller
                         'name' => 'scaffold',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
+                    'action_text' => 'View Permit',
                     'action_url' => '',
                 ];
 
@@ -2014,7 +2016,7 @@ class TemporaryWorkController extends Controller
                         'name' => 'Permit-close',
                     ],
                     'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
+                    'action_text' => 'View Closed Permit',
                     'action_url' => '',
                 ];
             Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));

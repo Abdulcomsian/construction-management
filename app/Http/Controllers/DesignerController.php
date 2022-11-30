@@ -56,7 +56,7 @@ class DesignerController extends Controller
     }
     public function store(Request $request)
     {  
-        try {
+         try {
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
             $tempworkdata->tw_name=$request->twd_name;
             $tempworkdata->save();
@@ -122,7 +122,6 @@ class DesignerController extends Controller
                 $chm->message='Designer Uploaded Design';
                 $chm->status = 2;
                 $chm->save();
-                // dd($chm->status);
                 $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
                     'subject' => $subject,
@@ -133,7 +132,7 @@ class DesignerController extends Controller
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                         'ext' => '',
-                        'filetype'=>$$file_type,
+                        'filetype'=>$file_type,
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -188,7 +187,7 @@ class DesignerController extends Controller
                     $list .= '<th>No</th>';
                     $list .= '<th>Drawing No</th>';
                     $list .= '<th>Comments</th>';
-                    $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action</th>';
+                    $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action<br>View/Share/ send coment to designer</th>';
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
                      $background='';
@@ -309,7 +308,7 @@ class DesignerController extends Controller
                 $list .= '<th>No</th>';
                 $list .= '<th>Drawing No</th>';
                 $list .= '<th>Comments</th>';
-                $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action</th>';
+                $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action<br>View/Share/ send coment to designer</th>';
                     $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';

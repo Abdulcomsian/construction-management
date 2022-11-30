@@ -22,7 +22,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello!</h1>
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         @if($type=='reply'){{Auth::user()->name}} has replied to your question/comment.
                                                                         @elseif($type=='question' && $scan=="") The designer has added a question or comment to your design brief for {{$company}} that requires your reply.
@@ -39,14 +39,14 @@
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         @if($type=='question' && $scan!='scan')
                                                                         Please click the link below to view the question or comment and to provide your reply.<br><br>
-                                                                        <a href="{{url('temporary_works')}}">View Question</a><br><br>
+                                                                        <a href="{{url('temporary_works')}}">Click here to view the question or comment</a><br><br>
                                                                         Replying to the question or commenting directly through the Temporary Works Portal portal is essential. Please do not email your answer outside the portal because there will be no record of your reply on the Temporary Works Portal system. 
                                                                         @elseif($type=='question' && $scan=='scan')
                                                                          <a href="{{url('temporary_works')}}">View New Comment</a><br>
                                                                          Please view the comment and provide a reply to it.<br><br>
                                                                          You may use the link above to access the comment or view it directly from the Temporary Works Portal hub by clicking the icon in the permit to load column.
                                                                         @else
-                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">View Reply</a><br><br>
+                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply</a><br><br>
                                                                         Within the Temporary Works Portal, you will be able to:<br> 
                                                                         1. Send comments or ask a question to the person who provided the reply.<br>
                                                                         2. Upload preliminary and construction issue drawings.<br> 

@@ -97,6 +97,8 @@
                             <tbody>
                                 
                                 <tr>
+                                    <td style="width:30px">Name:</td>
+                                    <td>{{$user->name}}</td>
                                     <td style="width:80px">
                                      Signature:
                                     </td>
@@ -115,6 +117,8 @@
                                 
                                 <br>
                                 <tr>
+                                    <td style="width:30px">Name:</td>
+                                    <td>{{$user->userCompany->name}}</td>
                                     <td style="width:80px">
                                         Signature:
                                     </td>

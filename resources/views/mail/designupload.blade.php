@@ -22,7 +22,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello! 
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello
                                                                         {{-- @if(isset($details['body']['type']) && $details['body']['type']=='desingbrief')
                                                                          {{ $details['body']['company'] }}
                                                                         @endif --}}
@@ -51,13 +51,17 @@
 
                                                                    @else
                                                                     <p>
-                                                                        @if(isset($details['body']['filetype']) && $details['body']['filetype']=2)
+                                                                        @if(isset($details['body']['filetype']) && $details['body']['filetype']==2)
+                                                                        @php $name="design check certificate";@endphp
                                                                         <a href="{{url('temporary_works')}}">View Design Check Certificate</a>
-                                                                        @elseif(isset($details['body']['filetype']) && $details['body']['filetype']=5)
+                                                                        @elseif(isset($details['body']['filetype']) && $details['body']['filetype']==5)
+                                                                        @php $name="risk assessment";@endphp
                                                                          <a href="{{url('temporary_works')}}">View Risk Assessment. </a>
-                                                                        @elseif(isset($details['body']['filetype']) && $details['body']['filetype']=6)
+                                                                        @elseif(isset($details['body']['filetype']) && $details['body']['filetype']==6)
+                                                                        @php $name="calculations/designs";@endphp
                                                                         <a href="{{url('temporary_works')}}">View Calculations/Design Notes.</a>
                                                                         @else
+                                                                        @php $name="drawing";@endphp
                                                                          <a href="{{url('temporary_works')}}">view Details.</a>
 
                                                                         @endif
@@ -68,7 +72,7 @@
                                                                         If you have questions about the brief, please refer them to {{ $details['body']['company'] }}<br><br>
                                                                         Thank you for your attention.<br><br>
                                                                         @else
-                                                                        If you have any queries regarding the drawing, you can communicate them to the designer through the Temporary Works Portal.<br><br>
+                                                                        If you have any queries regarding the {{$name ?? 'drawing'}}, you can communicate them to the designer through the Temporary Works Portal.<br><br>
                                                                         
                                                                         @endif
                                                                         Regards,<br>The Temporary Works Portal Team <br><br>

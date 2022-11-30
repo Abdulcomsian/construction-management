@@ -25,7 +25,8 @@ use Notification;
 use Auth;
 use PDF;
 use DB;
-use Illuminate\Support\Facades\Password;
+use Carbon\Carbon;
+use App\Notifications\PasswordResetNotification;
 
 class UserController extends Controller
 {
@@ -182,9 +183,14 @@ class UserController extends Controller
             {
               Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
             }
-            Password::sendResetLink(
-            $request->only('email')
-            );
+            $token = app(\Illuminate\Auth\Passwords\PasswordBroker::class)->createToken($user);
+  
+            DB::table('password_resets')->insert([
+              'email' => $request->email, 
+              'token' => $token, 
+              'created_at' => Carbon::now()
+            ]);
+            Notification::route('mail', $request->email)->notify(new PasswordResetNotification($token,$request->email));
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {

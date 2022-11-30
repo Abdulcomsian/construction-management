@@ -170,10 +170,10 @@ height: 72px;
             height: 220px;
         }
 
-        #sig canvas {
+        /*#sig canvas {
             width: 50% !important;
             max-height: 200px;
-        }
+        }*/
         .modalDiv{
             width:100% ;
         }

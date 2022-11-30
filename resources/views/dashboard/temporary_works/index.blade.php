@@ -770,7 +770,7 @@
                                     @forelse($temporary_works as $item)
                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
                                        <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
-                                          @if(\Auth::user()->hasRole([['company','admin']]))
+                                          @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
                                                 <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
                                             @else

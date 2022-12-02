@@ -65,6 +65,8 @@
                     <!--begin::User-->
                     <div class="d-flex align-items-stretch" id="kt_header_user_menu_toggle">
                         <!--begin::Menu wrapper-->
+                         <!-- notification work here -->
+                       
                         <div
                             class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px"
                             data-kt-menu-trigger="click" data-kt-menu-attach="parent"

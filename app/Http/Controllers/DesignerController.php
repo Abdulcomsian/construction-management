@@ -46,7 +46,7 @@ class DesignerController extends Controller
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Checker'])->orderBy('id','desc')->update(['status'=>1]);
         }
         
-        $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
+        $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->orderBy('id','desc')->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
@@ -62,7 +62,7 @@ class DesignerController extends Controller
             $tempworkdata->save();
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
-            $model = new TempWorkUploadFiles();
+            $model = new TempWorkUploadFiles(); 
              if(isset($request->designermail))
             {
                 $model->created_by = $request->designermail;
@@ -77,13 +77,18 @@ class DesignerController extends Controller
                 $text = $model->created_by.' has uploaded a design check certificate to the Temporary Works Portal.';
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                 $model->file_name = $imagename;
             } else {
                 $file_type = 1;
-                $file = $request->file('file');
-                //$ext = $request->file[0]('file')->extension();
+                if($request->file('file'))
+                {
+                    $file = $request->file('file');
+                    $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
+                    $model->file_name = $imagename;
+                }
+               
                 $subject = 'TWP – Design/Drawing Uploaded-' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
                 $text =$model->created_by .' has uploaded a new drawing to the Temporary Works Portal.';
-                $model->drawing_number = $request->drawing_number;
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
                 $model->drawing_title = $request->drawing_title;
@@ -94,10 +99,12 @@ class DesignerController extends Controller
                         
                         $model->preliminary_approval = 1;
                         $model->construction = 2;
+                        $model->drawing_number = $request->drawing_number.'-P'.$request->drawing_postfix_no;
                     }
                     else{
                         $model->preliminary_approval = 2;
                         $model->construction = 1;
+                        $model->drawing_number = $request->drawing_number.'-C'.$request->drawing_postfix_no;
                     }
                 }
                 else{
@@ -106,11 +113,11 @@ class DesignerController extends Controller
                 }
                 
                 
-                $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
+               
             }
            
             
-            $model->file_name = $imagename;
+            
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
             if ($model->save()) {
@@ -171,13 +178,13 @@ class DesignerController extends Controller
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
                        $query->whereIn('created_by',$coordinators)
                        ->orWhere('created_by',auth()->user()->email);
-                      })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->latest()->get();
+                      })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }
                else{
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
                        $query->where(['created_by'=>auth()->user()->email])
                        ->orWhere('created_by','hani.thaher@gmail.com');
-                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->latest()->get();
+                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }
                
                if($registerupload)
@@ -191,23 +198,32 @@ class DesignerController extends Controller
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
                      $background='';
+                     $userList = []; 
+                            
                      $checksamenodesign='';
                     foreach ($registerupload as $uploads) {
                         $papproval = 'No';
                         $construction = 'No';
+                        $dno=explode('-',$uploads->drawing_number);
+                        $drawinglastno=$dno[sizeof($dno)-1];
+                        $sliced = array_slice($dno, 0, -1);
+                        $string = implode("-", $sliced);
+
+                        $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
+                        $fullString=$string.$remove_p_c;
+                        if(!in_array($fullString,$userList))
+                        {
+                            $userList[] = $fullString;
+
+                            $background = $uploads->preliminary_approval==1 ? 'yellow' : 'lightgreen'; 
+                        
+                        }else{
+                            $background = "";
+                        }
                         if ($uploads->preliminary_approval == 1) {
-                            if($uploads->drawing_number==$checksamenodesign)
-                            {
-                                $background = '';
-                            }else{
-                                 $background = 'yellow'; 
-                                 $checksamenodesign=$uploads->drawing_number;
-                            }
-                            
                             
                             $papproval = 'Yes';
                         } elseif ($uploads->construction == 1) {
-                            $background = 'lightgreen';
                             $construction = 'Yes';
                         }
 
@@ -291,7 +307,7 @@ class DesignerController extends Controller
         
         for($j=0;$j<count($designearray);$j++)
         {
-            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->get();            
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->orderBy('id','desc')->get();            
             $i = 1;
             if($DesignerUploads)
             {
@@ -312,23 +328,33 @@ class DesignerController extends Controller
                     $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';
-                $checksamenodesign='';
+                
+                $userList=[];
                 foreach ($DesignerUploads as $uploads) {
                     $papproval = 'No';
                     $construction = 'No';
-                    if ($uploads->preliminary_approval == 1) {
-                        if($uploads->drawing_number==$checksamenodesign)
+                     $dno=explode('-',$uploads->drawing_number);
+                        $drawinglastno=$dno[sizeof($dno)-1];
+                        $sliced = array_slice($dno, 0, -1);
+                        $string = implode("-", $sliced);
+
+                        $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
+                        $fullString=$string.$remove_p_c;
+                        if(!in_array($fullString,$userList))
                         {
-                            $background = '';
+                            $userList[] = $fullString;
+
+                            $background = $uploads->preliminary_approval==1 ? 'yellow' : 'lightgreen'; 
+                        
                         }else{
-                             $background = 'yellow'; 
-                             $checksamenodesign=$uploads->drawing_number;
+                            $background = "";
                         }
-                        $papproval = 'Yes';
-                    } elseif ($uploads->construction == 1) {
-                        $background = 'lightgreen';
-                        $construction = 'Yes';
-                    }
+                        if ($uploads->preliminary_approval == 1) {
+                            
+                            $papproval = 'Yes';
+                        } elseif ($uploads->construction == 1) {
+                            $construction = 'Yes';
+                        }
 
                     $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                     $list .= '<td>' . $i . '</td>';
@@ -1072,5 +1098,13 @@ class DesignerController extends Controller
         $i++;
      }
      echo $list;
+   }
+
+
+   public function Designdelte($id)
+   {
+      TempWorkUploadFiles::find($id)->delete();
+      toastSuccess('Desing Deleted Successfully');
+      return Redirect::back();
    }
 }

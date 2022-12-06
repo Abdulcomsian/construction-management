@@ -219,6 +219,8 @@
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <input type="hidden" name="tempworkid" value="{{$id}}">
                         <input type="hidden" name="designermail" value="{{$mail}}">
+                        <!-- <input type="hidden" name="type" value="Add" id="formtype" />
+                        <input type="hidden" name="designid" value="" id="designid"> -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -229,10 +231,15 @@
                                                 <span class="required">Drawing No:</span>
 
                                             </label>
-                                            <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number" value="{{old('drawing_number')}}" required="required">
+                                            <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number"  name="drawing_number" value="{{old('drawing_number')}}" required="required" style="width:34%">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="border:none" id="drawingno-addon">P</span>
+                                              </div>
+                                            <input type="number" max="99" onKeyDown="limitText(this,2);" 
+                                                onKeyUp="limitText(this,2);" class="form-control form-control-solid" placeholder="01" name="drawing_postfix_no" required="required" style="width: 10%">
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->
@@ -253,6 +260,7 @@
                                                 <span class="required">Designer Name:</span>
                                             </label>
                                             <!--end::Label-->
+
                                             <input type="text" class="form-control form-control-solid" placeholder="Designer Name" id="twd_name" name="twd_name" value="{{old('twd_name')}}" required>
                                         </div>
                                     </div>
@@ -279,6 +287,9 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="file" class="form-control form-control-solid" id="file" name="file[]" style="background: #f5f8fa" required>
+                                        </div>
+                                        <div style="text-align: center;">
+                                            <img class="d-none" width="100" height="100" id="editimage">
                                         </div>
                                     </div>
                                     <div class="col-md-6 d-flex">
@@ -366,16 +377,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php  $l=1; @endphp
+                            @php  
+                              $l=1; 
+                              $background='';
+                              $userList = []; 
+                            @endphp
+                            
                             @foreach($DesignerUploads as $uploads)
                             @php
-                            
-                            if($uploads->preliminary_approval==1)
+                            $dno=explode('-',$uploads->drawing_number);
+                            $drawinglastno=$dno[sizeof($dno)-1];
+                            $sliced = array_slice($dno, 0, -1);
+                            $string = implode("-", $sliced);
+
+                            $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
+                            $fullString=$string.$remove_p_c;
+                            if(!in_array($fullString,$userList))
                             {
-                            $background='yellow';
-                            }
-                            elseif($uploads->construction==1){
-                            $background='lightgreen';
+                                $userList[] = $fullString;
+
+                                $background = $uploads->preliminary_approval==1 ? 'yellow' : 'lightgreen'; 
+                            
+                            }else{
+                                $background = "";
                             }
 
                             $comments=\App\Models\DrawingComment::where('temp_work_upload_files_id',$uploads->id)->get();
@@ -388,7 +412,10 @@
                                 <td class="border">{{$uploads->drawing_title}}</td>
                                 <td class="border">{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
                                 <td class="border">{{$uploads->construction==1 ? 'Yes':'No'}}</td>
-                                <td class="border"><form method="post" action="{{route('drawing.comment')}}">
+                                <td class="border">
+                                    <!-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button>
+                                    <a class="btn" href="{{route('designer.delete',$uploads->id)}}"><i class="fas fa-trash"></i></a> -->
+                                    <form method="post" action="{{route('drawing.comment')}}">
                                         @csrf
                                         <textarea class="form-control" required name="comment"></textarea><br>
                                         <input type="hidden" name="drawingid" value="{{$uploads->id}}">
@@ -569,7 +596,6 @@
 <script type="text/javascript">
     $('input[name="preliminary_approval"]').on('click', function() {
         var val = $(this).val();
-        console.log(val);
         if (val == 1) {
             $("[datacheck='no']").prop('checked', true);
             $("[datacheck='yes']").prop('checked', false);
@@ -590,6 +616,44 @@
             $("[datacheck1='yes']").prop('checked', true);
         }
     })
+
+    $('input[name="status"]').on('click', function() {
+        var val = $(this).val();
+        if (val == 1) {
+          $("#drawingno-addon").text("P");   
+        } else {
+            $("#drawingno-addon").text("C");
+        }
+    })
+
+
+
+    function Editdesign(data)
+    {
+        $("#designid").val(data.id);
+        $("#drawing_number").val(data.drawing_number);
+        $("#comments").val(data.comments);
+        $("#twd_name").val(data.twd_name);
+        $("#drawing_title").val(data.drawing_title);
+        $("#editimage").attr('src',data.file_name);
+        $("#editimage").removeClass('d-none');
+        if(data.preliminary_approval == 1)
+        {
+            $("#exampleRadios1").prop('checked',true);
+        }
+        else{
+            $("#exampleRadios2").prop('checked',true);
+        }
+        $("#file").removeAttr('required');
+        $("#formtype").val('Edit');
+    }
+
+
+    function limitText(limitField, limitNum) {
+    if (limitField.value.length > limitNum) {
+        limitField.value = limitField.value.substring(0, limitNum);
+    }
+}
 
     // $("#designcheck").on('change',function(){
     //     if($(this).is(":checked"))

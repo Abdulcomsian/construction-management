@@ -188,6 +188,67 @@
             </table>
         </div>
         <div class="tableDiv paddingTable" style="margin: 10px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
+                    <p><b>Competence</b> - Indicate level of experience gained on the various types of temporary works, using key below and ticking the relevant boxes in the table on the subsequent page
+                    </p>
+            </div>
+            <table>
+                <thead style="display: none">
+                    <tr>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;"></td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;"></td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size:12px;">
+                           N
+                         </td>
+                        <td style="font-size:12px;">
+                           None
+                        </td>
+                        <td style="font-size:12px;">
+                           No previous experience.
+                        </td>
+                    </tr>
+                     <tr>
+                        <td style="font-size:12px;">
+                           A
+                         </td>
+                        <td style="font-size:12px;">
+                           Appreciation
+                        </td>
+                        <td style="font-size:12px;">
+                            Worked with this type of temporary works, but with no direct involvement.
+                        </td>
+                    </tr>
+                     <tr>
+                        <td style="font-size:12px;">
+                          K
+                         </td>
+                        <td style="font-size:12px;">
+                           Knowledge
+                        </td>
+                        <td style="font-size:12px;">
+                           Worked with this type of temporary works, but with no direct involvement but has a basic knowledge & understanding.
+                        </td>
+                    </tr>
+                     <tr>
+                        <td style="font-size:12px;">
+                           E
+                         </td>
+                        <td style="font-size:12px;">
+                           Experience
+                        </td>
+                        <td style="font-size:12px;">
+                           Worked with this type of temporary works, with direct involvement as a designer or inspector.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin: 10px 0px;">
             <table class="table tableBordered">
                         <thead>
                             <tr>

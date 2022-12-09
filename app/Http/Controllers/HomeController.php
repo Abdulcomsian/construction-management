@@ -708,6 +708,7 @@ class HomeController extends Controller
     //appointment save
     public function User_Appointment_save(Request $request)
     {
+
         $user=User::with('userCompany')->find($request->user_id);
         $company=User::find($user->userCompany->id);
         $nomination=Nomination::with('projectt')->find($request->nominationId);
@@ -731,11 +732,21 @@ class HomeController extends Controller
         $file = $folderPath . $image_name;
         file_put_contents($file, $image_base64);
         }
-        $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]);
-                    $path = public_path('pdf');
-                    $filename =$user->id.'appointment.pdf';
-                    @unlink($path . '/' . $filename);
-                    $pdf->save($path . '/' . $filename);
+        if($user->roles->pluck('name')[0]=='user')
+        {
+           $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]); 
+        }elseif($user->roles->pluck('name')[0]=='supervisor')
+        {
+            $pdf = PDF::loadView('layouts.pdf.tws-appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]);
+        }
+        else{
+            $pdf = PDF::loadView('layouts.pdf.twc-appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]);
+        }
+        //return $pdf->stream('document.pdf');
+        $path = public_path('pdf');
+        $filename =$user->id.'appointment.pdf';
+        @unlink($path . '/' . $filename);
+        $pdf->save($path . '/' . $filename);
         //old senerio work
 
         // User::find($request->user_id)->update([
@@ -745,7 +756,7 @@ class HomeController extends Controller
         // ]);
 
         //new senerio work
-        // DB::table('users_has_projects')->where(['user_id'=>$request->user_id,'project_id'=>$nomination->project])->update([
+        //  DB::table('users_has_projects')->where(['user_id'=>$request->user_id,'project_id'=>$nomination->project])->update([
         //     'appointment_pdf'=>$filename,
         //     'appointment_signature'=>$image_name,
         //     'appointment_date'=>$request->date,

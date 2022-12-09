@@ -9,13 +9,19 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DesignerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-
+use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 
 
 Route::get('/',function(){
     return view('auth.login');
 });
+
+//check pdf
+// Route::get('/check-pdf',function(){
+//     $pdf = PDF::loadView('layouts.pdf.appointment');
+//         return $pdf->stream('document.pdf');
+// });
 
 //cron job for permit
 Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);

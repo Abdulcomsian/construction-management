@@ -239,7 +239,7 @@
                                        &nbsp;&nbsp;
                     
                                   </div>
-                            </form>
+                            
                         </div>
                         <div class="col-md-6">
                             <div class="input-group mb-3 row">
@@ -250,6 +250,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
                         </div>
+                        </form>
                     </div>
                     <div class="row">
                         <div class="col" style="margin: 0 10px">
@@ -389,7 +390,7 @@
                                             <span class="input-group-text" style="border:none" id="drawingno-addon">P</span>
                                         </div>
                                             <input type="number" max="99" onKeyDown="limitText(this,2);"
-                                                    onKeyUp="limitText(this,2);" class="form-control form-control-solid" placeholder="01" name="drawing_postfix_no" required="required" style="width: 10%">
+                                                    onKeyUp="limitText(this,2);" class="form-control form-control-solid" placeholder="01" name="drawing_postfix_no" required="required" style="width: 20%">
                                     </div>
                                 </div>
                             </div>
@@ -433,7 +434,7 @@
                                             <th>Drawing Title</th>
                                             <th>Preliminary / For Approval</th>
                                             <th>For Construction</th>
-                                            <th></th>
+                                            <th>Comments</th>
                                         </tr>
                                     </thead>
                                     <tbody>

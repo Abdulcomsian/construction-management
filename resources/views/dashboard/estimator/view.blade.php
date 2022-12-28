@@ -193,10 +193,10 @@
                                     <td>-</td>
                                     <td>
                                        
-                                        <a href="{{url('Estimator/estimator-designer/details',$id.'/'.$designer->id)}}"><i class="fa fa-eye"></i>
+                                        <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
                                         </a>
 
-                                        <a href="{{url('Estimator/estimator-designer/comments',$id.'/'.$designer->id)}}"><i class="fa fa-comments"></i>
+                                        <a href="{{url('Estimator/estimator-designer/comments',$designer->id).'?estid='.$id}}"><i class="fa fa-comments"></i>
                                         </a>
 
                                         <a href=""><i class="fa fa-check"></i>

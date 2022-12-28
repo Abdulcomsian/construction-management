@@ -25,6 +25,12 @@ class RolesTableSeeder extends Seeder
                 'name' => 'supervisor'
             ], [
                 'name' => 'scaffolder'
+            ],[
+                'name' => 'estimator'
+            ],[
+                'name' => 'designer'
+            ],[
+                'name'=>'supplier'
             ]
         ];
 

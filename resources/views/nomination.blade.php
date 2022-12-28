@@ -274,7 +274,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a type="button" href="{{url('nomination-edit',\Crypt::encrypt($nomination->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                <a type="button" href="{{url('Nomination/nomination-edit',\Crypt::encrypt($nomination->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                       <i class="fa fa-edit" aria-hidden="true"></i>  
                                 </a>
                                 <button type="button"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" >
@@ -286,7 +286,7 @@
                     </tbody>
                 </table>
                 @else
-                <form id="nominationform" action="{{url('nomination-save')}}" method="post" enctype="multipart/form-data">
+                <form id="nominationform" action="{{url('Nomination/nomination-save')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="user_id" value="{{$user->id}}">
                     <div class="card-body pt-0">
@@ -1094,7 +1094,7 @@
         let project=$(this).attr('data-project');
         $.ajax({
                 type: 'GET',
-                url: '{{url("nomination-commetns")}}',
+                url: '{{url("Nomination/nomination-commetns")}}',
                 data:{Userid,project},
                 success: function(data) {
                     $("#nomination_result").html(data);

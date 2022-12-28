@@ -23,7 +23,7 @@
             <!--begin::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="desingform" action="{{url('nomination-chagnestatus')}}" method="post" enctype="multipart/form-data">
+                    <form id="desingform" action="{{url('Nomination/nomination-chagnestatus')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="nominationid" id="nominationid">
                         <input type="hidden" name="userid" id="userid">

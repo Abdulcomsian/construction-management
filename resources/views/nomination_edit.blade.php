@@ -243,7 +243,7 @@
                         <h1>Edit Nomination Form</h1>
                     </div>
                 </div>
-                <form action="{{url('nomination-update')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('Nomination/nomination-update')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="user_id" value="{{$user->id}}">
                     <div class="card-body pt-0">

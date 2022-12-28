@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'User Project Details'])
+@extends('layouts.dashboard.master',['title' => 'Designer List'])
 @section('styles')
 <style>
      .aside-enabled.aside-fixed.header-fixed .header{
@@ -20,11 +20,6 @@
         margin: 0px 29px;
         margin-right: 0px;
     }
-
-    /*.newDesignBtn:hover {*/
-    /*    color: rgba(222, 13, 13, 0.66);*/
-    /*}*/
-
     .card>.card-body {
         padding: 32px;
     }
@@ -140,6 +135,7 @@ background-color: #07d564 !important;
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
+@include('layouts.datatables.datatables_css')
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -150,7 +146,7 @@ background-color: #07d564 !important;
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">User Project Nominations Details</h1>
+                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Designers</h1>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -170,6 +166,11 @@ background-color: #07d564 !important;
                     <div class="card-title">
                         <h2>Users</h2>
                     </div>
+                    <!--begin::Card toolbar-->
+                     @if(\Auth::user()->hasRole(['admin', 'company']))
+                      <a href="{{ route('designer.create') }}" value="add" class="newDesignBtn btn">Add Desinger</a>
+                     @endif
+                    <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
 
@@ -185,150 +186,63 @@ background-color: #07d564 !important;
                                     <th class="min-w-125px">S.No</th>
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Company Name</th>
-                                    <th class="min-w-125px">Project</th>
-                                    <th class="min-w-125px">Nomination PDF</th>
-                                    <th class="min-w-125px">Appointment PDF</th>
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
-                                <!--end::Table row-->
                             </thead>
-                            <!--end::Table head-->
-                            <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                @foreach($project_wise_nominations as $nomination)
-                                <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>{{$nomination->user->name}}</td>
-                                    <td>{{$nomination->user->email}}</td>
-                                    <td>{{$nomination->user->userCompany->name}}</td>
-                                    <td>{{$nomination->projectt->name}}</td>
-                                    <td><a href="{{asset('pdf').'/'.$nomination->pdf_url}}">PDF</a></td>
-                                     <td>
-                                        @if($nomination->appointment_pdf)
-                                        <a href="{{asset('pdf').'/'.$nomination->appointment_pdf}}">PDF</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @php 
-                                            $class='';
-                                             if($nomination->status==0)
-                                             {
-                                                 $class="text-warning";
-                                             }elseif($nomination->status==1)
-                                             {
-                                                 $class="text-success";
-                                             }
-                                             else{
-                                                 $class="text-danger";
-                                             }
-
-                                        @endphp
-                                        <button type="button" userid="{{$nomination->user->id}}" nominationid="{{$nomination->id}}" project="{{$nomination->project}}" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm " title="View Nomination Comments">
-                                        <i class="fa fa-comment {{$class}}" aria-hidden="true"></i>
-                                        
-                                        </button>
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
-                            <!--end::Table body-->
                         </table>
                     </div>
-                    <!--end::Table-->
-                </div>
-                <!--end::Card body-->
+                </div>  
             </div>
-            <!--end::Card-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Post-->
 </div>
+@include('dashboard.modals.project')
 @endsection
+@php
+$columns = "[
+{ render: function (data, type, row, meta) {
+return meta.row + meta.settings._iDisplayStart + 1;
+}
+},
+{data: 'name', name: 'name',defaultContent: '-'},
+{data: 'email', name: 'email',defaultContent: '-'},
+{data: 'action', name: 'action', orderable: false, searchable: false},
+]";
+$url = route('designer.list');
+$data = [
+'columns' => $columns,
+'url' => $url,
+];
+@endphp
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-@include('dashboard.modals.nomination_comment')
-<script type="text/javascript">
-     var canvas = document.getElementById("sig");
-     var signaturePad = new SignaturePad(canvas);
-     signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
-              $("#signature").val(signaturePad.toDataURL('image/png'));
-            });
+@include('layouts.datatables.datatables_js',['data' => $data])
+@include('layouts.dashboard.ajax_call')
+<script>
+    $(document).ready(function() {
+        @if($errors->any())
+        $('#project_modal_id').modal('show');
+        @endif
+    });
+
     $(document).on("click",".nominationcomment",function(){
         let nomination_id=$(this).attr('nominationid');
         let userid=$(this).attr('userid');
-        let project=$(this).attr("project");
         $("#nominationid").val(nomination_id);
 
         $.ajax({
                 type: 'GET',
-                url: '{{url("Nomination/nomination-get-commetns")}}',
-                data:{id:nomination_id,userid:userid,project:project},
+                url: '{{url("nomination-get-commetns")}}',
+                data:{id:nomination_id,userid:userid},
                 success: function(data) {
                     $("#nomination_result").html(data);
                     $("#nominationid").val(nomination_id);
                     $("#userid").val(userid);
-                    $("#project_id").val(project);
                     $("#nomination_comment_modal_id").modal('show');
                 }
             });
-    })
-
-        $("#flexCheckChecked").change(function(){
-        if($(this).is(':checked'))
-        {
-            $("#pdfChecked").prop('checked',false);
-            $("#signtype").val(1);
-             $("#pdfsign").val(0);
-            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-            $("#namesign").addClass('d-flex').show();
-            $(".customSubmitButton").removeClass("hideBtn");
-            $(".customSubmitButton").addClass("showBtn");
-             $("input[name='pdfsign']").removeAttr('required');
-            $("input[name='namesign']").attr('required','required');
-            $("#clear").hide();
-            $("#sign").removeClass('d-flex').hide();
-           
-        }
-        else{
-            $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
-            $("#namesign").removeClass('d-flex').hide();
-            $("input[name='namesign']").removeAttr('required');
-            $("#clear").show();
-            $(".customSubmitButton").addClass("hideBtn");
-            $(".customSubmitButton").removeClass("showBtn");
-        }
-    })
-
-    $("#pdfChecked").change(function(){
-
-        if($(this).is(':checked'))
-        {
-            $("#flexCheckChecked").prop('checked',false);
-            $("#pdfsign").val(1);
-            $("#signtype").val(0);
-            $("input[name='pdfsign']").attr('required','required');
-            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
-            $("#namesign").removeClass('d-flex').hide();
-            $("input[name='namesign']").removeAttr('required');
-            $("#clear").hide();
-            $("#sign").removeClass('d-flex').hide();
-           
-        }
-        else{
-            $("#pdfsign").val(0);
-            $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
-            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-            $("#namesign").removeClass('d-flex').hide();
-            $("input[name='namesign']").removeAttr('required');
-            $("input[name='pdfsign']").removeAttr('required');
-            $("#clear").show();
-             
-        }
     })
 </script>
 @endsection

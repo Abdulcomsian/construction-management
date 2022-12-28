@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Users'])
+@extends('layouts.dashboard.master',['title' => 'Supplier'])
 @section('styles')
 <style>
     .addBtn {
@@ -74,7 +74,7 @@ background-color: #07d564 !important;
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Add User</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Add Supplier</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -92,7 +92,7 @@ background-color: #07d564 !important;
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">User</li>
+                    <li class="breadcrumb-item text-muted">Supplier</li>
                     <!--end::Item-->
                     <!--begin::Item-->
                     <li class="breadcrumb-item">
@@ -100,7 +100,7 @@ background-color: #07d564 !important;
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-dark">Add User</li>
+                    <li class="breadcrumb-item text-dark">Add Supplier</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -120,19 +120,19 @@ background-color: #07d564 !important;
 
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
-                    <form method="post" action="{{ route('users.store') }}">
+                    <form method="post" action="{{ route('suppliers.store') }}">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="required fs-6 fw-bold mb-2">User Name</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="User Name" name="name" value="{{old('name')}}" />
+                                    <label class="required fs-6 fw-bold mb-2">Supplier Name</label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Supplier Name" name="name" value="{{old('name')}}" />
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="required fs-6 fw-bold mb-2">User Email</label>
-                                    <input type="email" class="form-control form-control-solid" placeholder="User Email" name="email" value="{{old('email')}}" />
+                                    <label class="required fs-6 fw-bold mb-2">Supplier Email</label>
+                                    <input type="email" class="form-control form-control-solid" placeholder="Supplier Email" name="email" value="{{old('email')}}" />
                                 </div>
 
                             </div>
@@ -160,10 +160,7 @@ background-color: #07d564 !important;
                                     <label class="required fs-6 fw-bold mb-2">Select Role</label>
                                     <select name="role" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                         <option value="">Select Role</option>
-                                        <option value="user">Temporary works co-ordinator</option>
-                                        <option value="supervisor">Temporary works supervisor</option>
-                                        <option value="scaffolder">Scaffolder</option>
-                                        <option value="estimator">Estimator</option>
+                                        <option value="supplier" selected>Supplier</option>
                                     </select>
                                 </div>
                             </div>

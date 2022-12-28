@@ -70,6 +70,15 @@ class Validations
         ]);
     }
 
+    public function storeDesigner($request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
     public static function assignProject($request)
     {
         $request->validate([
@@ -89,10 +98,18 @@ class Validations
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'company_id' => ['required', 'min:1',],
-            'projects' => ['required', 'array', 'min:1',],
+            // 'projects' => ['required', 'array', 'min:1',],
         ], [
-            'projects.*' => 'The project name field is required.',
+            // 'projects.*' => 'The project name field is required.',
             'company_id.*' => 'The company name field is required.',
+        ]);
+    }
+
+    public static function updateDesigner($request, $id)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
         ]);
     }
 
@@ -123,6 +140,13 @@ class Validations
             'signed' => 'required_if:signtype,2',
             'namesign' => 'required_if:signtype,1',
             'pdfphoto'=>'required_if:pdfsigntype,1',
+        ]);
+    }
+
+    public static function storeEstimatorWork($request)
+    {
+        $request->validate([
+            'project_id' => ['required', 'max:255', 'exists:projects,id'],
         ]);
     }
 

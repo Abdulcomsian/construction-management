@@ -35,7 +35,7 @@
                                                                         The Company has rejected your nomination form.<br> 
                                                                         The designated individual comments are:<br><br>
                                                                         {{$comments}}<br><br>
-                                                                        Please <a href="{{url('nomination-edit',Crypt::encrypt($user->nominationid))}}">Click Here</a> to edit your nomination form and provide any additional information requested.
+                                                                        Please <a href="{{url('Nomination/nomination-edit',Crypt::encrypt($user->nominationid))}}">Click Here</a> to edit your nomination form and provide any additional information requested.
                                                                         @else
                                                                         The designated individual has rejected your nomination form, therefore you will not be appointed as a TWC or TWS for the project.
                                                                         @endif
@@ -60,7 +60,7 @@
                                                                         {{$role}}
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Please  <a href="{{url('nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($user->project)}}">Click Here</a> and complete your nomination form. 
+                                                                        Please  <a href="{{url('Nomination/nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($user->project)}}">Click Here</a> and complete your nomination form. 
                                                                         <br>   
                                                                    </p>
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">

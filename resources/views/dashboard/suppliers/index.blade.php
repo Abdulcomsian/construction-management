@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'User Project Details'])
+@extends('layouts.dashboard.master',['title' => 'Suppliers'])
 @section('styles')
 <style>
      .aside-enabled.aside-fixed.header-fixed .header{
@@ -20,11 +20,6 @@
         margin: 0px 29px;
         margin-right: 0px;
     }
-
-    /*.newDesignBtn:hover {*/
-    /*    color: rgba(222, 13, 13, 0.66);*/
-    /*}*/
-
     .card>.card-body {
         padding: 32px;
     }
@@ -140,6 +135,7 @@ background-color: #07d564 !important;
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
+@include('layouts.datatables.datatables_css')
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -150,7 +146,7 @@ background-color: #07d564 !important;
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">User Project Nominations Details</h1>
+                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Suppliers</h1>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -170,6 +166,11 @@ background-color: #07d564 !important;
                     <div class="card-title">
                         <h2>Users</h2>
                     </div>
+                    <!--begin::Card toolbar-->
+                     @if(\Auth::user()->hasRole(['admin', 'company']))
+                      <a href="{{ route('suppliers.create') }}" value="add" class="newDesignBtn btn">Add Supplier</a>
+                     @endif
+                    <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
 
@@ -186,9 +187,6 @@ background-color: #07d564 !important;
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
                                     <th class="min-w-125px">Company Name</th>
-                                    <th class="min-w-125px">Project</th>
-                                    <th class="min-w-125px">Nomination PDF</th>
-                                    <th class="min-w-125px">Appointment PDF</th>
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -196,41 +194,6 @@ background-color: #07d564 !important;
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                @foreach($project_wise_nominations as $nomination)
-                                <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>{{$nomination->user->name}}</td>
-                                    <td>{{$nomination->user->email}}</td>
-                                    <td>{{$nomination->user->userCompany->name}}</td>
-                                    <td>{{$nomination->projectt->name}}</td>
-                                    <td><a href="{{asset('pdf').'/'.$nomination->pdf_url}}">PDF</a></td>
-                                     <td>
-                                        @if($nomination->appointment_pdf)
-                                        <a href="{{asset('pdf').'/'.$nomination->appointment_pdf}}">PDF</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @php 
-                                            $class='';
-                                             if($nomination->status==0)
-                                             {
-                                                 $class="text-warning";
-                                             }elseif($nomination->status==1)
-                                             {
-                                                 $class="text-success";
-                                             }
-                                             else{
-                                                 $class="text-danger";
-                                             }
-
-                                        @endphp
-                                        <button type="button" userid="{{$nomination->user->id}}" nominationid="{{$nomination->id}}" project="{{$nomination->project}}" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm " title="View Nomination Comments">
-                                        <i class="fa fa-comment {{$class}}" aria-hidden="true"></i>
-                                        
-                                        </button>
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
                             <!--end::Table body-->
                         </table>
@@ -245,38 +208,73 @@ background-color: #07d564 !important;
     </div>
     <!--end::Post-->
 </div>
+@include('dashboard.modals.project')
 @endsection
+@php
+$columns = "[
+{ render: function (data, type, row, meta) {
+return meta.row + meta.settings._iDisplayStart + 1;
+}
+},
+{data: 'name', name: 'name',defaultContent: '-'},
+{data: 'email', name: 'email',defaultContent: '-'},
+{data: 'company_id', name:'company_id', defaultContent: '-'},
+{data: 'action', name: 'action', orderable: false, searchable: false},
+]";
+$url = route('suppliers.index');
+$data = [
+'columns' => $columns,
+'url' => $url,
+];
+@endphp
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
+@include('layouts.datatables.datatables_js',['data' => $data])
+@include('layouts.dashboard.ajax_call')
 @include('dashboard.modals.nomination_comment')
-<script type="text/javascript">
-     var canvas = document.getElementById("sig");
-     var signaturePad = new SignaturePad(canvas);
-     signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
-              $("#signature").val(signaturePad.toDataURL('image/png'));
-            });
-    $(document).on("click",".nominationcomment",function(){
-        let nomination_id=$(this).attr('nominationid');
-        let userid=$(this).attr('userid');
-        let project=$(this).attr("project");
-        $("#nominationid").val(nomination_id);
+<script>
+    $(document).ready(function() {
+        //When validation error occur
+        @if($errors->any())
+        $('#project_modal_id').modal('show');
+        @endif
 
-        $.ajax({
-                type: 'GET',
-                url: '{{url("Nomination/nomination-get-commetns")}}',
-                data:{id:nomination_id,userid:userid,project:project},
-                success: function(data) {
-                    $("#nomination_result").html(data);
-                    $("#nominationid").val(nomination_id);
-                    $("#userid").val(userid);
-                    $("#project_id").val(project);
-                    $("#nomination_comment_modal_id").modal('show');
-                }
-            });
-    })
+        $(document).on('click', '.project_details', function() {
+            let type = $(this).attr('value');
+            $('.project_details_form').trigger("reset");
+            $('#error_div').remove();
+            $('input[name="id"]').remove();
 
-        $("#flexCheckChecked").change(function(){
+
+            if (type == 'add') {
+                $('#project_modal_id').modal('show');
+            } else if (type == 'edit') {
+                let id = $(this).data('id');
+                let edit_url = "{{ route('projects.edit',':id') }}";
+                edit_url = edit_url.replace(':id', id);
+                $('.project_details_form').append(`<input name="id" value="${id}" type="hidden">`);
+                $.ajax({
+                    type: 'GET',
+                    url: edit_url,
+                    success: function(data) {
+                        if (data.status == true) {
+                            data = data.project;
+                            $("input[name='no']").val(data.no);
+                            $("input[name='name']").val(data.name);
+                            $("textarea[name='address']").text(data.address);
+                            $("textarea[name='job_title']").val(data.job_title);
+                            $('#project_modal_id').modal('show');
+                        } else {
+                            alert('Something went wrong,try again');
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+
+    $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
         {
             $("#pdfChecked").prop('checked',false);
@@ -329,6 +327,31 @@ background-color: #07d564 !important;
             $("#clear").show();
              
         }
+    })
+
+    
+    var canvas = document.getElementById("sig");
+     var signaturePad = new SignaturePad(canvas);
+     signaturePad.addEventListener("endStroke", () => {
+        console.log("hello");
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+            });
+    $(document).on("click",".nominationcomment",function(){
+        let nomination_id=$(this).attr('nominationid');
+        let userid=$(this).attr('userid');
+        $("#nominationid").val(nomination_id);
+
+        $.ajax({
+                type: 'GET',
+                url: '{{url("nomination-get-commetns")}}',
+                data:{id:nomination_id,userid:userid},
+                success: function(data) {
+                    $("#nomination_result").html(data);
+                    $("#nominationid").val(nomination_id);
+                    $("#userid").val(userid);
+                    $("#nomination_comment_modal_id").modal('show');
+                }
+            });
     })
 </script>
 @endsection

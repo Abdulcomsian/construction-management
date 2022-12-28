@@ -154,20 +154,27 @@ class HelperFunctions
 
     public static function generatetwcid($projecno, $company, $project_id)
     {
-        $count = TemporaryWork::withTrashed()->where('project_id', $project_id)->count();
+        $count = TemporaryWork::withTrashed()->where(['project_id'=>$project_id,'estimator'=>0])->count();
         $count = $count + 1;
         $twc_id_no = $projecno . '-' . strtoupper(substr($company, 0, 2)) . '-00' . $count;
         return $twc_id_no;
     }
     public static function generatetempid($project_id)
     {
-        $check = TemporaryWork::withTrashed()->where('project_id', $project_id)->orderBy('id', 'desc')->first();
+        $check = TemporaryWork::withTrashed()->where(['project_id'=>$project_id,'estimator'=>0])->orderBy('id', 'desc')->first();
         if ($check) {
             $j = $check->tempid + 1;
         } else {
             $j = 1;
         }
         return $j;
+    }
+
+    public static function generateEstimatorSerial()
+    {
+        $count=TemporaryWork::withTrashed()->where(['estimator'=>1])->count();
+        $count=$count+1;
+        return $count;
     }
 
     public static function savesignature($request)

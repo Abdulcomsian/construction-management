@@ -43,9 +43,9 @@ class UserController extends Controller
         
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
-                    $data = User::role(['user', 'supervisor', 'scaffolder'])->latest()->get();
+                    $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->latest()->get();
                 } elseif ($user->hasRole('company')) {
-                    $data = User::role(['user', 'supervisor', 'scaffolder'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
+                    $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')
@@ -222,7 +222,7 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::role(['company', 'user', 'supervisor', 'scaffolder'])
+            $user = User::role(['company', 'user', 'supervisor', 'scaffolder','estimator'])
                 ->with(['userProjects', 'userCompany'])
                 ->where('id', $id)
                 ->first();

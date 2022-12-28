@@ -246,13 +246,13 @@ class EstimatorController extends Controller
         return view('dashboard.estimator.view',compact('listOfDesigners','id'));
     }
 
-    public function estimatorQuotationDetails($id)
+    public function estimatorQuotationDetails(Request $request,$id)
     {
         $QuotaionDetails=DesignerQuotation::where(['temporary_work_id'=>$request->estid,'estimator_designer_list_id'=>$id])->get();
         return view('dashboard.estimator.quotationDetails',compact('QuotaionDetails'));
     }
 
-    public function estimatorDesignerComments($id)
+    public function estimatorDesignerComments(Request $request,$id)
     {
         $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$id,'temporary_work_id'=>$request->estid])->get();
         return view('dashboard.estimator.estimator-designer-comment',compact('comments'));

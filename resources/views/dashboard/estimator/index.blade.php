@@ -393,7 +393,7 @@
                               <div class="col-md-4 my-2 my-md-0">
                                  <form class="form-inline d-flex" method="get" action="{{route('estimator.search')}}">
                                     <div class="col-10">
-                                       <input type="text" style="border-radius:0px;border-color:#e2e2e2;" class="form-control" placeholder="Search..." id="terms" name="terms">
+                                       <input type="text" style="border-radius:0px;border-color:#e2e2e2;" class="form-control" placeholder="Search by description..." id="terms" name="terms">
                                        <span>
                                        <i class="flaticon2-search-1 text-muted"></i>
                                        </span>

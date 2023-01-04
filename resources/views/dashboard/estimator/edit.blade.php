@@ -234,7 +234,7 @@ height: 72px;
                                         <span class="">Designer Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name',$temporaryWork->designer_company_name)}}"  required>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name',$temporaryWork->company)}}" style="background-color:#f5f8fa">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -253,7 +253,7 @@ height: 72px;
                                         <span class="">Designer Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" style="background-color:#f5f8fa" value="{{old('designer_company_name',$temporaryWork->company)}}"  required>
+                                    <input type="text" class="form-control" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" style="background-color:#f5f8fa" value="{{old('designer_company_name',$temporaryWork->company)}}">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->

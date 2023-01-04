@@ -405,7 +405,7 @@ class EstimatorController extends Controller
     {
         $temporaryWorkData=TemporaryWork::find($temporaryWork);
         Validations::storeEstimatorWork($request);
-        try {
+        // try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -548,7 +548,7 @@ class EstimatorController extends Controller
                 if(Auth::user()->hasRole('user'))
                 {
                     //check if temporaywork file upload is constuction
-                    $checkfileconstruction=TempWorkUploadFiles::where(['temporary_work_id'=>$temporaryWork,'file_type'=>1,'constuction'=>1])->count();
+                    $checkfileconstruction=TempWorkUploadFiles::where(['temporary_work_id'=>$temporaryWork,'file_type'=>1,'construction'=>1])->count();
                     if($checkfileconstruction<=0)
                     {
                          $notify_admins_msg = [
@@ -619,10 +619,10 @@ class EstimatorController extends Controller
             }
             toastSuccess('Estimator Brief successfully Updated!');
             return redirect()->route('temporary_works.index');
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     public function destroy($id)

@@ -246,7 +246,26 @@ height: 72px;
                                     <input type="text" class="form-control" placeholder="Enter Comma Seperated" id="designer_company_emails" name="designer_company_email" value="{{old('designer_company_email',$temporaryWork->designer_company_email ?? '')}}">
                                 </div>
                                 @endif
-                                @if(auth()->user()->hasRole('estimator'))
+                                @if(auth()->user()->hasRole('estimator') && $temporaryWork->estimatorApprove)
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Designer Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" style="background-color:#f5f8fa" value="{{old('designer_company_name',$temporaryWork->company)}}"  required>
+                                </div>
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Designer Email Address:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Enter Comma Seperated" id="designer_company_emails" name="designer_company_email" value="{{old('designer_company_email',$temporaryWork->designer_company_email ?? '')}}">
+                                </div>
+                                @endif
+                                @if(auth()->user()->hasRole('estimator') && $temporaryWork->estimatorApprove==0)
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

@@ -437,6 +437,7 @@
                                        <th style="min-width: 40px;" class="">Risk Class</th>
                                        <th class="" style="min-width:60px;">Issue Date</th>
                                        <th class="" style="">DESIGN REQUIRED BY</th>
+                                       <th class="">Comments</th>
                                        <th class="">TW DESIGNER & COMPANY</th>
                                        <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
                                        <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
@@ -466,7 +467,41 @@
                                        <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
                                        <td style="min-width: 100px; max-width: 80px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</td>
                                        <td style="min-width:100px;">
-                                          
+                                          <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline">
+                                            <b>
+                                                @if($item->design_required_by_date)
+                                                {{date('d-m-Y', strtotime($item->design_required_by_date))}}
+                                                @else
+                                                -
+                                                @endif
+                                          </b>
+                                          </span>
+                                       </td>
+                                       <td>
+                                          <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
+                                             <!-- <span class="fa fa-plus"></span> -->
+                                             <br> Comment
+                                          </p>
+                                          @php
+                                          $drawingscount=0;
+                                          $color="green";
+                                          $class='';
+                                          if(count($item->comments)>0)
+                                          {
+                                            $color="red";
+                                            $class='redBgBlink';
+                                          if(count($item->reply)== count($item->comments))
+                                          {
+                                            $color="blue";
+                                            $class='';
+                                          }
+                                          }
+                                          @endphp
+                                          <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
+                                          <span class="{{$class}} label label-lg font-weight-bold label-inline">
+                                          {{count($item->comments) ?? '-'}}
+                                          </span>
+                                          </span>
                                        </td>
                                        <td style="">
                                           <span class="designer-company cursor-pointer" style="width: 108px;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-light-success label-inline">View</span>
@@ -511,10 +546,6 @@
                                           @endforeach
                                        </td>
                                        <td>
-                                          <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
-                                             <!-- Upload Drawings -->
-                                             <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
-                                          </p>
                                           <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
                                              <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
@@ -532,13 +563,6 @@
                                           </p>
                                        </td>
                                        <td>
-                                          @php $dccstyle='';@endphp
-                                          @foreach($item->uploadfile as $file)
-                                          @if($file->file_type==2)
-                                          @php $dccstyle="display:none"; @endphp
-                                          @endif
-                                          @endforeach
-                                          <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2">Upload DCC</p>
                                           @php $i=0;@endphp
                                           @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
@@ -589,5 +613,72 @@
    </div>
    <!--end::Post-->
 </div>
+@include('dashboard.modals.comments')
+@include('dashboard.modals.drawingdesignlist')
+@include('dashboard.modals.risk_assessment')
 @endsection
 @section('scripts')
+<script type="text/javascript">
+    var role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
+     $(".addcomment").on('click', function() {
+        if (role != 'user') {
+           alert("Twc can view and add comment");
+           return false;
+       }
+       $("#temp_work_id").val($(this).attr('data-id'));
+       var temporary_work_id = $(this).attr('data-id');
+       var userid = {{Auth::user()->id}}
+       $("#commenttable").html('');
+       $.ajax({
+           url: "{{route('temporarywork.get-comments')}}",
+           method: "get",
+           data: {
+               id: userid,
+               temporary_work_id: temporary_work_id,
+               type: 'normal'
+           },
+           success: function(res) {
+               res=JSON.parse(res);
+               $("#commenttable").html(res.comment);
+               $("#twccommenttable").html(res.twccomment);
+               $(".comments_form").show();
+               $("#comment_modal_id").modal('show');
+           }
+       });
+   
+   });
+
+   //upload drawing and design
+   $(".uploaddrawinglist").on('click', function() {
+       var tempworkid = $(this).attr('data-id');
+   
+       $.ajax({
+           url: "{{route('get-designs')}}",
+           method: "get",
+           data: {
+               tempworkid: tempworkid
+           },
+           success: function(res) {
+               $("#drawingdesigntable").html(res);
+               $("#drawinganddesignlist").modal('show');
+           }
+       });
+   
+   })
+
+   $(document).on('click','.assessmentlist',function(){
+       id=$(this).attr('data-id');
+        $.ajax({
+           url: "{{route('get.assessment')}}",
+           method: "get",
+           data: {
+               id
+           },
+           success: function(res) {
+               $("#risk_assessment_body").html(res);
+               $("#risk_assessment_modal_id").modal('show'); 
+           }
+       });
+   })
+</script>
+@endsection

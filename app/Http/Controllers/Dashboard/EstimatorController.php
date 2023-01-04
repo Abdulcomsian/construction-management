@@ -12,6 +12,7 @@ use App\Models\{EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDes
 use App\Utils\HelperFunctions;
 use App\Notifications\EstimatorNotification;
 use App\Notifications\TemporaryWorkNotification;
+use App\Notifications\DesignerAwarded;
 use Notification;
 use DB;
 use PDF;
@@ -47,7 +48,8 @@ class EstimatorController extends Controller
             $q->whereIn('project_id', $ids);
         })->where(['estimator'=>1])->latest()->paginate(20);
         $projects = Project::with('company')->whereIn('id', $ids)->get();
-        return view('dashboard.estimator.index',compact('estimator_works'));
+        $scantempwork = '';
+        return view('dashboard.estimator.index',compact('estimator_works','scantempwork'));
     }
 
     //estimator form
@@ -475,36 +477,39 @@ class EstimatorController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 //send mail to admin
-              
-
                 if(Auth::user()->hasRole('user'))
                 {
-                     $notify_admins_msg = [
-                        'greeting' => 'Temporary Work Pdf',
-                        'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
-                        'body' => [
-                            'company' => $request->company,
-                            'filename' => $filename,
-                            'links' => '',
-                            'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
-                            'designer' => '',
-                            'pc_twc' => '',
-                        ],
-                        'thanks_text' => 'Thanks For Using our site',
-                        'action_text' => '',
-                        'action_url' => '',
-                    ];
-                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
-                    Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
-                    //designer
-                    if ($request->designer_company_email) {
-                        $notify_admins_msg['body']['designer'] = 'designer1';
-                        Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork, $request->designer_company_email));
+                    //check if temporaywork file upload is constuction
+                    $checkfileconstruction=TempWorkUploadFiles::where(['temporary_work_id'=>$temporaryWork,'file_type'=>1,'constuction'=>1])->count();
+                    if($checkfileconstruction<=0)
+                    {
+                         $notify_admins_msg = [
+                            'greeting' => 'Temporary Work Pdf',
+                            'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
+                            'body' => [
+                                'company' => $request->company,
+                                'filename' => $filename,
+                                'links' => '',
+                                'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                                'designer' => '',
+                                'pc_twc' => '',
+                            ],
+                            'thanks_text' => 'Thanks For Using our site',
+                            'action_text' => '',
+                            'action_url' => '',
+                        ];
+                        Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
+                        Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
+                        //designer
+                        if ($request->designer_company_email) {
+                            $notify_admins_msg['body']['designer'] = 'designer1';
+                            Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork, $request->designer_company_email));
+                        }
                     }
                 }
-                else
+                elseif(Auth::user()->hasRole('estimator') && $temporaryWorkData->estimatorApprove==0)
                 {
-                       $notify_msg = [
+                    $notify_msg = [
                         'greeting' => 'Estimator Work Pdf',
                         'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
                         'body' => [
@@ -563,18 +568,19 @@ class EstimatorController extends Controller
         try
         {
             $code=\Crypt::decrypt($request->code);
-            $estimatorWork=TemporaryWork::with('project')->find($id);
             $record=EstimatorDesignerList::where(['email'=>$request->mail,'code'=>$code])->first();
-            $designerquotation=DesignerQuotation::where(['estimator_designer_list_id'=>$record->id])->get();
-            $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$record->id,'temporary_work_id'=>$id])->get();
-            $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
-            //get company record
-            $company=Project::with('company')->find($estimatorWork->project_id);
-            //get rating of cuurent designer
-            $ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
             if($record)
             {
-                return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'ratings'=>$ratings,'public_comments'=>$public_comments]);
+                $estimatorWork=TemporaryWork::with('project')->find($id);
+                $designerquotation=DesignerQuotation::where(['estimator_designer_list_id'=>$record->id])->get();
+                $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$record->id,'temporary_work_id'=>$id])->get();
+                 $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
+                //get company record
+                $company=Project::with('company')->find($estimatorWork->project_id);
+                //get rating of cuurent designer
+                //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
+                $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail])->get();
+                return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators]);
             }
             else{
                 echo "<h1>You Are not allowed</h1>";
@@ -621,9 +627,15 @@ class EstimatorController extends Controller
             $estimatorDesigner->save();
             $email=$estimatorDesigner->email;
             $temporary_work_id=$estimatorDesigner->temporary_work_id;
-            TemporaryWork::find($temporary_work_id)->update(['designer_company_email'=>$email,'estimatorApprove'=>1]);
-            toastSuccess('Designer Approved successfully!');
-            return redirect()->back();
+            $code=$estimatorDesigner->code;
+            $res=TemporaryWork::find($temporary_work_id)->update(['designer_company_email'=>$email,'estimatorApprove'=>1]);
+            if($res)
+            { 
+                 Notification::route('mail', $email)->notify(new DesignerAwarded($temporary_work_id,$email,$code));
+                 toastSuccess('Designer Approved successfully!');
+                 return redirect()->back();
+            }
+           
         }catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

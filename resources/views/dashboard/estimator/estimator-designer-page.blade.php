@@ -298,8 +298,11 @@
                             <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab3" aria-controls="signin" aria-selected="false" tabindex="-1">Public Q&A</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false" tabindex="-1">Reviews</button>
+                            <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false" tabindex="-1">Awarded Contracts</button>
                         </li>
+                        <!-- <li class="nav-item w-100" role="presentation">
+                            <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false" tabindex="-1">Reviews</button>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -524,8 +527,40 @@
                         </div>
                     </div>
                 </div>
-                <!-- tab 4 -->
                 <div class="tab-pane" id="tab4" role="tabpanel">
+                    <div class="card-header border-0 pt-2">
+                        <div class="container">
+                            <div class="row">
+                            <div class="col" style="margin: 0 10px">
+                                <table class="table query-table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Project</th>
+                                            <th>Company</th>
+                                            <th>Attachement</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                     <tbody>
+                                        @foreach($AwardedEstimators as $est)
+                                        <tr>
+                                            <td>{{$loop->index+1}}</td>
+                                            <td>{{$est->estimator->project->name}}</td>
+                                            <td>{{$est->estimator->company}}</td>
+                                            <td><a href="{{asset($est->estimator->ped_url)}}">PDF</a></td>
+                                            <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank"><i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>   
+                </div>
+                <!-- tab 4 -->
+                {{-- <div class="tab-pane" id="tab4" role="tabpanel">
                     <div class="card-header border-0 pt-2">
                         @if($ratings)
                         <div class="container">
@@ -589,7 +624,7 @@
                             </div>
                         @endif
                     </div>   
-                </div>
+                </div> --}}
             </div>
             
         </div>

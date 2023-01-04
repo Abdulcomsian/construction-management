@@ -685,6 +685,11 @@ class EstimatorController extends Controller
          }
         
     }
+    //estimaor approve page
+    public function estimatorApproveDetails($id)
+    {
+        return view('dashboard.estimator.designer_approve_page');
+    }
     //approve one designer from estimator
     public function estimatorDesignerApprove(Request $request)
     {

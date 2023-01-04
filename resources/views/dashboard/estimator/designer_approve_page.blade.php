@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Designer List'])
+@extends('layouts.dashboard.master',['title' => 'Designer Approve'])
 @section('styles')
 <style>
     .aside-enabled.aside-fixed.header-fixed .header {
@@ -162,67 +162,13 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Designer & Supplier List</h2>
+                        <h2>Designer Approve</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <div class="table-responsive">
-                        <table class="cell-border table-hover datatable table align-middle table-row-dashed fs-6 gy-5 table-responsive">
-                            <!--begin::Table head-->
-                            <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-50px">S.No</th>
-                                    <th class="min-w-50px">Company</th>
-                                    <th class="min-w-50px">Project</th>
-                                    <th class="min-w-50px">Designer Email</th>
-                                    <th class="min-w-50px">Price</th>
-                                    <th class="min-w-50px">Actions</th>
-                                </tr>
-                                <!--end::Table row-->
-                            </thead>
-                            <!--end::Table head-->
-                            <!--begin::Table body-->
-                            <tbody class="text-gray-600 fw-bold">
-                                @foreach($listOfDesigners as $designer)
-                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>{{$designer->Estimator->company}}</td>
-                                    <td>{{$designer->Estimator->project->name}}</td>
-                                    <td>{{$designer->email}}</td>
-                                    <td>-</td>
-                                    <td>
-                                       
-                                        @if(auth()->user()->hasRole(['admin','estimator']))
-                                        <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
-                                        </a>
-                                        @endif
-
-                                        <a href="{{url('Estimator/estimator-designer/comments',$designer->id).'?estid='.$id}}"><i class="fa fa-comments"></i>
-                                        </a>
-                                        @if($temporaryWork->estimatorApprove)
-                                         @if($designer->estimatorApprove)
-                                          <br>
-                                          <span class="text-success">Approved</span>
-                                         @endif
-
-                                        @else
-                                        <a href="{{url('Estimator/estimator-approve-details',$designer->id)}}"><i class="fa fa-save"></i></a>
-                                        <form method="POST" action="{{url('Estimator/estimator-approve')}}"  id="form_{{$designer->id}}">
-                                           @csrf
-                                            <input type="hidden" name="designerId" value="{{$designer->id}}">
-                                            <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-text="Are you sure ? to approve designer">
-                                              <i class="fa fa-check"></i>
-                                            </button>
-                                        </form>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            <!--end::Table body-->
-                        </table>
+                        
                     </div>
                     <!--end::Table-->
                 </div>

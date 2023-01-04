@@ -204,11 +204,11 @@
    .symbol.symbol-md-35px .symbol-label {
     width: 53px;
     height: 42px;
-}
-.symbol.symbol-md-35px .symbol-label:hover{
+   }
+   .symbol.symbol-md-35px .symbol-label:hover{
    background-color: #009ef7 !important;
     color: #fff !important;
-}
+   }
    .btn.btn-primary {
    border-color: #07d564 !important;
    background-color: #07d564 !important;
@@ -406,8 +406,7 @@
                   </div>
                   <!--begin::Table-->
                   <div class="row " style="padding:10px;position:relative;">
-                    <div class="col-md-4 my-2 my-md-0 ">
-                        
+                    <div class="col-md-4 my-2 my-md-0 ">   
                     </div>
                     <div class="col-md-3 my-2 my-md-0 ">
                     </div>
@@ -443,6 +442,7 @@
                                        <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
                                        <th class="">DRAWINGS & DESIGNS</th>
                                        <th class="">Design<br> Check<br> CERT</th>
+                                       <th class="">Status</th>
                                        <th class="">Actions</th>
                                     </tr>
                                     <!--end::Table row-->
@@ -548,6 +548,21 @@
                                           @endforeach
                                        </td>
                                        <td>
+                                         @if($item->estimatorApprove)
+                                          <span class="text-success">Approved</span>
+                                         @else
+                                          <span class="text-danger">Not Approved</span>
+                                         @endif
+                                       </td>
+                                       <td>
+                                        @if(auth()->user()->hasRole('estimator'))
+                                        <a href="{{route('estimator.edit',$item->id)}}"><i class="fa fa-edit"></i></a>
+                                        @endif
+                                        @if(auth()->user()->hasRole('user'))
+                                          @if($item->estimatorApprove)
+                                           <a href="{{route('estimator.edit',$item->id)}}"><i class="fa fa-edit"></i></a>
+                                          @endif
+                                        @endif
                                         <a href="{{route('estimator.show',$item->id)}}"><i class="fa fa-eye"></i></a>
                                        </td>
                                     </tr>

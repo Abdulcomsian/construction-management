@@ -189,7 +189,42 @@
                                         <b>{{$cmt->comment_email}}</b><br>
                                         <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        @if($cmt->reply==NULL)
+                                        <form class="form-inline" action="{{url('Estimator/estimator-reply-designer')}}" method="post"enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="commentId" value="{{$cmt->id}}"/>
+                                        <div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-7">
+                                                  <div class="form-group  mb-2 d-flex">
+                                                       <textarea class="form-control" name="comment"></textarea> 
+                                                  </div> 
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <!-- Default switch -->
+                                                    <div class="custom-control">
+                                                      <label class="custom-control-label" for="customSwitches">public</label>
+                                                      <input type="checkbox" name="public" class="custom-control-input" id="customSwitches">
+                                                     
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                  <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                  </div> 
+                                                </div>
+                                                <div class="col-md-1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </form>
+                                        @else
+                                        <b>{{$cmt->reply_email}}</b><br>
+                                        <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -8,8 +8,8 @@
             let link = '';
              var text='';
             if($(event.target).is('button')){
-                console.log('Button clicked');
                 form_id = '#form_'+ $(this).attr('id');
+               
             }else if($(event.target).is('span')){
                 console.log('span clicked');
                 form_id = '#form_'+ $(this).closest('button').attr('id');
@@ -20,7 +20,7 @@
             }
             else if($(event.target).is('i')){
                 form_id = '#form_'+ $(this).closest('button').attr('id');
-                console.log('i clicked');
+                 text=$(this).attr('data-text');
 
             }else{
                 link = $(this).attr('href');

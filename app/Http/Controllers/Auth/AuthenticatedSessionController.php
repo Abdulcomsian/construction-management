@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        if(Auth::user()->hasRole(['estimator']))
+        if(Auth::user()->hasRole('estimator'))
         {
             return redirect('Estimator/estimator');
         }

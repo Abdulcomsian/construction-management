@@ -149,6 +149,7 @@
         color:#000 !important;
     }
 </style>
+@include('layouts.sweetalert.sweetalert_css')
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -193,16 +194,28 @@
                                     <td>-</td>
                                     <td>
                                        
+                                        @if(auth()->user()->hasRole(['admin','estimator']))
                                         <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
                                         </a>
+                                        @endif
 
                                         <a href="{{url('Estimator/estimator-designer/comments',$designer->id).'?estid='.$id}}"><i class="fa fa-comments"></i>
                                         </a>
+                                        @if($temporaryWork->estimatorApprove)
+                                         @if($designer->estimatorApprove)
+                                          <br>
+                                          <span class="text-success">Approved</span>
+                                         @endif
 
-                                        <a href=""><i class="fa fa-check"></i>
-                                        </a>
-                                        
-
+                                        @else
+                                        <form method="POST" action="{{url('Estimator/estimator-approve')}}"  id="form_{{$designer->id}}">
+                                           @csrf
+                                            <input type="hidden" name="designerId" value="{{$designer->id}}">
+                                            <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-text="Are you sure ? to approve designer">
+                                              <i class="fa fa-check"></i>
+                                            </button>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -220,5 +233,9 @@
     </div>
     <!--end::Post-->
 </div>
+@endsection
+@section('scripts')
+@include('layouts.sweetalert.sweetalert_js')
+
 @endsection
 

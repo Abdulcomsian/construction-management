@@ -177,7 +177,6 @@
                                     <th class="min-w-50px">Price</th>
                                     <th class="min-w-50px">Description</th>
                                     <th class="min-w-50px">Date</th>
-                                    <th class="min-w-50px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -188,10 +187,9 @@
                                  <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$qdetail->email}}</td>
-                                    <td>{{$qdetail->price}}</td>
+                                    <td>${{$qdetail->price}}</td>
                                     <td>{{$qdetail->description}}</td>
                                     <td>{{$qdetail->date}}</td>
-                                    <td></td>
                                 </tr>
                                 @endforeach
                             </tbody>

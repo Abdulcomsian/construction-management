@@ -172,8 +172,97 @@
     .drawing_infoTable tbody tr:nth-child(odd){
         background: #c8e6c8 !important;
     }
-</style>
 
+     .rate {
+         float: left;
+         height: 46px;
+         padding: 0 10px;
+         }
+         .rate:not(:checked) > input {
+         position:absolute;
+         display: none;
+         }
+         .rate:not(:checked) > label {
+         float:right;
+         width:1em;
+         overflow:hidden;
+         white-space:nowrap;
+         cursor:pointer;
+         font-size:30px;
+         color:#ccc;
+         }
+         .rated:not(:checked) > label {
+         float:right;
+         width:1em;
+         overflow:hidden;
+         white-space:nowrap;
+         cursor:pointer;
+         font-size:30px;
+         color:#ccc;
+         }
+         .rate:not(:checked) > label:before {
+         content: '★ ';
+         }
+         .rate > input:checked ~ label {
+         color: #ffc700;
+         }
+         .rate:not(:checked) > label:hover,
+         .rate:not(:checked) > label:hover ~ label {
+         color: #deb217;
+         }
+         .rate > input:checked + label:hover,
+         .rate > input:checked + label:hover ~ label,
+         .rate > input:checked ~ label:hover,
+         .rate > input:checked ~ label:hover ~ label,
+         .rate > label:hover ~ input:checked ~ label {
+         color: #c59b08;
+         }
+         .star-rating-complete{
+            color: #c59b08;
+         }
+         .rating-container .form-control:hover, .rating-container .form-control:focus{
+         background: #fff;
+         border: 1px solid #ced4da;
+         }
+         .rating-container textarea:focus, .rating-container input:focus {
+         color: #000;
+         }
+         .rated {
+         float: left;
+         height: 46px;
+         padding: 0 10px;
+         }
+         .rated:not(:checked) > input {
+         position:absolute;
+         display: none;
+         }
+         .rated:not(:checked) > label {
+         float:right;
+         width:1em;
+         overflow:hidden;
+         white-space:nowrap;
+         cursor:pointer;
+         font-size:30px;
+         color:#ffc700;
+         }
+         .rated:not(:checked) > label:before {
+         content: '★ ';
+         }
+         .rated > input:checked ~ label {
+         color: #ffc700;
+         }
+         .rated:not(:checked) > label:hover,
+         .rated:not(:checked) > label:hover ~ label {
+         color: #deb217;
+         }
+         .rated > input:checked + label:hover,
+         .rated > input:checked + label:hover ~ label,
+         .rated > input:checked ~ label:hover,
+         .rated > input:checked ~ label:hover ~ label,
+         .rated > label:hover ~ input:checked ~ label {
+         color: #c59b08;
+         }
+</style>
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -193,13 +282,11 @@
     </div>
     <!--end::Toolbar-->
     <!--begin::Post-->
-
-    
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container" style="padding-top: 80px">
             <div class="row">
-                <div class=' d-flex col-md-6'>
+                <div class=' d-flex col-md-8'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
                         <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100 active" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false" tabindex="-1">Price & Quotation</button>
@@ -207,8 +294,11 @@
                         <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab2" aria-controls="signin" aria-selected="false" tabindex="-1">Question & Answers</button>
                         </li>
+                         <li class="nav-item w-100" role="presentation">
+                            <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab3" aria-controls="signin" aria-selected="false" tabindex="-1">Public Q&A</button>
+                        </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab3" aria-controls="signin" aria-selected="false" tabindex="-1">Reviews</button>
+                            <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false" tabindex="-1">Reviews</button>
                         </li>
                     </ul>
                 </div>
@@ -262,7 +352,7 @@
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Price:</span>
                                   </label>
-                                   <input type="number" name="price[]" class="form-control"/>
+                                   <input type="number" name="price[]" class="form-control" placeholder="Enter Price" />
                               </div> 
                             </div>
                             <div class="col-md-4">
@@ -317,7 +407,7 @@
                                     @foreach($designerquotation as $quotaion)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>{{$quotaion->price}}</td>
+                                        <td>${{$quotaion->price}}</td>
                                         <td>{{$quotaion->description}}</td>
                                         <td>{{$quotaion->date}}</td>
                                     </tr>
@@ -375,31 +465,130 @@
                                 </thead>
                                  <tbody>
                                     @foreach($comments as $cmt)
-                                    <tr>
-                                        <td>{{$loop->index+1}}</td>
-                                        <td>
-                                            <b>{{$cmt->comment_email}}</b><br>
-                                            <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+                                        <tr>
+                                            <td>{{$loop->index+1}}</td>
+                                            <td>
+                                                <b>{{$cmt->comment_email}}</b><br>
+                                                <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
 
-                                        </td>
-                                        <td></td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <b>{{$cmt->reply_email}}</b><br>
+                                                <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
+                                            </td>
+                                        </tr>
+                                       
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <!-- tab 2 -->
+                <!-- tab 3 -->
                 <div class="tab-pane" id="tab3" role="tabpanel">
                     <div class="card-header border-0 pt-2">
                         <!--begin::Card title-->
                         <div class="card-title list_top" style="width:98%">
-                            <h2 style="display: inline-block;">Add Your reviews</h2>
+                            <h2 style="display: inline-block;">Public Question Answer</h2>
                         </div>
                     </div>
-                    
-                    
+                    <div class="row">
+
+                        <div class="col" style="margin: 0 10px">
+                            <table class="table query-table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Designer's Comments</th>
+                                        <th>Estimator Reply</th>
+                                    </tr>
+                                </thead>
+                                 <tbody>
+                                    @foreach($public_comments as $cmt)
+                                        <tr>
+                                            <td>{{$loop->index+1}}</td>
+                                            <td>
+                                                <b>{{$cmt->comment_email}}</b><br>
+                                                <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+
+                                            </td>
+                                            <td>
+                                                <b>{{$cmt->reply_email}}</b><br>
+                                                <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
+                                            </td>
+                                        </tr>
+                                       
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- tab 4 -->
+                <div class="tab-pane" id="tab4" role="tabpanel">
+                    <div class="card-header border-0 pt-2">
+                        @if($ratings)
+                        <div class="container">
+                            <div class="row">
+                               <div class="col mt-4">
+                                     <p class="font-weight-bold ">Review</p>
+                                     <div class="form-group row">
+                                        <div class="col">
+                                           <div class="rated">
+                                            @for($i=1; $i<=$ratings->star_rating; $i++)
+                                              <label class="star-rating-complete" title="text">{{$i}} stars</label>
+                                            @endfor
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-group row mt-4">
+                                        <div class="col">
+                                            <p>{{ $ratings->comments }}</p>
+                                        </div>
+                                     </div>
+                               </div>
+                            </div>
+                         </div>
+                         @else
+                            <div class="container">
+                                <div class="row">
+                                   <div class="col mt-4">
+                                      <form class="py-2 px-4" action="{{url('Estimator/designer-review/save')}}" style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
+                                         @csrf
+                                         <input type="hidden" name="company" value="{{$company->company->id}}">
+                                         <input type="hidden" name="email" value="{{$mail}}">
+                                         <p class="font-weight-bold ">Review</p>
+                                         <div class="form-group row">
+                                            <div class="col">
+                                               <div class="rate">
+                                                  <input type="radio" id="star5" class="rate" name="rating" value="5"/>
+                                                  <label for="star5" title="text">5 stars</label>
+                                                  <input type="radio" checked id="star4" class="rate" name="rating" value="4"/>
+                                                  <label for="star4" title="text">4 stars</label>
+                                                  <input type="radio" id="star3" class="rate" name="rating" value="3"/>
+                                                  <label for="star3" title="text">3 stars</label>
+                                                  <input type="radio" id="star2" class="rate" name="rating" value="2">
+                                                  <label for="star2" title="text">2 stars</label>
+                                                  <input type="radio" id="star1" class="rate" name="rating" value="1"/>
+                                                  <label for="star1" title="text">1 star</label>
+                                               </div>
+                                            </div>
+                                         </div>
+                                         <div class="form-group row mt-4">
+                                            <div class="col">
+                                               <textarea class="form-control" name="comment" rows="6 " placeholder="Comment" maxlength="200"></textarea>
+                                            </div>
+                                         </div>
+                                         <div class="mt-3 text-right">
+                                            <button class="btn btn-sm py-2 px-3 btn-info">Submit
+                                            </button>
+                                         </div>
+                                      </form>
+                                   </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>   
                 </div>
             </div>
             

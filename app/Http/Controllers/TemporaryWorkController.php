@@ -115,6 +115,10 @@ class TemporaryWorkController extends Controller
     //All shared tempory work
     public function shared_temporarywork()
     {
+        if(auth::user()->hasRole('estimator'))
+        {
+            return redirect('Estimator/estimator');
+        }
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {

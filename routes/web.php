@@ -110,10 +110,13 @@ Route::group(['prefix' => 'Estimator'],function(){
         Route::get('/estimator-designer/details/{id}',[EstimatorController::class,'estimatorQuotationDetails']);
         Route::get('/estimator-designer/comments/{id}',[EstimatorController::class,'estimatorDesignerComments']);
         Route::post('/estimator-designer/comments-save',[EstimatorController::class,'estimatorDesignerCommentsSave']);
+        Route::post('/estimator-reply-designer',[EstimatorController::class,'estimatorDesignerReplySave']);
+        Route::post('/estimator-approve',[EstimatorController::class,'estimatorDesignerApprove']);
     });
     //Designer routes where he can price up and comment on brief
     Route::get('estimator-designer/design/{id}',[EstimatorController::class,'estimatorDesigner'])->name('estimator.designer');
     Route::post('designer-quotation/save',[EstimatorController::class,'designerQuotation'])->name('designer.quotation');
+    Route::post('designer-review/save',[EstimatorController::class,'designerReview'])->name('designer.review');
 });
 
 //nomination routes here

@@ -549,7 +549,7 @@
                                             <td>{{$est->estimator->project->name}}</td>
                                             <td>{{$est->estimator->company}}</td>
                                             <td><a href="{{asset($est->estimator->ped_url)}}">PDF</a></td>
-                                            <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank"><i class="fa fa-eye"></i></a></td>
+                                            <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank" title="View & Upload Design"><i class="fa fa-eye"></i></a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

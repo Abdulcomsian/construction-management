@@ -49,7 +49,75 @@ class EstimatorController extends Controller
         })->where(['estimator'=>1])->latest()->paginate(20);
         $projects = Project::with('company')->whereIn('id', $ids)->get();
         $scantempwork = '';
-        return view('dashboard.estimator.index',compact('estimator_works','scantempwork'));
+        return view('dashboard.estimator.index',compact('estimator_works','scantempwork','projects'));
+    }
+    //serarch
+     //search tempwork
+    public function estimator_project_search(Request $request)
+    {
+        $user=Auth::user();
+        try {
+            if($user->hasRole('estimator'))
+            {
+                $user = User::with('userCompany')->find(Auth::user()->id);
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+            }
+            elseif($user->hasRole('user'))
+            {
+                $user=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+            }
+            $estimator_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($request) {
+                $q->whereIn('project_id',$request->projects);
+            })->where(['estimator'=>1])->latest()->paginate(20);
+            $projects = Project::with('company')->whereIn('id', $ids)->get();
+            $scantempwork = '';
+            return view('dashboard.estimator.index',compact('estimator_works','scantempwork','projects'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    //search estimator by keywork
+    public function estimator_search(Request $request)
+    {
+        $user=Auth::user();
+        try {
+            if($user->hasRole('estimator'))
+            {
+                $user = User::with('userCompany')->find(Auth::user()->id);
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+            }
+            elseif($user->hasRole('user'))
+            {
+                $user=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+            }
+            $estimator_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->where(['estimator'=>1])->latest()->paginate(20);
+            $projects = Project::with('company')->whereIn('id', $ids)->get();
+            $scantempwork = '';
+            return view('dashboard.estimator.index',compact('estimator_works','scantempwork','projects'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     //estimator form

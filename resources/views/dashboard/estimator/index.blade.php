@@ -377,9 +377,12 @@
                         <div class="col-lg-9 col-xl-8">
                            <div class="row">
                               <div class="col-md-4 my-2 my-md-0">
-                                 <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}">
+                                 <form class="form-inline d-flex" method="get" action="{{route('estimator.proj.search')}}">
                                     <div class="col-10">
                                        <select name="projects[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select a Project" required>
+                                          @foreach($projects as $proj)
+                                          <option value="{{$proj->id}}">{{$proj->name}}</option>
+                                          @endforeach
                                        </select>
                                     </div>
                                     <div class="col-2 ">
@@ -388,7 +391,7 @@
                                  </form>
                               </div>
                               <div class="col-md-4 my-2 my-md-0">
-                                 <form class="form-inline d-flex" method="get" action="{{route('tempwork.search')}}">
+                                 <form class="form-inline d-flex" method="get" action="{{route('estimator.search')}}">
                                     <div class="col-10">
                                        <input type="text" style="border-radius:0px;border-color:#e2e2e2;" class="form-control" placeholder="Search..." id="terms" name="terms">
                                        <span>

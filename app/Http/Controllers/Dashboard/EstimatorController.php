@@ -311,7 +311,7 @@ class EstimatorController extends Controller
     //detail page of estimator
     public function show($id)
     {
-        $listOfDesigners=EstimatorDesignerList::with('Estimator.project')->where(['temporary_work_id'=>$id])->get();
+        $listOfDesigners=EstimatorDesignerList::with('Estimator.project')->with('quotationSum')->where(['temporary_work_id'=>$id])->get();
         $temporaryWork=TemporaryWork::find($id);
         return view('dashboard.estimator.view',compact('listOfDesigners','id','temporaryWork'));
     }
@@ -405,7 +405,7 @@ class EstimatorController extends Controller
     {
         $temporaryWorkData=TemporaryWork::find($temporaryWork);
         Validations::storeEstimatorWork($request);
-        // try {
+        try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -619,10 +619,10 @@ class EstimatorController extends Controller
             }
             toastSuccess('Estimator Brief successfully Updated!');
             return redirect()->route('temporary_works.index');
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     public function destroy($id)

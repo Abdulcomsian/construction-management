@@ -191,7 +191,7 @@
                                     <td>{{$designer->Estimator->company}}</td>
                                     <td>{{$designer->Estimator->project->name}}</td>
                                     <td>{{$designer->email}}</td>
-                                    <td>-</td>
+                                    <td>@if(auth()->user()->hasRole('estimator')) ${{$designer->quotationSum->sum('price') ?? 0}} @endif</td>
                                     <td>
                                        
                                         @if(auth()->user()->hasRole(['admin','estimator']))

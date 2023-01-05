@@ -14,4 +14,9 @@ class EstimatorDesignerList extends Model
     {
         return $this->belongsTo(TemporaryWork::class,'temporary_work_id','id');
     }
+
+    public function quotationSum()
+    {
+        return $this->hasMany(DesignerQuotation::class,'estimator_designer_list_id','id');
+    }
 }

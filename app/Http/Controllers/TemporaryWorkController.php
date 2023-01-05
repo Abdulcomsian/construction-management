@@ -860,7 +860,7 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        // try {
+        try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
             $data = TemporaryWorkComment::select('replay', 'reply_image', 'reply_date', 'sender_email')->find($commentid);
@@ -912,10 +912,10 @@ class TemporaryWorkController extends Controller
                 toastError('Something went wrong, try again');
                 return Redirect::back();
             }
-        // } catch (\Exception $exception) {
-        //     toastError('Something went wrong, try again');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
     public function temp_savetwname(Request $request)
     {

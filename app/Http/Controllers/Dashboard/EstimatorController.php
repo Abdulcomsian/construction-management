@@ -206,7 +206,7 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','designer_company_emails');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','designer_company_emails','action');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -282,7 +282,11 @@ class EstimatorController extends Controller
                         'code'=>$code,
                         'user_id'=>$list[1] ?? NULL,
                     ]);
-                    Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work->id,$list[0],$code));
+                    if($request->action=="Save & Email")
+                    {
+                        Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work->id,$list[0],$code));
+                    }
+                    
                 }
             }
             toastSuccess('Estimator Brief successfully added!');
@@ -462,7 +466,7 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','designer_company_emails');
+            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','designer_company_emails','action');
             $image_name = '';
             if(Auth::user()->hasRole('user'))
             {
@@ -566,13 +570,18 @@ class EstimatorController extends Controller
                             'action_text' => '',
                             'action_url' => '',
                         ];
-                        Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
-                        Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
-                        //designer
-                        if ($request->designer_company_email) {
-                            $notify_admins_msg['body']['designer'] = 'designer1';
-                            Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork, $request->designer_company_email));
+
+                        if($request->action="Update & Email")
+                        {
+                            Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
+                            Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
+                            //designer
+                            if ($request->designer_company_email) {
+                                $notify_admins_msg['body']['designer'] = 'designer1';
+                                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork, $request->designer_company_email));
+                            }
                         }
+                        
                     }
                 }
                 elseif(Auth::user()->hasRole('estimator') && $temporaryWorkData->estimatorApprove==0)
@@ -611,7 +620,10 @@ class EstimatorController extends Controller
                                 'code'=>$code,
                                 'user_id'=>$list[1] ?? NULL,
                             ]);
+                           if($request->action="Update & Email")
+                           {
                             Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporaryWork,$list[0],$code));
+                            }
                         } 
                     }
                 }

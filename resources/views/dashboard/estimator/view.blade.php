@@ -177,8 +177,12 @@
                                     <th class="min-w-50px">Company</th>
                                     <th class="min-w-50px">Project</th>
                                     <th class="min-w-50px">Designer Email</th>
-                                    <th class="min-w-50px">Price</th>
                                     <th class="min-w-50px">Actions</th>
+                                    <th class="min-w-50px">Total Price</th>
+                                    <th class="min-w-50px">Status</th>
+                                    <th class="min-w-50px">Escrow</th>
+
+                                   
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -191,33 +195,50 @@
                                     <td>{{$designer->Estimator->company}}</td>
                                     <td>{{$designer->Estimator->project->name}}</td>
                                     <td>{{$designer->email}}</td>
-                                    <td>@if(auth()->user()->hasRole('estimator')) ${{$designer->quotationSum->sum('price') ?? 0}} @endif</td>
                                     <td>
                                        
                                         @if(auth()->user()->hasRole(['admin','estimator']))
-                                        <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
-                                        </a>
+                                        {{-- <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
+                                        </a>--}}
                                         @endif
 
                                         <a href="{{url('Estimator/estimator-designer/comments',$designer->id).'?estid='.$id}}"><i class="fa fa-comments"></i>
                                         </a>
-                                        @if($temporaryWork->estimatorApprove)
-                                         @if($designer->estimatorApprove)
-                                          <br>
-                                          <span class="text-success">Approved</span>
-                                         @endif
-
-                                        @else
-                                        <a href="{{url('Estimator/estimator-approve-details',$designer->id)}}"><i class="fa fa-save"></i></a>
-                                        <form method="POST" action="{{url('Estimator/estimator-approve')}}"  id="form_{{$designer->id}}">
+                        
+                                        <!-- <form method="POST" action="{{url('Estimator/estimator-approve')}}"  id="form_{{$designer->id}}">
                                            @csrf
                                             <input type="hidden" name="designerId" value="{{$designer->id}}">
                                             <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-text="Are you sure ? to approve designer">
                                               <i class="fa fa-check"></i>
                                             </button>
-                                        </form>
-                                        @endif
+                                        </form> -->
+
                                     </td>
+                                    <td>
+                                        @if(auth()->user()->hasRole('estimator')) ${{$designer->quotationSum->sum('price') ?? 0}} <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}">breakdown
+                                        </a>@endif
+                                    </td>
+                                    <td>
+                                        @if($temporaryWork->estimatorApprove)
+                                            @if($designer->estimatorApprove)
+                                              <span class="text-success">Accepted</span>
+                                             @else
+                                              <span class="text-danger">Rejected</span>
+                                             @endif
+                                        @else
+                                        <form method="POST" action="{{url('Estimator/estimator-approve')}}"  id="form_{{$designer->id}}">
+                                               @csrf
+                                                <input type="hidden" name="designerId" value="{{$designer->id}}">
+                                                <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-primary btn_green" data-text="Are you sure ? to approve designer">
+                                                  Accept
+                                                </button>
+                                               </form>
+                                        @endif
+                                         
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
                                 </tr>
                                 @endforeach
                             </tbody>

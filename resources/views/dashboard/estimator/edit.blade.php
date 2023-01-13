@@ -275,18 +275,26 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control  @if(!$inputDesignersList) form-control-solid @endif" placeholder="Enter Comma Seperated" id="designer_company_emails" name="designer_company_emails" value="{{implode(',',$inputDesignersList)}}">
                                 </div>
-                                
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Select Designers:</span>
+                                        <span class="required">Select company approved designer</span>
                                     </label>
-                                    <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required multiple>
+                                    <select name="designers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required multiple>
                                         <option value="">Select Option</option>
-                                        @foreach($designers as $desig)
+                                       @foreach($designers as $desig)
                                         <optgroup label="Designer List">
                                             <option value="{{$desig->email}}" {{in_array($desig->email, $selectedDesignersList) ? 'selected':''}}>{{$desig->email}}</option>
                                         </optgroup>
                                         @endforeach
+                                    </select>
+                                </div>
+                                 <h6>And/Or</h6>
+                                <div class="d-flex inputDiv d-block">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Select company approved supplier</span>
+                                    </label>
+                                    <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple>
+                                        <option value="">Select Option</option>
                                         @foreach($suppliers as $supp)
                                          <optgroup label="Suppliers List">
                                             <option value="{{$supp->email}}" {{in_array($desig->email, $selectedDesignersList) ? 'selected':''}}>{{$supp->email}}</option>
@@ -527,7 +535,10 @@ height: 72px;
 
                         </div>
                        @include('dashboard.modals.design-relief-modals-edit')
-                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update</button>
+                       <input type="submit" name="action"  style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update & Email">
+                         <input type="submit" name="action"  style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update">
+                      <!--  <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update & email</button>
+                        <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update</button> -->
                         
                     </form>
                 </div>

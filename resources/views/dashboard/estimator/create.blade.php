@@ -302,7 +302,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Select Designers:</span>
+                                        <span class="required">Select company approved designer</span>
                                     </label>
                                     <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required multiple>
                                         <option value="">Select Option</option>
@@ -313,6 +313,16 @@ height: 72px;
                                             @endif
                                         </optgroup>
                                         @endforeach
+                                    </select>
+                                </div>
+                                 <h6>And/Or</h6>
+                                 <div class="d-flex inputDiv d-block">
+
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Select company approved supplier</span>
+                                    </label>
+                                    <select name="designers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple>
+                                        <option value="">Select Option</option>
                                         @foreach($suppliers as $supp)
                                          <optgroup label="Suppliers List">
                                             <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
@@ -503,7 +513,11 @@ height: 72px;
 
                         </div>
                         @include('dashboard.modals.design-relief-modals')
-                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save</button>
+                         <input type="submit" name="action"  style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Save & Email">
+                         <input type="submit" name="action"  style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Save">
+                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->
+                        <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save</button> -->
+
                         
                     </form>
                 </div>

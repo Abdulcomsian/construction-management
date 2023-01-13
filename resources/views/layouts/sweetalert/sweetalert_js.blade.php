@@ -1,4 +1,5 @@
-<script type="text/javascript" src="https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js"></script> -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.all.min.js"></script>
 <script>
     $(function () {
         //Delete Confirmation
@@ -41,17 +42,29 @@
                     showCancelButton: true,
                     closeOnConfirm: false,
                     //closeOnCancel: false
-                },
-                function(){
-                    
+                }).then(function(isConfirm) {
+                  if (isConfirm) {
                     if (link){
                         window.location = link;
                     }
                     if (form_id){
-                        swal("Deleted!", "Record has been deleted!", "success");
                         $(form_id).submit();
                     }
+                  } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                  }
                 });
+                // function(isConfirm){
+                //     alert(isConfirm);
+                //     if (link){
+                //         window.location = link;
+                //     }
+                //     alert(form_id);
+                //     if (form_id){
+                //         swal("Deleted!", "Record has been deleted!", "success");
+                //         $(form_id).submit();
+                //     }
+                // });
         });
     });
 </script>

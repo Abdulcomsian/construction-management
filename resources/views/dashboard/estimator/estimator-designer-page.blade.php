@@ -511,7 +511,6 @@
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>
-                                                <b>{{$cmt->comment_email}}</b><br>
                                                 <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
 
                                             </td>

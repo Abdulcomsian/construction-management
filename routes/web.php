@@ -120,6 +120,7 @@ Route::group(['prefix' => 'Estimator'],function(){
     Route::get('estimator-designer/design/{id}',[EstimatorController::class,'estimatorDesigner'])->name('estimator.designer');
     Route::post('designer-quotation/save',[EstimatorController::class,'designerQuotation'])->name('designer.quotation');
     Route::post('designer-review/save',[EstimatorController::class,'designerReview'])->name('designer.review');
+    Route::get('designer/read-message',[EstimatorController::class,'readMessage']);
 });
 
 //nomination routes here
@@ -198,6 +199,7 @@ Route::group(['middleware' => ['auth']], function () {
 //designer routes
 Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //designer user crud routes
+     Route::get('/designer',[DesignerController::class,'desginerView']);
      Route::get('/list',[DesignerController::class,'List'])->name('designer.list');
      Route::get('/create',[DesignerController::class,'Create'])->name('designer.create');
      Route::post('/save',[DesignerController::class,'Save'])->name('designer.save');
@@ -218,7 +220,10 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //change emails
      Route::post('change-emails',[DesignerController::class,'change_email'])->name('change-email');
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
+
 });
+
+
 
 
 Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['auth'])->name('dashboard');

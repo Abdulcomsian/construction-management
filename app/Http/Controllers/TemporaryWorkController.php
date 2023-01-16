@@ -52,6 +52,10 @@ class TemporaryWorkController extends Controller
         {
             return redirect('Estimator/estimator');
         }
+        if(Auth::user()->hasRole('designer'))
+        {
+            return redirect('designer/designer');
+        }
         $user = User::with('userCompany')->find(Auth::user()->id);
         $status=[0,1,2,3];
         if(isset($_GET['status']))

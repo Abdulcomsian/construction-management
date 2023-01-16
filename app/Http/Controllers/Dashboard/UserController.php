@@ -263,9 +263,10 @@ class UserController extends Controller
                 'email' => $all_inputs['email'],
                 'company_id' => $all_inputs['company_id'],
                 'nomination'=> $all_inputs['nomination'],
+                'job_title'=>$request->job_title,
             ]);
             $user->syncRoles($request->role);
-            $user->userProjects()->syncWithPivotValues($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
+            //$user->userProjects()->syncWithPivotValues($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {

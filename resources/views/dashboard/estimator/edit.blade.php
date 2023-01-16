@@ -275,6 +275,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="form-control  @if(!$inputDesignersList) form-control-solid @endif" placeholder="Enter Comma Seperated" id="designer_company_emails" name="designer_company_emails" value="{{implode(',',$inputDesignersList)}}">
                                 </div>
+                                 <h6>And/Or</h6>
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Select company approved designer</span>
@@ -288,12 +289,22 @@ height: 72px;
                                         @endforeach
                                     </select>
                                 </div>
+                                
+                                 <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Supplier Email Address:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control  @if(!$inputDesignersList) form-control-solid @endif" placeholder="Enter Comma Seperated" id="supplier_company_emails" name="supplier_company_emails" value="{{implode(',',$inputDesignersList)}}">
+                                </div>
                                  <h6>And/Or</h6>
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Select company approved supplier</span>
                                     </label>
-                                    <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple>
+                                    <select name="suppliers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple>
                                         <option value="">Select Option</option>
                                         @foreach($suppliers as $supp)
                                          <optgroup label="Suppliers List">

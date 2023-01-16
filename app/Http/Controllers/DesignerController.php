@@ -14,7 +14,7 @@ use App\Models\TemporaryWorkRejected;
 use App\Models\ShareDrawing;
 use App\Models\DrawingComment;
 use App\Models\ChangeEmailHistory;
-use App\Models\Project;
+use App\Models\{Project,EstimatorDesignerList};
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
@@ -35,7 +35,22 @@ class DesignerController extends Controller
 {
 
     //here we will make desinger user curd operation 
-
+    public function desginerView()
+    {
+        try
+        {
+            $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
+            $AwardedEstimators=TemporaryWork::with('project.company')->whereIn('id',$awarded)->get();
+               
+             return view('dashboard.designer.designer_supplier_view',compact('estimatorWork','AwardedEstimators'));
+            
+         }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
+    }
     //list designer
     public function List(Request $request)
     {
@@ -213,6 +228,8 @@ class DesignerController extends Controller
 
 
 
+
+    // opern routes work here work for supplier and esigner page where he can upload designe and files
     //=============================End=============================================================
     public function index($id)
     {
@@ -1294,4 +1311,6 @@ class DesignerController extends Controller
       toastSuccess('Desing Deleted Successfully');
       return Redirect::back();
    }
+
+  
 }

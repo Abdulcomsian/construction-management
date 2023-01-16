@@ -576,9 +576,9 @@
                                        </td>
                                        <td>
                                          @if($item->estimatorApprove)
-                                          <span class="text-success">Approved</span>
+                                          <span class="text-success">Awarded</span>
                                          @else
-                                          <span class="text-danger">Not Approved</span>
+                                          <span class="text-danger">Not Awarded</span>
                                          @endif
                                        </td>
                                        <td>

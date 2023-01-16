@@ -295,7 +295,7 @@
                             <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab2" aria-controls="signin" aria-selected="false" tabindex="-1">Question & Answers</button>
                         </li>
                          <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab3" aria-controls="signin" aria-selected="false" tabindex="-1">Public Q&A</button>
+                            <button class="@if($record->public_message) {{'redBgBlink'}} @endif nav-link tab btn btn_outline w-100" id="public_qa"  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab3" aria-controls="signin" aria-selected="false" tabindex="-1">Public Q&A</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false" tabindex="-1">Awarded Contracts</button>
@@ -677,6 +677,25 @@
 
     $(document).on("click",".remove",function(){
         $(this).parent().parent().parent().remove();
+    })
+
+    $("#public_qa").on('click',function(){
+        let id="{{$record->id}}";
+        $.ajax({
+            url:"{{url('Estimator/designer/read-message')}}",
+            method:"get",
+            data:{id:id},
+            success:function(res){
+                console.log(res);
+              if(res=="success")
+              {
+                $("#public_qa").removeClass('redBgBlink');
+              }
+              else{
+
+              }
+            }
+        })
     })
 </script>
 @endsection

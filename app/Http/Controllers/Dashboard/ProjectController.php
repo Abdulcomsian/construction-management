@@ -534,7 +534,9 @@ class ProjectController extends Controller
 
     public function Dashboard()
     {
+
          $user = auth()->user();
+          abort_if(!$user->hasAnyRole(['admin', 'company', 'user']), 403);
          $current_date=date('Y-m-d');
         if ($user->hasRole('admin')) {
                 $projects=Project::count();

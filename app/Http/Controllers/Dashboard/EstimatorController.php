@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Utils\Validations;
 use App\Models\{EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating};
 use App\Utils\HelperFunctions;
-use App\Notifications\EstimatorNotification;
-use App\Notifications\TemporaryWorkNotification;
-use App\Notifications\DesignerAwarded;
+use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use Notification;
 use DB;
 use PDF;
@@ -41,6 +39,10 @@ class EstimatorController extends Controller
             foreach ($project_idds as $id) {
                 $ids[] = $id->project_id;
             }
+        }
+        else
+        {
+            return redirect('/temporary_works');
         }
 
         
@@ -206,7 +208,7 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','designer_company_emails','action');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -264,30 +266,13 @@ class EstimatorController extends Controller
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
                     'action_url' => '',
-                ];  
-                $designer_supplier_email_list1=[];
-                if(!empty($request->designer_company_emails))
-                {
-                    $designer_supplier_email_list1=explode(",",$request->designer_company_emails);
-                }
-                $designer_supplier_email_list2=$request->designers;
-                $finalemaillist=array_merge($designer_supplier_email_list1,$designer_supplier_email_list2);
-                foreach($finalemaillist as $list)
-                {
-                    $list=explode('-',$list);
-                    $code=random_int(100000, 999999);
-                    EstimatorDesignerList::create([
-                        'email'=>$list[0],
-                        'temporary_work_id'=>$temporary_work->id,
-                        'code'=>$code,
-                        'user_id'=>$list[1] ?? NULL,
-                    ]);
-                    if($request->action=="Save & Email")
-                    {
-                        Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work->id,$list[0],$code));
-                    }
-                    
-                }
+                ];
+
+
+                //work for designer email list==============  
+                $this->saveDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer');
+                //work for supplier email list=============
+                $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier');
             }
             toastSuccess('Estimator Brief successfully added!');
             return redirect()->route('temporary_works.index');
@@ -296,6 +281,40 @@ class EstimatorController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+    //send email to desinger and save in database
+    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
+    {
+           
+            $email_list1=[];
+            $email_list2=[];
+            if(!empty($emails))
+            {
+                $email_list1=explode(",",$emails);
+            }
+            if($designers_or_suppliers)
+            {
+                $email_list2=$designers_or_suppliers;
+            }
+            $finalList=array_merge($email_list1,$email_list2);
+            foreach($finalList as $list)
+            {
+                $list=explode('-',$list);
+                $code=random_int(100000, 999999);
+                EstimatorDesignerList::create([
+                    'email'=>$list[0],
+                    'temporary_work_id'=>$temporary_work_id,
+                    'code'=>$code,
+                    'type'=>$type,
+                    'user_id'=>$list[1] ?? NULL,
+                ]);
+                if($action=="Save & Email")
+                {
+                    Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
+                }
+                
+            }
     }
 
     //unset keys
@@ -315,7 +334,7 @@ class EstimatorController extends Controller
     //detail page of estimator
     public function show($id)
     {
-        $listOfDesigners=EstimatorDesignerList::with('Estimator.project')->with('quotationSum')->where(['temporary_work_id'=>$id])->get();
+        $listOfDesigners=EstimatorDesignerList::with('Estimator.project')->with('quotationSum','checkCommentReply')->where(['temporary_work_id'=>$id])->get();
         $temporaryWork=TemporaryWork::find($id);
         return view('dashboard.estimator.view',compact('listOfDesigners','id','temporaryWork'));
     }
@@ -342,6 +361,9 @@ class EstimatorController extends Controller
         $model->estimator_designer_list_id=$request->estimator_designer_id;
         $model->temporary_work_id=$request->estimatorId;
         $model->save();
+        $estimatorUser=User::find($request->estimatorId);
+        $type='estimator';
+        Notification::route('mail',$estimatorUser->email)->notify(new DesignerEstimatComment($request->email,$type));
         toastSuccess('Comment submitted successfully!');
         return redirect()->back();
     }
@@ -356,10 +378,24 @@ class EstimatorController extends Controller
         if($request->public)
         {
             $model->public_status=1;
+            $this->notifyUserPublicMessage($model->temporary_work_id);
         }
         $model->save();
+        //send email to designer/supplier
+        $type='designer_supplier';
+        Notification::route('mail',$model->comment_email)->notify(new DesignerEstimatComment(Null,$type,$model->estimator_designer_list_id,$model->temporary_work_id));
         toastSuccess('Reply submitted successfully!');
         return redirect()->back();
+    }
+
+    public function notifyUserPublicMessage($temporary_work_id)
+    {
+        $userlist=EstimatorDesignerList::where(['temporary_work_id'=>$temporary_work_id])->get();
+        foreach($userlist as $list)
+        {
+            $list->public_message=1;
+            $list->save();
+        }
     }
     //estimator edit form
     public function edit($id)
@@ -466,7 +502,7 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','designer_company_emails','action');
+            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action');
             $image_name = '';
             if(Auth::user()->hasRole('user'))
             {
@@ -600,32 +636,12 @@ class EstimatorController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ]; 
-                    $designer_supplier_email_list1=[];
-                    if(!empty($request->designer_company_emails))
-                    {
-                        $designer_supplier_email_list1=explode(",",$request->designer_company_emails);
-                    }
-                    $designer_supplier_email_list2=$request->designers;
-                    $finalemaillist=array_merge($designer_supplier_email_list1,$designer_supplier_email_list2);
-                    foreach($finalemaillist as $list)
-                    {
-                        $list=explode('-',$list);
-                        $checkDesignerexist=EstimatorDesignerList::where(['temporary_work_id'=>$temporaryWork,'email'=>$list[0]])->count();
-                        if($checkDesignerexist<=0)
-                        {
-                            $code=random_int(100000, 999999);
-                            EstimatorDesignerList::create([
-                                'email'=>$list[0],
-                                'temporary_work_id'=>$temporaryWork,
-                                'code'=>$code,
-                                'user_id'=>$list[1] ?? NULL,
-                            ]);
-                           if($request->action="Update & Email")
-                           {
-                            Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporaryWork,$list[0],$code));
-                            }
-                        } 
-                    }
+
+                     //work for designer email list==============  
+                    $this->updateDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporaryWork,'Designer');
+                    //work for supplier email list=============
+                    $this->updateDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporaryWork,'Supplier');
+                    
                 }
                 
             }
@@ -635,6 +651,49 @@ class EstimatorController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
+    }
+
+     //send email to desinger and save in database
+    public function updateDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
+    {
+           
+            $email_list1=[];
+            $email_list2=[];
+            if(!empty($emails))
+            {
+                $email_list1=explode(",",$emails);
+            }
+            if($designers_or_suppliers)
+            {
+                $email_list2=$designers_or_suppliers;
+            }
+           
+            $finalList=array_merge($email_list1,$email_list2);
+            foreach($finalList as $list)
+            {
+                $list=explode('-',$list);
+                $checkDesignerexist=EstimatorDesignerList::where(['temporary_work_id'=>$temporary_work_id,'email'=>$list[0]])->first();
+                $code=random_int(100000, 999999);
+                 if($checkDesignerexist==NULL)
+                 {
+                      EstimatorDesignerList::create([
+                        'email'=>$list[0],
+                        'temporary_work_id'=>$temporary_work_id,
+                        'code'=>$code,
+                        'type'=>$type,
+                        'user_id'=>$list[1] ?? NULL,
+                    ]);
+                 }
+                 else{
+                    $code=$checkDesignerexist->code;
+                 }
+              
+                if($action="Update & Email")
+                {
+                   Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
+                }
+                
+            }
     }
 
     public function destroy($id)
@@ -654,13 +713,13 @@ class EstimatorController extends Controller
                 $estimatorWork=TemporaryWork::with('project')->find($id);
                 $designerquotation=DesignerQuotation::where(['estimator_designer_list_id'=>$record->id])->get();
                 $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$record->id,'temporary_work_id'=>$id])->get();
-                 $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
+                $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
                 //get company record
                 $company=Project::with('company')->find($estimatorWork->project_id);
                 //get rating of cuurent designer
                 //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
                 $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail])->get();
-                return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators]);
+                return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
             }
             else{
                 echo "<h1>You Are not allowed</h1>";
@@ -688,7 +747,9 @@ class EstimatorController extends Controller
                 $model->temporary_work_id=$request->estimatorId;
                 $model->save();
             }
-
+            //send email to estimator about quotaiton 
+            $estimatorUser=User::find($request->estimatorId);
+            Notification::route('mail', $estimatorUser->email)->notify(new QuotationSend($request->email));
             toastSuccess('Quotaion successfully Sent!');
             return redirect()->back();
         }catch (\Exception $exception) {
@@ -745,4 +806,16 @@ class EstimatorController extends Controller
             return Redirect::back();
         }
     }
+
+    public function readMessage(Request $request)
+   {
+     $res=EstimatorDesignerList::find($request->id)->update(['public_message'=>0]);
+     if($res)
+     {
+        return response()->json('success');
+     }
+     else{
+         return response()->json('error');
+     }
+   }
 }

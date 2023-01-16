@@ -196,32 +196,25 @@
                                     <td>{{$designer->Estimator->project->name}}</td>
                                     <td>{{$designer->email}}</td>
                                     <td>
-                                       
-                                        @if(auth()->user()->hasRole(['admin','estimator']))
-                                        {{-- <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
-                                        </a>--}}
-                                        @endif
-
-                                        <a href="{{url('Estimator/estimator-designer/comments',$designer->id).'?estid='.$id}}"><i class="fa fa-comments"></i>
+                                        <a class="@if(count($designer->checkCommentReply)>0) {{'redBgBlink'}} @endif" href="{{url('Estimator/estimator-designer/comments',$designer->id).'?estid='.$id}}"><i class="fa fa-comments"></i>
                                         </a>
-                        
-                                        <!-- <form method="POST" action="{{url('Estimator/estimator-approve')}}"  id="form_{{$designer->id}}">
-                                           @csrf
-                                            <input type="hidden" name="designerId" value="{{$designer->id}}">
-                                            <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-text="Are you sure ? to approve designer">
-                                              <i class="fa fa-check"></i>
-                                            </button>
-                                        </form> -->
-
                                     </td>
                                     <td>
-                                        @if(auth()->user()->hasRole('estimator')) ${{$designer->quotationSum->sum('price') ?? 0}} <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}">breakdown
+                                        @if(auth()->user()->hasRole('estimator')) 
+                                        <span>Total ${{$designer->quotationSum->sum('price') ?? 0}} </span>
+                                        <br>
+                                        @if(count($designer->quotationSum)>0)
+                                        @foreach($designer->quotationSum as $qt)
+                                        <span>({{$loop->index+1}})&nbsp;</span> <strong>${{$qt->price}}</strong><br>
+                                        @endforeach
+                                        @endif
+                                        <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
                                         </a>@endif
                                     </td>
                                     <td>
                                         @if($temporaryWork->estimatorApprove)
                                             @if($designer->estimatorApprove)
-                                              <span class="text-success">Accepted</span>
+                                              <span class="text-success">Awarded</span>
                                              @else
                                               <span class="text-danger">Rejected</span>
                                              @endif
@@ -230,7 +223,7 @@
                                                @csrf
                                                 <input type="hidden" name="designerId" value="{{$designer->id}}">
                                                 <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-primary btn_green" data-text="Are you sure ? to approve designer">
-                                                  Accept
+                                                  Awarded
                                                 </button>
                                                </form>
                                         @endif

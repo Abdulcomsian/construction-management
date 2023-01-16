@@ -19,4 +19,8 @@ class EstimatorDesignerList extends Model
     {
         return $this->hasMany(DesignerQuotation::class,'estimator_designer_list_id','id');
     }
+    public function checkCommentReply()
+    {
+        return $this->hasMany(EstimatorDesignerComment::class)->where(['reply'=>NULL]);
+    }
 }

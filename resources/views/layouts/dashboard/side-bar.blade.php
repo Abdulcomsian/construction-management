@@ -100,7 +100,16 @@
                         </a>
                     </div>
                     @endif
+                     @if(\Auth::user()->hasAnyRole(['estimator','user']))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('estimator.index') }}">
+                                <span class="menu-title">Estimator Register</span>
+                            </a>
+                        </div>
+                    @endif
+
                 </div>
+                 @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">
                         <span class="menu-icon userTask">
@@ -113,7 +122,7 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
-                        @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+                       
                         <div class="menu-item">
                             <a class="menu-link" href="{{ route('temporary_works.index') }}">
                                 <span class="menu-title">Temporary Works Register</span>
@@ -129,16 +138,10 @@
                                 <span class="menu-title">New Design Brief</span>
                             </a>
                         </div>
-                        @endif
-                        @if(\Auth::user()->hasAnyRole(['estimator','user']))
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('estimator.index') }}">
-                                <span class="menu-title">Estimator Register</span>
-                            </a>
-                        </div>
-                        @endif
+                       
                     </div>
                 </div>
+                @endif
             </div>
             <!--end::Menu-->
         </div>

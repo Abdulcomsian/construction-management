@@ -98,4 +98,8 @@ class TemporaryWork extends Model
     {
         return $this->hasOne(AttachSpeComment::class);
     }
+    public function designer()
+    {
+        return $this->hasOne(EstimatorDesignerList::class);
+    }
 }

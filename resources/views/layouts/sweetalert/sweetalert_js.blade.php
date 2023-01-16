@@ -10,6 +10,7 @@
              var text='';
             if($(event.target).is('button')){
                 form_id = '#form_'+ $(this).attr('id');
+                text=$(this).attr('data-text');
                
             }else if($(event.target).is('span')){
                 console.log('span clicked');

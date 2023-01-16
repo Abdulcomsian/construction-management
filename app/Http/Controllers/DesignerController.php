@@ -1312,5 +1312,5 @@ class DesignerController extends Controller
       return Redirect::back();
    }
 
-  
+
 }

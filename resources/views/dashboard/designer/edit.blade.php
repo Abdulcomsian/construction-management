@@ -99,6 +99,7 @@
 
                             </div>
                         </div>
+                        
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">

@@ -81,6 +81,13 @@
                             <span class="menu-title">Users</span>
                         </a>
                     </div>
+                     @if(\Auth::user()->hasRole('admin'))
+                     <div class="menu-item">
+                        <a class="menu-link" href="{{url('adminDesigner')}}">
+                            <span class="menu-title">Admin Designers</span>
+                        </a>
+                    </div>
+                     @endif
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('designer.list')}}">
                             <span class="menu-title">Designers</span>

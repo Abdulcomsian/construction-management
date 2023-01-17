@@ -680,22 +680,26 @@
     })
 
     $("#public_qa").on('click',function(){
-        let id="{{$record->id}}";
-        $.ajax({
-            url:"{{url('Estimator/designer/read-message')}}",
-            method:"get",
-            data:{id:id},
-            success:function(res){
-                console.log(res);
-              if(res=="success")
-              {
-                $("#public_qa").removeClass('redBgBlink');
-              }
-              else{
+        if($(this).hasClass('redBgBlink'))
+        {
+            let id="{{$record->id}}";
+            $.ajax({
+                url:"{{url('Estimator/designer/read-message')}}",
+                method:"get",
+                data:{id:id},
+                success:function(res){
+                    console.log(res);
+                  if(res=="success")
+                  {
+                    $("#public_qa").removeClass('redBgBlink');
+                  }
+                  else{
 
-              }
-            }
-        })
+                  }
+                }
+            }) 
+        }
+        
     })
 </script>
 @endsection

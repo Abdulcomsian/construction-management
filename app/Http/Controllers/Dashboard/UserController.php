@@ -237,6 +237,32 @@ class UserController extends Controller
         }
     }
 
+    public function userAdminEdit($id)
+    {
+        $user=User::find($id);
+        return view('dashboard.users.adminEdit',compact('user'));
+    }
+
+    public function userAdminUpdate(Request $request,$id)
+    {  
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+        ]);
+        try {
+            $user=User::find($id);
+            $all_inputs = $request->except('_token', '_method');
+            $user->update([
+                'name' => $all_inputs['name'],
+                'email' => $all_inputs['email'],
+            ]);
+            toastSuccess('Profile Updated Successfully');
+            return Redirect::back();
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *

@@ -316,7 +316,7 @@
                             <h2 style="display: inline-block;">Estimator Design Brief</h2>
                         </div>
                         <div class="row">
-                            <div class="col" style="margin: 0 10px">
+                            <div class="col">
                                 <table class="table query-table">
                                     <thead>
                                         <tr>
@@ -396,7 +396,7 @@
                             <h2 style="display: inline-block;">Your Submitted Quotation</h2>
                         </div>
                     <div class="row">
-                        <div class="col" style="margin: 0 10px">
+                        <div class="col">
                             <table class="table query-table">
                                 <thead>
                                     <tr>
@@ -457,7 +457,7 @@
                     
                     <div class="row">
 
-                        <div class="col" style="margin: 0 10px">
+                        <div class="col">
                             <table class="table query-table">
                                 <thead>
                                     <tr>
@@ -470,12 +470,12 @@
                                     @foreach($comments as $cmt)
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
-                                            <td>
+                                            <td style="width: 45%">
                                                 <b>{{$cmt->comment_email}}</b><br>
                                                 <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
 
                                             </td>
-                                            <td>
+                                            <td style="width: 45%">
                                                 <b>{{$cmt->reply_email}}</b><br>
                                                 <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
                                             </td>
@@ -510,11 +510,11 @@
                                     @foreach($public_comments as $cmt)
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
-                                            <td>
+                                            <td style="width: 45%">
                                                 <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
 
                                             </td>
-                                            <td>
+                                            <td style="width: 45%">
                                                 <b>{{$cmt->reply_email}}</b><br>
                                                 <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
                                             </td>
@@ -530,7 +530,7 @@
                     <div class="card-header border-0 pt-2">
                         <div class="container">
                             <div class="row">
-                            <div class="col" style="margin: 0 10px">
+                            <div class="col">
                                 <table class="table query-table">
                                     <thead>
                                         <tr>

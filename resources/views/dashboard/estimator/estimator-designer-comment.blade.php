@@ -183,13 +183,22 @@
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
                                 @foreach($comments as $cmt)
+                                 @php 
+                                  $first_td_width='30%';
+                                  $second_td_width='60%';
+                                  if($cmt->reply != NULL)
+                                  {
+                                    $first_td_width='45%';
+                                    $second_td_width='45%';
+                                  }
+                                 @endphp
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
-                                    <td>
+                                    <td style="width:{{$first_td_width}}">
                                         <b>{{$cmt->comment_email}}</b><br>
                                         <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
                                     </td>
-                                    <td>
+                                    <td style="width:{{$second_td_width}}">
                                         @if($cmt->reply==NULL)
                                         <form class="form-inline" action="{{url('Estimator/estimator-reply-designer')}}" method="post"enctype="multipart/form-data">
                                         @csrf

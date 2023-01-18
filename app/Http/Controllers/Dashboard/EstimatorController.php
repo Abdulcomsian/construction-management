@@ -25,19 +25,19 @@ class EstimatorController extends Controller
         if($user->hasRole('estimator'))
         {
             $user = User::with('userCompany')->find(Auth::user()->id);
-            $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+            $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
             $ids = [];
             foreach ($project_idds as $id) {
-                $ids[] = $id->project_id;
+                $ids[] = $id->id;
             }
         }
         elseif($user->hasRole('user'))
         {
-            $user=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
-            $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+           $user = User::with('userCompany')->find(Auth::user()->id);
+            $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
             $ids = [];
             foreach ($project_idds as $id) {
-                $ids[] = $id->project_id;
+                $ids[] = $id->id;
             }
         }
         else
@@ -62,7 +62,7 @@ class EstimatorController extends Controller
             if($user->hasRole('estimator'))
             {
                 $user = User::with('userCompany')->find(Auth::user()->id);
-                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
@@ -70,8 +70,8 @@ class EstimatorController extends Controller
             }
             elseif($user->hasRole('user'))
             {
-                $user=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
-                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $user = User::with('userCompany')->find(Auth::user()->id);
+                $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
@@ -97,7 +97,7 @@ class EstimatorController extends Controller
             if($user->hasRole('estimator'))
             {
                 $user = User::with('userCompany')->find(Auth::user()->id);
-                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                 $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
@@ -105,8 +105,8 @@ class EstimatorController extends Controller
             }
             elseif($user->hasRole('user'))
             {
-                $user=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
-                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $user = User::with('userCompany')->find(Auth::user()->id);
+                $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
                 $ids = [];
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
@@ -718,7 +718,7 @@ class EstimatorController extends Controller
                 $company=Project::with('company')->find($estimatorWork->project_id);
                 //get rating of cuurent designer
                 //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
-                $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail])->get();
+                $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
                 return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
             }
             else{

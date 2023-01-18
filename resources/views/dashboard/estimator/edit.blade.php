@@ -145,6 +145,15 @@ height: 72px;
   /* custom */
   caret-color: gray;
 }
+.form-control.form-control-solid:focus{color:#000 !important;}
+    .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg 
+    {
+        word-break: break-all;
+    }
+    .select2-selection__choice__display
+    {
+        color:black;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -282,11 +291,11 @@ height: 72px;
                                     </label>
                                     <select name="designers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required multiple>
                                         <option value="">Select Option</option>
-                                       @foreach($designers as $desig)
-                                        <optgroup label="Designer List">
-                                            <option value="{{$desig->email}}" {{in_array($desig->email, $selectedDesignersList) ? 'selected':''}}>{{$desig->email}}</option>
-                                        </optgroup>
-                                        @endforeach
+                                         <optgroup label="Designer List">
+                                           @foreach($designers as $desig)
+                                                <option value="{{$desig->email}}" {{in_array($desig->email, $selectedDesignersList) ? 'selected':''}}>{{$desig->email}}</option>
+                                            @endforeach
+                                         </optgroup>
                                     </select>
                                 </div>
                                 
@@ -306,11 +315,11 @@ height: 72px;
                                     </label>
                                     <select name="suppliers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple>
                                         <option value="">Select Option</option>
-                                        @foreach($suppliers as $supp)
-                                         <optgroup label="Suppliers List">
-                                            <option value="{{$supp->email}}" {{in_array($desig->email, $selectedDesignersList) ? 'selected':''}}>{{$supp->email}}</option>
+                                        <optgroup label="Suppliers List">
+                                            @foreach($suppliers as $supp)
+                                                <option value="{{$supp->email}}" {{in_array($desig->email, $selectedDesignersList) ? 'selected':''}}>{{$supp->email}}</option>
+                                            @endforeach
                                         </optgroup>
-                                        @endforeach
                                        
                                     </select>
                                 </div>

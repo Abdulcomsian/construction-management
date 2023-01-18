@@ -210,6 +210,14 @@ height: 72px;
     /*canvas{width:50%;height:110px;}*/
     /* .inputDiv  #design_required_by_date{color:#fff;} */
     .form-control.form-control-solid:focus{color:#000 !important;}
+    .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg 
+    {
+        word-break: break-all;
+    }
+    .select2-selection__choice__display
+    {
+        color:black;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')

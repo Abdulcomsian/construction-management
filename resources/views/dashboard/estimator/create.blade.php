@@ -315,13 +315,13 @@ height: 72px;
                                     </label>
                                     <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required multiple>
                                         <option value="">Select Option</option>
-                                        @foreach($designers as $desig)
                                         <optgroup label="Designer List">
-                                            @if($desig->hasRole('designer'))
-                                            <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->email}}</option>
-                                            @endif
+                                            @foreach($designers as $desig)
+                                                @if($desig->hasRole('designer'))
+                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->email}}</option>
+                                                @endif
+                                            @endforeach
                                         </optgroup>
-                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -341,11 +341,11 @@ height: 72px;
                                     </label>
                                     <select name="suppliers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple>
                                         <option value="">Select Option</option>
-                                        @foreach($suppliers as $supp)
-                                         <optgroup label="Suppliers List">
-                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
+                                        <optgroup label="Suppliers List">
+                                            @foreach($suppliers as $supp)
+                                                <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
+                                            @endforeach
                                         </optgroup>
-                                        @endforeach
                                        
                                     </select>
                                 </div>

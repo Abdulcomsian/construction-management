@@ -79,6 +79,16 @@ class Validations
         ]);
     }
 
+    public function storeAdminDesigner($request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'designer_company' => ['required', 'string', 'max:255'],
+        ]);
+    }
+
     public static function assignProject($request)
     {
         $request->validate([
@@ -106,6 +116,14 @@ class Validations
     }
 
     public static function updateDesigner($request, $id)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+        ]);
+    }
+
+    public static function updateAdminDesigner($request,$id)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],

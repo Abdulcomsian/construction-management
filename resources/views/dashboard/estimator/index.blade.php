@@ -590,7 +590,9 @@
                                            <a href="{{route('estimator.edit',$item->id)}}"><i class="fa fa-edit"></i></a>
                                           @endif
                                         @endif
-                                        <a href="{{route('estimator.show',$item->id)}}"><i class="fa fa-eye"></i></a>
+                                        <a href="{{route('estimator.show',$item->id)}}" class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                        </td>
                                     </tr>
                                     @empty

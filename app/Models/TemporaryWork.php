@@ -102,4 +102,8 @@ class TemporaryWork extends Model
     {
         return $this->hasOne(EstimatorDesignerList::class);
     }
+    public function checkQuestion()
+    {
+        return $this->hasMany(EstimatorDesignerList::class)->where(['public_message'=>1]);
+    }
 }

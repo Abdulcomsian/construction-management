@@ -369,7 +369,7 @@
                             <div class="col-md-3">
                                 <div class="input-group mb-3 row">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span>Date:</span>
+                                    <span>Submittal Date:</span>
                                     </label>
                                     <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
                                 </div>

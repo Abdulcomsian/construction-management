@@ -65,6 +65,9 @@ class DesignerController extends Controller
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')
+                    ->addColumn('company', function ($data) {
+                        return $data->userCompany->name;
+                    })
                     ->addColumn('action', function ($data) use ($user) {
                          $btn ='';
                         if ($user->hasRole(['admin','company'])) {

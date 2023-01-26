@@ -106,6 +106,14 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 
+ 
+//adminDesigner routes
+Route::group(['middleware' => ['auth']], function () {
+        Route::get('admindesigner/designerList',[AdminDesignerController::class,'designerList'])->name('adminDesigner.designerList');
+        Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination']);
+        Route::get('adminDesigner/create-profile/{id}',[AdminDesignerController::class,'createProfile']);
+
+    });
 //Estimator routes
 Route::group(['prefix' => 'Estimator'],function(){
     Route::group(['middleware' => ['auth']], function () {
@@ -223,8 +231,11 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //change emails
      Route::post('change-emails',[DesignerController::class,'change_email'])->name('change-email');
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
+     //
+     Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
 
 });
+
 
 
 

@@ -179,6 +179,7 @@
                                     <th class="min-w-50px">Designer Email</th>
                                     <th class="min-w-50px">Actions</th>
                                     <th class="min-w-50px">Total Price</th>
+                                    <th class="min-w-50px">Mileston Date</th>
                                     <th class="min-w-50px">Status</th>
                                     <th class="min-w-50px">Escrow</th>
 
@@ -194,7 +195,7 @@
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$designer->Estimator->company}}</td>
                                     <td>{{$designer->Estimator->project->name}}</td>
-                                    <td>{{$designer->email}}</td>
+                                    <td style="max-width: 150px">{{$designer->email}}</td>
                                     <td>
                                         <a class="@if(count($designer->checkCommentReply)>0) {{'redBgBlink'}} @endif" href="{{url('Estimator/estimator-designer/comments',$designer->id).'?estid='.$id}}"><i class="fa fa-comments"></i>
                                         </a>
@@ -205,11 +206,18 @@
                                         <br>
                                         @if(count($designer->quotationSum)>0)
                                         @foreach($designer->quotationSum as $qt)
-                                        <span>({{$loop->index+1}})&nbsp;</span> <strong>${{$qt->price}}</strong><br>
+                                        <span>(M{{$loop->index+1}})&nbsp;</span> <strong>${{$qt->price}}</strong><br>
                                         @endforeach
                                         @endif
                                         <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>
                                         </a>@endif
+                                    </td>
+                                    <td>
+                                        @if(count($designer->quotationSum)>0)
+                                        @foreach($designer->quotationSum as $qt)
+                                        <span>(M{{$loop->index+1}})&nbsp;</span> <strong>{{$qt->date}}</strong><br>
+                                        @endforeach
+                                        @endif
                                     </td>
                                     <td>
                                         @if($temporaryWork->estimatorApprove)

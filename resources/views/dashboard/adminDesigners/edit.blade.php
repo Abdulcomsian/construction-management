@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Edit Designer'])
+@extends('layouts.dashboard.master',['title' => 'Designer'])
 @section('styles')
 <style>
     .addBtn {
@@ -65,7 +65,7 @@
             <div class="card">
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
-                    <form method="post" action="{{ route('designer.update',$user->id) }}">
+                    <form method="post" action="{{ route('adminDesigner.update',$user->id) }}">
                         @csrf
                         @method('PUT')
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -99,33 +99,6 @@
 
                             </div>
                         </div>
-                        
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                            <div class="row">
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2">Select Company</label>
-                                    <select id="company_id" name="company_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
-                                        <option value="">Select Company</option>
-                                        @if(Auth::user()->hasRole(['company']))
-                                           @forelse($companies as $item)
-                                           @if($item->id==Auth::user()->id)
-                                           <option value="{{$item->id}}" {{ $item->id == $user->company_id ? 'selected' : '' }} {{ $item->id == old('company_id') ? 'selected' : '' }}>{{$item->name}}</option>
-                                           @endif
-                                           @empty
-                                        @endforelse
-                                        @else
-                                        @forelse($companies as $item)
-                                        <option value="{{$item->id}}" {{ $item->id == $user->company_id ? 'selected' : '' }} {{ $item->id == old('company_id') ? 'selected' : '' }}>{{$item->name}}</option>
-                                        @empty
-                                        @endforelse
-                                        @endif
-                                       
-                                    </select>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Update Designer
                         </button>
@@ -159,28 +132,6 @@
 
                     </form>
                 </div>
-                <hr>
-                <div class="card-body pt-7">
-                    <h3>User Has Following Assign Project</h3>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>#No</th>
-                                <th>User</th>
-                                <th>Project</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($user->userProjects as $project)
-                            <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$project->name}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
             </div>
             <!--end::Card-->
         </div>
@@ -191,60 +142,5 @@
 @endsection
 @section('scripts')
 <script>
-    $(document).ready(function() {
-        let nomination_flo='{{$user->nomination}}';
-        if(nomination_flo=='1')
-        {
-             $(".nominationdesc").show();
-        }
-        else{
-             $(".nominationdesc").hide();
-        }
-        $("#company_id").change(function() {
-            console.log('Here in id changes');
-            let id = $(this).val();
-            $.ajax({
-                type: "GET",
-                url: "{{ route('company.projects') }}",
-                data: {
-                    id: id
-                },
-                success: function(data) {
-                    console.log(data);
-                    if (data.status == true) {
-                        let projects = data.projects;
-                        let company_nomination=data.company_nomination;
-                        if(company_nomination==0)
-                        {
-                            $(".nomination-flow").hide();
-                        }
-                        else{
-                            $(".nomination-flow").show();
-                        }
-                        $('#projects').empty();
-                        $.each(projects, function(key, item) {
-                            $('#projects').append(`<option value="${item.id}">${item.name}</option>`);
-                        });
-
-                    }
-                }
-            });
-
-        });
-
-       //nomination checkbox work here
-        $("input[name='nomination']").change(function(){
-            if($(this).val()==1)
-            {
-                $(".nominationdesc").show();
-            }
-            else{
-                $(".nominationdesc").hide();
-
-            }
-           });
-
-
-    });
 </script>
 @endsection

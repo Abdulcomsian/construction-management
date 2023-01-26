@@ -60,7 +60,7 @@
                                 <h6>Temporary Works Procedure: SAMPLE – TWf2019: 03</h6>
                             </div>
                          </div>
-                         <div style="background:#009fdb;color:#000000e3;font-size:12px;padding:10px">Appointment of a Temporary Works Co-ordinator (TWC)</div>
+                         <!-- <div style="background:#009fdb;color:#000000e3;font-size:12px;padding:10px">Appointment of a Temporary Works Co-ordinator (TWC)</div> -->
                         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
                             <table>
                                 <tbody>

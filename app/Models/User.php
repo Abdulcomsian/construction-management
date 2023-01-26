@@ -39,6 +39,11 @@ class User extends Authenticatable
         'appointment_signature',
         'appointment_date',
         'nomination_approve_reject_date',
+        'designer_company',
+        'email_verified_at',
+        'added_by',
+        'di_designer_id',
+        'user_notify',
     ];
 
     /**

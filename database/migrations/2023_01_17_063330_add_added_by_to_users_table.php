@@ -15,6 +15,10 @@ class AddAddedByToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->tinyInteger('added_by')->nullable();
+            $table->string('designer_company')->nullable();
+            $table->unsignedBigInteger('di_designer_id')->nullable();
+            $table->foreign('di_designer_id')->references('id')->on('users');
+            $table->tinyInteger('user_notify')->default(0);
         });
     }
 

@@ -54,7 +54,12 @@ class UserController extends Controller
                     })
                     ->addColumn('action', function ($data) use ($user) {
                          $btn ='';
+                         $class='';
                         if ($user->hasRole(['admin','company'])) {
+                            if($data->user_notify)
+                            {
+                                $class='redBgBlink';
+                            }
                             $btn .= '<div class="d-flex">
                                 <a href="' . route('users.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
@@ -75,7 +80,7 @@ class UserController extends Controller
                                         <!--end::Svg Icon-->
                                     </button>
                                 </form></div>
-                                <a href="'.route('user.project.nomination', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                <a href="'.route('user.project.nomination', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 '.$class.'">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                 </a>
                                 ';
@@ -458,6 +463,7 @@ class UserController extends Controller
     public function User_Project_Nomination($id)
     {
         $project_wise_nominations=Nomination::with('user.userCompany','projectt')->where('user_id',$id)->get();
+        User::find($id)->update(['user_notify'=>0]);
         return view('dashboard.users.details',compact('project_wise_nominations'));
     }
 

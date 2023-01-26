@@ -10,7 +10,7 @@
              var text='';
             if($(event.target).is('button')){
                 form_id = '#form_'+ $(this).attr('id');
-                text=$(this).attr('data-text');
+                //text=$(this).attr('data-text');
                
             }else if($(event.target).is('span')){
                 console.log('span clicked');
@@ -22,14 +22,12 @@
             }
             else if($(event.target).is('i')){
                 form_id = '#form_'+ $(this).closest('button').attr('id');
-                 text=$(this).attr('data-text');
+                 //text=$(this).attr('data-text');
 
             }else{
                 link = $(this).attr('href');
                 text=$(this).attr('data-text');
             }
-            
-            
             if(text=='')
             {
                 text="Are you sure? to Delete it.";
@@ -44,7 +42,7 @@
                     closeOnConfirm: false,
                     //closeOnCancel: false
                 }).then(function(isConfirm) {
-                  if (isConfirm) {
+                  if (isConfirm.value) {
                     if (link){
                         window.location = link;
                     }

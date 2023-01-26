@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master-index-tempory',['title' => 'View Estimator'])
+@extends('layouts.dashboard.master-index-tempory',['title' => 'Awarded Estimator'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
@@ -300,7 +300,7 @@
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
-                     <h3 class="card-label pt-5" style="font-size:1.6rem;">List of Estimator Briefs
+                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Awarded List of Estimator Briefs
                         <span class="d-block text-muted pt-25 font-size-sm"></span>
                      </h3>
                   </div>
@@ -375,6 +375,8 @@
                   <!--begin::Topbar-->
                </div>
                <div class="card-body indexTempory pt-0">
+                <div class="tab-content" id="myTabContent">
+                  <!-- Awarded tab -->
                     <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">
                        <!-- aLL TAB -->
                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -394,23 +396,30 @@
                              <!--end::Table head-->
                              <!--begin::Table body-->
                              <tbody class="text-gray-600 fw-bold">
-                              @foreach($estimatorWork as $work)
-                              <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$work->project->name}}</td>
-                                <td>{{$work->project->company->name}}</td>
-                                <td>{{Auth::user()->email}}</td>
-                                <td>
-                                    <a href="{{route('estimator.designer',$work->id.'/?mail='.auth()->user()->email.'&code='.Crypt::encrypt($work->designer->code))}}"><i class="fa fa-eye"></i>
-                                    </a>
-                                </td>
-                              </tr>
-                              @endforeach
+                                @if(count($AwardedEstimators)>0)
+                                  @foreach($AwardedEstimators as $work)
+                                  <tr>
+                                    <td>{{$loop->index+1}}</td>
+                                    <td>{{$work->project->name}}</td>
+                                    <td>{{$work->project->company->name}}</td>
+                                    <td>{{Auth::user()->email}}</td>
+                                    <td>
+                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($work->id).'/?mail='.$work->designer->email)}}" target="_blank"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                  </tr>
+                                  @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="5"><h3 class="mt-3">No Record Found!</h3></td>
+                                </tr>
+                                @endif
                              </tbody>
                              <!--end::Table body-->
                           </table>
                        </div>
-                    </div>
+                    </div>    
+                </div>
+                
                </div>
                <br>
                <div class="col-md-6 d-flex" style="margin-bottom:10px">

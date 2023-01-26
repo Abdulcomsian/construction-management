@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Designer List'])
+@extends('layouts.dashboard.master',['title' => 'Admin Designer List'])
 @section('styles')
 <style>
      .aside-enabled.aside-fixed.header-fixed .header{
@@ -167,8 +167,8 @@ background-color: #07d564 !important;
                         <h2>Users</h2>
                     </div>
                     <!--begin::Card toolbar-->
-                     @if(\Auth::user()->hasRole(['admin', 'company']))
-                      <a href="{{ route('designer.create') }}" value="add" class="newDesignBtn btn">Add Desinger</a>
+                     @if(\Auth::user()->hasRole(['designer']))
+                      <a href="{{ route('adminDesigner.create') }}" value="add" class="newDesignBtn btn">Add Desinger</a>
                      @endif
                     <!--end::Card toolbar-->
                 </div>
@@ -186,7 +186,6 @@ background-color: #07d564 !important;
                                     <th class="min-w-125px">S.No</th>
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Company</th>
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
                             </thead>
@@ -209,10 +208,9 @@ return meta.row + meta.settings._iDisplayStart + 1;
 },
 {data: 'name', name: 'name',defaultContent: '-'},
 {data: 'email', name: 'email',defaultContent: '-'},
-{data: 'company', name: 'company',defaultContent: '-'},
 {data: 'action', name: 'action', orderable: false, searchable: false},
 ]";
-$url = route('designer.list');
+$url = url('admindesigner/designerList');
 $data = [
 'columns' => $columns,
 'url' => $url,
@@ -223,28 +221,6 @@ $data = [
 @include('layouts.datatables.datatables_js',['data' => $data])
 @include('layouts.dashboard.ajax_call')
 <script>
-    $(document).ready(function() {
-        @if($errors->any())
-        $('#project_modal_id').modal('show');
-        @endif
-    });
-
-    $(document).on("click",".nominationcomment",function(){
-        let nomination_id=$(this).attr('nominationid');
-        let userid=$(this).attr('userid');
-        $("#nominationid").val(nomination_id);
-
-        $.ajax({
-                type: 'GET',
-                url: '{{url("nomination-get-commetns")}}',
-                data:{id:nomination_id,userid:userid},
-                success: function(data) {
-                    $("#nomination_result").html(data);
-                    $("#nominationid").val(nomination_id);
-                    $("#userid").val(userid);
-                    $("#nomination_comment_modal_id").modal('show');
-                }
-            });
-    })
+   
 </script>
 @endsection

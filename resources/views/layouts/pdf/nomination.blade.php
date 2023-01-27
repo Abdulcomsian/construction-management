@@ -166,6 +166,9 @@
             </table>
         </div>
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
+                    <h4 style="margin: 0;font-size:14px;">Temporary works Related Experience</h4>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -184,6 +187,24 @@
                     </tr>
                     @php $i++; @endphp
                     @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
+                    <h4 style="margin: 0;font-size:14px;">Uploaded CV</h4>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Cv</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                       <td style="font-size:12px;"> 
+                        <p style="color:blue">{{$cv}}</p></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -386,8 +386,8 @@
                          <!-- 3rd table -->
                          <div class="table-responsive bordered">
                             <div class="bg_grey p-3">
-                               <h5>Temporary works qualifications</h5>
-                               <p class="mb-0">List highest temporary works related qualifications held</p>
+                               <h5>Temporary works courses</h5>
+                               <p class="mb-0">List highest temporary works related courses held</p>
                             </div>
                             <table class="table nom_table table4 qualif table-bordered mt-0">
                                 <thead>
@@ -414,7 +414,7 @@
                          <!-- 4th table -->
                          <div class="table-responsive bordered">
                             <div class="bg_grey p-3">
-                               <h5>Temporary works qualifications</h5>
+                               <h5>Temporary works Related Experience</h5>
                                <p class="mb-0">List highest temporary works related qualifications held</p>
                             </div>
                             <table class="table nom_table proj table5 table-bordered mt-0">
@@ -437,6 +437,16 @@
                               <div class="addrowBtn mb-5 pb-5 d-flex align-items-center justify-content-center">
                                 <a href="" class="btn btn-primary" id="table5Btn">Add Field</a>
                             </div>
+                        </div>
+
+
+                         <div class="table-responsive bordered">
+                            <div class="bg_grey p-3">
+                               <h5>You can upload your cv if applicable</h5>
+                            </div>
+                            <table class="table nom_table proj table5 table-bordered mt-0">
+                                <input type="file" name="cv" class="form-control">
+                            </table>
                         </div>
 
                         <!-- 5th table -->

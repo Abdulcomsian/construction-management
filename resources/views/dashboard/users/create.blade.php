@@ -233,13 +233,31 @@ background-color: #07d564 !important;
                                     <label class="fs-6 fw-bold mb-2 ">Description of role being proposed:</label>
                                     <textarea cols="40" rows="2" class="form-control" name="description_of_role"></textarea>
                                 </div>
-                                <div class="col-md-12 fv-row nominationdesc" style="display: none">
+                                <div class="col-md-12 fv-row nominationdesc mt-2" style="display: none">
                                     <label class="fs-6 fw-bold mb-2 ">Description of the limits of authority of the individual:</label>
                                     <textarea cols="40" rows="2" class="form-control" name="Description_limits_authority"></textarea>
+                                    
                                 </div>
                                 <div class="col-md-12 fv-row nominationdesc" style="display: none">
-                                    <label class="fs-6 fw-bold mb-2 "> Does the individual have authority to issue permits to load:</label>
-                                    <textarea cols="40" rows="2" class="form-control" name="authority_issue_permit"></textarea>
+                                    <!-- <label class="fs-6 fw-bold mb-2 "> Does the individual have authority to issue permits to load:</label>
+                                    <textarea cols="40" rows="2" class="form-control" name="authority_issue_permit"></textarea> -->
+                                    <div class="d-flex inputDiv requiredDiv">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" >
+                                            <span>Does the individual have authority to issue permits to load:</span>
+
+                                        </label>
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid">
+                                            <label>
+                                                <input type="radio" datacheck1='yes' class="btn-check" name="authority_issue_permit" value="YES" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" datacheck1='no' class="btn-check" name="authority_issue_permit" value=NO id="unchecked" checked/>
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -61,6 +61,10 @@
             padding: 1rem 3rem;
         }
     }
+    ul li{
+        font-weight: bold;
+        text-align: left;
+    }
 </style>
 @endsection
 @section('content')
@@ -103,6 +107,7 @@
                             </tbody>
                         </table>
                         <br>
+                        
                         <p  style="font-size: 16px">Dear {{$user->name}}</p><br>
                         @php
                          if($user->roles->pluck('name')[0]=='user')
@@ -130,6 +135,96 @@
                         <div class="mb-3">
                             <p class="paragraph">Please sign and date the enclosed copy of this letter, to confirm your acceptance of the above.</p>
                         </div>
+                        <table style="width: 100%">
+                                <tbody>
+                                    <tr style="min-height: 150px;">
+                                        <td style="text-align: center;">
+                                            <label for="" style="font-weight:900; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;margin: 0px;"><b style="font-size: 12px;">ACKNOWLEDGEMENT</b></label>
+                                        </td>
+                                    </tr>
+                                    <tr style="min-height: 150px;">
+                                        <td>
+                                            <label for="" style="font-weight:900;height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important; margin: 0px;"><b style="font-size: 12px;">Duties:</b></label>
+                                        </td>
+                                    </tr>
+                                    <tr style="min-height: 150px;">
+                                        <td style="width: 250px;font-size:10px;color:black">
+                                            <p>
+                                                <ul style="text-align: center;">
+                                                    <li>
+                                                        The TWC has overall responsibility to ensure that all                 temporary         works under their control are undertaken in
+                                                         accordance with the company Temporary WorksProcedure.NOTE: A PC’s TWC takes precedence.
+                                                        </p>
+                                                    </li>
+                                                    <li>For temporary works in Design Check Category 1, 2 and 3 ensure there is an agreement in place to formally
+                                                    allocate design responsibility to the design and design checking organisations.
+                                                    </li>
+                                                    <li>
+                                                        Prepare, maintain and regularly review the Temporary Works Register for the above project.
+                                                    </li>
+                                                    <li>
+                                                        Ensure each temporary works item is allocated an appropriate ‘construction risk’ category.
+                                                    </li>
+                                                    <li>
+                                                        Ensure that a written Design Brief is prepared for all appropriate temporary works and issued to the design and
+                                                        design checking organisations identified on the Temporary Works Register.
+                                                    </li>
+                                                    <li>
+                                                        Review Risk Assessments and Method Statements (RAMS) to ensure particular requirements are incorporated.
+                                                    </li>
+                                                    <li>
+                                                        Ensure that a Project Site File is established and maintained; to include a record of all relevant documents.
+                                                    </li>
+                                                    <li>
+                                                        Liaise with the Principal Contractor’s TWC (and seek approvals, where required).
+                                                    </li>
+                                                    <li>
+                                                         Distribute information to all interested parties, including the Principal Designer and Client where appropriate.
+                                                    </li>
+                                                    <li>
+                                                        Ensure that any proposed changes in material or construction are referred to the Temporary Works Designer and
+                                                        that any agreed changes or corrections of faults are correctly carried out on site.
+                                                    </li>
+                                                    <li>
+                                                        Ensure that all appropriate inspections and hold points (including those noted in the design) are undertaken and
+                                                        recorded on the permit-to-work.
+                                                    </li>
+                                                    <li>
+                                                        Sign and issue the permit-to-work, e.g. permit to load, permit for putting into use, permit to strike, permit to
+                                                        remove, etc.; and agree in writing where the TWS may do this (not high-risk work).
+                                                    </li>
+                                                    <li>
+                                                        Identify and instigate any requirements for periodic inspections, monitoring and maintenance of the temporary
+                                                        works.
+                                                    </li>
+                                                </ul>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr style="min-height: 150px;">
+                                        <td>
+                                            <label for="" style="font-weight:900;height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;margin: 0px;"><b style="font-size: 12px;">Competency Requirements:</b></label>
+                                        </td>
+                                    </tr>
+                                    <tr style="min-height: 150px;">
+                                        <td style="width: 250px;font-size:10px;color:black">
+                                            <p>
+                                                <ul>
+                                                    <li>Have undertaken and passed the 2-day CITB-accredited TWC Course; and have proven experience.
+                                                    </li>
+                                                    <li>Understand the company procedure for the control of temporary works.
+                                                    </li>
+                                                    <li>
+                                                        Have the resource, personal skills and authority to carry out the TWC duties; including the suspension of work where necessary.
+                                                    </li>
+                                                </ul>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    
+
+                                </tbody>
+                        </table><br>
                         <div class="row">
                             <div class="col-6 d-flex">
                                 <label for="sign" class="paragraph">Signed:</label>

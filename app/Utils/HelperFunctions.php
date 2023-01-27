@@ -218,6 +218,10 @@ class HelperFunctions
         return $path  = 'uploads/qualification/';
     }
 
+    public static function nominationCvPath($user=null){
+        return $path  = 'uploads/cv/';
+    }
+
     public static function sharetemwork($useremail, $condition, $tempid, $projectid, $commentsandother)
     {
         //check use exist or not

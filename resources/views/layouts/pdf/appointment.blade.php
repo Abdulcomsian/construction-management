@@ -52,9 +52,9 @@
                     </div>
                 </div>
                     <div class="card-body pt-0">
-                        <div style="margin-bottom: 15px;border-bottom:2px solid #009fdb">
+                        <div style="margin-bottom: 15px;">
                             <div style="float:left;width:200px;">
-                              <h6>Temporary Work Forum</h6>
+                              <h6></h6>
                             </div>
                             <div style="float:left;width:450px;text-align: right;">
                                 <h6>Temporary Works Procedure: SAMPLE – TWf2019: 03</h6>

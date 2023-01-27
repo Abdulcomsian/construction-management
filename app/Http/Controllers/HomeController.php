@@ -100,6 +100,14 @@ class HomeController extends Controller
                 file_put_contents($file, $image_base64);
             }
             $projectdata=Project::find($request->project);
+
+            //upload cv
+            $cv='';
+            if ($request->file('cv')) {
+                $filePath = HelperFunctions::nominationCvPath();
+                $file = $request->file('cv');
+                $cv = HelperFunctions::saveFile(null, $file, $filePath);
+            }
             $all_inputs=[
                 'project'=>$request->project,
                 'project_manager'=>$request->project_manager,
@@ -116,6 +124,7 @@ class HomeController extends Controller
                 'job_title1'=>$request->job_title1,
                 'signature1'=>$request->signature1,
                 'user_id'=>$request->user_id,
+                'cv'=>$cv,
 
             ];
 
@@ -278,7 +287,7 @@ class HomeController extends Controller
                 $model->nomination_id=$nomination->id;
                 $model->save();
 
-               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company,'qualificationscount'=>$qualificationscount]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company,'qualificationscount'=>$qualificationscount,'cv'=>$cv]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
@@ -388,6 +397,13 @@ class HomeController extends Controller
                 file_put_contents($file, $image_base64);
             }
             $projectdata=Project::find($request->project);
+            //upload cv
+            $cv='';
+            if ($request->file('cv')) {
+                $filePath = HelperFunctions::nominationCvPath();
+                $file = $request->file('cv');
+                $cv = HelperFunctions::saveFile(null, $file, $filePath);
+            }
             $all_inputs=[
                 'project'=>$request->project,
                 'project_manager'=>$request->project_manager,
@@ -405,6 +421,7 @@ class HomeController extends Controller
                 'signature1'=>$request->signature1,
                 'user_id'=>$request->user_id,
                 'status'=>0,
+                'cv'=>$cv,
 
             ];
 
@@ -598,7 +615,7 @@ class HomeController extends Controller
                 $model->nomination_id=$nomination->id;
                 $model->save();
 
-               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'user'=>$user,'company'=>$company,'cv'=>$cv]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     @unlink($nomination->pdf_url);

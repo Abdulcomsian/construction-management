@@ -93,6 +93,7 @@
                     <tr>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Qualification</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Date</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Documents</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,6 +101,7 @@
                     <tr>
                         <td style="font-size:12px;">{{$qualification->qualification}}</td>
                         <td style="font-size:12px;">{{$qualification->date}}</td>
+                        <td style="font-size:12px;"><p style="color:blue">{{asset($qualification->qualification_certificate ?? '')}}</p></td>
                          @php $images[]=$qualification->qualification_certificate;@endphp
                     </tr>
                     @endforeach
@@ -117,6 +119,7 @@
                     <tr>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Course title</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Date</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Documents</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,6 +131,9 @@
                         <td style="font-size:12px;">
                             {{$course->date}}
                         </td>
+                        <td style="font-size:12px;">
+                            <p style="color:blue">{{asset($course->course_certificate ?? '')}}</p>
+                        </td>
                         @php $images[]=$course->course_certificate;@endphp
                     </tr>
                     @endforeach
@@ -137,6 +143,9 @@
             </table>
         </div>
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
+                    <h4 style="margin: 0;font-size:14px;">Temporary works Related Experience</h4>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -153,6 +162,24 @@
                        <td>{{$proj->description_involvment}}</td>
                     </tr>
                     @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
+                    <h4 style="margin: 0;font-size:14px;">Uploaded CV</h4>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Cv</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                       <td style="font-size:12px;"> 
+                        <p style="color:blue">{{$nomination->cv}}</p></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -594,7 +621,7 @@
         </div>
 
         @if(isset($images) && count($images)>0)
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+        {{--<div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <tbody>
                 @foreach($images as $image)
@@ -617,7 +644,7 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
+        </div>--}}
         @endif
 
     </div>

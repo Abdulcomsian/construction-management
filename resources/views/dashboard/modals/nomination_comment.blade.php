@@ -4,9 +4,18 @@
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
-            <div class="modal-header pb-0 border-0 justify-content-end">
+             
+            <div class="modal-header pb-0 border-0 ">
                 <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                @if(isset($nomination))
+                <div style="width:100%;" >
+                    <h6 style="margin-left: 20px">
+                        Please confirm acceptance once you have reviewed nomination. To view nomination please <a href="{{asset('pdf').'/'.$nomination->pdf_url}}">click here</a>
+                        
+                    </h6>
+                </div>
+                @endif
+                <div class="btn btn-sm btn-icon btn-active-color-primary justify-content-end" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -18,11 +27,13 @@
                     </span>
                     <!--end::Svg Icon-->
                 </div>
+
                 <!--end::Close-->
             </div>
             <!--begin::Modal header-->
             <!--begin::Modal body-->
-            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15 mt-5">
+
                     <form id="desingform" action="{{url('Nomination/nomination-chagnestatus')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="nominationid" id="nominationid">

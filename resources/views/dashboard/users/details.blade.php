@@ -212,9 +212,11 @@ background-color: #07d564 !important;
                                     <td>
                                         @php 
                                             $class='';
+                                            $bgclass='';
                                              if($nomination->status==0)
                                              {
                                                  $class="text-warning";
+                                                 $bgclass='redBgBlink';
                                              }elseif($nomination->status==1)
                                              {
                                                  $class="text-success";
@@ -224,7 +226,7 @@ background-color: #07d564 !important;
                                              }
 
                                         @endphp
-                                        <button type="button" userid="{{$nomination->user->id}}" nominationid="{{$nomination->id}}" project="{{$nomination->project}}" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm " title="View Nomination Comments">
+                                        <button type="button" userid="{{$nomination->user->id}}" nominationid="{{$nomination->id}}" project="{{$nomination->project}}" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm {{$bgclass}}" title="View Nomination Comments">
                                         <i class="fa fa-comment {{$class}}" aria-hidden="true"></i>
                                         
                                         </button>
@@ -244,11 +246,14 @@ background-color: #07d564 !important;
         <!--end::Container-->
     </div>
     <!--end::Post-->
+
+    @include('dashboard.modals.nomination_comment')
 </div>
+
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-@include('dashboard.modals.nomination_comment')
+
 <script type="text/javascript">
      var canvas = document.getElementById("sig");
      var signaturePad = new SignaturePad(canvas);

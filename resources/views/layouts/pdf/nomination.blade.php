@@ -122,7 +122,12 @@
                     <tr>
                         <td style="font-size:12px;">{{$data['qualification'][$i]}}</td>
                         <td style="font-size:12px;">{{$data['qualification_date'][$i]}}</td>
-                        <td style="font-size:12px;"><p style="color:blue">{{asset($images[$i] ?? '')}}</p></td>
+
+                        <td style="font-size:12px;">
+                            @if(isset($qimages[$i]))
+                            <p style="color:blue">{{asset($qimages[$i] ?? '')}}</p>
+                            @endif
+                        </td>
                     </tr>
                      @php $i++; @endphp
                     @endforeach
@@ -155,7 +160,9 @@
                             {{$data['course_date'][$i]}}
                         </td>
                         <td style="font-size:12px;">
-                            <p style="color:blue">{{asset($images[$qualificationscount] ?? '')}}</p>
+                            @if(isset($cimages[$i]))
+                            <p style="color:blue">{{asset($cimages[$i] ?? '')}}</p>
+                            @endif
                         </td>
                     </tr>
                     @php $i++; $qualificationscount++;@endphp
@@ -180,11 +187,13 @@
                 <tbody>
                    @php $i=0;@endphp
                     @foreach($data['project_title'] as $proj)
+                    @if($data['project_title'][$i] != NULL)
                     <tr>
                        <td style="font-size:12px;">{{$data['project_title'][$i]}}</td>
                        <td style="font-size:12px;">{{$data['project_role'][$i]}}</td>
                        <td style="font-size:12px;">{{$data['desc_of_involvement'][$i]}}</td>
                     </tr>
+                    @endif
                     @php $i++; @endphp
                     @endforeach
                 </tbody>

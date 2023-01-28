@@ -108,11 +108,11 @@ Route::group(['middleware' => ['auth']], function () {
 
  
 //adminDesigner routes
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','companydesigner']], function () {
         Route::get('admindesigner/designerList',[AdminDesignerController::class,'designerList'])->name('adminDesigner.designerList');
         Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination']);
         Route::get('adminDesigner/create-profile/{id}',[AdminDesignerController::class,'createProfile']);
-
+        Route::post('adminDesigner/save-profile',[AdminDesignerController::class,'saveProfile']);
     });
 //Estimator routes
 Route::group(['prefix' => 'Estimator'],function(){

@@ -10,8 +10,9 @@ use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
-use App\Models\{Project,EstimatorDesignerList,TemporaryWork};
+use App\Models\{Project,EstimatorDesignerList,TemporaryWork,CompanyProfile};
 use Carbon\Carbon;
+use App\Utils\HelperFunctions;
 use DB;
 use Auth;
 use Notification;
@@ -217,8 +218,52 @@ class AdminDesignerController extends Controller
     //create profile or build profile
     public function createProfile($id)
     {
-        return view('dashboard.adminDesigners.createProfile');
+        $companyProfile=CompanyProfile::where(['user_id'=>Auth::user()->id])->first();
+        return view('dashboard.adminDesigners.createProfile',compact('companyProfile'));
     }
+
+    //save profile
+    public function saveProfile(Request $request)
+    {
+        try {
+            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images');
+            if ($request->file('logo')) {
+                $filePath  = 'uploads/designercompany/logo/';
+                $file = $request->file('logo');
+                $all_inputs['logo'] = HelperFunctions::saveFile(null, $file, $filePath);            
+            }
+            if ($request->file('company_cv')) {
+                $filePath  = 'uploads/designercompany/cv/';
+                $file = $request->file('company_cv');
+                $all_inputs['company_cv'] = HelperFunctions::saveFile(null, $file, $filePath);            
+            }
+            if ($request->file('indemnity_insurance')) {
+                $filePath  = 'uploads/designercompany/insurance/';
+                $file = $request->file('indemnity_insurance');
+                $all_inputs['indemnity_insurance'] = HelperFunctions::saveFile(null, $file, $filePath);            
+            }
+            //work for upload images here
+            $image_links = [];
+            if ($request->file('images')) {
+                $filePath  = 'uploads/designercompany/others/';
+                $files = $request->file('images');
+                foreach ($files  as $key => $file) {
+                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    $image_links[] = $imagename;
+                }
+                $all_inputs['other_files']=json_encode($image_links);
+            }
+            $all_inputs['user_id']=Auth::user()->id;
+            CompanyProfile::create($all_inputs);
+            toastSuccess('Company Profile Created successfully');
+            return redirect()->back();
+            
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
+    }
+
     //admin designer list
     public function designerList(Request $request)
     {

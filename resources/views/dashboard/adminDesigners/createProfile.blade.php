@@ -120,7 +120,53 @@ background-color: #07d564 !important;
 
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
-                    <form method="post" action="">
+                    @if($companyProfile)
+                     <!--begin::Table-->
+                    <div class="table-responsive">
+                        <table class="cell-border table-hover table align-middle table-row-dashed fs-6 gy-5 table-responsive">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                    <th>S.No</th>
+                                    <th>Company Name</th>
+                                    <th>Company Email</th>
+                                    <th>Address</th>
+                                    <th>About</th>
+                                    <th>Year Established</th>
+                                    <th>Phone</th>
+                                    <th>Website</th>
+                                    <th>Logo</th>
+                                    <th>Cv</th>
+                                    <th>Indemnity Insurance</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 fw-bold">
+                                <tr>
+                                    <td>1</td>
+                                    <td>{{$companyProfile->company_name}}</td>
+                                    <td>{{$companyProfile->comapny_email}}</td>
+                                    <td>{{$companyProfile->company_address}}</td>
+                                    <td>{{$companyProfile->company_description}}</td>
+                                    <td>{{$companyProfile->year_established}}</td>
+                                    <td>{{$companyProfile->phone}}</td>
+                                    <td>{{$companyProfile->website}}</td>
+                                    <td> 
+                                        <img src="{{asset($companyProfile->logo)}}" width="100px" height="100px">
+                                    </td>
+                                    <td><a href="{{$companyProfile->company_cv}}" target="_blank">View cv</a> </td>
+                                    <td>
+                                        <a href="{{$companyProfile->indemnity_insurance}}" target="_blank">View Indemnity Insurance</a> 
+                                    </td>
+                                    <td><a href=""><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    @else
+                    <form method="post" action="{{url('adminDesigner/save-profile')}}" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -128,11 +174,11 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Name OF Company</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Name" name="company_name" value="{{old('name')}}" />
+                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Name" name="company_name" value="{{old('name')}}" required />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Company Email</label>
-                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email" name="company_email" value="{{old('email')}}" />
+                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email" name="comapny_email" value="{{old('email')}}" required />
                                 </div>
 
                             </div>
@@ -141,11 +187,11 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Address</label>
-                                    <textarea class="form-control form-control-solid" placeholder="Enter Address" name="company_address"></textarea>
+                                    <textarea class="form-control form-control-solid" placeholder="Enter Address" name="company_address" required></textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Company Description</label>
-                                    <textarea class="form-control form-control-solid" placeholder="Enter Company Description" name="company_description"></textarea>
+                                    <textarea class="form-control form-control-solid" placeholder="Enter Company Description" name="company_description" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -153,11 +199,11 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Year Established</label>
-                                    <input type="date" class="form-control form-control-solid" placeholder="Year" name="company_established_year" />
+                                    <input type="date" class="form-control form-control-solid" placeholder="Year" name="year_established" required />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Phone</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Company Phone" name="company_phone" />
+                                    <input type="text" class="form-control form-control-solid" placeholder="Company Phone" name="phone" required />
                                 </div>
                             </div>
                         </div>
@@ -165,11 +211,11 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Website Link</label>
-                                    <input type="url" class="form-control form-control-solid" placeholder="Company Website" name="company_website" />
+                                    <input type="url" class="form-control form-control-solid" placeholder="Company Website" name="website" required />
                                 </div>
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Company Logo</label>
-                                    <input type="file" class="form-control form-control-solid"  name="company_logo" />
+                                    <input type="file" class="form-control form-control-solid"  name="logo" required accept="image/png, image/gif, image/jpeg"/>
                                 </div>
                                 
                             </div>
@@ -177,12 +223,12 @@ background-color: #07d564 !important;
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2">Upload cv</label>
+                                    <label class="fs-6 fw-bold mb-2">Upload cv</label>
                                     <input type="file" class="form-control form-control-solid"  name="company_cv" />
                                 </div>
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Upload Professional indemnity insurance</label>
-                                    <input type="file" class="form-control form-control-solid"  name="company_indemnity_insurance" />
+                                    <input type="file" class="form-control form-control-solid"  name="indemnity_insurance" required />
                                 </div>
                                 
                             </div>
@@ -190,7 +236,7 @@ background-color: #07d564 !important;
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-12 fv-row fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2">Upload Other Files</label>
+                                    <label class="fs-6 fw-bold mb-2">Upload Other Files</label>
                                     <div class="uploadDiv" style="padding-left: 10px;">
                                         <div class="input-images"></div>
                                     </div>
@@ -202,6 +248,7 @@ background-color: #07d564 !important;
                         </button>
 
                     </form>
+                    @endif
                 </div>
                 <!--end::Card body-->
             </div>

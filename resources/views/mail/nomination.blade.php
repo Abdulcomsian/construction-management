@@ -56,6 +56,10 @@
                                                                          {
                                                                             $role="Scaffolder";
                                                                          }
+                                                                         elseif($user->roles->pluck('name')[0]=='estimator')
+                                                                         {
+                                                                            $role="Estimator";
+                                                                         }
                                                                         @endphp
                                                                         {{$role}}
                                                                    </p>

@@ -84,4 +84,9 @@ class User extends Authenticatable
     {
          return $this->hasOne(Nomination::class)->orderBy('id','desc');
     }
+
+    public function userDiCompany()
+    {
+        return $this->belongsTo(User::class, 'di_designer_id');
+    }
 }

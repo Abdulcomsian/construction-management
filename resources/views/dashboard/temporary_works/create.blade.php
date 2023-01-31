@@ -593,7 +593,7 @@ height: 72px;
                                 </div>
                                 <div class="inputDiv d-none" id="pdfsign">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Upload Signature:</span>
+                                        <span class="required">Upload Signature:<br>Allowed format (PNG, JPG)</span>
                                     </label>
                                     <input type="file" name="pdfphoto" class="form-control" accept="image/*">
                                 </div>

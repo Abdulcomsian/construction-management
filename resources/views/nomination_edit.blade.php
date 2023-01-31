@@ -194,7 +194,7 @@
     td{
         position: relative;
     }
-    td input{
+    td input[type='radio']{
         border: none;
         outline: none;
         box-shadow: none;
@@ -205,6 +205,13 @@
         left: 0;
         top: 50%;
         transform: translateY(-50%);
+    }
+     td input{
+        border: none;
+        outline: none;
+        box-shadow: none;
+        text-align: center;
+        width: 100%;
     }
     .tableBordered th,
     .tableBordered td{
@@ -882,11 +889,12 @@
                                                  </div>
                                                   
 
-                                                  <div class="inputDiv d-none" id="pdfsign">
-                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                  <div class="inputDiv" id="pdfsign" style="display: none">
+                                                    <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                         <span class="required">Upload Signature:</span>
-                                                    </label>
-                                                    <input type="file" name="pdfphoto" class="form-control p-0" accept="image/*">
+                                                    </label> -->
+                                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                                    <span>Allowed format (PNG, JPG)</span>
                                                  </div>
                                                 
                                                  <div class="d-none inputDiv" id="namesign">
@@ -942,12 +950,12 @@
 <script>
     $('#table3Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table3 tbody', `<tr><td class="tdhight"><input type="text" name="qualification[]" required></td><td class="tdhight"><input type="date" name="qualification_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="qualification_file[]"></td> </tr>`)
+        addNewRow('.table3 tbody', `<tr><td class="tdhight"><input type="text" name="qualification[]" required></td><td class="tdhight"><input type="date" name="qualification_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="qualification_file[]" style="width:78%"><button class="btn btn-sm btn-danger remove" type="button">-</button></td> </tr>`)
     });
 
     $('#table4Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course[]" required></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
+        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course[]" required></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]" style="width:78%"><button class="btn btn-sm btn-danger remove" type="button">-</button></td> </tr>`)
     });
 
     $('#table5Btn').click(function(e) {
@@ -955,13 +963,16 @@
         addNewRow('.table5 tbody', ` <tr>
                                     <td class="tdhight"><input type="text" name="project_title[]" required></td>
                                     <td class="tdhight"><input type="text" name="project_role[]"></td>
-                                    <td class="tdhight"><input type="text" name="desc_of_involvement[]"></td>
+                                    <td class="tdhight"><input type="text" name="desc_of_involvement[]" style="width:78%"><button class="btn btn-sm btn-danger remove" type="button">-</button></td>
                                 </tr>`)
     });
 
     function addNewRow(selector, row){
         $(selector).append(row);
     }
+    $(document).on('click','.remove',function(){
+        $(this).parent().parent().remove();
+    })
 </script>
 
 <script type="text/javascript">
@@ -987,8 +998,8 @@
         {
             $("#pdfChecked").prop('checked',false);
             $("#signtype").val(1);
-             $("#pdfsignn").val(0);
-            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#pdfsignn").val(0);
+            $("div#pdfsign").hide();
             $("#namesign").addClass('d-flex').removeClass('d-none');
             $(".customSubmitButton").removeClass("hideBtn");
             $(".customSubmitButton").addClass("showBtn");
@@ -1020,7 +1031,7 @@
             $("#pdfsignn").val(1);
             $("#signtype").val(0);
             $("input[name='pdfsign']").attr('required','required');
-            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("div#pdfsign").show();
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
@@ -1032,7 +1043,7 @@
             $("#pdfsignn").val(0);
             $("#signtype").val(2);
             $("#sign").show();
-            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("div#pdfsign").hide();
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("input[name='pdfsign']").removeAttr('required');

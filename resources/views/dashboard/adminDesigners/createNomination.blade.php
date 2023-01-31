@@ -144,7 +144,7 @@
     td{
         position: relative;
     }
-    td input{
+    td input[type='radio']{
         border: none;
         outline: none;
         box-shadow: none;
@@ -155,6 +155,13 @@
         left: 0;
         top: 50%;
         transform: translateY(-50%);
+    }
+     td input{
+        border: none;
+        outline: none;
+        box-shadow: none;
+        text-align: center;
+        width: 100%;
     }
     .tableBordered th,
     .tableBordered td{
@@ -223,6 +230,45 @@
 
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
+                   @if($nomination)
+                   <div class="table-responsive">
+                        <table class="cell-border table-hover table align-middle table-row-dashed fs-6 gy-5 table-responsive">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                    <th>S.No</th>
+                                    <th>Nomination Pdf</th>
+                                    <th>Appointment PDF</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 fw-bold">
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <a type="button" href="{{asset('pdf').'/'.$nomination->pdf_url}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                      <i class="fa fa-download" aria-hidden="true"></i>  
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if($nomination->appointment_pdf)
+                                        <a type="button" href="{{asset('pdf').'/'.$nomination->appointment_pdf}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                              <i class="fa fa-download" aria-hidden="true"></i>  
+                                        </a> 
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a type="button" href="{{url('Nomination/nomination-edit',\Crypt::encrypt($nomination->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                              <i class="fa fa-edit" aria-hidden="true"></i>  
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                   @else
                    <form id="nominationform" action="{{url('adminDesigner/save-nomination',auth()->user()->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body pt-0">
@@ -233,7 +279,7 @@
                             <tbody>
                                 <tr>
                                     <td>Nominated person’s (Company)</td>
-                                    <td><input type="text" name="nominated_person_employer" value="" required></td>
+                                    <td><input type="text" name="nominated_person_employer" value="{{auth()->user()->userDiCompany->name}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Nominated person </td>
@@ -707,7 +753,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-end w-50">Date</td>
-                                            <td><input type="date" name="date"></td>
+                                            <td><input type="date" name="date" value="{{date('Y-m-d')}}"></td>
                                         </tr>
                                         <tr>
                                             <td class="text-end w-50">
@@ -717,19 +763,23 @@
                                                 </label>
                                             </td>
                                             <td>
-                                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
-                                                 <canvas id="sig" style="border: 1px solid lightgray"></canvas>
-                                                  <br/>
-                                                  <textarea id="signature" name="signed" style="display: none" required></textarea>
-                                                   <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                                <div id="sign">
+                                                     <div class="d-flex inputDiv"  style="align-items: center;">
+                                                     <canvas id="sig" style="border: 1px solid lightgray"></canvas>
+                                                      <br/>
+                                                      <textarea id="signature" name="signed" style="display: none" required></textarea>
+                                                       <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                                     </div>
+                                                     <span id="sigimage" class="text-danger">Signature Not Added</span>
                                                  </div>
-                                                 <span id="sigimage" class="text-danger">Signature Not Added<span>
+                                                 
 
-                                                  <div class="inputDiv d-none" id="pdfsign">
-                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                  <div class="inputDiv" id="pdfsign" style="display: none">
+                                                    <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                         <span class="required">Upload Signature:</span>
-                                                    </label>
+                                                    </label> -->
                                                     <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                                    <span>Allowed format (PNG, JPG)</span>
                                                  </div>
                                                 
                                                  <div class="d-none inputDiv" id="namesign">
@@ -770,7 +820,8 @@
                     </div>
                     
                     <!--end::Card body-->
-                </form> 
+                   </form> 
+                    @endif
                 </div>
                 <!--end::Card body-->
             </div>
@@ -798,13 +849,16 @@
         addNewRow('.table5 tbody', ` <tr>
                                     <td class="tdhight"><input type="text" name="project_title[]" required></td>
                                     <td class="tdhight"><input type="text" name="project_role[]"></td>
-                                    <td class="tdhight"><input type="text" name="desc_of_involvement[]"></td>
+                                    <td class="tdhight"><input type="text" name="desc_of_involvement[]" style="width:78%"><button class="btn btn-sm btn-danger remove" type="button">-</button></td>
                                 </tr>`)
     });
 
     function addNewRow(selector, row){
         $(selector).append(row);
     }
+    $(document).on('click','.remove',function(){
+        $(this).parent().parent().remove();
+    })
 </script>
 
 <script type="text/javascript">
@@ -831,20 +885,20 @@
             $("#pdfChecked").prop('checked',false);
             $("#signtype").val(1);
              $("#pdfsign").val(0);
-            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("div#pdfsign").hide();
             $("#namesign").addClass('d-flex').removeClass('d-none')
             $(".customSubmitButton").removeClass("hideBtn");
             $(".customSubmitButton").addClass("showBtn");
              $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required','required');
             $("#clear").hide();
-            $("#sign").removeClass('d-flex').addClass('d-none');
+            $("#sign").hide();
             $("#signature").removeAttr('required');
            
         }
         else{
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').removeClass('d-none')
+            $("#sign").show();
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").show();
@@ -862,19 +916,19 @@
             $("#pdfsign").val(1);
             $("#signtype").val(0);
             $("input[name='pdfsign']").attr('required','required');
-            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("div#pdfsign").show();
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
-            $("#sign").removeClass('d-flex').addClass('d-none');
+            $("#sign").hide();
             $("#signature").removeAttr('required');
            
         }
         else{
             $("#pdfsign").val(0);
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').removeClass('d-none');
-            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#sign").show();
+            $("div#pdfsign").hide();
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("input[name='pdfsign']").removeAttr('required');

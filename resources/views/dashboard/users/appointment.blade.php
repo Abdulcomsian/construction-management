@@ -121,17 +121,21 @@
                          {
                             $role="Scaffolder";
                          }
+                         elseif($user->roles->pluck('name')[0]=='estimator')
+                         {
+                            $role='Estimator';
+                         }
                          @endphp
                          <div class="mb-3 paragraph">
-                            <p><b>RE:</b> Appointment as {{$role}}</p>
+                            <p><b>RE:</b> Appointment as {{$role ?? ''}}</p>
                          </div>
                         <div class="mb-3">
                          <p class="paragraph">This letter confirms your appointment as the {{$role}} on the above project.</p>      </div>
                         <div class="mb-3">
-                            <p class="paragraph">As the nominated ({{$role}}), you are responsible for managing all aspects of the temporary works on this project.</p>
+                            <p class="paragraph">As the nominated ({{$role ?? ''}}), you are responsible for managing all aspects of the temporary works on this project.</p>
                         <div>
                         <div class="mb-3">
-                            <p class="paragraph">Your role as temporary works ({{$role}}) is fully explained in the ({{$user->userCompany->name}}) Temporary Works Management Procedure –.  This procedure is maintained electronically on the Company Quality Management system.</p></div>
+                            <p class="paragraph">Your role as temporary works ({{$role ?? ''}}) is fully explained in the ({{$user->userCompany->name}}) Temporary Works Management Procedure –.  This procedure is maintained electronically on the Company Quality Management system.</p></div>
                         <div class="mb-3">
                             <p class="paragraph">Please sign and date the enclosed copy of this letter, to confirm your acceptance of the above.</p>
                         </div>

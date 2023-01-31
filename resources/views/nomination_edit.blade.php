@@ -291,6 +291,10 @@
                                          {
                                             $role="Scaffolder";
                                          }
+                                         elseif($user->roles->pluck('name')[0]=='estimator')
+                                         {
+                                            $role='Estimator';
+                                         }
                                         @endphp
                                         <input type="text" name="nominated_role" value="{{ $role ?? '' }}" required>
                                             <p>*Temporary Works Coordinator</p>    
@@ -866,22 +870,26 @@
                                                 </label>
                                             </td>
                                             <td>
-                                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
-                                                 <canvas id="sig" style="background: lightgray"></canvas>
-                                                  <br/>
-                                                  <textarea id="signature" name="signed" style="display: none" required></textarea>
-                                                  <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                                <div id="sign">
+                                                     <div class="d-flex inputDiv"  style="align-items: center;">
+                                                         <canvas id="sig" style="background: lightgray"></canvas>
+                                                          <br/>
+                                                          <textarea id="signature" name="signed" style="display: none" required></textarea>
+                                                          <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                                      
+                                                     </div>
+                                                    <span id="sigimage" class="text-danger">Signature Not Added</span>
                                                  </div>
-                                                  <span id="sigimage" class="text-danger">Signature Not Added<span>
+                                                  
 
                                                   <div class="inputDiv d-none" id="pdfsign">
                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                         <span class="required">Upload Signature:</span>
                                                     </label>
-                                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                                    <input type="file" name="pdfphoto" class="form-control p-0" accept="image/*">
                                                  </div>
                                                 
-                                                 <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                 <div class="d-none inputDiv" id="namesign">
                                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                         <span class="required">Name Signature:</span>
                                                     </label>
@@ -987,14 +995,14 @@
              $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required','required');
             $("#clear").hide();
-            $("#sign").removeClass('d-flex').addClass('d-none');
+            $("#sign").hide();
             $("#signature").removeAttr('required');
 
            
         }
         else{
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').removeClass('d-none');
+            $("#sign").show();
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").show();
@@ -1016,14 +1024,14 @@
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
-            $("#sign").removeClass('d-flex').addClass('d-none');
+             $("#sign").hide();
              $("#signature").removeAttr('required');
            
         }
         else{
             $("#pdfsignn").val(0);
             $("#signtype").val(2);
-            $("#sign").addClass('d-flex').removeClass('d-none');
+            $("#sign").show();
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").removeClass('d-flex').addClass('d-none');
             $("input[name='namesign']").removeAttr('required');

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Create Profile'])
+@extends('layouts.dashboard.master',['title' => 'Edit Profile'])
 @section('styles')
 <style>
     .addBtn {
@@ -62,6 +62,55 @@ background-color: #07d564 !important;
     .form-select.form-select-solid{
     color:black !important;
    }
+   .avatar-upload {
+  position: relative;
+  max-width: 205px;
+  margin: 50px auto;
+}
+.avatar-upload .avatar-edit {
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+  top: 10px;
+}
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+.avatar-upload .avatar-edit input + label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+.avatar-upload .avatar-edit input + label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+
+.avatar-upload .avatar-preview {
+  width: 192px;
+  height: 192px;
+  position: relative;
+  border-radius: 100%;
+  border: 6px solid #F8F8F8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.avatar-upload .avatar-preview > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
@@ -74,7 +123,7 @@ background-color: #07d564 !important;
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Create Profile</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Edit Profile</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -100,7 +149,7 @@ background-color: #07d564 !important;
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-dark">Create Profile</li>
+                    <li class="breadcrumb-item text-dark">Edit Profile</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -120,65 +169,35 @@ background-color: #07d564 !important;
 
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
-                    @if($companyProfile)
-                     <!--begin::Table-->
-                    <div class="table-responsive">
-                        <table class="cell-border table-hover table align-middle table-row-dashed fs-6 gy-5 table-responsive">
-                            <!--begin::Table head-->
-                            <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th>S.No</th>
-                                    <th>Company Name</th>
-                                    <th>Company Email</th>
-                                    <th>Address</th>
-                                    <th>About</th>
-                                    <th>Year Established</th>
-                                    <th>Phone</th>
-                                    <th>Website</th>
-                                    <th>Logo</th>
-                                    <th>Cv</th>
-                                    <th>Indemnity Insurance</th>
-                                    <th>Action</th>
-
-                                </tr>
-                            </thead>
-                            <tbody class="text-gray-600 fw-bold">
-                                <tr>
-                                    <td>1</td>
-                                    <td>{{$companyProfile->company_name}}</td>
-                                    <td>{{$companyProfile->comapny_email}}</td>
-                                    <td>{{$companyProfile->company_address}}</td>
-                                    <td>{{$companyProfile->company_description}}</td>
-                                    <td>{{$companyProfile->year_established}}</td>
-                                    <td>{{$companyProfile->phone}}</td>
-                                    <td>{{$companyProfile->website}}</td>
-                                    <td> 
-                                        <img src="{{asset($companyProfile->logo)}}" width="100px" height="100px">
-                                    </td>
-                                    <td><a href="{{$companyProfile->company_cv}}" target="_blank">View cv</a> </td>
-                                    <td>
-                                        <a href="{{$companyProfile->indemnity_insurance}}" target="_blank">View Indemnity Insurance</a> 
-                                    </td>
-                                    <td><a href="{{url('adminDesigner/edit-profile',$companyProfile->id)}}"><i class="fa fa-edit"></i></a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    @else
-                    <form method="post" action="{{url('adminDesigner/save-profile')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{url('adminDesigner/update-profile',$editProfile)}}" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                            <div class="row">
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class="required fs-6 fw-bold mb-2">Company Logo</label>
+                                    <div class="avatar-upload">
+                                        <div class="avatar-edit">
+                                            <input type='file' id="imageUpload" name="logo" accept=".png, .jpg, .jpeg" onchange="previewFile()"/>
+                                            <label for="imageUpload"></label>
+                                        </div>
+                                        <div class="avatar-preview">
+                                            <img id="imagePreview" src="{{asset($editProfile->logo)}}">
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Name OF Company</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Name" name="company_name" value="{{old('name')}}" required />
+                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Name" name="company_name" value="{{old('name',$editProfile->company_name)}}" required />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Company Email</label>
-                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email" name="comapny_email" value="{{old('email')}}" required />
+                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email" name="comapny_email" value="{{old('email',$editProfile->comapny_email)}}" required />
                                 </div>
 
                             </div>
@@ -187,11 +206,11 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Address</label>
-                                    <textarea class="form-control form-control-solid" placeholder="Enter Address" name="company_address" required></textarea>
+                                    <textarea class="form-control form-control-solid" placeholder="Enter Address" name="company_address" required>{{$editProfile->company_address ?? ''}}</textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Company Description</label>
-                                    <textarea class="form-control form-control-solid" placeholder="Enter Company Description" name="company_description" required></textarea>
+                                    <textarea class="form-control form-control-solid" placeholder="Enter Company Description" name="company_description" required>{{$editProfile->company_description ?? ''}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -199,37 +218,49 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Year Established</label>
-                                    <input type="date" class="form-control form-control-solid" placeholder="Year" name="year_established" required />
+                                    <input type="date" class="form-control form-control-solid" placeholder="Year" name="year_established" required  value="{{$editProfile->year_established}}" />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Phone</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Company Phone" name="phone" required />
+                                    <input type="text" class="form-control form-control-solid" placeholder="Company Phone" name="phone" required value="{{$editProfile->phone}}" />
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                <div class="col-md-12 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Website Link</label>
-                                    <input type="url" class="form-control form-control-solid" placeholder="Company Website" name="website" required />
+                                    <input type="url" class="form-control form-control-solid" placeholder="Company Website" name="website" required value="{{$editProfile->website}}"/>
                                 </div>
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                <!-- <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Company Logo</label>
-                                    <input type="file" class="form-control form-control-solid"  name="logo" required accept="image/png, image/gif, image/jpeg"/>
-                                </div>
+                                    <div class="avatar-upload">
+                                        <div class="avatar-edit">
+                                            <input type='file' id="imageUpload" name="logo" accept=".png, .jpg, .jpeg" onchange="previewFile()"/>
+                                            <label for="imageUpload"></label>
+                                        </div>
+                                        <div class="avatar-preview">
+                                            <img id="imagePreview" src="{{asset($editProfile->logo)}}">
+
+                                        </div>
+                                    </div>
+                                   <input type="file" class="form-control form-control-solid"  name="logo" required accept="image/png, image/gif, image/jpeg"/>
+                                </div> -->
                                 
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
+                                
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="fs-6 fw-bold mb-2">Upload cv</label>
                                     <input type="file" class="form-control form-control-solid"  name="company_cv" />
                                 </div>
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Upload Professional indemnity insurance</label>
-                                    <input type="file" class="form-control form-control-solid"  name="indemnity_insurance" required />
+                                    <input type="file" class="form-control form-control-solid"  name="indemnity_insurance"  />
                                 </div>
+                                
                                 
                             </div>
                         </div>
@@ -238,7 +269,7 @@ background-color: #07d564 !important;
                                 <div class="col-md-12 fv-row fv-plugins-icon-container">
                                     <label class="fs-6 fw-bold mb-2">Upload Other Files</label>
                                     <div class="uploadDiv" style="padding-left: 10px;">
-                                        <div class="input-images"></div>
+                                        <div class="edit-input-images"></div>
                                     </div>
                                 </div>
                             </div>
@@ -246,9 +277,7 @@ background-color: #07d564 !important;
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Save
                         </button>
-
                     </form>
-                    @endif
                 </div>
                 <!--end::Card body-->
             </div>
@@ -258,9 +287,21 @@ background-color: #07d564 !important;
     </div>
     <!--end::Post-->
 </div>
+@php
+$photos=json_decode($editProfile->other_files);
+$photoArray=[];
+for($i=0;$i < count($photos);$i++)
+{
+    $photoArray[]=['id'=>asset($photos[$i]),'src'=>asset($photos[$i])];
+}
+@endphp
 @endsection
 @section('scripts')
+<script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
 <script>
     
+     $('.edit-input-images').imageUploader({
+         preloaded: <?php echo json_encode($photoArray); ?>,
+     });
 </script>
 @endsection

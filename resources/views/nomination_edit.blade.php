@@ -906,7 +906,7 @@
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                   <input class="form-check-input mx-0 position-relative" type="checkbox" id="pdfChecked">
-                                                  <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                                  <input type="hidden" id="pdfsignn" name="pdfsigntype" class="form-control form-control-solid" value="0">
                                                   <label class="form-check-label" for="inlineCheckbox2">Pdf signature?</label>
                                                 </div>
                                                
@@ -979,7 +979,7 @@
         {
             $("#pdfChecked").prop('checked',false);
             $("#signtype").val(1);
-             $("#pdfsign").val(0);
+             $("#pdfsignn").val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").addClass('d-flex').removeClass('d-none');
             $(".customSubmitButton").removeClass("hideBtn");
@@ -1009,7 +1009,7 @@
         if($(this).is(':checked'))
         {
             $("#flexCheckChecked").prop('checked',false);
-            $("#pdfsign").val(1);
+            $("#pdfsignn").val(1);
             $("#signtype").val(0);
             $("input[name='pdfsign']").attr('required','required');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
@@ -1021,7 +1021,7 @@
            
         }
         else{
-            $("#pdfsign").val(0);
+            $("#pdfsignn").val(0);
             $("#signtype").val(2);
             $("#sign").addClass('d-flex').removeClass('d-none');
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');

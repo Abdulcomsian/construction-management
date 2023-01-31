@@ -16,7 +16,7 @@ class DiDesigner
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->hasRole('designer') && Auth::user()->di_designer_id==NULL)
+        if(Auth::user()->hasRole('designer') && Auth::user()->di_designer_id == NULL)
         {
             return $next($request);
         }

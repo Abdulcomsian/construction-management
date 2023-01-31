@@ -917,8 +917,8 @@
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                   <input class="form-check-input mx-0 position-relative" type="checkbox" id="pdfChecked">
-                                                  <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
-                                                  <label class="form-check-label" for="inlineCheckbox2">Pdf signature?</label>
+                                                  <input type="hidden" id="pdfsignn" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                                  <label class="form-check-label" for="inlineCheckbox2">Image signature?</label>
                                                 </div>
                                                
                                             </td>
@@ -1000,18 +1000,18 @@
 <script>
     $('#table3Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table3 tbody', `<tr><td class="tdhight"><input type="text" name="qualification[]"></td><td class="tdhight"><input type="date" name="qualification_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="qualification_file[]"></td> </tr>`)
+        addNewRow('.table3 tbody', `<tr><td class="tdhight"><input type="text" name="qualification[]" required></td><td class="tdhight"><input type="date" name="qualification_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="qualification_file[]"></td> </tr>`)
     });
 
     $('#table4Btn').click(function(e) {
         e.preventDefault();
-        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course[]"></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
+        addNewRow('.table4 tbody', `<tr><td class="tdhight"><input type="text" name="course[]" required></td><td class="tdhight"><input type="date" name="course_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="course_file[]"></td> </tr>`)
     });
 
     $('#table5Btn').click(function(e) {
         e.preventDefault();
         addNewRow('.table5 tbody', ` <tr>
-                                    <td class="tdhight"><input type="text" name="project_title[]"></td>
+                                    <td class="tdhight"><input type="text" name="project_title[]" required></td>
                                     <td class="tdhight"><input type="text" name="project_role[]"></td>
                                     <td class="tdhight"><input type="text" name="desc_of_involvement[]"></td>
                                 </tr>`)
@@ -1045,7 +1045,7 @@
         {
             $("#pdfChecked").prop('checked',false);
             $("#signtype").val(1);
-             $("#pdfsign").val(0);
+             $("#pdfsignn").val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").addClass('d-flex').removeClass('d-none')
             $(".customSubmitButton").removeClass("hideBtn");
@@ -1074,7 +1074,7 @@
         if($(this).is(':checked'))
         {
             $("#flexCheckChecked").prop('checked',false);
-            $("#pdfsign").val(1);
+            $("#pdfsignn").val(1);
             $("#signtype").val(0);
             $("input[name='pdfsign']").attr('required','required');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
@@ -1086,7 +1086,7 @@
            
         }
         else{
-            $("#pdfsign").val(0);
+            $("#pdfsignn").val(0);
             $("#signtype").val(2);
             $("#sign").addClass('d-flex').removeClass('d-none');
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');

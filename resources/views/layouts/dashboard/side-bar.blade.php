@@ -174,7 +174,7 @@
                                 </a>
                             </div>
                         @endif
-                        @if(\Auth::user()->hasAnyRole(['designer']) && \Auth::user()->designer_id==NULL)
+                        @if(\Auth::user()->hasAnyRole(['designer']) && \Auth::user()->di_designer_id==NULL)
                             <div class="menu-item">
                                 <a class="menu-link" href="{{url('designer/designer')}}">
                                     <span class="menu-title">Estimator List</span>
@@ -196,7 +196,7 @@
                                 </a>
                             </div>
                          @endif
-                         @if(\Auth::user()->hasAnyRole(['designer']) && \Auth::user()->designer_id != NULL)
+                         @if(\Auth::user()->hasAnyRole(['designer']) && \Auth::user()->di_designer_id != NULL)
                             <div class="menu-item">
                                 <a class="menu-link" href="{{url('adminDesigner/create-nomination',auth()->user()->id)}}">
                                     <span class="menu-title">Add Nomination</span>

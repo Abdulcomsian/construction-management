@@ -215,6 +215,12 @@ class AdminDesignerController extends Controller
     {
         return view('dashboard.adminDesigners.createNomination');
     }
+
+    //save notimation
+    public function saveNomination(Request $request,$id)
+    {
+        dd($request->all());
+    }
     //create profile or build profile
     public function createProfile($id)
     {
@@ -256,6 +262,65 @@ class AdminDesignerController extends Controller
             $all_inputs['user_id']=Auth::user()->id;
             CompanyProfile::create($all_inputs);
             toastSuccess('Company Profile Created successfully');
+            return redirect()->back();
+            
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
+    }
+
+    //edit profile
+    public function editProfile($id)
+    {
+        $editProfile=CompanyProfile::find($id);
+        return view('dashboard.adminDesigners.editProfile',compact('editProfile'));
+    }
+
+    //update Profile
+    public function updateProfile(Request $request,$editProfile)
+    {
+        $editProfile=companyProfile::find($editProfile);
+        try {
+            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','preloaded');
+            if ($request->file('logo')) {
+                $filePath  = 'uploads/designercompany/logo/';
+                $file = $request->file('logo');
+                $all_inputs['logo'] = HelperFunctions::saveFile($editProfile->logo, $file, $filePath);            
+            }
+            if ($request->file('company_cv')) {
+                $filePath  = 'uploads/designercompany/cv/';
+                $file = $request->file('company_cv');
+                $all_inputs['company_cv'] = HelperFunctions::saveFile($editProfile->company_cv, $file, $filePath);            
+            }
+            if ($request->file('indemnity_insurance')) {
+                $filePath  = 'uploads/designercompany/insurance/';
+                $file = $request->file('indemnity_insurance');
+                $all_inputs['indemnity_insurance'] = HelperFunctions::saveFile($editProfile->indemnity_insurance, $file, $filePath);            
+            }
+            //work for upload images here
+            $image_links = [];
+            if ($request->file('images')) {
+                $filePath  = 'uploads/designercompany/others/';
+                $files = $request->file('images');
+                foreach ($files  as $key => $file) {
+                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    $image_links[] = $imagename;
+                }
+                
+            }
+            if($request->preloaded)
+            {
+                foreach($request->preloaded as $pload)
+                {
+                    $path = parse_url($pload, PHP_URL_PATH);
+                    $image_links[]=$path;
+                }
+            }
+            $all_inputs['other_files']=json_encode($image_links);
+            $all_inputs['user_id']=Auth::user()->id;
+            CompanyProfile::find($editProfile->id)->update($all_inputs);
+            toastSuccess('Company Profile Updated successfully');
             return redirect()->back();
             
         } catch (\Exception $exception) {

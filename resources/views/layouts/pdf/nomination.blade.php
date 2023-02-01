@@ -202,7 +202,7 @@
             <tbody>
                 <tr>
                    <td style="font-size:10px;"> 
-                    <p style="color:blue">{{$cv}}</p></td>
+                    <p style="color:blue">{{asset($cv)}}</p></td>
                 </tr>
             </tbody>
         </table>

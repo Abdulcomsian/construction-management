@@ -190,7 +190,7 @@
                 <tbody>
                     <tr>
                        <td style="font-size:10px;"> 
-                        <p style="color:blue">{{$nomination->cv}}</p></td>
+                        <p style="color:blue">{{asset($nomination->cv)}}</p></td>
                     </tr>
                 </tbody>
             </table>

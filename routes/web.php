@@ -62,6 +62,11 @@ Route::get('/designRelief', function () {
 });
 Route::post('drawing-comment',[DesignerController::class,'drawing_comment'])->name('drawing.comment');
 Route::post('twc-drawing-comment',[DesignerController::class,'twc_drawing_comment'])->name('twcdrawing.comment');
+
+//company profile
+Route::get('company-profile',function(){
+    return view('companyProfile');
+});
 //=============================================END OPEN ROUTES==========================================================
 
 //Authentic routes================================================================================

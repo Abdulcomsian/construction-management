@@ -397,7 +397,7 @@
                                 <div class="separator my-2"></div>
                                 <!--end::Menu separator-->
                                 <!--begin::Menu item-->
-                                 @if(Auth::user()->hasRole('admin'))
+                                @if(auth()->user()->hasRole(['admin','company']))
                                 <div class="menu-item px-5">
                                      <a href="{{ route('users.admin.edit',auth()->id()) }}" class="menu-link px-5">Account Settings</a>
                                 </div>
@@ -764,6 +764,16 @@
                                      <span class="navi-text">View Appointments</span>
                                      </a>
                                   </li>
+                                  @if(auth()->user()->hasRole('company'))
+                                  <li class="navi-item">
+                                     <a  href="{{asset(auth()->user()->company_policy)}}" class="navi-link" target="_blank">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">Company Policy</span>
+                                     </a>
+                                  </li>
+                                  @endif
                                </ul>
                             </div>
                             <!--end::Dropdown Menu-->

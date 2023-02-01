@@ -155,7 +155,7 @@
                             <div class="separator my-2"></div>
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
-                            @if(auth()->user()->hasRole('admin'))
+                            @if(auth()->user()->hasRole(['admin','company']))
                             <div class="menu-item px-5">
                                 <a href="{{ route('users.admin.edit',auth()->id()) }}" class="menu-link px-5">Account Settings</a>
                             </div>

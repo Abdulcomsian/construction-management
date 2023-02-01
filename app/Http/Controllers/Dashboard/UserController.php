@@ -255,15 +255,21 @@ class UserController extends Controller
         ]);
         try {
             $user=User::find($id);
-            $all_inputs = $request->except('_token', '_method');
+            $all_inputs = $request->except('_token', '_method','company_policy');
+            if ($request->file('company_policy')) {
+                $filePath = 'uploads/companyPolicy/';
+                $all_inputs['company_policy'] = HelperFunctions::saveFile($user->company_policy, $request->file('company_policy'), $filePath);
+            }
             $user->update([
                 'name' => $all_inputs['name'],
                 'email' => $all_inputs['email'],
+                'company_policy'=>$all_inputs['company_policy'],
             ]);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            toastError('Something Went Wrong!');
+            return Redirect::back();
         }
     }
 

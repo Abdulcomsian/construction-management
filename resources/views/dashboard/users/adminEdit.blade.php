@@ -65,7 +65,7 @@
             <div class="card">
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
-                    <form method="post" action="{{ route('users.admin.update',$user->id) }}">
+                    <form method="post" action="{{ route('users.admin.update',$user->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -80,6 +80,12 @@
                                     <label class="required fs-6 fw-bold mb-2">User Email</label>
                                     <input type="email" class="form-control form-control-solid" placeholder="User Email" name="email" value="{{old('email')  ?: $user->email}}" />
                                 </div>
+                                @if(auth()->user()->hasRole('company'))
+                                <div class="col-md-6">
+                                    <label class="fs-6 fw-bold mb-2">Upload Company Policy</label>
+                                    <input type="file" class="form-control form-control-solid" name="company_policy">
+                                </div>
+                                @endif
 
                             </div>
                         </div>

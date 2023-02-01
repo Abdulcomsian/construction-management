@@ -22,9 +22,6 @@
         margin: 30px 0px;
         border-radius: 10px;
     }
-    td{
-
-    }
     .card>.card-header {
         align-items: center;
     }
@@ -62,7 +59,6 @@
         }
     }
     ul li{
-        font-weight: bold;
         text-align: left;
     }
 </style>
@@ -152,13 +148,11 @@
                                         </td>
                                     </tr>
                                     <tr style="min-height: 150px;">
-                                        <td style="width: 250px;font-size:10px;color:black">
-                                            <p>
+                                        <td style="width: 250px;font-size:16px;color:black;font-weight: 500;">
                                                 <ul style="text-align: center;">
                                                     <li>
                                                         The TWC has overall responsibility to ensure that all                 temporary         works under their control are undertaken in
                                                          accordance with the company Temporary WorksProcedure.NOTE: A PC’s TWC takes precedence.
-                                                        </p>
                                                     </li>
                                                     <li>For temporary works in Design Check Category 1, 2 and 3 ensure there is an agreement in place to formally
                                                     allocate design responsibility to the design and design checking organisations.
@@ -211,7 +205,7 @@
                                         </td>
                                     </tr>
                                     <tr style="min-height: 150px;">
-                                        <td style="width: 250px;font-size:10px;color:black">
+                                        <td style="width: 250px;font-size:16px;color:black;font-weight: 500;">
                                             <p>
                                                 <ul>
                                                     <li>Have undertaken and passed the 2-day CITB-accredited TWC Course; and have proven experience.
@@ -257,15 +251,18 @@
                                   <input class="form-check-input mx-0 position-relative" type="checkbox" id="pdfChecked" >
                                   <label for="pdfChecked">Pdf Signature</label>
                                   <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                            </div> 
+                            <div class="col-12 mt-5 form-check">
 
-                                 
+                                  <input class="form-check-input mx-0" type="checkbox" id="companyPolicy" >
+                                  <label>company temporary work policy <a href="{{asset($user->userCompany->company_policy)}}" target="_blank">View Policy</a></label>   
                             </div> 
                            
                         </div>
                         <p class="paragraph mt-4"> Name from the nomination form Temporary Works Coordinator</p>
                         <div class="mb-3">
                             <p class="paragraph">This record should be kept by the TWC in the Temporary Works file and be updated, as necessary. The Designated Individual will keep a register of all TWC and dTWC appointments.</p></div>
-                           <button type="submit" id="submit" class="btn btn-primary">submit</button>
+                           <button type="submit" id="submit" class="btn btn-primary" disabled>submit</button>
                     </div>
                     
                     <!--end::Card body-->
@@ -362,7 +359,16 @@
         }
     })
 
-   
+   $("#companyPolicy").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#submit").removeAttr('disabled');
+        }
+        else
+        {
+            $("#submit").attr('disabled','disabled');
+        }
+   })
 
     
 </script>

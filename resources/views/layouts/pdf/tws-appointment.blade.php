@@ -82,7 +82,7 @@
                                         <td style="width: 120px;background:#c9cacc;color:#000000e3">
                                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Date </b></label>
                                         </td>
-                                        <td style="max-height:70px !important; font-size:12px;"> {{$data['date']}} </td>
+                                        <td style="max-height:70px !important; font-size:12px;"> {{date('d-m-Y',strtotime($data['date']))}} </td>
                                     </tr>
                                     <tr style="height: 150px;">
                                         <td style="width: 150px;background:#c9cacc;color:#000000e3">
@@ -228,7 +228,7 @@ the duties placed on me by this appointment.</b></label>
                                             <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Date:</b></label>
                                         </td>
                                         <td style="width:500px; font-size:12px;">
-                                            {{$data['date']}}
+                                            {{date('d-m-Y',strtotime($data['date']))}}
                                         </td>
                                     </tr>
                                     <tr style="min-height: 150px;">
@@ -274,7 +274,7 @@ the duties placed on me by this appointment.</b></label>
                                         <td style="width: 120px;background:#c9cacc;color:#000000e3">
                                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Date:</b></label>
                                         </td>
-                                        <td style="max-height:70px !important; font-size:12px;">{{$data['date']}}</td>
+                                        <td style="max-height:70px !important; font-size:12px;">{{date('d-m-Y',strtotime($data['date']))}}</td>
                                     </tr>
                                 </tbody>
                             </table>

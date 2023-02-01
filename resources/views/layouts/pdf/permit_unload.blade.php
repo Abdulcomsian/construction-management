@@ -19,7 +19,7 @@
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to Unload / Strike</h3>
-                <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
+                <p style="width:200px !important;font-size: 12px;">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
             </div>
             
             <div class="logo" style="float:right;width:20%;">
@@ -111,34 +111,6 @@
                 </tbody>
             </table>
         </div>
-       <!--  <div class="tableDiv paddingTable" style="margin: 20px 0px;">
-            <table>
-                <tbody>
-                    <tr>
-                        <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Location of the temporary works</b> </label>
-                        </td>
-                        <td style="font-size: 12px;"> {{$data['location_temp_work']}}</td>
-
-                    </tr>
-
-                    <tr>
-                        <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px; height: 70px;border: 1px solid black; font-size: 10px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description of structure</b> </label>
-                        </td>
-                        <td style="font-size: 12px;"> {{$data['description_structure']}}</td>
-
-                    </tr>
-                    <tr>
-                        <td style="width: 300px;background:gray;color:white;">
-                            <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">
-                                   MS / RA Number:</b> </label>
-                        </td>
-                        <td style="font-size: 12px;"> {{$data['ms_ra_no']}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
         <div class="table paddingTable">
             <table>
                 <thead>

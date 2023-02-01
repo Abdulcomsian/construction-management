@@ -22,12 +22,25 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello {{$user->userDiCompany->name}}</h1> 
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello {{$user->name}}</h1> 
                                                                     <br>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                      {{$user->name }} has Uploaded nomination form please login and view nomination.
+                                                                        @if(auth()->user()->hasRole('admin'))
+                                                                        Admin designated individual has nominated you as a Temporary Work Designer.
+                                                                        @else
+                                                                        {{$user->userDiCompany->name}} designated individual has nominated you as a Temporary Work Designer.
+                                                                        @endif
                                                                         
-                                                                   </p>  
+                                                                   </p>
+                                                                   <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        @if(auth()->user()->hasRole('admin'))
+                                                                        Please Login and complete Company Profile.
+                                                                        @else
+                                                                        Please Login and complete your nomination form. 
+                                                                        @endif
+                                                                        
+                                                                        <br>   
+                                                                   </p>   
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Regards, The Temporary Works Portal Team <br><br>
                                                                         <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk</span>

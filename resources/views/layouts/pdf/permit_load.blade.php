@@ -19,7 +19,7 @@
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText" style="float:left;width:70%">
                 <h3>Permit to Load</h3>
-                <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
+                <p style="width:200px !important;font-size: 12px;">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
             </div>
             <div class="logo" style="float:right;width:20%;">
                 @php
@@ -33,7 +33,7 @@
             </div>
         </div>
         <!-- <br> -->
-        <div class="tableDiv paddingTable" style="margin-top:10p !important; margin-top:10px;">
+        <div class="tableDiv paddingTable" style="margin-top:5px !important;">
             <table>
                 <tbody>
                     <tr>
@@ -111,9 +111,7 @@
                 </tbody>
             </table>
         </div>
-
-
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+        <div class="tableDiv paddingTable" style="margin-top: 5px;">
             <table>
                 <thead>
                     <th style="color:black; padding: 10px;font-size:12px;"><span style="font-size:12px;">Equipment/materials used as specified/fit for purpose.</span></th>
@@ -179,12 +177,6 @@
             </table>
             <br>
             <table>
-                <thead>
-                    <th style="color:black; padding: 10px;font-size:12px;"><span style="font-size:12px;">Equipment/materials used as specified/fit for purpose.</span></th>
-                    <th style="color: black; padding: 10px;">Y</th>
-
-
-                </thead>
                 <tbody>
                     <tr>
                         <td style="font-size:12px;">Rate of Rise</td>
@@ -199,7 +191,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+        <div class="tableDiv paddingTable" style="margin-top: 5px">
             <table>
                 <tbody>
                     <tr>
@@ -271,7 +263,7 @@
                                     Signature </b></label></td>
                         <td style="width: 200px; font-size:12px;"> 
                         @if(isset($image_name) && $image_name!='')
-                            <img src="temporary/signature/{{$image_name}}"  width="auto" height="120px" />
+                            <img src="temporary/signature/{{$image_name}}"  width="auto" height="50px" />
                             @else
                             {{ $data['namesign'] ?? ''}}
                             @endif
@@ -285,7 +277,7 @@
                         </td>
                         <td style="width: 200px; font-size:12px;">
                         @if(isset($image_name1) && $image_name1!='')
-                            <img src="temporary/signature/{{$image_name1}}"  width="auto" height="120px"/>
+                            <img src="temporary/signature/{{$image_name1}}"  width="auto" height="50px"/>
                             @else
                             {{ $data['namesign1'] ?? ''}}
                             @endif
@@ -297,7 +289,7 @@
             </table>
         </div>
         @if(isset($image_links))
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+        <div class="tableDiv paddingTable" style="margin: 5px">
             <table>
                 <tbody>
                 @foreach($image_links as $image)

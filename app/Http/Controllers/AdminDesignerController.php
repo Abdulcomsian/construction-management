@@ -10,6 +10,7 @@ use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
+use App\Notifications\AdminDesignerNomination;
 use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile};
 use Carbon\Carbon;
 use App\Utils\HelperFunctions;
@@ -223,7 +224,7 @@ class AdminDesignerController extends Controller
     public function saveNomination(Request $request,$id)
     {
         DB::beginTransaction();
-        try {
+        // try {
             $user=User::with('userCompany')->find(Auth::user()->id);
             //upload signature here
             $image_name = '';
@@ -365,16 +366,16 @@ class AdminDesignerController extends Controller
                     $pdf->save($path . '/' . $filename);
 
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
-                //Notification::route('mail',$user->userDiCompany->email ?? '')->notify(new AdminDesignerNotification($user));
+                Notification::route('mail',$user->userDiCompany->email ?? '')->notify(new AdminDesignerNomination($user));
                 DB::commit();
                 toastSuccess('Nomination Form save successfully!');
                 return back();
             }
-        } catch (\Exception $exception) {
-            DB::rollback();
-            toastError('Something went wrong, try again!');
-            return back();
-        }
+        // } catch (\Exception $exception) {
+        //     DB::rollback();
+        //     toastError('Something went wrong, try again!');
+        //     return back();
+        // }
     }
 
     //edit nomination
@@ -397,7 +398,7 @@ class AdminDesignerController extends Controller
     public function updateNomination(Request $request,$id)
     {
          DB::beginTransaction();
-        // try {
+        try {
             $user=User::find(Auth::user()->id);
             //upload signature here
             $image_name = '';
@@ -558,12 +559,12 @@ class AdminDesignerController extends Controller
 
             }
 
-        // } catch (\Exception $exception) {
-        //         DB::rollback();
-        //         toastError($exception->getMessage());
-        //         return back();
+        } catch (\Exception $exception) {
+                DB::rollback();
+                toastError($exception->getMessage());
+                return back();
             
-        // }
+        }
     }
     //create profile or build profile
     public function createProfile($id)

@@ -105,7 +105,7 @@
                                     </tr>
                                     <tr style="min-height: 150px;">
                                         <td style="width: 250px;font-size:10px">
-                                            <p>You have been appointed as the <b>Temporary Works Supervisor</b> for the above Project.This appointment satisfies the recommendation in BS 5975: 2019 to appoint, where required, a Temporary Works Supervisor.The duties and competencies are summarised below and are detailed in the Company Temporary Works Procedure.</p>
+                                            <p>You have been appointed as the <b>Temporary Works Supervisor</b> for the above Project.This appointment satisfies the recommendation in BS 5975: 2019 to appoint, where required, a Temporary Works Supervisor.The duties and competencies are summarised below and are detailed in the {{$user->userCompany->name}} Temporary Works Procedure.</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -156,7 +156,7 @@
                                                     <li>To contribute to the design brief (via the TWC).
                                                     </li>
                                                     <li>
-                                                        To operate in accordance with the Company Temporary Works Procedure (and any other Procedures agreed with the PC, as required).
+                                                        To operate in accordance with the {{$user->userCompany->name}} Temporary Works Procedure (and any other Procedures agreed with the PC, as required).
                                                     </li>
                                                     <li>
                                                         Assist the TWC in the supervision and checks for compliance with the design; and recording of inspections of the temporary works.

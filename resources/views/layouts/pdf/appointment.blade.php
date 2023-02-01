@@ -108,7 +108,7 @@
                                         <td style="width: 250px;font-size:10px">
                                             <p>You have been appointed as the <b>Temporary Works Coordinator</b> for the above Project.
                                             This appointment satisfies the recommendation in BS 5975: 2019 to appoint a Temporary Works Coordinator.
-                                            The duties and competencies are summarised below and are detailed in the Company Temporary Works Procedure</p>
+                                            The duties and competencies are summarised below and are detailed in the {{$user->userCompany->name}} Temporary Works Procedure</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -154,7 +154,7 @@
                                                 <ul style="text-align: center;">
                                                     <li>
                                                         The TWC has overall responsibility to ensure that all                 temporary         works under their control are undertaken in
-                                                         accordance with the company Temporary WorksProcedure.
+                                                         accordance with the {{$user->userCompany->name}} Temporary WorksProcedure.
                                                         
                                                     </li>
                                                     <li>For temporary works in Design Check Category 1, 2 and 3 ensure there is an agreement in place to formally

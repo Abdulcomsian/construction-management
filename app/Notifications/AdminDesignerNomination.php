@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AdminDesignerNotification extends Notification
+class AdminDesignerNomination extends Notification
 {
     use Queueable;
 
@@ -37,9 +37,9 @@ class AdminDesignerNotification extends Notification
     public function toMail($notifiable)
     {
          return (new MailMessage)
-            ->greeting('Welcome')
-            ->subject("Welcome")
-            ->view('mail.adminDesignerNotifyMail',['user'=>$this->user]);
+            ->greeting('Nomination')
+            ->subject("Nomination")
+            ->view('mail.adminDesignerNomination',['user'=>$this->user]);
     }
 
     /**

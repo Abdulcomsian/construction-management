@@ -35,7 +35,7 @@
                 @else
                 <h3>Scaffolding Inspection Permit to Load</h3>
                 @endif
-                <p style="width:200px !important">{{$data['permit_no']}}&nbsp;&nbsp;{{$design_requirement_text}}</p>
+                <p style="width:200px !important;font-size: 12px;">{{$data['permit_no']}}&nbsp;&nbsp;{{$design_requirement_text}}</p>
             </div>
       
             <div class="logo" style="float:right;width:20%;">
@@ -1210,7 +1210,7 @@
                   <label for="" style="float: left;width: 400px; height: auto; font-size: 14px; padding: 0 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Signature</b></label>
                </td>
                <td colspan="3" style="font-size:12px;">
-                  @if($data['signtype']=='1'){{ucwords($data['namesign'])}}@else<img src="temporary/signature/{{$image_name}}" width="auto" height="100px" />@endif
+                  @if($data['signtype']=='1'){{ucwords($data['namesign'])}}@else<img src="temporary/signature/{{$image_name}}" width="auto" height="50px" />@endif
                </td>
             </tr>
          </tbody>

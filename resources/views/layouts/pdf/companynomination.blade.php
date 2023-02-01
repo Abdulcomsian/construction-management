@@ -106,7 +106,12 @@
                     <tr>
                         <td style="font-size:10px;">{{$qualification->qualification}}</td>
                         <td style="font-size:10px;">{{$qualification->date}}</td>
-                        <td style="font-size:10px;"><p style="color:blue">{{asset($qualification->qualification_certificate ?? '')}}</p></td>
+                        <td style="font-size:10px;">
+                            <p style="color:blue">
+                                @if($qualification->qualification_certificate) {{asset($qualification->qualification_certificate ?? '')}} 
+                                @endif
+                            </p>
+                        </td>
                          @php $images[]=$qualification->qualification_certificate;@endphp
                     </tr>
                     @endforeach
@@ -137,7 +142,11 @@
                             {{$course->date}}
                         </td>
                         <td style="font-size:10px;">
-                            <p style="color:blue">{{asset($course->course_certificate ?? '')}}</p>
+                            <p style="color:blue">
+                                @if($course->course_certificate)
+                                {{asset($course->course_certificate ?? '')}}
+                                @endif
+                            </p>
                         </td>
                         @php $images[]=$course->course_certificate;@endphp
                     </tr>

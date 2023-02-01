@@ -52,12 +52,12 @@
                     </div>
                 </div>
                     <div class="card-body pt-0">
-                        <div style="margin-bottom: 15px;">
-                            <div style="float:left;width:200px;">
-                              <h6></h6>
-                            </div>
-                            <div style="float:left;width:450px;text-align: right;">
-                                <h6></h6>
+                         <div style="margin-bottom: 15px;">
+                            <h3  style="float:left;width:70%;margin-top:15px;">{{date('d F Y')}}</h3>
+                            <div class="logo" style="float:right;width:20%;">
+                            @if(isset($user->userCompany->image) && $user->userCompany->image != NULL)
+                            <img src="{{public_path($user->userCompany->image)}}" width="auto" height="60px" />
+                            @endif
                             </div>
                          </div>
                          <!-- <div style="background:#009fdb;color:#000000e3;font-size:12px;padding:10px">Appointment of a Temporary Works Co-ordinator (TWC)</div> -->
@@ -68,8 +68,8 @@
                                         <td style="width: 250px;background:#c9cacc;color:#000000e3">
                                             <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">APPOINTMENT OF TEMPORARY WORKS CO-ORDINATOR (TWC)</b></label>
                                         </td>
-                                        <td style="background: #c9cacc !important;width:70px; font-size:12px;">FORM No. 1
-</td>
+                                        <td style="background: #c9cacc !important;width:70px; font-size:12px;">
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -254,7 +254,7 @@ the duties placed on me by this appointment.</b></label>
                                     </tr>
                                     <tr style="min-height: 150px;">
                                         <td style="width:120px;background:#c9cacc;color:#000000e3">
-                                            <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Copied To:</b></label>
+                                            <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Name:</b></label>
                                         </td>
                                         <td style="width:500px; font-size:12px;">{{$user->name}}</td>
                                     </tr>

@@ -52,13 +52,12 @@
                     </div>
                 </div>
                     <div class="card-body pt-0">
-                        <div style="margin-bottom: 15px;border-bottom:2px solid #009fdb">
-                            <div style="float:left;width:450px;">
-                                 <h6>Temporary Works Procedure: SAMPLE – TWf2019: 03 </h6>
-                              
-                            </div>
-                            <div style="float:left;width:200px;text-align: right;">
-                               <h6>Temporary Work Forum</h6>
+                         <div style="margin-bottom: 15px;">
+                            <h3  style="float:left;width:70%;margin-top:15px;">{{date('d F Y')}}</h3>
+                            <div class="logo" style="float:right;width:20%;">
+                            @if(isset($user->userCompany->image) && $user->userCompany->image != NULL)
+                            <img src="{{public_path($user->userCompany->image)}}" width="auto" height="60px" />
+                            @endif
                             </div>
                          </div>
                          <div style="background:#009fdb;color:#000000e3;font-size:12px;padding:10px">Appointment of a Temporary Works Supervisor (TWS)</div>
@@ -69,7 +68,7 @@
                                         <td style="width: 250px;background:#c9cacc;color:#000000e3">
                                             <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">APPOINTMENT OF TEMPORARY WORKS SUPERVISOR (TWS)</b></label>
                                         </td>
-                                        <td style="width:70px; font-size:12px;background: #c9cacc !important;">FORM No. 2</td>
+                                        <td style="width:70px; font-size:12px;background: #c9cacc !important;"></td>
                                     </tr>
                                 </tbody>
                             </table>

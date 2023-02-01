@@ -260,7 +260,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a type="button" href="{{url('Nomination/nomination-edit',\Crypt::encrypt($nomination->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                        <a type="button" href="{{url('adminDesigner/edit-nomination',\Crypt::encrypt($nomination->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                               <i class="fa fa-edit" aria-hidden="true"></i>  
                                         </a>
                                     </td>

@@ -380,7 +380,190 @@ class AdminDesignerController extends Controller
     //edit nomination
     public function editNomination($id)
     {
-        
+        try 
+        {
+            $nominationid= \Crypt::decrypt($id);
+            $nomination=Nomination::find($nominationid);
+            $experience=NominationExperience::where('nomination_id',$nomination->id)->get();
+            $competence=NominationCompetence::where('nomination_id', $nomination->id)->first();
+            $user=User::find($nomination->user_id);
+            return view('dashboard.adminDesigners.editNomination',compact('user','nomination','experience','competence'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return back();
+        }
+    }
+    //
+    public function updateNomination(Request $request,$id)
+    {
+         DB::beginTransaction();
+        // try {
+            $user=User::find(Auth::user()->id);
+            //upload signature here
+            $image_name = '';
+            if ($request->signtype == 1) {
+                $image_name = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+            }
+            //upload cv
+            $cv='';
+            if ($request->file('cv')) {
+                $filePath = HelperFunctions::nominationCvPath();
+                $file = $request->file('cv');
+                $cv = HelperFunctions::saveFile(null, $file, $filePath);
+            }
+            $all_inputs=[
+                'nominated_person'=>$request->nominated_person,
+                'nominated_role'=>$request->nominated_role,
+                'nominated_person_employer'=>$request->nominated_person_employer,
+                'description_of_role'=>$request->description_of_role,
+                'Description_limits_authority'=>$request->Description_limits_authority,
+                'signature'=>$image_name,
+                'user_id'=>$user->id,
+                'status'=>0,
+                'cv'=>$cv,
+
+            ];
+
+               Nomination::find($id)->update($all_inputs);
+               $nomination=Nomination::find($id);
+            if($nomination)
+            {
+                //nomination experience
+                for($i=0;$i<count($request->project_title);$i++)
+                {
+                    if(isset($request->experience_ids[$i]))
+                    {
+                         $model=NominationExperience::where('id',$request->experience_ids[$i])->first();
+                    }
+                    else{
+                         $model=new NominationExperience();
+                    }
+                   
+                    $model->project_title=$request->project_title[$i];
+                    $model->role=$request->project_role[$i];
+                    $model->description_involvment=$request->desc_of_involvement[$i];
+                    $model->nomination_id=$nomination->id;
+                    $model->save();
+                }
+
+                //nomination competence
+                $siteestablishment=[
+                        'Temporary_offices'=>$request->Temporary_offices,
+                        'Sign_boards'=>$request->Sign_boards,
+                        'Hoardings'=>$request->Hoardings,
+                        'Access_gantries'=>$request->Access_gantries,
+                        'Fuel_storage'=>$request->Fuel_storage,
+                        'Temporary_roads'=>$request->Temporary_roads,
+                        'Barriers'=>$request->Barriers,
+                        'Welfare_facilities'=>$request->Welfare_facilities,
+                        'Precast_facilities'=>$request->Precast_facilities,
+                        'Access_bridges'=>$request->Access_bridges,
+                ];
+
+                $Access_scaffolding=[
+                        'Tube_fitting'=>$request->Tube_fitting,
+                        'System_scaffolding'=>$request->System_scaffolding,
+                        'System_staircases'=>$request->System_staircases,
+                        'Temporary_roofs'=>$request->Temporary_roofs,
+                        'Loading_bays'=>$request->Loading_bays,
+                        'Chute_support'=>$request->Chute_support,
+                        'Mobile_towers'=>$request->Mobile_towers,
+                        'Edge_protection'=>$request->Edge_protection,
+                        'Suspension_systems'=>$request->Suspension_systems,
+                ];
+
+                $Formwork_falsework=[
+                        'Formwork'=>$request->Formwork,
+                        'Falsework'=>$request->Falsework,
+                        'Back_propping'=>$request->Back_propping,
+                        'Support_systems'=>$request->Support_systems,
+                ];
+
+                $Construction_plant=[
+                        'Crane_supports_foundations'=>$request->Crane_supports_foundations,
+                        'Hoist_ties_foundations'=>$request->Hoist_ties_foundations,
+                        'Mast_climbers_foundations'=>$request->Mast_climbers_foundations,
+                        'Mobile_crane_foundations'=>$request->Mobile_crane_foundations,
+                        'MPiling_mats_working-platforms'=>$request->Piling_mats_working_platforms,
+                        'Lifting_handling_devices'=>$request->Lifting_handling_devices,
+                ];
+
+
+                $Excavation_earthworks=[
+                        'Excavation_support'=>$request->Excavation_support,
+                        'Cofferdams'=>$request->Cofferdams,
+                        'Embankment_bunds'=>$request->Embankment_bunds,
+                        'Ground_anchor_soil_nailing'=>$request->Ground_anchor_soil_nailing,
+                        'Open_excavations'=>$request->Open_excavations,
+                        'Dewatering'=>$request->Dewatering,
+                ];
+
+                $Structural_stability=[
+                        'Existing_structures_during_construction'=>$request->Existing_structures_during_construction,
+                        'New_structures_during_construction'=>$request->New_structures_during_construction,
+                        'Structural_steelwork_erection'=>$request->Structural_steelwork_erection,
+                        'Needling'=>$request->Needling,
+                        'Temporary_underpinning'=>$request->Temporary_underpinning,
+                        'Façade_system'=>$request->Façade_system,
+                ];
+
+                $Permanent_works=[
+                        'Partial_permanent_support_conditions'=>$request->Partial_permanent_support_conditions,
+                        'Demolitions'=>$request->Demolitions,
+                        
+                ];
+
+
+                $model=NominationCompetence::where('nomination_id',$nomination->id)->first();
+                $model->Site_establishment=$siteestablishment;
+                $model->Access_scaffolding= $Access_scaffolding;
+                $model->Formwork_falsework=$Formwork_falsework;
+                $model->Construction_plant=$Construction_plant;
+                $model->Excavation_earthworks=$Excavation_earthworks;
+                $model->Structural_stability=$Structural_stability;
+                $model->Permanent_works=$Permanent_works;
+                $model->nomination_id =$nomination->id;
+                $model->save();
+
+                $user->nomination_status=0;
+                $user->user_notify=1;
+                $user->save();
+            
+               $pdf = PDF::loadView('layouts.pdf.adminDiDesignerNomination',['data'=>$request->all(),'signature'=>$image_name,'user'=>$user,'cv'=>$cv]);
+                    $path = public_path('pdf');
+                    $filename =rand().'nomination.pdf';
+                    @unlink($nomination->pdf_url);
+                    $pdf->save($path . '/' . $filename);
+                     
+                    Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                    DB::commit();
+                    toastSuccess('Nomination Form updated successfully!');
+                    return redirect()->to('adminDesigner/create-nomination/'.$user->id);
+                   
+
+            }
+
+        // } catch (\Exception $exception) {
+        //         DB::rollback();
+        //         toastError($exception->getMessage());
+        //         return back();
+            
+        // }
     }
     //create profile or build profile
     public function createProfile($id)

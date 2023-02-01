@@ -118,7 +118,8 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination']);
         Route::post('adminDesigner/save-nomination/{id}',[AdminDesignerController::class,'saveNomination']);
-        Route::post('adminDesigner/edit-nomination/{id}',[AdminDesignerController::class,'editNomination']);
+        Route::get('adminDesigner/edit-nomination/{id}',[AdminDesignerController::class,'editNomination']);
+        Route::post('adminDesigner/update-nomination/{id}',[AdminDesignerController::class,'updateNomination']);
     });
 //Estimator routes
 Route::group(['prefix' => 'Estimator'],function(){

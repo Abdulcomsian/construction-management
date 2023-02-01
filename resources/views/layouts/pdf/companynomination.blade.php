@@ -585,7 +585,7 @@
                         </tbody>
                     </table>
         </div>
-        <div class="tableDiv">
+        <div class="tableDiv paddingTable">
              <div style="background:gray; padding: 12px; margin-top: 5px; color: white;">
                 <h4 style="margin: 0;font-size:13px">Individual being nominated</h4>
                 <p style="margin: 0;font-size: 10px;">I confirm that this is a true record of my experience and qualifications. <br>

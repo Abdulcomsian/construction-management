@@ -872,7 +872,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-end w-50">Print name</td>
-                                            <td><input type="text" name="print_name" value="{{$user->userCompany->name}}"></td>
+                                            <td><input type="text" name="print_name" value="{{$user->name}}"></td>
                                         </tr>
                                         <tr>
                                             <td class="text-end w-50">Job title</td>

@@ -64,9 +64,7 @@ Route::post('drawing-comment',[DesignerController::class,'drawing_comment'])->na
 Route::post('twc-drawing-comment',[DesignerController::class,'twc_drawing_comment'])->name('twcdrawing.comment');
 
 //company profile
-Route::get('company-profile',function(){
-    return view('companyProfile');
-});
+Route::get('company-profile/{id}',[HomeController::class,'companyProfile']);
 //=============================================END OPEN ROUTES==========================================================
 
 //Authentic routes================================================================================
@@ -120,11 +118,16 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('adminDesigner/save-profile',[AdminDesignerController::class,'saveProfile']);
             Route::get('adminDesigner/edit-profile/{id}',[AdminDesignerController::class,'editProfile']);
             Route::post('adminDesigner/update-profile/{editProfile}',[AdminDesignerController::class,'updateProfile']);
+            Route::get('adminDesigner/designer-details/{id}',[AdminDesignerController::class,'designerDetails']);
+            Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'nominationStatus']);
         });
         Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination']);
         Route::post('adminDesigner/save-nomination/{id}',[AdminDesignerController::class,'saveNomination']);
         Route::get('adminDesigner/edit-nomination/{id}',[AdminDesignerController::class,'editNomination']);
         Route::post('adminDesigner/update-nomination/{id}',[AdminDesignerController::class,'updateNomination']);
+
+        Route::get('adminDesigner/create-appointment/{id}',[AdminDesignerController::class,'createAppointment']);
+        Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'saveAppointment']);
     });
 //Estimator routes
 Route::group(['prefix' => 'Estimator'],function(){

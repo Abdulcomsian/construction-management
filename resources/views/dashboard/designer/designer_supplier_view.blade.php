@@ -401,7 +401,7 @@
                                 <td>{{$work->project->company->name}}</td>
                                 <td>{{Auth::user()->email}}</td>
                                 <td>
-                                    <a href="{{route('estimator.designer',$work->id.'/?mail='.auth()->user()->email.'&code='.Crypt::encrypt($work->designer->code))}}"><i class="fa fa-eye"></i>
+                                    <a href="{{route('estimator.designer',$work->id.'/?mail='.auth()->user()->email.'&code='.Crypt::encrypt($work->designer->code))}}" target="_blank"><i class="fa fa-eye"></i>
                                     </a>
                                 </td>
                               </tr>

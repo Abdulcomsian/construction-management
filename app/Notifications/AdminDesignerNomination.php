@@ -12,9 +12,11 @@ class AdminDesignerNomination extends Notification
     use Queueable;
 
     public $user;
-    public function __construct($user)
+    public $status;
+    public function __construct($user,$staus=null)
     {
         $this->user=$user;
+        $this->status=$status;
     }
 
     /**
@@ -39,7 +41,7 @@ class AdminDesignerNomination extends Notification
          return (new MailMessage)
             ->greeting('Nomination')
             ->subject("Nomination")
-            ->view('mail.adminDesignerNomination',['user'=>$this->user]);
+            ->view('mail.adminDesignerNomination',['user'=>$this->user,'status'=>$this->status]);
     }
 
     /**

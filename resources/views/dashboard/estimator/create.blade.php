@@ -300,6 +300,24 @@ height: 72px;
                                     <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
                                 </div>
                                 <div class="d-flex inputDiv d-block">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Select Admin approved designer</span>
+                                    </label>
+                                    <select name="designers[]"  class="form-select form-select-lg form-select-solid adminDesigners" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple >
+                                        <option value="">Select Option</option>
+                                        
+                                            @foreach($adminDesigners as $desig)
+                                               <optgroup  label="Designer List">
+                                                @if($desig->hasRole('designer'))
+                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}}</option>
+                                                @endif
+                                                 </optgroup>
+                                            @endforeach
+                                        
+                                    </select>
+                                </div>
+                                
+                                <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="">Designer Email Address:</span>
@@ -313,7 +331,7 @@ height: 72px;
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Select company approved designer</span>
                                     </label>
-                                    <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required multiple>
+                                    <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple>
                                         <option value="">Select Option</option>
                                         <optgroup label="Designer List">
                                             @foreach($designers as $desig)
@@ -740,6 +758,18 @@ height: 72px;
             $(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)") 
         })
     });
+
+
+    $(".adminDesigners").on('change',function(){
+        let data=$(this).val();
+        if(data.length>0)
+        {
+            parts = data[0].split('-');
+            loc = parts.pop();
+            window.open('company-profile/'+loc+'', '_blank');
+        }
+        
+    })
 </script>
 
     

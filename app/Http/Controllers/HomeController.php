@@ -8,6 +8,7 @@ use App\Models\NominationCourses;
 use App\Models\NominationQualification;
 use App\Models\NominationExperience;
 use App\Models\NominationCompetence;
+use App\Models\CompanyProfile;
 use App\Notifications\NominatinCompanyEmail;
 use App\Notifications\DatabaseNotification;
 use App\Models\User;
@@ -835,5 +836,13 @@ class HomeController extends Controller
             ->markAsRead();
 
         return response()->noContent();
+    }
+
+    //company profile
+    public function companyProfile($id)
+    {
+        $companyProfile=CompanyProfile::where(['user_id'=>$id])->first();
+        $designerList=User::where(['di_designer_id'=>$id])->get();
+        return view('companyProfile',compact('companyProfile','designerList'));
     }
 }

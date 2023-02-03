@@ -136,12 +136,14 @@ class EstimatorController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $designers=User::role(['designer'])->get();
                 $suppliers=User::role(['supplier'])->get();
+                $adminDesigners=User::role('designer')->where(['added_by'=>1])->whereNotNull('designer_company')->get();
             }else {
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
+                $adminDesigners=User::role('designer')->where(['added_by'=>1])->whereNotNull('designer_company')->get();
             }
-            return view('dashboard.estimator.create', compact('projects','designers','suppliers'));
+            return view('dashboard.estimator.create', compact('projects','designers','suppliers','adminDesigners'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

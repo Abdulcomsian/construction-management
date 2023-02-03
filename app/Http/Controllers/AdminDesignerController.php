@@ -555,8 +555,7 @@ class AdminDesignerController extends Controller
                     Notification::route('mail',$user->userDiCompany->email ?? '')->notify(new AdminDesignerNomination($user));
                     DB::commit();
                     toastSuccess('Nomination Form updated successfully!');
-                    return redirect()->to('adminDesigner/create-nomination/'.$user->id);
-                   
+                    return redirect()->to('adminDesigner/create-nomination/'.$user->id); 
 
             }
 
@@ -708,7 +707,9 @@ class AdminDesignerController extends Controller
                                       <i class="fa fa-trash" aria-hidden="true"></i>
                                         
                                     </button>
-                                </form></div>
+                                </form>
+                                <a href="'.url('adminDesigner/designer-details',$data->id).'" class="btn btn-icon"><i class="fa fa-eye"></i></a>
+                                </div>
                                 ';
                         }
                         return $btn;
@@ -723,5 +724,142 @@ class AdminDesignerController extends Controller
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
+    }
+    //designer details by id
+    public function designerDetails($id)
+    {
+        $userNomination=Nomination::where(['user_id'=>$id])->first();
+        $User=User::find($id);
+        return view('dashboard.adminDesigners.designer-details',compact('userNomination','User'));
+    }
+    //nominations tatus
+    public function nominationStatus(Request $request)
+    {
+         DB::beginTransaction();
+           try
+           {
+            $user=User::with('userDiCompany')->find($request->userid);
+            if($request->status==1)
+            {
+                 $image_name = '';
+                if ($request->signtype == 1) {
+                    $image_name = $request->namesign;
+                } elseif ($request->pdfsigntype == 1) {
+                    $folderPath = public_path('temporary/signature/');
+                    $file = $request->file('pdfphoto');
+                    $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                    $file->move($folderPath, $filename);
+                    $image_name = $filename;
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name;
+                    file_put_contents($file, $image_base64);
+                }
+
+                $all_inputs=[
+                    'print_name1'=>Auth::user()->name,
+                    'job_title1'=>Auth::user()->job_title,
+                    'signature1'=>$image_name,
+                    'status'=>1,
+                    'nomination_approve_reject_date'=>date('Y-m-d H:i:s')
+
+                ];
+                Nomination::find($request->nominationid)->update($all_inputs);
+                $nomination=Nomination::find($request->nominationid);
+                $experience=NominationExperience::where('nomination_id',$request->nominationid)->get();
+                $competence=NominationCompetence::where('nomination_id',$request->nominationid)->first();
+                $pdf = PDF::loadView('layouts.pdf.adminDiDesignerAprrove',['nomination'=>$nomination,'experience'=>$experience,'competence'=>$competence,'user'=>$user]);
+                    $path = public_path('pdf');
+                    $filename =rand().'nomination.pdf';
+                    $pdf->save($path . '/' . $filename);
+                @unlink($nomination->pdf_url);
+                Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                $status='Approved';
+                Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNomination($user,$status));  
+            }
+            else{
+                 Nomination::find($request->nominationid)->update(['status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
+                 $nomination=Nomination::find($request->nominationid);
+            }
+            DB::commit();
+            toastSuccess('status changed successfully');
+            return Redirect::back();
+         } catch (\Exception $exception) {
+            DB::rollback();
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
+    }
+    //create Appointment
+    public function createAppointment($id)
+    {
+        $nomination=Nomination::where(['user_id'=>Auth::user()->id])->first();
+        $user=User::find($id);
+        if($nomination && $nomination->status==1)
+        {
+            return view('dashboard.adminDesigners.createAppointment',compact('user','nomination'));
+        }
+        else
+        {
+            toastError('Wait for nomination approve');
+            return Redirect::back();
+        }
+    }
+    //save appointment
+    public function saveAppointment(Request $request)
+    {
+       DB::beginTransaction();
+       try
+       {
+            $user=User::with('userDiCompany')->find($request->user_id);
+            $nomination=Nomination::find($request->nominationId);
+            //upload signature here
+            $image_name = '';
+            if ($request->signtype == 1) {
+                $image_name = $request->namesign;
+            }elseif($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfsign');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+            }else{
+            $folderPath = public_path('temporary/signature/');
+            $image = explode(";base64,", $request->signed);
+            $image_type = explode("image/", $image[0]);
+            $image_type_png = $image_type[1];
+            $image_base64 = base64_decode($image[1]);
+            $image_name = uniqid() . '.' . $image_type_png;
+            $file = $folderPath . $image_name;
+            file_put_contents($file, $image_base64);
+            }
+            
+            $pdf = PDF::loadView('layouts.pdf.designerAppointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]); 
+            $path = public_path('pdf');
+            $filename =$user->id.'appointment.pdf';
+            @unlink($path . '/' . $filename);
+            $pdf->save($path . '/' . $filename);
+            Nomination::find($request->nominationId)->update([
+                'appointment_pdf'=>$filename,
+                'appointment_signature'=>$image_name,
+                'appointment_date'=>$request->date,
+            ]);
+            User::find($user->id)->update([
+                'user_notify'=>1
+             ]);
+            DB::commit();
+            toastSuccess('Appointment Saved successfully');
+            return redirect('adminDesigner/create-nomination/'.$user->id);
+        } catch (\Exception $exception) {
+            DB::rollback();
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+       
     }
 }

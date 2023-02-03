@@ -22,10 +22,21 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello {{$user->userDiCompany->name}}</h1> 
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">
+                                                                        Hello 
+                                                                        @if($status=="Approved") 
+                                                                        {{$user->name}}
+                                                                        @else
+                                                                        {{$user->userDiCompany->name}}
+                                                                        @endif
+                                                                    </h1> 
                                                                     <br>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                      {{$user->name }} has Uploaded nomination form please login and view nomination.
+                                                                         @if($status=="Approved") 
+                                                                          {{$user->userDiCompany->name}} has Approved your nomination please login and sign appointment letter.
+                                                                         @else
+                                                                            {{$user->name }} has Uploaded nomination form please login and view nomination.
+                                                                        @endif
                                                                         
                                                                    </p>  
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">

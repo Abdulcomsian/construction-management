@@ -149,7 +149,14 @@ background-color: #07d564 !important;
                                     <td>{{$companyProfile->company_name}}</td>
                                     <td>{{$companyProfile->comapny_email}}</td>
                                     <td>{{$companyProfile->company_address}}</td>
-                                    <td>{{$companyProfile->company_description}}</td>
+                                    <td style="max-height: 200px;
+    min-height: 200px;
+    height: 200px;
+    /* overflow: scroll; */
+    text-overflow: ellipsis;
+    width: max-content;
+    display: block;
+    max-width: 300px;">{{$companyProfile->company_description}}</td>
                                     <td>{{$companyProfile->year_established}}</td>
                                     <td>{{$companyProfile->phone}}</td>
                                     <td>{{$companyProfile->website}}</td>

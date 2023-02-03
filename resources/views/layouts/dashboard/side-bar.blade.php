@@ -202,6 +202,11 @@
                                     <span class="menu-title">Add Nomination</span>
                                 </a>
                             </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{url('adminDesigner/create-appointment',auth()->user()->id)}}">
+                                    <span class="menu-title">Add Appointment</span>
+                                </a>
+                            </div>
                          @endif
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 @extends('layouts.companyprofile.master',['title' => 'Company Profile'])
 @section('styles')
 <style> 
- @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Bree+Serif&display=swap");
 
 * {
@@ -21,20 +21,29 @@ p {
   margin: 0 0 10px;
   color: rgba(0, 0, 0, 0.5);
 }
+.main-wrapper {
+  margin-top: 25px;
+}
+
 .user-bio {
   margin-top: 40px;
-  font-family: "Poppin";
+  font-family: "Poppins", sans-serif;
+}
+.user-bio > h3 {
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .bio {
   margin-top: 8px;
+  font-size: 12px;
 }
 
 .profile-header {
   background: #fff;
   width: 100%;
   display: flex;
-  height: 190px;
+  flex-direction: column;
   position: relative;
   border-bottom: 2px solid lightslategrey;
 }
@@ -53,7 +62,7 @@ p {
   border: 5px solid #fff;
   box-shadow: 0px 0px 9px -1px rgb(0 0 0 / 10%);
   position: relative;
-  left: 87px;
+  left: 68px;
   top: 20px;
   z-index: 5;
   background: #fff;
@@ -62,6 +71,7 @@ p {
 .profile-nav-info {
   float: left;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
 }
@@ -141,6 +151,7 @@ p {
 .main-bd {
   width: 100%;
   display: flex;
+  column-gap: 40px;
 }
 
 .profile-side {
@@ -310,6 +321,7 @@ button.createbtn i {
 
   .profile-nav-info {
     text-align: center;
+    margin-top: 55px;
   }
 
   .profile-option {
@@ -418,7 +430,16 @@ button.createbtn i {
 }
 
 .right-side .tab-content {
-  padding-left: 0 10px;
+  padding: 0 27px;
+}
+
+.left-side {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.right-side {
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .attachment {
@@ -438,9 +459,9 @@ button.createbtn i {
   gap: 4px;
 }
 
-.rating-container {
+/* .rating-container {
   margin-left: 30px;
-}
+} */
 
 .comment-div {
   margin-bottom: 28px;
@@ -470,53 +491,63 @@ button.createbtn i {
   }
 }
 
+
 </style>
 @endsection
 @section('content')
-<div class="container">
-      <div class="profile-header">
-        <div class="profile-img">
-          <img
-            src="https://source.unsplash.com/random/200x200"
-            width="200"
-            alt="Profile Image"
-          />
-        </div>
-        <div class="profile-nav-info">
-          <h3 class="user-name">Company Name</h3>
-          <div class="address">
-            <p id="state" class="state">Address</p>
-            <span id="country" class="country">,Country name</span>
-          </div>
-        </div>
-      </div>
-
+ <div class="container main-wrapper">
       <div class="main-bd">
         <div class="left-side">
+          <div class="profile-header">
+            <div class="profile-img">
+              <img
+                src="{{asset($companyProfile->logo)}}"
+                width="200"
+                alt="Profile Image"
+              />
+            </div>
+            <div class="profile-nav-info">
+              <h3 class="user-name">{{$companyProfile->company_name}}</h3>
+              <div class="address">
+                <p id="state" class="state">{{$companyProfile->company_address}}</p>
+              </div>
+            </div>
+            <!-- <div class="profile-option">
+                  <div class="notification">
+                    <i class="fa fa-bell"></i>
+                    <span class="alert-message">3</span>
+                  </div>
+                </div> -->
+          </div>
           <div class="profile-side">
             <p class="mobile-no">
               <span
                 class="glyphicon glyphicon-earphone"
                 style="color: dodgerblue"
               ></span>
-              0300-12345678
+              {{$companyProfile->phone}}
             </p>
             <p class="user-mail">
               <span
                 class="glyphicon glyphicon-envelope"
                 style="color: dodgerblue"
               ></span>
-              acdef@gmail.com
+              {{$companyProfile->comapny_email}}
             </p>
             <div class="user-bio">
               <h3>Company Information</h3>
               <p class="bio" style="color: rgba(0, 0, 0, 0.5)">
-                Lorem ipsum dolor sit amet, hello how consectetur adipisicing
-                elit. Sint consectetur provident magni yohoho consequuntur,
-                voluptatibus ghdfff exercitationem at quis similique. Optio,
-                amet!
+                {{substr($companyProfile->company_description,0,100)}}
               </p>
             </div>
+            <!-- <div class="profile-btn">
+              <button class="chatbtn" id="chatBtn">
+                <i class="fa fa-comment"></i> Chat
+              </button>
+              <button class="createbtn" id="Create-post">
+                <i class="fa fa-plus"></i> Create
+              </button>
+            </div> -->
             <div class="user-bio">
               <h3>Company Rating</h3>
               <div class="user-rating">
@@ -543,7 +574,7 @@ button.createbtn i {
         </div>
         <div class="right-side">
           <ul class="nav nav-tabs">
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link active" data-toggle="tab" href="#tab1"
                 >Company Details</a
               >
@@ -563,7 +594,7 @@ button.createbtn i {
               <br />
               <div class="row">
                 <div class="col-lg-8">
-                  <strong>Date of Establishment :</strong>
+                  <strong>Date of Establishment : {{$companyProfile->year_established}}</strong>
                   <br />
                   <div class="attachment-container">
                     <strong>Attachments:</strong><br />
@@ -575,39 +606,14 @@ button.createbtn i {
                 </div>
                 <div class="col-lg-3">
                   <strong>Website link:</strong>
-                  <a href="#">first.last@example.com</a>
+                  <a href="{{$companyProfile->website}}">{{$companyProfile->website}}</a>
                 </div>
               </div>
               <div class="row company-detail">
                 <div class="col-lg-12">
                   <strong class="company-detail--title">Company Detail</strong>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Sit doloremque, obcaecati soluta alias distinctio laudantium
-                    itaque similique libero nihil labore aliquam laborum
-                    voluptate enim in perferendis molestias suscipit, sint cum.
-                    Non quas distinctio, reprehenderit delectus deleniti nostrum
-                    illo eum cupiditate repudiandae voluptates natus quo
-                    consectetur quam nisi tenetur dolorum placeat ipsum
-                    assumenda fugit. Quisquam, ullam aut asperiores, recusandae
-                    animi modi architecto quis ea officiis, pariatur aliquam
-                    aspernatur totam sint sequi iure dolores. Optio velit iusto
-                    rerum, quod odit tenetur magni asperiores aliquid id sequi
-                    voluptate ad veritatis animi reiciendis quam, illo modi sed
-                    accusamus natus. Nesciunt quod veniam pariatur cum accusamus
-                    iure praesentium atque, in fugit laboriosam unde quis natus
-                    deserunt, reprehenderit iste culpa voluptatem harum minus
-                    eligendi, blanditiis saepe? Aliquam quam tempore, non
-                    veritatis dolore quo libero in voluptatem reprehenderit
-                    culpa numquam vitae expedita iure voluptate! Aliquam maxime,
-                    illo minima odio rerum facilis aperiam omnis nihil quae
-                    corporis pariatur, quasi iure amet a maiores sunt.
-                    Reprehenderit ipsam beatae, minima quod, ullam quae voluptas
-                    maxime impedit magnam enim quasi debitis sequi cum officiis
-                    itaque accusantium sint eaque recusandae explicabo
-                    blanditiis. Nobis obcaecati a corrupti eos vitae id nemo
-                    facilis deserunt incidunt ratione enim dignissimos nam dicta
-                    eum, asperiores atque quia!
+                    {{$companyProfile->company_description}}
                   </p>
                 </div>
               </div>
@@ -615,38 +621,38 @@ button.createbtn i {
                 <div class="col-md-3">
                   <div class="attachment-container">
                     <strong>Other Attachments:</strong><br />
-                    <p class="attachment"><a href="#">Attachment-1</a></p>
-                    <p class="attachment">
-                      <a href="#">Attachment-2</a>
-                    </p>
+                    @php 
+                    $attachments=json_decode($companyProfile->other_files);
+                    @endphp
+                    @foreach($attachments as $attach)
+                     @php 
+                        $n = strrpos($attach, '.');
+                        $ext=substr($attach, $n+1);
+                     
+                     @endphp
+                     @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                     @else
+                      <p class="attachment"><a href="{{asset($attach)}}">Attachment</a></p>
+                     @endif
+                    @endforeach
                   </div>
                 </div>
                 <div class="col-md-6">
+
                   <div class="gallery">
-                    <img
-                      src="https://source.unsplash.com/random/200x200"
-                      alt=""
-                    />
-                    <img
-                      src="https://source.unsplash.com/random/200x200"
-                      alt=""
-                    />
-                    <img
-                      src="https://source.unsplash.com/random/200x200"
-                      alt=""
-                    />
-                    <img
-                      src="https://source.unsplash.com/random/200x200"
-                      alt=""
-                    />
-                    <img
-                      src="https://source.unsplash.com/random/200x200"
-                      alt=""
-                    />
-                    <img
-                      src="https://source.unsplash.com/random/200x200"
-                      alt=""
-                    />
+                    @php 
+                    $photos=json_decode($companyProfile->other_files);
+                    @endphp
+                    @foreach($photos as $photo)
+                     @php 
+                        $n = strrpos($photo, '.');
+                        $ext=substr($photo, $n+1);
+                     
+                     @endphp
+                     @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                      <img src="{{asset($photo)}}" alt=""/>
+                     @endif
+                    @endforeach
                   </div>
                 </div>
               </div>
@@ -662,11 +668,13 @@ button.createbtn i {
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach($designerList as $list)
                   <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
+                    <td>{{$loop->index+1}}</td>
+                    <td>{{$list->name}}</td>
+                    <td>{{$list->email}}</td>
                   </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>

@@ -339,9 +339,16 @@ class EstimatorController extends Controller
     //detail page of estimator
     public function show($id)
     {
-        $listOfDesigners=EstimatorDesignerList::with('Estimator.project')->with('quotationSum','checkCommentReply')->where(['temporary_work_id'=>$id])->get();
-        $temporaryWork=TemporaryWork::find($id);
-        return view('dashboard.estimator.view',compact('listOfDesigners','id','temporaryWork'));
+        if(Auth::user()->hasRole(['estimator','user']))
+        {
+            $listOfDesigners=EstimatorDesignerList::with('Estimator.project')->with('quotationSum','checkCommentReply')->where(['temporary_work_id'=>$id])->get();
+            $temporaryWork=TemporaryWork::find($id);
+            return view('dashboard.estimator.view',compact('listOfDesigners','id','temporaryWork'));
+        }
+        else
+        {
+            return redirect('/temporary_works');
+        }
     }
     //estimator designer quotation page from estimater side
     public function estimatorQuotationDetails(Request $request,$id)

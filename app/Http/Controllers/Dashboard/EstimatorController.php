@@ -773,7 +773,7 @@ class EstimatorController extends Controller
     //estimaor approve page
     public function estimatorApproveDetails($id)
     {
-        $rating=ReviewRating::where(['user_id'=>$id,'added_by'=>Auth::user()->email])->first();
+        $rating=ReviewRating::where(['user_id'=>$id,'addedBy'=>Auth::user()->id])->first();
         return view('dashboard.estimator.designer_approve_page',['id'=>$id,'rating'=>$rating]);
     }
     //approve one designer from estimator
@@ -819,6 +819,7 @@ class EstimatorController extends Controller
             $model->star_rating=$request->rating;
             $model->user_id=$request->designerId;
             $model->added_by=Auth::user()->email;
+            $model->addedBy=Auth::user()->id;
             $model->save();
             toastSuccess($message);
             return redirect()->back();

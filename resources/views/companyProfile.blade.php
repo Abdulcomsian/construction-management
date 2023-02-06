@@ -682,8 +682,8 @@ button.createbtn i {
             <div id="tab3" class="container tab-pane fade">
               @foreach($ratings as $rate)
               <div class="comment-div">
-                <strong>User Name: {{$rate->user->name ?? ''}}</strong>
                 <br />
+                <strong>{{$rate->user->name ?? ''}}</strong>
                 <span class="rating-container">
                     @for($i=0;$i<$rate->star_rating;$i++)
                     <span class="glyphicon glyphicon-star"></span>

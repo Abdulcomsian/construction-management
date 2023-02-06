@@ -29,15 +29,18 @@ class AdminDesignerController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-        abort_if(!$user->hasAnyRole(['admin']), 403);
+        abort_if(!$user->hasAnyRole(['admin','company']), 403);
         try {
             if ($request->ajax()) {
                 $data = User::role(['designer'])->where(['added_by'=>1])->latest()->get();
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->addColumn('action', function ($data) use ($user) {
-                         $btn ='';
-                        if ($user->hasRole(['admin','company'])) {
+                         $btn ='<a href="' . url('company-profile', $data->id) .'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" target="_blank" title="Company Profile">
+                                   <i class="fa fa-user"></i> 
+                                </a>';
+
+                        if ($user->hasRole(['admin'])) {
                             $btn .= '<div class="d-flex">
                                 <a href="' . route('adminDesigner.edit', $data->id) .'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <span class="svg-icon svg-icon-3">

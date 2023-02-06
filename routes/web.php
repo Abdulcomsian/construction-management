@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\SupplierController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DesignerController;
 use App\Http\Controllers\AdminDesignerController;
+use App\Http\Controllers\AdminSupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
@@ -78,6 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
         'temporary_works' => TemporaryWorkController::class, //Temporary Works
         'suppliers' => SupplierController::class, //Supplier
         'adminDesigner' => AdminDesignerController::class, //Admin Designer controller
+        'adminSupplier' => AdminSupplierController::class, //Admin Supplier controller
     ]);
     Route::get('company/projects', [CompanyController::class, 'companyProjects'])->name('company.projects');
     Route::get('user/projects', [UserController::class, 'userProjects'])->name('user.projects');

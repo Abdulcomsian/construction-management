@@ -301,7 +301,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Select Admin approved designer</span>
+                                        <span class="">Select Admin approved designer</span>
                                     </label>
                                     <select name="designers[]"  class="form-select form-select-lg form-select-solid adminDesigners" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple >
                                         <option value="">Select Option</option>
@@ -310,6 +310,24 @@ height: 72px;
                                                <optgroup  label="Designer List">
                                                 @if($desig->hasRole('designer'))
                                                 <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}}</option>
+                                                @endif
+                                                 </optgroup>
+                                            @endforeach
+                                        
+                                    </select>
+                                </div>
+
+                                <div class="d-flex inputDiv d-block">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Select Admin approved supplier</span>
+                                    </label>
+                                    <select name="suppliers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple >
+                                        <option value="">Select Option</option>
+                                        
+                                            @foreach($adminSuppliers as $supp)
+                                               <optgroup  label="Supplier List">
+                                                @if($supp->hasRole('supplier'))
+                                                <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
                                                 @endif
                                                  </optgroup>
                                             @endforeach
@@ -329,7 +347,7 @@ height: 72px;
                                 <h6>And/Or</h6>
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Select company approved designer</span>
+                                        <span class="">Select company approved designer</span>
                                     </label>
                                     <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple>
                                         <option value="">Select Option</option>
@@ -355,7 +373,7 @@ height: 72px;
                                  <div class="d-flex inputDiv d-block">
 
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Select company approved supplier</span>
+                                        <span class="">Select company approved supplier</span>
                                     </label>
                                     <select name="suppliers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple>
                                         <option value="">Select Option</option>

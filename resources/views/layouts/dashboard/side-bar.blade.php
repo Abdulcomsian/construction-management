@@ -81,10 +81,15 @@
                             <span class="menu-title">Users</span>
                         </a>
                     </div>
-                     @if(\Auth::user()->hasRole('admin'))
+                     @if(\Auth::user()->hasRole(['admin','company']))
                      <div class="menu-item">
                         <a class="menu-link" href="{{url('adminDesigner')}}">
                             <span class="menu-title">Admin Designers</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{url('adminSupplier')}}">
+                            <span class="menu-title">Admin Suppliers</span>
                         </a>
                     </div>
                      @endif

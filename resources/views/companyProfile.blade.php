@@ -683,7 +683,7 @@ button.createbtn i {
               @foreach($ratings as $rate)
               <div class="comment-div">
                 <br />
-                <strong>{{$rate->user->name ?? ''}}</strong>
+                <strong>{{$rate->user->name ?? ''}}:</strong>
                 <span class="rating-container">
                     @for($i=0;$i<$rate->star_rating;$i++)
                     <span class="glyphicon glyphicon-star"></span>

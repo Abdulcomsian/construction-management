@@ -773,7 +773,8 @@ class EstimatorController extends Controller
     //estimaor approve page
     public function estimatorApproveDetails($id)
     {
-        return view('dashboard.estimator.designer_approve_page');
+        $rating=ReviewRating::where(['user_id'=>$id])->first();
+        return view('dashboard.estimator.designer_approve_page',['id'=>$id,'rating'=>$rating]);
     }
     //approve one designer from estimator
     public function estimatorDesignerApprove(Request $request)
@@ -798,6 +799,33 @@ class EstimatorController extends Controller
             toastError('Something went wrong, try again!');
             return Redirect::back();
          }
+    }
+    //esitamtor reveiw add and update also to company
+    public function estimatorReview(Request $request)
+    {
+        try
+        {
+            if($request->type=="Add")
+            {
+                $model=new ReviewRating();
+                $message='Your review added successfully!';
+            }
+            else{
+                $model=ReviewRating::find($request->ratingId);
+                $message='Your review updated successfully!';
+            }
+            
+            $model->comments=$request->comment;
+            $model->star_rating=$request->rating;
+            $model->user_id=$request->designerId;
+            $model->added_by=Auth::user()->email;
+            $model->save();
+            toastSuccess($message);
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     //save designer review about company

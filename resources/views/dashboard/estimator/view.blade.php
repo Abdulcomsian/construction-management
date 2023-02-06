@@ -238,6 +238,7 @@
                                          
                                     </td>
                                     <td>
+                                        <a href="{{url('Estimator/estimator-approve-details',$designer->id)}}"><i class="fa fa-credit-card"></i></a>
                                     </td>
                                     
                                 </tr>

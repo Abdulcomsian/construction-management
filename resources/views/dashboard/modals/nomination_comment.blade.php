@@ -82,8 +82,10 @@
                                             <!--end::Label-->
                                              <div class="d-flex inputDiv" >
                                                 <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
+
                                                 <br/>
                                                <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 11"></span>
                                             </div>
 
 

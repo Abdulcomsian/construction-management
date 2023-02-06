@@ -13,7 +13,7 @@ class AdminDesignerNomination extends Notification
 
     public $user;
     public $status;
-    public function __construct($user,$staus=null)
+    public function __construct($user,$status=null)
     {
         $this->user=$user;
         $this->status=$status;

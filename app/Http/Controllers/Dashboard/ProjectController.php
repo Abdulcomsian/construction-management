@@ -166,7 +166,6 @@ class ProjectController extends Controller
             toastSuccess('Project successfully ' . $message . '!');
             return Redirect::back();
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }

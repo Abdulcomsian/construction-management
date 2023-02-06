@@ -141,7 +141,6 @@ class SupplierController extends Controller
             toastSuccess('Supplier successfully added!');
             return redirect()->route('suppliers.index');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -176,7 +175,6 @@ class SupplierController extends Controller
             $companies = User::role('company')->latest()->get();
             return view('dashboard.suppliers.edit', compact('user_projects', 'user', 'companies', 'company_projects'));
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return back();
         }
@@ -214,7 +212,8 @@ class SupplierController extends Controller
             toastSuccess('Supplier Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            toastError('Something Went Wrong!');
+            return Redirect::back();
         }
     }
 

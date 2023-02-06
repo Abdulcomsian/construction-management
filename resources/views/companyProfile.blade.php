@@ -627,6 +627,7 @@ button.createbtn i {
                     @php 
                     $attachments=json_decode($companyProfile->other_files);
                     @endphp
+                    @if($attachments)
                     @foreach($attachments as $attach)
                      @php 
                         $n = strrpos($attach, '.');
@@ -638,6 +639,7 @@ button.createbtn i {
                       <p class="attachment"><a href="{{asset($attach)}}">Attachment</a></p>
                      @endif
                     @endforeach
+                    @endif
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -646,6 +648,7 @@ button.createbtn i {
                     @php 
                     $photos=json_decode($companyProfile->other_files);
                     @endphp
+                    @if($attachments)
                     @foreach($photos as $photo)
                      @php 
                         $n = strrpos($photo, '.');
@@ -656,6 +659,7 @@ button.createbtn i {
                       <img src="{{asset($photo)}}" alt=""/>
                      @endif
                     @endforeach
+                    @endif
                   </div>
                 </div>
               </div>

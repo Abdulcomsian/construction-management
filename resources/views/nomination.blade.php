@@ -1013,6 +1013,13 @@
 
 @section('scripts')
 <script>
+
+    $(document).ready(function() {
+          $('form').submit(function() {
+             $("#submit").attr('disabled','disabled');
+          });
+    });
+
     $('#table3Btn').click(function(e) {
         e.preventDefault();
         addNewRow('.table3 tbody', `<tr><td class="tdhight"><input type="text" name="qualification[]" required></td><td class="tdhight"><input type="date" name="qualification_date[]"></td> <td class="tdhight" style="width:22%"><input type="file" name="qualification_file[]" style="width:78%"><button class="btn btn-sm btn-danger remove" type="button">-</button></td> </tr>`)

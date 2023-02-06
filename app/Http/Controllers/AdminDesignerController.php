@@ -227,7 +227,7 @@ class AdminDesignerController extends Controller
     public function saveNomination(Request $request,$id)
     {
         DB::beginTransaction();
-        try {
+        // try {
             $user=User::with('userCompany')->find(Auth::user()->id);
             //upload signature here
             $image_name = '';
@@ -374,11 +374,11 @@ class AdminDesignerController extends Controller
                 toastSuccess('Nomination Form save successfully!');
                 return back();
             }
-        } catch (\Exception $exception) {
-            DB::rollback();
-            toastError('Something went wrong, try again!');
-            return back();
-        }
+        // } catch (\Exception $exception) {
+        //     DB::rollback();
+        //     toastError('Something went wrong, try again!');
+        //     return back();
+        // }
     }
 
     //edit nomination
@@ -723,7 +723,6 @@ class AdminDesignerController extends Controller
 
              return view('dashboard.adminDesigners.designerList');
         } catch (\Exception $exception) {
-            dd();
             toastError('Something went wrong, try again');
             return Redirect::back();
         }

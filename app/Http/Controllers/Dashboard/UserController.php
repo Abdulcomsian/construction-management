@@ -198,7 +198,6 @@ class UserController extends Controller
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -235,7 +234,6 @@ class UserController extends Controller
             $companies = User::role('company')->latest()->get();
             return view('dashboard.users.edit', compact('user_projects', 'user', 'companies', 'company_projects'));
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return back();
         }
@@ -306,7 +304,8 @@ class UserController extends Controller
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+             toastError('Something Went Wrong!');
+            return Redirect::back();
         }
     }
 

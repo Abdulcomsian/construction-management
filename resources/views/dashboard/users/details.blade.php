@@ -261,6 +261,11 @@ background-color: #07d564 !important;
         console.log("hello");
               $("#signature").val(signaturePad.toDataURL('image/png'));
             });
+     $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+    });
     $(document).on("click",".nominationcomment",function(){
         let nomination_id=$(this).attr('nominationid');
         let userid=$(this).attr('userid');

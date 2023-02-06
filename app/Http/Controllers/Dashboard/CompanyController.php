@@ -133,8 +133,7 @@ class CompanyController extends Controller
             toastSuccess('Company successfully added!');
             return Redirect::back();
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
-            toastError('Something went wrong, try again');
+            toastError($exception->getMessage());
             return Redirect::back();
         }
     }
@@ -169,7 +168,6 @@ class CompanyController extends Controller
             $projects =  $projects->merge($company_projects);
             return view('dashboard.companies.edit', compact('company', 'projects', 'project_ids'));
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }

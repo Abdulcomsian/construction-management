@@ -703,7 +703,6 @@ class HomeController extends Controller
                     return back();
             }
             else{
-                dd($exception->getMessage());
                 DB::rollback();
                 toastError($exception->getMessage());
                 return back();

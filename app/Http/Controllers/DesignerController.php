@@ -161,7 +161,6 @@ class DesignerController extends Controller
             toastSuccess('User successfully added!');
             return redirect()->route('designer.list');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -180,7 +179,6 @@ class DesignerController extends Controller
             $companies = User::role('company')->latest()->get();
             return view('dashboard.designer.edit', compact('user_projects', 'user', 'companies', 'company_projects'));
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return back();
         }
@@ -211,7 +209,8 @@ class DesignerController extends Controller
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            toastError('Something Went Wrong!');
+            return Redirect::back();
         }
     }
 

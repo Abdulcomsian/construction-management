@@ -14,6 +14,7 @@ use App\Notifications\DatabaseNotification;
 use App\Models\User;
 use App\Models\NominationComment;
 use App\Models\Project;
+use App\Models\ReviewRating;
 use App\Utils\HelperFunctions;
 use PDF;
 use Notification;
@@ -843,6 +844,9 @@ class HomeController extends Controller
     {
         $companyProfile=CompanyProfile::where(['user_id'=>$id])->first();
         $designerList=User::where(['di_designer_id'=>$id])->get();
-        return view('companyProfile',compact('companyProfile','designerList'));
+        $ratings=ReviewRating::with('user')->where(['user_id'=>$id])->get();
+        //avg rating
+        $avgratings=ReviewRating::where(['user_id'=>$id])->avg('star_rating');
+        return view('companyProfile',compact('companyProfile','designerList','ratings','avgratings'));
     }
 }

@@ -551,21 +551,22 @@ button.createbtn i {
             <div class="user-bio">
               <h3>Company Rating</h3>
               <div class="user-rating">
-                <h3 class="rating">4.5</h3>
+                <h3 class="rating">{{number_format($avgratings, 1)}}</h3>
                 <div class="rate">
                   <div class="star-outer">
                     <!-- <div class="star-inner"> -->
                     <span class="rating-container">
-                      <span class="glyphicon glyphicon-star"></span>
-                      <span class="glyphicon glyphicon-star"></span>
-                      <span class="glyphicon glyphicon-star"></span>
-                      <span class="glyphicon glyphicon-star"></span>
-                      <span class="glyphicon glyphicon-star-empty"></span>
+                       @for($i=0;$i< round($avgratings);$i++)
+                        <span class="glyphicon glyphicon-star"></span>
+                        @endfor
+                        @for($j=0; $j < 5-$i; $j++)
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        @endfor
                     </span>
                     <!-- </div> -->
                   </div>
                   <span class="no-of-user-rate"
-                    ><span>123</span>&nbsp;&nbsp;reviews</span
+                    ><span>{{count($ratings)}}</span>&nbsp;&nbsp;reviews</span
                   >
                 </div>
               </div>
@@ -679,49 +680,24 @@ button.createbtn i {
               </table>
             </div>
             <div id="tab3" class="container tab-pane fade">
-              <br />
+              @foreach($ratings as $rate)
               <div class="comment-div">
-                <strong>User Name:</strong>
+                <strong>User Name: {{$rate->user->name ?? ''}}</strong>
+                <br />
                 <span class="rating-container">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
+                    @for($i=0;$i<$rate->star_rating;$i++)
+                    <span class="glyphicon glyphicon-star"></span>
+                    @endfor
+                    @for($j=0; $j < 5-$i; $j++)
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    @endfor
                 </span>
                 <p class="comment">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                  modi aut animi in harum aliquid.
+                  {{$rate->comments}}
                 </p>
               </div>
-              <div class="comment-div">
-                <strong>User Name:</strong>
-                <span class="rating-container">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                </span>
-                <p class="comment">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                  modi aut animi in harum aliquid.
-                </p>
-              </div>
-              <div class="comment-div">
-                <strong>User Name:</strong>
-                <span class="rating-container">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                </span>
-                <p class="comment">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                  modi aut animi in harum aliquid.
-                </p>
-              </div>
+              @endforeach
+              
             </div>
           </div>
         </div>

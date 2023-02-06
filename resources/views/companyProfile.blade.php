@@ -599,9 +599,11 @@ button.createbtn i {
                   <br />
                   <div class="attachment-container">
                     <strong>Attachments:</strong><br />
-                    <p class="attachment"><a href="#">Preview CV</a></p>
                     <p class="attachment">
-                      <a href="#">Preview indemnity Insurance</a>
+                        <a href="{{asset($companyProfile->company_cv)}}" target="_blank">Preview CV</a>
+                    </p>
+                    <p class="attachment">
+                      <a href="{{asset($companyProfile->indemnity_insurance)}}" target="_blank">Preview indemnity Insurance</a>
                     </p>
                   </div>
                 </div>

@@ -307,8 +307,9 @@
                                    <td>
                                         <select name="Description_limits_authority" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
                                             <option value="">Select Option</option>
-                                            <option value="Designer">Designer</option>
-                                            <option value="design checker ">Design checker </option>
+                                            <option value="designer" {{auth()->user()->roles->pluck('name')[0]=='designer' ? 'selected' : ''}}>Designer</option>
+                                            <option value="Design Checker" {{auth()->user()->roles->pluck('name')[0]=='Design Checker' ? 'selected' :''}}>Design checker</option>
+                                            <option value="Designer and Design Checker" {{auth()->user()->roles->pluck('name')[0]=='Designer and Design Checker' ? 'selected' : ''}}>Designer and Design Checker</option>
                                         </select>
                                    </td>
                                 </tr>

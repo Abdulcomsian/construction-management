@@ -165,6 +165,8 @@ background-color: #07d564 !important;
                                     <select name="role" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                         <option value="">Select Role</option>
                                         <option value="designer" selected>Designer</option>
+                                        <option value="Design Checker">Design Checker</option>
+                                        <option value="Designer and Design Checker">Designer and Design Checker</option>
                                     </select>
                                 </div>
                             </div>

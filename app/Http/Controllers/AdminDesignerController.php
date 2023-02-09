@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
 use App\Notifications\AdminDesignerNomination;
-use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile};
+use App\Notifications\AdminDesignerAppointmentNotification;
+use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,ProfileOtherDocuments};
 use Carbon\Carbon;
 use App\Utils\HelperFunctions;
 use DB;
@@ -32,7 +33,7 @@ class AdminDesignerController extends Controller
         abort_if(!$user->hasAnyRole(['admin','company']), 403);
         try {
             if ($request->ajax()) {
-                $data = User::role(['designer'])->where(['added_by'=>1])->latest()->get();
+                $data = User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->latest()->get();
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->addColumn('action', function ($data) use ($user) {
@@ -103,7 +104,7 @@ class AdminDesignerController extends Controller
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
             $all_inputs['added_by']=Auth::user()->id;
-            if(Auth::user()->hasRole('designer'))
+            if(Auth::user()->hasRole(['designer','Design Checker','Designer and Design Checker']))
             {
                 $all_inputs['di_designer_id']=Auth::user()->id;
             }
@@ -162,7 +163,7 @@ class AdminDesignerController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::role(['designer'])
+            $user = User::role(['designer','Design Checker','Designer and Design Checker'])
                 ->where('id', $id)
                 ->first();
             return view('dashboard.adminDesigners.edit', compact('user'));
@@ -227,7 +228,7 @@ class AdminDesignerController extends Controller
     public function saveNomination(Request $request,$id)
     {
         DB::beginTransaction();
-        // try {
+        try {
             $user=User::with('userCompany')->find(Auth::user()->id);
             //upload signature here
             $image_name = '';
@@ -374,11 +375,11 @@ class AdminDesignerController extends Controller
                 toastSuccess('Nomination Form save successfully!');
                 return back();
             }
-        // } catch (\Exception $exception) {
-        //     DB::rollback();
-        //     toastError('Something went wrong, try again!');
-        //     return back();
-        // }
+        } catch (\Exception $exception) {
+            DB::rollback();
+            toastError('Something went wrong, try again!');
+            return back();
+        }
     }
 
     //edit nomination
@@ -544,6 +545,7 @@ class AdminDesignerController extends Controller
                 $model->nomination_id =$nomination->id;
                 $model->save();
 
+                $user=User::find(Auth::user()->id);
                 $user->nomination_status=0;
                 $user->user_notify=1;
                 $user->save();
@@ -580,7 +582,7 @@ class AdminDesignerController extends Controller
     public function saveProfile(Request $request)
     {
         try {
-            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images');
+            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','other_doucuments_name','other_doucuments_document');
             if ($request->file('logo')) {
                 $filePath  = 'uploads/designercompany/logo/';
                 $file = $request->file('logo');
@@ -596,19 +598,47 @@ class AdminDesignerController extends Controller
                 $file = $request->file('indemnity_insurance');
                 $all_inputs['indemnity_insurance'] = HelperFunctions::saveFile(null, $file, $filePath);            
             }
-            //work for upload images here
-            $image_links = [];
-            if ($request->file('images')) {
-                $filePath  = 'uploads/designercompany/others/';
-                $files = $request->file('images');
-                foreach ($files  as $key => $file) {
-                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-                    $image_links[] = $imagename;
-                }
-                $all_inputs['other_files']=json_encode($image_links);
+            if(isset($request->nomination_link_check))
+            {
+                $all_inputs['nomination_link_check']=1;
             }
+
+            
+            //work for upload images here
+            // $image_links = [];
+            // if ($request->file('images')) {
+            //     $filePath  = 'uploads/designercompany/others/';
+            //     $files = $request->file('images');
+            //     foreach ($files  as $key => $file) {
+            //         $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            //         $image_links[] = $imagename;
+            //     }
+            //     $all_inputs['other_files']=json_encode($image_links);
+            // }
             $all_inputs['user_id']=Auth::user()->id;
-            CompanyProfile::create($all_inputs);
+            $companyProfile=CompanyProfile::create($all_inputs);
+            //mew work for documents upload
+            $names = $request->input('other_doucuments_name');
+            $files = $request->file('other_doucuments_document');
+            foreach ($files as $index => $file) {
+                // Validate the uploaded file
+                if($names[$index] =="" )
+                {
+                    $request->validate([
+                    'file' => 'required|file|mimes:jpeg,png,gif,pdf,doc,docx|max:2048',
+                    ]);
+                }
+
+                $filePath  = 'uploads/designercompany/others/';
+                $filename = HelperFunctions::saveFile(null, $file, $filePath);
+                $name = $names[$index];
+                ProfileOtherDocuments::create([
+                    'name'=>$name,
+                    'file'=>$filename,
+                    'company_profile_id'=>$companyProfile->id,
+                ]);
+                
+            }
             toastSuccess('Company Profile Created successfully');
             return redirect()->back();
             
@@ -618,10 +648,31 @@ class AdminDesignerController extends Controller
         }
     }
 
+    //delete company docs
+    public function deleteCompnayDocs(Request $request)
+    {
+        $data=ProfileOtherDocuments::find($request->id);
+         @unlink($data->file);
+         $res=ProfileOtherDocuments::find($request->id)->delete();
+        if($res)
+        {
+            
+             
+                 echo "success";
+             
+            
+        }
+        else
+        {
+            echo "error";
+        }
+
+    }
+
     //edit profile
     public function editProfile($id)
     {
-        $editProfile=CompanyProfile::find($id);
+        $editProfile=CompanyProfile::with('otherdocs')->find($id);
         return view('dashboard.adminDesigners.editProfile',compact('editProfile'));
     }
 
@@ -630,7 +681,7 @@ class AdminDesignerController extends Controller
     {
         $editProfile=companyProfile::find($editProfile);
         try {
-            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','preloaded');
+            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','preloaded','other_doucuments_name','other_doucuments_document');
             if ($request->file('logo')) {
                 $filePath  = 'uploads/designercompany/logo/';
                 $file = $request->file('logo');
@@ -646,28 +697,54 @@ class AdminDesignerController extends Controller
                 $file = $request->file('indemnity_insurance');
                 $all_inputs['indemnity_insurance'] = HelperFunctions::saveFile($editProfile->indemnity_insurance, $file, $filePath);            
             }
-            //work for upload images here
-            $image_links = [];
-            if ($request->file('images')) {
-                $filePath  = 'uploads/designercompany/others/';
-                $files = $request->file('images');
-                foreach ($files  as $key => $file) {
-                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-                    $image_links[] = $imagename;
-                }
-                
-            }
-            if($request->preloaded)
+            if(isset($request->nomination_link_check))
             {
-                foreach($request->preloaded as $pload)
-                {
-                    $path = parse_url($pload, PHP_URL_PATH);
-                    $image_links[]=$path;
-                }
+                $all_inputs['nomination_link_check']=1;
             }
-            $all_inputs['other_files']=json_encode($image_links);
+            //work for upload images here
+            // $image_links = [];
+            // if ($request->file('images')) {
+            //     $filePath  = 'uploads/designercompany/others/';
+            //     $files = $request->file('images');
+            //     foreach ($files  as $key => $file) {
+            //         $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            //         $image_links[] = $imagename;
+            //     }
+                
+            // }
+            // if($request->preloaded)
+            // {
+            //     foreach($request->preloaded as $pload)
+            //     {
+            //         $path = parse_url($pload, PHP_URL_PATH);
+            //         $image_links[]=$path;
+            //     }
+            // }
+            // $all_inputs['other_files']=json_encode($image_links);
             $all_inputs['user_id']=Auth::user()->id;
             CompanyProfile::find($editProfile->id)->update($all_inputs);
+            //mew work for documents upload
+            $names = $request->input('other_doucuments_name');
+            $files = $request->file('other_doucuments_document');
+            foreach ($files as $index => $file) {
+                // Validate the uploaded file
+                if($names[$index] =="" )
+                {
+                    $request->validate([
+                    'file' => 'required|file|mimes:jpeg,png,gif,pdf,doc,docx|max:2048',
+                    ]);
+                }
+
+                $filePath  = 'uploads/designercompany/others/';
+                $filename = HelperFunctions::saveFile(null, $file, $filePath);
+                $name = $names[$index];
+                ProfileOtherDocuments::create([
+                    'name'=>$name,
+                    'file'=>$filename,
+                    'company_profile_id'=>$editProfile->id,
+                ]);
+                
+            }
             toastSuccess('Company Profile Updated successfully');
             return redirect()->back();
             
@@ -681,18 +758,24 @@ class AdminDesignerController extends Controller
     public function designerList(Request $request)
     {
         $user = auth()->user();
-        abort_if(!$user->hasRole(['designer']), 403);
+        abort_if(!$user->hasRole(['designer','Design Checker','Designer and Design Checker']), 403);
         try {
 
             if ($request->ajax()) {
-                if ($user->hasRole('designer')) {
-                    $data = User::role(['designer'])->where('di_designer_id',auth()->user()->id)->get();
+                if ($user->hasRole(['designer','Design Checker','Designer and Design Checker'])) {
+                    $data = User::role(['designer','Design Checker','Designer and Design Checker'])->where('di_designer_id',auth()->user()->id)->get();
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->addColumn('action', function ($data) use ($user) {
                          $btn ='';
-                        if ($user->hasRole(['designer'])) {
+                         $class='';
+                        if($data->user_notify==1)
+                        {
+                            $class='redBgBlink';
+                        }
+                        if ($user->hasRole(['designer','Design Checker','Designer and Design Checker'])) {
+                            
                             $btn .= '<div class="d-flex">
                                 <a href="' . route('adminDesigner.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <span class="svg-icon svg-icon-3">
@@ -711,7 +794,7 @@ class AdminDesignerController extends Controller
                                         
                                     </button>
                                 </form>
-                                <a href="'.url('adminDesigner/designer-details',$data->id).'" class="btn btn-icon"><i class="fa fa-eye"></i></a>
+                                <a href="'.url('adminDesigner/designer-details',$data->id).'" class="btn btn-icon '.$class.'"><i class="fa fa-eye"></i></a>
                                 </div>
                                 ';
                         }
@@ -732,6 +815,8 @@ class AdminDesignerController extends Controller
     {
         $userNomination=Nomination::where(['user_id'=>$id])->first();
         $User=User::find($id);
+        $User->user_notify=0;
+        $User->save();
         return view('dashboard.adminDesigners.designer-details',compact('userNomination','User'));
     }
     //nominations tatus
@@ -787,6 +872,8 @@ class AdminDesignerController extends Controller
             else{
                  Nomination::find($request->nominationid)->update(['status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                  $nomination=Nomination::find($request->nominationid);
+                 $status='Rejected';
+                Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNomination($user,$status)); 
             }
             DB::commit();
             toastSuccess('status changed successfully');
@@ -854,6 +941,7 @@ class AdminDesignerController extends Controller
             User::find($user->id)->update([
                 'user_notify'=>1
              ]);
+            Notification::route('mail',$user->userDiCompany->email ?? '')->notify(new AdminDesignerAppointmentNotification($user));
             DB::commit();
             toastSuccess('Appointment Saved successfully');
             return redirect('adminDesigner/create-nomination/'.$user->id);

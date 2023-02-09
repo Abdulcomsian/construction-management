@@ -136,13 +136,13 @@ class EstimatorController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $designers=User::role(['designer'])->get();
                 $suppliers=User::role(['supplier'])->get();
-                $adminSuppliers=User::role('designer')->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                $adminSuppliers=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
                 $adminDesigners=User::role('supplier')->where(['added_by'=>1])->get();
             }else {
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
-                $adminDesigners=User::role('designer')->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
             }
             return view('dashboard.estimator.create', compact('projects','designers','suppliers','adminDesigners','adminSuppliers'));
@@ -730,6 +730,7 @@ class EstimatorController extends Controller
                 //get rating of cuurent designer
                 //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
                 $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
+
                 return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
             }
             else{

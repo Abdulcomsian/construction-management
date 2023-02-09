@@ -501,23 +501,17 @@ button.createbtn i {
           <div class="profile-header">
             <div class="profile-img">
               <img
-                src="{{asset($companyProfile->logo)}}"
+                src="{{asset($companyProfile->logo ?? '')}}"
                 width="200"
                 alt="Profile Image"
               />
             </div>
             <div class="profile-nav-info">
-              <h3 class="user-name">{{$companyProfile->company_name}}</h3>
+              <h3 class="user-name">{{$companyProfile->company_name ?? ''}}</h3>
               <div class="address">
-                <p id="state" class="state">{{$companyProfile->company_address}}</p>
+                <p id="state" class="state">{{$companyProfile->company_address ?? ''}}</p>
               </div>
             </div>
-            <!-- <div class="profile-option">
-                  <div class="notification">
-                    <i class="fa fa-bell"></i>
-                    <span class="alert-message">3</span>
-                  </div>
-                </div> -->
           </div>
           <div class="profile-side">
             <p class="mobile-no">
@@ -525,29 +519,21 @@ button.createbtn i {
                 class="glyphicon glyphicon-earphone"
                 style="color: dodgerblue"
               ></span>
-              {{$companyProfile->phone}}
+              {{$companyProfile->phone ?? ''}}
             </p>
             <p class="user-mail">
               <span
                 class="glyphicon glyphicon-envelope"
                 style="color: dodgerblue"
               ></span>
-              {{$companyProfile->comapny_email}}
+              {{$companyProfile->comapny_email ?? ''}}
             </p>
             <div class="user-bio">
               <h3>Company Information</h3>
               <p class="bio" style="color: rgba(0, 0, 0, 0.5)">
-                {{substr($companyProfile->company_description,0,100)}}
+                {{substr($companyProfile->company_description ?? '',0,100)}}
               </p>
             </div>
-            <!-- <div class="profile-btn">
-              <button class="chatbtn" id="chatBtn">
-                <i class="fa fa-comment"></i> Chat
-              </button>
-              <button class="createbtn" id="Create-post">
-                <i class="fa fa-plus"></i> Create
-              </button>
-            </div> -->
             <div class="user-bio">
               <h3>Company Rating</h3>
               <div class="user-rating">
@@ -595,71 +581,64 @@ button.createbtn i {
               <br />
               <div class="row">
                 <div class="col-lg-8">
-                  <strong>Date of Establishment : {{$companyProfile->year_established}}</strong>
+                  <strong>Date of Establishment : {{$companyProfile->year_established ?? ''}}</strong>
                   <br />
                   <div class="attachment-container">
                     <strong>Attachments:</strong><br />
                     <p class="attachment">
-                        <a href="{{asset($companyProfile->company_cv)}}" target="_blank">Preview CV</a>
+                        <a href="{{asset($companyProfile->company_cv ?? '')}}" target="_blank">Preview CV</a>
                     </p>
                     <p class="attachment">
-                      <a href="{{asset($companyProfile->indemnity_insurance)}}" target="_blank">Preview indemnity Insurance</a>
+                      <a href="{{asset($companyProfile->indemnity_insurance ?? '')}}" target="_blank">Preview indemnity Insurance</a>
                     </p>
                   </div>
                 </div>
                 <div class="col-lg-3">
                   <strong>Website link:</strong>
-                  <a href="{{$companyProfile->website}}">{{$companyProfile->website}}</a>
+                  <a href="{{$companyProfile->website ?? ''}}">{{$companyProfile->website ?? ''}}</a>
                 </div>
               </div>
               <div class="row company-detail">
                 <div class="col-lg-12">
                   <strong class="company-detail--title">Company Detail</strong>
                   <p>
-                    {{$companyProfile->company_description}}
+                    {{$companyProfile->company_description ?? ''}}
                   </p>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-3">
                   <div class="attachment-container">
-                    <strong>Other Attachments:</strong><br />
-                    @php 
-                    $attachments=json_decode($companyProfile->other_files);
-                    @endphp
-                    @if($attachments)
-                    @foreach($attachments as $attach)
-                     @php 
-                        $n = strrpos($attach, '.');
-                        $ext=substr($attach, $n+1);
-                     
-                     @endphp
-                     @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                     @else
-                      <p class="attachment"><a href="{{asset($attach)}}">Attachment</a></p>
-                     @endif
-                    @endforeach
-                    @endif
+                    <strong>Other Documents:</strong><br />
+                    
+                         @foreach($companyProfile->otherdocs as $doc)
+                         @php 
+                            $n = strrpos($doc->file, '.');
+                            $ext=substr($doc->file, $n+1);
+                         
+                         @endphp
+                         @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                         @else
+                          <p class="attachment"><a href="{{asset($doc->file)}}">Attachment</a></p>
+                         @endif
+                        @endforeach
+                        
                   </div>
                 </div>
                 <div class="col-md-6">
 
                   <div class="gallery">
-                    @php 
-                    $photos=json_decode($companyProfile->other_files);
-                    @endphp
-                    @if($attachments)
-                    @foreach($photos as $photo)
-                     @php 
-                        $n = strrpos($photo, '.');
-                        $ext=substr($photo, $n+1);
-                     
-                     @endphp
-                     @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                      <img src="{{asset($photo)}}" alt=""/>
-                     @endif
-                    @endforeach
-                    @endif
+                   @foreach($companyProfile->otherdocs as $doc)
+                         @php 
+                            $n = strrpos($doc->file, '.');
+                            $ext=substr($doc->file, $n+1);
+                         
+                         @endphp
+                         @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                          <img src="{{asset($doc->file)}}" alt=""/>
+                         @endif
+                        @endforeach
+                        
                   </div>
                 </div>
               </div>
@@ -672,6 +651,9 @@ button.createbtn i {
                     <th>S.No</th>
                     <th>User Name</th>
                     <th>Email</th>
+                    @if($companyProfile->nomination_link_check)
+                    <th>Nomination Link</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -680,6 +662,11 @@ button.createbtn i {
                     <td>{{$loop->index+1}}</td>
                     <td>{{$list->name}}</td>
                     <td>{{$list->email}}</td>
+                    @if($companyProfile->nomination_link_check)
+                    <td>
+                        <a href="{{asset('pdf/'.$list->usernomination->pdf_url)}}" target="_blank">PDF</a>
+                    </td>
+                    @endif
                   </tr>
                   @endforeach
                 </tbody>

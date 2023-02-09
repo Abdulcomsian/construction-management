@@ -182,7 +182,8 @@ background-color: #07d564 !important;
                                     <th class="min-w-125px">S.No</th>
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">PDF</th>
+                                    <th class="min-w-125px">Nomination</th>
+                                    <th class="min-w-125px">Appointment</th>
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
                             </thead>
@@ -193,6 +194,7 @@ background-color: #07d564 !important;
                                         <td>{{$User->name}}</td>
                                         <td>{{$User->email}}</td>
                                         <td><a href="{{asset('pdf').'/'.$userNomination->pdf_url}}">PDF</a></td>
+                                        <td><a href="{{asset('pdf').'/'.$userNomination->appointment_pdf}}">PDF</a></td>
                                         <td>
                                             @php 
                                                 $class='';

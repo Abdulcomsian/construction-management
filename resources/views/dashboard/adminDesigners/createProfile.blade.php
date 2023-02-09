@@ -240,7 +240,29 @@ background-color: #07d564 !important;
                                 
                             </div>
                         </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="nomination_link_check" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            View Nomination LInk
+                          </label>
+                        </div>
+                         <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
+                            <h4>Upload  Other Documents</h4>
+                            <div class="row appenddoc">
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Name</label>
+                                    <input type="text" class="form-control form-control-solid"  name="other_doucuments_name[]" />
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Document</label>
+                                    <input type="file" class="form-control form-control-solid"  name="other_doucuments_document[]" />
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container" style="margin-top:28px">
+                                    <button type="button" class="btn btn-primary addmoredoucument"><i class="fa fa-plus"></i> Add More</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-12 fv-row fv-plugins-icon-container">
                                     <label class="fs-6 fw-bold mb-2">Upload Other Files</label>
@@ -249,7 +271,7 @@ background-color: #07d564 !important;
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Save
                         </button>
@@ -268,6 +290,24 @@ background-color: #07d564 !important;
 @endsection
 @section('scripts')
 <script>
-    
+    $(".addmoredoucument").on('click',function(){
+        $(".appenddoc").after(`<div class="row">
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Name</label>
+                                    <input type="text" class="form-control form-control-solid"  name="other_doucuments_name[]"/>
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Document</label>
+                                    <input type="file" class="form-control form-control-solid"  name="other_doucuments_document[]"/>
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container" style="margin-top:28px">
+                                    <button type="button" class="btn btn-danger remove"><i class="fa fa-minus"></i> Remove</button>
+                                </div>
+                                </div>`);
+    });
+
+    $(document).on('click','.remove',function(){
+        $(this).parent().parent().remove();
+    })
 </script>
 @endsection

@@ -301,14 +301,14 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Select Admin approved designer</span>
+                                        <span class="">Select Online Designers</span>
                                     </label>
                                     <select name="designers[]"  class="form-select form-select-lg form-select-solid adminDesigners" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple >
                                         <option value="">Select Option</option>
                                         
                                             @foreach($adminDesigners as $desig)
                                                <optgroup  label="Designer List">
-                                                @if($desig->hasRole('designer'))
+                                                @if($desig->hasRole(['designer','Design Checker','Designer and Design Checker']))
                                                 <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}}</option>
                                                 @endif
                                                  </optgroup>
@@ -319,7 +319,7 @@ height: 72px;
 
                                 <div class="d-flex inputDiv d-block">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Select Admin approved supplier</span>
+                                        <span class="">Select Online Supplier</span>
                                     </label>
                                     <select name="suppliers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple >
                                         <option value="">Select Option</option>

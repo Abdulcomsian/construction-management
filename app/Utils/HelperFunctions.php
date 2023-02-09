@@ -95,7 +95,7 @@ class HelperFunctions
         return $path;
     }
 
-    public function check_date($desingdate, $array)
+    public static function check_date($desingdate, $array)
     {
         $blinkclass=" ";
         $class="";

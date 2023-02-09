@@ -60,7 +60,7 @@
                                 <tbody>
                                     <tr style="min-height: 150px;">
                                         <td style="width: 250px;background:#c9cacc;color:#000000e3">
-                                            <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">APPOINTMENT OF TEMPORARY WORKS Designer</b></label>
+                                            <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: #c9cacc !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">APPOINTMENT OF {{$user->roles->pluck('name')[0]}}</b></label>
                                         </td>
                                         <td style="background: #c9cacc !important;width:70px; font-size:12px;">
                                         </td>

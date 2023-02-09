@@ -70,7 +70,7 @@ class Validations
         ]);
     }
 
-    public function storeDesigner($request)
+    public static function storeDesigner($request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -79,7 +79,7 @@ class Validations
         ]);
     }
 
-    public function storeAdminDesigner($request)
+    public static function storeAdminDesigner($request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],

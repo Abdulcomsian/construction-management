@@ -232,21 +232,6 @@ background-color: #07d564 !important;
                                     <label class="required fs-6 fw-bold mb-2">Website Link</label>
                                     <input type="url" class="form-control form-control-solid" placeholder="Company Website" name="website" required value="{{$editProfile->website}}"/>
                                 </div>
-                                <!-- <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2">Company Logo</label>
-                                    <div class="avatar-upload">
-                                        <div class="avatar-edit">
-                                            <input type='file' id="imageUpload" name="logo" accept=".png, .jpg, .jpeg" onchange="previewFile()"/>
-                                            <label for="imageUpload"></label>
-                                        </div>
-                                        <div class="avatar-preview">
-                                            <img id="imagePreview" src="{{asset($editProfile->logo)}}">
-
-                                        </div>
-                                    </div>
-                                   <input type="file" class="form-control form-control-solid"  name="logo" required accept="image/png, image/gif, image/jpeg"/>
-                                </div> -->
-                                
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
@@ -264,16 +249,55 @@ background-color: #07d564 !important;
                                 
                             </div>
                         </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                            <div class="row">
-                                <div class="col-md-12 fv-row fv-plugins-icon-container">
-                                    <label class="fs-6 fw-bold mb-2">Upload Other Files</label>
-                                    <div class="uploadDiv" style="padding-left: 10px;">
-                                        <div class="edit-input-images"></div>
-                                    </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="nomination_link_check" id="flexCheckDefault" {{$editProfile->nomination_link_check ? 'checked':''}}>
+                          <label class="form-check-label" for="flexCheckDefault">
+                            View Nomination LInk
+                          </label>
+                        </div>
+                        <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
+                            <h4>Upload  Other Documents</h4>
+                            @if(count($editProfile->otherdocs)>0)
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>S-no</th>
+                                        <th>Document Name</th>
+                                        <th>Document</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($editProfile->otherdocs as $doc)
+                                <tr>
+                                    <td>{{$loop->index+1}}</td>
+                                    <td>{{$doc->name}}</td>
+                                    <td><a href="{{asset($doc->file)}}">File</a></td>
+                                    <td>
+                                        <button type="button" class="deleteFile" data-id="{{$doc->id}}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            </table>
+                            @endif
+                            <div class="row appenddoc">
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Name</label>
+                                    <input type="text" class="form-control form-control-solid"  name="other_doucuments_name[]"  />
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Document</label>
+                                    <input type="file" class="form-control form-control-solid"  name="other_doucuments_document[]" />
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container" style="margin-top:28px">
+                                    <button type="button" class="btn btn-primary addmoredoucument"><i class="fa fa-plus"></i> Add More</button>
                                 </div>
                             </div>
                         </div>
+                        
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Save
                         </button>
@@ -287,21 +311,61 @@ background-color: #07d564 !important;
     </div>
     <!--end::Post-->
 </div>
-@php
-$photos=json_decode($editProfile->other_files);
-$photoArray=[];
-for($i=0;$i < count($photos);$i++)
-{
-    $photoArray[]=['id'=>asset($photos[$i]),'src'=>asset($photos[$i])];
-}
-@endphp
 @endsection
 @section('scripts')
-<script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
 <script>
+      $(".addmoredoucument").on('click',function(){
+        $(".appenddoc").after(`<div class="row">
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Name</label>
+                                    <input type="text" class="form-control form-control-solid"  name="other_doucuments_name[]"/>
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Document</label>
+                                    <input type="file" class="form-control form-control-solid"  name="other_doucuments_document[]"/>
+                                </div>
+                                <div class="col-md-4 fv-row fv-plugins-icon-container" style="margin-top:28px">
+                                    <button type="button" class="btn btn-danger remove"><i class="fa fa-minus"></i> Remove</button>
+                                </div>
+                                </div>`);
+    });
+
+    $(document).on('click','.remove',function(){
+        $(this).parent().parent().remove();
+    });
+
+    $(document).on('click','.deleteFile',function(){
+           let id=$(this).attr('data-id');
+           let current=$(this);
+           Swal.fire({
+                  title: "Are you sure?",
+                  text: "You will not be able to recover this imaginary file!",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "Yes, delete it!",
+                  cancelButtonText: "No, cancel plx!",
+              }).then((result) => {
+                    if (result.isConfirmed)
+                        $.ajax({
+                           url: "{{route('delete.companydocs')}}",
+                           method: "get",
+                           data: {
+                               id
+                           },
+                           success: function(res) {
+                              if(res=="success")
+                              {
+                                current.parent().parent().remove();
+                              } 
+                              else{
+                                swal.fire("something went wrong");
+                              }
+                           }
+                       }); 
+                    else
+                        swal.fire("Error!", "Coudn't delet!", "error");
+                });
     
-     $('.edit-input-images').imageUploader({
-         preloaded: <?php echo json_encode($photoArray); ?>,
-     });
+        })
 </script>
 @endsection

@@ -278,12 +278,20 @@
                          {
                             $role='Temporary Work Designer';
                          }
+                         elseif($user->roles->pluck('name')[0]=='Designer and Design Checker')
+                         {
+                            $role='Designer and Design Checker';
+                         }
+                         elseif($user->roles->pluck('name')[0]=='Design Checker')
+                         {
+                            $role='Design Checker';
+                         }
                          @endphp
                          <div class="mb-3 paragraph">
                             <p><b>RE:</b> Appointment as {{$role ?? ''}}</p>
                          </div>
                         <div class="mb-3">
-                         <p class="paragraph">This letter confirms your appointment as the {{$role}} on the above project.</p>      </div>
+                         <p class="paragraph">This letter confirms your appointment as the {{$role ?? ''}} on the above project.</p>      </div>
                         <div class="mb-3">
                             <p class="paragraph">As the nominated ({{$role ?? ''}}), you are responsible for managing all aspects of the temporary works on this project.</p>
                         <div>

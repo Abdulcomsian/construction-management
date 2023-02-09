@@ -122,6 +122,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('adminDesigner/update-profile/{editProfile}',[AdminDesignerController::class,'updateProfile']);
             Route::get('adminDesigner/designer-details/{id}',[AdminDesignerController::class,'designerDetails']);
             Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'nominationStatus']);
+            //delete company other docs
+            Route::get('adminDesigner/delete/companydoc',[AdminDesignerController::class,'deleteCompnayDocs'])->name('delete.companydocs');
         });
         Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination']);
         Route::post('adminDesigner/save-nomination/{id}',[AdminDesignerController::class,'saveNomination']);

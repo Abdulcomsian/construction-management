@@ -412,6 +412,7 @@ class UserController extends Controller
                 ];
                 
                 Nomination::find($request->nominationid)->update($all_inputs);
+				User::find($request->userid)->update(['user_notify'=>0]);
                 $nomination=Nomination::find($request->nominationid);
                 $projectdata=Project::find($nomination->project);
                 $courses=NominationCourses::where('nomination_id',$request->nominationid)->get();
@@ -467,7 +468,7 @@ class UserController extends Controller
     public function User_Project_Nomination($id)
     {
         $project_wise_nominations=Nomination::with('user.userCompany','projectt')->where('user_id',$id)->get();
-        User::find($id)->update(['user_notify'=>0]);
+        //User::find($id)->update(['user_notify'=>0]);
         return view('dashboard.users.details',compact('project_wise_nominations'));
     }
 

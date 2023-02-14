@@ -236,14 +236,21 @@
                                 <th>#No</th>
                                 <th>User</th>
                                 <th>Project</th>
+                                <th>Nomination Link</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($user->userProjects as $project)
                             <tr>
+
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$project->name}}</td>
+                                <td>
+                                    @if($project->pivot->nomination==1)
+                                    <a href="{{url('Nomination/nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($project->id)}}" target="_blink">Link</a>
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

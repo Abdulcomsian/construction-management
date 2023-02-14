@@ -37,13 +37,14 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+         $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->latest()->get();
         $user = auth()->user();
         abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
         try {
         
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
-                    $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->latest()->get();
+                    $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->with('usernomination')->latest()->get();
                 } elseif ($user->hasRole('company')) {
                     $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
                 }
@@ -83,8 +84,10 @@ class UserController extends Controller
                                 <a href="'.route('user.project.nomination', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 '.$class.'">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                 </a>
+                                
                                 ';
                             }
+
                         // } if($user->hasRole(['admin','company'])){
                             
                         //     if(isset($data->usernomination) && $data->nomination==1)
@@ -229,6 +232,7 @@ class UserController extends Controller
                 ->with(['userProjects', 'userCompany'])
                 ->where('id', $id)
                 ->first();
+            
             $company_projects = $user->userCompany->companyProjects ?? [];
             $user_projects = $user->userProjects->pluck('id')->toarray();
             $companies = User::role('company')->latest()->get();

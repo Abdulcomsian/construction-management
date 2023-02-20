@@ -255,7 +255,7 @@
                             <div class="col-12 mt-5 form-check">
 
                                   <input class="form-check-input mx-0" type="checkbox" id="companyPolicy" >
-                                  <label>company temporary work policy <a href="{{asset($user->userCompany->company_policy)}}" target="_blank">View Policy</a></label>   
+                                  <label>I have read the company's <a href="{{asset($user->userCompany->company_policy)}}" target="_blank">Temporary works policy</a></label>   
                             </div> 
                            
                         </div>

@@ -220,7 +220,18 @@
                                         </td>
                                     </tr>
                                     
+                                    <tr>
+                                        <td>
+                                              @if($user->userCompany->company_policy!="") 
+                                                <div class="col-12 mt-5 form-check">
 
+                                                    <input class="form-check-input mx-0" type="checkbox" id="companyPolicy" >
+                                                    <label>I have read the company's <a href="{{asset($user->userCompany->company_policy)}}" target="_blank">Temporary works policy</a></label>   
+                                                </div> 
+                                                 @endif 
+
+                                        </td>
+                                    </tr>
                                 </tbody>
                         </table><br>
                         <div class="row">
@@ -240,29 +251,26 @@
                                 <!-- <input id="sign" type="text" name="signature" class="w-100" required> --> 
                             </div>  
                              <div class="col-6 d-flex" style="height: 25px"><label for="date" class="paragraph">Dated:</label><input id="date" type="date" name="date" class="w-100" value="<?php echo date('Y-m-d'); ?>" required>  </div>
+                           
                              <div class="col-2 form-check d-flex mt-5">
 
                                   <input class="form-check-input mx-0 position-relative" type="checkbox" id="flexCheckChecked" >
-                                  <label for="flexCheckChecked">Name Signature</label>
+                                  <label for="flexCheckChecked"> Name Signature</label>
                                   <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">  
                             </div>  
                              <div class="col-2 form-check d-flex mt-5">
 
                                   <input class="form-check-input mx-0 position-relative" type="checkbox" id="pdfChecked" >
-                                  <label for="pdfChecked">Pdf Signature</label>
+                                  <label for="pdfChecked"> Pdf Signature</label>
                                   <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
                             </div> 
-                            <div class="col-12 mt-5 form-check">
-
-                                  <input class="form-check-input mx-0" type="checkbox" id="companyPolicy" >
-                                  <label>I have read the company's <a href="{{asset($user->userCompany->company_policy)}}" target="_blank">Temporary works policy</a></label>   
-                            </div> 
+                            
                            
                         </div>
                         <p class="paragraph mt-4"> Name from the nomination form Temporary Works Coordinator</p>
                         <div class="mb-3">
                             <p class="paragraph">This record should be kept by the TWC in the Temporary Works file and be updated, as necessary. The Designated Individual will keep a register of all TWC and dTWC appointments.</p></div>
-                           <button type="submit" id="submit" class="btn btn-primary" disabled>submit</button>
+                           <button type="submit" id="submit" class="btn submitbtn btn-primary" @if($user->userCompany->company_policy!="") disabled @endif>submit</button>
                     </div>
                     
                     <!--end::Card body-->

@@ -330,7 +330,7 @@ class HomeController extends Controller
 
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
-                    $company->notify(new DatabaseNotification($user,'Nomination Form submited by user'));
+                    $company->notify(new DatabaseNotification($user,'Nomination Form submitted by user'));
                     DB::commit();
                     toastSuccess('Nomination Form save successfully!');
                     return back();
@@ -816,7 +816,7 @@ class HomeController extends Controller
             'appointment_date'=>$request->date,
         ]);
         User::find($request->user_id)->update([
-            'user_notify'=>1
+            'user_notify'=>2
          ]);
         $type='appointment';
         $user->project=$nomination->project;

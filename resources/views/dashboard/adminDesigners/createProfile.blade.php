@@ -130,7 +130,7 @@ background-color: #07d564 !important;
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th>S.No</th>
                                     <th>Company Name</th>
-                                    <th>Company Email</th>
+                                    <th>DI Email</th>
                                     <th>Address</th>
                                     <th>About</th>
                                     <th>Year Established</th>

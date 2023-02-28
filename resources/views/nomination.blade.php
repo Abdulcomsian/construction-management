@@ -221,6 +221,9 @@
         height: 57px !important;
 
     }
+    .btn.btn-active-color-yellow:hover:not(.btn-active), .btn.btn-active-color-yellow:hover:not(.btn-active) i{
+        color:yellow;
+    }
     @media (min-width: 992px){
         .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
             padding: 0 160px;
@@ -281,10 +284,11 @@
                                 @endif
                             </td>
                             <td>
+
                                 <a type="button" href="{{url('Nomination/nomination-edit',\Crypt::encrypt($nomination->id))}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                       <i class="fa fa-edit" aria-hidden="true"></i>  
                                 </a>
-                                <button type="button"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" >
+                                <button @if($nomination->status==0) title="Waiting for appointment" @endif type="button"  class="@if($nomination->status==1) btn-active-color-primary @else btn-active-color-yellow @endif btn btn-icon btn-bg-light  btn-sm" >
                                       <i class="fa fa-comment" aria-hidden="true" data-id="{{$user->id}}" data-project="{{$nomination->project}}"></i>  
                                 </button>
                             </td>
@@ -941,7 +945,7 @@
                                     </tbody>
                                 </table>
                            </div>
-                           <button type="submit" id="submit" class="btn btn-primary">submit</button>
+                           <button type="submit" id="submit" class="btn submitbtn btn-primary">submit</button>
                     </div>
                     
                     <!--end::Card body-->

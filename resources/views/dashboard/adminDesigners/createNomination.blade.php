@@ -817,7 +817,7 @@
                                     </tbody>
                                 </table>
                            </div>
-                           <button type="submit" id="submit" class="btn btn-primary">submit</button>
+                           <button type="submit" id="submit" class="btn submitbtn btn-primary">submit</button>
                     </div>
                     
                     <!--end::Card body-->

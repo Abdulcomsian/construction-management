@@ -27,6 +27,8 @@ use PDF;
 use DB;
 use Carbon\Carbon;
 use App\Notifications\PasswordResetNotification;
+use Crypt;
+use App\Notifications\CreateNomination;
 
 class UserController extends Controller
 {
@@ -57,10 +59,18 @@ class UserController extends Controller
                          $btn ='';
                          $class='';
                         if ($user->hasRole(['admin','company'])) {
-                            if($data->user_notify)
+                            if($data->user_notify==2){
+                                $class='greenBgBlink';
+                            }
+                            elseif($data->user_notify==3)
+                            {
+                                $class='yellowBgBlink';
+                            }
+                            elseif($data->user_notify)
                             {
                                 $class='redBgBlink';
                             }
+                           
                             $btn .= '<div class="d-flex">
                                 <a href="' . route('users.edit', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
@@ -82,7 +92,7 @@ class UserController extends Controller
                                     </button>
                                 </form></div>
                                 <a href="'.route('user.project.nomination', $data->id) . '" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 '.$class.'">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        <i class="fa fa-eye" aria-hidden="true"></i> 
                                 </a>
                                 
                                 ';
@@ -153,7 +163,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         Validations::storeUser($request);
-        try {
+      //  try {
             $userprojectdata=[];
             $all_inputs = $request->except('_token', 'role','description_of_role','Description_limits_authority','authority_issue_permit');
             if ($request->file('image')) {
@@ -171,6 +181,14 @@ class UserController extends Controller
             $all_inputs['email_verified_at'] = now();
             $user = User::create($all_inputs);
             
+            if($user->userCompany->nomination==1 && $request->nomination==1)
+            {
+
+                $url = url('Nomination/nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($all_inputs['projects'][0]);
+               
+                $user->notify(new CreateNomination(["msg" => "Please Complete You Nomination Form " , 'url' =>  $url]));
+            }
+
             $user->project= $all_inputs['projects'][0];
             //Assigned role to user. role is already created during seeder
             $user->assignRole($request->role);
@@ -200,10 +218,10 @@ class UserController extends Controller
             Notification::route('mail', $request->email)->notify(new PasswordResetNotification($token,$request->email));
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
-        } catch (\Exception $exception) {
-            toastError('Something went wrong, try again');
-            return Redirect::back();
-        }
+       // } catch (\Exception $exception) {
+      //      toastError('Something went wrong, try again');
+      //      return Redirect::back();
+       // }
     }
 
     /**
@@ -438,6 +456,7 @@ class UserController extends Controller
                  $nomination=Nomination::find($request->nominationid);
                   $user->project=$nomination->project;
                   $user->nominationid=$nomination->id;
+                  User::find($user->id)->update(['user_notify'=>3]);
                  Notification::route('mail',$user->email ?? '')->notify(new Nominations($user,$status,$request->comments));
             }
             DB::commit();
@@ -522,6 +541,14 @@ class UserController extends Controller
             //Add projects for user
             $user->userProjects()->attach($all_inputs['projects'],['nomination'=>$request->nomination,'description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
 
+
+            if($user->userCompany->nomination==1 && $request->nomination==1)
+            {
+
+                $url = url('Nomination/nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($request->projects[0]);
+               
+                $user->notify(new CreateNomination(["msg" => "Please Complete You Nomination Form " , 'url' =>  $url]));
+            }
 
             $model= new NominationComment();
             $model->email=Auth::user()->email;

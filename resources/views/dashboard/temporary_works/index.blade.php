@@ -1,3 +1,4 @@
+
 @extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
@@ -309,6 +310,54 @@
                         <div class="d-flex align-items-stretch" id="kt_header_user_menu_toggle">
                             <!--begin::Menu wrapper-->
                              <!-- notification work here -->
+                             @if(!auth()->user()->hasRole('company')) 
+                       
+                        @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item dropdown notification-ui me-2"> 
+                                    <a class="nav-link dropdown-toggle notification-ui_icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                        <i class="fa fa-bell {{count($notifications) > 0 ? 'redBgBlink' :'' }}"></i> 
+                                        <span class="badge unread-notification">{{count($notifications)}}</span> 
+                                    </a>
+                                    <div class="dropdown-menu notification-ui_dd" aria-labelledby="navbarDropdown">
+                                        <div class="notification-ui_dd-header">
+                                            <h3 class="text-center">Notifications</h3>
+                                        </div>
+                                        <div class="notification-ui_dd-content text-center">
+                                        
+
+                                            @forelse($notifications as $notification)
+                                            <div class="notification-list notification-list--unread">
+                                                <!-- <div class="notification-list_img"><p><b>{{ $notification->data['msg'] }}</b>  -->
+                                                <!-- </div> -->
+                                                <div class="notification-list_detail">
+                                                <a href="{{$notification->data['url']}}"> {{ $notification->data['msg'] }}</a></p>
+                                                <p><small>{{ $notification->created_at }}</small></p>
+                                                </div>
+                                                <div class="notification-list_feature-img">
+                                                    <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
+                                                    Mark as read
+                                                </a>
+                                            </div>
+                                            </div>
+                                            @if($loop->last)
+                                                <div class="notification-ui_dd-footer text-center py-3"> 
+                                                    <button class="btn btn-success btn-block" id="mark-all">Mark all as read</button> 
+                                                </div>
+                                            @endif
+                                            @empty
+                                            There are no new notifications
+                                            @endforelse
+                                            
+                                        
+                                        </div>
+                                        <!--   -->
+
+                                    </div>
+                                </li>
+                            </ul>
+                        @endif
+
                         @if(auth()->user()->hasRole('company'))
                         @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
                         <ul class="navbar-nav ml-auto">

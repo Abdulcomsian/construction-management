@@ -412,7 +412,7 @@
                                         <span>Comments:</span>
                                     </label>
                                             <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" id="comments" name="comments"  required>
+                                    <input type="text" class="form-control form-control-solid" id="comments" name="comments"  >
                                 </div>
                             </div>
                         </div>
@@ -421,6 +421,7 @@
                                 <button type="submit" class="btn btn-primary float-start">Upload</button>
                             </div>
                         </div>
+                    </form>
                         <!-- </div> -->
                         <div class="row" style="background:white;margin: 0 4px;">
                             <div class="col">
@@ -545,7 +546,7 @@
                                 </table>
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
                 <!-- tab 3 -->
                 <div class="tab-pane" id="tab3" role="tabpanel" >

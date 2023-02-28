@@ -31,6 +31,18 @@
     }
 }
 
+.greenBgBlink {
+    background-color: green !important;
+    
+    /* Safari and Chrome */
+}
+
+.greenBgBlink  i{
+    color:#fff !important;
+}
+.yellowBgBlink{
+    background-color: yellow !important;
+}
 /*Using this for show validation error in red color*/
 .text-red-600 {
     --tw-text-opacity: 1;
@@ -1137,4 +1149,16 @@ table th {
   margin-left: 20px;
 }
 
+
+.form-check:not(.form-switch) .form-check-input[type=checkbox]{
+    border:1px solid #757575 !important;
+}
+
+.submitbtn{float:right; margin:15px 0;}
+label{
+    padding: 0 10px 0 10px !important;
+}
+.swal2-container.swal2-shown {
+    z-index: 99999999999999;
+  }
 </style>

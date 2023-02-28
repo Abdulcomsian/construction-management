@@ -205,7 +205,7 @@
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th class="min-w-50px">S.No</th>
                                     <th class="min-w-50px">Company Name</th>
-                                    <th class="min-w-50px">Company Email</th>
+                                    <th class="min-w-50px">DI Email</th>
                                     <th class="min-w-50px">Company Address</th>
                                     <th class="min-w-50px">Actions</th>
                                 </tr>

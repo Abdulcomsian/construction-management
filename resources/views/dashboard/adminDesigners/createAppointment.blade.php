@@ -421,7 +421,7 @@
                         <p class="paragraph mt-4"> Name from the nomination form Temporary Works Coordinator</p>
                         <div class="mb-3">
                             <p class="paragraph">This record should be kept by the TWC in the Temporary Works file and be updated, as necessary. The Designated Individual will keep a register of all TWC and dTWC appointments.</p></div>
-                           <button type="submit" id="submit" class="btn btn-primary">submit</button>
+                           <button type="submit" id="submit" class="btn submitbtn btn-primary">submit</button>
                     </div>
                     
                     <!--end::Card body-->

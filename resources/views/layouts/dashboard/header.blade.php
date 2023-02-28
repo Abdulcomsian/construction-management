@@ -62,10 +62,12 @@
                     <!--begin::User-->
                     <div class="d-flex align-items-stretch" id="kt_header_user_menu_toggle">
                         <!--begin::Menu wrapper-->
-
+                        <!-- THis notification is for user, was added later, when client asked to implement notification for user nomination flow. -->
+                      
                         <!-- notification work here -->
-                        @if(auth()->user()->hasRole('company'))
+                         @if(auth()->user()->hasRole('company')) 
                         @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
+                       
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown notification-ui me-2"> 
                                 <a class="nav-link dropdown-toggle notification-ui_icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
@@ -109,7 +111,7 @@
                                 </div>
                             </li>
                         </ul>
-                        @endif
+                          @endif 
                           
 
                         <div

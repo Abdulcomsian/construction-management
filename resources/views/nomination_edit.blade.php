@@ -931,7 +931,7 @@
                                     </tbody>
                                 </table>
                            </div>
-                           <button type="submit" class="btn btn-primary">update</button>
+                           <button type="submit" class="btn submitbtn btn-primary">update</button>
                     </div>
                     
                     <!--end::Card body-->

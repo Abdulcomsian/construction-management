@@ -38,7 +38,7 @@
 
                     <div class="row g-9 mb-8">
                         <div class="col-md-4 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <label class="required fs-6 fw-bold mb-2">Designated Individual Name</label>
                             <input type="text" class="form-control form-control-solid" placeholder="Name" name="representative_name" value="{{old('representative_name')}}" />
                         </div>
                         <!--begin::Col-->
@@ -49,8 +49,8 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-4 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Company Email</label>
-                            <input type="email" class="form-control form-control-solid" placeholder="Company Email" name="email" value="{{old('email')}}" />
+                            <label class="required fs-6 fw-bold mb-2">DI Email</label>
+                            <input type="email" class="form-control form-control-solid" placeholder="DI Email" name="email" value="{{old('email')}}" />
                         </div>
                     </div>
                     <div class="row g-9 mb-8">

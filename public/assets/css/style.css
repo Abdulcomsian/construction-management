@@ -31,18 +31,7 @@
     }
 }
 
-.greenBgBlink {
-    background-color: green !important;
-    
-    /* Safari and Chrome test */
-}
 
-.greenBgBlink  i{
-    color:#fff !important;
-}
-.yellowBgBlink{
-    background-color: yellow !important;
-}
 /*Using this for show validation error in red color*/
 .text-red-600 {
     --tw-text-opacity: 1;
@@ -1161,4 +1150,18 @@ label{
 .swal2-container.swal2-shown {
     z-index: 99999999999999;
   }
-</style>
+
+
+
+  .greenBgBlink {
+    background-color: green !important;
+    
+    /* Safari and Chrome test */
+}
+
+.greenBgBlink  i{
+    color:#fff !important;
+}
+.yellowBgBlink{
+    background-color: yellow !important;
+}

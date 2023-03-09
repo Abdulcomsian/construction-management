@@ -198,11 +198,11 @@ input.form-control.form-control-solid.readonly-input {
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Name OF Company</label>
-                                    <input type="text" class="form-control form-control-solid readonly-input" placeholder="Designer Name" name="company_name" value="{{old('name',$editProfile->company_name)}}" required readonly />
+                                    <input type="text" class="form-control form-control-solid readonly-input" placeholder="Designer Name" name="company_name" value="{{auth()->user()->name}}" required readonly />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Company Email</label>
-                                    <input type="email" class="form-control form-control-solid readonly-input" placeholder="Designer Email" name="comapny_email" value="{{old('email',$editProfile->comapny_email)}}" required  readonly/>
+                                    <input type="email" class="form-control form-control-solid readonly-input" placeholder="Designer Email" name="comapny_email" value="{{auth()->user()->email}}" required  readonly/>
                                 </div>
 
                             </div>
@@ -243,7 +243,7 @@ input.form-control.form-control-solid.readonly-input {
                             <div class="row">
                                 
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="fs-6 fw-bold mb-2">Upload cv</label>
+                                    <label class="fs-6 fw-bold mb-2">Upload DI / Designer CV</label>
                                     <input type="file" class="form-control form-control-solid"  name="company_cv" />
                                 </div>
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">

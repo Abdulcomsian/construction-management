@@ -62,6 +62,10 @@ background-color: #07d564 !important;
     .form-select.form-select-solid{
     color:black !important;
    }
+   .readonly-input{
+        background-color: #bbbbbb!important;
+        color: white!important;
+   }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
@@ -181,11 +185,11 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Name OF Company</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Name" name="company_name" value="{{old('name')}}" required />
+                                    <input type="text" class="form-control form-control-solid readonly-input" placeholder="Designer Name" name="company_name" value="{{auth()->user()->name}}" readonly required />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Company Email</label>
-                                    <input type="email" class="form-control form-control-solid" placeholder="Designer Email" name="comapny_email" value="{{old('email')}}" required />
+                                    <input type="email" class="form-control form-control-solid readonly-input" placeholder="Designer Email" name="comapny_email" value="{{auth()->user()->email}}" readonly required />
                                 </div>
 
                             </div>

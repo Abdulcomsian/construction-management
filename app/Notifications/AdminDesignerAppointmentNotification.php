@@ -12,9 +12,9 @@ class AdminDesignerAppointmentNotification extends Notification
     use Queueable;
 
     public $user;
-    public function __construct()
+    public function __construct($user)
     {
-        $this->user=$user;
+        $this->user= $user;
     }
 
     /**

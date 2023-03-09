@@ -587,6 +587,7 @@ class AdminDesignerController extends Controller
     public function createProfile($id)
     {
         $companyProfile=CompanyProfile::where(['user_id'=>Auth::user()->id])->first();
+        // dd(auth()->user());
         return view('dashboard.adminDesigners.createProfile',compact('companyProfile'));
     }
 
@@ -778,7 +779,7 @@ class AdminDesignerController extends Controller
     //admin designer list
     public function designerList(Request $request)
     {
-        $user = auth()->user();
+        $user = auth()->user();                        
         abort_if(!$user->hasRole(['designer','Design Checker','Designer and Design Checker']), 403);
         try {
 
@@ -786,7 +787,9 @@ class AdminDesignerController extends Controller
                 if ($user->hasRole(['designer','Design Checker','Designer and Design Checker'])) {
                     // $data = User::role(['designer','Design Checker','Designer and Design Checker'])->where('di_designer_id',auth()->user()->id)->get();
                     $userData = User::where('id', auth()->user()->id)->get();
+
                     $data = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
+
                     $data = $userData->merge($data);
                 }
                 return Datatables::of($data)
@@ -927,8 +930,8 @@ class AdminDesignerController extends Controller
     public function saveAppointment(Request $request)
     {
        DB::beginTransaction();
-       try
-       {
+    //    try
+    //    {
             $user=User::with('userDiCompany')->find($request->user_id);
             $nomination=Nomination::find($request->nominationId);
             //upload signature here
@@ -969,11 +972,11 @@ class AdminDesignerController extends Controller
             DB::commit();
             toastSuccess('Appointment Saved successfully');
             return redirect('adminDesigner/create-nomination/'.$user->id);
-        } catch (\Exception $exception) {
-            DB::rollback();
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     DB::rollback();
+        //     toastError('Something went wrong, try again!' );
+        //     return Redirect::back();
+        // }
        
     }
 }

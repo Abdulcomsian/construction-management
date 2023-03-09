@@ -22,12 +22,12 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
-                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello {{$user-userDiCompany->name}}</h1> 
+                                                                    <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello {{$user->userDiCompany->name}}</h1> 
                                                                     <br>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         {{$user->name}} has submited Appointment.
                                                                         please login and view Appointment.
-                                                                        
+                                                                        <div style="margin-top: 15px;"><a href="{{route('login')}}" style="background: #353535; padding: 10px 20px; color: white; text-decoration : none;">Login</a></div>
                                                                    </p>
                                                                      
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">

@@ -842,7 +842,12 @@ class HomeController extends Controller
     public function companyProfile($id)
     {
         $companyProfile=CompanyProfile::with('otherdocs')->where(['user_id'=>$id])->first();
+        $adminDesigner = User::with('usernomination')->where('added_by' , 1 )->get();
         $designerList=User::with('usernomination')->where(['di_designer_id'=>$id])->get();
+        $designerList = $adminDesigner->merge($designerList);
+
+        // dd($designerList);
+
         $ratings=ReviewRating::with('user')->where(['user_id'=>$id])->get();
         //avg rating
         $avgratings=ReviewRating::where(['user_id'=>$id])->avg('star_rating');

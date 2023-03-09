@@ -2118,7 +2118,7 @@ class TemporaryWorkController extends Controller
         $current =  \Carbon\Carbon::now();
         $notify_msg = [
             'greeting' => 'Design Upload notificaton',
-            'subject' => 'Desing Upload Expire Notification',
+            'subject' => 'Design Upload Expire Notification',
             'body' => [
                 'text' => 'Welcome to the online Temporary Works Portal. there is #days days  left for the design to be completed with construction issue as well as the design check certificate.',
                 'filename' => '',

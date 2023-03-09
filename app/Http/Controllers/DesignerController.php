@@ -1175,7 +1175,7 @@ class DesignerController extends Controller
         } 
      }
      else{
-        toastSuccess('Desing Chcecker Not found!!!');
+        toastSuccess('Design Chcecker Not found!!!');
         return Redirect::back();
      }
    }
@@ -1310,7 +1310,7 @@ class DesignerController extends Controller
    public function Designdelte($id)
    {
       TempWorkUploadFiles::find($id)->delete();
-      toastSuccess('Desing Deleted Successfully');
+      toastSuccess('Designer Deleted Successfully');
       return Redirect::back();
    }
 

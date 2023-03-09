@@ -664,7 +664,11 @@ button.createbtn i {
                     <td>{{$list->email}}</td>
                     @if($companyProfile->nomination_link_check)
                     <td>
+                      @if($list->usernomination)
                         <a href="{{asset('pdf/'.$list->usernomination->pdf_url)}}" target="_blank">PDF</a>
+                      @else
+                        <a href="javascript:void(0)" style="text-decoration:none">N/A</a>
+                      @endif
                     </td>
                     @endif
                   </tr>

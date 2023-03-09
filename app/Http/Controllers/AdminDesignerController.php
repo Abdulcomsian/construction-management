@@ -30,16 +30,28 @@ class AdminDesignerController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
+
+        $data = User::with('companyProfile')->role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->latest()->get();
+        // dd($data);
+        
         abort_if(!$user->hasAnyRole(['admin','company']), 403);
         try {
             if ($request->ajax()) {
-                $data = User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->latest()->get();
+                $data = User::with('companyProfile')->role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->latest()->get();
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->addColumn('action', function ($data) use ($user) {
-                         $btn ='<a href="' . url('company-profile', $data->id) .'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" target="_blank" title="Company Profile">
-                                   <i class="fa fa-user"></i> 
-                                </a>';
+                        $btn = '';
+
+                        if($data->companyProfile) {
+
+                            $btn .='<a href="' . url('company-profile', $data->id) .'" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" target="_blank" title="Company Profile">
+                                      <i class="fa fa-user"></i> 
+                                   </a>';
+                           
+                        }
+                        
+                        
 
                         if ($user->hasRole(['admin'])) {
                             $btn .= '<div class="d-flex">
@@ -620,24 +632,28 @@ class AdminDesignerController extends Controller
             //mew work for documents upload
             $names = $request->input('other_doucuments_name');
             $files = $request->file('other_doucuments_document');
-            foreach ($files as $index => $file) {
-                // Validate the uploaded file
-                if($names[$index] =="" )
-                {
-                    $request->validate([
-                    'file' => 'required|file|mimes:jpeg,png,gif,pdf,doc,docx|max:2048',
-                    ]);
-                }
+            if($request->hasFile('other_doucuments_document'))
+            {
 
-                $filePath  = 'uploads/designercompany/others/';
-                $filename = HelperFunctions::saveFile(null, $file, $filePath);
-                $name = $names[$index];
-                ProfileOtherDocuments::create([
-                    'name'=>$name,
-                    'file'=>$filename,
-                    'company_profile_id'=>$companyProfile->id,
-                ]);
-                
+                foreach ($files as $index => $file) {
+                    // Validate the uploaded file
+                    if($names[$index] =="" )
+                    {
+                        $request->validate([
+                        'file' => 'required|file|mimes:jpeg,png,gif,pdf,doc,docx|max:2048',
+                        ]);
+                    }
+    
+                    $filePath  = 'uploads/designercompany/others/';
+                    $filename = HelperFunctions::saveFile(null, $file, $filePath);
+                    $name = $names[$index];
+                    ProfileOtherDocuments::create([
+                        'name'=>$name,
+                        'file'=>$filename,
+                        'company_profile_id'=>$companyProfile->id,
+                    ]);
+                    
+                }
             }
             toastSuccess('Company Profile Created successfully');
             return redirect()->back();
@@ -726,25 +742,30 @@ class AdminDesignerController extends Controller
             //mew work for documents upload
             $names = $request->input('other_doucuments_name');
             $files = $request->file('other_doucuments_document');
-            foreach ($files as $index => $file) {
-                // Validate the uploaded file
-                if($names[$index] =="" )
-                {
-                    $request->validate([
-                    'file' => 'required|file|mimes:jpeg,png,gif,pdf,doc,docx|max:2048',
-                    ]);
-                }
 
-                $filePath  = 'uploads/designercompany/others/';
-                $filename = HelperFunctions::saveFile(null, $file, $filePath);
-                $name = $names[$index];
-                ProfileOtherDocuments::create([
-                    'name'=>$name,
-                    'file'=>$filename,
-                    'company_profile_id'=>$editProfile->id,
-                ]);
-                
+            if($request->hasFile('other_doucuments_document'))
+            {
+                foreach ($files as $index => $file) {
+                    // Validate the uploaded file
+                    if($names[$index] =="" )
+                    {
+                        $request->validate([
+                        'file' => 'required|file|mimes:jpeg,png,gif,pdf,doc,docx|max:2048',
+                        ]);
+                    }
+    
+                    $filePath  = 'uploads/designercompany/others/';
+                    $filename = HelperFunctions::saveFile(null, $file, $filePath);
+                    $name = $names[$index];
+                    ProfileOtherDocuments::create([
+                        'name'=>$name,
+                        'file'=>$filename,
+                        'company_profile_id'=>$editProfile->id,
+                    ]);
+                    
+                }
             }
+
             toastSuccess('Company Profile Updated successfully');
             return redirect()->back();
             
@@ -763,7 +784,10 @@ class AdminDesignerController extends Controller
 
             if ($request->ajax()) {
                 if ($user->hasRole(['designer','Design Checker','Designer and Design Checker'])) {
-                    $data = User::role(['designer','Design Checker','Designer and Design Checker'])->where('di_designer_id',auth()->user()->id)->get();
+                    // $data = User::role(['designer','Design Checker','Designer and Design Checker'])->where('di_designer_id',auth()->user()->id)->get();
+                    $userData = User::where('id', auth()->user()->id)->get();
+                    $data = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
+                    $data = $userData->merge($data);
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')

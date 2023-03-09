@@ -90,4 +90,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class, 'di_designer_id');
     }
+
+    public function companyProfile()
+    {
+        return $this->hasOne(CompanyProfile::class , 'user_id' , 'id');
+    }
 }

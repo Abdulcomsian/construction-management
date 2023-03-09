@@ -47,7 +47,7 @@
                                                                     $name='Appointment';
                                                                     }
                                                                     else{
-                                                                    $name='Desing and drawing';
+                                                                    $name='Design and drawing';
                                                                     }
                                                                     @endphp
                                                                     <a href="{{asset($file->file_name)}}">{{$name}} . {{$key+1}} </a><br>

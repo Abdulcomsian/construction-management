@@ -31,7 +31,7 @@
             if(text=='')
             {
                 let check = [null , undefined , ""]
-                text = (check.includes(event.target.dataset.text) ? "Are you sure? to Delete it" : "Are you sure you want to award") 
+                text = (check.includes(event.target.dataset.text) ? "Are you sure? to Delete it" : "Are you sure you want to award the contract") 
                 // text="Are you sure? to Delete it.";
             }
             swal({

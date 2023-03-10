@@ -924,10 +924,10 @@
                                        @endif
                                        <td>
                                             <p style="font-size: 16px !important; font-weight: 600; font-family: 'Poppins'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
-                                            <p style="font-weight:400;font-size:16px !important; font-family: 'Poppins';">Equipment and Plant:</p>
-                                            <p style="font-weight:500;font-size:16px !important; font-family: 'Poppins';">{{$item->design_requirement_text ?? ''}}</p>
+                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Poppins';">Equipment and Plant:</p>
+                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">{{$item->design_requirement_text ?? ''}}</p>
                                         </td>
-                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
+                                       <td style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
                                           
                                             <div class="commentSection" style="background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;">
                                                 <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important;" data-id="{{$item->id}}">
@@ -984,26 +984,206 @@
                                        <td style="min-width: 254px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Drawings & Designs:</span>
-                                                <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
-                                                        <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
-                                                    </p>
+                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
+                                                            <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
+                                                            <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                        <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
+                                                            <!-- View Drawings -->
+                                                            @php
+                                                            $color="";
+                                                            if(count($item->riskassesment)>0)
+                                                            {
+                                                                $color="green";
+                                                            }
+                                                            @endphp
+                                                            <span style="font-size: 18px; color:{{$color}}" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                                        </p>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-3">
+                                                <span class="titleColumn">Permit to load:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
+                                                    </div>
+                                                    <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px">
+                                                                @if($drawingscount)
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                                        @endif
+                                                        @if(count($item->scancomment)>0)
+                                                        @php
+                                                        $n=count($item->scancomment);
+                                                        if($item->scancomment[$n-1]->status==2)
+                                                        {
+                                                        $scolor="red";
+                                                        }elseif($item->scancomment[$n-1]->status==1)
+                                                        {
+                                                        $scolor="#FFA500";
+                                                        }elseif($item->scancomment[$n-1]->status==0)
+                                                        {
+                                                        $scolor="green";
+                                                        }
+                                                        @endphp
+                                                        <br>
+                                                        <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
+                                                        </button>
+                                                        <br>
+                                                        @endif
+                                                        @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
+                                                            @php
+                                                            $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                                            $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                                            $color="orange";
+                                                            $class='';
+                                                            if($permitexpire>0 || $scaffoldexpire>0)
+                                                            {
+                                                            $color="red";
+                                                            $class="redBgBlink";
+                                                            }
+                                                            @endphp
+                                                            @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
+                                                            <br>
+                                                            <span class="text-danger redBgBlink" style="">DNL</span><br>
+                                                    
+                                                            @endif
+                                                            <br>
+                                                            <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
+                                                            <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                                            </span>
+                                                    
+                                                        @else
+                                                        <span style="width: 108px;">
+                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 0.2rem 0.35rem; color: white;">
+                                                            @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
+                                                            Closed
+                                                            @else
+                                                            0
+                                                            @endif
+                                                            </span>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                            <div class="d-flex" style="justify-content: space-between">
+                                                <span class="titleColumn">Permit to unload:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                            </div>
+                                        </td>
+                                       <td style="min-width: 254px; max-width: 80px;">
+                                            <div class="d-flex justify-content-between">
+                                                <span class="titleColumn">Design Check CERT:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
+                                                    @php $dccstyle='';@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==2)
+                                                    @php $dccstyle="display:none"; @endphp
+                                                    @endif
+                                                    @endforeach
+                                                    <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
+                                                    @php $i=0;@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==2)
+                                                    @php $i++ @endphp
+                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
+                                                    @endif
+                                                    @endforeach
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
-                                                <span class="titleColumn">Permit to load:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-light  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                                <span class="titleColumn">Date DCC Returned:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
+                                                    
+                                                @php
+                                          $date='';
+                                          $dcolor='';
+                                          $drawingscount=0;
+                                          @endphp
+                                          @foreach($item->uploadfile as $file)
+                                          @php
+                                          if($file->file_type==1 && $file->construction==1)
+                                          {
+                                          $dcolor='green';
+                                          $drawingscount=1;
+                                          $date=$file->created_at->todatestring();
+                                          }
+                                          elseif($file->file_type==1 && $file->preliminary_approval==1)
+                                          {
+                                          $dcolor='orange';
+                                          $date=$file->created_at->todatestring();
+                                          }
+                                          @endphp
+                                          @endforeach
+                                          @if($date)
+
+                                          <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                          </p>
+                                          @endif
+                                                </div>
                                             </div>
                                             <div>
-                                            <div class="d-flex justify-content-between">
-                                                <span class="titleColumn">Permit to unload:</span>
-                                                <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
-                                                        <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
-                                                    </p>
+                                            <div class="d-flex" style="justify-content: space-between">
+                                                <span class="titleColumn">Date Design Returned:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
+                                                            @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==2)
+                                                    <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
+                                                    @break
+                                                    @endif
+                                                    @endforeach
                                                 </div>
+                                                
 
                                             </div>
+                                            </div>
+                                        </td>
+                                       <td style="min-width: 254px; max-width: 80px;">
+                                            <div class="d-flex ">
+                                                <span class="titleColumn">Designer:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
+                                                <span class="designer-company cursor-pointer" style="width: 108px;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-light-success label-inline">View</span>
+                                                </span>
+                                                <!-- {{$item->tw_name ?: '-'}} -->
+                                                @if(!$item->tw_name)
+                                                <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
+                                                @endif
+                                                </div>
+                                            </div>
+                                            <div class="d-flex  my-6">
+                                                <span class="titleColumn">RAMS:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 47px;">
+                                                <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
+                                                    @php $i=0;@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==3)
+                                                    @php $i++ @endphp
+                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
+                                                    @endif
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div>
                                             </div>
                                         </td>
                                        <!-- <td style="">{{ $item->tw_category }}</td> -->
@@ -1011,9 +1191,9 @@
                                        <!-- <td style="min-width:100px;">
                                           <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
                                        </td> -->
-                                       <td>
+                                       <!-- <td>
                                           <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
-                                             <!-- <span class="fa fa-plus"></span> -->
+
                                              <br> Comment
                                           </p>
                                           @php
@@ -1038,7 +1218,7 @@
                                           </span>
                                           <hr style="color:red;border:1px solid red; margin: 2px;">
                                           <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
-                                             <!-- <span class="fa fa-plus"></span> -->
+
                                              <br> Emails
                                           </h3>
                                           @php $i=0;@endphp
@@ -1048,15 +1228,15 @@
                                           <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
                                           @endif
                                           @endforeach
-                                       </td>
-                                       <td style="">
+                                       </td> -->
+                                       <!-- <td style="">
                                           <span class="designer-company cursor-pointer" style="width: 108px;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-light-success label-inline">View</span>
-                                          </span>
+                                          </span> -->
                                           <!-- {{$item->tw_name ?: '-'}} -->
-                                          @if(!$item->tw_name)
+                                          <!-- @if(!$item->tw_name) -->
                                           <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
-                                          @endif
-                                       </td>
+                                          <!-- @endif
+                                       </td> -->
                                        <!-- <td>
                                           <p  class="uploadfile  cursor-pointer" data-id="{{$item->id}}" data-type="5">Drag and drop folders/ appointments</p><br>
                                           @php $i=0;@endphp
@@ -1067,7 +1247,7 @@
                                           @endif
                                           @endforeach
                                           </td> -->
-                                       <td style="">
+                                       <!-- <td style="">
                                           @php
                                           $date='';
                                           $dcolor='';
@@ -1093,26 +1273,26 @@
                                           <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                           </p>
                                           @endif
-                                       </td>
+                                       </td> -->
                                        <!--  <td></td> -->
-                                       <td style="">
+                                       <!-- <td style="">
                                           @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
                                           <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
                                           @break
                                           @endif
                                           @endforeach
-                                       </td>
-                                       <td>
+                                       </td> -->
+                                       <!-- <td> -->
                                           <!-- <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
                                              <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                           </p> -->
-                                          <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                             <!-- View Drawings -->
+                                          <!-- <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
+
                                              <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                             <!-- View Drawings -->
+
                                              @php 
                                              $color="";
                                              if(count($item->riskassesment)>0)
@@ -1122,8 +1302,8 @@
                                              @endphp
                                             <span style="font-size: 18px; color:{{$color}}" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
                                           </p>
-                                       </td>
-                                       <td>
+                                       </td> -->
+                                       <!-- <td>
                                           @php $dccstyle='';@endphp
                                           @foreach($item->uploadfile as $file)
                                           @if($file->file_type==2)
@@ -1138,8 +1318,8 @@
                                           <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
                                           @endif
                                           @endforeach
-                                       </td>
-                                       <td>
+                                       </td> -->
+                                       <!-- <td>
                                         @if($drawingscount)
                                           <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                           @endif
@@ -1196,15 +1376,15 @@
                                             </span>
                                           </span>
                                           @endif
-                                       </td>
-                                       <td>
+                                       </td> -->
+                                       <!-- <td>
                                           <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to <br>Unload</p>
                                           @if(count($item->unloadpermits)>0)
                                           <span  style="background:green;color: white;font-weight: bold;padding: 0 10px;border-radius: 5px">{{count($item->unloadpermits)}}
                                           </span>
                                           @endif
-                                       </td>
-                                       <td data-type="2">
+                                       </td> -->
+                                       <!-- <td data-type="2">
                                           <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3">Upload RAMS<br></p>
                                           @php $i=0;@endphp
                                           @foreach($item->uploadfile as $file)
@@ -1213,7 +1393,7 @@
                                           <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
                                           @endif
                                           @endforeach
-                                       </td>
+                                       </td> -->
                                        <td>
                                           @php
                                           $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
@@ -1224,7 +1404,7 @@
                                           </a>
                                           @endif
                                        </td>
-                                       <td>
+                                       <!-- <td>
                                           <span class="svg-icon svg-icon-md dropdown-toggle dropdownaction" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -1234,9 +1414,8 @@
                                                 </g>
                                              </svg>
                                           </span>
-                                          <!--begin::Dropdown Menu-->
+
                                           <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right " style="text-align: center;">
-                                             <!--begin::Navigation-->
                                              <ul class="navi flex-column navi-hover py-2" style="list-style: none">
                                                 <li class="navi-item">
                                                    @if(\Auth::user()->hasRole('admin'))
@@ -1270,10 +1449,10 @@
                                                 </li>
                                                  
                                              </ul>
-                                             <!--end::Navigation-->
+
                                           </div>
-                                          <!--end::Dropdown Menu-->
-                                       </td>
+
+                                       </td> -->
                                     </tr>
                                     @empty
                                     @endforelse

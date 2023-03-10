@@ -148,6 +148,11 @@
     .form-select.form-select-solid{
         color:#000 !important;
     }
+
+    .btn-yellow{
+        background-color: #dede02;
+        color: black;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @endsection
@@ -230,8 +235,8 @@
                                         <form method="POST" action="{{url('Estimator/estimator-approve')}}"  id="form_{{$designer->id}}">
                                                @csrf
                                                 <input type="hidden" name="designerId" value="{{$designer->id}}">
-                                                <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-primary btn_green" data-text="Are you sure ? to approve designer">
-                                                  Awarded
+                                                <button type="submit" id="{{$designer->id}}" class="confirm1 btn btn-yellow" data-text="Are you sure ? to approve designer">
+                                                  Pending
                                                 </button>
                                                </form>
                                         @endif

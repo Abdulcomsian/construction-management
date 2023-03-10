@@ -7,7 +7,7 @@
             event.preventDefault();
             let form_id = '';
             let link = '';
-             var text='';
+            var text='';
             if($(event.target).is('button')){
                 form_id = '#form_'+ $(this).attr('id');
                 //text=$(this).attr('data-text');
@@ -30,7 +30,9 @@
             }
             if(text=='')
             {
-                text="Are you sure? to Delete it.";
+                let check = [null , undefined , ""]
+                text = (check.includes(event.target.dataset.text) ? "Are you sure? to Delete it" : "Are you sure you want to award") 
+                // text="Are you sure? to Delete it.";
             }
             swal({
                     title: text,

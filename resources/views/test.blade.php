@@ -43,6 +43,7 @@
    }
    .aside-fixed .aside{
    width: 45px;
+   display: none;
    }
    #kt_aside_toggle{
       position: relative;
@@ -104,7 +105,8 @@
    margin-top: 20px;
    }
    #kt_wrapper{
-       padding-top: 0px !important;
+       padding: 0px !important;
+
    }
    .card-header{
        display: block !important;
@@ -127,6 +129,7 @@
    }
    #kt_content_container {
    background-color: #e9edf1;
+   padding: 0 !important;
    }
    #kt_toolbar_container {
    background-color: #fff;
@@ -148,7 +151,7 @@
    color: rgba(254, 242, 242, 0.66);
    }
    table tbody td {
-   text-align: center;
+   /* text-align: center; */
    padding: 5px !important;
    }
    #kt_header{
@@ -192,6 +195,7 @@
    }
    tbody.text-gray-600.fw-bold tr td {
    vertical-align: middle;
+   min-height: 110px !important;
    }
    .form-control{
       padding: 5px 10px;
@@ -269,7 +273,7 @@
    #kt_content_container,
    .card>.card-body,
    .card>.card-header {
-   padding: 0 1rem !important;
+   padding: 0 1rem ;
    }
    .table td p {
    position: initial !important;
@@ -283,18 +287,25 @@
    .rowcolor{
     background: #D5D8DC !important;
    }
+
+   .titleColumn{
+    color: #9D9D9D;
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 21px;
+   }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid temporary_blade" id="kt_content">
-   <div class="topMenu" style="padding-top:0px;">
+   <div class="topMenu" style="padding:0px !important;">
       <div class="post d-flex flex-column-fluid" id="kt_post">
          <!--begin::Container-->
          <div id="kt_content_container" class="container">
             <!--begin::Card-->
-            <div class="card">
+            <div class="">
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
@@ -481,7 +492,7 @@
                <!--end::Card header-->
                <!--begin::Card body-->
                <div class="card-body indexTempory pt-0">
-                  <div class="mb-2">
+                  <div class="my-4" style="background: white;padding: 10px 22px;">
                      <div class="row align-items-center">
                         <div class="col-lg-9 col-xl-8">
                            <div class="row align-items-center">
@@ -513,6 +524,135 @@
                                  </form>
                               </div>
                            </div>
+                        </div>
+                        <div class="col-md-2 my-2  my-md-0">
+                             <!--begin::Dropdown-->
+                             <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
+                                <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   <span class="svg-icon svg-icon-md">
+                                      <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                            <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+                                            <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+                                         </g>
+                                      </svg>
+                                      <!--end::Svg Icon-->
+                                   </span>
+                                   Status
+                                </button>
+                                <!--begin::Dropdown Menu-->
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
+                                   <!--begin::Navigation-->
+                                   <ul class="navi flex-column navi-hover py-2">
+                                     <li class="navi-item">
+                                         <a href="{{url('/temporary_works?status=all')}}" class="navi-link ">
+                                        
+                                         <span class="navi-text">All</span>
+                                         </a>
+                                      </li>
+                                      <li class="navi-item">
+                                         <a href="{{url('/temporary_works?status=pending')}}" class="navi-link ">
+                                         
+                                         <span class="navi-text">Pending</span>
+                                         </a>
+                                      </li>
+                                      <li class="navi-item">
+                                         <a href="{{url('/temporary_works?status=completed')}}" class="navi-link">
+                                        
+                                         <span class="navi-text">Completed</span>
+                                         </a>
+                                      </li>
+                                     
+                                   </ul>
+                                </div>
+                                <!--end::Dropdown Menu-->
+                             </div>
+                        </div>
+
+                        <div class="col-md-2 my-2  my-md-0 float-right">
+                         <!--begin::Dropdown-->
+                         <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
+                            <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="svg-icon svg-icon-md">
+                                  <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+                                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+                                        <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+                                     </g>
+                                  </svg>
+                                  <!--end::Svg Icon-->
+                               </span>
+                               View Document
+                            </button>
+                            <!--begin::Dropdown Menu-->
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
+                               <!--begin::Navigation-->
+                               <ul class="navi flex-column navi-hover py-2">
+                                  <li class="navi-item">
+                                     <a href="#" class="navi-link adddocument">
+                                     <span class="navi-icon">
+                                     <i class="la la-print"></i>
+                                     </span>
+                                     <span class="navi-text">Add Document</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a href="#" class="navi-link viewdocument" data-type="document">
+                                     <span class="navi-icon">
+                                     <i class="la la-copy"></i>
+                                     </span>
+                                     <span class="navi-text">View Document</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a  href="{{ route('Designbrief.export') }}" class="navi-link">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">Export</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a  href="#" class="navi-link viewdocument" data-type="nominations">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">View Nominations</span>
+                                     </a>
+                                  </li>
+                                  <li class="navi-item">
+                                     <a  href="#" class="navi-link viewdocument" data-type="appointments">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">View Appointments</span>
+                                     </a>
+                                  </li>
+                                  @if(auth()->user()->hasRole('company'))
+                                  <li class="navi-item">
+                                     <a  href="{{asset(auth()->user()->company_policy)}}" class="navi-link" target="_blank">
+                                     <span class="navi-icon">
+                                     <i class="la la-file-excel-o"></i>
+                                     </span>
+                                     <span class="navi-text">Company Policy</span>
+                                     </a>
+                                  </li>
+                                  @endif
+                               </ul>
+                            </div>
+                            <!--end::Dropdown Menu-->
+                         </div>
+                        </div>
+                        <div class="col-md-2 my-2 my-md-0 positionChange">
+                            <!--end::Dropdown-->
+                            <!--begin::Button-->
+                            <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important;border-radius:0px;">
+                            <span class="fa fa-plus"></span> Design Brief</a>
+                            <!--end::Button-->
                         </div>
                      </div>
                   </div>
@@ -706,135 +846,7 @@
                            </div>
                         </div>
                      </div>
-                         <div class="col-md-2 my-2  my-md-0">
-                             <!--begin::Dropdown-->
-                             <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
-                                <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <span class="svg-icon svg-icon-md">
-                                      <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24"></rect>
-                                            <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
-                                            <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
-                                         </g>
-                                      </svg>
-                                      <!--end::Svg Icon-->
-                                   </span>
-                                   Status
-                                </button>
-                                <!--begin::Dropdown Menu-->
-                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
-                                   <!--begin::Navigation-->
-                                   <ul class="navi flex-column navi-hover py-2">
-                                     <li class="navi-item">
-                                         <a href="{{url('/temporary_works?status=all')}}" class="navi-link ">
-                                        
-                                         <span class="navi-text">All</span>
-                                         </a>
-                                      </li>
-                                      <li class="navi-item">
-                                         <a href="{{url('/temporary_works?status=pending')}}" class="navi-link ">
-                                         
-                                         <span class="navi-text">Pending</span>
-                                         </a>
-                                      </li>
-                                      <li class="navi-item">
-                                         <a href="{{url('/temporary_works?status=completed')}}" class="navi-link">
-                                        
-                                         <span class="navi-text">Completed</span>
-                                         </a>
-                                      </li>
-                                     
-                                   </ul>
-                                </div>
-                                <!--end::Dropdown Menu-->
-                             </div>
-                        </div>
-
-                        <div class="col-md-2 my-2  my-md-0 float-right">
-                         <!--begin::Dropdown-->
-                         <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
-                            <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <span class="svg-icon svg-icon-md">
-                                  <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                        <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
-                                        <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
-                                     </g>
-                                  </svg>
-                                  <!--end::Svg Icon-->
-                               </span>
-                               View Document
-                            </button>
-                            <!--begin::Dropdown Menu-->
-                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
-                               <!--begin::Navigation-->
-                               <ul class="navi flex-column navi-hover py-2">
-                                  <li class="navi-item">
-                                     <a href="#" class="navi-link adddocument">
-                                     <span class="navi-icon">
-                                     <i class="la la-print"></i>
-                                     </span>
-                                     <span class="navi-text">Add Document</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a href="#" class="navi-link viewdocument" data-type="document">
-                                     <span class="navi-icon">
-                                     <i class="la la-copy"></i>
-                                     </span>
-                                     <span class="navi-text">View Document</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a  href="{{ route('Designbrief.export') }}" class="navi-link">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">Export</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a  href="#" class="navi-link viewdocument" data-type="nominations">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">View Nominations</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a  href="#" class="navi-link viewdocument" data-type="appointments">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">View Appointments</span>
-                                     </a>
-                                  </li>
-                                  @if(auth()->user()->hasRole('company'))
-                                  <li class="navi-item">
-                                     <a  href="{{asset(auth()->user()->company_policy)}}" class="navi-link" target="_blank">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">Company Policy</span>
-                                     </a>
-                                  </li>
-                                  @endif
-                               </ul>
-                            </div>
-                            <!--end::Dropdown Menu-->
-                         </div>
-                        </div>
-                     <div class="col-md-2 my-2 my-md-0 positionChange">
-                     <!--end::Dropdown-->
-                     <!--begin::Button-->
-                     <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important;border-radius:0px;">
-                     <span class="fa fa-plus"></span> Design Brief</a>
-                     <!--end::Button-->
-                    </div>
+                         
                 </div>
                 <div class="row">
                      <div style="float:left;width:100%;position:relative;top:-5px;">
@@ -843,8 +855,8 @@
                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                               <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                                  <!--begin::Table head-->
-                                 <thead>
-                                    <!--begin::Table row-->
+                                 <!-- <thead>
+
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                        <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                        @if(\Auth::user()->hasRole('admin'))
@@ -858,7 +870,6 @@
                                        <th class="" style="">DESIGN REQUIRED BY</th>
                                        <th class="">Comments</th>
                                        <th class="">TW DESIGNER & COMPANY</th>
-                                       <!-- <th class="">Appointments</th>  -->
                                        <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
                                        <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
                                        <th class="">DRAWINGS & DESIGNS</th>
@@ -869,15 +880,15 @@
                                        <th class="">QR CODE</th>
                                        <th>Actions</th>
                                     </tr>
-                                    <!--end::Table row-->
-                                 </thead>
+
+                                 </thead> -->
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
                                  <tbody class="text-gray-600 fw-bold">
                                  
                                     @forelse($temporary_works as $item)
                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
-                                       <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
+                                       <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
                                                 <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
@@ -886,16 +897,17 @@
                                                 
                                             @endif
                                          @endif
-                                          <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span><br>
+                                          <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span>
+                                          <!-- <br> -->
                                           @if(count($item->rejecteddesign)>0)
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
                                           </span>
-                                          <br>
-                                          <br>
+                                          <!-- <br>
+                                          <br> -->
                                           @endif
                                           <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                           </a>
-                                          <br>
+                                          <!-- <br> -->
                                           @if($item->status==2)
                                           <a href="{{route('temporary_works.edit',$item->id)}}">
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
@@ -910,19 +922,95 @@
                                           <p>{{ $item->company ?: '-' }}</p>
                                        </td>
                                        @endif
-                                       <td>{{ $item->project->name ?? '' }}</td>
-                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
-                                          <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
-                                          <hr style="margin: 5px;;color:red;border:1px solid red">
-                                          <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
-                                          </span>
+                                       <td>
+                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Poppins'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
+                                            <p style="font-weight:400;font-size:16px !important; font-family: 'Poppins';">Equipment and Plant:</p>
+                                            <p style="font-weight:500;font-size:16px !important; font-family: 'Poppins';">{{$item->design_requirement_text ?? ''}}</p>
+                                        </td>
+                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
+                                          
+                                            <div class="commentSection" style="background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;">
+                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important;" data-id="{{$item->id}}">
+                                                        <!-- <span class="fa fa-plus"></span> -->
+                                                         Comment
+                                                    </p>
+                                                    @php
+                                                    $drawingscount=0;
+                                                    $color="green";
+                                                    $class='';
+                                                    if(count($item->comments)>0)
+                                                    {
+                                                        $color="red";
+                                                        $class='redBgBlink';
+                                                    if(count($item->reply)== count($item->comments))
+                                                    {
+                                                        $color="blue";
+                                                        $class='';
+                                                    }
+                                                    }
+                                                    @endphp
+                                                    <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
+                                                    <span class="{{$class}} label label-lg font-weight-bold label-inline">
+                                                    {{count($item->comments) ?? '-'}}
+                                                    </span>
+                                                    </span>
+                                            </div>
+                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
+                                                </span>
                                        </td>
-                                       <td style="">{{ $item->tw_category }}</td>
-                                       <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                       <td style="min-width: 100px; max-width: 80px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</td>
-                                       <td style="min-width:100px;">
+                                       <td style="min-width: 220px; max-width: 80px;">
+                                            <div class="d-flex justify-content-between">
+                                                <span class="titleColumn">Issue Date:</span>
+                                                <span style="width: 96px; text-align:center">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-6">
+                                                <span class="titleColumn">Required by:</span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-light  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                            </div>
+                                            <div>
+                                            <div class="d-flex justify-content-between"">
+                                                <span>
+                                                    <span class="titleColumn">CAT Check:</span>
+                                                    <span>{{ $item->tw_category }}</span>
+                                                </span>
+                                                <span>
+                                                    <span class="titleColumn">Risk Class:</span>
+                                                    <span>{{ $item->tw_risk_class ?: '-' }}</span>
+                                                </span>
+
+                                            </div>
+                                            </div>
+                                        </td>
+                                       <td style="min-width: 254px; max-width: 80px;">
+                                            <div class="d-flex justify-content-between">
+                                                <span class="titleColumn">Drawings & Designs:</span>
+                                                <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
+                                                        <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-6">
+                                                <span class="titleColumn">Permit to load:</span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-light  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                            </div>
+                                            <div>
+                                            <div class="d-flex justify-content-between">
+                                                <span class="titleColumn">Permit to unload:</span>
+                                                <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
+                                                        <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                            </div>
+                                        </td>
+                                       <!-- <td style="">{{ $item->tw_category }}</td> -->
+                                       <!-- <td style="">{{ $item->tw_risk_class ?: '-' }}</td> -->
+                                       <!-- <td style="min-width:100px;">
                                           <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
-                                       </td>
+                                       </td> -->
                                        <td>
                                           <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
                                              <!-- <span class="fa fa-plus"></span> -->
@@ -1016,10 +1104,9 @@
                                           @endforeach
                                        </td>
                                        <td>
-                                          <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
-                                             <!-- Upload Drawings -->
+                                          <!-- <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size: 18px !important;position: relative;top: 4px;">
                                              <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
-                                          </p>
+                                          </p> -->
                                           <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                              <!-- View Drawings -->
                                              <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
@@ -1329,7 +1416,7 @@
                               <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                                  <!--begin::Table head-->
                                  <thead>
-                                    <!--begin::Table row-->
+
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                        <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                        <th class="" style="max-width:150px;">DESCRIPTION OF TW</th>
@@ -1340,7 +1427,6 @@
                                        <th class="">Permit to Load</th>
                                        <th class="">Permit to Unload</th>
                                     </tr>
-                                    <!--end::Table row-->
                                  </thead>
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
@@ -1513,7 +1599,6 @@
                               <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                                  <!--begin::Table head-->
                                  <thead>
-                                    <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                        <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                        @if(\Auth::user()->hasRole('admin'))
@@ -1527,7 +1612,7 @@
                                        <th class="" style="">DESIGN REQUIRED BY</th>
                                        <th class="">Comments</th>
                                        <th class="">TW DESIGNER & COMPANY</th>
-                                       <!-- <th class="">Appointments</th>  -->
+
                                        <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
                                        <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
                                        <th class="">DRAWINGS & DESIGNS</th>
@@ -1538,7 +1623,7 @@
                                        <th class="">QR CODE</th>
                                        <th>Actions</th>
                                     </tr>
-                                    <!--end::Table row-->
+
                                  </thead>
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
@@ -1557,12 +1642,12 @@
                                           @if(count($item->rejecteddesign)>0)
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
                                           </span>
-                                          <br>
-                                          <br>
+                                          <!-- <br>
+                                          <br> -->
                                           @endif
                                           <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                           </a>
-                                          <br>
+                                          <!-- <br> -->
                                           @if($item->status==2)
                                           <a href="{{route('temporary_works.edit',$item->id)}}">
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">

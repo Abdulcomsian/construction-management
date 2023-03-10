@@ -23,6 +23,10 @@ Route::get('/',function(){
 });
 
 
+
+
+
+
 //open routes========================================================================================================
 //cron job for permit
 Route::get('/cron-permit', [TemporaryWorkController::class, 'cron_permit']);
@@ -70,6 +74,10 @@ Route::get('company-profile/{id}',[HomeController::class,'companyProfile']);
 
 //Authentic routes================================================================================
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('test', [TemporaryWorkController::class, 'testIndex']);
+
+
     //All Resource Controller
     Route::resources([
         //        'roles' => RoleController::class, //Roles and permissions

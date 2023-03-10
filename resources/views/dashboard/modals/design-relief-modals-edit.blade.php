@@ -98,7 +98,7 @@
                                 <li>Chute Support</li>
                                 <li>Loading Bay</li>
                                 <li>Canti Deck</li>
-                                <li>Soil Bases</li>
+                                <li>Soli Bases</li>
                                 <li>Lifting / Handling Devices</li>
                                 <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                             </ul>

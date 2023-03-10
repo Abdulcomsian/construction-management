@@ -218,6 +218,11 @@ height: 72px;
     {
         color:black;
     }
+
+    textarea.select2-search__field::placeholder 
+    {
+        color: rgb(138, 136, 136)!important;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -309,7 +314,7 @@ height: 72px;
                                             @foreach($adminDesigners as $desig)
                                                <optgroup  label="Designer List">
                                                 @if($desig->hasRole(['designer','Design Checker','Designer and Design Checker']))
-                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}}</option>
+                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} | {{$desig->email}}</option>
                                                 @endif
                                                  </optgroup>
                                             @endforeach

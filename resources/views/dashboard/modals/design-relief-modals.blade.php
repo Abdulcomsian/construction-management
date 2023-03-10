@@ -90,7 +90,7 @@
                                 <li>Chute Support</li>
                                 <li>Loading Bay</li>
                                 <li>Canti Deck</li>
-                                <li>Soil Bases</li>
+                                <li>Soli Bases</li>
                                 <li>Lifting / Handling Devices</li>
                                 <li>Mobile Crane platforms</li>
                                 <li>Design outrigger load assessment on existing highway road / street</li>

@@ -893,6 +893,7 @@
                                           <br>
                                           <br>
                                           @endif
+                                         
                                           <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                           </a>
                                           <br>
@@ -1349,6 +1350,7 @@
                                     <tr>
                                        <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           @if(count($item->rejecteddesign)>0)
+                           
                                           <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
                                           </span>
                                           <br>

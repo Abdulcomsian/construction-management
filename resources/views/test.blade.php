@@ -847,7 +847,7 @@
                         </div>
                      </div>
                          
-                </div>
+                  </div>
                 <div class="row">
                      <div style="float:left;width:100%;position:relative;top:-5px;">
                         <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">

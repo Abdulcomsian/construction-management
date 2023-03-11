@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
     Route::get('file-upload-date', [TemporaryWorkController::class, 'file_upload_dates'])->name('temporarywork.file-upload-dates');
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');
+    Route::get('/test-list' , [TemporaryWorkController::class , 'testIndexHere']);
 
     //maunuall desing breif form 
      Route::get('manuall-designbrief-form', [TemporaryWorkController::class, 'create1'])->name('Designbrief.form');
@@ -239,7 +240,8 @@ Route::group(['middleware' => ['auth']], function () {
 //designer routes
 Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //designer user crud routes
-     Route::get('/designer',[DesignerController::class,'desginerView']);
+    //  Route::get('/designer',[DesignerController::class,'desginerView']);
+     Route::get('/designer',[DesignerController::class,'testDesigner']);
      Route::get('/list',[DesignerController::class,'List'])->name('designer.list');
      Route::get('/create',[DesignerController::class,'Create'])->name('designer.create');
      Route::post('/save',[DesignerController::class,'Save'])->name('designer.save');
@@ -262,6 +264,9 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
      //
      Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
+
+     //test designer route starts here
+     Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
 
 });
 

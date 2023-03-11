@@ -28,6 +28,10 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(TempWorkUploadFiles::class)->whereIn('file_type',[5,6]);
     }
+    public function commentlist()
+    {
+        return $this->hasMany(TemporaryWorkComment::class);
+    }
     public function comments()
     {
         return $this->hasMany(TemporaryWorkComment::class)->where('type','normal');

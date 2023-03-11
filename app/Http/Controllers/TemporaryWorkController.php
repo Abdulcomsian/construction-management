@@ -48,6 +48,7 @@ class TemporaryWorkController extends Controller
 {
     public function testIndex()
     {
+
         if(auth::user()->hasRole('estimator'))
         {
             return redirect('Estimator/estimator');
@@ -186,6 +187,80 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+    public function testIndexHere()
+    {
+        if(auth::user()->hasRole('estimator'))
+        {
+            return redirect('Estimator/estimator');
+        }
+        if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']))
+        {
+            return redirect('designer/designer');
+        }
+        $user = User::with('userCompany')->find(Auth::user()->id);
+        $status=[0,1,2,3];
+        if(isset($_GET['status']))
+        {
+            if($_GET['status']=="pending")
+            {
+                $status=[1];
+            }
+            if($_GET['status']=="completed")
+            {
+                $status=[3];
+            }
+        }
+        try {
+            if ($user->hasRole('admin')) {
+                $temporary_works = TemporaryWork::with( 'designer' , 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+                $nominations=[];
+                $users=[];
+                // dd($temporary_works);
+            } elseif ($user->hasRole('company')) {
+                $users = User::select(['id','name'])->where('company_id', $user->id)->get();
+                $ids = [];
+                foreach ($users as $u) {
+                    $ids[] = $u->id;
+                }
+                $ids[] = $user->id;
+                $temporary_works = TemporaryWork::with( 'designer' , 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                $projects = Project::with('company')->where('company_id', $user->id)->get();
+                $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
+               
+            } else {
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+                $temporary_works = TemporaryWork::with( 'designer' , 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                    $q->whereIn('project_id', $ids);
+                })->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                $projects = Project::with('company')->whereIn('id', $ids)->get();
+                $nominations=[];
+                $users=[];
+                if($user->hasRole('user'))
+                {
+                    $users = User::select(['id','name'])->where('company_id', $user->userCompany->id)->get();
+                    $ids = [];
+                    foreach ($users as $u) {
+                        $ids[] = $u->id;
+                    }
+                     $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
+                }
+            }
+            // dd($temporary_works);
+            //work for datatable
+            $scantempwork = '';
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork','nominations','users'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
     //All shared tempory work
     public function shared_temporarywork()
     {

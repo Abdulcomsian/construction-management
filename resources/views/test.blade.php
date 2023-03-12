@@ -302,6 +302,11 @@
     font-size: 13px;
     margin-left: 21px;
    }
+
+   .btn.btn-danger i{
+      color: #9D9D9D;
+
+   }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -1179,17 +1184,52 @@
                                             <div class="d-flex  my-6">
                                                 <span class="titleColumn">RAMS:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 47px;">
-                                                <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
-                                                    @php $i=0;@endphp
-                                                    @foreach($item->uploadfile as $file)
-                                                    @if($file->file_type==3)
-                                                    @php $i++ @endphp
-                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
-                                                    @endif
-                                                    @endforeach
+                                                   <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                      <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
+                                                      @php $i=0;@endphp
+                                                      @foreach($item->uploadfile as $file)
+                                                      @if($file->file_type==3)
+                                                      @php $i++ @endphp
+                                                      <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
+                                                      @endif
+                                                      @endforeach
+                                                   </div>
                                                 </div>
                                             </div>
+                                            <div class="d-flex ">
+                                                <span class="titleColumn">RAMS:</span>
+                                               <ul class="" style="display: flex;list-style: none; padding-left: 40px; margin-bottom: 0">
+                                                   <!-- <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole('admin'))
+                                                      <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1" ><i class="fa fa-arrow-right"></i></a>
+                                                      @endif
+                                                   </li> -->
+                                                   <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                      <span class="btn p-0 m-1 changeemail" style="border-radius: 21%;" title="Change Email" data-id={{Crypt::encrypt($item->id)}} >
+                                                        <i style="padding:3px;" class="fa fa-exchange-alt" ></i>
+                                                      </span>
+                                                      @endif
+                                                   </li>
+                                                   <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                      <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
+                                                         @method('Delete')
+                                                         @csrf
+                                                         <button type="submit" id="{{$item->id}}" class="confirm1 btn p-0 m-1 " >
+                                                         <i style="padding:3px;" class="fa fa-trash-alt"></i>
+                                                         </button>
+                                                      </form>
+                                                      @endif
+                                                   </li>
+                                                   <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                      <a href="javascript:void(0)" class="btn  p-0 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
+                                                      <i style="padding:3px;" class="fa fa-share-alt"></i>
+                                                      </a>
+                                                      @endif
+                                                   </li>
+                                                </ul>
                                             </div>
                                             <div>
                                             </div>

@@ -106,7 +106,7 @@
     font-weight: 700;
    }
    .card>.card-body {
-   padding: 32px;
+      padding: 32px;
    }
    table {
    margin-top: 20px;
@@ -301,6 +301,7 @@
     font-weight: 500;
     font-size: 13px;
     margin-left: 21px;
+    font-family: 'Inter', sans-serif;
    }
 
    .btn.btn-danger i{
@@ -504,7 +505,7 @@
                </div>
                <!--end::Card header-->
                <!--begin::Card body-->
-               <div class="card-body indexTempory pt-0">
+               <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">
                   <div class="my-4" style="background: white;padding: 10px 22px;">
                      <div class="row align-items-center" style="justify-content: flex-start;">
                         <div class="col-md-6">
@@ -908,8 +909,8 @@
                                           <!-- <br>
                                           <br> -->
                                           @endif
-                                          <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                          </a>
+                                          <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                          </a> -->
                                           <!-- <br> -->
                                           @if($item->status==2)
                                           <a href="{{route('temporary_works.edit',$item->id)}}">
@@ -921,14 +922,18 @@
                                           @endif
                                        </td>
                                        <td>
-                                          @php
-                                          $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
-                                          @endphp
-                                          @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
-                                          <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
-                                          <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="60px" height="60px">
-                                          </a>
-                                          @endif
+                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
+                                             @php
+                                             $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
+                                             @endphp
+                                             @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
+                                             <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
+                                             <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="60px" height="60px">
+                                             </a>
+                                             @endif
+                                             <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                             </a>
+                                          </div>
                                        </td>
                                        <!-- @if(\Auth::user()->hasRole('admin'))
                                             <td>
@@ -936,9 +941,9 @@
                                             </td>
                                        @endif -->
                                        <td>
-                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Poppins'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
-                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Poppins';">Equipment and Plant:</p>
-                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">{{$item->design_requirement_text ?? ''}}</p>
+                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
+                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
+                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
                                         </td>
                                        <td style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
                                           
@@ -974,11 +979,11 @@
                                        <td style="min-width: 220px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Issue Date:</span>
-                                                <span style="width: 96px; text-align:center">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
+                                                <span style="width: 72px; text-align:center; margin-right: 21px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-light  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;margin-right: 21px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: end"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between"">
@@ -988,7 +993,7 @@
                                                 </span>
                                                 <span>
                                                     <span class="titleColumn">Risk Class:</span>
-                                                    <span>{{ $item->tw_risk_class ?: '-' }}</span>
+                                                    <span style="margin-right: 11px">{{ $item->tw_risk_class ?: '-' }} </span>
                                                 </span>
 
                                             </div>
@@ -997,18 +1002,18 @@
                                        <td style="min-width: 254px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Drawings & Designs:</span>
-                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5">
+                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5;margin-right: 12px;">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;margin-right: 12px;">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; margin-right: 12px;">
                                                         <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
                                                             <!-- View Drawings -->
                                                             @php
@@ -1026,11 +1031,11 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 1.5rem;">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
-                                                    <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px">
+                                                    <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px;">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                                         @endif
@@ -1090,7 +1095,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                            <div class="d-flex" style="justify-content: space-between">
+                                            <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
                                                 <span class="titleColumn">Permit to unload:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
@@ -1103,9 +1108,9 @@
                                             </div>
                                         </td>
                                        <td style="min-width: 254px; max-width: 80px;">
-                                            <div class="d-flex justify-content-between">
+                                            <div class="d-flex">
                                                 <span class="titleColumn">Design Check CERT:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
+                                                <div style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 13px;">
                                                     @php $dccstyle='';@endphp
                                                     @foreach($item->uploadfile as $file)
                                                     @if($file->file_type==2)
@@ -1122,54 +1127,54 @@
                                                     @endforeach
                                                 </div>
                                             </div>
-                                            <div class="d-flex justify-content-between my-6">
+                                            <div class="d-flex my-6">
                                                 <span class="titleColumn">Date DCC Returned:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:15px">
                                                     
-                                                @php
-                                          $date='';
-                                          $dcolor='';
-                                          $drawingscount=0;
-                                          @endphp
-                                          @foreach($item->uploadfile as $file)
-                                          @php
-                                          if($file->file_type==1 && $file->construction==1)
-                                          {
-                                          $dcolor='green';
-                                          $drawingscount=1;
-                                          $date=$file->created_at->todatestring();
-                                          }
-                                          elseif($file->file_type==1 && $file->preliminary_approval==1)
-                                          {
-                                          $dcolor='orange';
-                                          $date=$file->created_at->todatestring();
-                                          }
-                                          @endphp
-                                          @endforeach
-                                          @if($date)
+                                                         @php
+                                                   $date='';
+                                                   $dcolor='';
+                                                   $drawingscount=0;
+                                                   @endphp
+                                                   @foreach($item->uploadfile as $file)
+                                                   @php
+                                                   if($file->file_type==1 && $file->construction==1)
+                                                   {
+                                                   $dcolor='green';
+                                                   $drawingscount=1;
+                                                   $date=$file->created_at->todatestring();
+                                                   }
+                                                   elseif($file->file_type==1 && $file->preliminary_approval==1)
+                                                   {
+                                                   $dcolor='orange';
+                                                   $date=$file->created_at->todatestring();
+                                                   }
+                                                   @endphp
+                                                   @endforeach
+                                                   @if($date)
 
-                                          <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
-                                          </p>
-                                          @endif
-                                                </div>
-                                            </div>
-                                            <div>
-                                            <div class="d-flex" style="justify-content: space-between">
-                                                <span class="titleColumn">Date Design Returned:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                                                            @foreach($item->uploadfile as $file)
-                                                    @if($file->file_type==2)
-                                                    <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
-                                                    @break
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                
+                                                   <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                                   </p>
+                                                   @endif
+                                                         </div>
+                                                   </div>
+                                                   <div>
+                                                   <div class="d-flex" style="">
+                                                         <span class="titleColumn">Date Design Returned:</span>
+                                                         <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; ">
+                                                                     @foreach($item->uploadfile as $file)
+                                                            @if($file->file_type==2)
+                                                            <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
+                                                            @break
+                                                            @endif
+                                                            @endforeach
+                                                         </div>
+                                                         
 
-                                            </div>
-                                            </div>
+                                                   </div>
+                                                   </div>
                                         </td>
-                                       <td style="min-width: 254px; max-width: 80px;">
+                                       <td style="">
                                             <div class="d-flex ">
                                                 <span class="titleColumn">Designer:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">

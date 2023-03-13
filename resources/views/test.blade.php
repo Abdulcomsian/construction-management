@@ -1550,7 +1550,7 @@
                                  <tbody class="text-gray-600 fw-bold">
                                     @forelse($temporary_works as $item)
                                     <tr>
-                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
+                                       <td style="min-width:150px;padding-left: 10px !important;padding-right: 10px !important;">
                                           <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                           <hr style="margin: 5px;;color:red;border:1px solid red">
                                           <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
@@ -1701,7 +1701,7 @@
                                           </a>
                                           @endif
                                        </td>
-                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
+                                       <td style="min-width:150px;padding-left: 10px !important;padding-right: 10px !important;">
                                           <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                           <hr style="margin: 5px;;color:red;border:1px solid red">
                                           <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>

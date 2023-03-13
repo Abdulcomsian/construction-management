@@ -947,12 +947,8 @@
                                         </td>
                                        <td style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
                                           
-                                            <div class="commentSection" style="background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;">
-                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important;" data-id="{{$item->id}}">
-                                                        <!-- <span class="fa fa-plus"></span> -->
-                                                         Comment
-                                                    </p>
-                                                    @php
+                                            <div class="commentSection" style="">
+                                            @php
                                                     $drawingscount=0;
                                                     $color="green";
                                                     $class='';
@@ -967,11 +963,17 @@
                                                     }
                                                     }
                                                     @endphp
-                                                    <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
+                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;" data-id="{{$item->id}}">
+                                                        <!-- <span class="fa fa-plus"></span> -->
+                                                         Comment
+                                                         <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
                                                     <span class="{{$class}} label label-lg font-weight-bold label-inline">
                                                     {{count($item->comments) ?? '-'}}
                                                     </span>
                                                     </span>
+                                                    </p>
+                                                   
+                                                    
                                             </div>
                                                 <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                                                 </span>

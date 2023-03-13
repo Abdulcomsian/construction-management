@@ -889,7 +889,7 @@
                                  </thead> -->
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
-                                 <tbody class="text-gray-600 fw-bold">
+                                 <tbody class="text-gray-600 fw-bold taable">
                                  
                                     @forelse($temporary_works as $item)
                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
@@ -913,7 +913,7 @@
                                              @endphp
                                              @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
                                              <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
-                                             <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="60px" height="60px">
+                                             <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="80px" height="80px">
                                              </a>
                                              @endif
                                              <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; white-space: nowrap" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
@@ -1039,7 +1039,7 @@
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 28px;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
                                                     <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px;">
@@ -1193,7 +1193,7 @@
                                                 @endif
                                                 </div>
                                             </div>
-                                            <div class="d-flex  my-6">
+                                            <div class="d-flex  my-4">
                                                 <span class="titleColumn">RAMS:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 47px;">
                                                    <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
@@ -1210,12 +1210,12 @@
                                             </div>
                                             <div class="d-flex ">
                                                 <span class="titleColumn">RAMS:</span>
-                                               <ul class="" style="display: flex;list-style: none; padding-left: 40px; margin-bottom: 0">
-                                                   <!-- <li class="navi-item">
+                                               <ul class="" style="display: flex;list-style: none; padding-left: 40px; margin-bottom: 0;position: relative;bottom: 7px;">
+                                                   <li class="navi-item">
                                                       @if(\Auth::user()->hasRole('admin'))
-                                                      <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn btn-primary p-2 m-1" ><i class="fa fa-arrow-right"></i></a>
+                                                      <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn p-0 m-1" ><i class="fa fa-arrow-right"></i></a>
                                                       @endif
-                                                   </li> -->
+                                                   </li>
                                                    <li class="navi-item">
                                                       @if(\Auth::user()->hasRole([['admin', 'company','user']]))
                                                       <span class="btn p-0 m-1 changeemail" style="border-radius: 21%;" title="Change Email" data-id={{Crypt::encrypt($item->id)}} >

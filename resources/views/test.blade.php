@@ -6,7 +6,7 @@
     #kt_content_container .card-header .topRightMenu {
         position: absolute;
         right: 15px;
-        top: 15px;
+        top: 10px;
     }
     #kt_aside:hover{
        width: 265px;
@@ -324,6 +324,7 @@
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
+                     <a href="{{route('dashboard')}}" style="position:absolute; left: 40px; top: 23px">Back to Home</a>
                      <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Works Registers
                         <span class="d-block text-muted pt-25 font-size-sm"></span>
                      </h3>
@@ -340,9 +341,9 @@
                        
                         @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item dropdown notification-ui me-2"> 
+                                <li class="nav-item dropdown notification-ui me-2" style="margin-top: 6px"> 
                                     <a class="nav-link dropdown-toggle notification-ui_icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                        <i class="fa fa-bell {{count($notifications) > 0 ? 'redBgBlink' :'' }}"></i> 
+                                        <i class="fa fa-bell {{count($notifications) > 0 ? 'redBgBlink' :'' }}" style="font-size:21px"></i> 
                                         <span class="badge unread-notification">{{count($notifications)}}</span> 
                                     </a>
                                     <div class="dropdown-menu notification-ui_dd" aria-labelledby="navbarDropdown">
@@ -588,7 +589,7 @@
                             </div>
                             <!--begin::Dropdown-->
                             <div class="dropdown pull-right dropdown-inline mr-2 mt-0 " style="border-radius:5px;">
-                               <button type="button" class="btn  font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px; overflow: hidden; color: #07D564; background-color: #07D5641A">
+                               <button type="button" class="btn  font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px; overflow: hidden; color: #07D564; background-color: #00d4602b;">
                                   <!-- <span class="svg-icon svg-icon-md">
                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

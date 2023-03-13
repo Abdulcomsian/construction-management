@@ -631,7 +631,7 @@
                             <!--end::Dropdown-->
                              <!--begin::Dropdown-->
                              <div class="dropdown pull-right dropdown-inline mr-2 mt-0 " style="border-radius:5px;">
-                               <button type="button" class="btn  font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px; overflow: hidden; color: #07D564; background-color: #07D5641A; border: 1px solid #07D564; margin-right: 13px">
+                               <button type="button" class="btn  font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px; overflow: hidden; color: #07D564; background-color: #fff; border: 1px solid #07D564; margin-right: 13px">
                                   <!-- <span class="svg-icon svg-icon-md">
                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

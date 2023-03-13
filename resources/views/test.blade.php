@@ -302,6 +302,7 @@
     font-size: 13px;
     margin-left: 21px;
     font-family: 'Inter', sans-serif;
+    white-space: nowrap;
    }
 
    .btn.btn-danger i{
@@ -892,7 +893,7 @@
                                  
                                     @forelse($temporary_works as $item)
                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
-                                       <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+                                       <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important;">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
                                                 <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
@@ -903,26 +904,10 @@
                                          @endif
                                           <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span>
                                           <!-- <br> -->
-                                          @if(count($item->rejecteddesign)>0)
-                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
-                                          </span>
-                                          <!-- <br>
-                                          <br> -->
-                                          @endif
-                                          <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                          </a> -->
-                                          <!-- <br> -->
-                                          @if($item->status==2)
-                                          <a href="{{route('temporary_works.edit',$item->id)}}">
-                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
-                                          </span>
-                                          </span>
-                                          </a>
-                                          @endif
+                                          
                                        </td>
                                        <td>
-                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
+                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center">
                                              @php
                                              $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                              @endphp
@@ -931,8 +916,28 @@
                                              <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="60px" height="60px">
                                              </a>
                                              @endif
-                                             <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                             <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; white-space: nowrap" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                              </a>
+
+                                             <div>
+                                                @if(count($item->rejecteddesign)>0)
+                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
+                                                                                          </span>
+                                                                                          <!-- <br>
+                                                                                          <br> -->
+                                                                                          @endif
+                                                                                          <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                                          </a> -->
+                                                                                          <!-- <br> -->
+                                                                                          @if($item->status==2)
+                                                                                          <a href="{{route('temporary_works.edit',$item->id)}}">
+                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
+                                                                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
+                                                                                          </span>
+                                                                                          </span>
+                                                                                          </a>
+                                                                                          @endif
+                                             </div>
                                           </div>
                                        </td>
                                        <!-- @if(\Auth::user()->hasRole('admin'))
@@ -940,7 +945,7 @@
                                                 <p>{{ $item->company ?: '-' }}</p>
                                             </td>
                                        @endif -->
-                                       <td>
+                                       <td style="width: 191px;">
                                             <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
@@ -963,7 +968,7 @@
                                                     }
                                                     }
                                                     @endphp
-                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;" data-id="{{$item->id}}">
+                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
                                                         <!-- <span class="fa fa-plus"></span> -->
                                                          Comment
                                                          <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
@@ -981,11 +986,11 @@
                                        <td style="min-width: 220px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Issue Date:</span>
-                                                <span style="width: 72px; text-align:center; margin-right: 21px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
+                                                <span style="width: 125px; text-align:end; margin-right: 21px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;margin-right: 21px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: end"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;margin-right: 16px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between"">
@@ -1033,7 +1038,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 1.5rem;">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 28px;">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
@@ -1099,7 +1104,7 @@
                                             <div>
                                             <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
                                                 <span class="titleColumn">Permit to unload:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
                                                     <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>

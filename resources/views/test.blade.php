@@ -678,7 +678,7 @@
                   <!-- </div> -->
                   <!--begin::Table-->
                   <div class="row " style="padding:10px;position:relative;">
-                    <div class="col-md-4 my-2 my-md-0 ">
+                    <div class="col-md-4 my-2 my-md-0 " style="padding-left:0">
                         <nav class="tabnave" style="width: 100%;float:left">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                            <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>

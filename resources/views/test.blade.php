@@ -990,7 +990,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;margin-right: 16px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 16px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between"">
@@ -1042,7 +1042,7 @@
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
-                                                    <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px;">
+                                                    <div style="padding: 4px; border-radius: 4px; margin-left:3px;">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                                         @endif
@@ -1082,9 +1082,9 @@
                                                             <span class="text-danger redBgBlink" style="">DNL</span><br>
                                                     
                                                             @endif
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                                            <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                                            <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:black">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                                             </span>
                                                     
                                                         @else
@@ -1185,7 +1185,7 @@
                                             <div class="d-flex ">
                                                 <span class="titleColumn">Designer:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                <span class="designer-company cursor-pointer" style="width: 108px;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-light-success label-inline">View</span>
+                                                <span class="designer-company cursor-pointer" style="display: inline-block;width: 100%;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-inline" style="background-color:#02B654; color: white; border-radius: 4px;display: inline-block;width: 100%; text-align: center">View</span>
                                                 </span>
                                                 <!-- {{$item->tw_name ?: '-'}} -->
                                                 @if(!$item->tw_name)

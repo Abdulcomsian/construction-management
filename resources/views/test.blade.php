@@ -961,7 +961,8 @@
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
                                         </td>
-                                       <td style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
+                                        <!-- display: flex; flex-direction: column; justify-content: space-around -->
+                                       <td style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; ">
                                           
                                             <div class="commentSection" style="margin:auto 20px !important;">
                                             @php

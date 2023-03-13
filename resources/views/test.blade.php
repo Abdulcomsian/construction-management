@@ -918,7 +918,7 @@
                                           
                                        </td>
                                        <td>
-                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
+                                          <div style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
                                              @php
                                              $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                              @endphp
@@ -961,9 +961,9 @@
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
                                         </td>
-                                       <td style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
+                                       <td style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
                                           
-                                            <div class="commentSection" style="">
+                                            <div class="commentSection" style="margin:auto 20px !important;">
                                             @php
                                                     $drawingscount=0;
                                                     $color="green";
@@ -979,7 +979,7 @@
                                                     }
                                                     }
                                                     @endphp
-                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
+                                                <p class="addcomment cursor-pointer" style="margin-bottom:12px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
                                                         <!-- <span class="fa fa-plus"></span> -->
                                                          Comment
                                                          <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
@@ -991,7 +991,7 @@
                                                    
                                                     
                                             </div>
-                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
+                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 120px; margin:auto 12px;text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                                                 </span>
                                        </td>
                                        <td style="min-width: 220px; max-width: 80px;">

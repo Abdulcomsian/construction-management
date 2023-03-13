@@ -98,6 +98,9 @@
    .nav-tabs{
     /* border-bottom: 1px solid gray !important; */
    }
+   .nav-tabs .nav-link{
+      color: #9D9D9D !important;
+   }
    .nav-tabs .nav-link.active{
     border-radius: 0px !important;
     border: 0;
@@ -309,6 +312,7 @@
       color: #9D9D9D;
 
    }
+   
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />

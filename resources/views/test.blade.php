@@ -1043,7 +1043,7 @@
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
-                                                    <div style="padding: 4px; border-radius: 4px; margin-left:3px; display: flex; flex-direction: column; align-item: center;">
+                                                    <div style="padding: 4px; border-radius: 4px; margin-left:3px; display: flex; flex-direction: column; align-item: center; justify-content:center; max-width: 65px;">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                                         @endif
@@ -1062,7 +1062,7 @@
                                                         }
                                                         @endphp
                                                         <br>
-                                                        <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
+                                                        <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;align-self:center" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                                         </button>
                                                         <br>
                                                         @endif

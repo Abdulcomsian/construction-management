@@ -890,7 +890,7 @@
                                     </tr>
                                  </thead> -->
                                  <!--end::Table head-->
-                                 <!--begin::Table body-->
+                                 <!--begin::Table body `12-->
                                  <tbody class="text-gray-600 fw-bold taable">
                                  
                                     @forelse($temporary_works as $item)

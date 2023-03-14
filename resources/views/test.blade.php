@@ -1,4 +1,3 @@
-
 @extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
@@ -116,7 +115,6 @@
    }
    #kt_wrapper{
        padding: 0px !important;
-
    }
    .card-header{
        display: block !important;
@@ -291,14 +289,11 @@
    }
    .active {
    background: transparent !important;
-
    /* color:white !important; */
    }
-
    .rowcolor{
     background: #D5D8DC !important;
    }
-
    .titleColumn{
     color: #9D9D9D;
     font-weight: 500;
@@ -307,10 +302,8 @@
     font-family: 'Inter', sans-serif;
     white-space: nowrap;
    }
-
    .btn.btn-danger i{
       color: #9D9D9D;
-
    }
    .document-nav{
       padding: 12px;
@@ -863,7 +856,7 @@
                         </div>
                      </div> -->
                          
-                  </div>
+                </div>
                 <div class="row">
                      <div style="float:left;width:100%;position:relative;top:-5px;">
                         <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">
@@ -872,7 +865,6 @@
                               <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                                  <!--begin::Table head-->
                                  <!-- <thead>
-
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                        <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                        @if(\Auth::user()->hasRole('admin'))
@@ -896,15 +888,13 @@
                                        <th class="">QR CODE</th>
                                        <th>Actions</th>
                                     </tr>
-
                                  </thead> -->
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
                                  <tbody class="text-gray-600 fw-bold taable">
                                  
                                     @forelse($temporary_works as $item)
-                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '':''}}">
-                                    <!-- 370px -->
+                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
                                        <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
@@ -919,7 +909,7 @@
                                           
                                        </td>
                                        <td>
-                                          <div style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
+                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
                                              @php
                                              $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                              @endphp
@@ -962,10 +952,9 @@
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
                                         </td>
-                                        <!-- display: flex; flex-direction: column; justify-content: space-around -->
-                                       <td style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; ">
+                                       <td style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
                                           
-                                            <div class="commentSection" style="margin:auto 20px !important;">
+                                            <div class="commentSection" style="">
                                             @php
                                                     $drawingscount=0;
                                                     $color="green";
@@ -981,7 +970,7 @@
                                                     }
                                                     }
                                                     @endphp
-                                                <p class="addcomment cursor-pointer" style="margin-bottom:12px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; margin-bottom:10px !important;background: #3A7DFF26; border-radius: 7px; padding: 4px 8px; color: #3A7DFF; padding: 4px 8px !important;word-break: keep-all;" data-id="{{$item->id}}">
+                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
                                                         <!-- <span class="fa fa-plus"></span> -->
                                                          Comment
                                                          <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
@@ -993,7 +982,7 @@
                                                    
                                                     
                                             </div>
-                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 120px; margin:auto 12px;text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
+                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                                                 </span>
                                        </td>
                                        <td style="min-width: 220px; max-width: 80px;">
@@ -1015,7 +1004,6 @@
                                                     <span class="titleColumn">Risk Class:</span>
                                                     <span style="margin-right: 11px">{{ $item->tw_risk_class ?: '-' }} </span>
                                                 </span>
-
                                             </div>
                                             </div>
                                         </td>
@@ -1123,7 +1111,6 @@
                                                     </div>
                                                 </div>
                                                 
-
                                             </div>
                                             </div>
                                         </td>
@@ -1172,7 +1159,6 @@
                                                    @endphp
                                                    @endforeach
                                                    @if($date)
-
                                                    <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                                    </p>
                                                    @endif
@@ -1190,7 +1176,6 @@
                                                             @endforeach
                                                          </div>
                                                          
-
                                                    </div>
                                                    </div>
                                         </td>
@@ -1266,7 +1251,6 @@
                                        </td> -->
                                        <!-- <td>
                                           <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
-
                                              <br> Comment
                                           </p>
                                           @php
@@ -1291,7 +1275,6 @@
                                           </span>
                                           <hr style="color:red;border:1px solid red; margin: 2px;">
                                           <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
-
                                              <br> Emails
                                           </h3>
                                           @php $i=0;@endphp
@@ -1342,7 +1325,6 @@
                                           @endphp
                                           @endforeach
                                           @if($date)
-
                                           <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                           </p>
                                           @endif
@@ -1361,11 +1343,9 @@
                                              <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                           </p> -->
                                           <!-- <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-
                                              <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-
                                              @php 
                                              $color="";
                                              if(count($item->riskassesment)>0)
@@ -1487,7 +1467,6 @@
                                                 </g>
                                              </svg>
                                           </span>
-
                                           <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right " style="text-align: center;">
                                              <ul class="navi flex-column navi-hover py-2" style="list-style: none">
                                                 <li class="navi-item">
@@ -1522,9 +1501,7 @@
                                                 </li>
                                                  
                                              </ul>
-
                                           </div>
-
                                        </td> -->
                                     </tr>
                                     @empty
@@ -1552,7 +1529,7 @@
                                  <tbody class="text-gray-600 fw-bold">
                                     @forelse($temporary_works as $item)
                                     <tr>
-                                       <td style="min-width:150px;padding-left: 10px !important;padding-right: 10px !important;">
+                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
                                           <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                           <hr style="margin: 5px;;color:red;border:1px solid red">
                                           <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
@@ -1703,7 +1680,7 @@
                                           </a>
                                           @endif
                                        </td>
-                                       <td style="min-width:150px;padding-left: 10px !important;padding-right: 10px !important;">
+                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
                                           <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                           <hr style="margin: 5px;;color:red;border:1px solid red">
                                           <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
@@ -1721,7 +1698,6 @@
                                           {
                                           $dcolor='green';
                                            $drawingscount=1;
-
                                           $date=$file->created_at->todatestring();
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
@@ -2492,7 +2468,6 @@
                $("#nominations-documents").hide()
                $("#Appointment-documents").show();
                $("#project_document_modal_id").modal('show');
-
        }else
        {
         $("#nominations-documents").hide();
@@ -2503,7 +2478,6 @@
            data: {},
            success: function(res) {
                $(".project_doc_form").hide();
-
                $("#project-documents").html(res);
                $("#project-documents").show();
                $("#project_document_modal_id").modal('show');
@@ -2904,7 +2878,6 @@
          
       }
    })
-
    //change email click event
    $(".changeemail").on('click',function(){
       var id=$(this).attr('data-id');

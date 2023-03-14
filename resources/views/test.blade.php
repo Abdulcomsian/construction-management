@@ -894,7 +894,7 @@
                                  <tbody class="text-gray-600 fw-bold taable">
                                  
                                     @forelse($temporary_works as $item)
-                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
+                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '100px':''}}">
                                        <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)

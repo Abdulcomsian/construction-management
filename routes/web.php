@@ -240,8 +240,8 @@ Route::group(['middleware' => ['auth']], function () {
 //designer routes
 Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //designer user crud routes
-    //  Route::get('/designer',[DesignerController::class,'desginerView']);
-     Route::get('/designer',[DesignerController::class,'testDesigner']);
+     Route::get('/designer',[DesignerController::class,'desginerView']);
+    //  Route::get('/designer',[DesignerController::class,'testDesigner']);
      Route::get('/list',[DesignerController::class,'List'])->name('designer.list');
      Route::get('/create',[DesignerController::class,'Create'])->name('designer.create');
      Route::post('/save',[DesignerController::class,'Save'])->name('designer.save');
@@ -263,8 +263,8 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::post('change-emails',[DesignerController::class,'change_email'])->name('change-email');
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
      //
-     Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
-
+    //  Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
+    Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
 

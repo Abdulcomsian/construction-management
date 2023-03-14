@@ -1053,6 +1053,9 @@
                       <td style="min-width: 254px; max-width: 80px;">
                            {{$item->project->company ? $item->project->company->name : '--'}}
                        </td>
+                      <td style="min-width: 254px; max-width: 80px;">
+                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$item->designer->email)}}" target="_blank"><i class="fa fa-eye"></i></a>
+                      </td>
                       
                    </tr>
                    @empty

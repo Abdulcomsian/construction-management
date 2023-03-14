@@ -948,7 +948,7 @@
                                             </td>
                                        @endif -->
                                        <td style="width: 191px;">
-                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
+                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
                                         </td>
@@ -992,7 +992,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 16px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between"">
@@ -1000,7 +1000,7 @@
                                                     <span class="titleColumn">CAT Check:</span>
                                                     <span>{{ $item->tw_category }}</span>
                                                 </span>
-                                                <span>
+                                                <span style="">
                                                     <span class="titleColumn">Risk Class:</span>
                                                     <span style="margin-right: 11px">{{ $item->tw_risk_class ?: '-' }} </span>
                                                 </span>
@@ -1010,18 +1010,18 @@
                                        <td style="min-width: 254px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Drawings & Designs:</span>
-                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5;margin-right: 12px;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;margin-right: 12px;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; margin-right: 12px;">
+                                                    <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;">
                                                         <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
                                                             <!-- View Drawings -->
                                                             @php
@@ -1031,7 +1031,7 @@
                                                                 $color="green";
                                                             }
                                                             @endphp
-                                                            <span style="font-size: 18px; color:{{$color}}" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                                            <span style="font-size: 13px; color:{{$color}};vertical-align: middle;" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
                                                         </p>
                                                     </div>
                                                     
@@ -1039,9 +1039,9 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 28px;">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 7px;">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
-                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
                                                     <div style="padding: 4px; border-radius: 4px; margin-left:3px; display: flex; flex-direction: column; align-item: center; justify-content:center; max-width: 65px;">
                                                                 @if($drawingscount)
@@ -1090,7 +1090,7 @@
                                                     
                                                         @else
                                                         <span style="width: 108px;">
-                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 0.2rem 0.35rem; color: white;">
+                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 2px 4px; color: white; background: #0000ffa3;">
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
                                                             Closed
                                                             @else
@@ -1105,9 +1105,9 @@
                                             <div>
                                             <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
                                                 <span class="titleColumn">Permit to unload:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px; padding-left: 19px">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
                                                 </div>
                                                 
@@ -1207,7 +1207,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex ">
-                                                <span class="titleColumn">RAMS:</span>
+                                                <span class="titleColumn" style="visibility: hidden">RAMS:</span>
                                                <ul class="" style="display: flex;list-style: none; padding-left: 40px; margin-bottom: 0;position: relative;bottom: 7px;">
                                                    <li class="navi-item">
                                                       @if(\Auth::user()->hasRole('admin'))

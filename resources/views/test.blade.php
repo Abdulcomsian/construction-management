@@ -1,4 +1,3 @@
-
 @extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
@@ -6,7 +5,7 @@
     #kt_content_container .card-header .topRightMenu {
         position: absolute;
         right: 15px;
-        top: 15px;
+        top: 10px;
     }
     #kt_aside:hover{
        width: 265px;
@@ -95,18 +94,27 @@
    .newDesignBtn:hover {
    color: rgba(222, 13, 13, 0.66);
    }
+   .nav-tabs{
+    /* border-bottom: 1px solid gray !important; */
+   }
+   .nav-tabs .nav-link{
+      color: #9D9D9D !important;
+   }
    .nav-tabs .nav-link.active{
-      border-radius: 0px !important;
+    border-radius: 0px !important;
+    border: 0;
+    border-bottom: 2px solid #07D564;
+    color: #07D564;
+    font-weight: 700;
    }
    .card>.card-body {
-   padding: 32px;
+      padding: 32px;
    }
    table {
    margin-top: 20px;
    }
    #kt_wrapper{
        padding: 0px !important;
-
    }
    .card-header{
        display: block !important;
@@ -280,19 +288,37 @@
    top: initial !important
    }
    .active {
-   background: #3699FF !important;
-   color:white !important;
+   background: transparent !important;
+   /* color:white !important; */
    }
-
    .rowcolor{
     background: #D5D8DC !important;
    }
-
    .titleColumn{
     color: #9D9D9D;
     font-weight: 500;
     font-size: 13px;
     margin-left: 21px;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+   }
+   .btn.btn-danger i{
+      color: #9D9D9D;
+   }
+   .document-nav{
+      padding: 12px;
+   }
+   .document-nav .navi-item{
+      list-style: none;
+   }
+   #ptl{
+      max-width: 88px;
+   }
+
+   @media screen and (min-width: 1460px){
+      #ptl, #ptu{
+         max-width: 95px !important;
+      }
    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
@@ -309,6 +335,7 @@
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
+                     <a href="{{route('dashboard')}}" style="position:absolute; left: 40px; top: 23px">Back to Home</a>
                      <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Works Registers
                         <span class="d-block text-muted pt-25 font-size-sm"></span>
                      </h3>
@@ -325,9 +352,9 @@
                        
                         @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item dropdown notification-ui me-2"> 
+                                <li class="nav-item dropdown notification-ui me-2" style="margin-top: 6px"> 
                                     <a class="nav-link dropdown-toggle notification-ui_icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                        <i class="fa fa-bell {{count($notifications) > 0 ? 'redBgBlink' :'' }}"></i> 
+                                        <i class="fa fa-bell {{count($notifications) > 0 ? 'redBgBlink' :'' }}" style="font-size:21px"></i> 
                                         <span class="badge unread-notification">{{count($notifications)}}</span> 
                                     </a>
                                     <div class="dropdown-menu notification-ui_dd" aria-labelledby="navbarDropdown">
@@ -491,12 +518,12 @@
                </div>
                <!--end::Card header-->
                <!--begin::Card body-->
-               <div class="card-body indexTempory pt-0">
+               <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">
                   <div class="my-4" style="background: white;padding: 10px 22px;">
-                     <div class="row align-items-center">
-                        <div class="col-lg-9 col-xl-8">
-                           <div class="row align-items-center">
-                              <div class="col-md-4 my-2 my-md-0">
+                     <div class="row align-items-center" style="justify-content: flex-start;">
+                        <div class="col-md-6">
+                           <div class="row align-items-center" style="justify-content: flex-start;">
+                              <div class="col-md-4 my-2 my-md-0" style="flex-grow: 1">
                                  <form class="form-inline d-flex" method="get" action="{{route('tempwork.proj.search')}}">
                                     <div class="col-10">
                                        <select name="projects[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select a Project" required>
@@ -510,7 +537,7 @@
                                     </div>
                                  </form>
                               </div>
-                              <div class="col-md-4 my-2 my-md-0">
+                              <div class="col-md-4 my-2 my-md-0" style="flex-grow: 1">
                                  <form class="form-inline d-flex" method="get" action="{{route('tempwork.search')}}">
                                     <div class="col-10">
                                        <input type="text" style="border-radius:0px;border-color:#e2e2e2;" class="form-control" placeholder="Search..." id="terms" name="terms">
@@ -525,134 +552,127 @@
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-2 my-2  my-md-0">
-                             <!--begin::Dropdown-->
-                             <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
-                                <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <span class="svg-icon svg-icon-md">
-                                      <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24"></rect>
-                                            <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
-                                            <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
-                                         </g>
-                                      </svg>
-                                      <!--end::Svg Icon-->
-                                   </span>
-                                   Status
-                                </button>
-                                <!--begin::Dropdown Menu-->
-                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
-                                   <!--begin::Navigation-->
-                                   <ul class="navi flex-column navi-hover py-2">
-                                     <li class="navi-item">
-                                         <a href="{{url('/temporary_works?status=all')}}" class="navi-link ">
-                                        
-                                         <span class="navi-text">All</span>
-                                         </a>
-                                      </li>
-                                      <li class="navi-item">
-                                         <a href="{{url('/temporary_works?status=pending')}}" class="navi-link ">
-                                         
-                                         <span class="navi-text">Pending</span>
-                                         </a>
-                                      </li>
-                                      <li class="navi-item">
-                                         <a href="{{url('/temporary_works?status=completed')}}" class="navi-link">
-                                        
-                                         <span class="navi-text">Completed</span>
-                                         </a>
-                                      </li>
-                                     
-                                   </ul>
-                                </div>
-                                <!--end::Dropdown Menu-->
-                             </div>
-                        </div>
-
-                        <div class="col-md-2 my-2  my-md-0 float-right">
-                         <!--begin::Dropdown-->
-                         <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
-                            <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <span class="svg-icon svg-icon-md">
-                                  <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                        <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
-                                        <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
-                                     </g>
-                                  </svg>
-                                  <!--end::Svg Icon-->
-                               </span>
-                               View Document
-                            </button>
-                            <!--begin::Dropdown Menu-->
-                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
-                               <!--begin::Navigation-->
-                               <ul class="navi flex-column navi-hover py-2">
-                                  <li class="navi-item">
-                                     <a href="#" class="navi-link adddocument">
-                                     <span class="navi-icon">
-                                     <i class="la la-print"></i>
-                                     </span>
-                                     <span class="navi-text">Add Document</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a href="#" class="navi-link viewdocument" data-type="document">
-                                     <span class="navi-icon">
-                                     <i class="la la-copy"></i>
-                                     </span>
-                                     <span class="navi-text">View Document</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a  href="{{ route('Designbrief.export') }}" class="navi-link">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">Export</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a  href="#" class="navi-link viewdocument" data-type="nominations">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">View Nominations</span>
-                                     </a>
-                                  </li>
-                                  <li class="navi-item">
-                                     <a  href="#" class="navi-link viewdocument" data-type="appointments">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">View Appointments</span>
-                                     </a>
-                                  </li>
-                                  @if(auth()->user()->hasRole('company'))
-                                  <li class="navi-item">
-                                     <a  href="{{asset(auth()->user()->company_policy)}}" class="navi-link" target="_blank">
-                                     <span class="navi-icon">
-                                     <i class="la la-file-excel-o"></i>
-                                     </span>
-                                     <span class="navi-text">Company Policy</span>
-                                     </a>
-                                  </li>
-                                  @endif
-                               </ul>
-                            </div>
-                            <!--end::Dropdown Menu-->
-                         </div>
-                        </div>
-                        <div class="col-md-2 my-2 my-md-0 positionChange">
-                            <!--end::Dropdown-->
+                        <div class="col-md-6">
                             <!--begin::Button-->
-                            <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important;border-radius:0px;">
+                            <a href="{{ route('temporary_works.create') }}" class="btn pull-right btn-primary font-weight-bolder" style="color:white !important;border-radius:5px; margin-left: 10px; border: 1px solid #07D564;">
                             <span class="fa fa-plus"></span> Design Brief</a>
                             <!--end::Button-->
+                           
+                            <!--begin::Dropdown-->
+                            <div class="dropdown pull-right dropdown-inline mr-2 mt-0 " style="border-radius:5px; ">
+                               <button type="button" class="btn  font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px; overflow: hidden; color: #07D564; background-color: #00d4602b; border: 1px solid #07D564;">
+                                  <!-- <span class="svg-icon svg-icon-md">
+                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                           <rect x="0" y="0" width="24" height="24"></rect>
+                                           <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+                                           <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+                                        </g>
+                                     </svg>
+                                  </span> -->
+                                  View Document
+                               </button>
+                               <!--begin::Dropdown Menu-->
+                               <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
+                                  <!--begin::Navigation-->
+                                  <ul class="navi flex-column navi-hover py-2 document-nav">
+                                     <li class="navi-item">
+                                        <a href="#" class="navi-link adddocument">
+                                        <span class="navi-icon">
+                                        <i class="la la-print"></i>
+                                        </span>
+                                        <span class="navi-text">Add Document</span>
+                                        </a>
+                                     </li>
+                                     <li class="navi-item">
+                                        <a href="#" class="navi-link viewdocument" data-type="document">
+                                        <span class="navi-icon">
+                                        <i class="la la-copy"></i>
+                                        </span>
+                                        <span class="navi-text">View Document</span>
+                                        </a>
+                                     </li>
+                                     <li class="navi-item">
+                                        <a  href="{{ route('Designbrief.export') }}" class="navi-link">
+                                        <span class="navi-icon">
+                                        <i class="la la-file-excel-o"></i>
+                                        </span>
+                                        <span class="navi-text">Export</span>
+                                        </a>
+                                     </li>
+                                     <li class="navi-item">
+                                        <a  href="#" class="navi-link viewdocument" data-type="nominations">
+                                        <span class="navi-icon">
+                                        <i class="la la-file-excel-o"></i>
+                                        </span>
+                                        <span class="navi-text">View Nominations</span>
+                                        </a>
+                                     </li>
+                                     <li class="navi-item">
+                                        <a  href="#" class="navi-link viewdocument" data-type="appointments">
+                                        <span class="navi-icon">
+                                        <i class="la la-file-excel-o"></i>
+                                        </span>
+                                        <span class="navi-text">View Appointments</span>
+                                        </a>
+                                     </li>
+                                     @if(auth()->user()->hasRole('company'))
+                                     <li class="navi-item">
+                                        <a  href="{{asset(auth()->user()->company_policy)}}" class="navi-link" target="_blank">
+                                        <span class="navi-icon">
+                                        <i class="la la-file-excel-o"></i>
+                                        </span>
+                                        <span class="navi-text">Company Policy</span>
+                                        </a>
+                                     </li>
+                                     @endif
+                                  </ul>
+                               </div>
+                               <!--end::Dropdown Menu-->
+                            </div>
+                            <!--end::Dropdown-->
+                             <!--begin::Dropdown-->
+                             <div class="dropdown pull-right dropdown-inline mr-2 mt-0 " style="border-radius:5px;">
+                               <button type="button" class="btn  font-weight-bolder dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:5px; overflow: hidden; color: #07D564; background-color: #fff; border: 1px solid #07D564; margin-right: 13px">
+                                  <!-- <span class="svg-icon svg-icon-md">
+                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                           <rect x="0" y="0" width="24" height="24"></rect>
+                                           <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+                                           <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+                                        </g>
+                                     </svg>
+                                  </span> -->
+                                  Status
+                               </button>
+                               <!--begin::Dropdown Menu-->
+                               <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);" x-placement="top-end">
+                                  <!--begin::Navigation-->
+                                  <ul class="navi flex-column navi-hover py-2">
+                                    <li class="navi-item">
+                                        <a href="{{url('/temporary_works?status=all')}}" class="navi-link ">
+                       
+                                        <span class="navi-text">All</span>
+                                        </a>
+                                     </li>
+                                     <li class="navi-item">
+                                        <a href="{{url('/temporary_works?status=pending')}}" class="navi-link ">
+                       
+                                        <span class="navi-text">Pending</span>
+                                        </a>
+                                     </li>
+                                     <li class="navi-item">
+                                        <a href="{{url('/temporary_works?status=completed')}}" class="navi-link">
+                       
+                                        <span class="navi-text">Completed</span>
+                                        </a>
+                                     </li>
+                       
+                                  </ul>
+                               </div>
+                               <!--end::Dropdown Menu-->
+                            </div>
+                            
                         </div>
                      </div>
                   </div>
@@ -666,9 +686,9 @@
                   <!-- </div> -->
                   <!--begin::Table-->
                   <div class="row " style="padding:10px;position:relative;">
-                    <div class="col-md-4 my-2 my-md-0 ">
+                    <div class="col-md-4 my-2 my-md-0 " style="padding-left:0">
                         <nav class="tabnave" style="width: 100%;float:left">
-                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" style="flex-wrap: nowrap">
                            <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>
                            <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>
                            <span  class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</span>
@@ -676,13 +696,12 @@
                         </div>
                      </nav>
                     </div>
-                     <div class="col-md-2 my-2 my-md-0 text-center">
+
+                     <!-- <div class="col-md-2 my-2 my-md-0 text-center">
                         <div class="tableInputDiv">
                            <div class="dropdown mt-0">
-                              <!-- <button onclick="myFunction()"  class="dropbtn btn btn-primary">view</button> -->
                               <button type="button" onclick="myFunction()"  style="border-bottom: 1px solid #eff2f5 !important;border-radius: 0;background:#fff !important;color:#3699FF !important; padding-bottom: 2px;margin-bottom: 5px;" class="view_column  dropbtn btn btn-primary font-weight-bolder dropdown-toggle">
                                  <span class="svg-icon svg-icon-md">
-                                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                           <rect x="0" y="0" width="24" height="24"></rect>
@@ -690,7 +709,6 @@
                                           <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
                                        </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                  </span>
                                  View/Hide Column
                               </button>
@@ -845,9 +863,9 @@
                               </div>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
                          
-                  </div>
+                </div>
                 <div class="row">
                      <div style="float:left;width:100%;position:relative;top:-5px;">
                         <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">
@@ -856,7 +874,6 @@
                               <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                                  <!--begin::Table head-->
                                  <!-- <thead>
-
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                        <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                        @if(\Auth::user()->hasRole('admin'))
@@ -880,15 +897,14 @@
                                        <th class="">QR CODE</th>
                                        <th>Actions</th>
                                     </tr>
-
                                  </thead> -->
                                  <!--end::Table head-->
-                                 <!--begin::Table body-->
-                                 <tbody class="text-gray-600 fw-bold">
+                                 <!--begin::Table body `12-->
+                                 <tbody class="text-gray-600 fw-bold taable">
                                  
                                     @forelse($temporary_works as $item)
-                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
-                                       <td style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '100px':''}}">
+                                       <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
                                                 <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
@@ -899,42 +915,56 @@
                                          @endif
                                           <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span>
                                           <!-- <br> -->
-                                          @if(count($item->rejecteddesign)>0)
-                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
-                                          </span>
-                                          <!-- <br>
-                                          <br> -->
-                                          @endif
-                                          <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                          </a>
-                                          <!-- <br> -->
-                                          @if($item->status==2)
-                                          <a href="{{route('temporary_works.edit',$item->id)}}">
-                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
-                                          </span>
-                                          </span>
-                                          </a>
-                                          @endif
-                                       </td>
-                                       @if(\Auth::user()->hasRole('admin'))
-                                       <td>
-                                          <p>{{ $item->company ?: '-' }}</p>
-                                       </td>
-                                       @endif
-                                       <td>
-                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Poppins'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
-                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Poppins';">Equipment and Plant:</p>
-                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">{{$item->design_requirement_text ?? ''}}</p>
-                                        </td>
-                                       <td style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
                                           
-                                            <div class="commentSection" style="background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;">
-                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important;" data-id="{{$item->id}}">
-                                                        <!-- <span class="fa fa-plus"></span> -->
-                                                         Comment
-                                                    </p>
-                                                    @php
+                                       </td>
+                                       <td>
+                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
+                                             @php
+                                             $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
+                                             @endphp
+                                             @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
+                                             <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
+                                             <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="80px" height="80px">
+                                             </a>
+                                             @endif
+                                             <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; white-space: nowrap" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                             </a>
+
+                                             <div>
+                                                @if(count($item->rejecteddesign)>0)
+                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
+                                                                                          </span>
+                                                                                          <!-- <br>
+                                                                                          <br> -->
+                                                                                          @endif
+                                                                                          <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                                          </a> -->
+                                                                                          <!-- <br> -->
+                                                                                          @if($item->status==2)
+                                                                                          <a href="{{route('temporary_works.edit',$item->id)}}">
+                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
+                                                                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
+                                                                                          </span>
+                                                                                          </span>
+                                                                                          </a>
+                                                                                          @endif
+                                             </div>
+                                          </div>
+                                       </td>
+                                       <!-- @if(\Auth::user()->hasRole('admin'))
+                                            <td>
+                                                <p>{{ $item->company ?: '-' }}</p>
+                                            </td>
+                                       @endif -->
+                                       <td style="width: 191px;">
+                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
+                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
+                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
+                                        </td>
+                                       <td style="min-width:112px; display: flex; flex-direction: column; justify-content: space-around; align-items: center">
+                                          
+                                            <div class="commentSection" style="">
+                                            @php
                                                     $drawingscount=0;
                                                     $color="green";
                                                     $class='';
@@ -949,11 +979,17 @@
                                                     }
                                                     }
                                                     @endphp
-                                                    <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
+                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
+                                                        <!-- <span class="fa fa-plus"></span> -->
+                                                         Comment
+                                                         <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
                                                     <span class="{{$class}} label label-lg font-weight-bold label-inline">
                                                     {{count($item->comments) ?? '-'}}
                                                     </span>
                                                     </span>
+                                                    </p>
+                                                   
+                                                    
                                             </div>
                                                 <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                                                 </span>
@@ -961,11 +997,11 @@
                                        <td style="min-width: 220px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Issue Date:</span>
-                                                <span style="width: 96px; text-align:center">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
+                                                <span style="width: 125px; text-align:end; margin-right: 21px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:6px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-light  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between"">
@@ -973,29 +1009,28 @@
                                                     <span class="titleColumn">CAT Check:</span>
                                                     <span>{{ $item->tw_category }}</span>
                                                 </span>
-                                                <span>
+                                                <span style="">
                                                     <span class="titleColumn">Risk Class:</span>
-                                                    <span>{{ $item->tw_risk_class ?: '-' }}</span>
+                                                    <span style="margin-right: 11px">{{ $item->tw_risk_class ?: '-' }} </span>
                                                 </span>
-
                                             </div>
                                             </div>
                                         </td>
                                        <td style="min-width: 254px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Drawings & Designs:</span>
-                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;">
                                                         <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
                                                             <!-- View Drawings -->
                                                             @php
@@ -1005,7 +1040,7 @@
                                                                 $color="green";
                                                             }
                                                             @endphp
-                                                            <span style="font-size: 18px; color:{{$color}}" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                                            <span style="font-size: 13px; color:{{$color}};vertical-align: middle;" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
                                                         </p>
                                                     </div>
                                                     
@@ -1013,11 +1048,11 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
+                                                <div style="display: flex; justify-content: space-between; flex-grow: 1; max-width:88px;" id="ptl">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
-                                                    <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px">
+                                                    <div style="padding: 4px; border-radius: 4px; margin-left:3px;  max-width: 65px;">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                                         @endif
@@ -1036,7 +1071,7 @@
                                                         }
                                                         @endphp
                                                         <br>
-                                                        <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
+                                                        <button style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;align-self:center" class="btn btn-info scancomment" data-id="{{$item->id}}"><span class="fa fa-comments"></span>
                                                         </button>
                                                         <br>
                                                         @endif
@@ -1057,14 +1092,14 @@
                                                             <span class="text-danger redBgBlink" style="">DNL</span><br>
                                                     
                                                             @endif
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                                            <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                                            <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:black">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                                             </span>
                                                     
                                                         @else
                                                         <span style="width: 108px;">
-                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 0.2rem 0.35rem; color: white;">
+                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 2px 4px; color: white; background: #0000ffa3;">
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
                                                             Closed
                                                             @else
@@ -1074,25 +1109,38 @@
                                                         </span>
                                                         @endif
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                            <div class="d-flex" style="justify-content: space-between">
-                                                <span class="titleColumn">Permit to unload:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px; visibility: hidden">
+                                                        <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
+                                                            <!-- View Drawings -->
+                                                            @php
+                                                            $color="";
+                                                            if(count($item->riskassesment)>0)
+                                                            {
+                                                                $color="green";
+                                                            }
+                                                            @endphp
+                                                            <span style="font-size: 13px; color:{{$color}};vertical-align: middle;" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 
-
+                                            </div>
+                                            <div>
+                                            <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
+                                                <span class="titleColumn">Permit to unload:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px; padding-left: 19px" id="ptu">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                             </div>
                                         </td>
                                        <td style="min-width: 254px; max-width: 80px;">
-                                            <div class="d-flex justify-content-between">
+                                            <div class="d-flex">
                                                 <span class="titleColumn">Design Check CERT:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
+                                                <div style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 13px;">
                                                     @php $dccstyle='';@endphp
                                                     @foreach($item->uploadfile as $file)
                                                     @if($file->file_type==2)
@@ -1109,58 +1157,56 @@
                                                     @endforeach
                                                 </div>
                                             </div>
-                                            <div class="d-flex justify-content-between my-6">
+                                            <div class="d-flex my-6">
                                                 <span class="titleColumn">Date DCC Returned:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:15px">
                                                     
-                                                @php
-                                          $date='';
-                                          $dcolor='';
-                                          $drawingscount=0;
-                                          @endphp
-                                          @foreach($item->uploadfile as $file)
-                                          @php
-                                          if($file->file_type==1 && $file->construction==1)
-                                          {
-                                          $dcolor='green';
-                                          $drawingscount=1;
-                                          $date=$file->created_at->todatestring();
-                                          }
-                                          elseif($file->file_type==1 && $file->preliminary_approval==1)
-                                          {
-                                          $dcolor='orange';
-                                          $date=$file->created_at->todatestring();
-                                          }
-                                          @endphp
-                                          @endforeach
-                                          @if($date)
-
-                                          <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
-                                          </p>
-                                          @endif
-                                                </div>
-                                            </div>
-                                            <div>
-                                            <div class="d-flex" style="justify-content: space-between">
-                                                <span class="titleColumn">Date Design Returned:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                                                            @foreach($item->uploadfile as $file)
-                                                    @if($file->file_type==2)
-                                                    <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
-                                                    @break
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                
-
-                                            </div>
-                                            </div>
+                                                         @php
+                                                   $date='';
+                                                   $dcolor='';
+                                                   $drawingscount=0;
+                                                   @endphp
+                                                   @foreach($item->uploadfile as $file)
+                                                   @php
+                                                   if($file->file_type==1 && $file->construction==1)
+                                                   {
+                                                   $dcolor='green';
+                                                   $drawingscount=1;
+                                                   $date=$file->created_at->todatestring();
+                                                   }
+                                                   elseif($file->file_type==1 && $file->preliminary_approval==1)
+                                                   {
+                                                   $dcolor='orange';
+                                                   $date=$file->created_at->todatestring();
+                                                   }
+                                                   @endphp
+                                                   @endforeach
+                                                   @if($date)
+                                                   <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                                   </p>
+                                                   @endif
+                                                         </div>
+                                                   </div>
+                                                   <div>
+                                                   <div class="d-flex" style="">
+                                                         <span class="titleColumn">Date Design Returned:</span>
+                                                         <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; ">
+                                                                     @foreach($item->uploadfile as $file)
+                                                            @if($file->file_type==2)
+                                                            <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
+                                                            @break
+                                                            @endif
+                                                            @endforeach
+                                                         </div>
+                                                         
+                                                   </div>
+                                                   </div>
                                         </td>
-                                       <td style="min-width: 254px; max-width: 80px;">
+                                       <td style="">
                                             <div class="d-flex ">
                                                 <span class="titleColumn">Designer:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                <span class="designer-company cursor-pointer" style="width: 108px;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-light-success label-inline">View</span>
+                                                <span class="designer-company cursor-pointer" style="display: inline-block;width: 100%;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-inline" style="background-color:#02B654; color: white; border-radius: 4px;display: inline-block;width: 100%; text-align: center">View</span>
                                                 </span>
                                                 <!-- {{$item->tw_name ?: '-'}} -->
                                                 @if(!$item->tw_name)
@@ -1168,20 +1214,55 @@
                                                 @endif
                                                 </div>
                                             </div>
-                                            <div class="d-flex  my-6">
+                                            <div class="d-flex  my-4">
                                                 <span class="titleColumn">RAMS:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 47px;">
-                                                <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
-                                                    @php $i=0;@endphp
-                                                    @foreach($item->uploadfile as $file)
-                                                    @if($file->file_type==3)
-                                                    @php $i++ @endphp
-                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
-                                                    @endif
-                                                    @endforeach
+                                                   <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                      <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
+                                                      @php $i=0;@endphp
+                                                      @foreach($item->uploadfile as $file)
+                                                      @if($file->file_type==3)
+                                                      @php $i++ @endphp
+                                                      <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
+                                                      @endif
+                                                      @endforeach
+                                                   </div>
                                                 </div>
                                             </div>
+                                            <div class="d-flex ">
+                                                <span class="titleColumn" style="visibility: hidden">RAMS:</span>
+                                               <ul class="" style="display: flex;list-style: none; padding-left: 40px; margin-bottom: 0;position: relative;bottom: 7px;">
+                                                   <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole('admin'))
+                                                      <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn p-0 m-1" ><i class="fa fa-arrow-right"></i></a>
+                                                      @endif
+                                                   </li>
+                                                   <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                      <span class="btn p-0 m-1 changeemail" style="border-radius: 21%;" title="Change Email" data-id={{Crypt::encrypt($item->id)}} >
+                                                        <i style="padding:3px;" class="fa fa-exchange-alt" ></i>
+                                                      </span>
+                                                      @endif
+                                                   </li>
+                                                   <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                      <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} " id="{{'form_' . $item->id}}">
+                                                         @method('Delete')
+                                                         @csrf
+                                                         <button type="submit" id="{{$item->id}}" class="confirm1 btn p-0 m-1 " >
+                                                         <i style="padding:3px;" class="fa fa-trash-alt"></i>
+                                                         </button>
+                                                      </form>
+                                                      @endif
+                                                   </li>
+                                                   <li class="navi-item">
+                                                      @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                                                      <a href="javascript:void(0)" class="btn  p-0 m-1 sharebutton" style="border-radius: 21%;" data-id={{Crypt::encrypt($item->id)}}>
+                                                      <i style="padding:3px;" class="fa fa-share-alt"></i>
+                                                      </a>
+                                                      @endif
+                                                   </li>
+                                                </ul>
                                             </div>
                                             <div>
                                             </div>
@@ -1193,7 +1274,6 @@
                                        </td> -->
                                        <!-- <td>
                                           <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
-
                                              <br> Comment
                                           </p>
                                           @php
@@ -1218,7 +1298,6 @@
                                           </span>
                                           <hr style="color:red;border:1px solid red; margin: 2px;">
                                           <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
-
                                              <br> Emails
                                           </h3>
                                           @php $i=0;@endphp
@@ -1269,7 +1348,6 @@
                                           @endphp
                                           @endforeach
                                           @if($date)
-
                                           <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                           </p>
                                           @endif
@@ -1288,11 +1366,9 @@
                                              <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                           </p> -->
                                           <!-- <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-
                                              <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-
                                              @php 
                                              $color="";
                                              if(count($item->riskassesment)>0)
@@ -1394,7 +1470,7 @@
                                           @endif
                                           @endforeach
                                        </td> -->
-                                       <td>
+                                       <!-- <td>
                                           @php
                                           $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                           @endphp
@@ -1403,7 +1479,7 @@
                                           <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="60px" height="60px">
                                           </a>
                                           @endif
-                                       </td>
+                                       </td> -->
                                        <!-- <td>
                                           <span class="svg-icon svg-icon-md dropdown-toggle dropdownaction" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -1414,7 +1490,6 @@
                                                 </g>
                                              </svg>
                                           </span>
-
                                           <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right " style="text-align: center;">
                                              <ul class="navi flex-column navi-hover py-2" style="list-style: none">
                                                 <li class="navi-item">
@@ -1449,9 +1524,7 @@
                                                 </li>
                                                  
                                              </ul>
-
                                           </div>
-
                                        </td> -->
                                     </tr>
                                     @empty
@@ -1648,7 +1721,6 @@
                                           {
                                           $dcolor='green';
                                            $drawingscount=1;
-
                                           $date=$file->created_at->todatestring();
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
@@ -2419,7 +2491,6 @@
                $("#nominations-documents").hide()
                $("#Appointment-documents").show();
                $("#project_document_modal_id").modal('show');
-
        }else
        {
         $("#nominations-documents").hide();
@@ -2430,7 +2501,6 @@
            data: {},
            success: function(res) {
                $(".project_doc_form").hide();
-
                $("#project-documents").html(res);
                $("#project-documents").show();
                $("#project_document_modal_id").modal('show');
@@ -2831,7 +2901,6 @@
          
       }
    })
-
    //change email click event
    $(".changeemail").on('click',function(){
       var id=$(this).attr('data-id');

@@ -1000,7 +1000,7 @@
                                        <td style="min-width: 220px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Issue Date:</span>
-                                                <span style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
+                                                <span style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)): '-' }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
@@ -1051,7 +1051,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: space-between; flex-grow: 1; max-width:88px;" id="ptl">
+                                                <div style="display: flex; justify-content: space-between; flex-grow: 1; min-width:88px !important;" id="ptl">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
@@ -1131,7 +1131,7 @@
                                             <div>
                                             <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
                                                 <span class="titleColumn">Permit to unload:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px; padding-left: 19px" id="ptu">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px;" id="ptu">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
                                                     <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
@@ -1925,7 +1925,7 @@
                                        </td>
                                        <td style="">{{ $item->tw_category }}</td>
                                        <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                       <td style="min-width: 100px; max-width: 80px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</td>
+                                       <td style="min-width: 100px; max-width: 80px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)): '-' }}</td>
                                        <td style="min-width:100px;">
                                           <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1]}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
                                        </td>

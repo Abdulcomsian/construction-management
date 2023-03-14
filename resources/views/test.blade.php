@@ -679,7 +679,7 @@
                   <div class="row " style="padding:10px;position:relative;">
                     <div class="col-md-4 my-2 my-md-0 " style="padding-left:0">
                         <nav class="tabnave" style="width: 100%;float:left">
-                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" style="flex-wrap: nowrap">
                            <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</span>
                            <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>
                            <span  class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</span>
@@ -894,7 +894,7 @@
                                  <tbody class="text-gray-600 fw-bold taable">
                                  
                                     @forelse($temporary_works as $item)
-                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
+                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '100px':''}}">
                                        <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
@@ -1039,11 +1039,11 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 7px;">
+                                                <div style="display: flex; justify-content: space-between; flex-grow: 1; max-width:88px;">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
-                                                    <div style="padding: 4px; border-radius: 4px; margin-left:3px; display: flex; flex-direction: column; align-item: center; justify-content:center; max-width: 65px;">
+                                                    <div style="padding: 4px; border-radius: 4px; margin-left:3px;  max-width: 65px;">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                                         @endif
@@ -1100,7 +1100,21 @@
                                                         </span>
                                                         @endif
                                                     </div>
+                                                    <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px; visibility: hidden">
+                                                        <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
+                                                            <!-- View Drawings -->
+                                                            @php
+                                                            $color="";
+                                                            if(count($item->riskassesment)>0)
+                                                            {
+                                                                $color="green";
+                                                            }
+                                                            @endphp
+                                                            <span style="font-size: 13px; color:{{$color}};vertical-align: middle;" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                                        </p>
+                                                    </div>
                                                 </div>
+                                                
                                             </div>
                                             <div>
                                             <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">

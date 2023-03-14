@@ -1,4 +1,3 @@
-
 @extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
@@ -116,7 +115,6 @@
    }
    #kt_wrapper{
        padding: 0px !important;
-
    }
    .card-header{
        display: block !important;
@@ -291,14 +289,11 @@
    }
    .active {
    background: transparent !important;
-
    /* color:white !important; */
    }
-
    .rowcolor{
     background: #D5D8DC !important;
    }
-
    .titleColumn{
     color: #9D9D9D;
     font-weight: 500;
@@ -307,10 +302,8 @@
     font-family: 'Inter', sans-serif;
     white-space: nowrap;
    }
-
    .btn.btn-danger i{
       color: #9D9D9D;
-
    }
    .document-nav{
       padding: 12px;
@@ -863,7 +856,7 @@
                         </div>
                      </div> -->
                          
-                  </div>
+                </div>
                 <div class="row">
                      <div style="float:left;width:100%;position:relative;top:-5px;">
                         <div class="table-responsive tableDiv tab-content" id="nav-tabContent" style="height: 1000px;">
@@ -872,7 +865,6 @@
                               <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
                                  <!--begin::Table head-->
                                  <!-- <thead>
-
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                        <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
                                        @if(\Auth::user()->hasRole('admin'))
@@ -896,15 +888,13 @@
                                        <th class="">QR CODE</th>
                                        <th>Actions</th>
                                     </tr>
-
                                  </thead> -->
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
                                  <tbody class="text-gray-600 fw-bold taable">
                                  
                                     @forelse($temporary_works as $item)
-                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '':''}}">
-                                    <!-- 370px -->
+                                    <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '370px':''}}">
                                        <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
@@ -919,7 +909,7 @@
                                           
                                        </td>
                                        <td>
-                                          <div style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
+                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
                                              @php
                                              $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                              @endphp
@@ -958,14 +948,13 @@
                                             </td>
                                        @endif -->
                                        <td style="width: 191px;">
-                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important">{{ $item->project->name ?? '' }}</p>
+                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
                                         </td>
-                                        <!-- display: flex; flex-direction: column; justify-content: space-around -->
-                                       <td style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; ">
+                                       <td style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
                                           
-                                            <div class="commentSection" style="margin:auto 20px !important;">
+                                            <div class="commentSection" style="">
                                             @php
                                                     $drawingscount=0;
                                                     $color="green";
@@ -981,7 +970,7 @@
                                                     }
                                                     }
                                                     @endphp
-                                                <p class="addcomment cursor-pointer" style="margin-bottom:12px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; margin-bottom:10px !important;background: #3A7DFF26; border-radius: 7px; padding: 4px 8px; color: #3A7DFF; padding: 4px 8px !important;word-break: keep-all;" data-id="{{$item->id}}">
+                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
                                                         <!-- <span class="fa fa-plus"></span> -->
                                                          Comment
                                                          <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
@@ -993,7 +982,7 @@
                                                    
                                                     
                                             </div>
-                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 120px; margin:auto 12px;text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
+                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                                                 </span>
                                        </td>
                                        <td style="min-width: 220px; max-width: 80px;">
@@ -1003,7 +992,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 16px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between"">
@@ -1011,29 +1000,28 @@
                                                     <span class="titleColumn">CAT Check:</span>
                                                     <span>{{ $item->tw_category }}</span>
                                                 </span>
-                                                <span>
+                                                <span style="">
                                                     <span class="titleColumn">Risk Class:</span>
                                                     <span style="margin-right: 11px">{{ $item->tw_risk_class ?: '-' }} </span>
                                                 </span>
-
                                             </div>
                                             </div>
                                         </td>
                                        <td style="min-width: 254px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Drawings & Designs:</span>
-                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5;margin-right: 12px;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;margin-right: 12px;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; margin-right: 12px;">
+                                                    <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;">
                                                         <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
                                                             <!-- View Drawings -->
                                                             @php
@@ -1043,7 +1031,7 @@
                                                                 $color="green";
                                                             }
                                                             @endphp
-                                                            <span style="font-size: 18px; color:{{$color}}" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                                            <span style="font-size: 13px; color:{{$color}};vertical-align: middle;" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
                                                         </p>
                                                     </div>
                                                     
@@ -1051,9 +1039,9 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 28px;">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px;margin-right: 7px;">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
-                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
                                                     <div style="padding: 4px; border-radius: 4px; margin-left:3px; display: flex; flex-direction: column; align-item: center; justify-content:center; max-width: 65px;">
                                                                 @if($drawingscount)
@@ -1102,7 +1090,7 @@
                                                     
                                                         @else
                                                         <span style="width: 108px;">
-                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 0.2rem 0.35rem; color: white;">
+                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 2px 4px; color: white; background: #0000ffa3;">
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
                                                             Closed
                                                             @else
@@ -1117,13 +1105,12 @@
                                             <div>
                                             <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
                                                 <span class="titleColumn">Permit to unload:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px; padding-left: 19px">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
                                                 </div>
                                                 
-
                                             </div>
                                             </div>
                                         </td>
@@ -1172,7 +1159,6 @@
                                                    @endphp
                                                    @endforeach
                                                    @if($date)
-
                                                    <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                                    </p>
                                                    @endif
@@ -1190,7 +1176,6 @@
                                                             @endforeach
                                                          </div>
                                                          
-
                                                    </div>
                                                    </div>
                                         </td>
@@ -1222,7 +1207,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex ">
-                                                <span class="titleColumn">RAMS:</span>
+                                                <span class="titleColumn" style="visibility: hidden">RAMS:</span>
                                                <ul class="" style="display: flex;list-style: none; padding-left: 40px; margin-bottom: 0;position: relative;bottom: 7px;">
                                                    <li class="navi-item">
                                                       @if(\Auth::user()->hasRole('admin'))
@@ -1266,7 +1251,6 @@
                                        </td> -->
                                        <!-- <td>
                                           <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;" data-id="{{$item->id}}">
-
                                              <br> Comment
                                           </p>
                                           @php
@@ -1291,7 +1275,6 @@
                                           </span>
                                           <hr style="color:red;border:1px solid red; margin: 2px;">
                                           <h3 class="uploadfile  cursor-pointer" style="margin-bottom:0px;font-weight: 400;font-size: 14px;" data-id="{{$item->id}}" data-type="4">
-
                                              <br> Emails
                                           </h3>
                                           @php $i=0;@endphp
@@ -1342,7 +1325,6 @@
                                           @endphp
                                           @endforeach
                                           @if($date)
-
                                           <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};background: #f2f2f2;" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                           </p>
                                           @endif
@@ -1361,11 +1343,9 @@
                                              <span style="font-size: 18px;" class="fa fa-plus" title="Upload Drawings"></span>
                                           </p> -->
                                           <!-- <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-
                                              <span style="font-size: 18px;color:{{$dcolor}}"  class="fa fa-eye" title="View Drawings"></span>
                                           </p>
                                           <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-
                                              @php 
                                              $color="";
                                              if(count($item->riskassesment)>0)
@@ -1487,7 +1467,6 @@
                                                 </g>
                                              </svg>
                                           </span>
-
                                           <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right " style="text-align: center;">
                                              <ul class="navi flex-column navi-hover py-2" style="list-style: none">
                                                 <li class="navi-item">
@@ -1522,9 +1501,7 @@
                                                 </li>
                                                  
                                              </ul>
-
                                           </div>
-
                                        </td> -->
                                     </tr>
                                     @empty
@@ -1552,7 +1529,7 @@
                                  <tbody class="text-gray-600 fw-bold">
                                     @forelse($temporary_works as $item)
                                     <tr>
-                                       <td style="min-width:150px;padding-left: 10px !important;padding-right: 10px !important;">
+                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
                                           <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                           <hr style="margin: 5px;;color:red;border:1px solid red">
                                           <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
@@ -1703,7 +1680,7 @@
                                           </a>
                                           @endif
                                        </td>
-                                       <td style="min-width:150px;padding-left: 10px !important;padding-right: 10px !important;">
+                                       <td style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
                                           <p style="font-weight:400;font-size:14px;">{{$item->design_requirement_text ?? ''}}</p>
                                           <hr style="margin: 5px;;color:red;border:1px solid red">
                                           <span class="desc cursor-pointer" style="width: 108px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
@@ -1721,7 +1698,6 @@
                                           {
                                           $dcolor='green';
                                            $drawingscount=1;
-
                                           $date=$file->created_at->todatestring();
                                           }
                                           elseif($file->file_type==1 && $file->preliminary_approval==1)
@@ -2492,7 +2468,6 @@
                $("#nominations-documents").hide()
                $("#Appointment-documents").show();
                $("#project_document_modal_id").modal('show');
-
        }else
        {
         $("#nominations-documents").hide();
@@ -2503,7 +2478,6 @@
            data: {},
            success: function(res) {
                $(".project_doc_form").hide();
-
                $("#project-documents").html(res);
                $("#project-documents").show();
                $("#project_document_modal_id").modal('show');
@@ -2904,7 +2878,6 @@
          
       }
    })
-
    //change email click event
    $(".changeemail").on('click',function(){
       var id=$(this).attr('data-id');

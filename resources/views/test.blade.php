@@ -904,7 +904,7 @@
                                  
                                     @forelse($temporary_works as $item)
                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '100px':''}}">
-                                       <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
+                                       <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 9px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
                                           @if(\Auth::user()->hasRole([['company','admin','user']]))
                                             @if($item->status==3)
                                                 <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
@@ -913,6 +913,25 @@
                                                 
                                             @endif
                                          @endif
+                                         <div style="display: flex; flex-direction: column; align-items:center; flex-grow:1;justify-content:space-evenly">
+                                                @if(count($item->rejecteddesign)>0)
+                                                                                          <span class="rejecteddesign cursor-pointer" style="" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
+                                                                                          </span>
+                                                                                          <!-- <br>
+                                                                                          <br> -->
+                                                                                          @endif
+                                                                                          <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                                          </a> -->
+                                                                                          <!-- <br> -->
+                                                                                          @if($item->status==2)
+                                                                                          <a href="{{route('temporary_works.edit',$item->id)}}">
+                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
+                                                                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
+                                                                                          </span>
+                                                                                          </span>
+                                                                                          </a>
+                                                                                          @endif
+                                             </div>
                                           <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span>
                                           <!-- <br> -->
                                           
@@ -930,25 +949,7 @@
                                              <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; white-space: nowrap" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                              </a>
 
-                                             <div>
-                                                @if(count($item->rejecteddesign)>0)
-                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
-                                                                                          </span>
-                                                                                          <!-- <br>
-                                                                                          <br> -->
-                                                                                          @endif
-                                                                                          <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                                                                          </a> -->
-                                                                                          <!-- <br> -->
-                                                                                          @if($item->status==2)
-                                                                                          <a href="{{route('temporary_works.edit',$item->id)}}">
-                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                                                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
-                                                                                          </span>
-                                                                                          </span>
-                                                                                          </a>
-                                                                                          @endif
-                                             </div>
+                                             
                                           </div>
                                        </td>
                                        <!-- @if(\Auth::user()->hasRole('admin'))
@@ -958,8 +959,12 @@
                                        @endif -->
                                        <td style="width: 191px;">
                                             <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
-                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">Equipment and Plant:</p>
-                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$item->design_requirement_text ?? ''}}</p>
+                                            @php
+                                            $value = explode('-', $item->design_requirement_text);
+                                            
+                                            @endphp
+                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">{{$value[0] ?? ''}}:</p>
+                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$value[1] ?? ''}}</p>
                                         </td>
                                        <td style="min-width:112px; display: flex; flex-direction: column; justify-content: space-around; align-items: center">
                                           
@@ -987,9 +992,7 @@
                                                     {{count($item->comments) ?? '-'}}
                                                     </span>
                                                     </span>
-                                                    </p>
-                                                   
-                                                    
+                                                </p>
                                             </div>
                                                 <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                                                 </span>
@@ -997,7 +1000,7 @@
                                        <td style="min-width: 220px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Issue Date:</span>
-                                                <span style="width: 125px; text-align:end; margin-right: 21px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
+                                                <span style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
@@ -1007,11 +1010,11 @@
                                             <div class="d-flex justify-content-between"">
                                                 <span>
                                                     <span class="titleColumn">CAT Check:</span>
-                                                    <span>{{ $item->tw_category }}</span>
+                                                    <span style="font-weight: 500; color: black">{{ $item->tw_category }}</span>
                                                 </span>
                                                 <span style="">
                                                     <span class="titleColumn">Risk Class:</span>
-                                                    <span style="margin-right: 11px">{{ $item->tw_risk_class ?: '-' }} </span>
+                                                    <span style="margin-right: 11px; font-weight: 500; color: black">{{ $item->tw_risk_class ?: '-' }} </span>
                                                 </span>
                                             </div>
                                             </div>
@@ -1020,17 +1023,17 @@
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Drawings & Designs:</span>
                                                 <div style="display: flex; justify-content:space-between; flex-grow: 0.5;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
-                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;align-self:center">
-                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;">
+                                                    <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;width: 20px; height:20px;">
                                                         <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
                                                             <!-- View Drawings -->
                                                             @php
@@ -1040,7 +1043,7 @@
                                                                 $color="green";
                                                             }
                                                             @endphp
-                                                            <span style="font-size: 13px; color:{{$color}};vertical-align: middle;" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
+                                                            <span style="font-size: 13px; color:{{$color}};position: relative; bottom: 1px; left:1px" class="fa fa-file" title="View Calculation/Risk Assessment"></span>
                                                         </p>
                                                     </div>
                                                     
@@ -1049,10 +1052,10 @@
                                             <div class="d-flex justify-content-between my-3">
                                                 <span class="titleColumn">Permit to load:</span>
                                                 <div style="display: flex; justify-content: space-between; flex-grow: 1; max-width:88px;" id="ptl">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; align-self:center">
-                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="permit to load"></span></p>
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
-                                                    <div style="padding: 4px; border-radius: 4px; margin-left:3px;  max-width: 65px;">
+                                                    <div style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
                                                         @endif
@@ -1093,13 +1096,13 @@
                                                     
                                                             @endif
                                                             <!-- <br> -->
-                                                            <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                                            <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:black">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
+                                                            <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
+                                                            <span class="label label-lg font-weight-bold label-inline " style="color:black; position: relative; top:-1px; right:0px; display: inline-block;padding: 4px; width: 20px;font-size: 10px">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
                                                             </span>
                                                     
                                                         @else
                                                         <span style="width: 108px;">
-                                                            <span class="label label-lg font-weight-bold label-inline" style="padding: 2px 4px; color: white; background: #0000ffa3;">
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px ">
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
                                                             Closed
                                                             @else

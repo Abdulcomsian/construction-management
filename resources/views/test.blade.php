@@ -973,12 +973,11 @@
                                             <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 15px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
                                             @php
                                             $value = explode('-', $item->design_requirement_text);
-                                            
                                             @endphp
-                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">{{$value[0] ?? ''}}:</p>
+                                            <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">{{trim($value[0])?? ''}}:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black;margin-bottom:29px !important">{{$value[1] ?? ''}}</p>
                                         </td>
-                                       <td style="min-width:112px; display: flex; flex-direction: column; justify-content: space-around; align-items: center">
+                                       <td style="min-width:112px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center">
                                           
                                             <div class="commentSection" style="">
                                             @php
@@ -1014,12 +1013,12 @@
                                                 <span class="titleColumn">Issue Date:</span>
                                                 <span style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
                                             </div>
-                                            <div class="d-flex justify-content-between my-6">
+                                            <div class="d-flex justify-content-between my-2">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline" style="font-weight:500; color:black;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline" style="font-weight:500; color:black;position:relative; top:1px;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</span>
                                             </div>
                                             <div>
-                                            <div class="d-flex justify-content-between"">
+                                            <div class="d-flex justify-content-between">
                                                 <span>
                                                     <span class="titleColumn">CAT Check:</span>
                                                     <span style="font-weight: 500; color: black">{{ $item->tw_category }}</span>
@@ -1034,7 +1033,7 @@
                                        <td style="min-width: 254px; max-width: 80px;">
                                             <div class="d-flex">
                                                 <span class="col-sm-5 titleColumn">Drawings & Designs:</span>
-                                                <div class="d-flex col-sm-6" style="column-gap:1rem;margin-left: 33px">
+                                                <div class="d-flex col-sm-6" style="column-gap:1rem;margin-left: 32px">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
@@ -1061,7 +1060,7 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="row my-5">
+                                            <div class="row my-2">
                                                 <span class="col-sm-6 titleColumn">Permit to load:</span>
                                                 <div class="d-flex col-sm-6" id="ptl" style="column-gap: 1rem">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
@@ -1155,7 +1154,7 @@
                                        <td style="min-width: 254px; max-width: 80px;">
                                             <div class="d-flex">
                                                 <span class="titleColumn">Design Check CERT:</span>
-                                                <div style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 13px;">
+                                                <div style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 18px;">
                                                     @php $dccstyle='';@endphp
                                                     @foreach($item->uploadfile as $file)
                                                     @if($file->file_type==2)
@@ -1172,9 +1171,9 @@
                                                     @endforeach
                                                 </div>
                                             </div>
-                                            <div class="d-flex my-5">
+                                            <div class="d-flex my-2">
                                                 <span class="titleColumn">Date DCC Returned:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:15px">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
                                                     
                                                          @php
                                                    $date='';
@@ -1205,7 +1204,7 @@
                                                    <div>
                                                    <div class="d-flex" style="">
                                                          <span class="titleColumn">Date Design Returned:</span>
-                                                         <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end; ">
+                                                         <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
                                                                      @foreach($item->uploadfile as $file)
                                                             @if($file->file_type==2)
                                                             <p class="dateclick cursor-pointer" style="font-weight:500;color:black" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
@@ -1221,7 +1220,7 @@
                                             <div class="d-flex ">
                                                 <span class="titleColumn">Designer:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                <span class="designer-company cursor-pointer" style="display: inline-block;width: 100%;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-inline" style="background-color:#02B654; color: white; border-radius: 4px;display: inline-block;width: 100%; text-align: center">View</span>
+                                                <span class="designer-company cursor-pointer" style="display: inline-block;width: 100%;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-inline" style="background-color:#02B654; color: white; border-radius: 4px;display: inline-block;width: 100%; text-align: center; position:relative; bottom:2px;">View</span>
                                                 </span>
                                                 <!-- {{$item->tw_name ?: '-'}} -->
                                                 @if(!$item->tw_name)
@@ -1229,7 +1228,7 @@
                                                 @endif
                                                 </div>
                                             </div>
-                                            <div class="d-flex  my-4">
+                                            <div class="d-flex  my-2">
                                                 <span class="titleColumn">RAMS:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:1rem">
                                                    <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">

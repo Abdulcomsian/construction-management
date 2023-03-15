@@ -926,9 +926,9 @@
                                              
                                                @endif
                                                                                       @endif
-                                                                                      <div style="display: flex; flex-direction: column; align-items:center; flex-grow:1;justify-content:space-evenly">
+                                                                                      <div style="display: flex; flex-direction: column; align-items:center; flex-grow:1;justify-content:space-evenly; gap:5px">
                                                    @if(count($item->rejecteddesign)>0)
-                                                                                             <span class="rejecteddesign cursor-pointer" style="" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
+                                                                                             <span class="rejecteddesign cursor-pointer" style="" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="padding:2px"><i class="fa fa-eye text-white"></i></span>
                                                                                              </span>
                                                                                              <!-- <br>
                                                                                              <br> -->
@@ -939,7 +939,7 @@
                                                                                              @if($item->status==2)
                                                                                              <a href="{{route('temporary_works.edit',$item->id)}}">
                                                                                              <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                                                                             <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
+                                                                                             <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline" style="padding:2px"><i class="fa fa-edit text-white"></i>
                                                                                              </span>
                                                                                              </span>
                                                                                              </a>
@@ -1156,7 +1156,7 @@
                                             </div>
                                         </td>
                                        <td style="min-width: 254px; max-width: 80px;">
-                                            <div class="d-flex">
+                                            <div class="d-flex" style="position: relative;bottom:2px">
                                                 <span class="titleColumn">Design Check CERT:</span>
                                                 <div style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 18px;">
                                                     @php $dccstyle='';@endphp
@@ -1221,10 +1221,10 @@
                                                    </div>
                                         </td>
                                        <td style="">
-                                            <div class="d-flex ">
+                                            <div class="d-flex " style="position:relative; top:4px;">
                                                 <span class="titleColumn">Designer:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                <span class="designer-company cursor-pointer" style="display: inline-block;width: 100%;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-inline" style="background-color:#02B654; color: white; border-radius: 4px;display: inline-block;width: 100%; text-align: center; position:relative; bottom:2px;">View</span>
+                                                <span class="designer-company cursor-pointer" style="display: inline-block;width: 100%;" data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}" data-tw="{{$item->tw_name ?? ''}}"><span class="label label-lg font-weight-bold label-inline" style="background-color:#02B654; color: white; border-radius: 4px;display: inline-block;width: 100%; text-align: center; padding:3px 4px;">View</span>
                                                 </span>
                                                 <!-- {{$item->tw_name ?: '-'}} -->
                                                 @if(!$item->tw_name)
@@ -1232,7 +1232,7 @@
                                                 @endif
                                                 </div>
                                             </div>
-                                            <div class="d-flex  my-2">
+                                            <div class="d-flex  my-2" style="position:relative; top:3px;">
                                                 <span class="titleColumn">RAMS:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:1rem">
                                                    <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
@@ -1255,7 +1255,7 @@
                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="d-flex ">
+                                            <div class="d-flex " style="position:relative;bottom:3px;">
                                                 <span class="titleColumn" style="visibility: hidden">RAMS:</span>
                                                <ul class="" style="display: flex;list-style: none; padding: 0 1px 0px 42px; margin-bottom: 0;position: relative;bottom: 1px;">
                                                    <li class="navi-item">

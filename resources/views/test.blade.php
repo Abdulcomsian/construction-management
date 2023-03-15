@@ -916,36 +916,38 @@
                                  
                                     @forelse($temporary_works as $item)
                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}" style="height: {{count($temporary_works)==1 ? '100px':''}}">
-                                       <td style="vertical-align: middle;font-size: 12px;   display: flex; flex-direction: column; justify-content: space-between; align-items: center;  padding: 13px 0 !important; min-width: 67px; max-width: 92px; margin-right: 0">
-                                          @if(\Auth::user()->hasRole([['company','admin','user']]))
-                                            @if($item->status==3)
-                                                <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
-                                            @else
-                                                <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}" >
-                                                
-                                            @endif
-                                         @endif
-                                         <div style="display: flex; flex-direction: column; align-items:center; flex-grow:1;justify-content:space-evenly">
-                                                @if(count($item->rejecteddesign)>0)
-                                                                                          <span class="rejecteddesign cursor-pointer" style="" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
-                                                                                          </span>
-                                                                                          <!-- <br>
-                                                                                          <br> -->
-                                                                                          @endif
-                                                                                          <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                                                                          </a> -->
-                                                                                          <!-- <br> -->
-                                                                                          @if($item->status==2)
-                                                                                          <a href="{{route('temporary_works.edit',$item->id)}}">
-                                                                                          <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                                                                          <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
-                                                                                          </span>
-                                                                                          </span>
-                                                                                          </a>
-                                                                                          @endif
-                                             </div>
-                                          <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span>
-                                          <!-- <br> -->
+                                       <td style="font-size: 12px; min-width: 67px; max-width: 92px; margin-right: 0">
+                                          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+                                             @if(\Auth::user()->hasRole([['company','admin','user']]))
+                                               @if($item->status==3)
+                                                   <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"  checked>
+                                               @else
+                                                   <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}" >
+                                             
+                                               @endif
+                                                                                      @endif
+                                                                                      <div style="display: flex; flex-direction: column; align-items:center; flex-grow:1;justify-content:space-evenly">
+                                                   @if(count($item->rejecteddesign)>0)
+                                                                                             <span class="rejecteddesign cursor-pointer" style="" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white"></i></span>
+                                                                                             </span>
+                                                                                             <!-- <br>
+                                                                                             <br> -->
+                                                                                             @endif
+                                                                                             <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                                             </a> -->
+                                                                                             <!-- <br> -->
+                                                                                             @if($item->status==2)
+                                                                                             <a href="{{route('temporary_works.edit',$item->id)}}">
+                                                                                             <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
+                                                                                             <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i class="fa fa-edit text-white"></i>
+                                                                                             </span>
+                                                                                             </span>
+                                                                                             </a>
+                                                                                             @endif
+                                                </div>
+                                             <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span>
+                                             <!-- <br> -->
+                                          </div>
                                           
                                        </td>
                                        <td>

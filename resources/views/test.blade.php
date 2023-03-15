@@ -1016,7 +1016,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline" style="font-weight:500; color:black;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</</span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between"">
@@ -1197,7 +1197,7 @@
                                                    @endphp
                                                    @endforeach
                                                    @if($date)
-                                                   <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
+                                                   <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}}; font-weight:500; color:black" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                                    </p>
                                                    @endif
                                                          </div>
@@ -1208,7 +1208,7 @@
                                                          <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end; ">
                                                                      @foreach($item->uploadfile as $file)
                                                             @if($file->file_type==2)
-                                                            <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
+                                                            <p class="dateclick cursor-pointer" style="font-weight:500;color:black" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
                                                             @break
                                                             @endif
                                                             @endforeach

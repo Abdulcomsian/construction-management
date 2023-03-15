@@ -928,7 +928,7 @@
                                                                                       @endif
                                                                                       <div style="display: flex; flex-direction: column; align-items:center; flex-grow:1;justify-content:space-evenly;">
                                                    @if(count($item->rejecteddesign)>0)
-                                                                                             <span class="rejecteddesign cursor-pointer" style="" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="padding:0 2px"><i class="fa fa-eye text-white" style="font-size:10px;position:relative;bottom:0.5px"></i></span>
+                                                                                             <span class="rejecteddesign cursor-pointer" style="" data-id="{{Crypt::encrypt($item->id)}}"><span class="label label-lg font-weight-bold label-light-success label-inline"><i class="fa fa-eye text-white" style="font-size:10px;position:relative;bottom:0.5px"></i></span>
                                                                                              </span>
                                                                                              <!-- <br>
                                                                                              <br> -->
@@ -939,7 +939,7 @@
                                                                                              @if($item->status==2)
                                                                                              <a href="{{route('temporary_works.edit',$item->id)}}">
                                                                                              <span class="rejecteddesign cursor-pointer" style="width: 108px;" data-id="{{Crypt::encrypt($item->id)}}">
-                                                                                             <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline" style="padding:0 2px"><i class="fa fa-edit text-white" style="font-size:10px; position:relative; bottom:0.5px;"></i>
+                                                                                             <span class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline" ><i class="fa fa-edit text-white" style="font-size:10px; position:relative; bottom:0.5px;"></i>
                                                                                              </span>
                                                                                              </span>
                                                                                              </a>

@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('test', [TemporaryWorkController::class, 'testIndex']);
 
+    Route::get('temporary_works/create2', [TemporaryWorkController::class, 'create2']);
 
     //All Resource Controller
     Route::resources([

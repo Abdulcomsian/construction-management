@@ -1223,16 +1223,22 @@
                                             </div>
                                             <div class="d-flex  my-4">
                                                 <span class="titleColumn">RAMS:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:1rem">
                                                    <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
                                                       <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
-                                                      @php $i=0;@endphp
+                                                      {{-- @php $i=0;@endphp
                                                       @foreach($item->uploadfile as $file)
                                                       @if($file->file_type==3)
                                                       @php $i++ @endphp
-                                                      <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span>
+                                                      <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span> -->
                                                       @endif
-                                                      @endforeach
+                                                      @endforeach --}}
+                                                   </div>
+                                                   <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                                      @php
+                                                         $rams = count($item->uploadfile);
+                                                      @endphp
+                                                      ({{$rams}})
                                                    </div>
                                                 </div>
                                             </div>

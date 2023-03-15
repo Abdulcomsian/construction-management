@@ -977,36 +977,38 @@
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">{{trim($value[0])?? ''}}:</p>
                                             <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black;margin-bottom:29px !important">{{$value[1] ?? ''}}</p>
                                         </td>
-                                       <td style="min-width:112px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center">
+                                       <td style="min-width:112px;">
                                           
-                                            <div class="commentSection" style="">
-                                            @php
-                                                    $drawingscount=0;
-                                                    $color="green";
-                                                    $class='';
-                                                    if(count($item->comments)>0)
-                                                    {
-                                                        $color="red";
-                                                        $class='redBgBlink';
-                                                    if(count($item->reply)== count($item->comments))
-                                                    {
-                                                        $color="blue";
-                                                        $class='';
-                                                    }
-                                                    }
-                                                    @endphp
-                                                <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
-                                                        <!-- <span class="fa fa-plus"></span> -->
-                                                         Comment
-                                                         <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;color:{{$color}} !important;" data-id="{{$item->id}}">
-                                                    <span class="{{$class}} ">
-                                                    ({{count($item->comments) ?? '-'}})
-                                                    </span>
-                                                    </span>
-                                                </p>
+                                            <div style="min-height:100%; display:flex;flex-direction:column;justify-content:space-between;gap:15px;">
+                                               <div class="commentSection" style="">
+                                               @php
+                                                       $drawingscount=0;
+                                                       $color="green";
+                                                       $class='';
+                                                       if(count($item->comments)>0)
+                                                       {
+                                                           $color="red";
+                                                           $class='redBgBlink';
+                                                       if(count($item->reply)== count($item->comments))
+                                                       {
+                                                           $color="blue";
+                                                           $class='';
+                                                       }
+                                                       }
+                                                       @endphp
+                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:100%;text-align:center;" data-id="{{$item->id}}">
+                                                           <!-- <span class="fa fa-plus"></span> -->
+                                                            Comment
+                                                            <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;color:{{$color}} !important;" data-id="{{$item->id}}">
+                                                       <span class="{{$class}} ">
+                                                       ({{count($item->comments) ?? '-'}})
+                                                       </span>
+                                                       </span>
+                                                   </p>
+                                               </div>
+                                                   <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
+                                                   </span>
                                             </div>
-                                                <span class="desc cursor-pointer" style="width: 112px;padding: 2px;"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold label-light-success label-inline" style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
-                                                </span>
                                        </td>
                                        <td style="min-width: 220px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">

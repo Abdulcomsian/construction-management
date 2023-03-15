@@ -314,6 +314,10 @@
    #ptl{
       max-width: 88px;
    }
+   
+   #ptu{
+      max-width: 88px;
+   }
 
    @media screen and (min-width: 1460px){
       #ptl, #ptu{
@@ -957,7 +961,7 @@
                                                 <p>{{ $item->company ?: '-' }}</p>
                                             </td>
                                        @endif -->
-                                       <td style="width: 191px;">
+                                       <td style="max-width: 191px;">
                                             <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
                                             @php
                                             $value = explode('-', $item->design_requirement_text);
@@ -1020,9 +1024,9 @@
                                             </div>
                                         </td>
                                        <td style="min-width: 254px; max-width: 80px;">
-                                            <div class="d-flex justify-content-between">
-                                                <span class="titleColumn">Drawings & Designs:</span>
-                                                <div style="display: flex; justify-content:space-between; flex-grow: 0.5;">
+                                            <div class="d-flex">
+                                                <span class="col-sm-5 titleColumn">Drawings & Designs:</span>
+                                                <div class="d-flex col-sm-6" style="column-gap:1rem;margin-left: 33px">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                         <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
@@ -1049,9 +1053,9 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="d-flex justify-content-between my-5">
-                                                <span class="titleColumn">Permit to load:</span>
-                                                <div style="display: flex; justify-content: space-between; flex-grow: 1; min-width:88px !important;" id="ptl">
+                                            <div class="row my-5">
+                                                <span class="col-sm-6 titleColumn">Permit to load:</span>
+                                                <div class="d-flex col-sm-6" id="ptl" style="column-gap: 1rem">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
@@ -1129,10 +1133,10 @@
                                                 
                                             </div>
                                             <div>
-                                            <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
-                                                <span class="titleColumn">Permit to unload:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px; padding-left: 19px; width: 20px; height: 20px;" id="ptu">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px">
+                                            <div class="row">
+                                                <span class="col-sm-6 titleColumn">Permit to unload:</span>
+                                                <div class="d-flex col-sm-6" id="ptu">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
                                                     <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
                                                 </div>

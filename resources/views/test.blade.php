@@ -202,8 +202,8 @@
    background-color: #000 !important;
    }
    tbody.text-gray-600.fw-bold tr td {
-   vertical-align: middle;
-   min-height: 110px !important;
+   /* vertical-align: middle;
+   min-height: 110px !important; */
    }
    .form-control{
       padding: 5px 10px;
@@ -949,13 +949,13 @@
                                           
                                        </td>
                                        <td>
-                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;margin-bottom: 10px">
+                                          <div style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;">
                                              @php
                                              $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                              @endphp
                                              @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
                                              <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
-                                             <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="80px" height="80px">
+                                             <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="70px" height="70px">
                                              </a>
                                              @endif
                                              <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; white-space: nowrap" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
@@ -975,11 +975,11 @@
                                             $value = explode('-', $item->design_requirement_text);
                                             @endphp
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">{{trim($value[0])?? ''}}:</p>
-                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black;margin-bottom:29px !important">{{$value[1] ?? ''}}</p>
+                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black;margin-bottom:11px !important">{{$value[1] ?? ''}}</p>
                                         </td>
                                        <td style="min-width:112px;">
                                           
-                                            <div style="min-height:100%; display:flex;flex-direction:column;justify-content:space-between;gap:15px;">
+                                            <div style="max-height:100%; display:flex;flex-direction:column;justify-content:space-between;gap:15px;">
                                                <div class="commentSection" style="">
                                                @php
                                                        $drawingscount=0;

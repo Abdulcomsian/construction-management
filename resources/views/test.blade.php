@@ -103,9 +103,9 @@
    .nav-tabs .nav-link.active{
     border-radius: 0px !important;
     border: 0;
-    border-bottom: 2px solid #07D564;
     color: #07D564;
     font-weight: 700;
+    padding-left:0;
    }
    .card>.card-body {
       padding: 32px;
@@ -319,6 +319,14 @@
       max-width: 88px;
    }
 
+   .tabnave .nav .nav-link.active::after{
+      content: '';
+      border-bottom:3px solid #07D564;
+      display: block;
+      width:100%;
+      position: relative;
+      top:9px;
+   }
    @media screen and (min-width: 1460px){
       #ptl, #ptu{
          max-width: 95px !important;
@@ -689,7 +697,7 @@
                      </div> -->
                   <!-- </div> -->
                   <!--begin::Table-->
-                  <div class="row " style="padding:10px;position:relative;">
+                  <div class="row " style="position:relative;border-bottom:1px solid #C2C9D1;width:100%;margin:auto; margin-bottom:10px">
                     <div class="col-md-4 my-2 my-md-0 " style="padding-left:0">
                         <nav class="tabnave" style="width: 100%;float:left">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" style="flex-wrap: nowrap">
@@ -962,13 +970,13 @@
                                             </td>
                                        @endif -->
                                        <td style="max-width: 191px;">
-                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 10px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
+                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 15px !important; white-space: nowrap;">{{ $item->project->name ?? '' }}</p>
                                             @php
                                             $value = explode('-', $item->design_requirement_text);
                                             
                                             @endphp
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">{{$value[0] ?? ''}}:</p>
-                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black">{{$value[1] ?? ''}}</p>
+                                            <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black;margin-bottom:29px !important">{{$value[1] ?? ''}}</p>
                                         </td>
                                        <td style="min-width:112px; display: flex; flex-direction: column; justify-content: space-around; align-items: center">
                                           
@@ -1164,7 +1172,7 @@
                                                     @endforeach
                                                 </div>
                                             </div>
-                                            <div class="d-flex my-6">
+                                            <div class="d-flex my-5">
                                                 <span class="titleColumn">Date DCC Returned:</span>
                                                 <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:15px">
                                                     
@@ -1246,7 +1254,7 @@
                                             </div>
                                             <div class="d-flex ">
                                                 <span class="titleColumn" style="visibility: hidden">RAMS:</span>
-                                               <ul class="" style="display: flex;list-style: none; padding: 0 1px 0px 42px; margin-bottom: 0;position: relative;bottom: 7px;">
+                                               <ul class="" style="display: flex;list-style: none; padding: 0 1px 0px 42px; margin-bottom: 0;position: relative;bottom: 1px;">
                                                    <li class="navi-item">
                                                       @if(\Auth::user()->hasRole('admin'))
                                                       <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn p-0 m-1" ><i class="fa fa-arrow-right"></i></a>

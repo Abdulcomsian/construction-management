@@ -987,9 +987,9 @@
                                                 <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;" data-id="{{$item->id}}">
                                                         <!-- <span class="fa fa-plus"></span> -->
                                                          Comment
-                                                         <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;" data-id="{{$item->id}}">
-                                                    <span class="{{$class}} label label-lg font-weight-bold label-inline">
-                                                    {{count($item->comments) ?? '-'}}
+                                                         <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;color:{{$color}} !important;" data-id="{{$item->id}}">
+                                                    <span class="{{$class}} ">
+                                                    ({{count($item->comments) ?? '-'}})
                                                     </span>
                                                     </span>
                                                 </p>
@@ -1000,7 +1000,7 @@
                                        <td style="min-width: 220px; max-width: 80px;">
                                             <div class="d-flex justify-content-between">
                                                 <span class="titleColumn">Issue Date:</span>
-                                                <span style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)): '-' }}</span>
+                                                <span style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between my-6">
                                                 <span class="titleColumn">Required by:</span>
@@ -1049,7 +1049,7 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="d-flex justify-content-between my-3">
+                                            <div class="d-flex justify-content-between my-5">
                                                 <span class="titleColumn">Permit to load:</span>
                                                 <div style="display: flex; justify-content: space-between; flex-grow: 1; min-width:88px !important;" id="ptl">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
@@ -1131,9 +1131,9 @@
                                             <div>
                                             <div class="d-flex" style="justify-content: space-between; margin-right: 1.5rem;">
                                                 <span class="titleColumn">Permit to unload:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px;" id="ptu">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:87px; padding-left: 19px; width: 20px; height: 20px;" id="ptu">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative;top: -17px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
                                                 </div>
                                                 
@@ -1193,7 +1193,7 @@
                                                    <div>
                                                    <div class="d-flex" style="">
                                                          <span class="titleColumn">Date Design Returned:</span>
-                                                         <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; ">
+                                                         <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end; ">
                                                                      @foreach($item->uploadfile as $file)
                                                             @if($file->file_type==2)
                                                             <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
@@ -1219,7 +1219,7 @@
                                             </div>
                                             <div class="d-flex  my-4">
                                                 <span class="titleColumn">RAMS:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 47px;">
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;">
                                                    <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px">
                                                       <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative;top: -23px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
                                                       @php $i=0;@endphp
@@ -1234,7 +1234,7 @@
                                             </div>
                                             <div class="d-flex ">
                                                 <span class="titleColumn" style="visibility: hidden">RAMS:</span>
-                                               <ul class="" style="display: flex;list-style: none; padding-left: 40px; margin-bottom: 0;position: relative;bottom: 7px;">
+                                               <ul class="" style="display: flex;list-style: none; padding: 0 1px 0px 42px; margin-bottom: 0;position: relative;bottom: 7px;">
                                                    <li class="navi-item">
                                                       @if(\Auth::user()->hasRole('admin'))
                                                       <a href="{{route('tempwork.sendattach',$item->id)}}" class="btn p-0 m-1" ><i class="fa fa-arrow-right"></i></a>
@@ -1925,7 +1925,7 @@
                                        </td>
                                        <td style="">{{ $item->tw_category }}</td>
                                        <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
-                                       <td style="min-width: 100px; max-width: 80px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)): '-' }}</td>
+                                       <td style="min-width: 100px; max-width: 80px;">{{ $item->design_issued_date ? date('d-m-Y', strtotime($item->design_issued_date)) : '-' }}</td>
                                        <td style="min-width:100px;">
                                           <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1]}} desc cursor-pointer" style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label label-lg font-weight-bold  label-inline"><b>{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</b></span>
                                        </td>

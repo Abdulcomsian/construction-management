@@ -305,23 +305,22 @@ height: 72px;
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <div class="row">
-                                <div class="col-md-12">
-                                    <div class="inputDiv d-block" style="margin-bottom:0px !important;">
-                                        <label class="fs-6 fw-bold mb-2">
+                            <div class="col-md-12">
+                                <div class="inputDiv d-block" style="margin-bottom:0px !important;">
+                                    <label class="fs-6 fw-bold mb-2">
                                             <span class="required">Select Project:</span>
-                                        </label>
-                                        <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
-                                            <option value="">Select Option</option>
+                                    </label>
+                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid"    data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
+                                        <option value="">Select Option</option>
                                             @forelse($projects as $item)
-                                            <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
                                             @empty
                                             @endforelse
-                                        </select>
-                                    </div>
+                                    </select>
                                 </div>
+                            </div>
                         </div>
                         <div class="row">
-                            
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -565,7 +564,11 @@ height: 72px;
                                     </div>
                                     
                                   </div>
-                                   <div class="d-flex inputDiv d-block">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                <div class="d-flex inputDiv d-block">
                                     <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->
                                              <label class="fs-6 fw-bold mb-2">
@@ -579,99 +582,117 @@ height: 72px;
                                     </div>
                                     
                                   </div>
-                                  
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
                                 </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Job title:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Company: </span>
-                                    </label>
-                                    <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
-                                     <input type="hidden" id="company_id"  name="company_id"  >
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Date:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span>Photo:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
-                                </div>
-                                 
-
-                                 <div class="d-flex inputDiv" id="sign" style="align-items: center;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Signature:</span>
-                                    </label>
-                                    <br/>
-                                    <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
-                                    <br/>
-                                   <textarea id="signature" name="signed" style="display: none"></textarea>
-                                   <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                   
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
-                                        <span>Type Signature:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                     <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
-                                      <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
-                                     <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
-                                     &nbsp;
-                                      <!--end::Label-->
-                                     <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
-                                      <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
-                                     <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
-
-                                </div>
-                                <div class="inputDiv d-none" id="pdfsign">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Upload Signature:<br>Allowed format (PNG, JPG)</span>
-                                    </label>
-                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
-                                </div>
-                                
-                                <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name Signature:</span>
-                                    </label>
-                                    <input type="text" name="namesign" class="form-control form-control-solid">
-                                </div>
-                                <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           
-                                        </label>
-                                    <!-- <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button> -->
-                                </div>
-                                <!-- work for approval -->
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="d-flex inputDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
+                                    </div>
+                                    <div class="d-flex inputDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Company: </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
+                                        <input type="hidden" id="company_id"  name="company_id"  >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex inputDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Job title:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
+                                    </div>
+                                    <div class="d-flex inputDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Date:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input data-date-inline-picker="true" type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-12">
+                                    <div class="d-flex inputDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span>Photo:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
+                                    </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="d-flex inputDiv" id="sign" style="align-items: center;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label>
+                                        <br/>
+                                        <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
+                                        <br/>
+                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                    </div>
+                                </div>  
+                                <div class="col-md-6">
+                                    <div class="d-flex inputDiv">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
+                                            <span>Type Signature:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
+                                        <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                        <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
+                                        &nbsp;
+                                        <!--end::Label-->
+                                        <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
+                                        <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                        <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
+
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Upload Signature:<br>Allowed format (PNG, JPG)</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                    </div>
+                                    
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign" class="form-control form-control-solid">
+                                    </div>
+                                    <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            
+                                            </label>
+                                        <!-- <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button> -->
+                                    </div>
+                                    <!-- work for approval -->
+                                </div>
+
+                            </div>
+                                    
+                                </div>
+                                
+                            </div>
                         </div>
                         @include('dashboard.modals.design-relief-modals')
                         <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>

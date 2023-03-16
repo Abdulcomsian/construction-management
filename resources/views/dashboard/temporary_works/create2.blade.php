@@ -253,7 +253,9 @@ height: 72px;
         color: #a1a5b7;
         background: #07D5640D ;
     }
-    
+    .TW .inputDiv{
+        border: none;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -517,8 +519,8 @@ height: 72px;
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex inputDiv d-block">
+                                <div class="col-md-12 ">
+                                    <div class="d-flex inputDiv d-block mt-0">
                                         <div class="modalDiv d-block">
                                             <!--begin::Label-->
                                                 <label class="required fs-6 fw-bold mb-2">
@@ -531,7 +533,7 @@ height: 72px;
                             </div>
 
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block">
+                                <div class="d-flex inputDiv d-block my-0">
                                     <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
                                         <label style="" class="required fs-6 fw-bold mb-2">
@@ -552,7 +554,7 @@ height: 72px;
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                  <div class="d-flex inputDiv d-block">
+                                  <div class="d-flex inputDiv d-block mt-0">
                                     <div class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#scope-of-design">
                                          <!--begin::Label-->
                                              <label class="fs-6 fw-bold mb-2">

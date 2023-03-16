@@ -65,6 +65,8 @@ input:focus {
 
 .modalDiv label {
     margin: 0px !important;
+    position: relative !important;
+    bottom: 20px !important;
 }
 
 .multi-list {
@@ -983,7 +985,7 @@ table th {
 
 .temporary_work_create .inputDiv input,
 .temporary_work_create .select2-container {
-    width: 50% !important;
+    width: 100% !important;
 }
 
 .temporary_work_create .inputDiv input[type="checkbox"] {

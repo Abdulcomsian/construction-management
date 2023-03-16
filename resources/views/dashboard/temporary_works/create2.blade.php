@@ -30,6 +30,7 @@ input::placeholder{
 }
 #design_requirement_text{
     color: #000 !important;
+    height:32px;
 }
 .list-div ul li, .list-check-div ul li{
 height: 72px;
@@ -66,9 +67,7 @@ height: 72px;
         background-color: #e9edf1;
     }
     #kt_toolbar_container{
-        background-color:#fff;
-        
-        
+        background-color:#fff; 
     }
     .card{
         margin: 9px 0px;
@@ -151,12 +150,26 @@ height: 72px;
     }
 
     .inputDiv label {
-        width: 40%;
+        /* width: 40%; */
         color: #000;
+        position: absolute;
+        bottom: 25px;
+        background:white;
     }
     .select2-container{width:250px !important;}
+    .select2-container--bootstrap5 .select2-selection{
+        height:32px !important;
+    }
     .inputDiv {
-        margin: 20px 0px;
+        margin: 30px 0px;
+        border: 1px solid #D2D5DA;
+        border-radius: 8px;
+        position: relative;
+        padding:5px 5px;
+    }
+
+    .textarea .form-control{
+        height:32px !important;
     }
 
     .card-title {
@@ -176,6 +189,7 @@ height: 72px;
         }*/
         .modalDiv{
             width:100% ;
+            position: relative;
         }
         .whiteBack{
             background-color: #f5f8fa !important;
@@ -185,7 +199,9 @@ height: 72px;
             background-color: #000;
             color: #fff;
         }
-     .form-control.form-control-solid{width:250px;}
+     .form-control.form-control-solid{
+        width:250px;
+    }
      @media only screen and (min-width: 470px) {
         .list_top{display:inline !important;}
      }
@@ -209,7 +225,17 @@ height: 72px;
     
     /*canvas{width:50%;height:110px;}*/
     /* .inputDiv  #design_required_by_date{color:#fff;} */
-    .form-control.form-control-solid:focus{color:#000 !important;}
+    .form-control.form-control-solid:focus{
+        color:#000 !important;
+    }
+    #desingform input{
+        background-color: #fff !important;
+        border: none !important;
+        color: #000 !important;
+    }
+    #desingform input::placeholder{
+        color: #9D9D9D !important;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -258,25 +284,28 @@ height: 72px;
                     <form id="desingform" action="{{ route('temporary_works.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <div class="inputDiv d-block" style="margin-bottom:0px !important;">
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Select Project:</span>
+                                        </label>
+                                        <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
+                                            <option value="">Select Option</option>
+                                            @forelse($projects as $item)
+                                            <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                            @empty
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                        </div>
                         <div class="row">
                             
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Select Project:</span>
-                                    </label>
-                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
-                                        <option value="">Select Option</option>
-                                        @forelse($projects as $item)
-                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
-                                        @empty
-                                        @endforelse
-                                    </select>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
@@ -284,7 +313,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project Name:</span>
 
                                     </label>
@@ -293,7 +322,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
@@ -475,33 +504,33 @@ height: 72px;
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                 
-                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
+                                    <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
-                                         <label style="" class="required d-flex align-items-center fs-6 fw-bold mb-2">
+                                         <label style="" class="required fs-6 fw-bold mb-2">
                                            Design Requirement:
                                         </label>
-                                        <br>
+                                        <!-- <br> -->
                                         <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
                                 
                                  </div>
                                   <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
+                                    <div class="modalDiv d-block">
                                         <!--begin::Label-->
-                                             <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <label class="required fs-6 fw-bold mb-2">
                                               Description:
                                             </label>
-                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
+                                            <textarea class="blackBack form-control" style="height:32px" name="description_temporary_work_required"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                  </div>
                                   <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block" data-bs-toggle="modal" data-bs-target="#scope-of-design">
+                                    <div class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#scope-of-design">
                                          <!--begin::Label-->
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <label class="fs-6 fw-bold mb-2">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="blackBack form-control"  style="width:50%; "  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
+                                            <textarea class="blackBack form-control"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     

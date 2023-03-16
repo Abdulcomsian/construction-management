@@ -196,8 +196,9 @@ height: 72px;
             color: #000 !important;
         }
         .form-select.form-select-solid{
-            background-color: #000;
+            background-color: #fff;
             color: #fff;
+            border:none;
         }
      .form-control.form-control-solid{
         width:250px;
@@ -236,6 +237,23 @@ height: 72px;
     #desingform input::placeholder{
         color: #9D9D9D !important;
     }
+    .nav-group.nav-group-fluid>label{
+        top:0 !important;
+        padding: 0 2px !important;
+    }
+
+    .TW .nav-group{
+        background-color: #fff;
+    }
+
+    .TW .nav-group label{
+        margin: 0 !important;
+    }
+    .btn.btn-color-muted{
+        color: #a1a5b7;
+        background: #07D5640D ;
+    }
+    
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -311,15 +329,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Project Name:</span>
-
-                                    </label>
-                                    <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
-                                </div>
+                                
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -328,16 +338,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input data-date-inline-picker="true" readonly type="date" value="{{ date('Y-m-d') }}" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date"  id="design_issued_date" value="{{old('design_issued_date')}}"  required>
                                 </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Required by Date:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
-                                    <!-- </p> -->
-                                </div>
+                               
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -347,14 +348,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Company Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
-                                </div>
+                                
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -364,15 +358,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="email" class="blackBack form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
                                 </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">TWC Name:</span>
-
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
-                                </div>
+                                
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -404,93 +390,157 @@ height: 72px;
                                     </label>
                                     <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger')}}"  >
                                 </div> -->
-                                <div class="d-flex inputDiv">
+                                <div class="d-flex align-items-center inputDiv" style="height: 41px">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">TW Category</span>
-
-                                    </label>
-                                    {{-- <!--end::Label-->--}}
-                                    {{-- <div class="checkBoxDiv">--}}
-
-                                    {{-- </div>--}}
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid">
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="0" checked="checked" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">0</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">1</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">2</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="3" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">3</span>
-                                        </label>
-                                        <!--end::Option-->
-                                    </div>
-                                    <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
-                                    <!--end::Radio group-->
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">TW Risk Class</span>
-                                    </label>
-                                    {{-- <!--end::Label-->--}}
-                                    {{-- <div class="checkBoxDiv">--}}
-
-                                    {{-- </div>--}}
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid">
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="VL" checked="checked" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="L" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">L</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="M" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">M</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="H" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">H</span>
-                                        </label>
-                                        <!--end::Option-->
-                                    </div>
-                                    <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
-                                    <!--end::Radio group-->
-                                </div>
-                                 <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
+                                    <label class="fs-6 fw-bold mb-2" >
                                         <span>Approval:</span>
                                     </label>
                                     <!--end::Label-->
-                                     <input  type="checkbox" name="approval" id="approval"  style="width: 12px;margin-top:5px" class="blackBack">
-                                     <span style="padding-left:3px;color:#000">Select if approval is required.</span>
+                                     <input  type="checkbox" name="approval" id="approval"  style="margin-left:10px;opacity: 0.5" class="blackBack">
+                                     <span style="padding-left:22px;color:#000">Select if approval is required.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required">Project Name:</span>
+
+                                        </label>
+                                        <!--end::Label-->
+                                        <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Design requirement" id="name" name="projname"  value="{{old('projname')}}">
+                                </div>
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Design Required by Date:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
+                                        <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                    <!-- </p> -->
+                                </div>
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                </div>
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">TWC Name:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
+                                </div>
+                                <div class="d-flex TW">
+                                    <div class="col-md-6 d-flex inputDiv">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">
+                                            <span class="required">TW Category</span>
+                                        </label>
+                                        {{-- <!--end::Label-->--}}
+                                        {{-- <div class="checkBoxDiv">--}}
+                                        {{-- </div>--}}
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid">
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="0" checked="checked" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">0</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">1</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">2</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="3" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">3</span>
+                                            </label>
+                                            <!--end::Option-->
+                                        </div>
+                                        <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
+                                        <!--end::Radio group-->
+                                    </div>
+                                    <div class="col-md-6 d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">
+                                            <span class="required">TW Risk Class</span>
+                                        </label>
+                                        {{-- <!--end::Label-->--}}
+                                        {{-- <div class="checkBoxDiv">--}}
+                                        {{-- </div>--}}
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid">
+                                            <!--begin::Option-->
+                                            <label >
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="VL" checked="checked" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="L" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">L</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="M" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">M</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="H" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">H</span>
+                                            </label>
+                                            <!--end::Option-->
+                                        </div>
+                                        <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
+                                        <!--end::Radio group-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="d-flex inputDiv d-block">
+                                        <div class="modalDiv d-block">
+                                            <!--begin::Label-->
+                                                <label class="required fs-6 fw-bold mb-2">
+                                                Description:
+                                                </label>
+                                                <textarea class="blackBack form-control" style="height:32px" name="description_temporary_work_required"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
+                                        <!--begin::Label-->
+                                        <label style="" class="required fs-6 fw-bold mb-2">
+                                        Design Requirement:
+                                        </label>
+                                        <!-- <br> -->
+                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <!--end::Label-->
+                                    </div>
                                 </div>
                                 <div class="d-none inputDiv pc-twc">
                                     <!--begin::Label-->
@@ -502,28 +552,6 @@ height: 72px;
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block">
-                                
-                                    <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
-                                        <!--begin::Label-->
-                                         <label style="" class="required fs-6 fw-bold mb-2">
-                                           Design Requirement:
-                                        </label>
-                                        <!-- <br> -->
-                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
-                                        <!--end::Label-->
-                                    </div>
-                                
-                                 </div>
-                                  <div class="d-flex inputDiv d-block">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                             <label class="required fs-6 fw-bold mb-2">
-                                              Description:
-                                            </label>
-                                            <textarea class="blackBack form-control" style="height:32px" name="description_temporary_work_required"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
-                                    </div>
-                                 </div>
                                   <div class="d-flex inputDiv d-block">
                                     <div class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#scope-of-design">
                                          <!--begin::Label-->
@@ -536,9 +564,9 @@ height: 72px;
                                     
                                   </div>
                                    <div class="d-flex inputDiv d-block">
-                                    <div style="position:relative;" class="d-flex modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                    <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <label class="fs-6 fw-bold mb-2">
                                               Attachments / Spec:
                                               <span style="margin-left: 10px;">
                                         <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:25px"></span></a>

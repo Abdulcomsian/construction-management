@@ -153,7 +153,7 @@ height: 72px;
         /* width: 40%; */
         color: #000;
         position: absolute;
-        bottom: 37px;
+        bottom: 25px;
         background:white;
     }
     .select2-container{width:250px !important;}
@@ -161,11 +161,11 @@ height: 72px;
         height:32px !important;
     }
     .inputDiv {
-        margin: 20px 0px;
+        margin: 30px 0px;
         border: 1px solid #D2D5DA;
         border-radius: 8px;
         position: relative;
-        padding:10px 10px;
+        padding:5px 5px;
     }
 
     .textarea .form-control{
@@ -199,7 +199,9 @@ height: 72px;
             background-color: #000;
             color: #fff;
         }
-     .form-control.form-control-solid{width:250px;}
+     .form-control.form-control-solid{
+        width:250px;
+    }
      @media only screen and (min-width: 470px) {
         .list_top{display:inline !important;}
      }
@@ -223,7 +225,17 @@ height: 72px;
     
     /*canvas{width:50%;height:110px;}*/
     /* .inputDiv  #design_required_by_date{color:#fff;} */
-    .form-control.form-control-solid:focus{color:#000 !important;}
+    .form-control.form-control-solid:focus{
+        color:#000 !important;
+    }
+    #desingform input{
+        background-color: #fff !important;
+        border: none !important;
+        color: #000 !important;
+    }
+    #desingform input::placeholder{
+        color: #9D9D9D !important;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -273,17 +285,19 @@ height: 72px;
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <div class="row">
-                                <div class="col-md-12 inputDiv d-block">
-                                    <label class="fs-6 fw-bold mb-2">
-                                        <span class="required">Select Project:</span>
-                                    </label>
-                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
-                                        <option value="">Select Option</option>
-                                        @forelse($projects as $item)
-                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
-                                        @empty
-                                        @endforelse
-                                    </select>
+                                <div class="col-md-12">
+                                    <div class="inputDiv d-block" style="margin-bottom:0px !important;">
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Select Project:</span>
+                                        </label>
+                                        <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
+                                            <option value="">Select Option</option>
+                                            @forelse($projects as $item)
+                                            <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                            @empty
+                                            @endforelse
+                                        </select>
+                                    </div>
                                 </div>
                         </div>
                         <div class="row">

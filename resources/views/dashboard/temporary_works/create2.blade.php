@@ -155,14 +155,14 @@ height: 72px;
         color: #000 !important;
     }
 
-    .inputDiv label {
+    /* .inputDiv label { */
         /* width: 40%; */
-        color: #000;
+        /* color: #000;
         position: absolute;
         bottom: 25px;
         background:white;
         font-family: 'Inter', sans-serif;
-    }
+    } */
     .select2-container{width:250px !important;}
     .select2-container--bootstrap5 .select2-selection{
         height:32px !important;

@@ -804,8 +804,9 @@ height: 72px;
         {
             $("#pdfChecked").prop('checked',false);
             $("#flexCheckChecked").prop('checked',false);
-            // $("#signtype").val(1);
-            //  $("#pdfsign").val(0);
+            $("#signtype").val(0);
+             $("#pdfsign").val(0);
+             $("#Drawtype").val(1);
             // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             // $("#pdfsign").removeClass('d-flex').addClass("d-none");
             // $(".customSubmitButton").removeClass("hideBtn");
@@ -813,7 +814,7 @@ height: 72px;
             //  $("input[name='pdfsign']").removeAttr('required');
             // $("input[name='namesign']").attr('required','required');
             // $("#clear").hide();
-            $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
             $("#sign").css('display','block');
            
         }
@@ -831,8 +832,10 @@ height: 72px;
         if($(this).is(':checked'))
         {
             $("#pdfChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
             $("#signtype").val(1);
              $("#pdfsign").val(0);
+             $("#Drawtype").val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").addClass('d-flex').show();
             $(".customSubmitButton").removeClass("hideBtn");
@@ -859,8 +862,10 @@ height: 72px;
         if($(this).is(':checked'))
         {
             $("#flexCheckChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
             $("#pdfsign").val(1);
             $("#signtype").val(0);
+            $("#Drawtype").val(0);
             $("input[name='pdfsign']").attr('required','required');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
             $("#namesign").removeClass('d-flex').hide();

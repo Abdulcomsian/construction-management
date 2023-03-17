@@ -400,9 +400,9 @@ input:focus {
 }*/
 #submitbutton {
     position: relative;
-    left: 18%;
-    bottom: 20px;
-    float: left !important;
+    top: 62%;
+    width: 263px;
+    height: 89px;
 }
 
 .formDiv {
@@ -432,9 +432,9 @@ input:focus {
 }
 
 @media screen and (min-width: 1900px) {
-    #submitbutton {
+    /* #submitbutton {
         right: 24%;
-    }
+    } */
 }
 
 @media screen and (min-width: 1800px) {
@@ -442,13 +442,13 @@ input:focus {
         right: 71.9%;
     }
 
-    .temporary_work_create #submitbutton {
+    /* .temporary_work_create #submitbutton {
         right: 24% !important;
-    }
+    } */
 
-    #submitbutton {
+    /* #submitbutton {
         right: 76.2%;
-    }
+    } */
 }
 
 @media screen and (max-width: 1800px) {
@@ -456,36 +456,36 @@ input:focus {
         right: 70.9%;
     }
 
-    #submitbutton {
+    /* #submitbutton {
         right: 75.9%;
-    }
+    } */
 
-    .temporary_work_create #submitbutton {
+    /* .temporary_work_create #submitbutton {
         right: 23% !important;
-    }
+    } */
 }
 
 @media screen and (max-width: 1600px) {
-    .temporary_work_create #submitbutton {
+    /* .temporary_work_create #submitbutton {
         right: 22% !important;
-    }
+    } */
 
-    #submitbutton {
+    /* #submitbutton {
         right: 75%;
-    }
+    } */
 }
 
 @media screen and (max-width: 1500px) {
 }
 
 @media screen and (max-width: 1440px) {
-    .temporary_work_create #submitbutton {
+    /* .temporary_work_create #submitbutton {
         right: 20% !important;
-    }
+    } */
 
-    #submitbutton {
+    /* #submitbutton {
         right: 73.6%;
-    }
+    } */
 
     .unload_button {
         right: 68.6% !important;
@@ -493,13 +493,13 @@ input:focus {
 }
 
 @media screen and (max-width: 1310px) {
-    .temporary_work_create #submitbutton {
+    /* .temporary_work_create #submitbutton {
         right: 20% !important;
-    }
+    } */
 
-    #submitbutton {
+    /* #submitbutton {
         right: 72%;
-    }
+    } */
 }
 
 @media screen and (min-width: 1200px) {
@@ -509,9 +509,9 @@ input:focus {
 }
 
 @media screen and (max-width: 1150px) {
-    #submitbutton {
+    /* #submitbutton {
         right: 20.5%;
-    }
+    } */
 }
 
 @media screen and (max-width: 1500px) {
@@ -526,9 +526,9 @@ input:focus {
 }
 
 @media screen and (max-width: 1200px) {
-    #submitbutton {
+    /* #submitbutton {
         right: 71%;
-    }
+    } */
 
     .newDesignBtn {
         margin-left: 0px !important;
@@ -564,9 +564,9 @@ input:focus {
         display: block;
     }
 
-    #submitbutton {
+    /* #submitbutton {
         right: 72%;
-    }
+    } */
 
     .formDiv .form {
         width: 100%;
@@ -603,9 +603,9 @@ input:focus {
 }
 
 @media screen and (max-width: 820px) {
-    #submitbutton {
+    /* #submitbutton {
         right: 69%;
-    }
+    } */
 }
 
 @media screen and (min-width: 768px) {
@@ -615,9 +615,9 @@ input:focus {
 }
 
 @media screen and (max-width: 768px) {
-    .temporary_work_create #submitbutton {
+    /* .temporary_work_create #submitbutton {
         right: 49% !important;
-    }
+    } */
 
     .upload_signature_div .principleno {
         width: 45% !important;
@@ -669,9 +669,9 @@ input:focus {
         text-align: left !important;
     }
 
-    #submitbutton {
+    /* #submitbutton {
         right: 70%;
-    }
+    } */
 
     .tabnave {
         width: 100% !important;
@@ -738,13 +738,13 @@ input:focus {
 }
 
 @media screen and (max-width: 568px) {
-    #submitbutton {
+    /* #submitbutton {
         left: 30%;
-    }
+    } */
 
-    .temporary_work_create #submitbutton {
+    /* .temporary_work_create #submitbutton {
         right: 42% !important;
-    }
+    } */
 
     .upload_signature_div .principleno {
         width: 60% !important;
@@ -754,9 +754,9 @@ input:focus {
         width: 30% !important;
     }
 
-    #submitbutton {
+    /* #submitbutton {
         right: 55%;
-    }
+    } */
 
     .tabnave {
         width: 100% !important;
@@ -764,9 +764,9 @@ input:focus {
 }
 
 @media screen and (max-width: 414px) {
-    #submitbutton {
+    /* #submitbutton {
         right: 50%;
-    }
+    } */
 
     .tabnave {
         width: 100% !important;
@@ -774,10 +774,10 @@ input:focus {
 }
 
 @media screen and (max-width: 390px) {
-    #submitbutton {
+    /* #submitbutton {
         right: 43%;
         bottom: 30px;
-    }
+    } */
 
     .tabnave {
         width: 100% !important;
@@ -982,6 +982,10 @@ table th {
 .upload_signature_div .principleno {
     width: 30%;
 }
+.temporary_work_create .inputDiv input,
+.temporary_work_create .select2-container {
+    width: 100% !important;
+}
 
 .temporary_work_create .inputDiv input {
     width: 100% !important;
@@ -1010,8 +1014,9 @@ table th {
 .temporary_work_create #submitbutton {
     /* float: right !important; */
     /* right: 22%; */
+    /* float: none !important;
     left: 444px !important;
-    top: 186px;
+    top: 186px; */
 }
 
 .unload_Permit #submitbutton {

@@ -161,6 +161,7 @@ height: 72px;
         position: absolute;
         bottom: 25px;
         background:white;
+        font-family: 'Inter', sans-serif;
     }
     .select2-container{width:250px !important;}
     .select2-container--bootstrap5 .select2-selection{
@@ -406,7 +407,7 @@ height: 72px;
                                 <div class="d-flex align-items-center inputDiv" style="height: 41px">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2" >
-                                        <span>Approval:</span>
+                                        <span>PCTWC approval required?</span>
                                     </label>
                                     <!--end::Label-->
                                      <input  type="checkbox" name="approval" id="approval"  style="margin-left:10px;opacity: 0.5" class="blackBack">
@@ -487,7 +488,7 @@ height: 72px;
                                             </label>
                                             <!--end::Option-->
                                         </div>
-                                        <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
+                                        <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:23px"></span></a>
                                         <!--end::Radio group-->
                                     </div>
                                     <div class="col-md-6 d-flex inputDiv my-0">
@@ -525,7 +526,7 @@ height: 72px;
                                             </label>
                                             <!--end::Option-->
                                         </div>
-                                        <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
+                                        <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:23px"></span></a>
                                         <!--end::Radio group-->
                                     </div>
                                 </div>
@@ -582,7 +583,7 @@ height: 72px;
 
                             <div class="row">
                                 <div class="col-12">
-                                <div class="d-flex inputDiv d-block">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->
                                              <label class="fs-6 fw-bold mb-2" style="bottom:35px">
@@ -659,16 +660,21 @@ height: 72px;
                                         </label>
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input  type="checkbox" class="" id="DrawCheck"  style="width: 12px;">
+                                            <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
                                             <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;">
                                             <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">name signature?</span>
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
                                         </div>
                                         &nbsp;
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;">
                                             <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Pdf signature?</span>
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">PNG/JPG Upload </span>
                                         </div>
 
                                     </div>
@@ -707,7 +713,7 @@ height: 72px;
                                     <!-- </div> -->
                                     <!-- work for approval -->
                                     @include('dashboard.modals.design-relief-modals')
-                                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
+                                        <button id="submitbutton" type="submit"  class="btn btn-primary float-end submitbutton">Submit</button>
                         
                                 </div>
 
@@ -793,6 +799,34 @@ height: 72px;
         }
         console.log(project);
     });
+    $("#DrawCheck").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#flexCheckChecked").prop('checked',false);
+            // $("#signtype").val(1);
+            //  $("#pdfsign").val(0);
+            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            // $(".customSubmitButton").removeClass("hideBtn");
+            // $(".customSubmitButton").addClass("showBtn");
+            //  $("input[name='pdfsign']").removeAttr('required');
+            // $("input[name='namesign']").attr('required','required');
+            // $("#clear").hide();
+            $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("#sign").css('display','block');
+           
+        }
+        // else{
+        //     $("#signtype").val(2);
+        //     $("#sign").addClass('d-flex').show();
+        //     $("#namesign").removeClass('d-flex').hide();
+        //     $("input[name='namesign']").removeAttr('required');
+        //     $("#clear").show();
+        //     $(".customSubmitButton").addClass("hideBtn");
+        //     $(".customSubmitButton").removeClass("showBtn");
+        // }
+    })
     $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
         {
@@ -982,7 +1016,7 @@ height: 72px;
             console.log("hello")
             $(this).removeClass("blackBack")
             $("#projects span.form-select").removeClass("blackBack")
-         //   $(".form-control[readonly]").removeClass("blackBack")
+        //    $(".form-control[readonly]").removeClass("blackBack")
             $("#no").removeClass("blackBack").addClass("whiteBack");
             $("#name").removeClass("blackBack").addClass("whiteBack");
             $("#design_issued_date").removeClass("blackBack").addClass("whiteBack");

@@ -660,7 +660,7 @@ height: 72px;
                                         </label>
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="checkbox" class="" id="DrawCheck"  style="width: 12px;">
+                                            <input  type="checkbox" class="" id="DrawCheck" checked=true  style="width: 12px;">
                                             <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2">
                                             <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
@@ -813,7 +813,7 @@ height: 72px;
             // $(".customSubmitButton").addClass("showBtn");
             //  $("input[name='pdfsign']").removeAttr('required');
             // $("input[name='namesign']").attr('required','required');
-            // $("#clear").hide();
+            $("#clear").show();
             $("div#pdfsign").removeClass('d-flex').addClass("d-none");
             $("#sign").css('display','block');
            

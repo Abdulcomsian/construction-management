@@ -81,8 +81,15 @@ height: 72px;
         background-color: red;
     }
     .blackBack{
-        background-color: #000 !important;
-        color: #fff !important;
+        /* background-color: #000 !important;
+        color: #fff !important; */
+    }
+    textarea{
+        color:black;
+        border:none;
+    }
+    textarea::-webkit-input-placeholder {
+        color:black !important;
     }
     .whiteBack{
         background-color: #f5f8fa !important;
@@ -256,6 +263,12 @@ height: 72px;
     .TW .inputDiv{
         border: none;
     }
+    .fa-undo:before{
+        background-color: white;
+        padding:5px;
+        border-radius: 100%;
+    }
+
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -438,6 +451,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
                                 </div>
+                                
                                 <div class="d-flex TW">
                                     <div class="col-md-6 d-flex inputDiv">
                                         <!--begin::Label-->
@@ -516,6 +530,14 @@ height: 72px;
                                         <!--end::Radio group-->
                                     </div>
                                 </div>
+                                <div class="d-none inputDiv pc-twc">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
+                                        <span>PC TWC Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input  type="email" class="blackBack form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc_twc_email')}}">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 ">
@@ -543,14 +565,7 @@ height: 72px;
                                         <!--end::Label-->
                                     </div>
                                 </div>
-                                <div class="d-none inputDiv pc-twc">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
-                                        <span>PC TWC Email:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                     <input  type="email" class="blackBack form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc_twc_email')}}">
-                                </div>
+                                
                             </div>
                             <div class="col-md-6">
                                   <div class="d-flex inputDiv d-block mt-0">
@@ -638,37 +653,39 @@ height: 72px;
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="d-flex inputDiv" id="sign" style="align-items: center;">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Signature:</span>
-                                        </label>
-                                        <br/>
-                                        <canvas id="sig" onblure="draw()" style="background: lightgray"></canvas>
-                                        <br/>
-                                        <textarea id="signature" name="signed" style="display: none"></textarea>
-                                        <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
-                                    </div>
-                                </div>  
-                                <div class="col-md-6">
-                                    <div class="d-flex inputDiv">
+                                    <div class="d-flex inputDiv mb-1" style="border: none">
                                         <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
-                                            <span>Type Signature:</span>
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                            <span>Signature Type:</span>
                                         </label>
                                         <!--end::Label-->
-                                        <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;margin-top:5px">
-                                        <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
-                                        <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name signature?</span>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">name signature?</span>
+                                        </div>
                                         &nbsp;
                                         <!--end::Label-->
-                                        <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;margin-top:5px">
-                                        <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
-                                        <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf signature?</span>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;">
+                                            <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Pdf signature?</span>
+                                        </div>
 
                                     </div>
+                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                        <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label>
+                                        <br/> -->
+                                        <canvas id="sig" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
+                                        <br/>
+                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                    </div>
                                     <div class="inputDiv d-none" id="pdfsign">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Upload Signature:<br>Allowed format (PNG, JPG)</span>
+                                        <label class="fs-6 fw-bold mb-2" style="width: fit-content">
+                                            <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
                                         </label>
                                         <input type="file" name="pdfphoto" class="form-control" accept="image/*">
                                     </div>
@@ -679,6 +696,10 @@ height: 72px;
                                         </label>
                                         <input type="text" name="namesign" class="form-control form-control-solid">
                                     </div>
+                                </div>  
+                                <div class="col-md-6">
+                                    
+                                    
                                     <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             

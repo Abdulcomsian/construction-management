@@ -62,14 +62,7 @@ input:focus {
 .requirment-second li input::placeholder {
     color: #000;
 }
-.inputDiv label {
-    /* width: 40%; */
-    color: #000;
-    position: absolute;
-    bottom: 25px;
-    background: white;
-    font-family: "Inter", sans-serif;
-}
+
 .modalDiv label {
     margin: 0px !important;
     position: relative !important;

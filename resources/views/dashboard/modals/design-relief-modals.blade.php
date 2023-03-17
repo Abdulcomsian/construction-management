@@ -18,12 +18,14 @@
         height: 40px !important;
         border: 1px solid lightgrey;
     }
-    .establishment li{
+    .establishment li,
+    .equipment li{
         border-left: none !important; 
         border-right: none !important; 
         border-top: none !important;
     }
-    .establishment li::after{
+    .establishment li::after,
+    .equipment li::after{
         content: none !important;
     }
     .fa-check{
@@ -93,6 +95,32 @@
                                     </li>
                                 </ul>
                                 <li data-id="equipment ">Equipment and Plant</li>
+                                    <ul class="d-none equipment">
+                                        <li>Pile Mat & Working Platform </li>
+                                        <li>Crane Platform</li>
+                                        <li>Crane Support & Foundations</li>
+                                        <li>Crane Bases  - Out rigger concrete padsmissing </li>
+                                        <li>Tower Crane Base (piled)</li>
+                                        <li>Tower Crane Base (mass concrete)</li>
+                                        <li>Access Platform for Machines and Temporary Ramps </li>
+                                        <li>Concrete Pump Working Platform (outrigger check)</li>
+                                        <li>Hoist Ties & Foundations</li>
+                                        <li>Mast Climbers & Foundations</li>
+                                        <li>Chute Support</li>
+                                        <li>Loading Bay</li>
+                                        <li>Canti Deck</li>
+                                        <li>Soli Bases</li>
+                                        <li>Lifting / Handling Devices</li>
+                                        <li>Mobile Crane platforms</li>
+                                        <li>Design outrigger load assessment on existing highway road / street</li>
+                                        <li>Crane Outrigger loadings, mat and back propping</li>
+                                        <li>Hoist bases, restraint and back propping</li>
+                                        <li>Mobile crane outriggers</li>
+                                        <li>Hoist Run offs</li>
+                                        <li>Lifting  of prefabricated rebar column/ wall panels</li>
+                                        <li>Lifting  of prefabricated rebar column/ wall panels</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
                                 <li data-id="scaffolding ">Access / Scaffolding</li>
                                 <li data-id="excavation">Excavation Earthworks</li>
                                 <li data-id="formwork">Formwork / Falsework</li>

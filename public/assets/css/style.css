@@ -81,7 +81,7 @@ input:focus {
 }
 
 /* #scope-of-design .modal-content{
-    width:80% !important;
+    width:80% !important; 
 } */
 #design-requirement .requirment-second li:nth-child(1):after {
     content: none !important;

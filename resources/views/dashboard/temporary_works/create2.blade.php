@@ -53,7 +53,6 @@ height: 72px;
         width: 150px;
         padding: 10px 15px;
         color: #000;
-        margin: 0px 29px;
     }
 
     .newDesignBtn:hover {
@@ -300,9 +299,9 @@ height: 72px;
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title list_top" style="width:98%">
-                        <h2 class="db_mr" style="display: inline-block;width:17%">Design Brief</h2>
-                        <a style="width: 235px; text-align:center;color:#fff;padding:5px;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
+                    <div class="card-title list_top" style="width:100%; display: flex !important; justify-content: space-between;align-items:center">
+                        <h2 class="db_mr" style="display: inline-block;width:17%; font-family: 'Inter', sans-serif; font-weight:600; font-size:32px">Design Brief</h2>
+                        <a style="width: 273px; text-align:center;color:#fff;padding:10px 2px;font-family: 'Inter', sans-serif; font-weight:600; font-size:18px" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         
                     </div>
@@ -453,7 +452,7 @@ height: 72px;
                                 </div>
                                 
                                 <div class="d-flex TW">
-                                    <div class="col-md-6 d-flex inputDiv">
+                                    <div class="col-md-6 d-flex inputDiv my-0">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">
                                             <span class="required">TW Category</span>
@@ -491,7 +490,7 @@ height: 72px;
                                         <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                         <!--end::Radio group-->
                                     </div>
-                                    <div class="col-md-6 d-flex inputDiv ">
+                                    <div class="col-md-6 d-flex inputDiv my-0">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">
                                             <span class="required">TW Risk Class</span>
@@ -530,9 +529,9 @@ height: 72px;
                                         <!--end::Radio group-->
                                     </div>
                                 </div>
-                                <div class="d-none inputDiv pc-twc">
+                                <div class="d-none inputDiv pc-twc" style="margin-top: 19px">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important">
+                                    <label class="fs-6 fw-bold mb-2" style="width:fix-content!important">
                                         <span>PC TWC Email:</span>
                                     </label>
                                     <!--end::Label-->
@@ -568,10 +567,10 @@ height: 72px;
                                 
                             </div>
                             <div class="col-md-6">
-                                  <div class="d-flex inputDiv d-block mt-0">
+                                  <div class="d-flex inputDiv d-block my-0">
                                     <div class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#scope-of-design">
                                          <!--begin::Label-->
-                                             <label class="fs-6 fw-bold mb-2">
+                                             <label class="fs-6 fw-bold mb-2" style="bottom: 43px">
                                               Scope of Design:
                                             </label>
                                             <textarea class="blackBack form-control"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
@@ -586,7 +585,7 @@ height: 72px;
                                 <div class="d-flex inputDiv d-block">
                                     <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->
-                                             <label class="fs-6 fw-bold mb-2">
+                                             <label class="fs-6 fw-bold mb-2" style="bottom:35px">
                                               Attachments / Spec:
                                               <span style="margin-left: 10px;">
                                         <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:25px"></span></a>
@@ -641,7 +640,7 @@ height: 72px;
                             </div>
                             <div class="row">
                                     <div class="col-12">
-                                    <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex inputDiv d-block my-0">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>Photo:</span>
@@ -700,13 +699,16 @@ height: 72px;
                                 <div class="col-md-6">
                                     
                                     
-                                    <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
+                                    <!-- <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             
-                                            </label>
+                                            </label> -->
                                         <!-- <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button> -->
-                                    </div>
+                                    <!-- </div> -->
                                     <!-- work for approval -->
+                                    @include('dashboard.modals.design-relief-modals')
+                                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
+                        
                                 </div>
 
                             </div>
@@ -715,8 +717,6 @@ height: 72px;
                                 
                             </div>
                         </div>
-                        @include('dashboard.modals.design-relief-modals')
-                        <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Submit</button>
                         
                     </form>
                 </div>

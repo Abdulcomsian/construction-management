@@ -72,7 +72,7 @@ input:focus {
 .multi-list {
     display: flex;
     max-height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #scope-of-design .list-div ul li {

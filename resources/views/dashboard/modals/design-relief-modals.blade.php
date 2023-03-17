@@ -17,6 +17,8 @@
     .designRequirmentList  .list-div ul li{
         height: 40px !important;
         border: 1px solid lightgrey;
+        display: flex;
+        justify-content: space-between;
     }
     .establishment li,
     .equipment li{

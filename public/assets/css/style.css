@@ -983,7 +983,9 @@ table th {
     width: 30%;
 }
 
-.temporary_work_create .inputDiv input,
+.temporary_work_create .inputDiv input {
+    width: 100% !important;
+}
 .temporary_work_create .select2-container {
     width: 100% !important;
 }
@@ -1006,9 +1008,10 @@ table th {
 }
 
 .temporary_work_create #submitbutton {
-    float: right !important;
-    right: 22%;
-    left: initial !important;
+    /* float: right !important; */
+    /* right: 22%; */
+    left: 444px !important;
+    top: 186px;
 }
 
 .unload_Permit #submitbutton {

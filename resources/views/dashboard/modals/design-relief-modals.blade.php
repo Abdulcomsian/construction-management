@@ -3,6 +3,37 @@
     .form-control.form-control-solid{
         background: black;
     }
+    .designRequirmentList {
+        display: block;
+    }
+    .designRequirmentList .requirment-first{
+        width: 100% !important;
+        margin-left: 0;
+    }
+    .designRequirmentList  .list-div ul li:after{
+        transform: rotate(90deg);
+    }
+    
+    .designRequirmentList  .list-div ul li{
+        height: 40px !important;
+        border: 1px solid lightgrey;
+    }
+    .establishment li,
+    .equipment li{
+        border-left: none !important; 
+        border-right: none !important; 
+        border-top: none !important;
+    }
+    .establishment li::after,
+    .equipment li::after{
+        content: none !important;
+    }
+    .fa-check{
+        background-color: #07D564;
+        color: white;
+        padding: 3px;
+        border-radius: 100%;
+    }
 </style>
 <!--begin::Modal - Design Requirement-->
 <div class="modal fade" id="design-requirement" tabindex="-1" aria-hidden="true">
@@ -33,13 +64,63 @@
             <!--end::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body py-lg-10 px-lg-10">
-                <div class="multi-list">
+                <div class="multi-list designRequirmentList" >
                     <div class="common-requirment requirment-first">
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <li data-id="establishment">Site Establishment</li>
+                                <li data-id="establishment">Site Establishment
+                               
+                                </li>
+                                <ul class="d-none establishment">
+                                    <li data-id="Trench">Temporary Office / Cabins foundations <i class="fas fa-check"></i></li>
+                                    <li data-id="Manhole">Stacked Cabin stability (cabins only)</li>
+                                    <li data-id="Cofferdams">Hoarding / Tower Crane Hoarding</li>
+                                    <li data-id="Excavation">Site hoarding - Heras</li>
+                                    <li data-id="Capping">Access / Scaffolding</li>
+                                    <li data-id="Temporary">Access Gantries / Platform</li>
+                                    <li data-id="Temporary">Access Bridges</li>
+                                    <li data-id="Headings">Barriers </li>
+                                    <li data-id="sign">Sign Boards </li>
+                                    <li data-id="Underpinning">Fuel Storage</li>
+                                    <li data-id="Stockpiles">Welfare Facilities</li>
+                                    <li data-id="precast">Precast Facilities</li>
+                                    <li data-id="PCC">Wheel Wash Base</li>
+                                    <li data-id="gates">Gates - Steel Mesh</li>
+                                    <li data-id="flag">Flag Pole Bases</li>
+                                    <li data-id="Dewatering">Haul Road</li>
+                                    <li data-id="State">Other Please State</li>
+                                    <li>
+                                        <input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state">
+                                    </li>
+                                </ul>
                                 <li data-id="equipment ">Equipment and Plant</li>
+                                    <ul class="d-none equipment">
+                                        <li>Pile Mat & Working Platform </li>
+                                        <li>Crane Platform</li>
+                                        <li>Crane Support & Foundations</li>
+                                        <li>Crane Bases  - Out rigger concrete padsmissing </li>
+                                        <li>Tower Crane Base (piled)</li>
+                                        <li>Tower Crane Base (mass concrete)</li>
+                                        <li>Access Platform for Machines and Temporary Ramps </li>
+                                        <li>Concrete Pump Working Platform (outrigger check)</li>
+                                        <li>Hoist Ties & Foundations</li>
+                                        <li>Mast Climbers & Foundations</li>
+                                        <li>Chute Support</li>
+                                        <li>Loading Bay</li>
+                                        <li>Canti Deck</li>
+                                        <li>Soli Bases</li>
+                                        <li>Lifting / Handling Devices</li>
+                                        <li>Mobile Crane platforms</li>
+                                        <li>Design outrigger load assessment on existing highway road / street</li>
+                                        <li>Crane Outrigger loadings, mat and back propping</li>
+                                        <li>Hoist bases, restraint and back propping</li>
+                                        <li>Mobile crane outriggers</li>
+                                        <li>Hoist Run offs</li>
+                                        <li>Lifting  of prefabricated rebar column/ wall panels</li>
+                                        <li>Lifting  of prefabricated rebar column/ wall panels</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
                                 <li data-id="scaffolding ">Access / Scaffolding</li>
                                 <li data-id="excavation">Excavation Earthworks</li>
                                 <li data-id="formwork">Formwork / Falsework</li>
@@ -53,31 +134,10 @@
                     <div class="common-requirment requirment-second">
                         <input type="text" vlaue="" class="requirment-second-value">
                         <div class="list-div">
-                            <ul class="d-none establishment">
-                                <li data-id="Trench">Temporary Office / Cabins foundations</li>
-                                <li data-id="Manhole">Stacked Cabin stability (cabins only)</li>
-                                <li data-id="Cofferdams">Hoarding / Tower Crane Hoarding</li>
-                                <li data-id="Excavation">Site hoarding - Heras</li>
-                                <li data-id="Capping">Access / Scaffolding</li>
-                                <li data-id="Temporary">Access Gantries / Platform</li>
-                                <li data-id="Temporary">Access Bridges</li>
-                                <li data-id="Headings">Barriers </li>
-                                <li data-id="sign">Sign Boards </li>
-                                <li data-id="Underpinning">Fuel Storage</li>
-                                <li data-id="Stockpiles">Welfare Facilities</li>
-                                <li data-id="precast">Precast Facilities</li>
-                                <li data-id="PCC">Wheel Wash Base</li>
-                                <li data-id="gates">Gates - Steel Mesh</li>
-                                <li data-id="flag">Flag Pole Bases</li>
-                                <li data-id="Dewatering">Haul Road</li>
-                                <li data-id="State">Other Please State</li>
-                                <li>
-                                    <input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state">
-                                </li>
-                            </ul>
+                            
                             <!-- **************** Framework / Falsework **************  -->
                             <ul class="d-none equipment">
-                                <li>Pile Mat & Working Platform</li>
+                                <li>Pile Mat & Working Platform </li>
                                 <li>Crane Platform</li>
                                 <li>Crane Support & Foundations</li>
                                 <li>Crane Bases  - Out rigger concrete padsmissing </li>

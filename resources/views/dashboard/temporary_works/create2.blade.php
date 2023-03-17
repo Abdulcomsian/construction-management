@@ -660,21 +660,21 @@ height: 72px;
                                         </label>
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="checkbox" class="" id="DrawCheck" checked=true  style="width: 12px;">
+                                            <input  type="radio" class="checkbox-field" id="DrawCheck" checked=true  style="width: 12px;">
                                             <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2">
                                             <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="checkbox" class="" id="flexCheckChecked"  style="width: 12px;">
+                                            <input  type="radio" class="" id="flexCheckChecked"  style="width: 12px;">
                                             <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
                                             <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
                                         </div>
                                         &nbsp;
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="checkbox" class="" id="pdfChecked"  style="width: 12px;">
+                                            <input  type="radio" class="" id="pdfChecked"  style="width: 12px;">
                                             <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">PNG/JPG Upload </span>
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG Upload </span>
                                         </div>
 
                                     </div>
@@ -815,6 +815,7 @@ height: 72px;
             // $("input[name='namesign']").attr('required','required');
             $("#clear").show();
             $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#namesign").removeClass('d-flex').addClass("d-none");
             $("#sign").css('display','block');
            
         }

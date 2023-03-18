@@ -36,6 +36,12 @@
         padding: 3px;
         border-radius: 100%;
     }
+    .hidden{
+        display: none;
+    }
+    .show{
+        display: block;
+    }
 </style>
 <!--begin::Modal - Design Requirement-->
 <div class="modal fade" id="design-requirement" tabindex="-1" aria-hidden="true">
@@ -71,7 +77,7 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <li data-id="establishment">Site Establishment
+                                <li data-id="establishment" id="establishment">Site Establishment
                                
                                 </li>
                                 <ul class="d-none establishment">

@@ -750,9 +750,9 @@ input:focus {
         width: 60% !important;
     }
 
-    #second_member .inputDiv label {
+    /* #second_member .inputDiv label {
         width: 30% !important;
-    }
+    } */
 
     /* #submitbutton {
         right: 55%;
@@ -972,11 +972,13 @@ table th {
 }
 
 #second_member .inputDiv .input input {
-    width: 50%;
+    width: 100%;
+    border: none;
 }
 
 #second_member .inputDiv label {
-    width: 20%;
+    width: fit-content;
+    bottom: 38px;
 }
 
 .upload_signature_div .principleno {

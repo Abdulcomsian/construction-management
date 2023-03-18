@@ -301,7 +301,7 @@ height: 72px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:100%; display: flex !important; justify-content: space-between;align-items:center">
-                        <h2 class="db_mr" style="display: inline-block;width:17%; font-family: 'Inter', sans-serif; font-weight:600; font-size:32px">Design Brief</h2>
+                        <h2 class="db_mr" style="display: inline-block;width:36%; font-family: 'Inter', sans-serif; font-weight:600; font-size:32px">Design Brief</h2>
                         <a style="width: 273px; text-align:center;color:#fff;padding:10px 2px;font-family: 'Inter', sans-serif; font-weight:600; font-size:18px" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
                         
                         
@@ -452,7 +452,7 @@ height: 72px;
                                     <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
                                 </div>
                                 
-                                <div class="d-flex TW">
+                                <div class="row TW">
                                     <div class="col-md-6 d-flex inputDiv my-0">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">

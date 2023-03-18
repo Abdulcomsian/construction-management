@@ -208,6 +208,7 @@ Route::group(['middleware' => ['auth']], function () {
 //permit routes hoere
 Route::group(['middleware' => ['auth']], function () {
     Route::get('permit-to-load', [TemporaryWorkController::class, 'permit_load'])->name('permit.load');
+    Route::get("test-permit" , [TemporaryWorkController::class, 'test_permit_load']);
     Route::post('permit-save', [TemporaryWorkController::class, 'permit_save'])->name('permit.save');
     // Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
     Route::get('permit-renew/{id}', [TemporaryWorkController::class, 'permit_renew'])->name('permit.renew');
@@ -291,3 +292,5 @@ if (env('Enable_Migration_Optimize_Clear_Routes') == true) {
         dd('optimize done');
     });
 }
+
+

@@ -1341,6 +1341,38 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+    public function test_permit_load(Request $request)
+    {
+        $tempid = \Crypt::decrypt($request->temp_work_id);
+        try {
+            $tempdata = TemporaryWork::find($tempid);
+            $twc_id_no = $tempdata->twc_id_no;
+            $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->orderBy('id', 'desc')->first();
+            if ($permitdata) {
+                $data = explode("-", $permitdata->permit_no);
+                if (isset($data[3])) {
+                    $twc_id_no = $twc_id_no . '-' . ++$data[3];
+                } elseif (isset($data[2])) {
+
+                    $twc_id_no = $twc_id_no . '-' . ++$data[2];
+                } elseif (isset($data[1])) {
+
+                    $twc_id_no = $twc_id_no . '-' . ++$data[1];
+                }
+            } else {
+                $twc_id_no = $twc_id_no . '-A';
+            }
+            $project = Project::with('company')->where('id', $tempdata->project_id)->first();
+            $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
+            return view('test-permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+    
+    
     //save permit
     public function permit_save(Request $request)
     {

@@ -1002,6 +1002,7 @@ table th {
 
 .unload_Permit textarea {
     width: 100%;
+    border: none;
 }
 
 .temporary_blade .datatable {

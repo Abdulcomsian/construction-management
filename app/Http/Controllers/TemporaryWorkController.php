@@ -1738,6 +1738,21 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+    public function permit_unload_test($id)
+    {
+        try {
+            $permitid =  \Crypt::decrypt($id);
+            $permitdata = PermitLoad::find($permitid);
+            $tempid = $permitdata->temporary_work_id;
+            $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
+            $twc_id_no = $permitdata->permit_no;
+            $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+            return view('permit_unload_test', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
     //permit unload save
     public function permit_unload_save(Request $request)
     {

@@ -10,27 +10,38 @@ $(document).ready(function () {
         );
     });
 
-    $("#design-requirement .requirment-first ul li").click(function () {
-        alert(111);
-        $(".requirment-first ul li").removeClass("active");
-        $(this).addClass("active");
-        id = $(this).attr("data-id");
-        $(".requirment-second").css("display", "block");
-        $("ul.show").hide();
-        $("ul." + id + "")
-            .removeClass("d-none")
-            .addClass("show")
-            .css("display", "block");
-        var val = $(this).text();
-        $(".requirment-first-value").val(val);
+    $("#design-requirement .requirment-first ul li.majorMenu").click(function (
+        event
+    ) {
+        if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+            $("ul.show").hide();
+            alert("has Active class");
+        } else {
+            $(".requirment-first ul li").removeClass("active");
+            $(this).addClass("active");
+            var id = $(this).attr("data-id");
+            $(".requirment-second").css("display", "block");
+            $("ul.show").hide();
+            $("ul." + id + "")
+                .removeClass("d-none")
+                .addClass("show")
+                .css("display", "block");
+            var val = $(this).text();
+            $(".requirment-first-value").val(val);
+            alert("has no Active class");
+        }
     });
-    $("#design-requirement .requirment-second ul li").click(function () {
+
+    $(".submenu li").click(function (event) {
+        event.stopPropagation(); // prevent event from bubbling up to parent
         $(".requirment-second ul li").removeClass("active");
-        $("#design-requirement .requirment-second ul li input").removeClass(
-            "active"
-        );
+        // $("#design-requirement .requirment-second ul li input").removeClass(
+        //     "active"
+        // );
         $(this).addClass("active");
         var val = $(this).text();
+        console.log(val);
         $(".requirment-second-value").val(val);
         // $("#design-requirement .requirment-second ul li.active input").addClass(
         //     "active"

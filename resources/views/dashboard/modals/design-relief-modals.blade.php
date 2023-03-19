@@ -75,12 +75,13 @@
                 <div class="multi-list designRequirmentList" >
                     <div class="common-requirment requirment-first">
                         <input type="text" value="" class="requirment-first-value">
+                        <input type="text" vlaue="" class="requirment-second-value">
                         <div class="list-div">
                             <ul>
-                                <li data-id="establishment" id="establishment">Site Establishment
+                                <li data-id="establishment" id="establishment" class="majorMenu">Site Establishment
                                
                                 </li>
-                                <ul class="d-none establishment">
+                                <ul class="d-none establishment submenu" style="width: 90%;margin: auto;">
                                     <li data-id="Trench">Temporary Office / Cabins foundations <i class="fas fa-check"></i></li>
                                     <li data-id="Manhole">Stacked Cabin stability (cabins only)</li>
                                     <li data-id="Cofferdams">Hoarding / Tower Crane Hoarding</li>
@@ -102,8 +103,8 @@
                                         <input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state">
                                     </li>
                                 </ul>
-                                <li data-id="equipment ">Equipment and Plant</li>
-                                    <ul class="d-none equipment">
+                                <li data-id="equipment " class="majorMenu">Equipment and Plant</li>
+                                    <ul class="d-none equipment submenu" style="width: 90%;margin: auto;">
                                         <li>Pile Mat & Working Platform </li>
                                         <li>Crane Platform</li>
                                         <li>Crane Support & Foundations</li>
@@ -129,161 +130,140 @@
                                         <li>Lifting  of prefabricated rebar column/ wall panels</li>
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
-                                <li data-id="scaffolding ">Access / Scaffolding</li>
-                                <li data-id="excavation">Excavation Earthworks</li>
-                                <li data-id="formwork">Formwork / Falsework</li>
-                                <li data-id="structure_popping">Structure Propping</li>
-                                <li data-id="structure_stability">Structural Stability</li>
-                                <li data-id="demolition">Demolition</li>
-                                <li data-id="permanent">Permanent Works</li>
+                                <li data-id="scaffolding " class="majorMenu">Access / Scaffolding</li>
+                                    <ul class="d-none scaffolding" style="width: 90%;margin: auto;">
+                                        <li>Tube & Fitting</li>
+                                        <li>System Scaffolding </li>
+                                        <li>System Staircase</li>
+                                        <li>Temporary Roof</li>
+                                        <li>Loading Bay</li>
+                                        <li>Chute Support</li>
+                                        <li>Mobile Tower</li>
+                                        <li>Pedestrian Walkway Cover</li>
+                                        <li>Suspension System</li>
+                                        <li>Pontoon</li>
+                                        <li>Protection Shield (to cover railway while working with crane above)</li>
+                                        <li>Protection Shield (steel shield to cover Railway while working with a crane above)</li>
+                                        <li>Guard Rail Fixings</li>
+                                        <li>Bird Cages</li>
+                                        <li>Scaffold crash deck</li>
+                                        <li>Scaffold road/ Pavement Gantry</li>
+                                        <li>Façade access scaffold</li>
+                                        <li>Lift shaft scaffold</li>
+                                        <li>Temporary roof scaffold</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
+                                <li data-id="excavation" class="majorMenu">Excavation Earthworks</li>
+                                    <ul class="d-none excavation" style="width: 90%;margin: auto;">
+                                        <li>Trench sheeting</li>
+                                        <li>Manhole/ Trench Boxes </li>
+                                        <li>Cofferdams</li>
+                                        <li>Excavation Shoring Systems</li>
+                                        <li>Capping Beam Support</li>
+                                        <li>Temporary Slopes</li>
+                                        <li>Headings / Tunnel Support</li>
+                                        <li>Underpinning</li>
+                                        <li>Stockpiles</li>
+                                        <li>PCC L shape wall</li>
+                                        <li>Embankment Bund</li>
+                                        <li>Dewatering</li>
+                                        <li>Temporary access ramp construction</li>
+                                        <li>Piling Mat</li>
+                                        <li>Excavation batters</li>
+                                        <li>Shoring to pile caps during excavation</li>
+                                        <li>Earth works retention for basement, deep services  or attenuation tank construction</li>
+                                        <li>Slope Stability</li>
+                                        <li>Piled/ sheet piled wall propping</li>
+                                        <li>Kingpost retaining walls</li>
+                                        <li>Sheet piled retaining walls</li>
+                                        <li>Road plates over trenches</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
+                                <li data-id="formwork" class="majorMenu">Formwork / Falsework</li>
+                                    <ul class="d-none formwork" style="width: 90%;margin: auto;">
+                                        <li>Foundation / Formwork</li>
+                                        <li>Walls/ Formwork</li>
+                                        <li>Walls/ Formwork (double sided)</li>
+                                        <li>Walls/ Formwork (single sided)</li>
+                                        <li>formwork rate of rise</li>
+                                        <li>Formwork / Shaft Platforms</li>
+                                        <li>walls double sided in timber (traditional)</li>
+                                        <li>Columns / Formwork</li>
+                                        <li>Formwork Climbing system</li>
+                                        <li>Slab / Soffit Falsework</li>
+                                        <li>System formwork to lift shaft walls (one typical core)</li>
+                                        <li>Temporary propping to precast columns and walls</li>
+                                        <li>temporary propping to precast slabs</li>
+                                        <li>Beams / Falsework</li>
+                                        <li>Back Propping</li>
+                                        <li>Edge protection</li>
+                                        <li>Support Systems</li>
+                                        <li>Twin Wall Design and Support</li>
+                                        <li>Push pull Precast walls and Columns</li>
+                                        <li>Precast Stairs</li>
+                                        <li>Crash Decks</li>
+                                        <li>Metal Decking & Back Propping</li>
+                                        <li>Screen Protection</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
+                                <li data-id="structure_popping" class="majorMenu">Structure Propping</li>
+                                    <ul class="d-none structure_popping" style="width: 90%;margin: auto;">
+                                        <li>Back Propping</li>
+                                        <li>Shoring</li>
+                                        <li>Scaffolding</li>
+                                        <li>Working Platform</li>
+                                        <li>Stair installation propping and any adjacent </li>
+                                        <li>walls</li>
+                                        <li>Retaining wall propping</li>
+                                        <li>Capping beam</li>
+                                        <li>Thrust Blocks</li>
+                                        <li>Under-pinning</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
+                                <li data-id="structure_stability" class="majorMenu">Structural Stability</li>
+                                    <ul class="d-none structure_stability" style="width: 90%;margin: auto;">
+                                        <li>Existing Structure During Construction</li>
+                                        <li>New Structure During Construction</li>
+                                        <li>Structural Steelwork Erection</li>
+                                        <li>Needling</li>
+                                        <li>Temporary Underpinning</li>
+                                        <li>Cut & Carve beam and slab Support</li>
+                                        <li>Façade System</li>
+                                        <li>Party Wall Propping</li>
+                                        <li>Buttresses</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
+                                <li data-id="demolition" class="majorMenu">Demolition</li>
+                                    <ul class="d-none demolition" style="width: 90%;margin: auto;">
+                                        <li>Cutting of Existing Boundary Wall</li>
+                                        <li>Support to Existing Structure</li>
+                                        <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
+                                <li data-id="permanent" class="majorMenu">Permanent Works</li>
+                                    <ul class="d-none permanent" style="width: 90%;margin: auto;">
+                                    <li>Partial / Permanent Support Conditions</li>
+                                    <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
+                                    </ul>
                             </ul>
                         </div>
                     </div>
                     <div class="common-requirment requirment-second">
-                        <input type="text" vlaue="" class="requirment-second-value">
+                        
                         <div class="list-div">
                             
                             <!-- **************** Framework / Falsework **************  -->
-                            <ul class="d-none equipment">
-                                <li>Pile Mat & Working Platform </li>
-                                <li>Crane Platform</li>
-                                <li>Crane Support & Foundations</li>
-                                <li>Crane Bases  - Out rigger concrete padsmissing </li>
-                                <li>Tower Crane Base (piled)</li>
-                                <li>Tower Crane Base (mass concrete)</li>
-                                <li>Access Platform for Machines and Temporary Ramps </li>
-                                <li>Concrete Pump Working Platform (outrigger check)</li>
-                                <li>Hoist Ties & Foundations</li>
-                                <li>Mast Climbers & Foundations</li>
-                                <li>Chute Support</li>
-                                <li>Loading Bay</li>
-                                <li>Canti Deck</li>
-                                <li>Soli Bases</li>
-                                <li>Lifting / Handling Devices</li>
-                                <li>Mobile Crane platforms</li>
-                                <li>Design outrigger load assessment on existing highway road / street</li>
-                                <li>Crane Outrigger loadings, mat and back propping</li>
-                                <li>Hoist bases, restraint and back propping</li>
-                                <li>Mobile crane outriggers</li>
-                                <li>Hoist Run offs</li>
-                                <li>Lifting  of prefabricated rebar column/ wall panels</li>
-                                <li>Lifting  of prefabricated rebar column/ wall panels</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
+                            
                             <!-- **************** Equipment and Plant **************  -->
-                            <ul class="d-none scaffolding">
-                                <li>Tube & Fitting</li>
-                                <li>System Scaffolding </li>
-                                <li>System Staircase</li>
-                                <li>Temporary Roof</li>
-                                <li>Loading Bay</li>
-                                <li>Chute Support</li>
-                                <li>Mobile Tower</li>
-                                <li>Pedestrian Walkway Cover</li>
-                                <li>Suspension System</li>
-                                <li>Pontoon</li>
-                                <li>Protection Shield (to cover railway while working with crane above)</li>
-                                <li>Protection Shield (steel shield to cover Railway while working with a crane above)</li>
-                                <li>Guard Rail Fixings</li>
-                                <li>Bird Cages</li>
-                                <li>Scaffold crash deck</li>
-                                <li>Scaffold road/ Pavement Gantry</li>
-                                <li>Façade access scaffold</li>
-                                <li>Lift shaft scaffold</li>
-                                <li>Temporary roof scaffold</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
+                            
                             <!-- **************** Site Establishment **************  -->
-                            <ul class="d-none excavation">
-                                <li>Trench sheeting</li>
-                                <li>Manhole/ Trench Boxes </li>
-                                <li>Cofferdams</li>
-                                <li>Excavation Shoring Systems</li>
-                                <li>Capping Beam Support</li>
-                                <li>Temporary Slopes</li>
-                                <li>Headings / Tunnel Support</li>
-                                <li>Underpinning</li>
-                                <li>Stockpiles</li>
-                                <li>PCC L shape wall</li>
-                                <li>Embankment Bund</li>
-                                <li>Dewatering</li>
-                                <li>Temporary access ramp construction</li>
-                                <li>Piling Mat</li>
-                                <li>Excavation batters</li>
-                                <li>Shoring to pile caps during excavation</li>
-                                <li>Earth works retention for basement, deep services  or attenuation tank construction</li>
-                                <li>Slope Stability</li>
-                                <li>Piled/ sheet piled wall propping</li>
-                                <li>Kingpost retaining walls</li>
-                                <li>Sheet piled retaining walls</li>
-                                <li>Road plates over trenches</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
+                            
                             <!-- **************** Access / Scaffolding **************  -->
-                            <ul class="d-none formwork">
-                                <li>Foundation / Formwork</li>
-                                <li>Walls/ Formwork</li>
-                                <li>Walls/ Formwork (double sided)</li>
-                                <li>Walls/ Formwork (single sided)</li>
-                                <li>formwork rate of rise</li>
-                                <li>Formwork / Shaft Platforms</li>
-                                <li>walls double sided in timber (traditional)</li>
-                                <li>Columns / Formwork</li>
-                                <li>Formwork Climbing system</li>
-                                <li>Slab / Soffit Falsework</li>
-                                <li>System formwork to lift shaft walls (one typical core)</li>
-                                <li>Temporary propping to precast columns and walls</li>
-                                <li>temporary propping to precast slabs</li>
-                                <li>Beams / Falsework</li>
-                                <li>Back Propping</li>
-                                <li>Edge protection</li>
-                                <li>Support Systems</li>
-                                <li>Twin Wall Design and Support</li>
-                                <li>Push pull Precast walls and Columns</li>
-                                <li>Precast Stairs</li>
-                                <li>Crash Decks</li>
-                                <li>Metal Decking & Back Propping</li>
-                                <li>Screen Protection</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
+                            
                             <!-- **************** Structure **************  -->
-                            <ul class="d-none structure_popping">
-                                <li>Back Propping</li>
-                                <li>Shoring</li>
-                                <li>Scaffolding</li>
-                                <li>Working Platform</li>
-                                <li>Stair installation propping and any adjacent </li>
-                                <li>walls</li>
-                                <li>Retaining wall propping</li>
-                                <li>Capping beam</li>
-                                <li>Thrust Blocks</li>
-                                <li>Under-pinning</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
+                           
                             <!-- **************** Structural Stability **************  -->
-                            <ul class="d-none structure_stability">
-                                <li>Existing Structure During Construction</li>
-                                <li>New Structure During Construction</li>
-                                <li>Structural Steelwork Erection</li>
-                                <li>Needling</li>
-                                <li>Temporary Underpinning</li>
-                                <li>Cut & Carve beam and slab Support</li>
-                                <li>Façade System</li>
-                                <li>Party Wall Propping</li>
-                                <li>Buttresses</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
+                            
                             <!-- **************** Permanent Works **************  -->
-                            <ul class="d-none demolition">
-                                <li>Cutting of Existing Boundary Wall</li>
-                                <li>Support to Existing Structure</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
-
-                            <ul class="d-none permanent">
-                                <li>Partial / Permanent Support Conditions</li>
-                                <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
-                            </ul>
                         </div>
                     </div>
                 </div>

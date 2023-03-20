@@ -65,7 +65,6 @@
                                 <li data-id="sign">Sign Boards </li>
                                 <li data-id="Underpinning">Fuel Storage</li>
                                 <li data-id="Stockpiles">Welfare Facilities</li>
-                                <li data-id="precast">Precast Facilities</li>
                                 <li data-id="PCC">Wheel Wash Base</li>
                                 <li data-id="gates">Gates - Steel Mesh</li>
                                 <li data-id="flag">Flag Pole Bases</li>

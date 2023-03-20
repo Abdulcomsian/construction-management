@@ -50,9 +50,10 @@ $(document).ready(function () {
         $(".requirment-second-value").val(otherVal);
     });
     $("#design-requirement .submit-requirment button").click(function () {
-        var val_first = $(".requirment-first-value").val();
-        var val_second = $(".requirment-second-value").val();
+        var val_first = $(".requirment-first-value").val().trim();
+        var val_second = $(".requirment-second-value").val().trim();
         var full_val = val_first + " - " + val_second;
+        console.log(full_val);
         val.attr("value", full_val);
         $("#design_requirement_text").css("background", "#f5f8fa");
         let key = full_val.replace(/\//g, "_");
@@ -135,6 +136,7 @@ $(document).ready(function () {
             "active"
         );
         $(this).addClass("active");
+
         id = $(this).attr("data-id");
         $("#attachment-of-design .requirment-second").css("display", "block");
         $("li.invisible." + id + "")

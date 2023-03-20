@@ -274,6 +274,9 @@ height: 72px;
     #kt_content{
         width: 75%;
     }
+    #design-requirement .modal-dialog{
+        width: 50%;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')

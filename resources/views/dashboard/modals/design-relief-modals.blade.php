@@ -45,6 +45,27 @@
     .list-div .submenu li::after{
         content: '';
     }
+
+    #attachment-of-design{
+        font-family: 'Inter', sans-serif;
+    }
+    #attachment-of-design .modal-header h2{
+        font-size: 26px;
+        font-weight: 700;
+        width: 80%;
+    }
+    .majorList{
+        border: 1px solid lightgrey;
+        height: auto !important;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    
+    .form-check-input[type=radio]{
+        width: 15px !important;
+        height: 15px !important;
+    }
 </style>
 <!--begin::Modal - Design Requirement-->
 <div class="modal fade" id="design-requirement" tabindex="-1" aria-hidden="true">
@@ -85,7 +106,7 @@
                                
                                 </li>
                                 <ul class="d-none establishment submenu" style="width: 90%;margin: auto;">
-                                    <li data-id="Trench">Temporary Office / Cabins foundations <i class="fas fa-check"></i></li>
+                                    <li data-id="Trench">Temporary Office / Cabins foundations</li>
                                     <li data-id="Manhole">Stacked Cabin stability (cabins only)</li>
                                     <li data-id="Cofferdams">Hoarding / Tower Crane Hoarding</li>
                                     <li data-id="Excavation">Site hoarding - Heras</li>
@@ -401,7 +422,7 @@
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
-            <div class="modal-header">
+            <div class="modal-header" style="align-items: flex-start">
                 <!--begin::Modal title-->
                 <h2>Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)</h2>
                 <!--end::Modal title-->
@@ -434,71 +455,31 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <li data-id="List-Attachment">Attachments (sketches / photos / specifications / drawings, etc)
-                                </li>
-                                <li class="list_of_attach_comment d-none">
-                                    <textarea type="text" style="background: black;color:white;" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Report-Site">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)
-                                </li>
-                                <li class="reports_including_site_investigations_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Exsisting-Ground">Existing Ground conditions</li>
-                                <li class="existing_ground_conditions_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="System-Type">Preferred/non-preferred methods, systems or types of
-                                    equipment:
-                                </li>
-                                <li class="preferred_non_preferred_methods_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Limitations">Access Limitations (or edge protection requirements)</li>
-                                <li class="access_limitations_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Back-Propping">Back Propping  / Re-Propping Sequence</li>
-                                <li class="back_propping_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Temporary-Work">Limitations on Temporary Works Design:</li>
-                                <li class="limitations_on_temporary_works_design_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Hazard-Risk">Details of any hazards identified during the risk or hazard
-                                    assessment that require action by the Temporary Works Designer to eliminate or
-                                    control all risks or hazard
-                                </li>
-                                <li class="details_of_any_hazards_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Party-Requirements">3rd Party Requirements:</li>
-                                <li class="3rd_party_requirements_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="3rd_party_requirements_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="common-requirment requirment-second">
-                        <div class="list-check-div">
-                            <ul>
-                                <li class="invisible List-Attachment">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="list_of_attachments" value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
-
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list_of_attach_comment d-none" style="background: white;height:73px">
+                                <div class="list">
+                                    <li data-id="List-Attachment" class="majorList">Attachments (sketches / photos / specifications / drawings, etc)
+                                    </li>
+                                        <ul>
+                                            <li class=" List-Attachment" style="display: flex; justify-content: space-between; align-items: center">
+                                                <div class="multi-Radio">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
+                                                        <input class="form-check-input" type="hidden" name="list_of_attachments" value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
+                                                        <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    </div>
+                                                    <!-- NO -->
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" />
+                                                        <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    </div>
+                                                </div>
+                                                <div class="list_of_attach_comment d-none">
+                                                    <textarea type="text" style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    
+                                </div>
+                                <li data-id="Report-Site" class="majorList">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)
                                 </li>
                                 <li class="invisible Report-Site">
                                     <div class="multi-Radio">
@@ -515,8 +496,79 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="reports_including_site_investigations_comment d-none" style="background: white;height:73px">
+                                <li class="reports_including_site_investigations_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                 </li>
+                                <li data-id="Exsisting-Ground" class="majorList">Existing Ground conditions</li>
+                                <li class="existing_ground_conditions_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
+                                <li data-id="System-Type" class="majorList">Preferred/non-preferred methods, systems or types of
+                                    equipment:
+                                </li>
+                                <li class="preferred_non_preferred_methods_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
+                                <li data-id="Limitations" class="majorList">Access Limitations (or edge protection requirements)</li>
+                                <li class="access_limitations_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
+                                <li data-id="Back-Propping" class="majorList">Back Propping  / Re-Propping Sequence</li>
+                                <li class="back_propping_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
+                                <li data-id="Temporary-Work" class="majorList">Limitations on Temporary Works Design:</li>
+                                <li class="limitations_on_temporary_works_design_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
+                                <li data-id="Hazard-Risk" class="majorList">Details of any hazards identified during the risk or hazard
+                                    assessment that require action by the Temporary Works Designer to eliminate or
+                                    control all risks or hazard
+                                </li>
+                                <li class="details_of_any_hazards_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
+                                <li data-id="Party-Requirements" class="majorList">3rd Party Requirements:</li>
+                                <li class="3rd_party_requirements_comment d-none">
+                                    <textarea style="background: black;color:white;ay:none" type="text" name="3rd_party_requirements_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="common-requirment requirment-second">
+                        <div class="list-check-div">
+                            <ul>
+                                <!-- <li class="invisible List-Attachment">
+                                    <div class="multi-Radio">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="list_of_attachments" value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
+                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                        </div> -->
+
+                                        <!-- NO -->
+                                        <!-- <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" />
+                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                        </div>
+                                    </div>
+                                </li> -->
+                                
+                                <!-- <li class="invisible Report-Site">
+                                    <div class="multi-Radio">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
+                                            <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
+                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" />
+                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="reports_including_site_investigations_comment d-none" style="background: white;height:73px"> -->
+                                <!-- </li> -->
                                 <li class="invisible Exsisting-Ground">
                                     <div class="multi-Radio">
                                         <div class="form-check">

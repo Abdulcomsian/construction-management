@@ -827,7 +827,7 @@
                                             <br />
                                             <canvas id="sig1"></canvas>
                                         </div>
-                                        <div class="d-flex inputDiv principleno" id="sign1" style="">
+                                        <div class="d-flex inputDiv principleno" id="sign1" style=" display: none !important">
                                             <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                         </div>
                                     </div>
@@ -941,9 +941,9 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <div class="d-flex inputDiv principleno" id="sign">
+                                                <div class="d-flex inputDiv principleno mt-0" id="sign">
                                                     <div class="signatureDiv">
-                                                        <label style="width:24%;"
+                                                        <label style="width:24%;bottom:170px; background: white"
                                                             class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                             <span class="required">Signature:</span>
                                                         </label>
@@ -956,7 +956,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 d-none">
 
                                             </div>
                                         </div>
@@ -966,7 +966,7 @@
                             </div>
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
-                            <div class="d-flex inputDiv principleno"  style="">
+                            <div class="d-flex inputDiv principleno"  style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                             </div>
 

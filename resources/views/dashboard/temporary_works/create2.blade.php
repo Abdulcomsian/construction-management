@@ -85,7 +85,7 @@ height: 72px;
     }
     textarea{
         color:black;
-        border:none;
+        border:none !important;
     }
     textarea::-webkit-input-placeholder {
         color:black !important;
@@ -273,6 +273,7 @@ height: 72px;
     }
     #kt_content{
         width: 75%;
+        padding-bottom: 0;
     }
     #design-requirement .modal-dialog{
         width: 50%;
@@ -547,7 +548,7 @@ height: 72px;
                                      <input  type="email" class="blackBack form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc_twc_email')}}">
                                 </div>
                             </div>
-                            <div class="row">
+
                                 <div class="col-md-12 ">
                                     <div class="d-flex inputDiv d-block mt-0">
                                         <div class="modalDiv d-block">
@@ -559,7 +560,6 @@ height: 72px;
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block my-0">
@@ -582,7 +582,7 @@ height: 72px;
                                              <label class="fs-6 fw-bold mb-2" style="bottom: 43px">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="blackBack form-control"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
+                                            <textarea class="form-control" style="background: white;"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     
@@ -721,7 +721,7 @@ height: 72px;
                                     <!-- </div> -->
                                     <!-- work for approval -->
                                     @include('dashboard.modals.design-relief-modals')
-                                        <button id="submitbutton" type="submit"  class="btn btn-primary float-end submitbutton">Submit</button>
+                                        <button id="submitbutton" type="submit"  class="btn btn-primary float-end submitbutton" style="top: 62%">Submit</button>
                         
                                 </div>
 

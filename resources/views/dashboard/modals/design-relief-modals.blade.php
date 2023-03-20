@@ -42,6 +42,9 @@
     .show{
         display: block;
     }
+    .list-div .submenu li::after{
+        content: '';
+    }
 </style>
 <!--begin::Modal - Design Requirement-->
 <div class="modal fade" id="design-requirement" tabindex="-1" aria-hidden="true">
@@ -131,7 +134,7 @@
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="scaffolding " class="majorMenu">Access / Scaffolding</li>
-                                    <ul class="d-none scaffolding" style="width: 90%;margin: auto;">
+                                    <ul class="d-none scaffolding submenu" style="width: 90%;margin: auto;">
                                         <li>Tube & Fitting</li>
                                         <li>System Scaffolding </li>
                                         <li>System Staircase</li>
@@ -154,7 +157,7 @@
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="excavation" class="majorMenu">Excavation Earthworks</li>
-                                    <ul class="d-none excavation" style="width: 90%;margin: auto;">
+                                    <ul class="d-none excavation submenu" style="width: 90%;margin: auto;">
                                         <li>Trench sheeting</li>
                                         <li>Manhole/ Trench Boxes </li>
                                         <li>Cofferdams</li>
@@ -180,7 +183,7 @@
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="formwork" class="majorMenu">Formwork / Falsework</li>
-                                    <ul class="d-none formwork" style="width: 90%;margin: auto;">
+                                    <ul class="d-none formwork submenu" style="width: 90%;margin: auto;">
                                         <li>Foundation / Formwork</li>
                                         <li>Walls/ Formwork</li>
                                         <li>Walls/ Formwork (double sided)</li>
@@ -207,7 +210,7 @@
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="structure_popping" class="majorMenu">Structure Propping</li>
-                                    <ul class="d-none structure_popping" style="width: 90%;margin: auto;">
+                                    <ul class="d-none structure_popping submenu" style="width: 90%;margin: auto;">
                                         <li>Back Propping</li>
                                         <li>Shoring</li>
                                         <li>Scaffolding</li>
@@ -221,7 +224,7 @@
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="structure_stability" class="majorMenu">Structural Stability</li>
-                                    <ul class="d-none structure_stability" style="width: 90%;margin: auto;">
+                                    <ul class="d-none structure_stability submenu" style="width: 90%;margin: auto;">
                                         <li>Existing Structure During Construction</li>
                                         <li>New Structure During Construction</li>
                                         <li>Structural Steelwork Erection</li>
@@ -234,13 +237,13 @@
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="demolition" class="majorMenu">Demolition</li>
-                                    <ul class="d-none demolition" style="width: 90%;margin: auto;">
+                                    <ul class="d-none demolition submenu" style="width: 90%;margin: auto;">
                                         <li>Cutting of Existing Boundary Wall</li>
                                         <li>Support to Existing Structure</li>
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="permanent" class="majorMenu">Permanent Works</li>
-                                    <ul class="d-none permanent" style="width: 90%;margin: auto;">
+                                    <ul class="d-none permanent submenu" style="width: 90%;margin: auto;">
                                     <li>Partial / Permanent Support Conditions</li>
                                     <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>

@@ -16,7 +16,6 @@ $(document).ready(function () {
         if ($(this).hasClass("active")) {
             $(this).removeClass("active");
             $("ul.show").hide();
-            alert("has Active class");
         } else {
             $(".requirment-first ul li").removeClass("active");
             $(this).addClass("active");
@@ -29,17 +28,13 @@ $(document).ready(function () {
                 .css("display", "block");
             var val = $(this).text();
             $(".requirment-first-value").val(val);
-            alert("has no Active class");
         }
     });
 
     $(".submenu li").click(function (event) {
-        event.stopPropagation(); // prevent event from bubbling up to parent
-        $(".requirment-second ul li").removeClass("active");
-        // $("#design-requirement .requirment-second ul li input").removeClass(
-        //     "active"
-        // );
-        $(this).addClass("active");
+        // event.stopPropagation(); // prevent event from bubbling up to parent
+        $(".submenu li").removeClass("active"); // Remove active class from all list items
+        $(this).addClass("active"); // Add active class to clicked list item
         var val = $(this).text();
         console.log(val);
         $(".requirment-second-value").val(val);
@@ -49,6 +44,7 @@ $(document).ready(function () {
         $(".submit-requirment button").removeAttr("disabled");
         $(".submit-requirment button").css("opacity", "1");
     });
+
     $(".otherInput").on("input", function (e) {
         otherVal = $(this).val();
         $(".requirment-second-value").val(otherVal);

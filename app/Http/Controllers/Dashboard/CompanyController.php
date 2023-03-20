@@ -101,7 +101,6 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-       
         Validations::storeCompany($request);
         try {
             $all_inputs  = $request->except('_token');

@@ -63,7 +63,7 @@ height: 72px;
         padding: 32px;
     }
     #kt_content_container{
-        background-color: #e9edf1;
+        background-color: #fff;
     }
     #kt_toolbar_container{
         background-color:#fff; 
@@ -268,7 +268,12 @@ height: 72px;
         padding:5px;
         border-radius: 100%;
     }
-
+    #kt_body{
+        max-width: 1400px;
+    }
+    #kt_content{
+        width: 75%;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')

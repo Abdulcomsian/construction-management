@@ -20,12 +20,12 @@
         display: flex;
         justify-content: space-between;
     }
-    .establishment li,
+    /* .establishment li,
     .equipment li{
         border-left: none !important; 
         border-right: none !important; 
         border-top: none !important;
-    }
+    } */
     .establishment li::after,
     .equipment li::after{
         content: none !important;
@@ -59,6 +59,7 @@
         height: auto !important;
         font-size: 16px;
         font-weight: 400;
+        color: 
     }
 
     
@@ -66,6 +67,41 @@
         width: 15px !important;
         height: 15px !important;
     }
+
+    #attachment-first li {
+        height: auto;
+    }
+    .borderActive{
+        border: 1px solid #07D564; 
+        border-radius: 5px
+    }
+    .active{
+        margin: 0 !important;
+    }
+    .active::after{
+        transform: rotate(90deg);
+    }
+
+    #desingform .form-check-input[type=radio]{
+        border: 2px solid lightgray !important;
+        position: relative;
+        left: 11px;
+    }
+    .multi-Radio{
+        min-width: 120px;
+    }
+
+    .List-Attachment::after,
+    .Report-Site::after,
+    Exsisting-Ground::after,
+    System-Type::after,
+    Limitations::after,
+    Back-Propping::after,
+    Temporary-Work::after,
+    Party-Requirements::after{
+        content: none !important;
+    }
+   
 </style>
 <!--begin::Modal - Design Requirement-->
 <div class="modal fade" id="design-requirement" tabindex="-1" aria-hidden="true">
@@ -450,7 +486,7 @@
                 </div>
                 <br>
                 <div class="multi-list">
-                    <div class="common-requirment requirment-first">
+                    <div class="common-requirment requirment-first" id="attachment-first">
                         
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
@@ -459,7 +495,7 @@
                                     <li data-id="List-Attachment" class="majorList">Attachments (sketches / photos / specifications / drawings, etc)
                                     </li>
                                         <ul>
-                                            <li class=" List-Attachment" style="display: flex; justify-content: space-between; align-items: center">
+                                            <li class=" List-Attachment my-0" style="display: flex; justify-content: space-between; align-items: center">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
@@ -479,216 +515,224 @@
                                         </ul>
                                     
                                 </div>
-                                <li data-id="Report-Site" class="majorList">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)
-                                </li>
-                                <li class="invisible Report-Site">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
+                                <div class="list">
+                                    <li data-id="Report-Site" class="majorList">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)
+                                    </li>
+                                        <ul>
+                                            <li class="invisible Report-Site d-flex my-0" style="justify-content: space-between; align-items: center">
+                                                <div class="multi-Radio">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
+                                                        <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
+                                                        <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    </div>
+                                                    <!-- NO -->
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" />
+                                                        <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    </div>
+                                                </div>
+                                                <div class="reports_including_site_investigations_comment d-none">
+                                                    <textarea  style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                </div>
+                                <div class="list">
+                                    <li data-id="Exsisting-Ground" class="majorList">Existing Ground conditions</li>
+                                        <ul>
+                                            <li class="invisible Exsisting-Ground d-flex my-0" style="justify-content: space-between; align-items: center">
+                                                <div class="multi-Radio">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault1" value="yes" />
+                                                        <input class="form-check-input" type="hidden" name="existing_ground_conditions" value="Existing Ground conditions:" />
+                                                        <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    </div>
+                                                    <!-- NO -->
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault2" value="no" />
+                                                        <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    </div>
+                                                </div>
+                                                <div class="existing_ground_conditions_comment d-none">
+                                                    <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <!-- <li class="existing_ground_conditions_comment d-none" style="background: white;height:73px"></li> -->
+                                    
+                                </div>
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="reports_including_site_investigations_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Exsisting-Ground" class="majorList">Existing Ground conditions</li>
-                                <li class="existing_ground_conditions_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="System-Type" class="majorList">Preferred/non-preferred methods, systems or types of
-                                    equipment:
-                                </li>
-                                <li class="preferred_non_preferred_methods_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Limitations" class="majorList">Access Limitations (or edge protection requirements)</li>
-                                <li class="access_limitations_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Back-Propping" class="majorList">Back Propping  / Re-Propping Sequence</li>
-                                <li class="back_propping_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Temporary-Work" class="majorList">Limitations on Temporary Works Design:</li>
-                                <li class="limitations_on_temporary_works_design_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Hazard-Risk" class="majorList">Details of any hazards identified during the risk or hazard
-                                    assessment that require action by the Temporary Works Designer to eliminate or
-                                    control all risks or hazard
-                                </li>
-                                <li class="details_of_any_hazards_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                                <li data-id="Party-Requirements" class="majorList">3rd Party Requirements:</li>
-                                <li class="3rd_party_requirements_comment d-none">
-                                    <textarea style="background: black;color:white;ay:none" type="text" name="3rd_party_requirements_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="common-requirment requirment-second">
-                        <div class="list-check-div">
-                            <ul>
-                                <!-- <li class="invisible List-Attachment">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="list_of_attachments" value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div> -->
+                                <!-- Prefered/Non prefered container  -->
+                                <div class="list">
+                                    <li data-id="System-Type" class="majorList">Preferred/non-preferred methods, systems or types of
+                                        equipment:
+                                    </li>
+                                        <li class="invisible System-Type d-flex my-0" style="justify-content: space-between; align-items: center">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="hidden" name="preferred_non_preferred_methods" value="Preferred/non-preferred methods, systems or types of equipment:" />
+                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault2" value="no" />
+                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
+                                        </li> -->
+                                    <li class="preferred_non_preferred_methods_comment d-none">
+                                        <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                    </li>
+                                </div>
+                                <!-- Prefered/Non prefered container end -->
 
-                                        <!-- NO -->
-                                        <!-- <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li> -->
+
+                                <!-- Access Limitations start -->
+                                    
+                                <div class="list">
+                                    <li data-id="Limitations" class="majorList">Access Limitations (or edge protection requirements)</li>
+                                        <li class="invisible Limitations d-flex my-0" style="justify-content: space-between; align-items: center">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="hidden" name="access_limitations" value="Access Limitations (or edge protection requirements)" />
+                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault2" value="no" />
+                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                </div>
+                                            </div>
+                                            <div class="access_limitations_comment d-none">
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                            </div>
+                                        </li>
+                                        <!-- <li class="access_limitations_comment d-none" style="background: white;height:73px">
+                                        </li> -->
+                                    
+                                </div>
+                                <!-- Access Limitations end -->
                                 
-                                <!-- <li class="invisible Report-Site">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="reports_including_site_investigations_comment d-none" style="background: white;height:73px"> -->
-                                <!-- </li> -->
-                                <li class="invisible Exsisting-Ground">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="existing_ground_conditions" value="Existing Ground conditions:" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="existing_ground_conditions_comment d-none" style="background: white;height:73px">
-                                </li>
-                                <li class="invisible System-Type">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="preferred_non_preferred_methods" value="Preferred/non-preferred methods, systems or types of equipment:" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
-                                </li>
-                                <li class="invisible Limitations">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="access_limitations" value="Access Limitations (or edge protection requirements)" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
+                                <!-- Back propping start -->
+                                
+                                <div class="list">
+                                    <li data-id="Back-Propping" class="majorList">Back Propping  / Re-Propping Sequence</li>
+                                        <li class="invisible Back-Propping d-flex" style="justify-content: space-between; align-items: center">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="hidden" name="back_propping" value="Back Propping  / Re-Propping Sequence" />
+                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" />
+                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                </div>
+                                            </div>
+                                            <div class="back_propping_comment d-none">
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                            </div>
+                                        </li>
+                                        <!-- <li class="back_propping_comment d-none" style="background: white;height:73px">
+                                        </li> -->
+                                </div>
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="access_limitations_comment d-none" style="background: white;height:73px">
-                                </li>
-                                <li class="invisible Back-Propping">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="back_propping" value="Back Propping  / Re-Propping Sequence" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
+                                <!-- Back propping ends -->
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="back_propping_comment d-none" style="background: white;height:73px">
-                                </li>
-                                <li class="invisible Temporary-Work">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="limitations_on_temporary_works_design" value="Limitations on Temporary Works Design:" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
+                                <!-- Limitation on Temporary work start  -->
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="limitations_on_temporary_works_design_comment d-none" style="background: white;height:73px">
-                                </li>
-                                <li class="invisible Hazard-Risk">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="details_of_any_hazards" value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
+                                <div class="list">
+                                    <li data-id="Temporary-Work" class="majorList">Limitations on Temporary Works Design:</li>
+                                        <li class="invisible Temporary-Work d-flex" style="justify-content: space-between; align-items: center">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="hidden" name="limitations_on_temporary_works_design" value="Limitations on Temporary Works Design:" />
+                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" />
+                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                </div>
+                                            </div>
+                                            <div class="limitations_on_temporary_works_design_comment d-none">
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                            </div>
+                                        </li>
+                                        <!-- <li class="limitations_on_temporary_works_design_comment d-none" style="background: white;height:73px">
+                                        </li> -->
+                                </div>
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" />
+                                <!-- Limitation on Temporary work end  -->
 
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="details_of_any_hazards_comment d-none" style="background: white;height:73px">
-                                </li>
-                                <li class="invisible Party-Requirements">
-                                    <div class="multi-Radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault1" value="yes" />
-                                            <input class="form-check-input" type="hidden" name="3rd_party_requirements" value="3rd Party Requirements:" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> YES </label>
-                                        </div>
 
-                                        <!-- NO -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault2" value="no" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> NO </label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="3rd_party_requirements_comment d-none" style="background: white;height:73px">
-                                </li>
+                                <!-- Hazard identification start  -->
+
+                                <div class="list">
+                                    <li data-id="Hazard-Risk" class="majorList">Details of any hazards identified during the risk or hazard
+                                        assessment that require action by the Temporary Works Designer to eliminate or
+                                        control all risks or hazard
+                                    </li>
+                                        <li class="invisible Hazard-Risk d-flex" style="justify-content: space-between; align-items: center">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="hidden" name="details_of_any_hazards" value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
+                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" />
+                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                </div>
+                                            </div>
+                                            <div class="details_of_any_hazards_comment d-none">
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                            </div>
+                                        </li>
+                                        <!-- <li class="details_of_any_hazards_comment d-none" style="background: white;height:73px">
+                                        </li> -->
+                                    
+                                </div>
+
+                                <!-- Hazard identification end  -->
+
+
+                                <!-- 3rd part Requirements start  -->
+
+                                <div class="list">
+                                    <li data-id="Party-Requirements" class="majorList">3rd Party Requirements:</li>
+                                        <li class="invisible Party-Requirements d-flex" style="justify-content: space-between; align-items: center">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="hidden" name="3rd_party_requirements" value="3rd Party Requirements:" />
+                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault2" value="no" />
+                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- <li class="3rd_party_requirements_comment d-none" style="background: white;height:73px">
+                                        </li> -->
+                                    <li class="3rd_party_requirements_comment d-none">
+                                        <textarea style="background: black;color:white;ay:none" type="text" name="3rd_party_requirements_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                    </li>
+                                </div>
+
+                                <!-- 3rd part Requirements end  -->
                             </ul>
                         </div>
                     </div>

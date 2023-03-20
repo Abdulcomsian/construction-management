@@ -128,23 +128,74 @@ $(document).ready(function () {
         $("#scopofdesign").val(show_val);
     });
 
-    $("#attachment-of-design .requirment-first ul li").click(function () {
-        $("#attachment-of-design .submit-requirment button").removeAttr(
-            "disabled"
-        );
-        $("#attachment-of-design .requirment-first ul li").removeClass(
-            "active"
-        );
-        $(this).addClass("active");
+    // $("#attachment-of-design .requirment-first ul li").click(function (event) {
+    //     $("#attachment-of-design .submit-requirment button").removeAttr(
+    //         "disabled"
+    //     );
+    //     $("#attachment-of-design .requirment-first ul li").removeClass(
+    //         "active"
+    //     );
+    //     $("#attachment-of-design .requirment-second ul li").addClass(
+    //         "invisible"
+    //     );
 
-        id = $(this).attr("data-id");
-        $("#attachment-of-design .requirment-second").css("display", "block");
-        $("li.invisible." + id + "")
-            .removeClass("invisible")
-            .css("display", "block");
-        var val = $(this).text();
-        $("#attachment-of-design .requirment-first-value").val(val);
-    });
+    //     // Add this line to remove the "borderActive" class from the previously active list item
+
+    //     $(this).addClass("active");
+
+    //     if (
+    //         $(event.target.parentElement).hasClass("list") &&
+    //         $(this).hasClass("active")
+    //     ) {
+    //         $(event.target.parentElement).addClass("borderActive");
+    //     }
+
+    //     id = $(this).attr("data-id");
+    //     $("#attachment-of-design .requirment-second").css("display", "block");
+    //     $("li.invisible." + id + "")
+    //         .removeClass("invisible")
+    //         .css("display", "block");
+    //     var val = $(this).text();
+    //     $("#attachment-of-design .requirment-first-value").val(val);
+    // });
+    $("#attachment-of-design .requirment-first ul li.majorList").click(
+        function (event) {
+            $("#attachment-of-design .submit-requirment button").removeAttr(
+                "disabled"
+            );
+            $("#attachment-of-design .requirment-first ul li").removeClass(
+                "active"
+            );
+            $("#attachment-of-design .requirment-second ul li").addClass(
+                "invisible"
+            );
+
+            $(this).addClass("active");
+
+            // Add this line to remove the "borderActive" class from all parent elements of the list items in the first level list
+            $("#attachment-of-design .requirment-first ul li")
+                .parent()
+                .removeClass("borderActive");
+
+            if (
+                $(event.target.parentElement).hasClass("list") &&
+                $(this).hasClass("active")
+            ) {
+                $(event.target.parentElement).addClass("borderActive");
+            }
+
+            id = $(this).attr("data-id");
+            $("#attachment-of-design .requirment-second").css(
+                "display",
+                "block"
+            );
+            $("li.invisible." + id + "")
+                .removeClass("invisible")
+                .css("display", "block");
+            var val = $(this).text();
+            $("#attachment-of-design .requirment-first-value").val(val);
+        }
+    );
 });
 
 $("input[name='list_of_attachments_folder']").change(function () {

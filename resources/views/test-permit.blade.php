@@ -339,17 +339,19 @@
                                             required>
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex modalDiv d-block">
+                                
+                                <div class="d-flex inputDiv d-block">
+                                    <div class="modalDiv d-block">
                                         <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <label class="fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name :</span>
                                         </label>
                                         <input type="text" class="form-control form-control-solid"
-                                            placeholder="TWS Name" id="tws_name" name="tws_name"
-                                            value="{{old('tws_name',auth()->user()->name)}}" required>
+                                        placeholder="TWS Name" id="tws_name" name="tws_name"
+                                        value="{{old('tws_name',auth()->user()->name)}}" required>
                                     </div>
                                 </div>
+                                
                                 <div class="d-flex inputDiv d-block">
                                     <div class="modalDiv d-block">
                                         <!--begin::Label-->

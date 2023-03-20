@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('test', [TemporaryWorkController::class, 'testIndex']);
 
+    Route::get('temporary_works/create2', [TemporaryWorkController::class, 'create2']);
 
     //All Resource Controller
     Route::resources([
@@ -207,10 +208,12 @@ Route::group(['middleware' => ['auth']], function () {
 //permit routes hoere
 Route::group(['middleware' => ['auth']], function () {
     Route::get('permit-to-load', [TemporaryWorkController::class, 'permit_load'])->name('permit.load');
+    Route::get("test-permit" , [TemporaryWorkController::class, 'test_permit_load']);
     Route::post('permit-save', [TemporaryWorkController::class, 'permit_save'])->name('permit.save');
     // Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
     Route::get('permit-renew/{id}', [TemporaryWorkController::class, 'permit_renew'])->name('permit.renew');
     Route::get('permit-unload/{id}', [TemporaryWorkController::class, 'permit_unload'])->name('permit.unload');
+    Route::get('permit-unload-test/{id}', [TemporaryWorkController::class, 'permit_unload_test']);
     Route::post('permit-unload-save', [TemporaryWorkController::class, 'permit_unload_save'])->name('permit.unload.save');
     Route::get('permit-close/{id}', [TemporaryWorkController::class, 'permit_close'])->name('permit.close');
 
@@ -240,8 +243,8 @@ Route::group(['middleware' => ['auth']], function () {
 //designer routes
 Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //designer user crud routes
-    //  Route::get('/designer',[DesignerController::class,'desginerView']);
-     Route::get('/designer',[DesignerController::class,'testDesigner']);
+     Route::get('/designer',[DesignerController::class,'desginerView']);
+    //  Route::get('/designer',[DesignerController::class,'testDesigner']);
      Route::get('/list',[DesignerController::class,'List'])->name('designer.list');
      Route::get('/create',[DesignerController::class,'Create'])->name('designer.create');
      Route::post('/save',[DesignerController::class,'Save'])->name('designer.save');
@@ -263,8 +266,8 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::post('change-emails',[DesignerController::class,'change_email'])->name('change-email');
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
      //
-     Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
-
+    //  Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
+    Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
 
@@ -290,3 +293,5 @@ if (env('Enable_Migration_Optimize_Clear_Routes') == true) {
         dd('optimize done');
     });
 }
+
+

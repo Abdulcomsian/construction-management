@@ -361,6 +361,50 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+    public function create2()
+    {
+        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+            toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
+            return Redirect::back();
+        }
+
+        // if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
+        //    if(Auth::user()->nomination == 1 && Auth::user()->nomination_status !=1)
+        //     {
+        //         toastError('You can no create temporary work until your nomination form appprove thanks ');
+        //           return Redirect::back();
+        //     }
+        // }
+        //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        try {
+            $user = auth()->user();
+            if ($user->hasRole(['admin'])) {
+                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+            } elseif ($user->hasRole(['company'])) {
+                $projects = Project::with('company')->where('company_id', $user->id)->get();
+            } else {
+                  $project_idds = DB::table('users_has_projects')->where(['user_id'=>$user->id])->get();
+                    $ids = [];
+                    foreach ($project_idds as $id) {
+                        if($id->nomination==1 && $id->nomination_status==1)
+                        {
+                            $ids[] = $id->project_id;
+                        }
+                        if($id->nomination==2)
+                        {
+                            $ids[] = $id->project_id;
+                        }
+                        
+                    }
+                    $projects = Project::with('company')->whereIn('id', $ids)->get();  
+            }
+            return view('dashboard.temporary_works.create2', compact('projects'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
     //manually desing breif form for old data
     public function create1()
     {
@@ -1297,6 +1341,38 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+    public function test_permit_load(Request $request)
+    {
+        $tempid = \Crypt::decrypt($request->temp_work_id);
+        try {
+            $tempdata = TemporaryWork::find($tempid);
+            $twc_id_no = $tempdata->twc_id_no;
+            $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->orderBy('id', 'desc')->first();
+            if ($permitdata) {
+                $data = explode("-", $permitdata->permit_no);
+                if (isset($data[3])) {
+                    $twc_id_no = $twc_id_no . '-' . ++$data[3];
+                } elseif (isset($data[2])) {
+
+                    $twc_id_no = $twc_id_no . '-' . ++$data[2];
+                } elseif (isset($data[1])) {
+
+                    $twc_id_no = $twc_id_no . '-' . ++$data[1];
+                }
+            } else {
+                $twc_id_no = $twc_id_no . '-A';
+            }
+            $project = Project::with('company')->where('id', $tempdata->project_id)->first();
+            $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
+            return view('test-permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+    
+    
     //save permit
     public function permit_save(Request $request)
     {
@@ -1657,6 +1733,21 @@ class TemporaryWorkController extends Controller
             $twc_id_no = $permitdata->permit_no;
             $project = Project::with('company')->where('id', $permitdata->project_id)->first();
             return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+    public function permit_unload_test($id)
+    {
+        try {
+            $permitid =  \Crypt::decrypt($id);
+            $permitdata = PermitLoad::find($permitid);
+            $tempid = $permitdata->temporary_work_id;
+            $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
+            $twc_id_no = $permitdata->permit_no;
+            $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+            return view('permit_unload_test', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

@@ -10,26 +10,33 @@ $(document).ready(function () {
         );
     });
 
-    $("#design-requirement .requirment-first ul li").click(function () {
-        $(".requirment-first ul li").removeClass("active");
-        $(this).addClass("active");
-        id = $(this).attr("data-id");
-        $(".requirment-second").css("display", "block");
-        $("ul.show").hide();
-        $("ul." + id + "")
-            .removeClass("d-none")
-            .addClass("show")
-            .css("display", "block");
-        var val = $(this).text();
-        $(".requirment-first-value").val(val);
+    $("#design-requirement .requirment-first ul li.majorMenu").click(function (
+        event
+    ) {
+        if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+            $("ul.show").hide();
+        } else {
+            $(".requirment-first ul li").removeClass("active");
+            $(this).addClass("active");
+            var id = $(this).attr("data-id");
+            $(".requirment-second").css("display", "block");
+            $("ul.show").hide();
+            $("ul." + id + "")
+                .removeClass("d-none")
+                .addClass("show")
+                .css("display", "block");
+            var val = $(this).text();
+            $(".requirment-first-value").val(val);
+        }
     });
-    $("#design-requirement .requirment-second ul li").click(function () {
-        $(".requirment-second ul li").removeClass("active");
-        $("#design-requirement .requirment-second ul li input").removeClass(
-            "active"
-        );
-        $(this).addClass("active");
+
+    $(".submenu li").click(function (event) {
+        // event.stopPropagation(); // prevent event from bubbling up to parent
+        $(".submenu li").removeClass("active"); // Remove active class from all list items
+        $(this).addClass("active"); // Add active class to clicked list item
         var val = $(this).text();
+        console.log(val);
         $(".requirment-second-value").val(val);
         // $("#design-requirement .requirment-second ul li.active input").addClass(
         //     "active"
@@ -37,28 +44,41 @@ $(document).ready(function () {
         $(".submit-requirment button").removeAttr("disabled");
         $(".submit-requirment button").css("opacity", "1");
     });
+
     $(".otherInput").on("input", function (e) {
         otherVal = $(this).val();
         $(".requirment-second-value").val(otherVal);
     });
     $("#design-requirement .submit-requirment button").click(function () {
-        var val_first = $(".requirment-first-value").val();
-        var val_second = $(".requirment-second-value").val();
+        var val_first = $(".requirment-first-value").val().trim();
+        var val_second = $(".requirment-second-value").val().trim();
         var full_val = val_first + " - " + val_second;
+        console.log(full_val);
         val.attr("value", full_val);
         $("#design_requirement_text").css("background", "#f5f8fa");
-        let key=full_val.replace(/\//g, "_");
-            key=key.replace(/\-/g, "_");
-            key=key.replace(/\s/g, '');
-            console.log(key);
-            var list='';
-            list='<h3><input type="hidden" name="req_type" value="'+full_val+'"/>'+full_val+'</h3><p>Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p><table class="table"><tbody>';
-            for (let x in jsondata[key]) {
-               list += '<tr><td><input type="hidden" name="req_name[]" value="'+x+'"/> '+x+'</td><td><input type="checkbox" name="req_check['+x+']" value="2"/></td><td><input type="text" name="req_notes[]" class="form-control"/></td></tr>';
-            }
-            list+='</tbody></table>';
-            $("#req_details_data").html(list);
-                   
+        let key = full_val.replace(/\//g, "_");
+        key = key.replace(/\-/g, "_");
+        key = key.replace(/\s/g, "");
+        console.log(key);
+        var list = "";
+        list =
+            '<h3><input type="hidden" name="req_type" value="' +
+            full_val +
+            '"/>' +
+            full_val +
+            '</h3><p>Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p><table class="table"><tbody>';
+        for (let x in jsondata[key]) {
+            list +=
+                '<tr><td><input type="hidden" name="req_name[]" value="' +
+                x +
+                '"/> ' +
+                x +
+                '</td><td><input type="checkbox" name="req_check[' +
+                x +
+                ']" value="2"/></td><td><input type="text" name="req_notes[]" class="form-control"/></td></tr>';
+        }
+        list += "</tbody></table>";
+        $("#req_details_data").html(list);
     });
     var show_val = "";
     $("#scope-of-design .requirment-first ul li").click(function () {
@@ -116,6 +136,7 @@ $(document).ready(function () {
             "active"
         );
         $(this).addClass("active");
+
         id = $(this).attr("data-id");
         $("#attachment-of-design .requirment-second").css("display", "block");
         $("li.invisible." + id + "")

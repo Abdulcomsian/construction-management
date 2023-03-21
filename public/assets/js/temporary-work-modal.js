@@ -69,13 +69,13 @@ $(document).ready(function () {
             '</h3><p style="font-weight: 400; font-size: 16px">Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p><table class="table"><tbody>';
         for (let x in jsondata[key]) {
             list +=
-                '<tr><td><input type="checkbox" name="req_check[' +
+                '<tr><td><input style="position: relative; top: 5px" type="checkbox" name="req_check[' +
                 x +
-                ']" value="2"/></td><td style="text-align: start; font-weight:400;  font-size: 16px"><input type="hidden" name="req_name[]" value="' +
+                ']" value="2"/></td><td style="text-align: start; font-weight:400;  font-size: 16px; width: 40%"><input type="hidden" name="req_name[]" value="' +
                 x +
                 '"/> ' +
                 x +
-                '</td><td style="width: 50%"><input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px"/></td></tr>';
+                '</td><td style="width: 55%"><input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px"/></td></tr>';
         }
         list += "</tbody></table>";
         $("#req_details_data").html(list);
@@ -196,10 +196,6 @@ $(document).ready(function () {
             $("li." + id + "")
                 .toggleClass("invisible")
                 .toggle();
-
-            $("#attachment-of-design .requirment-second ul li")
-                .not(this)
-                .addClass("invisible");
             var val = $(this).text();
             $("#attachment-of-design .requirment-first-value").val(val);
         }

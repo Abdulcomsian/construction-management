@@ -749,13 +749,13 @@
                     </div>
 
                 </div>
-                <div class="uploadDiv" style="padding-left: 10px;">
+                <div class="uploadDiv" style="margin-top:20px">
                     <div class="input-images"></div>
                     <!-- <input type="file" multiple name="file[]">
                     <input type="button" class="btn btn-sm btn-primary addfile" style="width: 10%;" value="Add"> -->
                 </div>
-                <div class="submit-requirment" style="width:100%;padding-left:10px;">
-                    <button data-bs-dismiss="modal" style="width: 10%;opacity:1 !important;">Save</button>
+                <div class="submit-requirment" style="width:100%;justify-content: flex-end">
+                    <button data-bs-dismiss="modal" style="width: 27%;border-radius: 6px;margin: 15px 0 !important;">Save</button>
 
                 </div>
 

@@ -178,6 +178,10 @@ input:focus {
     margin: 0px 10px;
 }
 
+.common-requirment#attachment-first {
+    margin: 0;
+}
+
 .list-div ul,
 .list-check-div ul {
     padding: 0px;

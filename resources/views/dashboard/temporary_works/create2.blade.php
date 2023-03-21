@@ -285,6 +285,14 @@ height: 72px;
     #design-requirement .modal-dialog{
         width: 50%;
     }
+    #attachment-of-design .modal-dialog{
+        width: 51%;
+    }
+    .image-uploader{
+        border: 2px dashed #d9d9d9 !important;
+        position: relative;
+        border-radius: 4px;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -406,14 +414,7 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  autocomplete="off">
                                 </div>
-                                 <div class="inputDiv d-none desinger_company_name2">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Design Checker Email:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
-                                </div>
+                                 
                                  <!-- <div class="inputDiv d-none desinger_company_name2">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                        Design Checker Name:</span>
@@ -545,6 +546,14 @@ height: 72px;
                                         <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:23px"></span></a>
                                         <!--end::Radio group-->
                                     </div>
+                                </div>
+                                <div class="inputDiv d-none desinger_company_name2" style="margin-top: 17px">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Design Checker Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
                                 </div>
                                 <div class="d-none inputDiv pc-twc" style="margin-top: 19px">
                                     <!--begin::Label-->

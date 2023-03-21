@@ -65,8 +65,10 @@ input:focus {
 
 .modalDiv label {
     margin: 0px !important;
-    position: relative !important;
-    bottom: 20px !important;
+    /* top: -17px;
+    bottom: 0; */
+    /* position: relative !important; */
+    /* bottom: 20px !important; */
 }
 
 .multi-list {

@@ -198,6 +198,11 @@ height: 72px;
             width:100% ;
             position: relative;
         }
+        #descriptionTextArea,
+        #scopeOfDesignArea,
+        #attachment{
+            min-height: fit-content !important;
+        }
         .whiteBack{
             background-color: #f5f8fa !important;
             color: #000 !important;
@@ -553,10 +558,10 @@ height: 72px;
                                     <div class="d-flex inputDiv d-block mt-0">
                                         <div class="modalDiv d-block">
                                             <!--begin::Label-->
-                                                <label class="required fs-6 fw-bold mb-2">
+                                                <label class="required fs-6 fw-bold mb-2" style="top:-17px; height: fit-content;">
                                                 Description:
                                                 </label>
-                                                <textarea class="blackBack form-control" style="height:32px" name="description_temporary_work_required"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
+                                                <textarea class="blackBack form-control" id="descriptionTextArea"  name="description_temporary_work_required"   cols="50" placeholder="Provide brief description of design requirements." required style="height: 32px !important">{{old('description_temporary_work_required')}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -579,36 +584,32 @@ height: 72px;
                                   <div class="d-flex inputDiv d-block my-0">
                                     <div class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#scope-of-design">
                                          <!--begin::Label-->
-                                             <label class="fs-6 fw-bold mb-2" style="bottom: 43px">
+                                             <label class="fs-6 fw-bold mb-2" style="top:-17px; height: fit-content;">
                                               Scope of Design:
                                             </label>
-                                            <textarea class="form-control" style="background: white;"  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
+                                            <textarea class="form-control" id="scopeOfDesignArea" style="background: white;height: 32px !important"  id="scopofdesign"  cols="50"  placeholder="Scope of Design Output Required From TW Engineer"  readonly></textarea>
                                        <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                     
                                   </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-12">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
-                                        <!--begin::Label-->
-                                             <label class="fs-6 fw-bold mb-2" style="bottom:35px">
-                                              Attachments / Spec:
-                                              <span style="margin-left: 10px;">
-                                        <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:25px"></span></a>
-                                    </span>
-                                            </label>
-                                           
-                                        <input id="attachment" class="blackBack" style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
-                                    </div>
-                                    
+                                <div class="col-md-12">
+                                    <div class="d-flex inputDiv d-block mb-0">
+                                        <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                            <!--begin::Label-->
+                                                <label class="fs-6 fw-bold mb-2" style="top:-17px; height: fit-content;">
+                                                Attachments / Spec:
+                                                <span style="margin-left: 10px;">
+                                            <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:25px"></span></a>
+                                            </span></label>
+                                            
+                                            <input id="attachment" style="background: white;height: 32px !important" class="blackBack" style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
+                                        </div>
                                   </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
+                            <!-- <div class="row"> -->
                                 <div class="col-md-6">
                                     <div class="d-flex inputDiv d-block">
                                         <!--begin::Label-->
@@ -646,8 +647,8 @@ height: 72px;
                                         <input data-date-inline-picker="true" type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
+                            <!-- </div> -->
+                            <!-- <div class="row"> -->
                                     <div class="col-12">
                                     <div class="d-flex inputDiv d-block my-0">
                                         <!--begin::Label-->
@@ -658,7 +659,7 @@ height: 72px;
                                         <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
                                     </div>
                                     </div>
-                            </div>
+                            <!-- </div> -->
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="d-flex inputDiv mb-1" style="border: none">

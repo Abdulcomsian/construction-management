@@ -482,7 +482,7 @@
             <!--begin::Modal body-->
             <div class="modal-body py-lg-10 px-lg-10">
                 <div id="req_details_data">
-
+                    
                 </div>
                 <br>
                 <div class="multi-list">

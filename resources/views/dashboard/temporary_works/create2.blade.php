@@ -252,6 +252,8 @@ height: 72px;
     .nav-group.nav-group-fluid>label{
         top:0 !important;
         padding: 0 2px !important;
+        width: 35px !important;
+        height: 35px !important
     }
 
     .TW .nav-group{
@@ -466,8 +468,8 @@ height: 72px;
                                     <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
                                 </div>
                                 
-                                <div class="row TW">
-                                    <div class="col-md-6 d-flex inputDiv my-0">
+                                <div class="row TW" style="width: 100%; margin: auto">
+                                    <div class="col-md-6 d-flex inputDiv my-0" style='width: 100%; padding: 5px 0'>
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">
                                             <span class="required">TW Category</span>
@@ -476,7 +478,7 @@ height: 72px;
                                         {{-- <div class="checkBoxDiv">--}}
                                         {{-- </div>--}}
                                         <!--begin::Radio group-->
-                                        <div class="nav-group nav-group-fluid">
+                                        <div class="nav-group nav-group-fluid" style="width: 100%">
                                             <!--begin::Option-->
                                             <label>
                                                 <input type="radio" class="btn-check" name="tw_category" value="0" checked="checked" />
@@ -505,7 +507,7 @@ height: 72px;
                                         <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:23px"></span></a>
                                         <!--end::Radio group-->
                                     </div>
-                                    <div class="col-md-6 d-flex inputDiv my-0">
+                                    <div class="col-md-6 d-flex inputDiv my-0" style='width: 100%; padding: 5px 0'>
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">
                                             <span class="required">TW Risk Class</span>
@@ -514,11 +516,11 @@ height: 72px;
                                         {{-- <div class="checkBoxDiv">--}}
                                         {{-- </div>--}}
                                         <!--begin::Radio group-->
-                                        <div class="nav-group nav-group-fluid">
+                                        <div class="nav-group nav-group-fluid" style="width: 100%">
                                             <!--begin::Option-->
                                             <label >
                                                 <input type="radio" class="btn-check" name="tw_risk_class" value="VL" checked="checked" />
-                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary" style="white-space: nowrap">VL</span>
                                             </label>
                                             <!--end::Option-->
                                             <!--begin::Option-->

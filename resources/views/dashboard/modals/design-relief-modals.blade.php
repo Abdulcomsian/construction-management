@@ -62,6 +62,13 @@
         color: 
     }
 
+    #attachment-of-design tbody td{
+        border-top: 0 !important;
+    }
+    #attachment-of-design tbody tr:nth-child(even){
+        background:  white !important;
+        border: none;
+    }
     
     .form-check-input[type=radio]{
         width: 15px !important;
@@ -93,13 +100,17 @@
 
     .List-Attachment::after,
     .Report-Site::after,
-    Exsisting-Ground::after,
-    System-Type::after,
-    Limitations::after,
-    Back-Propping::after,
-    Temporary-Work::after,
-    Party-Requirements::after{
+    .Exsisting-Ground::after,
+    .System-Type::after,
+    .Limitations::after,
+    .Back-Propping::after,
+    .Temporary-Work::after,
+    .Party-Requirements::after{
         content: none !important;
+    }
+
+    .invisible{
+        display: none !important;
     }
    
 </style>
@@ -494,8 +505,8 @@
                                 <div class="list">
                                     <li data-id="List-Attachment" class="majorList">Attachments (sketches / photos / specifications / drawings, etc)
                                     </li>
-                                        <ul>
-                                            <li class=" List-Attachment my-0" style="display: flex; justify-content: space-between; align-items: center">
+                                        <ul class=''>
+                                            <li class="invisible List-Attachment  my-0" style="display: flex; justify-content: space-between; align-items: center; min-height: 70px">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
@@ -509,7 +520,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="list_of_attach_comment d-none">
-                                                    <textarea type="text" style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    <textarea type="text" style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                                 </div>
                                             </li>
                                         </ul>
@@ -519,7 +530,7 @@
                                     <li data-id="Report-Site" class="majorList">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)
                                     </li>
                                         <ul>
-                                            <li class="invisible Report-Site d-flex my-0" style="justify-content: space-between; align-items: center">
+                                            <li class="invisible Report-Site d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
@@ -533,7 +544,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="reports_including_site_investigations_comment d-none">
-                                                    <textarea  style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    <textarea  style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                                 </div>
                                             </li>
                                         </ul>
@@ -541,7 +552,7 @@
                                 <div class="list">
                                     <li data-id="Exsisting-Ground" class="majorList">Existing Ground conditions</li>
                                         <ul>
-                                            <li class="invisible Exsisting-Ground d-flex my-0" style="justify-content: space-between; align-items: center">
+                                            <li class="invisible Exsisting-Ground d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault1" value="yes" />
@@ -555,7 +566,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="existing_ground_conditions_comment d-none">
-                                                    <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                                 </div>
                                             </li>
                                         </ul>
@@ -568,7 +579,7 @@
                                     <li data-id="System-Type" class="majorList">Preferred/non-preferred methods, systems or types of
                                         equipment:
                                     </li>
-                                        <li class="invisible System-Type d-flex my-0" style="justify-content: space-between; align-items: center">
+                                        <li class="invisible System-Type d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault1" value="yes" />
@@ -585,7 +596,7 @@
                                         <!-- <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
                                         </li> -->
                                     <li class="preferred_non_preferred_methods_comment d-none">
-                                        <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                        <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                     </li>
                                 </div>
                                 <!-- Prefered/Non prefered container end -->
@@ -595,7 +606,7 @@
                                     
                                 <div class="list">
                                     <li data-id="Limitations" class="majorList">Access Limitations (or edge protection requirements)</li>
-                                        <li class="invisible Limitations d-flex my-0" style="justify-content: space-between; align-items: center">
+                                        <li class="invisible Limitations d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
@@ -609,7 +620,7 @@
                                                 </div>
                                             </div>
                                             <div class="access_limitations_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="access_limitations_comment d-none" style="background: white;height:73px">
@@ -624,7 +635,7 @@
                                 
                                 <div class="list">
                                     <li data-id="Back-Propping" class="majorList">Back Propping  / Re-Propping Sequence</li>
-                                        <li class="invisible Back-Propping d-flex" style="justify-content: space-between; align-items: center">
+                                        <li class="invisible Back-Propping d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
@@ -638,7 +649,7 @@
                                                 </div>
                                             </div>
                                             <div class="back_propping_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="back_propping_comment d-none" style="background: white;height:73px">
@@ -651,7 +662,7 @@
 
                                 <div class="list">
                                     <li data-id="Temporary-Work" class="majorList">Limitations on Temporary Works Design:</li>
-                                        <li class="invisible Temporary-Work d-flex" style="justify-content: space-between; align-items: center">
+                                        <li class="invisible Temporary-Work d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" />
@@ -665,7 +676,7 @@
                                                 </div>
                                             </div>
                                             <div class="limitations_on_temporary_works_design_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="limitations_on_temporary_works_design_comment d-none" style="background: white;height:73px">
@@ -682,7 +693,7 @@
                                         assessment that require action by the Temporary Works Designer to eliminate or
                                         control all risks or hazard
                                     </li>
-                                        <li class="invisible Hazard-Risk d-flex" style="justify-content: space-between; align-items: center">
+                                        <li class="invisible Hazard-Risk d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" />
@@ -696,7 +707,7 @@
                                                 </div>
                                             </div>
                                             <div class="details_of_any_hazards_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey;border-radius: 5px;height: auto;" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="details_of_any_hazards_comment d-none" style="background: white;height:73px">
@@ -711,7 +722,7 @@
 
                                 <div class="list">
                                     <li data-id="Party-Requirements" class="majorList">3rd Party Requirements:</li>
-                                        <li class="invisible Party-Requirements d-flex" style="justify-content: space-between; align-items: center">
+                                        <li class="invisible Party-Requirements d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault1" value="yes" />

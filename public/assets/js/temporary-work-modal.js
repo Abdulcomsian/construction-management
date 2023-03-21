@@ -62,11 +62,11 @@ $(document).ready(function () {
         console.log(key);
         var list = "";
         list =
-            '<h3><input type="hidden" name="req_type" value="' +
+            '<h3 style="font-weight: 600;"><input type="hidden" name="req_type" value="' +
             full_val +
             '"/>' +
             full_val +
-            '</h3><p>Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p><table class="table"><tbody>';
+            '</h3><p style="font-weight: 400; font-size: 16px">Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p><table class="table"><tbody>';
         for (let x in jsondata[key]) {
             list +=
                 '<tr><td><input type="checkbox" name="req_check[' +
@@ -75,7 +75,7 @@ $(document).ready(function () {
                 x +
                 '"/> ' +
                 x +
-                '</td><td style="width: 60%"><input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px"/></td></tr>';
+                '</td><td style="width: 50%"><input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px"/></td></tr>';
         }
         list += "</tbody></table>";
         $("#req_details_data").html(list);
@@ -189,9 +189,17 @@ $(document).ready(function () {
                 "display",
                 "block"
             );
-            $("li.invisible." + id + "")
-                .removeClass("invisible")
-                .css("display", "block");
+            // $("li.invisible." + id + "")
+            //     .removeClass("invisible")
+            //     .css("display", "block");
+
+            $("li." + id + "")
+                .toggleClass("invisible")
+                .toggle();
+
+            $("#attachment-of-design .requirment-second ul li")
+                .not(this)
+                .addClass("invisible");
             var val = $(this).text();
             $("#attachment-of-design .requirment-first-value").val(val);
         }

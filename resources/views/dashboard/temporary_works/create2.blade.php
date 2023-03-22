@@ -479,6 +479,17 @@ height: 72px;
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block m-0">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block m-0" id="designerEmail">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -487,17 +498,6 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <input type="email" class="blackBack form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
-                                </div>
-                                
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block m-0">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Company Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
                                 </div>
                             </div>
                         </div>
@@ -767,7 +767,7 @@ height: 72px;
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input  type="radio" class="checkbox-field" id="DrawCheck" checked=true  style="width: 12px;">
-                                            <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
                                             <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
                                         <div style="display:flex; align-items: center; padding-left:10px">
@@ -819,7 +819,7 @@ height: 72px;
                                     <!-- </div> -->
                                     <!-- work for approval -->
                                     @include('dashboard.modals.design-relief-modals')
-                                        <button id="submitbutton" type="submit"  class="btn btn-primary float-end submitbutton" style="top: 82%">Submit</button>
+                                        <button id="submitbutton" type="submit"  class="btn btn-primary float-end submitbutton" style="  top: 62% !important;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
                         
                                 </div>
 

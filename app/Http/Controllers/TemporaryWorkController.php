@@ -715,6 +715,8 @@ class TemporaryWorkController extends Controller
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            dd("test");
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

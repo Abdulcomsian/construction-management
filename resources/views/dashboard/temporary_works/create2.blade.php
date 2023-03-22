@@ -293,6 +293,48 @@ height: 72px;
         position: relative;
         border-radius: 4px;
     }
+    @media screen and (max-width: 768px){
+        #projectNo, #selectProject, #projectName, #designIssueDate, #twcName, #designerEmail, #designReq,
+        #designBriefDate, #designBriefJobTitle, #photoDesign, #pctwcEmail{
+            margin-top: 0 !important;
+            margin-bottom: 30px !important;
+        }
+        #desinger_company_name2{
+            margin-bottom: 0px !important;
+        }
+        .signatureTitle{
+            white-space: nowrap;
+        }
+        #kt_content{
+            margin: 0 auto;
+        }
+
+        #kt_content_container .card-title{
+            flex-direction: column;
+            align-items: flex-start !important;
+        }
+        #kt_content_container .card-header{
+            padding-left: 8px;
+        }
+        #kt_content_container .card-title h2{
+            white-space: nowrap;
+            margin-bottom: 20px;
+        }
+        .newDesignBtn{
+            width: 230px !important;
+        }
+        .TW{
+            gap: 21px;
+        }
+    }
+
+    @media screen and (max-width: 576px){
+        #design-requirement .modal-dialog{
+            width: 100%;
+            margin: auto;
+        }
+    }
+
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -343,7 +385,7 @@ height: 72px;
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="inputDiv d-block" style="margin-bottom:0px !important;">
+                                <div class="inputDiv d-block" id="selectProject" style="margin-bottom:0px">
                                     <label class="fs-6 fw-bold mb-2">
                                             <span class="required">Select Project:</span>
                                     </label>
@@ -359,7 +401,7 @@ height: 72px;
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block">
+                                <div class="d-flex inputDiv d-block" id="projectNo">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project No.:</span>
@@ -367,8 +409,23 @@ height: 72px;
                                     <!--end::Label-->
                                     <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
                                 </div>
-                                
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block" id="projectName">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required">Project Name:</span>
+
+                                        </label>
+                                        <!--end::Label-->
+                                        <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Design requirement" id="name" name="projname"  value="{{old('projname')}}">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block m-0" id="designIssueDate">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Design Issued Date:</span>
@@ -376,8 +433,9 @@ height: 72px;
                                     <!--end::Label-->
                                     <input data-date-inline-picker="true" readonly type="date" value="{{ date('Y-m-d') }}" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date"  id="design_issued_date" value="{{old('design_issued_date')}}"  required>
                                 </div>
-                               
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block m-0">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Project Address:</span>
@@ -386,17 +444,11 @@ height: 72px;
                                     <!--end::Label-->
                                     <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
                                 </div>
-                                
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Email Address:</span>
+                            </div>
 
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="email" class="blackBack form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
-                                </div>
-                                
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -406,42 +458,47 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{old('twc_email',\Auth::user()->email)}}" style="background: #f5f8fa"  required  readonly>
                                 </div>
-                                <div class="inputDiv d-none desinger_company_name2">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Design Checker Company Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  autocomplete="off">
-                                </div>
-                                 
-                                 <!-- <div class="inputDiv d-none desinger_company_name2">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                       Design Checker Name:</span>
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger')}}"  >
-                                </div> -->
-                                <div class="d-flex align-items-center inputDiv" style="height: 41px">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" >
-                                        <span>PCTWC approval required?</span>
-                                    </label>
-                                    <!--end::Label-->
-                                     <input  type="checkbox" name="approval" id="approval"  style="margin-left:10px;opacity: 0.5" class="blackBack">
-                                     <span style="padding-left:22px;color:#000">Select if approval is required.</span>
-                                </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class=" fs-6 fw-bold mb-2">
-                                            <span class="required">Project Name:</span>
+                                <div class="d-flex inputDiv d-block" id="twcName">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">TWC Name:</span>
 
-                                        </label>
-                                        <!--end::Label-->
-                                        <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Design requirement" id="name" name="projname"  value="{{old('projname')}}">
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block m-0" id="designerEmail">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Email Address:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="email" class="blackBack form-control form-control-solid" placeholder="Designer Email Address" id="designer_company_email" name="designer_company_email" value="{{old('designer_company_email')}}"  required>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block m-0">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Design Required by Date:</span>
@@ -451,25 +508,9 @@ height: 72px;
                                         <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                     <!-- </p> -->
                                 </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Company Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">TWC Name:</span>
-
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="{{old('twc_name',\Auth::user()->name)}}" required>
-                                </div>
-                                
-                                <div class="row TW" style="width: 100%; margin: auto">
+                            </div>
+                            <div class="col-md-6" style="margin-top: 26px">
+                                <div class="row TW" style="width: 100%; margin: auto;">
                                     <div class="col-md-6 d-flex inputDiv my-0" style='width: 100%; padding: 5px 0'>
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2" style="bottom: 41px; left: 6px">
@@ -479,7 +520,7 @@ height: 72px;
                                         {{-- <div class="checkBoxDiv">--}}
                                         {{-- </div>--}}
                                         <!--begin::Radio group-->
-                                        <div class="nav-group nav-group-fluid" style="width: 100%">
+                                        <div class="nav-group nav-group-fluid" style="width: 90%">
                                             <!--begin::Option-->
                                             <label>
                                                 <input type="radio" class="btn-check" name="tw_category" value="0" checked="checked" />
@@ -505,7 +546,7 @@ height: 72px;
                                             </label>
                                             <!--end::Option-->
                                         </div>
-                                        <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:23px"></span></a>
+                                        <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:18px"></span></a>
                                         <!--end::Radio group-->
                                     </div>
                                     <div class="col-md-6 d-flex inputDiv my-0" style='width: 100%; padding: 5px 0'>
@@ -517,7 +558,7 @@ height: 72px;
                                         {{-- <div class="checkBoxDiv">--}}
                                         {{-- </div>--}}
                                         <!--begin::Radio group-->
-                                        <div class="nav-group nav-group-fluid" style="width: 100%">
+                                        <div class="nav-group nav-group-fluid" style="width: 90%">
                                             <!--begin::Option-->
                                             <label >
                                                 <input type="radio" class="btn-check" name="tw_risk_class" value="VL" checked="checked" />
@@ -543,11 +584,26 @@ height: 72px;
                                             </label>
                                             <!--end::Option-->
                                         </div>
-                                        <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:23px"></span></a>
+                                        <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank" style="display:flex;align-items:center;"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:18px"></span></a>
                                         <!--end::Radio group-->
                                     </div>
                                 </div>
-                                <div class="inputDiv d-none desinger_company_name2" style="margin-top: 17px">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="inputDiv d-none desinger_company_name2 mb-0" id="desinger_company_name2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Design Checker Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Company Name" id="desinger_company_name2" name="desinger_company_name2" value="{{old('desinger_company_name2')}}"  autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="inputDiv d-none desinger_company_name2 mb-0" style="margin-top: 30px">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="">Design Checker Email:</span>
@@ -555,7 +611,31 @@ height: 72px;
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
                                 </div>
-                                <div class="d-none inputDiv pc-twc" style="margin-top: 19px">
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                 
+                                 <!-- <div class="inputDiv d-none desinger_company_name2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                       Design Checker Name:</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger')}}"  >
+                                </div> -->
+                                <div class="d-flex align-items-center inputDiv" style="height: 41px">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" >
+                                        <span>PCTWC approval required?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                     <input  type="checkbox" name="approval" id="approval"  style="margin-left:10px;opacity: 0.5" class="blackBack">
+                                     <span style="padding-left:22px;color:#000">Select if approval is required.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-none inputDiv pc-twc mb-0" id="pctwcEmail">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2" style="width:fix-content!important">
                                         <span>PC TWC Email:</span>
@@ -578,7 +658,7 @@ height: 72px;
                                 </div>
 
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block my-0">
+                                <div class="d-flex inputDiv d-block my-0" id="designReq">
                                     <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
                                         <!--begin::Label-->
                                         <label style="" class="required fs-6 fw-bold mb-2">
@@ -630,7 +710,7 @@ height: 72px;
                                         <!--end::Label-->
                                         <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly"  required>
                                     </div>
-                                    <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex inputDiv d-block" id="designBriefCompany">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Company: </span>
@@ -641,15 +721,15 @@ height: 72px;
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex inputDiv d-block" id='designBriefJobTitle'>
                                         <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" >
                                             <span class="required">Job title:</span>
                                         </label>
                                         <!--end::Label-->
                                         <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly"  required>
                                     </div>
-                                    <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex inputDiv d-block" >
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Date:</span>
@@ -661,7 +741,7 @@ height: 72px;
                             <!-- </div> -->
                             <!-- <div class="row"> -->
                                     <div class="col-12">
-                                    <div class="d-flex inputDiv d-block my-0">
+                                    <div class="d-flex inputDiv d-block my-0" id="photoDesign">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>Photo:</span>
@@ -676,7 +756,7 @@ height: 72px;
                                     <div class="d-flex inputDiv mb-1" style="border: none">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
-                                            <span>Signature Type:</span>
+                                            <span class="signatureTitle">Signature Type:</span>
                                         </label>
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">

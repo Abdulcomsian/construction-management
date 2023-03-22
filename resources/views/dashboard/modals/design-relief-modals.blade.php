@@ -520,7 +520,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="list_of_attach_comment d-none">
-                                                    <textarea type="text" style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    <textarea type="text" style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" name="list_of_attachments_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                                 </div>
                                             </li>
                                         </ul>
@@ -544,7 +544,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="reports_including_site_investigations_comment d-none">
-                                                    <textarea  style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    <textarea  style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="reports_including_site_investigations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                                 </div>
                                             </li>
                                         </ul>
@@ -566,7 +566,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="existing_ground_conditions_comment d-none">
-                                                    <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="existing_ground_conditions_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                                 </div>
                                             </li>
                                         </ul>
@@ -596,7 +596,7 @@
                                         <!-- <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
                                         </li> -->
                                     <li class="preferred_non_preferred_methods_comment d-none">
-                                        <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                        <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                     </li>
                                 </div>
                                 <!-- Prefered/Non prefered container end -->
@@ -620,7 +620,7 @@
                                                 </div>
                                             </div>
                                             <div class="access_limitations_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="access_limitations_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="access_limitations_comment d-none" style="background: white;height:73px">
@@ -649,7 +649,7 @@
                                                 </div>
                                             </div>
                                             <div class="back_propping_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="back_propping_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="back_propping_comment d-none" style="background: white;height:73px">
@@ -676,7 +676,7 @@
                                                 </div>
                                             </div>
                                             <div class="limitations_on_temporary_works_design_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="limitations_on_temporary_works_design_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="limitations_on_temporary_works_design_comment d-none" style="background: white;height:73px">
@@ -707,7 +707,7 @@
                                                 </div>
                                             </div>
                                             <div class="details_of_any_hazards_comment d-none">
-                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto;" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="details_of_any_hazards_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
                                         </li>
                                         <!-- <li class="details_of_any_hazards_comment d-none" style="background: white;height:73px">

@@ -176,7 +176,7 @@
         /* width: 40%; */
         color: #000;
         position: absolute;
-        bottom: 25px;
+        bottom: 42px;
         background: white;
         font-family: 'Inter', sans-serif;
         width: fit-content;
@@ -192,6 +192,7 @@
     }
     .form-control.form-control-solid{
         background-color: white !important;
+        padding: 5px;
     }
 
     #permitform{
@@ -203,6 +204,23 @@
         color: #121826;
         font-size: 14px;
         font-weight: 400;
+    }
+
+    #kt_content_container textarea{
+        border: none;
+        height: 32px;
+    }
+    #twLocation,#strDescription{
+        min-height: fit-content !important;
+    }
+    #kt_post{
+        width: 75%;
+    }
+    #kt_content_container{
+        background: white;
+    }
+    #kt_content_container .card{
+        margin: 0;
     }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
@@ -239,7 +257,7 @@
                     
                     <div class="row">
                         <div class="col-12">
-                            <div class=" inputDiv d-block">
+                            <div class=" inputDiv d-block mb-0s">
                                 <label class="fs-6 fw-bold mb-2" style="bottom: 40px">
                                     <span class="required">Select Project:</span>
                                 </label>
@@ -255,19 +273,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
-                                <label class="fs-6 fw-bold mb-2" style="bottom: 38px">
-                                    <span class="required">Select Project:</span>
-                                </label>
-                                <select name="project_id" id="projects"
-                                    class="form-select form-select-lg form-select-solid" data-control="select2"
-                                    data-placeholder="Select an option" data-allow-clear="true" readonly>
-                                    <option value="">Select Option</option>
-                                    <option value="{{$project->id}}" selected="selected">
-                                        {{$project->name .' - '. $project->no}}</option>
-                                </select>
-                            </div>
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block m-0">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -278,7 +284,9 @@
                                         readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block m-0">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -289,7 +297,11 @@
                                         readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class=" modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -301,46 +313,9 @@
                                         required>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-md-6">
-                            <div class="col-md-12">
-                                <div class="d-flex inputDiv">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            Date :
-                                        </label>
-                                        <input type="date" id="permit_date"
-                                            value="{{ date('Y-m-d') }}" class="form-control form-control-solid"
-                                            placeholder="Date" name="date" value="{{old('date')}}">
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">Permit No :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}"
-                                            readonly="readonly">
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing Title :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Drawing Title" id="drawing_title" name="drawing_title"
-                                            value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}"
-                                            required>
-                                    </div>
-                                </div>
-                                
-                                <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                     <div class="modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
@@ -350,9 +325,54 @@
                                         placeholder="TWS Name" id="tws_name" name="tws_name"
                                         value="{{old('tws_name',auth()->user()->name)}}" required>
                                     </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                <div class="modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            Date :
+                                        </label>
+                                        <input type="date" id="permit_date"
+                                            value="{{ date('Y-m-d') }}" class="form-control form-control-solid"
+                                            placeholder="Date" name="date" value="{{old('date')}}">
                                 </div>
-                                
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                <div class="modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Permit No :</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                            placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}"
+                                            readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                    <div class="modalDiv d-block ">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Drawing Title :</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                            placeholder="Drawing Title" id="drawing_title" name="drawing_title"
+                                            value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}"
+                                            required>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                     <div class="modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
@@ -364,9 +384,10 @@
                                         <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}"
                                             readonly>
                                     </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                                 <div class="d-flex inputDiv">
                                     <div class="modalDiv d-block">
@@ -383,21 +404,21 @@
                             <div class="d-flex inputDiv">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
                                         Location of the Temporary Works:
                                     </label>
-                                    <textarea class="form-control" name="location_temp_work" rows="2" style="width:100%"
+                                    <textarea class="form-control" id="twLocation" name="location_temp_work" rows="2" style="width:100%;height: 41px"
                                         placeholder="Location of the Temporary Works:">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
                                         Description of structure ready for use:
                                     </label>
-                                    <textarea class="form-control" name="description_structure" rows="2"
-                                        style="width:100%"
+                                    <textarea class="form-control" id="strDescription" name="description_structure" rows="2"
+                                        style="width:100%;height: 41px"
                                         placeholder="Description of structure:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
@@ -538,7 +559,7 @@
                                 <!--end::Radio group-->
                             </div>
 
-                            <div class="d-flex justify-content-between mb-5 requiredDiv">
+                            <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Approval by TWC required?</span>
@@ -558,7 +579,7 @@
                                         <input type="radio" class="btn-check" name="works_coordinator" value="1" />
                                         @endif
                                         <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">Y</span>
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; ">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -580,16 +601,16 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex">
                                 <div class="d-flex modalDiv">
                                     <textarea name="description_approval_temp_works" rows="2" class="form-control"
-                                        style="display: none"
+                                        style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px"
                                         placeholder="Please specify">{{old('description_approval_temp_works')}}</textarea>
                                 </div>
                             </div>
                             <!-- new work here -->
 
-                            <div class="d-flex justify-content-between mb-5 requiredDiv">
+                            <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Add rate of rise?</span>
@@ -609,7 +630,7 @@
                                         <input type="radio" class="btn-check" name="rate_rise" value="1" />
                                         @endif
                                         <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px;background: #07D5640D;">Y</span>
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px;">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -630,14 +651,14 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex ">
                                 <div class="d-flex modalDiv">
                                     <textarea name="rate_rise_comment" rows="2" class="form-control"
-                                        style="display: none"
+                                        style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px"
                                         placeholder="Please specify">{{old('rate_rise_comment')}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between mb-5">
+                            <div class="d-flex justify-content-between mb-3">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Has the construction methodology changed?</span>
@@ -658,7 +679,7 @@
                                             value="1" />
                                         @endif
                                         <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">Y</span>
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; ">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -680,15 +701,15 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex ">
                                 <div class="d-flex modalDiv">
                                     <textarea name="construction_methodology_comment" rows="2" class="form-control"
-                                        style="display: none"
+                                        style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px"
                                         placeholder="Please specify">{{old('construction_methodology_comment')}}</textarea>
                                 </div>
                             </div>
                             <!--  -->
-                            <h5 style="color: #000; font-weight: 600; font-size: 24px; ">Permit to Load / Use</h5>
+                            <h5 style="color: #000; font-weight: 600; font-size: 24px; margin-top: 15px">Permit to Load / Use</h5>
                             <br>
                             <ul style="color: #000;" class="permitToLoadList">
 
@@ -749,10 +770,10 @@
                             <!--begin::Label-->
                             <div class="row">
                                 <div class="col-md-6">
-                                        <div class="d-flex inputDiv" style="min-height:40px; align-items: center">
+                                        <div class="d-flex inputDiv m-0" style="min-height:40px; align-items: center">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold mb-2"
-                                                style="width:fit-content">
+                                                style="width:fit-content; bottom: 25px">
                                                 <span>Approval via Email Required by the PCTWC</span>
                                             </label>
                                             <!--end::Label-->
@@ -904,11 +925,10 @@
 
                                     <div class="col">
                                         <!-- Approval div -->
-                                        
                                         <div class="d-none inputDiv pc-twc">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:17% !important">
+                                                style="width:fit-content% !important">
                                                 <span>PC TWC Email:</span>
                                             </label>
                                             <!--end::Label-->

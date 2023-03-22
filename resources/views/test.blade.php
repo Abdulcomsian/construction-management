@@ -1044,8 +1044,8 @@
                                                         </p>
                                                     </div>
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
-                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
-                                                            <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
+                                                        <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
+                                                            <span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
                                                     <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;width: 20px; height:20px;">
@@ -1064,12 +1064,19 @@
                                                     
                                                 </div>
                                             </div>
+                                            
                                             <div class="row my-2">
                                                 <span class="col-sm-6 titleColumn">Permit to load:</span>
                                                 <div class="d-flex col-sm-6" id="ptl" style="column-gap: 1rem">
+                                                   @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
+                                                   <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
+                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-type="add" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-plus" title="permit to load"></span></p>
+                                                   </div>
+                              
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
-                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-type="view" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
+                                                    @endif
                                                     <div style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
@@ -1112,16 +1119,15 @@
                                                             @endif
                                                             <!-- <br> -->
                                                             <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                                            <span class="label label-lg font-weight-bold label-inline " style="color:black; position: relative; top:-1px; right:0px; display: inline-block;padding: 4px; width: 20px;font-size: 10px">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
+                                                            <span class="label label-lg font-weight-bold label-inline " style="color:black; position: relative; top:-1px; right:0px; display: inline-block;padding: 4px; width: 20px;font-size: 10px; background: red; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 45px; @endif">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
                                                             </span>
                                                     
                                                         @else
                                                         <span style="width: 108px;">
-                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px ">
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
-                                                            Closed
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px;">Closed</span>                                                          
                                                             @else
-                                                            0
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 45px;">0</span>
                                                             @endif
                                                             </span>
                                                         </span>
@@ -1148,7 +1154,7 @@
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
                                                 <div class="d-flex col-sm-6" id="ptu">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
                                                 </div>
                                                 
@@ -1234,7 +1240,7 @@
                                             </div>
                                             <div class="d-flex  my-2" style="position:relative; top:3px;">
                                                 <span class="titleColumn">RAMS:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:1rem">
+                                                <div style="display: flex; justify-content: space-between; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:1rem">
                                                    <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
                                                       <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative !important;bottom: 2px;left: 1px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
                                                       {{-- @php $i=0;@endphp
@@ -2157,7 +2163,7 @@
                                           @endforeach
                                        </td>
                                        <td>
-                                          @phpp
+                                          @php
                                           $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
                                           @endphp
                                           @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
@@ -2438,6 +2444,7 @@
    $(".permit-to-load-btn").on('click', function() {
        id = $(this).attr('data-id');
        desc = $(this).attr('data-desc');
+       type = $(this).attr('data-type');
        $.ajax({
            url: "{{route('permit.get')}}",
            method: "get",
@@ -2452,6 +2459,7 @@
                $(".temp_work_id").val(id);
                $("#permit_modal_id").css('display', 'block');
                $("#permit_modal_id").modal('show');
+               type == "view" ? document.getElementById("permitloadbutton").classList.add("d-none") : document.getElementById("permitloadbutton").classList.remove("d-none") 
            }
        });
    

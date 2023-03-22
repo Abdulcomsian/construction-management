@@ -26,3 +26,7 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+public/pdf
+public/temporary/signature
+public/uploads/
+public/estimatorPdf

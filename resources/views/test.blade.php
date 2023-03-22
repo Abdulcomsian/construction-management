@@ -1119,7 +1119,7 @@
                                                             @endif
                                                             <!-- <br> -->
                                                             <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                                            <span class="label label-lg font-weight-bold label-inline " style="color:black; position: relative; top:-1px; right:0px; display: inline-block;padding: 4px; width: 20px;font-size: 10px">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
+                                                            <span class="label label-lg font-weight-bold label-inline " style="color:black; position: relative; top:-1px; right:0px; display: inline-block;padding: 4px; width: 20px;font-size: 10px; background: red; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 45px; @endif">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
                                                             </span>
                                                     
                                                         @else
@@ -1240,7 +1240,7 @@
                                             </div>
                                             <div class="d-flex  my-2" style="position:relative; top:3px;">
                                                 <span class="titleColumn">RAMS:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:1rem">
+                                                <div style="display: flex; justify-content: space-between; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:1rem">
                                                    <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
                                                       <p class="uploadfile cursor-pointer" data-id="{{$item->id}}" data-rams="{{$item->rams_no ?? ''}}" style="position: relative !important;bottom: 2px;left: 1px;margin-bottom:0px;font-weight: 400;font-size: 14px;" data-type="3"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
                                                       {{-- @php $i=0;@endphp

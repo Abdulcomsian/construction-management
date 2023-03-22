@@ -407,8 +407,6 @@ input:focus {
 #submitbutton {
     position: relative;
     /* top: 62%; */
-    width: 263px;
-    height: 89px;
 }
 
 .formDiv {
@@ -980,11 +978,16 @@ table th {
 #second_member .inputDiv .input input {
     width: 100%;
     border: none;
+    padding-left: 11px;
 }
 
+#first_member .inputDiv label {
+    width: fit-content;
+    bottom: 24px;
+}
 #second_member .inputDiv label {
     width: fit-content;
-    bottom: 38px;
+    bottom: 24px;
 }
 
 .upload_signature_div .principleno {

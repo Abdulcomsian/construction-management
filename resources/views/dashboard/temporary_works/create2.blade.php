@@ -819,7 +819,7 @@ height: 72px;
                                     <!-- </div> -->
                                     <!-- work for approval -->
                                     @include('dashboard.modals.design-relief-modals')
-                                        <button id="submitbutton" type="submit"  class="btn btn-primary float-end submitbutton" style="top: 62%">Submit</button>
+                                        <button id="submitbutton" type="submit"  class="btn btn-primary float-end submitbutton" style="top: 82%">Submit</button>
                         
                                 </div>
 

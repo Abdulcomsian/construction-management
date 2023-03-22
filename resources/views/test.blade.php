@@ -1044,8 +1044,8 @@
                                                         </p>
                                                     </div>
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
-                                                        <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
-                                                            <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
+                                                        <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
+                                                            <span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
                                                     <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;width: 20px; height:20px;">

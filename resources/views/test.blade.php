@@ -1067,9 +1067,11 @@
                                             <div class="row my-2">
                                                 <span class="col-sm-6 titleColumn">Permit to load:</span>
                                                 <div class="d-flex col-sm-6" id="ptl" style="column-gap: 1rem">
+                                                   @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
-                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
+                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div>
+                                                   @endif
                                                     <div style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
                                                                 @if($drawingscount)
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
@@ -1148,7 +1150,7 @@
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
                                                 <div class="d-flex col-sm-6" id="ptu">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9" data-desc="Site Establishment - Temporary Office / Cabins foundations"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
                                                 </div>
                                                 

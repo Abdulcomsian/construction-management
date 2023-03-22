@@ -329,7 +329,8 @@ height: 72px;
     }
 
     @media screen and (max-width: 576px){
-        #design-requirement .modal-dialog{
+        #design-requirement .modal-dialog, 
+        #attachment-of-design .modal-dialog{
             width: 100%;
             margin: auto;
         }

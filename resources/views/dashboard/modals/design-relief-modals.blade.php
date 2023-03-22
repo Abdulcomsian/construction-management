@@ -505,8 +505,8 @@
                                 <div class="list">
                                     <li data-id="List-Attachment" class="majorList">Attachments (sketches / photos / specifications / drawings, etc)
                                     </li>
-                                        <ul class=''>
-                                            <li class="invisible List-Attachment  my-0" style="display: flex; justify-content: space-between; align-items: center; min-height: 70px">
+                                        <ul >
+                                            <li class="invisible List-Attachment d-flex  my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />

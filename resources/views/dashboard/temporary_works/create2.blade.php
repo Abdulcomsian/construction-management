@@ -326,8 +326,13 @@ height: 72px;
         .TW{
             gap: 21px;
         }
+        #design-requirement .modal-dialog, 
+        #attachment-of-design .modal-dialog{
+            width: 75%;
+            margin: auto;
+        }
+        
     }
-
     @media screen and (max-width: 576px){
         #design-requirement .modal-dialog, 
         #attachment-of-design .modal-dialog{

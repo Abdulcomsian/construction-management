@@ -1073,9 +1073,9 @@
                                                          <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-type="add" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-plus" title="permit to load"></span></p>
                                                    </div>
                               
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
+                                                    <!-- <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-type="view" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
-                                                    </div>
+                                                    </div> -->
                                                     @endif
                                                     <div style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
                                                                 @if($drawingscount)
@@ -1119,7 +1119,7 @@
                                                             @endif
                                                             <!-- <br> -->
                                                             <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                                            <span class="label label-lg font-weight-bold label-inline " style="color:black; position: relative; top:-1px; right:0px; display: inline-block;padding: 4px; width: 20px;font-size: 10px; background: red; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 45px; @endif">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
+                                                            <span class="label label-lg font-weight-bold label-inline " style="position: relative;top:1px;right:0px;color: #000;font-size:10px;padding: 3px 25px; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 45px; @endif">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
                                                             </span>
                                                     
                                                         @else
@@ -1127,7 +1127,8 @@
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
                                                             <span class="label label-lg font-weight-bold label-inline" style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px;">Closed</span>                                                          
                                                             @else
-                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 45px;">0</span>
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 15px;visibility:hidden;"></span>
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
                                                             @endif
                                                             </span>
                                                         </span>

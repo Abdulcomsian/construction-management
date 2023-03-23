@@ -176,7 +176,7 @@
         /* width: 40%; */
         color: #000;
         position: absolute;
-        bottom: 25px;
+        bottom: 31px;
         background: white;
         font-family: 'Inter', sans-serif;
         width: fit-content;
@@ -192,6 +192,7 @@
     }
     .form-control.form-control-solid{
         background-color: white !important;
+        padding: 5px;
     }
 
     #permitform{
@@ -203,6 +204,23 @@
         color: #121826;
         font-size: 14px;
         font-weight: 400;
+    }
+
+    #kt_content_container textarea{
+        border: none;
+        height: 32px;
+    }
+    #twLocation,#strDescription{
+        min-height: fit-content !important;
+    }
+    #kt_post{
+        width: 75%;
+    }
+    #kt_content_container{
+        background: white;
+    }
+    #kt_content_container .card{
+        margin: 0;
     }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
@@ -239,7 +257,7 @@
                     
                     <div class="row">
                         <div class="col-12">
-                            <div class=" inputDiv d-block">
+                            <div class=" inputDiv d-block mb-0s">
                                 <label class="fs-6 fw-bold mb-2" style="bottom: 40px">
                                     <span class="required">Select Project:</span>
                                 </label>
@@ -255,19 +273,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
-                                <label class="fs-6 fw-bold mb-2" style="bottom: 38px">
-                                    <span class="required">Select Project:</span>
-                                </label>
-                                <select name="project_id" id="projects"
-                                    class="form-select form-select-lg form-select-solid" data-control="select2"
-                                    data-placeholder="Select an option" data-allow-clear="true" readonly>
-                                    <option value="">Select Option</option>
-                                    <option value="{{$project->id}}" selected="selected">
-                                        {{$project->name .' - '. $project->no}}</option>
-                                </select>
-                            </div>
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block m-0">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -278,7 +284,9 @@
                                         readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block m-0">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -289,7 +297,11 @@
                                         readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class=" modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -301,46 +313,9 @@
                                         required>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-md-6">
-                            <div class="col-md-12">
-                                <div class="d-flex inputDiv">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            Date :
-                                        </label>
-                                        <input type="date" id="permit_date"
-                                            value="{{ date('Y-m-d') }}" class="form-control form-control-solid"
-                                            placeholder="Date" name="date" value="{{old('date')}}">
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">Permit No :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}"
-                                            readonly="readonly">
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing Title :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Drawing Title" id="drawing_title" name="drawing_title"
-                                            value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}"
-                                            required>
-                                    </div>
-                                </div>
-                                
-                                <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                     <div class="modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
@@ -350,9 +325,54 @@
                                         placeholder="TWS Name" id="tws_name" name="tws_name"
                                         value="{{old('tws_name',auth()->user()->name)}}" required>
                                     </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                <div class="modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            Date :
+                                        </label>
+                                        <input type="date" id="permit_date"
+                                            value="{{ date('Y-m-d') }}" class="form-control form-control-solid"
+                                            placeholder="Date" name="date" value="{{old('date')}}">
                                 </div>
-                                
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                <div class="modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Permit No :</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                            placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}"
+                                            readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                    <div class="modalDiv d-block ">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Drawing Title :</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                            placeholder="Drawing Title" id="drawing_title" name="drawing_title"
+                                            value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}"
+                                            required>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                     <div class="modalDiv d-block">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
@@ -364,9 +384,10 @@
                                         <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}"
                                             readonly>
                                     </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                                 <div class="d-flex inputDiv">
                                     <div class="modalDiv d-block">
@@ -383,21 +404,21 @@
                             <div class="d-flex inputDiv">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
                                         Location of the Temporary Works:
                                     </label>
-                                    <textarea class="form-control" name="location_temp_work" rows="2" style="width:100%"
+                                    <textarea class="form-control" id="twLocation" name="location_temp_work" rows="2" style="width:100%;height: 41px"
                                         placeholder="Location of the Temporary Works:">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
                                         Description of structure ready for use:
                                     </label>
-                                    <textarea class="form-control" name="description_structure" rows="2"
-                                        style="width:100%"
+                                    <textarea class="form-control" id="strDescription" name="description_structure" rows="2"
+                                        style="width:100%;height: 41px"
                                         placeholder="Description of structure:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
@@ -538,7 +559,7 @@
                                 <!--end::Radio group-->
                             </div>
 
-                            <div class="d-flex justify-content-between mb-5 requiredDiv">
+                            <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Approval by TWC required?</span>
@@ -558,7 +579,7 @@
                                         <input type="radio" class="btn-check" name="works_coordinator" value="1" />
                                         @endif
                                         <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">Y</span>
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; ">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -580,16 +601,16 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex">
                                 <div class="d-flex modalDiv">
                                     <textarea name="description_approval_temp_works" rows="2" class="form-control"
-                                        style="display: none"
+                                        style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px"
                                         placeholder="Please specify">{{old('description_approval_temp_works')}}</textarea>
                                 </div>
                             </div>
                             <!-- new work here -->
 
-                            <div class="d-flex justify-content-between mb-5 requiredDiv">
+                            <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Add rate of rise?</span>
@@ -609,7 +630,7 @@
                                         <input type="radio" class="btn-check" name="rate_rise" value="1" />
                                         @endif
                                         <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px;background: #07D5640D;">Y</span>
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px;">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -630,14 +651,14 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex ">
                                 <div class="d-flex modalDiv">
                                     <textarea name="rate_rise_comment" rows="2" class="form-control"
-                                        style="display: none"
+                                        style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px"
                                         placeholder="Please specify">{{old('rate_rise_comment')}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between mb-5">
+                            <div class="d-flex justify-content-between mb-3">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Has the construction methodology changed?</span>
@@ -658,7 +679,7 @@
                                             value="1" />
                                         @endif
                                         <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">Y</span>
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; ">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -680,15 +701,15 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex ">
                                 <div class="d-flex modalDiv">
                                     <textarea name="construction_methodology_comment" rows="2" class="form-control"
-                                        style="display: none"
+                                        style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px"
                                         placeholder="Please specify">{{old('construction_methodology_comment')}}</textarea>
                                 </div>
                             </div>
                             <!--  -->
-                            <h5 style="color: #000; font-weight: 600; font-size: 24px; ">Permit to Load / Use</h5>
+                            <h5 style="color: #000; font-weight: 600; font-size: 24px; margin-top: 15px">Permit to Load / Use</h5>
                             <br>
                             <ul style="color: #000;" class="permitToLoadList">
 
@@ -702,57 +723,12 @@
 
                             <!--end::Option-->
 
-
-                            <div class="col-md-6 inputDiv requiredDiv">
-                                <!--begin::Label-->
-                                <label class="fs-6 fw-bold mb-2" style="bottom: 37px">
-                                    <span class="required">Other approval required?</span>
-
-                                </label>
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid justify-content-end" style="background: white">
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label style="position: initial; flex-grow: 0; background: white">
-                                        @if(isset($old))
-                                        <input type="radio" class="btn-check" name="principle_contractor" value="1"
-                                            {{ old('principle_contractor') == '1' ? 'checked' : '' }} />
-                                        @else
-                                        <input type="radio" class="btn-check" name="principle_contractor" value="1" />
-                                        @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label style="position: initial; flex-grow: 0; background: white">
-                                        @if(isset($old))
-                                        <input type="radio" class="btn-check" name="principle_contractor" value="2"
-                                            {{ old('principle_contractor') == '2' ? 'checked' : '' }} />
-                                        @else
-                                        <input type="radio" class="btn-check" name="principle_contractor" value="2"
-                                            checked />
-                                        @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
-                                </div>
-                                <!--end::Radio group-->
-                            </div>
-                            <!-- <div class="d-flex inputDiv"> -->
-                            <!--begin::Label-->
-                            <div class="row">
+                            <div class="row ">
                                 <div class="col-md-6">
-                                        <div class="d-flex inputDiv" style="min-height:40px; align-items: center">
+                                        <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold mb-2"
-                                                style="width:fit-content">
+                                                style="width:fit-content; bottom: 25px">
                                                 <span>Approval via Email Required by the PCTWC</span>
                                             </label>
                                             <!--end::Label-->
@@ -761,11 +737,10 @@
                                             <span class="tickboxalign" style="padding-left:3px;color:#000">Select if approval is required.</span>
                                         </div>
                                 </div>
-                                
-                            </div>
+                            </div>      
                             <div class="row">
                                     <div class="col-md-6">
-                                        <div class=" inputDiv upload_signature_div">
+                                        <div class=" inputDiv upload_signature_div mt-0">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2"
                                                 style="width: fit-content; bottom:124px;">
                                                 Photo Upload
@@ -783,13 +758,53 @@
                                             </div>
                                         </div>
                                     </div>
+                            </div>                          
+                            <div class="row">
+                                <div class="col-md-6 inputDiv requiredDiv mt-0">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 37px">
+                                        <span class="required">Other approval required?</span>
+                                    </label>
+                                    <!--begin::Radio group-->
+                                    <div class="nav-group nav-group-fluid justify-content-end" style="background: white">
+                                        <!--begin::Option-->
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <label style="position: initial; flex-grow: 0; background: white">
+                                            @if(isset($old))
+                                            <input type="radio" class="btn-check" name="principle_contractor" value="1"
+                                                {{ old('principle_contractor') == '1' ? 'checked' : '' }} />
+                                            @else
+                                            <input type="radio" class="btn-check" name="principle_contractor" value="1" />
+                                            @endif
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                        </label>
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <label style="position: initial; flex-grow: 0; background: white">
+                                            @if(isset($old))
+                                            <input type="radio" class="btn-check" name="principle_contractor" value="2"
+                                                {{ old('principle_contractor') == '2' ? 'checked' : '' }} />
+                                            @else
+                                            <input type="radio" class="btn-check" name="principle_contractor" value="2"
+                                                checked />
+                                            @endif
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                        </label>
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <!--end::Option-->
+                                    </div>
+                                    <!--end::Radio group-->
+                                </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-6" id="first_member" style="display: none">
-                                        <div class="d-flex inputDiv d-block">
-                                        </div>
-                                        <div class="d-flex inputDiv principleno">
+                                        <!-- <div class="d-flex inputDiv d-block">
+                                        </div> -->
+                                        <div class="d-flex inputDiv principleno mt-0">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold mb-2" style="">
                                                 <span class="required">Name:</span>
@@ -814,7 +829,7 @@
                                     <div class="col-md-12">
                                         <div class="d-flex inputDiv" style="">
                                             <label class="fs-6 fw-bold mb-2"
-                                                style="width:33% !important">
+                                                style="">
                                                 <span>Name/signature:</span>
                                             </label>
                                             <input type="checkbox" id="flexCheckChecked1"
@@ -847,9 +862,9 @@
                                 </div>
                                 <!-- Second person -->
                                 <div class="col-md-6" id="second_member">
-                                        <div class="d-flex inputDiv">
-                                        </div>
-                                        <div class="d-flex inputDiv principleno">
+                                        <!-- <div class="d-flex inputDiv">
+                                        </div> -->
+                                        <div class="d-flex inputDiv principleno mt-0">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Name:</span>
@@ -901,14 +916,12 @@
                                                     value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                             </div>
                                         </div>
-
                                     <div class="col">
                                         <!-- Approval div -->
-                                        
                                         <div class="d-none inputDiv pc-twc">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:17% !important">
+                                                style="width:fit-content% !important">
                                                 <span>PC TWC Email:</span>
                                             </label>
                                             <!--end::Label-->
@@ -917,27 +930,40 @@
                                                 value="{{old('pc-twc-email')}}">
                                         </div>
                                         
-                                        <div class="d-flex inputDiv">
+                                        <div class="d-flex inputDiv" style="border: none">
                                             <label class="fs-6 fw-bold mb-2"
-                                                style="width:fit-content">
-                                                <span>Type Signature:</span>
+                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                                <span class="signatureTitle">Signature Type:</span>
                                             </label>
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input  type="radio" class="checkbox-field" id="DrawCheck" checked=true  style="width: 12px;">
+                                            <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                            </div>
                                             <!--end::Label-->
-                                            <input type="checkbox" class="" id="flexCheckChecked"
-                                                style="width: 12px;margin-top:5px">
-                                            <input type="hidden" id="signtype" name="signtype"
-                                                class="form-control form-control-solid" value="2">
-                                            <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name
-                                                signature?</span>
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input  type="radio" class="" id="flexCheckChecked"  style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                            </div>
                                             &nbsp;
                                             <!--end::Label-->
-                                            <input type="checkbox" class="" id="pdfChecked"
-                                                style="width: 12px;margin-top:5px">
-                                            <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                                class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf
-                                                signature?</span>
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input  type="radio" class="" id="pdfChecked"  style="width: 12px;">
+                                            <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG Upload </span>
+                                        </div>
 
+                                        </div>
+                                        <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                            <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Signature:</span>
+                                            </label>
+                                            <br/> -->
+                                            <canvas id="sig" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
+                                            <br/>
+                                            <textarea id="signature" name="signed" style="display: none"></textarea>
+                                            <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                         </div>
                                         <div class="inputDiv d-none" id="pdfsign">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -952,7 +978,7 @@
                                             </label>
                                             <input type="text" name="namesign" class="form-control form-control-solid">
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-md-8">
                                                 <div class="d-flex inputDiv principleno mt-0" id="sign">
                                                     <div class="signatureDiv">
@@ -972,7 +998,7 @@
                                             <div class="col-md-4 d-none">
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                         
                                     </div>
                                 </div>
@@ -1022,6 +1048,95 @@
         } else {
             $("textarea[name='description_approval_temp_works']").hide();
 
+        }
+    })
+
+    $("#DrawCheck").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#flexCheckChecked").prop('checked',false);
+            $("#signtype").val(0);
+             $("#pdfsign").val(0);
+             $("#Drawtype").val(1);
+            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            // $(".customSubmitButton").removeClass("hideBtn");
+            // $(".customSubmitButton").addClass("showBtn");
+            //  $("input[name='pdfsign']").removeAttr('required');
+            // $("input[name='namesign']").attr('required','required');
+            $("#clear").show();
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#namesign").removeClass('d-flex').addClass("d-none");
+            $("#sign").css('display','block');
+           
+        }
+        // else{
+        //     $("#signtype").val(2);
+        //     $("#sign").addClass('d-flex').show();
+        //     $("#namesign").removeClass('d-flex').hide();
+        //     $("input[name='namesign']").removeAttr('required');
+        //     $("#clear").show();
+        //     $(".customSubmitButton").addClass("hideBtn");
+        //     $(".customSubmitButton").removeClass("showBtn");
+        // }
+    })
+    $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
+            $("#signtype").val(1);
+             $("#pdfsign").val(0);
+             $("#Drawtype").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+             $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required','required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
+    })
+
+    $("#pdfChecked").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#flexCheckChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("#Drawtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
         }
     })
 

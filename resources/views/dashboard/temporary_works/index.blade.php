@@ -1044,9 +1044,29 @@
                                                             <span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
-                                                        <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
-                                                            <span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span>
+                                                    @php
+                                                      $date='';
+                                                      $dcolor='#919191ba';
+                                                      $drawingscount=0;
+                                                   @endphp
+                                                   @foreach($item->uploadfile as $file)
+                                                   @php
+                                                      if($file->file_type==1 && $file->construction==1)
+                                                         {
+                                                         $dcolor='green';
+                                                         $drawingscount=1;
+
+                                                         }
+                                                         elseif($file->file_type==1 && $file->preliminary_approval==1)
+                                                         {
+                                                         $dcolor='orange';
+
+                                                         }
+                                                      @endphp
+                                                   @endforeach
+                                                    <div style="background: {{$dcolor}};padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                        <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; ">
+                                                            <span style="font-size: 10px; color: #fff;"  class="fa fa-eye" title="Upload Drawings"></span>
                                                         </p>
                                                     </div>
                                                     <div style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;width: 20px; height:20px;">
@@ -1083,7 +1103,7 @@
                                                     @endif
                                                     <div style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
                                                                 @if($drawingscount)
-                                                        <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
+                                                        <!-- <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p> -->
                                                         @endif
                                                         
                                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
@@ -1108,7 +1128,7 @@
                                                             <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 16px;visibility:hidden;"></span>
                                                             @endif
                                                             <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
-                                                            <span class="label label-lg font-weight-bold label-inline " style="position: relative;top:1px;right:0px;color: #000;font-size:10px;padding: 3px 25px; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 25px; @endif">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
+                                                            <span class="label label-lg font-weight-bold label-inline " style="background-color:{{$color}};color:white;position: relative;top:1px;right:0px;font-size:10px;padding: 3px 11px; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 11px; @endif">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                                             </span>
                                                     
                                                         @else
@@ -1159,30 +1179,10 @@
                                             </div>
                                         </td>
                                        <td style="min-width: 254px; max-width: 80px;">
-                                            <div class="d-flex" style="position: relative;bottom:2px">
-                                                <span class="titleColumn">Design Check CERT:</span>
-                                                <div style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 18px;">
-                                                    @php $dccstyle='';@endphp
-                                                    @foreach($item->uploadfile as $file)
-                                                    @if($file->file_type==2)
-                                                    @php $dccstyle="display:none"; @endphp
-                                                    @endif
-                                                    @endforeach
-                                                    <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
-                                                    @php $i=0;@endphp
-                                                    @foreach($item->uploadfile as $file)
-                                                    @if($file->file_type==2)
-                                                    @php $i++ @endphp
-                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <div class="d-flex my-2">
-                                                <span class="titleColumn">Date DCC Returned:</span>
-                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
-                                                    
-                                                         @php
+                                             <div class="d-flex" style="position: relative;bottom: 4px;">
+                                                   <span class="titleColumn">Date Design Returned:</span>
+                                                   <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
+                                                   @php
                                                    $date='';
                                                    $dcolor='';
                                                    $drawingscount=0;
@@ -1206,21 +1206,42 @@
                                                    <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}}; font-weight:500; color:black" data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
                                                    </p>
                                                    @endif
+                                                   </div>
+                                                   
+                                             </div>
+                                            <div class="d-flex" style="position: relative;top: 0px;">
+                                                <span class="titleColumn">Design Check CERT:</span>
+                                                <div style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 18px;">
+                                                    @php $dccstyle='';@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==2)
+                                                    @php $dccstyle="display:none"; @endphp
+                                                    @endif
+                                                    @endforeach
+                                                    <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}" style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;" data-type="2"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
+                                                    @php $i=0;@endphp
+                                                    @foreach($item->uploadfile as $file)
+                                                    @if($file->file_type==2)
+                                                    @php $i++ @endphp
+                                                    <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
+                                                    @endif
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="d-flex my-2" style="position: relative;bottom: 2px;">
+                                                <span class="titleColumn">Date DCC Returned:</span>
+                                                <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
+                                                   @foreach($item->uploadfile as $file)
+                                                      @if($file->file_type==2)
+                                                      <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
+                                                      @break
+                                                      @endif
+                                                   @endforeach
+                                                
                                                          </div>
                                                    </div>
                                                    <div>
-                                                   <div class="d-flex" style="">
-                                                         <span class="titleColumn">Date Design Returned:</span>
-                                                         <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
-                                                                     @foreach($item->uploadfile as $file)
-                                                            @if($file->file_type==2)
-                                                            <p class="dateclick cursor-pointer" style="font-weight:500;color:black" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
-                                                            @break
-                                                            @endif
-                                                            @endforeach
-                                                         </div>
-                                                         
-                                                   </div>
+                                                   
                                                    </div>
                                         </td>
                                        <td style="">
@@ -1678,22 +1699,26 @@
                                           <br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
-                                          @php
-                                          $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                          $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                          $color="orange";
-                                          $class='';
-                                          if($permitexpire>0 || $scaffoldexpire>0)
-                                          {
-                                          $color="red";
-                                          $class='redBgBlink';
-                                          }
-                                          @endphp
+                                             @php
+                                             $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                             
+                                             $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
+                                             
+                                             $color="orange";
+                                             
+                                             $class='';
+                                             if($permitexpire>0 || $scaffoldexpire>0)
+                                             {
+                                             $color="red";
+                                             $class='redBgBlink';
+                                             }
+                                             @endphp
                                           @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                          <br>
-                                          <span class="text-danger redBgBlink" style="">DNL</span><br>
+                                             <br>
+                                             <span class="text-danger redBgBlink" style="">DNL</span><br>
                                            
                                           @endif
+                                          
                                            <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>

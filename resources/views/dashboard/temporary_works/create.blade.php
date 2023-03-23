@@ -750,7 +750,7 @@ height: 72px;
                                     <div class="d-flex inputDiv d-block my-0" id="photoDesign">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span>Photo:</span>
+                                            <span>Photo or Document:</span>
                                         </label>
                                         <!--end::Label-->
                                         <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">

@@ -1471,6 +1471,7 @@
                                           <br>
                                           @endif
                                           @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
+                                        
                                           @php
                                           $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                           $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
@@ -1487,6 +1488,7 @@
                                           <span class="text-danger redBgBlink" style="">DNL</span><br>
                                            
                                           @endif
+                                          
                                            <br>
                                           <span class="permit-to-load-btn cursor-pointer" style="width: 108px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                           <span class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}" style=";background-color:{{$color}};color:white">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>

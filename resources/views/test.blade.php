@@ -1104,6 +1104,9 @@
                                                     
                                                             @endif
                                                             <!-- <br> -->
+                                                            @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0)
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 16px;visibility:hidden;"></span>
+                                                            @endif
                                                             <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                                             <span class="label label-lg font-weight-bold label-inline " style="position: relative;top:1px;right:0px;color: #000;font-size:10px;padding: 3px 25px; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 25px; @endif">{{count($item->permits ?? 0)+count($item->scaffold ?? 0)}}</span>
                                                             </span>

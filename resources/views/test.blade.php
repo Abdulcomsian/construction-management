@@ -976,7 +976,7 @@
                                             @php
                                             $value = explode('-', $item->design_requirement_text);
                                             @endphp
-                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 5px !important; white-space: nowrap;">{{$value[1] ?? ''}}</p>
+                                            <p style="font-size: 16px !important; font-weight: 600; font-family: 'Inter'; color: black; margin-bottom: 5px !important; ">{{$value[1] ?? ''}}</p>
                                             <p style="font-weight:400;font-size:11px !important; font-family: 'Inter';">{{ $item->project->name ?? '' }}</p>
                                             <!-- <p style="font-weight:500;font-size:11px !important; font-family: 'Inter'; font-weight: bold; color: black;margin-bottom:11px !important"></p> -->
                                         </td>

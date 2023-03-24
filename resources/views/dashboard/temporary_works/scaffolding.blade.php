@@ -87,6 +87,9 @@
     .inputDiv input {
         width: 100%;
         color: #000 !important;
+        background-color: white !important;
+        border: 1px solid lightgrey !important;
+        border-radius: 8px;
     }
 
     .inputDiv select {
@@ -95,8 +98,12 @@
     }
 
     .inputDiv label {
-        width: 50%;
+        width: fit-content;
         color: #000;
+        position: absolute;
+        bottom: 33px;
+        left: 7px;
+        background: white;
     }
 
     .inputDiv {
@@ -123,6 +130,9 @@
     .modalDiv {
         width: 100%;
     }
+    .modalDiv label{
+        z-index: 1;
+    }
 
     table,
     th,
@@ -134,6 +144,16 @@
     canvas {
         background: lightgray;
         width:100%;
+    }
+
+    .inputDiv {
+        margin: 20px 0px;
+        position: relative;
+    }
+    .selection > span{
+        background: white !important;
+        border: 1px solid lightgray !important;
+        border-radius: 8px;
     }
 
     /*.form-control.form-control-solid {
@@ -167,7 +187,7 @@
             <div class="card-header border-0 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    <h2>Scaffolding Inspection / Permit to Load</h2>
+                    <h2>Scaffolding Inspection / Permit to Load33</h2>
 
                 </div>
                 <!--begin::Card toolbar-->
@@ -186,7 +206,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2" style="bottom: 30px; z-index:1">
                                     <span class="required">Select Project:</span>
                                 </label>
                                 <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
@@ -194,33 +214,93 @@
                                     <option value="{{$project->id}}" selected="selected">{{$project->name .' - '. $project->no}}</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            Date:
+                                        </label>
+                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa;" name="date">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project No :</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required">Permit No :</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project Name :</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required">Drawing Title :</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title', $latestuploadfile->drawing_title ?? '')}}" required>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Drawing No:</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{old('drawing_no', $latestuploadfile->drawing_number ?? '')}}" required>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required"> TWS or Scaffolder Name:</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name',auth()->user()->name)}}" required>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
@@ -231,6 +311,21 @@
                                     <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span > MS/RA Number:</span>
+                                        </label>
+                                        <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
                             <div class="d-flex inputDiv d-block">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
@@ -245,62 +340,13 @@
                                             <option value="4">Service Class 4 - 3.00 kN/m2 – Heavy duty such as masonry and heavy cladding</option>
                                         </select>
                                     </div>
-                                </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-md-12">
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            Date:
-                                        </label>
-                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa;" name="date">
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Permit No :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing Title :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{old('drawing_title', $latestuploadfile->drawing_title ?? '')}}" required>
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required"> TWS or Scaffolder Name:</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name',auth()->user()->name)}}" required>
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span > MS/RA Number:</span>
-                                        </label>
-                                        <input type="text" style="width:100%" class="form-control form-control-solid" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{old('ms_ra_no')}}">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:50%">
+                                    <label class=" fs-6 fw-bold mb-2" style="width:50%">
                                          Location of the temporary works:
                                     </label>
                                     <textarea name="location_temp_work" rows="2" class="form-control" style="width:100%" placeholder=" Location of the temporary works">{{old('location_temp_work')}}</textarea>
@@ -309,7 +355,7 @@
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:50%">
+                                    <label class=" fs-6 fw-bold mb-2" style="width:50%">
                                         Description of structure:
                                     </label>
                                     <textarea name="description_structure" rows="2" class="form-control" style="width:100%" placeholder="Description of structure:">{{old('description_structure')}}</textarea>
@@ -319,7 +365,7 @@
                             <div class="col-md-12 mt-20">
                                 <div class="d-flex inputDiv" style=" height: 87px;">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
+                                    <label class=" fs-6 fw-bold mb-2" style="width:40%">
                                         <span class="required">Equipment & materials used as specified & fit for purpose</span>
                                     </label>
                                     <!--begin::Radio group-->

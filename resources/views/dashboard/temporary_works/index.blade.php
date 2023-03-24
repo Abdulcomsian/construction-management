@@ -1136,7 +1136,7 @@
                                                         @else
                                                         <span style="width: 108px;">
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
-                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px;">Closed</span>                                                          
+                                                            <span data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}" class="cursor-pointer permit-to-load-btn label label-lg font-weight-bold label-inline" style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px;">Closed</span>                                                          
                                                             @else
                                                             @if(!$drawingscount)
                                                             <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 15px;visibility:hidden;"></span>

@@ -7,9 +7,10 @@
     bottom: 200px !important;
 }
 .list-div ul li, .list-check-div ul li{
-height: 72px;
+    height: 72px;
     overflow: visible;
 }
+
     .aside-enabled.aside-fixed.header-fixed .header{
         border-bottom: 1px solid #e4e6ef!important;
     }
@@ -145,6 +146,40 @@ height: 72px;
   /* custom */
   caret-color: gray;
 }
+.inputDiv input {
+        width: 100%;
+        color: #000;
+        background-color: white !important;
+        border: 1px solid lightgrey !important;
+        border-radius: 7px;
+        height: 43px;
+    }
+    .inputDiv textarea {
+        width: 100% !important;
+        color: #000;
+        background-color: white !important;
+    }
+
+    .inputDiv select {
+        width: 100%;
+        color: #000 !important;
+    }
+
+    .inputDiv label {
+        color: #000;
+        position: absolute;
+        background: white;
+        width: fit-content;
+        bottom: 22px;
+        left: 8px;
+    }
+    .select2-container{
+        width:100% !important;
+    }
+    .inputDiv {
+        margin: 30px 0px;
+        position: relative;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -180,7 +215,7 @@ height: 72px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Edit Design Brief</h2> 
+                        <h2 style="display: inline-block;">Edit Design Briefffff</h2> 
                     </div>
                     <!--begin::Card toolbar-->
 
@@ -196,9 +231,9 @@ height: 72px;
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <input type="hidden" name="twc_id_no" value="{{$temporaryWork->twc_id_no}}">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-12">
                                 <div class="d-flex inputDiv d-block">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Select Project:</span>
                                     </label>
                                     <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
@@ -209,17 +244,41 @@ height: 72px;
                                         @endforelse
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno',$selectedproject->no)}}">
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="inputDiv">
+                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
+                                            <!--begin::Label-->
+                                             <label style="" class="fs-6 fw-bold mb-2">
+                                               Design requirement:
+                                            </label>
+                                            <br>
+                                            <input type="text" style="color:white"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
+                                            <!--end::Label-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                                
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project Name:</span>
 
                                     </label>
@@ -228,7 +287,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
@@ -236,7 +295,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Design Required by Date:</span>
                                     </label>
                                     <!--end::Label-->
@@ -246,7 +305,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project Address:</span>
 
                                     </label>
@@ -255,7 +314,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Designer Company Name:</span>
                                     </label>
                                     <!--end::Label-->
@@ -263,7 +322,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Designer Email Address:</span>
 
                                     </label>
@@ -272,7 +331,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name:</span>
 
                                     </label>
@@ -281,7 +340,7 @@ height: 72px;
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">TWC Email Address:</span>
 
                                     </label>
@@ -404,15 +463,7 @@ height: 72px;
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                 
-                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
-                                        <!--begin::Label-->
-                                         <label style="" class="required d-flex align-items-center fs-6 fw-bold mb-2">
-                                           Design requirement:
-                                        </label>
-                                        <br>
-                                        <input type="text" style="width: 50%;color:white"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
-                                        <!--end::Label-->
-                                    </div>
+                                    
                                 
                                  </div>
                                   <div class="d-flex inputDiv d-block">

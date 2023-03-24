@@ -191,6 +191,7 @@ height: 72px;
      <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
 @section('content')
+@include('dashboard.modals.design-relief-modals')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -273,7 +274,7 @@ height: 72px;
                                 </div>
                             </div>
                         </div>
-                        @include('dashboard.modals.design-relief-modals')
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">

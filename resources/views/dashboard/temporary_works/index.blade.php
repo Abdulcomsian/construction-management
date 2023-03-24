@@ -1089,9 +1089,9 @@
                                             <div class="row my-2">
                                                 <span class="col-sm-6 titleColumn">Permit to load:</span>
                                                 <div class="d-flex col-sm-6" id="ptl" style="column-gap: 1rem">
-                                                   @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
+                                                   @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0 || $drawingscount)
                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
-                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-type="add" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-plus" title="permit to load"></span></p>
+                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-type="add" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-plus" title="permit to load"></span></p>
                                                    </div>
                               
                                                     <!-- <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
@@ -1125,7 +1125,9 @@
                                                             @endif
                                                             <!-- <br> -->
                                                             @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0)
-                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 16px;visibility:hidden;"></span>
+                                                            @if(!$drawingscount)
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 16px;visibility:hidden;">123</span>
+                                                            @endif
                                                             @endif
                                                             <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                                             <span class="label label-lg font-weight-bold label-inline " style="background-color:{{$color}};color:white;position: relative;top:1px;right:0px;font-size:10px;padding: 3px 11px; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 11px; @endif">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
@@ -1136,7 +1138,9 @@
                                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
                                                             <span class="label label-lg font-weight-bold label-inline" style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px;">Closed</span>                                                          
                                                             @else
+                                                            @if(!$drawingscount)
                                                             <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 15px;visibility:hidden;"></span>
+                                                            @endif
                                                             <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
                                                             @endif
                                                             </span>
@@ -1164,7 +1168,7 @@
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
                                                 <div class="d-flex col-sm-6" id="ptu" style="column-gap: 1rem;">
                                                     <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
                                                     </div>
                                                     
                                                 </div>
@@ -1297,7 +1301,7 @@
                                                       @endphp
                                                 <div style="background:{{$scolor}};display:inline-block;  border-radius: 4px; width:20px; height: 20px">
 
-                                                <p class="scancomment cursor-pointer" style="text-align:center;font-weight: 400;font-size: 14px;position: relative !important;" data-id="{{$item->id}}" data-desc=""><span style="font-size: 10px; color: #07D564;" class="fa fa-comments" title="Upload Drawings"></span></p>
+                                                <p class="scancomment cursor-pointer" style="text-align:center;font-weight: 400;font-size: 14px;position: relative !important;" data-id="{{$item->id}}" data-desc=""><span style="font-size: 12px; color: #07D564;" class="fa fa-comments" title="Upload Drawings"></span></p>
                                                 @else
                                                 <div style="display:none;padding: 4px; border-radius: 4px; width:20px; height: 20px">
 

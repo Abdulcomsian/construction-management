@@ -24,7 +24,11 @@
     }
 
     #kt_content_container {
-        background-color: #e9edf1;
+        background-color: #fff;
+    }
+    #kt_content_container .card-title h2{
+        font-size: 32px;
+        font-weight: 600;
     }
 
     #kt_toolbar_container {
@@ -173,18 +177,40 @@
         .margintop{margin-top:10px;margin-left:0px !important;}
         
     }
-    
+    #kt_post{
+        width: 75%;
+    }
+    #kt_post textarea{
+        border: 1px solid lightgray;
+        border-radius: 8px;
+        height: 45px;
+    }
+    .listTitle{
+        background: green;
+        color: #fff;
+        padding: 12px 10px !important;
+        width: 100%;
+        border-radius: 7px;
+
+    }
+    .ipadnewline{
+        align-items:center;
+        height: 70px;
+    }
+    .ipadnewline label{
+        width: 30%;
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
 @section('content')
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
-    <div id="kt_content_container" class="container">
+    <div id="kt_content_container" class="">
         <!--begin::Card-->
         <div class="card">
             <!--begin::Card header-->
-            <div class="card-header border-0 pt-6">
+            <div class="card-header border-0 pt-6 mb-6">
                 <!--begin::Card title-->
                 <div class="card-title">
                     <h2>Scaffolding Inspection / Permit to Load33</h2>
@@ -203,6 +229,11 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
                     <input type="hidden" name="designer_company_email" value="{{$tempdata->designer_company_email ?? ''}}"  readonly>
+                    <div class="row">
+                        <div class="col">
+                            
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
@@ -346,7 +377,7 @@
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2" style="width:50%">
+                                    <label class=" fs-6 fw-bold mb-2" >
                                          Location of the temporary works:
                                     </label>
                                     <textarea name="location_temp_work" rows="2" class="form-control" style="width:100%" placeholder=" Location of the temporary works">{{old('location_temp_work')}}</textarea>
@@ -355,7 +386,7 @@
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2" style="width:50%">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         Description of structure:
                                     </label>
                                     <textarea name="description_structure" rows="2" class="form-control" style="width:100%" placeholder="Description of structure:">{{old('description_structure')}}</textarea>
@@ -363,127 +394,129 @@
                             </div>
 
                             <div class="col-md-12 mt-20">
-                                <div class="d-flex inputDiv" style=" height: 87px;">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">Equipment & materials used as specified & fit for purpose</span>
-                                    </label>
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid" style="margin-top: 32px;height: 50px;">
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials" value="1" checked />
-
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                <div class="">
+                                    <div class="d-flex justify-content-between">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold" >
+                                            <span class="required">Equipment & materials used as specified & fit for purpose</span>
                                         </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="equipment_materials" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                          <!--   <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span> -->
-                                        </label>
-                                        <!--end::Option-->
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid" style="height: 50px;">
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="equipment_materials" value="1" checked />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="equipment_materials" value="2" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                              <!--   <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span> -->
+                                            </label>
+                                            <!--end::Option-->
+                                        </div>
                                     </div>
                                     <!--end::Radio group-->
-                                    <div style="margin-left: 10px; text-align:center;">
-                                        <h3 style="color: white;">Comments</h3>
+                                    <div style=" position: relative;">
+                                        <!-- <h3 style="position: absolute; top:-10px; left: 8px; background:white; padding: 0 9px;">Comments</h3> -->
                                         <textarea name="equipment_materials_desc" rows="2" style="width:100%;" class="form-control"></textarea>
                                     </div>
                                 </div>
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">Workmanship checked </span>
-                                    </label>
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid">
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="workmanship" value="1" checked />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                <div class="">
+                                    <div class="d-flex justify-content-between">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold" >
+                                            <span class="required">Workmanship checked </span>
                                         </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="workmanship" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                            <!-- <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span> -->
-                                        </label>
-                                        <!--end::Option-->
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid" style="height: 50px;">
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="workmanship" value="1" checked />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="workmanship" value="2" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                                <!-- <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span> -->
+                                            </label>
+                                            <!--end::Option-->
+                                        </div>
                                     </div>
                                     <!--end::Radio group-->
-                                    <div style="margin-left: 10px; text-align:center;">
-                                        <textarea name="workmanship_desc" rows="2" cols=style="width:100%;" class="form-control"></textarea>
+                                    <div >
+                                        <textarea name="workmanship_desc" rows="2" style="width:100%;" class="form-control"></textarea>
                                     </div>
 
 
                                 </div>
 
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">TW checked against drawings / design output</span>
-
-                                    </label>
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid">
-                                        <!--begin::Option-->
-
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="drawings_design" value="1" checked />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                <div class="">
+                                    <div class="d-flex justify-content-between">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold " >
+                                            <span class="required">TW checked against drawings / design output</span>
                                         </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="drawings_design" value="2" />
-                                           <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-
-                                        <!--end::Option-->
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid">
+                                            <!--begin::Option-->
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="drawings_design" value="1" checked />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="drawings_design" value="2" />
+                                               <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <!--end::Option-->
+                                        </div>
+                                        <!--end::Radio group-->
                                     </div>
-                                    <!--end::Radio group-->
 
-                                    <div style="margin-left: 10px; text-align:center;">
+                                    <div style="">
 
                                         <textarea name="drawings_design_desc" rows="2" style="width:100%;" class="form-control"></textarea>
 
                                     </div>
                                 </div>
 
-                                <div class="d-flex inputDiv">
+                                <div class="">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40%">
-                                        <span class="required">Loading / use limitations understood(e.g. sequence of loading, access/plant loading)</span>
-                                    </label>
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid">
-                                        <!--begin::Option-->
-
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="loading_limit" value="1" checked />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    <div class="d-flex justify-content-between">
+                                        <label class="fs-6 fw-bold">
+                                            <span class="required">Loading / use limitations understood(e.g. sequence of loading, access/plant loading)</span>
                                         </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="loading_limit" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-
-                                        <!--end::Option-->
+                                        <!--begin::Radio group-->
+                                        <div class="nav-group nav-group-fluid">
+                                            <!--begin::Option-->
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="loading_limit" value="1" checked />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="loading_limit" value="2" />
+                                                <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <!--end::Option-->
+                                        </div>
+                                        <!--end::Radio group-->
                                     </div>
-                                    <!--end::Radio group-->
-                                    <div style="margin-left: 10px; text-align:center;">
+                                    <div>
                                         <textarea name="loading_limit_desc" rows="2" style="width:100%;" class="form-control"></textarea>
                                     </div>
                                 </div>
@@ -493,20 +526,17 @@
                         </div>
 
                         <div class="col-md-12 ">
-
-                            <div class="d-flex inputDiv ">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="background:green;color:#fff;padding:10px;width: 20%;">
-                                    <span style="">Footings:</span>
-                                </label>
-                            </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <label class="fs-6 fw-bold listTitle" >
+                                <span style="">Footings:</span>
+                            </label>
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2" >
                                     <span class="required">Even, stable ground?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -531,21 +561,21 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div style="margin-top: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none form-control" name="even_stable_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none form-control" name="even_stable_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div style="margin-top: 10px; text-align:center;">
+                                <div style="col-md-4">
                                     <input type="file" class="d-none form-control" name="even_stable_image" id="even_stable_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Base plates?</span>
                                 </label>
 
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -570,21 +600,21 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="base_Plates_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="base_Plates_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="base_Plates_image" id="base_Plates_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Sole boards?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -609,22 +639,21 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="sole_boards_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="sole_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="sole_boards_image" id="sole_boards_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Undermined?</span>
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -649,28 +678,30 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
 
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="undermined_comment" rows="2" cols="90"></textarea>
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="undermined_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="undermined_image" id="undermined_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                        </div>
+                        <div classs="col-12">
+                            <div class="d-flex ">
+                                <label class="fs-6 fw-bold listTitle">
                                     Standards:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2" >
                                     <span class="required">Plumb?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2" >
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -695,22 +726,22 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4" >
 
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="Plumb_comment" rows="2" cols="90"></textarea>
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="Plumb_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="Plumb_image" id="Plumb_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Staggered joints?</span>
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -735,23 +766,23 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="staggered_joints_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="staggered_joints_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="staggered_joints_image" id="staggered_joints_image">
                                 </div>
                             </div>
 
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex  ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Wrong spacing?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -776,25 +807,25 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_spacing_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="wrong_spacing_image" id="wrong_spacing_image">
                                 </div>
 
 
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Damaged?</span>
 
                                 </label>
 
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -819,28 +850,30 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="damaged_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="damaged_comment" rows="2" cols="90"></textarea>
 
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="damaged_image" id="damaged_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex">
+                                <label class="fs-6 fw-bold listTitle" >
                                     Boards:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Trap boards?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -865,23 +898,22 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="trap_boards_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="trap_boards_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="trap_boards_image" id="trap_boards_image">
                                 </div>
                             </div>
-
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Incomplete boarding?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -906,23 +938,22 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
+                                <div classs="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="incomplete_boarding_comment" rows="2" cols="90"></textarea>
                                 </div>
-
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div classs="col-md-4">
                                     <input type="file" class="d-none form-control" name="incomplete_boarding_image" id="incomplete_boarding_image">
                                 </div>
                             </div>
 
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Insufficient supports / ties?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -947,27 +978,27 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="supports_ties_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="supports_ties_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="supports_ties_image" id="supports_ties_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                            <div class="d-flex ">
+                                <label class="listTitle">
                                     Ladders:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex  ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Insufficient length?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -992,17 +1023,17 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="insufficient_length_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="insufficient_length_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="insufficient_length_image" id="insufficient_length_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Any missing or loose?</span>
 
                                 </label>
@@ -1011,7 +1042,7 @@
 
 
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1036,23 +1067,22 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="missing_loose_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="missing_loose_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="missing_loose_image" id="missing_loose_image">
                                 </div>
                             </div>
-
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Wrong fittings?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1077,27 +1107,27 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_fittings_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="wrong_fittings_image" id="wrong_fittings_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                            <div class="d-flex ">
+                                <label class="listTitle">
                                    Ledges:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex  ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Not level?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <label>
                                         <input type="radio" class="btn-check" name="not_level_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
@@ -1118,21 +1148,21 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="not_level_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="not_level_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="not_level_image" id="not_level_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Joined in same bays?</span>
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1153,22 +1183,22 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="joined_same_bays_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="joined_same_bays_image" id="joined_same_bays_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Loose or damaged?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <label>
                                         <input type="radio" class="btn-check" name="loose_damaged_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
@@ -1187,28 +1217,28 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="loose_damaged_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="loose_damaged_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="loose_damaged_image" id="loose_damaged_image">
                                 </div>
 
                             </div>
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                            <div class="d-flex">
+                                <label class="listTitle">
                                     Guard Rails:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Wrong height?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1233,23 +1263,23 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_height_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="wrong_height_comment" rows="2" cols="90"></textarea>
                                 </div>
 
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="wrong_height_image" id="wrong_height_image">
                                 </div>
 
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Any missing or loose?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1270,21 +1300,21 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="some_missing_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="some_missing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="some_missing_image" id="some_missing_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Damaged?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1305,27 +1335,27 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="GuardRails_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="GuardRails_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="GuardRails_image" id="GuardRails_image">
                                 </div>
                             </div>
                             <!-- coupling & tiles -->
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                            <div class="d-flex">
+                                <label class="listTitle">
                                     Couplings:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Wrong fittings?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1346,21 +1376,21 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea class="d-none  form-control" name="coupling_wrongfitting_comment" rows="2" placeholder="Please Enter Comments" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea class="d-none form-control" style="width: 80%; margin: auto" name="coupling_wrongfitting_comment" rows="2" placeholder="Please Enter Comments" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="coupling_wrongfitting_image" id="coupling_wrongfitting_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Any Missing?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <label>
                                         <input type="radio" class="btn-check" name="coupling_somemissing_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
@@ -1377,21 +1407,21 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="coupling_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="coupling_somemissing_image" id="coupling_somemissing_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Loose or damaged?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <label>
                                         <input type="radio" class="btn-check" name="coupling_loosedamaged_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
@@ -1408,28 +1438,28 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="coupling_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="coupling_loosedamaged_image" id="coupling_loosedamaged_image">
                                 </div>
                             </div>
 
                             <!-- Bracing Facades -->
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                            <div class="d-flex">
+                                <label class="listTitle">
                                     Bracing:
                                 </label>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Wrong fittings?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1450,21 +1480,21 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_wrongfitting_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="bracing_wrongfitting_image" id="bracing_wrongfitting_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex  ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Any Missing?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <label>
                                         <input type="radio" class="btn-check" name="bracing_somemissing_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
@@ -1481,21 +1511,21 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none  form-control" name="bracing_somemissing_image" id="bracing_somemissing_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Loose or damaged?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <label>
                                         <input type="radio" class="btn-check" name="bracing_loosedamaged_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
@@ -1512,30 +1542,27 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="bracing_loosedamaged_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="bracing_loosedamaged_image" id="bracing_loosedamaged_image">
                                 </div>
                             </div>
-
-
-
-                            <div class="d-flex inputDiv">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;background:green;color:#fff;padding:10px;">
+                            <div class="d-flex fw-bold">
+                                <label class="listTitle">
                                     Debris Netting:
                                 </label>
                             </div>
                             <!-- Debrings Netting -->
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex  ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Partially removed?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1560,23 +1587,23 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="partially_removed_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="partially_removed_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="partially_removed_image" id="partially_removed_image">
                                 </div>
 
 
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Any Missing?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
@@ -1601,23 +1628,23 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="debrings_somemissing_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="debrings_somemissing_image" id="debrings_somemissing_image">
                                 </div>
 
 
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
+                            <div class="d-flex  ipadnewline">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
+                                <label class="col-md-2">
                                     <span class="required">Loose/ damaged or broken?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class="col-md-2">
                                     <label>
                                         <input type="radio" class="btn-check" name="loose_damaged_broken_radio" value="1" />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Pass</span>
@@ -1634,50 +1661,47 @@
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
-                                    <textarea placeholder="Please Enter Comments" class="d-none  form-control" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
+                                <div class="col-md-4">
+                                    <textarea style="width: 80%; margin: auto" placeholder="Please Enter Comments" class="d-none  form-control" name="loose_damaged_broken_comment" rows="2" cols="90"></textarea>
                                 </div>
-                                <div class="margintop" style="margin-left: 10px; text-align:center;">
+                                <div class="col-md-4">
                                     <input type="file" class="d-none form-control" name="loose_damaged_broken_image" id="loose_damaged_broken_image">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ipadnewline">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 20%;">
-                                    <span class="required">
-                                        <h5>Any other actions necessary not listed above? </h5>
-                                    </span>
-
-                                </label>
-                                <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid" style="height: 48px;">
-                                    <label style="width:48px;">
-                                        <input type="radio" class="btn-check" name="other_radio" value="1" />
-                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">Yes</span>
+                            <div class=" ipadnewline">
+                                <div class="d-flex justify-content-between">
+                                    <!--begin::Label-->
+                                    <label class="fs-3 fw-bold" style="width: 100%">
+                                        <span class="required">
+                                            <h5>Any other actions necessary not listed above? </h5>
+                                        </span>
                                     </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label>
-                                        <input type="radio" class="btn-check" name="other_radio" value="2" checked />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
-                                    </label>
-                                    <label>
-
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-
-                                    <!--end::Option-->
+                                    <!--begin::Radio group-->
+                                    <div class="d-flex justify-content-between" style="">
+                                        <label style="">
+                                            <input type="radio" class="btn-check" name="other_radio" value="1" />
+                                             <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 p-4">Yes</span>
+                                        </label>
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <label>
+                                            <input type="radio" class="btn-check" name="other_radio" value="2" checked />
+                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary p-4">N</span>
+                                        </label>
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <!--end::Option-->
+                                    </div>
+                                    <!--end::Radio group-->
                                 </div>
-                                <!--end::Radio group-->
-                                <div class="zeromargin" style="margin-left: 70px; ">
-                                    <textarea class="d-none  form-control" name="other_comment" rows="2" cols="90"></textarea>
+                                <div class="zeromargin" style="margin-top: 8px; ">
+                                    <textarea class="d-none  form-control" placeholder="Please Specify" name="other_comment" rows="2" cols="90"></textarea>
                                 </div>
                                 <!-- <div style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="other_image" id="other_image">
                                 </div> -->
                             </div>
-                            <div class="container">
+                            <div class="">
                             <!-- <table style="width:100%">
 
                                 <tr>
@@ -1858,19 +1882,13 @@
                                                     <input type="radio" class="btn-check" name="carry_out_inspection" value="2" />
                                                     <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>
-                                                <label>
 
                                                     <!--end::Option-->
                                                     <!--begin::Option-->
-
                                                     <!--end::Option-->
                                             </div>
                                             <!--end::Radio group-->
-
-
-
                                         </div>
-
                                     </div>
 
                                     <div class="d-flex inputDiv">

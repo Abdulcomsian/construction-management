@@ -188,7 +188,7 @@ height: 72px;
     <link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/signature.css')}}"/>
-     <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
 @endsection
 @section('content')
 @include('dashboard.modals.design-relief-modals')

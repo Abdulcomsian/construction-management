@@ -625,7 +625,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="radio" class="checkbox-field" id="DrawCheck"   style="width: 12px;">
+                                            <input  type="radio" class="checkbox-field" id="DrawCheck" checked=true  style="width: 12px;">
                                             <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2">
                                             <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
@@ -727,27 +727,26 @@
             $("#signtype").val(0);
              $("#pdfsign").val(0);
              $("#Drawtype").val(1);
-            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-            $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#sign").removeClass('d-none').addClass('d-flex');
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("#namesign").removeClass('d-flex').addClass("d-none");
             // $(".customSubmitButton").removeClass("hideBtn");
             // $(".customSubmitButton").addClass("showBtn");
             //  $("input[name='pdfsign']").removeAttr('required');
             // $("input[name='namesign']").attr('required','required');
             $("#clear").show();
-            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
-            $("div#namesign").removeClass('d-flex').addClass("d-none");
             $("#sign").css('display','block');
            
         }
-        // else{
-        //     $("#signtype").val(2);
-        //     $("#sign").addClass('d-flex').show();
-        //     $("#namesign").removeClass('d-flex').hide();
-        //     $("input[name='namesign']").removeAttr('required');
-        //     $("#clear").show();
-        //     $(".customSubmitButton").addClass("hideBtn");
-        //     $(".customSubmitButton").removeClass("showBtn");
-        // }
+        else{
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
     })
 
     $("#flexCheckChecked1").change(function () {
@@ -790,11 +789,13 @@
         alert();
         if ($(this).is(':checked')) {
             $("#pdfChecked").prop('checked', false);
+            $("#DrawCheck").prop('checked', false);
             $("#signtype").val(1);
             $("#pdfsign").val(0);
-            // $('#sign').val(0)
+            $('#Drawtype').val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-            $("#namesign").addClass('d-flex').show();
+            $("div#sign").removeClass('d-flex').addClass('d-none');
+            $("div#namesign").addClass('d-flex').show();
             $(".customSubmitButton").removeClass("hideBtn");
             $(".customSubmitButton").addClass("showBtn");
             $("input[name='pdfsign']").removeAttr('required');
@@ -819,9 +820,11 @@
             $("#flexCheckChecked").prop('checked', false);
             $("#pdfsign").val(1);
             $("#signtype").val(0);
+            $('#Drawtype').val(0);
             $("input[name='pdfsign']").attr('required', 'required');
+            $("div#sign").removeClass('d-flex').addClass('d-none');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
-            $("#namesign").removeClass('d-flex').hide();
+            $("div#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();

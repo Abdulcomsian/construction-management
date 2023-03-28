@@ -1971,7 +1971,8 @@
                                     <!--begin::Label-->
                                     <label class="fs-3 fw-bold" style="width: 100%">
                                         <span class="required">
-                                            <h5>Any other actions necessary not listed above? </h5>
+                                            <h5 style="display: inline-block">Any other actions necessary not listed
+                                                above? </h5>
                                         </span>
                                     </label>
                                     <!--begin::Radio group-->
@@ -1983,7 +1984,7 @@
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
-                                        <label>
+                                        <label style="width: auto !important">
                                             <input type="radio" class="btn-check" name="other_radio" value="2"
                                                 checked />
                                             <span

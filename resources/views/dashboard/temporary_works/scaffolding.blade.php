@@ -1966,7 +1966,7 @@
                                         id="loose_damaged_broken_image">
                                 </div>
                             </div>
-                            <div class=" ipadnewline">
+                            <div class=" ipadnewline" style="height:auto !important;">
                                 <div class="d-flex justify-content-between">
                                     <!--begin::Label-->
                                     <label class="fs-3 fw-bold" style="width: 100%">
@@ -1996,10 +1996,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                 </div>
-                                <div class="zeromargin" style="margin-top: 8px; ">
-                                    <textarea class="d-none  form-control" placeholder="Please Specify"
-                                        name="other_comment" rows="2" cols="90"></textarea>
-                                </div>
+                                
                                 <!-- <div style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="other_image" id="other_image">
                                 </div> -->
@@ -2068,7 +2065,14 @@
                             <p>To undestand the example better, we have added borders to the table.</p> -->
                             </div>
                         </div>
-
+                        <div class="row" style="margin:20px 0">
+                            <div class="col-md-12">
+                                <div class="zeromargin" style="margin-top: 8px; ">
+                                        <textarea class="d-none  form-control" placeholder="Please Specify"
+                                            name="other_comment" rows="2" cols="90"></textarea>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex">
@@ -2258,7 +2262,7 @@
                                     </label>
                                     <br/> -->
                                     <canvas id="sig" onblure="draw()"
-                                        style="background: lightgray; border-radius:10px;max-height: 152px"></canvas>
+                                        style="background: lightgray; border-radius:10px;max-width:300px;max-height: 152px"></canvas>
                                     <br />
                                     <textarea id="signature" name="signed" style="display: none"></textarea>
                                     <span id="clear" class="fa fa-undo cursor-pointer"

@@ -444,8 +444,10 @@ class TemporaryWorkController extends Controller
         }
     }
     //manually design brief form store 
+   
     public function store1(Request $request)
     {
+        // dd($request->all());
         Validations::storeManuallyTemporaryWork($request);
         try {
             $all_inputs  = $request->except('_token', 'pdf', 'projaddress', 'projno', 'projname', 'dcc_returned', 'drawing', 'dcc','design_returned','drawing_number','drawing_title');
@@ -459,7 +461,9 @@ class TemporaryWorkController extends Controller
                 $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
                 $file->move($path, $filename);
                 $all_inputs['ped_url'] = $filename;
-            }
+            } 
+			
+            // dd($all_inputs);
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 $filePath = HelperFunctions::temporaryworkuploadPath();
@@ -478,7 +482,22 @@ class TemporaryWorkController extends Controller
                     $model->drawing_title=$request->drawing_title;
                     $model->save();
                 }
+$notify_admins_msg = [
+                'greeting' => 'Temporary Work Pdf',
+                'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                'body' => [
+                    'company' => $request->company,
+                    'filename' => $filename,
+                    'links' => '',
+                    'name' =>  $request->design_requirement_text . '-' . $request->twc_id_no,
+                    'designer' => '',
+                    'pc_twc' => '',
 
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+                'action_text' => '',
+                'action_url' => '',
+            ];
                 #uploading DCC
                 if ($request->file('dcc')) {
                     $file = $request->file('dcc');
@@ -491,6 +510,18 @@ class TemporaryWorkController extends Controller
                     $model->save();
                 }
             }
+
+            if ($request->desinger_email_2) {
+                $notify_admins_msg['body']['designer'] = 'designer1';
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$request->desinger_email_2;
+                $cmh->type ='Designer Checker';
+                $cmh->foreign_idd=$temporary_work->id;
+                $cmh->message='Email send to Designer Checker';
+                $cmh->save();
+                Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
+            } 
+
             if ($temporary_work) {
                 toastSuccess('Temporary Work successfully added!');
                 return redirect()->route('temporary_works.index');

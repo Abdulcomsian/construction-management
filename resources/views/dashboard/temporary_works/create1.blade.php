@@ -472,6 +472,18 @@ height: 72px;
                                     <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
+</div>
+<div class="col-md-6">
+                                <div class="inputDiv d-none desinger_company_name2 mb-0" style="margin-top: 30px">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Design Checker Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="d-flex TWRisk" style="position: relative;border: 1px solid lightgray;border-radius: 7px;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2" style="position: absolute; bottom: 32px; background: white;">
@@ -636,6 +648,22 @@ height: 72px;
            $(this).addClass("whiteBack")
        
    });
+
+   $('input[name="tw_category"]').click(function(){
+        var value=$(this).val();
+        if(value==3)
+        {
+            $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
+        //    $("#desinger_company_name2").attr('required','required');
+        //    $("#desinger_email_2").attr('required','required');
+          
+        }
+        else{
+            $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
+            $("#desinger_company_name2").removeAttr('required');
+            $("#desinger_email_2").removeAttr('required');
+        }
+    })
 </script>
 
     

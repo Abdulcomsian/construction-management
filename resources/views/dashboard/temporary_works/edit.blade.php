@@ -215,7 +215,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Edit Design Briefffff</h2> 
+                        <h2 style="display: inline-block;">Edit Design Brief</h2> 
                     </div>
                     <!--begin::Card toolbar-->
 

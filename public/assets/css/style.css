@@ -1175,3 +1175,15 @@ label {
 .yellowBgBlink {
     background-color: yellow !important;
 }
+
+textarea::placeholder {
+    color: #a9abb7 !important
+  }
+
+  textarea:-moz-placeholder, /* Firefox 18- */
+textarea::-moz-placeholder, /* Firefox 19+ */
+textarea:-ms-input-placeholder, /* IE 10+ */
+textarea::-webkit-input-placeholder, /* Webkit based */
+textarea::placeholder { /* Modern browsers */
+  color: #a9abb7 !important;  
+}

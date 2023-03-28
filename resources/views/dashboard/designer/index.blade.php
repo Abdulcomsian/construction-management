@@ -246,7 +246,7 @@
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span>Attachment</span>
                                 </label>
-                                <input type="file" class="form-control fileInput" id="inputGroupFile02">
+                                <input type="file" class="form-control fileInput" name="file" id="inputGroupFile02">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
                         </div>
@@ -267,7 +267,7 @@
                                     @foreach($comments as $cments)
                                     <tr >
                                         <td><b>{{$loop->index+1}}</b></td>
-                                        <td class="designer-comment">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
+                                        <td class="designer-comment">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}<br><br><a href="{{$cments->image}}">Download File</a></b></td>
                                         <td class="twc-reply">
                                             @if($cments->replay)
                                              @php $i=0;@endphp
@@ -282,25 +282,25 @@
                                              $path = config('app.url');
                                              if(isset($cments->reply_image))
                                              {
-                                            for($j=0;$j < count($cments->reply_image);$j++)
-                                             {
-                    
-                                                $image='';
-                                                if(isset($cments->reply_image[$j]))
-                                                {
-                                                    $n = strrpos($cments->reply_image[$j], '.');
-                                                    $ext=substr($cments->reply_image[$j], $n+1);
-                                                    if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                                    for($j=0;$j < count($cments->reply_image);$j++)
                                                     {
-                                                       echo $image='<a target="_blank" style="color: dodgerblue;" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
+                            
+                                                        $image='';
+                                                        if(isset($cments->reply_image[$j]))
+                                                        {
+                                                            $n = strrpos($cments->reply_image[$j], '.');
+                                                            $ext=substr($cments->reply_image[$j], $n+1);
+                                                            if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                                            {
+                                                            echo $image='<a target="_blank" style="color: dodgerblue;" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
+                                                            }
+                                                            else{
+                                                            echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
+                                                            }
+                            
+                                                        }
                                                     }
-                                                    else{
-                                                       echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
-                                                    }
-                    
                                                 }
-                                             }
-                                         }
                                             @endphp
                                         </td>
                                     </tr>

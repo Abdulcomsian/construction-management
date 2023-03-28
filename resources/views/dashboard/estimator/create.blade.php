@@ -293,7 +293,7 @@ height: 72px;
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="">Design Required by Date:</span>
                                     </label>
-                                        <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  >
+                                        <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7 !important;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  >
                                 </div>
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->

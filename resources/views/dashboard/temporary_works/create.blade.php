@@ -511,7 +511,7 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                        <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7 !important;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                     <!-- </p> -->
                                 </div>
                             </div>

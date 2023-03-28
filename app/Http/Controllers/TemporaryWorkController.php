@@ -1833,6 +1833,7 @@ class TemporaryWorkController extends Controller
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

@@ -27,7 +27,8 @@
         background-color: #fff;
         font-family: 'Inter', sans-serif;
     }
-    #kt_content_container .card-title h2{
+
+    #kt_content_container .card-title h2 {
         font-weight: 600;
         font-size: 32px;
     }
@@ -162,34 +163,42 @@
     }
 
     .form-select.form-select-solid {
-    background-color: #fff;
-    color: #fff;
-    border: none;
+        background-color: #fff;
+        color: #fff;
+        border: none;
     }
-    input{
+
+    input {
         background-color: white;
     }
-    .form-control.form-control-solid{
+
+    .form-control.form-control-solid {
         background-color: white !important;
     }
 
-    #tbody tr::nth-child(odd){
+    #tbody tr::nth-child(odd) {
         background: white
     }
-    .table>tbody{
+
+    .table>tbody {
         vertical-align: middle;
     }
+
     /*.form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}*/
-    .twcTextArea:focus{
+    .twcTextArea:focus {
         border: none;
     }
-    #kt_post{
+
+    #kt_post {
         width: 75%
     }
-    #kt_post input, #kt_post textarea{
+
+    #kt_post input,
+    #kt_post textarea {
         height: 32px
     }
-    .permitUnloadList li{
+
+    .permitUnloadList li {
         font-weight: 400;
         font-size: 14px;
     }
@@ -247,7 +256,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            
+
                             <div class="inputDiv d-block">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
@@ -376,8 +385,8 @@
                             <ol style="color: #000;" class="permitUnloadList">
                                 <li>
                                     Permanent works support by this temporary works have gained
-                                        sufficient strength to support the loading or use requirement. (See concrete cube
-                                        results and other PW design requirements below, if applicable.)
+                                    sufficient strength to support the loading or use requirement. (See concrete cube
+                                    results and other PW design requirements below, if applicable.)
                                 </li>
                                 <li>
                                     Sequence of removal of TW, where specified by the TWD, is understood by the
@@ -395,17 +404,21 @@
                         </div>
                         <div class="">
 
-                            <table class="table table-bordered" style="border:1px solid lightgray; border-radius: 8px; overflow: hidden; border-collapse: separate;">
+                            <table class="table table-bordered"
+                                style="border:1px solid lightgray; border-radius: 8px; overflow: hidden; border-collapse: separate;">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: left; padding-left: 24px" colspan="5">CONCRETE CUBE RESULTS (or overwrite
+                                        <th style="text-align: left; padding-left: 24px" colspan="5">CONCRETE CUBE
+                                            RESULTS (or overwrite
                                             with strength by maturity curve data)</th>
 
                                     </tr>
                                 </thead>
                                 <tbody id="table-body">
                                     <tr>
-                                        <td class="col-md-4" style="padding-left: 25px;text-align: left; font-weight:500">Mix Design Details</td>
+                                        <td class="col-md-4"
+                                            style="padding-left: 25px;text-align: left; font-weight:500">Mix Design
+                                            Details</td>
                                         <td style="padding-right:28px">
                                             <input type="text" name="mix_design_detail"
                                                 class="form-control form-control-solid tableinput"
@@ -413,7 +426,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Unique Cube Ref No.</td>
+                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Unique Cube Ref
+                                            No.</td>
                                         <td style="padding-right:28px">
                                             <input type="text" name="unique_ref_no"
                                                 class="form-control form-control-solid tableinput"
@@ -421,7 +435,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Age of Cube</td>
+                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Age of Cube
+                                        </td>
                                         <td style="padding-right:28px">
                                             <input type="text" name="age_cube"
                                                 class="form-control form-control-solid tableinput"
@@ -429,7 +444,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Compressive Strength N/mm2</td>
+                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Compressive
+                                            Strength N/mm2</td>
                                         <td style="padding-right:28px">
                                             <input type="text" name="compressive_strength"
                                                 class="form-control form-control-solid tableinput"
@@ -437,7 +453,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Method of Curing</td>
+                                        <td style="padding-left: 25px;text-align: left; font-weight:500">Method of
+                                            Curing</td>
                                         <td style="padding-right:28px">
                                             <input type="text" name="method_curing"
                                                 class="form-control form-control-solid tableinput"
@@ -451,13 +468,16 @@
 
                         <div class="col-md-12">
                             <div class="inputDiv">
-                                <label style="color:black; bottom: 38px">TWC to define the extents, limits and controls for this PTS (where
+                                <label style="color:black; bottom: 38px">TWC to define the extents, limits and controls
+                                    for this PTS (where
                                     applicable)</label>
-                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;"></textarea>
+                                <textarea name="twc_control_pts" class="twcTextArea" rows="2"
+                                    style="width:100%;"></textarea>
                             </div>
 
                             <div class="inputDiv">
-                                <label style="color:black; bottom: 38px">Back-propping and additional requirements; limitations and
+                                <label style="color:black; bottom: 38px">Back-propping and additional requirements;
+                                    limitations and
                                     exclusions; explanatory sketches references (if applicable)</label>
                                 <textarea name="back_propping" rows="2" style="width:100%;"></textarea>
                             </div>
@@ -474,12 +494,14 @@
                                     <span class="required">Principle Contractor approval required?</span>
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid justify-content-end" style="width: 100%; background: white">
+                                <div class="nav-group nav-group-fluid justify-content-end"
+                                    style="width: 100%; background: white">
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="principle_contractor" value="1"
                                             @if(isset($permitdata) &&
                                             $permitdata->principle_contractor==1){{'checked'}}@endif/>
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                        <span
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="principle_contractor" value="2"
@@ -492,17 +514,17 @@
                             </div>
                         </div>
 
-                        
-                        
+
+
                         <!-- Second person -->
-                        
-                        
-                        
+
+
+
                         <div class="row">
-                            <div class="col-md-6"  id="second_member">
-                            
-                                <div class="d-flex inputDiv">
-                                </div>
+                            <div class="col-md-6" id="second_member">
+
+                                {{-- <div class="d-flex inputDiv">
+                                </div> --}}
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 27%">
@@ -510,8 +532,8 @@
                                     </label>
                                     <!--end::Label-->
                                     <div class="input">
-                                        <input type="text" class="form-control" placeholder="Name" id="name2" name="name"
-                                            value="{{old('name',$permitdata->name ?? '')}}">
+                                        <input type="text" class="form-control" placeholder="Name" id="name2"
+                                            name="name" value="{{old('name',$permitdata->name ?? '')}}">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv principleno">
@@ -533,11 +555,11 @@
                                     <!--end::Label-->
                                     <div class="input">
                                         <input type="text" id="companyadmin" class="form-control form-control-solid"
-                                            placeholder="Company" name="company" value="{{$project->company->name ?? ''}}"
-                                            readonly="readonly">
+                                            placeholder="Company" name="company"
+                                            value="{{$project->company->name ?? ''}}" readonly="readonly">
                                         <input type="hidden" id="companyid" class="form-control form-control-solid"
-                                            placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}"
-                                            readonly="readonly">
+                                            placeholder="Company" name="companyid"
+                                            value="{{$project->company->id ?? ''}}" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -553,32 +575,33 @@
                                 </div>
                             </div>
                             <div class="col-md-6" id="first_member" style="display:none">
-                            <div class="col" style="flex:100% !important;">
-                                <div class="d-flex inputDiv">
+                                <div class="col" style="flex:100% !important;">
+                                    {{-- <div class="d-flex inputDiv">
+                                    </div> --}}
+                                    @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required" style="width: 27%">Name:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" class="form-control" placeholder="Name" id="name1"
+                                            name="name1" value="{{old('name1',$permitdata->name1 ?? '')}}">
+                                    </div>
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required" style="width: 27%">Job Title:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" class="form-control" placeholder="Job title" id="job_title1"
+                                            name="job_title1"
+                                            value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
+                                    </div>
+                                    @endif
                                 </div>
-                                @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                                <div class="d-flex inputDiv principleno">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2">
-                                        <span class="required" style="width: 27%">Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control" placeholder="Name" id="name1" name="name1"
-                                        value="{{old('name1',$permitdata->name1 ?? '')}}">
-                                </div>
-                                <div class="d-flex inputDiv principleno">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2">
-                                        <span class="required" style="width: 27%">Job Title:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control" placeholder="Job title" id="job_title1"
-                                        name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
-                                </div>
-                                @endif
-                            </div>
 
-                            <!-- <div class="col">
+                                <!-- <div class="col">
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
                                 <div class="d-flex inputDiv">
                                     <label class="fs-6 fw-bold mb-2"
@@ -611,11 +634,11 @@
                                 @endif
                             </div> -->
 
-                        </div>
+                            </div>
                         </div>
 
-                        
-                        
+
+
                         <div class="row">
                                 <div class="col-md-6">
                                     <div class="d-flex inputDiv mb-1" style="border: none">
@@ -643,32 +666,53 @@
                                         </div>
 
                                     </div>
-                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
-                                        <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                        <input type="hidden" id="signtype" name="signtype"
+                                            class="form-control form-control-solid" value="2">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                    </div>
+                                    &nbsp;
+                                    <!--end::Label-->
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                        <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                            class="form-control form-control-solid" value="0">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
+                                            Upload </span>
+                                    </div>
+
+                                </div>
+                                <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                    <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Signature:</span>
                                         </label>
                                         <br/> -->
-                                        <canvas id="sig" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
-                                        <br/>
-                                        <!-- <textarea id="signature" name="signed" style="display: none"></textarea> -->
-                                        <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6; position:relative; top:51px; right:26px"></span>
-                                    </div>
-                                    <div class="inputDiv d-none" id="pdfsign">
-                                        <label class="fs-6 fw-bold mb-2" style="width: fit-content">
-                                            <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
-                                        </label>
-                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
-                                    </div>
-                                    
-                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Name Signature:</span>
-                                        </label>
-                                        <input type="text" name="namesign" class="form-control form-control-solid">
-                                    </div>
-                                </div>  
-                                
+                                    <canvas id="sig" onblure="draw()"
+                                        style="background: lightgray; border-radius:10px"></canvas>
+                                    <br />
+                                    <textarea id="signature" name="signed" style="display: none"></textarea>
+                                    <span id="clear" class="fa fa-undo cursor-pointer"
+                                        style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                </div>
+                                <div class="inputDiv d-none" id="pdfsign">
+                                    <label class="fs-6 fw-bold mb-2" style="width: fit-content">
+                                        <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
+                                    </label>
+                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                </div>
+
+                                <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign" class="form-control form-control-solid">
+                                </div>
                             </div>
+
+                        </div>
                         <!-- </div> -->
 
                         <!-- </div> -->
@@ -677,10 +721,11 @@
                                 <div class="input-images"></div>
                             </div> -->
                             <br>
-                            <button id="submitbutton" type="button" class="btn btn-primary float-end unload_button">Submit</button>
-                            <div class="d-flex inputDiv principleno" id="sign">
+                            <button id="submitbutton" type="button"
+                                class="btn btn-primary float-end unload_button">Submit</button>
+                            {{-- <div class="d-flex inputDiv principleno" id="sign">
                                 <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
-                            </div>
+                            </div> --}}
                         </div>
                         </p>
                     </div>
@@ -736,6 +781,7 @@
             // $("input[name='namesign']").attr('required','required');
             $("#clear").show();
             $("#sign").css('display','block');
+            $("#sign").removeClass('d-none');
            
         }
         else{
@@ -786,7 +832,13 @@
     //     }
     // })
     $("#flexCheckChecked").change(function () {
-        alert();
+        // document.getElementById("namesign").classList.remove("d-none") 
+        // document.getElementById("namesign").style.display = 'block'; 
+        // document.getElementById("sign").classList.add("d-none") 
+        // document.getElementById("pdfsign").classList.add("d-none") 
+        // // sign
+        // // pdfsign
+        // alert();
         if ($(this).is(':checked')) {
             $("#pdfChecked").prop('checked', false);
             $("#DrawCheck").prop('checked', false);
@@ -795,13 +847,14 @@
             $('#Drawtype').val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("div#sign").removeClass('d-flex').addClass('d-none');
-            $("div#namesign").addClass('d-flex').show();
+            $("#namesign").addClass('d-flex').show();
             $(".customSubmitButton").removeClass("hideBtn");
             $(".customSubmitButton").addClass("showBtn");
             $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required', 'required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
+            $()
 
         } else {
             $("#signtype").val(2);

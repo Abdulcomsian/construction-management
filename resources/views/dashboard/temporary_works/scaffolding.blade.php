@@ -1984,7 +1984,7 @@
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
-                                        <label style="width: auto !important">
+                                        <label style="width: auto">
                                             <input type="radio" class="btn-check" name="other_radio" value="2"
                                                 checked />
                                             <span
@@ -2362,9 +2362,9 @@
         {
             $("#pdfChecked").prop('checked',false);
             $("#flexCheckChecked").prop('checked',false);
-            $("#signtype").val(0);
+            $("#signtype").val(1);
              $("#pdfsign").val(0);
-             $("#Drawtype").val(1);
+            //  $("#Drawtype").val(1);
             $("div#sign").removeClass('d-none').addClass('d-flex');
             $("div#pdfsign").removeClass('d-flex').addClass("d-none");
             $("#namesign").removeClass('d-flex').addClass("d-none");
@@ -2374,6 +2374,8 @@
             // $("input[name='namesign']").attr('required','required');
             $("#clear").show();
             $("#sign").css('display','block');
+            $("#sign").removeClass('d-none');
+
            
         }
         else{
@@ -2404,15 +2406,16 @@
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
 
-        } else {
-            $("#signtype").val(2);
-            $("#sign").addClass('d-flex').show();
-            $("#namesign").removeClass('d-flex').hide();
-            $("input[name='namesign']").removeAttr('required');
-            $("#clear").show();
-            $(".customSubmitButton").addClass("hideBtn");
-            $(".customSubmitButton").removeClass("showBtn");
-        }
+        } 
+        // else {
+        //     $("#signtype").val(2);
+        //     $("#sign").addClass('d-flex').show();
+        //     $("#namesign").removeClass('d-flex').hide();
+        //     $("input[name='namesign']").removeAttr('required');
+        //     $("#clear").show();
+        //     $(".customSubmitButton").addClass("hideBtn");
+        //     $(".customSubmitButton").removeClass("showBtn");
+        // }
     })
 
     //  $("#flexCheckChecked").change(function(){

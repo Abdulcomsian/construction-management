@@ -196,6 +196,8 @@
                                         <li>Crane Outrigger loadings, mat and back propping</li>
                                         <li>Hoist bases, restraint and back propping</li>
                                         <li>Mobile crane outriggers</li>
+                                        <li>Hoist Run offs </li>
+                                        <li>Lifting  of prefabricated rebar column/ wall panels</li>
                                         <li><input class="form-control form-control-solid otherInput" type="text" vlaue="" placeholder="If other: please state"></li>
                                     </ul>
                                 <li data-id="scaffolding " class="majorMenu">Access / Scaffolding</li>
@@ -232,8 +234,14 @@
                                         <li>Headings / Tunnel Support</li>
                                         <li>Underpinning</li>
                                         <li>Stockpiles</li>
+                                        <li>PCC L shape wall</li>
+                                        <li>Embankment Bund</li>
                                         <li>Dewatering</li>
+                                        <li>Temporary access ramp construction</li>
                                         <li>Piling Mat</li>
+                                        <li>Excavation batters</li>
+                                        <li>Shoring to pile caps during excavation</li>
+                                        <li>Earth works retention for basement, deep services  or attenuation tank  construction</li>
                                         <li>Slope Stability</li>
                                         <li>Piled/ sheet piled wall propping</li>
                                         <li>Kingpost retaining walls</li>

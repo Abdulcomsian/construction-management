@@ -218,6 +218,11 @@
     .ipadnewline label {
         width: 30%;
     }
+
+    .image-uploader {
+        min-height: 8.4rem !important;
+        border-radius: 8px;
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
@@ -2175,7 +2180,42 @@
 
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <div class="d-flex inputDiv ipadissue my-0" style="width:100%">
+                                        <div class="d-flex modalDiv ipadissue">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                Date :
+                                            </label>
+                                            <input type="date" class="form-control" value="{{ date('Y-m-d') }}"
+                                                placeholder="Date" name="date">
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" inputDiv">
+                                    {{-- <label class="fs-6 fw-bold mb-2"
+                                        style="bottom: 93px;background: white;z-index: 1;left: 7px;">
+                                        Take upload photos or documents
+                                    </label> --}}
+                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                        <div class="uploadingDiv">
+                                            <div class="uploadDiv">
+                                                <div class="input-images"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <div class="row"> --}}
+
+                                    {{--
+                                </div> --}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class=" mb-1" style="border: none">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2"
@@ -2237,31 +2277,10 @@
                                     <input type="text" name="namesign" class="form-control form-control-solid">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv">
-                                    <div class="d-flex inputDiv ipadissue mt-0" style="width:100%">
-                                        <div class="d-flex modalDiv ipadissue">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                Date :
-                                            </label>
-                                            <input type="date" class="form-control" value="{{ date('Y-m-d') }}"
-                                                placeholder="Date" name="date">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        Take upload photos or documents
-                                    </label>
-                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                        <div class="uploadingDiv">
-                                            <div class="uploadDiv" style="padding-left: 10px;">
-                                                <div class="input-images"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="col-md-6" style="display: flex; justify-content:flex-end; align-items:flex-end">
+                                <div class="">
+                                    <button type="submit" class="btn btn-primary"
+                                        style="margin-right: 22px; border-radius:5px">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -2301,11 +2320,9 @@
                         </div> -->
                     </div>
 
-                    <div class="row"></div>
-                    <div class="col-md-10"></div>
-                    <div class="col-md-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                    {{-- <div class="row"></div>
+                    <div class="col-md-10"></div> --}}
+
                 </form>
             </div>
         </div>

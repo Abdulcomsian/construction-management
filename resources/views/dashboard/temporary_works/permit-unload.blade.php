@@ -651,8 +651,7 @@
                                     <div style="display:flex; align-items: center; padding-left:10px">
                                         <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
                                             style="width: 12px;">
-                                        <input type="hidden" id="Drawtype" name="Drawtype"
-                                            class="form-control form-control-solid" value="0">
+                                        <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
                                         <span
                                             style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                     </div>

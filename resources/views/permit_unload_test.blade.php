@@ -417,8 +417,8 @@
 
                         <div class="row" id="second_member">
                             <div class="col" style="flex:100% !important;">
-                                <div class="d-flex inputDiv">
-                                </div>
+                                {{-- <div class="d-flex inputDiv">
+                                </div> --}}
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->

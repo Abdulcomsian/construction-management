@@ -183,43 +183,50 @@
     }
 
     .form-select.form-select-solid {
-    background-color: #fff;
-    color: #fff;
-    border: none;
+        background-color: #fff;
+        color: #fff;
+        border: none;
     }
-    input{
+
+    input {
         background-color: white;
     }
-    .form-control.form-control-solid{
+
+    .form-control.form-control-solid {
         background-color: white !important;
         padding: 5px;
     }
 
-    #permitform{
+    #permitform {
         font-family: 'Inter', sans-serif;
     }
 
-    .permitToLoadList li{
+    .permitToLoadList li {
         margin-bottom: 10px;
         color: #121826;
         font-size: 14px;
         font-weight: 400;
     }
 
-    #kt_content_container textarea{
+    #kt_content_container textarea {
         border: none;
         height: 32px;
     }
-    #twLocation,#strDescription{
+
+    #twLocation,
+    #strDescription {
         min-height: fit-content !important;
     }
-    #kt_post{
+
+    #kt_post {
         width: 75%;
     }
-    #kt_content_container{
+
+    #kt_content_container {
         background: white;
     }
-    #kt_content_container .card{
+
+    #kt_content_container .card {
         margin: 0;
     }
 </style>
@@ -254,7 +261,7 @@
                         value="{{$tempdata->designer_company_email ?? ''}}" readonly>
                     <input type="hidden" name="design_requirement_text"
                         value="{{$tempdata->design_requirement_text ?? ''}}" readonly="readonly">
-                    
+
                     <div class="row">
                         <div class="col-12">
                             <div class=" inputDiv d-block mb-0s">
@@ -316,42 +323,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex inputDiv d-block mb-0">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">TWS Name :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                        placeholder="TWS Name" id="tws_name" name="tws_name"
-                                        value="{{old('tws_name',auth()->user()->name)}}" required>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="d-flex inputDiv mb-0">
                                 <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            Date :
-                                        </label>
-                                        <input type="date" id="permit_date"
-                                            value="{{ date('Y-m-d') }}" class="form-control form-control-solid"
-                                            placeholder="Date" name="date" value="{{old('date')}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex inputDiv mb-0">
-                                <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">Permit No :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}"
-                                            readonly="readonly">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">TWS Name :</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWS Name"
+                                        id="tws_name" name="tws_name" value="{{old('tws_name',auth()->user()->name)}}"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -359,66 +338,96 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv mb-0">
-                                    <div class="modalDiv d-block ">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing Title :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Drawing Title" id="drawing_title" name="drawing_title"
-                                            value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}"
-                                            required>
-                                    </div>
+                                <div class="modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        Date :
+                                    </label>
+                                    <input type="date" id="permit_date" value="{{ date('Y-m-d') }}"
+                                        class="form-control form-control-solid" placeholder="Date" name="date"
+                                        value="{{old('date')}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                <div class="modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">Permit No :</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Permit No"
+                                        name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv mb-0">
+                                <div class="modalDiv d-block ">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">Drawing Title :</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="Drawing Title" id="drawing_title" name="drawing_title"
+                                        value="{{old('drawing_title',$_GET['drawingtitle'] ?? $latestuploadfile->drawing_title ?? '')}}"
+                                        required>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex inputDiv d-block mb-0">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">TWC Name :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid" placeholder="TWC Name"
-                                            id="twc_name" name="twc_name" value="{{old('twc_name',$tempdata->twc_name)}}"
-                                            required>
-                                        <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}"
-                                            readonly>
-                                    </div>
+                                <div class="modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">TWC Name :</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWC Name"
+                                        id="twc_name" name="twc_name" value="{{old('twc_name',$tempdata->twc_name)}}"
+                                        required>
+                                    <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}"
+                                        readonly>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                                <div class="d-flex inputDiv">
-                                    <div class="modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span>MS/RA Number</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no"
-                                            value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
-                                        <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
-                                    </div>
-                                </div>
                             <div class="d-flex inputDiv">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span>MS/RA Number</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no"
+                                        value="{{old('ms_ra_no',$_GET['rams_no'] ?? $tempdata->rams_no)}}">
+                                    <!-- <input type="text" class="form-control form-control-solid" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{old('tws_name')}}" required> -->
+                                </div>
+                            </div>
+                            <div class="d-flex inputDiv">
+                                <div class="modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                        style="top:-11px; height: fit-content;">
                                         Location of the Temporary Works:
                                     </label>
-                                    <textarea class="form-control" id="twLocation" name="location_temp_work" rows="2" style="width:100%;height: 41px"
+                                    <textarea class="form-control" id="twLocation" name="location_temp_work" rows="2"
+                                        style="width:100%;height: 41px"
                                         placeholder="Location of the Temporary Works:">{{old('location_temp_work')}}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex inputDiv">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                        style="top:-11px; height: fit-content;">
                                         Description of structure ready for use:
                                     </label>
-                                    <textarea class="form-control" id="strDescription" name="description_structure" rows="2"
-                                        style="width:100%;height: 41px"
+                                    <textarea class="form-control" id="strDescription" name="description_structure"
+                                        rows="2" style="width:100%;height: 41px"
                                         placeholder="Description of structure:">{{old('description_structure')}}</textarea>
                                 </div>
                             </div>
@@ -443,14 +452,14 @@
                                     <label style="border-radius: 3px">
                                         <input type="radio" class="btn-check" name="equipment_metrial" value="1"
                                             checked />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px">Y</span>
                                     </label>
                                     <label>
                                         <input type="radio" class="btn-check" name="equipment_metrial" value="2"
                                             disabled readonly />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px; background: #07D5640D;">N</span>
                                     </label>
                                 </div>
                                 <!--end::Radio group-->
@@ -471,16 +480,16 @@
                                     <!--begin::Option-->
                                     <label style="border-radius: 3px">
                                         <input type="radio" class="btn-check" name="Workmanship" value="1" checked />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
                                         <input type="radio" class="btn-check" name="Workmanship" value="2"
                                             disabled="disabled" readonly />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px; background: #07D5640D;">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -505,16 +514,16 @@
                                     <label style="border-radius: 3px">
                                         <input type="radio" class="btn-check" name="drawings_design" value="1"
                                             checked />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
                                         <input type="radio" class="btn-check" name="drawings_design" value="2" disabled
                                             readonly />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px; background: #07D5640D;">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -540,16 +549,16 @@
                                     <label style="border-radius: 3px">
                                         <input type="radio" class="btn-check" name="loading_limitations" value="1"
                                             checked />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
                                         <input type="radio" class="btn-check" name="loading_limitations" value="2"
                                             disabled readonly />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; background: #07D5640D;">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px; background: #07D5640D;">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -573,26 +582,26 @@
                                     <!--begin::Option-->
                                     <label style="border-radius: 3px">
                                         @if(isset($old))
-                                        <input type="radio" class="btn-check" name="works_coordinator" value="1"
-                                            {{ old('works_coordinator') == '1' ? 'checked' : '' }} />
+                                        <input type="radio" class="btn-check" name="works_coordinator" value="1" {{
+                                            old('works_coordinator')=='1' ? 'checked' : '' }} />
                                         @else
                                         <input type="radio" class="btn-check" name="works_coordinator" value="1" />
                                         @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; ">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px; ">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
                                         @if(isset($old))
-                                        <input type="radio" class="btn-check" name="works_coordinator" value="2"
-                                            {{ old('works_coordinator') == '2' ? 'checked' : '' }} />
+                                        <input type="radio" class="btn-check" name="works_coordinator" value="2" {{
+                                            old('works_coordinator')=='2' ? 'checked' : '' }} />
                                         @else
                                         <input type="radio" class="btn-check" name="works_coordinator" value="2"
                                             checked />
                                         @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4" style="border-radius: 3px">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4"
+                                            style="border-radius: 3px">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -624,25 +633,25 @@
                                     <!--begin::Option-->
                                     <label style="border-radius: 3px">
                                         @if(isset($old))
-                                        <input type="radio" class="btn-check" name="rate_rise" value="1"
-                                            {{ old('rate_rise') == '1' ? 'checked' : '' }} />
+                                        <input type="radio" class="btn-check" name="rate_rise" value="1" {{
+                                            old('rate_rise')=='1' ? 'checked' : '' }} />
                                         @else
                                         <input type="radio" class="btn-check" name="rate_rise" value="1" />
                                         @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px;">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px;">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
-                                    <label >
+                                    <label>
                                         @if(isset($old))
-                                        <input type="radio" class="btn-check" name="rate_rise" value="2"
-                                            {{ old('rate_rise') == '2' ? 'checked' : '' }} />
+                                        <input type="radio" class="btn-check" name="rate_rise" value="2" {{
+                                            old('rate_rise')=='2' ? 'checked' : '' }} />
                                         @else
                                         <input type="radio" class="btn-check" name="rate_rise" value="2" checked="" />
                                         @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4" style="border-radius: 3px">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4"
+                                            style="border-radius: 3px">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -673,26 +682,26 @@
                                     <label>
                                         @if(isset($old))
                                         <input type="radio" class="btn-check" name="construction_methodology" value="1"
-                                            {{ old('construction_methodology') == '1' ? 'checked' : '' }} />
+                                            {{ old('construction_methodology')=='1' ? 'checked' : '' }} />
                                         @else
                                         <input type="radio" class="btn-check" name="construction_methodology"
                                             value="1" />
                                         @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" style="border-radius: 3px; ">Y</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
+                                            style="border-radius: 3px; ">Y</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label>
                                         @if(isset($old))
                                         <input type="radio" class="btn-check" name="construction_methodology" value="2"
-                                            {{ old('construction_methodology') == '2' ? 'checked' : '' }} />
+                                            {{ old('construction_methodology')=='2' ? 'checked' : '' }} />
                                         @else
                                         <input type="radio" class="btn-check" name="construction_methodology" value="2"
                                             checked />
                                         @endif
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4" style="border-radius: 3px">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4"
+                                            style="border-radius: 3px">N</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
@@ -709,7 +718,8 @@
                                 </div>
                             </div>
                             <!--  -->
-                            <h5 style="color: #000; font-weight: 600; font-size: 24px; margin-top: 15px">Permit to Load / Use</h5>
+                            <h5 style="color: #000; font-weight: 600; font-size: 24px; margin-top: 15px">Permit to Load
+                                / Use</h5>
                             <br>
                             <ul style="color: #000;" class="permitToLoadList">
 
@@ -718,47 +728,48 @@
                                     conforms to the criteria given above.
                                 </li>
                                 <li>I consider that the temporary structure is ready to be loaded and put into use.</li>
-                                <li>I confirm that I am authorised to use a Permit to Load for this temporary structure.</li>
+                                <li>I confirm that I am authorised to use a Permit to Load for this temporary structure.
+                                </li>
                             </ul>
 
                             <!--end::Option-->
 
                             <div class="row ">
                                 <div class="col-md-6">
-                                        <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2"
-                                                style="width:fit-content; bottom: 25px">
-                                                <span>Approval via Email Required by the PCTWC</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="checkbox" name="approval" id="approval"
-                                                style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
-                                            <span class="tickboxalign" style="padding-left:3px;color:#000">Select if approval is required.</span>
-                                        </div>
+                                    <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2" style="width:fit-content; bottom: 25px">
+                                            <span>Approval via Email Required by the PCTWC</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="checkbox" name="approval" id="approval"
+                                            style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
+                                            approval is required.</span>
+                                    </div>
                                 </div>
-                            </div>      
+                            </div>
                             <div class="row">
-                                    <div class="col-md-6">
-                                        <div class=" inputDiv upload_signature_div mt-0">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width: fit-content; bottom:124px;">
-                                                Photo Upload
-                                            </label>
-                                            <!-- <div class="principleno"  style=""> -->
-                                            <div class=""  style="">
-                                                <!-- <div class="uploadingDiv"> -->
+                                <div class="col-md-6">
+                                    <div class=" inputDiv upload_signature_div mt-0">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                            style="width: fit-content; bottom:124px;">
+                                            Photo Upload
+                                        </label>
+                                        <!-- <div class="principleno"  style=""> -->
+                                        <div class="" style="">
+                                            <!-- <div class="uploadingDiv"> -->
+                                            <div class="">
+                                                <!-- <div class="uploadDiv"> -->
                                                 <div class="">
-                                                    <!-- <div class="uploadDiv"> -->
-                                                    <div class="">
-                                                        <!-- <div class="input-images"></div> -->
-                                                        <div class="input-images"></div>
-                                                    </div>
+                                                    <!-- <div class="input-images"></div> -->
+                                                    <div class="input-images"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                            </div>                          
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 inputDiv requiredDiv mt-0">
                                     <!--begin::Label-->
@@ -766,16 +777,18 @@
                                         <span class="required">Other approval required?</span>
                                     </label>
                                     <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid justify-content-end" style="background: white">
+                                    <div class="nav-group nav-group-fluid justify-content-end"
+                                        style="background: white">
                                         <!--begin::Option-->
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label style="position: initial; flex-grow: 0; background: white">
                                             @if(isset($old))
                                             <input type="radio" class="btn-check" name="principle_contractor" value="1"
-                                                {{ old('principle_contractor') == '1' ? 'checked' : '' }} />
+                                                {{ old('principle_contractor')=='1' ? 'checked' : '' }} />
                                             @else
-                                            <input type="radio" class="btn-check" name="principle_contractor" value="1" />
+                                            <input type="radio" class="btn-check" name="principle_contractor"
+                                                value="1" />
                                             @endif
                                             <span
                                                 class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
@@ -785,7 +798,7 @@
                                         <label style="position: initial; flex-grow: 0; background: white">
                                             @if(isset($old))
                                             <input type="radio" class="btn-check" name="principle_contractor" value="2"
-                                                {{ old('principle_contractor') == '2' ? 'checked' : '' }} />
+                                                {{ old('principle_contractor')=='2' ? 'checked' : '' }} />
                                             @else
                                             <input type="radio" class="btn-check" name="principle_contractor" value="2"
                                                 checked />
@@ -800,36 +813,75 @@
                                     <!--end::Radio group-->
                                 </div>
                             </div>
+
+
+
+
                             <div class="row">
                                 <div class="col-md-6" id="first_member" style="display: none">
-                                        <!-- <div class="d-flex inputDiv d-block">
+                                    <!-- <div class="d-flex inputDiv d-block">
                                         </div> -->
-                                        <div class="d-flex inputDiv principleno mt-0">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2" style="">
-                                                <span class="required">Name:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid"
-                                                placeholder="Name" id="name1" name="name1"
-                                                value="{{old('name1', Auth::user()->name ?? '')}}"
-                                                style="color:#5e6278">
+                                    <div class="d-flex inputDiv principleno mt-0">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2" style="">
+                                            <span class="required">Name:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" class="form-control form-control-solid" placeholder="Name"
+                                            id="name1" name="name1" value="{{old('name1', Auth::user()->name ?? '')}}"
+                                            style="color:#5e6278">
+                                    </div>
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">Job Title:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" class="form-control form-control-solid"
+                                            placeholder="Job Title" id="job_title1" name="job_title1"
+                                            value="{{old('job_title1', Auth::user()->job_title ?? '')}}">
+                                    </div>
+
+
+                                    <div class="d-flex inputDiv" style="border: none">
+                                        <label class="fs-6 fw-bold mb-2"
+                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                            <span class="signatureTitle">Signature Type:</span>
+                                        </label>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true
+                                                style="width: 12px;">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
-                                        <div class="d-flex inputDiv principleno">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">
-                                                <span class="required">Job Title:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid"
-                                                placeholder="Job Title" id="job_title1" name="job_title1"
-                                                value="{{old('job_title1', Auth::user()->job_title ?? '')}}">
+                                        <!--end::Label-->
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
+                                            <input type="hidden" id="signtype1" name="signtype1"
+                                                class="form-control form-control-solid" value="2">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
                                         </div>
+                                        &nbsp;
+                                        <!--end::Label-->
+                                        {{-- <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
+                                            <input type="hidden" id="pdfsign1" name="pdfsign1"
+                                                class="form-control form-control-solid" value="0">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
+                                                Upload </span>
+                                        </div> --}}
+
+                                    </div>
+
+
+                                    {{-- //old COde --}}
 
                                     <div class="col-md-12">
-                                        <div class="d-flex inputDiv" style="">
-                                            <label class="fs-6 fw-bold mb-2"
-                                                style="">
+                                        {{-- <div class="d-flex inputDiv" style="">
+                                            <label class="fs-6 fw-bold mb-2" style="">
                                                 <span>Name/signature:</span>
                                             </label>
                                             <input type="checkbox" id="flexCheckChecked1"
@@ -838,7 +890,7 @@
                                                 class="form-control form-control-solid" value="0">
                                             <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
                                                 name signature?</span>
-                                        </div>
+                                        </div> --}}
                                         <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Name Signature:</span>
@@ -847,75 +899,76 @@
                                                 class="form-control form-control-solid">
                                         </div>
 
-                                        <div class="d-flex inputDiv principleno" id="sign1" style="">
-                                            <label style="width:33%"
+                                        <div class="d-flex inputDiv principleno" id="sign1"
+                                            style="border:none !important;">
+                                            {{-- <label style="width:33%"
                                                 class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
-                                            </label>
+                                            </label> --}}
                                             <br />
-                                            <canvas id="sig1"></canvas>
+                                            <canvas id="sig1" style="border-radius: 9px"></canvas>
                                         </div>
-                                        <div class="d-flex inputDiv principleno" id="sign1" style=" display: none !important">
+                                        <div class="d-flex inputDiv principleno" id="sign1"
+                                            style=" display: none !important">
                                             <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Second person -->
                                 <div class="col-md-6" id="second_member">
-                                        <!-- <div class="d-flex inputDiv">
+                                    <!-- <div class="d-flex inputDiv">
                                         </div> -->
-                                        <div class="d-flex inputDiv principleno mt-0">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="text" class="form-control form-control-solid"
-                                                    placeholder="Name" id="name2" name="name"
-                                                    value="{{old('name',  Auth::user()->name ?? '')}}">
-                                            </div>
+                                    <div class="d-flex inputDiv principleno mt-0">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Name" id="name2" name="name"
+                                                value="{{old('name',  Auth::user()->name ?? '')}}">
                                         </div>
-                                        <div class="d-flex inputDiv principleno">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Job Title:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="text" class="form-control form-control-solid"
-                                                    placeholder="Job Title" id="job_title" name="job_title"
-                                                    value="{{old('job_title',Auth::user()->job_title ?? '')}}">
-                                            </div>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Job Title:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Job Title" id="job_title" name="job_title"
+                                                value="{{old('job_title',Auth::user()->job_title ?? '')}}">
                                         </div>
-                                        <div class="d-flex inputDiv ">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Company: </span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="text" id="companyadmin"
-                                                    class="form-control form-control-solid" placeholder="Company"
-                                                    name="company" value="{{$project->company->name ?? ''}}"
-                                                    readonly="readonly">
-                                                <input type="hidden" id="companyid"
-                                                    class="form-control form-control-solid" placeholder="Company"
-                                                    name="companyid" value="{{$project->company->id ?? ''}}"
-                                                    readonly="readonly">
-                                            </div>
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Company: </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
+                                                placeholder="Company" name="company"
+                                                value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                            <input type="hidden" id="companyid" class="form-control form-control-solid"
+                                                placeholder="Company" name="companyid"
+                                                value="{{$project->company->id ?? ''}}" readonly="readonly">
                                         </div>
-                                        <div class="d-flex inputDiv ">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                                <span class="required">Date:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="date" style="background-color:#f5f8fa"
-                                                    value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
-                                            </div>
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                            <span class="required">Date:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="date" style="background-color:#f5f8fa"
+                                                value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                         </div>
+                                    </div>
                                     <div class="col">
                                         <!-- Approval div -->
                                         <div class="d-none inputDiv pc-twc">
@@ -929,45 +982,56 @@
                                                 name="pc_twc_email" id="pc-twc-email" placeholder="Email"
                                                 value="{{old('pc-twc-email')}}">
                                         </div>
-                                        
+
                                         <div class="d-flex inputDiv" style="border: none">
                                             <label class="fs-6 fw-bold mb-2"
-                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                                style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
                                                 <span class="signatureTitle">Signature Type:</span>
                                             </label>
                                             <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="radio" class="checkbox-field" id="DrawCheck" checked=true  style="width: 12px;">
-                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                                <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                                    style="width: 12px;">
+                                                <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                                <span
+                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                             </div>
                                             <!--end::Label-->
                                             <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="radio" class="" id="flexCheckChecked"  style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                                <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                                <input type="hidden" id="signtype" name="signtype"
+                                                    class="form-control form-control-solid" value="2">
+                                                <span
+                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
                                             </div>
                                             &nbsp;
                                             <!--end::Label-->
                                             <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input  type="radio" class="" id="pdfChecked"  style="width: 12px;">
-                                            <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG Upload </span>
-                                        </div>
+                                                <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                                <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                                    class="form-control form-control-solid" value="0">
+                                                <span
+                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
+                                                    Upload </span>
+                                            </div>
 
                                         </div>
-                                        <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                        <div class="d-flex inputDiv my-0" id="sign"
+                                            style="align-items: center;border:none">
                                             <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
                                             </label>
                                             <br/> -->
-                                            <canvas id="sig" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
-                                            <br/>
+                                            <canvas id="sig" onblure="draw()"
+                                                style="background: lightgray; border-radius:10px"></canvas>
+                                            <br />
                                             <!-- <textarea id="signature" name="signed" style="display: none"></textarea> -->
-                                            <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                            <span id="clear" class="fa fa-undo cursor-pointer"
+                                                style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                         </div>
                                         <div class="inputDiv d-none" id="pdfsign">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Upload Signature:<br>Allowed format (PNG, JPG)</span>
+                                                <span class="required">Upload Signature:<br>Allowed format (PNG,
+                                                    JPG)</span>
                                             </label>
                                             <input type="file" name="pdfphoto" class="form-control" accept="image/*">
                                         </div>
@@ -999,13 +1063,13 @@
 
                                             </div>
                                         </div> -->
-                                        
+
                                     </div>
                                 </div>
                             </div>
                             <br>
                             <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
-                            <div class="d-flex inputDiv principleno"  style="display: none !important">
+                            <div class="d-flex inputDiv principleno" style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                             </div>
 
@@ -1068,7 +1132,39 @@
             $("#clear").show();
             $("div#pdfsign").removeClass('d-flex').addClass("d-none");
             $("div#namesign").removeClass('d-flex').addClass("d-none");
-            $("#sign").css('display','block');
+            $("#sign").css('display','flex');
+            $("#sign").removeClass('d-none');
+           
+        }
+        // else{
+        //     $("#signtype").val(2);
+        //     $("#sign").addClass('d-flex').show();
+        //     $("#namesign").removeClass('d-flex').hide();
+        //     $("input[name='namesign']").removeAttr('required');
+        //     $("#clear").show();
+        //     $(".customSubmitButton").addClass("hideBtn");
+        //     $(".customSubmitButton").removeClass("showBtn");
+        // }
+    })
+    $("#DrawCheck1").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked1").prop('checked',false);
+            $("#flexCheckChecked1").prop('checked',false);
+            $("#signtype").val(0);
+             $("#pdfsign").val(0);
+             $("#Drawtype").val(1);
+            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            // $(".customSubmitButton").removeClass("hideBtn");
+            // $(".customSubmitButton").addClass("showBtn");
+            //  $("input[name='pdfsign']").removeAttr('required');
+            // $("input[name='namesign']").attr('required','required');
+            $("#clear").show();
+            $("div#pdfsign1").removeClass('d-flex').addClass("d-none");
+            $("div#namesign1").removeClass('d-flex').addClass("d-none");
+            $("#sign1").css('display','block');
+            $("#sign1").removeClass('d-none');
            
         }
         // else{
@@ -1109,6 +1205,7 @@
             $(".customSubmitButton").removeClass("showBtn");
         }
     })
+    
 
     $("#pdfChecked").change(function(){
 
@@ -1122,6 +1219,35 @@
             $("input[name='pdfsign']").attr('required','required');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
             $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
+        }
+    })
+    $("#pdfChecked1").change(function(){
+
+        if($(this).is(':checked'))
+        {
+            $("#DrawCheck1").prop('checked',false);
+            $("#flexCheckChecked1").prop('checked',false);
+            // $("#pdfsign").val(1);
+            // $("#signtype").val(0);
+            // $("#Drawtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#sign1").removeClass('d-flex').addClass('d-none');
+            $("#namesign1").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
@@ -1163,8 +1289,11 @@
 
     $("#flexCheckChecked1").change(function () {
         if ($(this).is(':checked')) {
+            $("#DrawCheck1").prop('checked',false);
             $("#signtype1").val(1);
             $("#namesign1").addClass('d-flex').show();
+            $("#namesign1").removeClass('d-none');
+            $("#namesign1").css('display', 'block');
             $("input[name='namesign1']").attr('required', 'required');
             $("#signature1").removeAttr('required', 'required');
             $("#clear1").hide();

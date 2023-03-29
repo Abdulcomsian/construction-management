@@ -406,8 +406,7 @@ input:focus {
 }*/
 #submitbutton {
     position: relative;
-  
-  
+    left: 86%;
 }
 
 .formDiv {
@@ -443,9 +442,9 @@ input:focus {
 }
 
 @media screen and (min-width: 1800px) {
-    .unload_Permit #submitbutton {
+    /* .unload_Permit #submitbutton {
         right: 71.9%;
-    }
+    } */
 
     /* .temporary_work_create #submitbutton {
         right: 24% !important;
@@ -457,9 +456,9 @@ input:focus {
 }
 
 @media screen and (max-width: 1800px) {
-    .unload_Permit #submitbutton {
+    /* .unload_Permit #submitbutton {
         right: 70.9%;
-    }
+    } */
 
     /* #submitbutton {
         right: 75.9%;
@@ -707,7 +706,7 @@ input:focus {
     }
 
     #scaffolding .inputDiv label {
-        width: 50% !important;
+        width: fit-content;
     }
 
     .signatureDiv {
@@ -1032,9 +1031,9 @@ table th {
     top: 186px; */
 }
 
-.unload_Permit #submitbutton {
+/* .unload_Permit #submitbutton {
     left: 22%;
-}
+} */
 
 /*notification css*/
 .notification-ui a:after {
@@ -1177,13 +1176,14 @@ label {
 }
 
 textarea::placeholder {
-    color: #a9abb7 !important
-  }
+    color: #a9abb7 !important;
+}
 
-  textarea:-moz-placeholder, /* Firefox 18- */
+textarea:-moz-placeholder, /* Firefox 18- */
 textarea::-moz-placeholder, /* Firefox 19+ */
 textarea:-ms-input-placeholder, /* IE 10+ */
 textarea::-webkit-input-placeholder, /* Webkit based */
-textarea::placeholder { /* Modern browsers */
-  color: #a9abb7 !important;  
+textarea::placeholder {
+    /* Modern browsers */
+    color: #a9abb7 !important;
 }

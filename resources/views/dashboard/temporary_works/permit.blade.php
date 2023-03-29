@@ -186,6 +186,7 @@
         background-color: #fff;
         color: #fff;
         border: none;
+        height: 32px;
     }
 
     input {
@@ -229,6 +230,56 @@
     #kt_content_container .card {
         margin: 0;
     }
+
+    .otherApproval {
+        width: 48%;
+    }
+
+    #kt_content_container .card-title h2 {
+        font-weight: 600;
+        font-size: 32px;
+    }
+
+    @media screen and (max-width: 768px) {
+
+        #projectNo {
+            margin-top: 0 !important;
+            margin-bottom: 30px !important;
+        }
+
+        /* #kt_post {
+            margin: auto;
+        } */
+
+        .otherApproval {
+            width: 97%;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        #kt_post {
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        #kt_post {
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 960px) {
+        #kt_post {
+            margin: auto;
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 670px) {
+        #kt_post {
+            width: 100%;
+        }
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
@@ -265,7 +316,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class=" inputDiv d-block mb-0s">
-                                <label class="fs-6 fw-bold mb-2" style="bottom: 40px">
+                                <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
                                     <span class="required">Select Project:</span>
                                 </label>
                                 <select name="project_id" id="projects"
@@ -280,7 +331,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block m-0">
+                            <div class="d-flex inputDiv d-block m-0" id="projectNo">
                                 <div class="modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -306,6 +357,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv d-block mb-0">
@@ -771,14 +823,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 inputDiv requiredDiv mt-0">
+                                <div class="col-md-6 inputDiv requiredDiv mt-0 otherApproval" style="margin-left:7px; ">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" style="bottom: 37px">
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
                                         <span class="required">Other approval required?</span>
                                     </label>
                                     <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid justify-content-end"
-                                        style="background: white">
+                                    <div class=" justify-content-end"
+                                        style="position:relative; left:80%; background: white; height: 32px; padding:0;width : fit-content">
                                         <!--begin::Option-->
                                         <!--end::Option-->
                                         <!--begin::Option-->
@@ -1068,11 +1120,15 @@
                                 </div>
                             </div>
                             <br>
-                            <button id="submitbutton" type="button" class="btn btn-primary float-end">Submit</button>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button id="submitbutton" type="button" class="btn btn-primary ">Submit</button>
                             <div class="d-flex inputDiv principleno" style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                             </div>
-
                         </div>
                     </div>
                 </form>

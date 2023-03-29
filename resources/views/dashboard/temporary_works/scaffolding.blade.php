@@ -223,6 +223,37 @@
         min-height: 8.4rem !important;
         border-radius: 8px;
     }
+
+    @media screen and (max-width: 576px) {
+        #kt_post {
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        #kt_post {
+            width: auto;
+        }
+
+
+    }
+
+    @media screen and (max-width: 960px) {
+        #kt_post {
+            margin: auto;
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 670px) {
+        #kt_post {
+            width: 100%;
+        }
+
+        .listTitle {
+            margin-bottom: 10px
+        }
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
@@ -236,7 +267,7 @@
             <div class="card-header border-0 pt-6 mb-6">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    <h2>Scaffolding Inspection / Permit to Load33</h2>
+                    <h2>Scaffolding Inspection / Permit to Load</h2>
 
                 </div>
                 <!--begin::Card toolbar-->
@@ -450,8 +481,9 @@
                             </div>
 
                             <div class="col-md-12 mt-20">
-                                <div class="">
-                                    <div class="d-flex justify-content-between">
+                                <div class="mb-5">
+                                    <div class="d-flex justify-content-between"
+                                        style="align-items: center; margin-bottom:5px">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold">
                                             <span class="required">Equipment & materials used as specified & fit for
@@ -485,8 +517,9 @@
                                             class="form-control"></textarea>
                                     </div>
                                 </div>
-                                <div class="">
-                                    <div class="d-flex justify-content-between">
+                                <div class="mb-5">
+                                    <div class="d-flex justify-content-between"
+                                        style="align-items: center; margin-bottom:5px">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold">
                                             <span class="required">Workmanship checked </span>
@@ -520,8 +553,9 @@
 
                                 </div>
 
-                                <div class="">
-                                    <div class="d-flex justify-content-between">
+                                <div class="mb-5">
+                                    <div class="d-flex justify-content-between"
+                                        style="align-items: center; margin-bottom:5px">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold ">
                                             <span class="required">TW checked against drawings / design output</span>
@@ -560,9 +594,10 @@
                                     </div>
                                 </div>
 
-                                <div class="">
+                                <div class="mb-5">
                                     <!--begin::Label-->
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between"
+                                        style="align-items: center; margin-bottom:5px">
                                         <label class="fs-6 fw-bold">
                                             <span class="required">Loading / use limitations understood(e.g. sequence of
                                                 loading, access/plant loading)</span>
@@ -1996,7 +2031,7 @@
                                     </div>
                                     <!--end::Radio group-->
                                 </div>
-                                
+
                                 <!-- <div style="margin-left: 10px; text-align:center;">
                                     <input type="file" class="d-none form-control" name="other_image" id="other_image">
                                 </div> -->
@@ -2068,8 +2103,8 @@
                         <div class="row" style="margin:20px 0">
                             <div class="col-md-12">
                                 <div class="zeromargin" style="margin-top: 8px; ">
-                                        <textarea class="d-none  form-control" placeholder="Please Specify"
-                                            name="other_comment" rows="2" cols="90"></textarea>
+                                    <textarea class="d-none  form-control" placeholder="Please Specify"
+                                        name="other_comment" rows="2" cols="90"></textarea>
                                 </div>
                             </div>
                         </div>

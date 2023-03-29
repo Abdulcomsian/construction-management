@@ -202,7 +202,7 @@
                 <div class=' d-flex col-md-6'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100 active" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false" tabindex="-1">Owner</button>
+                            <button class="nav-link tab btn btn_outline w-100 active" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false" tabindex="-1">Queries</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="signup" aria-selected="true">Drawing Info</button>

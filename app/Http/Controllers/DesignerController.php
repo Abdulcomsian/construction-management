@@ -381,7 +381,7 @@ class DesignerController extends Controller
                 ];
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                toastSuccess('Desinger Uploaded Successfully!');
+                toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();
             }
         } catch (\Exception $exception) {

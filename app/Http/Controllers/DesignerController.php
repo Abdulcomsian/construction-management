@@ -1182,7 +1182,7 @@ class DesignerController extends Controller
    {
      $id=$request->id;
      $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
-     $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+    //  $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
      $tempdata=TemporaryWork::find($tempworkid->temporary_work_id);
      
       if($tempdata->desinger_email_2)
@@ -1192,7 +1192,7 @@ class DesignerController extends Controller
         if($exist>0)
         {
             Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
-             toastSuccess('Drawing Already Shared!');
+             toastSuccess('Drawing Shared Again!');
              return Redirect::back();
         }
         else{
@@ -1201,7 +1201,7 @@ class DesignerController extends Controller
             $newmodel->created_by=$tempdata->desinger_email_2;
             $newmodel->share_id=$id;
            $newmodel->save();
-            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
+            Notification::route('mail',$tempdata)->notify(new ShareDrawingNotification($id));
             toastSuccess('Drawing Share Successfully!');
             return Redirect::back();
         } 

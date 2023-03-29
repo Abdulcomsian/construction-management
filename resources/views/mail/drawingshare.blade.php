@@ -28,8 +28,9 @@
                                                                     </h3>
                                                                 
                                                                     <h5>
-                                                                        The Drawomg for ({{$drawings->drawing_title}})  has been shared with you 
+                                                                        The Drawing for ({{$drawings->drawing_title}})  has been shared with you 
                                                                     </h5>
+                                                                    <!-- <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempdata->id).'/?mail='.$tempdata->desinger_email_2)}}">View and Upload Design</a> -->
                                                                     <a style="text-decoration: none" href="{{asset('pdf'.'/'.$tempdata->ped_url)}}">Design Brief - {{$tempdata->twc_id_no}}</a><br>
                                                                     <h4>Drawing Title</h4>
                                                                     <p>{{$drawings->drawing_title}}</p>

@@ -1182,25 +1182,57 @@ class DesignerController extends Controller
    {
      $id=$request->id;
      $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
-     $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+     //$tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+     $tempdata=TemporaryWork::find($tempworkid->temporary_work_id);
+     
       if($tempdata->desinger_email_2)
      {
-        $exist=TempWorkUploadFiles::where(['share_id'=> $id,'created_by'=>$tempdata->desinger_email_2])->count();
-        if($exist>0)
-        {
-             toastSuccess('Drawing Already Shared!');
-             return Redirect::back();
-        }
-        else{
-            $model= TempWorkUploadFiles::find($id);
-            $newmodel=$model->replicate();
-            $newmodel->created_by=$tempdata->desinger_email_2;
-            $newmodel->share_id=$id;
-           $newmodel->save();
-            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
+        //commenting code that was earlier work as per clients requirement, it was written by obaid
+        // $exist=TempWorkUploadFiles::where(['share_id'=> $id,'created_by'=>$tempdata->desinger_email_2])->count();
+        // if($exist>0)
+        // {
+        //      toastSuccess('Drawing Already Shared!');
+        //      return Redirect::back();
+        // }
+        // else{
+        //     $model= TempWorkUploadFiles::find($id);
+        //     $newmodel=$model->replicate();
+        //     $newmodel->created_by=$tempdata->desinger_email_2;
+        //     $newmodel->share_id=$id;
+        //    $newmodel->save();
+        //     Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
+        //     toastSuccess('Drawing Share Successfully!');
+        //     return Redirect::back();
+        // } 
+
+        $notify_admins_msg = [
+            'greeting' => 'Temporary Work Pdf',
+            'subject' => 'TWP – Design Brief Review -'.$tempdata->projname . '-' .$tempdata->projno,
+            'body' => [
+                'company' => $tempdata->company,
+                'filename' => $tempdata->ped_url,
+                'links' => '',
+                'name' =>  $tempdata->design_requirement_text . '-' . $tempdata->twc_id_no,
+                'designer' => '',
+                'pc_twc' => '',
+
+            ],
+            'thanks_text' => 'Thanks For Using our site',
+            'action_text' => '',
+            'action_url' => '',
+        ];
+       
+            $notify_admins_msg['body']['designer'] = 'designer1';
+            $cmh= new ChangeEmailHistory();
+            $cmh->email=$tempdata->desinger_email_2;
+            $cmh->type ='Designer Checker';
+            $cmh->foreign_idd=$tempdata->id;
+            $cmh->message='Email send to Designer Checker';
+            $cmh->save();
+            Notification::route('mail', $tempdata->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $tempdata->id, $tempdata->desinger_email_2));
             toastSuccess('Drawing Share Successfully!');
             return Redirect::back();
-        } 
+        // dd($notify_admins_msg);
      }
      else{
         toastSuccess('Design Chcecker Not found!!!');

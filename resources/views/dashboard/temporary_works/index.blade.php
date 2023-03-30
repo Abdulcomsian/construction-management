@@ -999,7 +999,7 @@
                                                        }
                                                        }
                                                        @endphp
-                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:100%;text-align:center;" data-id="{{$item->id}}">
+                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;" data-id="{{$item->id}}">
                                                            <!-- <span class="fa fa-plus"></span> -->
                                                             Comment
                                                             <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;color:{{$color}} !important;" data-id="{{$item->id}}">
@@ -2277,7 +2277,7 @@
                                                        }
                                                        }
                                                        @endphp
-                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:100%;text-align:center;" data-id="{{$item->id}}">
+                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;" data-id="{{$item->id}}">
                                                            <!-- <span class="fa fa-plus"></span> -->
                                                             Comment
                                                             <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;color:{{$color}} !important;" data-id="{{$item->id}}">

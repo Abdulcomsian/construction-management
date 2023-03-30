@@ -267,16 +267,28 @@ height: 72px;
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">TW ID No:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="text" class="blackBack form-control form-control-solid" placeholder="Twc Id No" id="twc_id_no" name="twc_id_no"  value="{{old('twc_id_no')}}" required>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        
+                        <div class="row">
+                        <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project Name:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
                                 </div>
                             </div>
-                        </div>
-                        
-                        
-                        <div class="row">
                         <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
@@ -288,17 +300,7 @@ height: 72px;
                                     <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2">
-                                        <span class="required">TW ID No:</span>
-
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="text" class="blackBack form-control form-control-solid" placeholder="Twc Id No" id="twc_id_no" name="twc_id_no"  value="{{old('twc_id_no')}}" required>
-                                </div>
-                            </div>
+                            
                             
                             
                         </div>
@@ -315,126 +317,32 @@ height: 72px;
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2" >
-                                        <span class="">Upload Drawings and Design:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="file" class="whiteBack form-control form-control-solid" id="drawing" name="drawing" style="padding: 20px 0 0 27px;">
+                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
+                                        <!--begin::Label-->
+                                         <label style="" class="required  fs-6 fw-bold mb-2">
+                                           Design Requirement:
+                                        </label>
+                                        <br>
+                                        <input type="text" class="blackBack"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}" required>
+                                        <!--end::Label-->
+                                    </div>
                                 </div>
                             </div>
-                            
-                            
 
-                           
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                        <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Drawing Title:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
+                                    <div class="d-flex modalDiv">
+                                        <!--begin::Label-->
+                                             <label class="required  fs-6 fw-bold mb-2" style="top: -12px; height: fit-content ">
+                                              Description:
+                                            </label>
+                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="height: 43px;border-radius: 7px;padding: 8px 0 0 17px;"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Drawing Number:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number"  value="{{old('drawing_number')}}">
-                                </div>
-                            </div>
-                           
-                        </div>
-                        <div class="row">
-                            
-                             <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Design Issued Date:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="date" class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Design Required by Date:</span>
-                                    </label>
-                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Upload Design Check Certificate:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input  type="file" class="whiteBack form-control form-control-solid" id="dcc" name="dcc" style="padding: 20px 0 0 27px;">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Date Design Returned:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date"  class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}" required="required" >
-                                    <!-- </p> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Company Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid"   placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Company: </span>
-                                    </label>
-                                    <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Date DCC Returned:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
-                                    <!-- </p> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
+
                             <div class="col-md-6">
                                 <div class="d-flex TWCatagory" style="position: relative;border: 1px solid lightgray;border-radius: 7px;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
@@ -472,17 +380,9 @@ height: 72px;
                                     <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
-</div>
-<div class="col-md-6">
-                                <div class="inputDiv d-none desinger_company_name2 mb-0" style="margin-top: 30px">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Design Checker Email:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
-                                </div>
                             </div>
+                            
+
                             <div class="col-md-6">
                                 <div class="d-flex TWRisk" style="position: relative;border: 1px solid lightgray;border-radius: 7px;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
@@ -519,35 +419,161 @@ height: 72px;
                                     <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
+
+                                
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="inputDiv d-none desinger_company_name2 mb-0" id="desinger_company_name2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Design Checker Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid "
+                                        placeholder="Design Checker Company Name" id="desinger_company_name2"
+                                        name="desinger_company_name2" value="{{old('desinger_company_name2')}}"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="inputDiv d-none desinger_company_name2 mb-0" style="margin-top: 30px">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Design Checker Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
+                                </div>
                             </div>
                         </div>
-                          
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
-                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
-                                        <!--begin::Label-->
-                                         <label style="" class="required  fs-6 fw-bold mb-2">
-                                           Design Requirement:
-                                        </label>
-                                        <br>
-                                        <input type="text" class="blackBack"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}" required>
-                                        <!--end::Label-->
-                                    </div>
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="required">Designer Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid"   placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="row">
+                           
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Drawing Title:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Drawing Number:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number"  value="{{old('drawing_number')}}">
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            
+                            
+                             <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Design Issued Date:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="date" class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
-                                    <div class="d-flex modalDiv">
-                                        <!--begin::Label-->
-                                             <label class="required  fs-6 fw-bold mb-2" style="top: -12px; height: fit-content ">
-                                              Description:
-                                            </label>
-                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="height: 43px;border-radius: 7px;padding: 8px 0 0 17px;"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
-                                    </div>
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="required">Design Required by Date:</span>
+                                    </label>
+                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="required">Date Design Returned:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
+                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date"  class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}" required="required" >
+                                    <!-- </p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Upload Design Check Certificate:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="whiteBack form-control form-control-solid" id="dcc" name="dcc" style="padding: 20px 0 0 27px;">
+                                </div>
+                            </div> 
+                           
+
+
+                           
+                        </div>
+                        <!-- <div class="row">
+                            
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                  
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="required">Company: </span>
+                                    </label>
+                              
+                                     <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company"  required>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Date DCC Returned:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
+                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
+                                    <!-- </p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2" >
+                                        <span class="">Upload Drawings and Design:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input  type="file" class="whiteBack form-control form-control-solid" id="drawing" name="drawing" style="padding: 20px 0 0 27px;">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                         
                           <!--begin::Modal - Design Requirement-->
                         
                         <!--end::Modal - Design Requirement -->

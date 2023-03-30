@@ -220,6 +220,10 @@
     .TWCatagory label {
         margin-bottom: 0;
     }
+
+    .nav-group.nav-group-fluid>label {
+        padding: 0px !important;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -407,9 +411,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 d-flex">
                                 <div class="d-flex TWCatagory"
-                                    style="position: relative;border: 1px solid lightgray;border-radius: 7px;width: 100%;margin-top: 24px;align-items: center">
+                                    style="position: relative;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2"
                                         style="position: absolute; bottom: 32px; background: white;">
@@ -451,15 +455,11 @@
                                     </div>
                                     <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info"
                                                 src="{{asset('assets/media/logos/info.png')}}"
-                                                style="height:32px"></span></a>
+                                                style="height:20px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
-                            </div>
-
-
-                            <div class="col-md-6">
                                 <div class="d-flex TWRisk"
-                                    style="position: relative;border: 1px solid lightgray;border-radius: 7px;width: 100%;margin-top: 24px;align-items: center">
+                                    style="position: relative;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2"
                                         style="position: absolute; bottom: 32px; background: white;">
@@ -500,13 +500,11 @@
                                     </div>
                                     <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info"
                                                 src="{{asset('assets/media/logos/info.png')}}"
-                                                style="height:32px"></span></a>
+                                                style="height:20px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
 
-
                             </div>
-
                             <div class="col-md-6">
                                 <div class="inputDiv d-none desinger_company_name2 mb-0" id="desinger_company_name2">
                                     <!--begin::Label-->

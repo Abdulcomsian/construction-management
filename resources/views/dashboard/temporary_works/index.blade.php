@@ -999,7 +999,7 @@
                                                        }
                                                        }
                                                        @endphp
-                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:100%;text-align:center;" data-id="{{$item->id}}">
+                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;" data-id="{{$item->id}}">
                                                            <!-- <span class="fa fa-plus"></span> -->
                                                             Comment
                                                             <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;color:{{$color}} !important;" data-id="{{$item->id}}">
@@ -1167,8 +1167,20 @@
                                             <div class="row">
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
                                                 <div class="d-flex col-sm-6" id="ptu" style="column-gap: 1rem;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
+                                                    </div>
+                                                    
+                                                
+                                                    <div style="padding: 4px; border-radius: 4px;width: 20px; height:20px;position:relative;bottom:5px;left:-6px;">
+                                                        <span style="width: 108px;">
+                                                            @if(count($item->unloadpermits)>0)
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
+                                                            @else
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                            @endif
+                                                            </span>
+                                                        </span>
                                                     </div>
                                                     
                                                 </div>
@@ -1784,17 +1796,23 @@
                                             <div class="row">
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
                                                 <div class="d-flex col-sm-6" id="ptu" style="column-gap: 1rem;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
                                                     </div>
                                                     
-                                                </div>
-
-
-
                                                 
-
-                                                
+                                                    <div style="padding: 4px; border-radius: 4px;width: 20px; height:20px;position:relative;bottom:5px;left:-6px;">
+                                                        <span style="width: 108px;">
+                                                            @if(count($item->unloadpermits)>0)
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
+                                                            @else
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                            @endif
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    
+                                             </div>
                                                 
                                             </div>
                                             </div>
@@ -2034,18 +2052,24 @@
                                             <div>
                                             <div class="row">
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
-                                                <div class="d-flex col-sm-6" id="ptu" style="column-gap: 1rem;padding-left:3px;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                <div class="d-flex col-sm-6" id="ptu" style="column-gap: 1rem;margin-left:-7px;">
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
                                                     </div>
                                                     
-                                                </div>
-
-
-
                                                 
-
-                                                
+                                                    <div style="padding: 4px; border-radius: 4px;width: 20px; height:20px;position:relative;bottom:5px;left:-6px;">
+                                                        <span style="width: 108px;">
+                                                            @if(count($item->unloadpermits)>0)
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
+                                                            @else
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                            @endif
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    
+                                             </div>
                                                 
                                             </div>
                                             </div>
@@ -2253,7 +2277,7 @@
                                                        }
                                                        }
                                                        @endphp
-                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:100%;text-align:center;" data-id="{{$item->id}}">
+                                                   <p class="addcomment cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;" data-id="{{$item->id}}">
                                                            <!-- <span class="fa fa-plus"></span> -->
                                                             Comment
                                                             <span class="addcomment cursor-pointer" style="border-radius:5px;width: 108px;color:{{$color}} !important;" data-id="{{$item->id}}">
@@ -2424,18 +2448,23 @@
                                             <div class="row">
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
                                                 <div class="d-flex col-sm-6" id="ptu" style="column-gap: 1rem;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height: 20px">
-                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-eye" title="Upload Drawings"></span></p>
+                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                    <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
                                                     </div>
                                                     
-                                                </div>
-
-
-
                                                 
-
-                                                
-                                                
+                                                    <div style="padding: 4px; border-radius: 4px;width: 20px; height:20px;position:relative;bottom:5px;left:-6px;">
+                                                        <span style="width: 108px;">
+                                                            @if(count($item->unloadpermits)>0)
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
+                                                            @else
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                            @endif
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    
+                                             </div>
                                             </div>
                                             </div>
                                         </td>
@@ -3248,16 +3277,19 @@
        });
    })
    
-   $(document).on('click','.drawingshare',function(e){
+$(document).on('click','.drawingshare',function(e){
+        email=$(this).attr('data-email');    
         e.stopPropagation();
         id=$(this).attr('data-id');
         $("#sharedrwingid").val($(this).attr('data-id'));
+        $("#sharedrwingid2").val($(this).attr('data-id'));
+        $("#designer_email").val($(this).attr('data-email'));
         $("#sharedrwingwithchecckerid").val($(this).attr('data-id'));
        $.ajax({
            url: "{{route('get.share.drawings')}}",
            method: "get",
            data: {
-               id
+               id, email
            },
            success: function(res) {
                

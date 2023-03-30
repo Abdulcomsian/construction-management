@@ -47,7 +47,7 @@
     }
 
     #kt_content_container {
-        background-color: #e9edf1;
+        background-color: #fff;
     }
 
     #kt_toolbar_container {
@@ -263,7 +263,18 @@
     .nav-group.nav-group-fluid>label {
         bottom: 0;
         left: 0;
-        padding: 0 5px !important;
+        padding: 0 0px !important;
+    }
+
+    textarea.form-control {
+        height: 44px;
+        border-radius: 7px;
+    }
+
+    .select2-container--bootstrap5 {
+        border: 1px solid lightgray !important;
+        border-radius: 5px;
+
     }
 </style>
 
@@ -274,7 +285,7 @@
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
 @section('content')
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content" style="background-color: #fff !important">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
@@ -322,7 +333,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="d-flex inputDiv d-block mb-0">
-                                    <label class=" fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2" style="z-index: 1">
                                         <span class="required">Select Project:</span>
                                     </label>
                                     <select name="project_id" id="projects"
@@ -530,7 +541,7 @@
                                     </div>
                                     <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info"
                                                 src="{{asset('assets/media/logos/info.png')}}"
-                                                style="height:26px; position: relative; top:7px"></span></a>
+                                                style="height:19px; position: relative; top:7px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
                                 <div class="d-flex inputDiv mb-0">
@@ -575,7 +586,7 @@
                                     </div>
                                     <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info"
                                                 src="{{asset('assets/media/logos/info.png')}}"
-                                                style="height:26px; position: relative; top:7px"></span></a>
+                                                style="height:19px; position: relative; top:7px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
                             </div>
@@ -616,7 +627,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0"
-                                    style="border: 1px solid lightgray; border-radius: 9px; height: 44px">
+                                    style="border: 1px solid lightgray; border-radius: 9px; height: 44px; align-items:center;">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
                                         <span>Approval:</span>
@@ -650,7 +661,7 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                        <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <label class="required fs-6 fw-bold mb-2" style="bottom: 43px">
                                             Description:
                                         </label>
                                         <textarea class="form-control" name="description_temporary_work_required"
@@ -668,7 +679,7 @@
                                     <div class="d-flex modalDiv " data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
                                         <!--begin::Label-->
-                                        <label style="" class="fs-6 fw-bold mb-2">
+                                        <label style="" class="fs-6 fw-bold mb-2" style="bottom: 33px">
                                             Design requirement:
                                         </label>
                                         <br>
@@ -684,12 +695,12 @@
                                     <div class="d-flex modalDiv d-block" data-bs-toggle="modal"
                                         data-bs-target="#scope-of-design">
                                         <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <label class="fs-6 fw-bold mb-2" style="bottom: 34px;">
                                             Scope of Design:
                                         </label>
-                                        <textarea class="form-control" style="width:50%" id="scopofdesign" rows="2"
-                                            cols="50" placeholder="Scope of Design Output Required From TW Engineer"
-                                            readonly></textarea>
+                                        <textarea class="form-control" id="scopofdesign" rows="2" cols="50"
+                                            placeholder="Scope of Design Output Required From TW Engineer" readonly
+                                            style="height: 43px; padding: 12px 0 0 15px"></textarea>
                                         <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                                     </div>
                                 </div>
@@ -829,6 +840,17 @@
                                     <input type="text" name="namesign" class="form-control form-control-solid">
                                 </div>
                             </div>
+                            <div class="col-md-6 d-flex justify-content-end align-items-end">
+                                {{-- <div class="d-flex inputDiv" style="align-items: right;text-align:right;"> --}}
+                                    {{-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+
+                                    </label> --}}
+                                    {{-- <br /> --}}
+                                    <button type="submit" style="" class="updateBtn btn btn-primary">Update</button>
+                                    <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->
+                                    {{--
+                                </div> --}}
+                            </div>
                         </div>
 
 
@@ -894,15 +916,7 @@
                                         <span id="clear" class="fa fa-undo cursor-pointer"
                                             style="line-height: 6"></span>
                                     </div> --}}
-                                    <div class="d-flex inputDiv" style="align-items: right;text-align:right;">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
 
-                                        </label>
-                                        <br />
-                                        <button type="submit" style="margin-left: 10px;"
-                                            class="updateBtn btn btn-primary float-end">Update</button>
-                                        <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->
-                                    </div>
 
                                     <!-- <button id="clear" type="button" class="btn btn-danger  float-end">Clear Signature</button> -->
 
@@ -957,12 +971,70 @@
         }
         console.log(project);
     });
-     $("#flexCheckChecked").change(function(){
+    $("#DrawCheck").change(function(){
         if($(this).is(':checked'))
         {
             $("#pdfChecked").prop('checked',false);
+            $("#flexCheckChecked").prop('checked',false);
+            $("#signtype").val(0);
+             $("#pdfsign").val(0);
+             $("#Drawtype").val(1);
+            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            // $(".customSubmitButton").removeClass("hideBtn");
+            // $(".customSubmitButton").addClass("showBtn");
+            //  $("input[name='pdfsign']").removeAttr('required');
+            // $("input[name='namesign']").attr('required','required');
+            $("#clear").show();
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#namesign").removeClass('d-flex').addClass("d-none");
+            $("#sign").css('display','flex');
+           
+        }
+        // else{
+        //     $("#signtype").val(2);
+        //     $("#sign").addClass('d-flex').show();
+        //     $("#namesign").removeClass('d-flex').hide();
+        //     $("input[name='namesign']").removeAttr('required');
+        //     $("#clear").show();
+        //     $(".customSubmitButton").addClass("hideBtn");
+        //     $(".customSubmitButton").removeClass("showBtn");
+        // }
+    })
+    //  $("#flexCheckChecked").change(function(){
+    //     if($(this).is(':checked'))
+    //     {
+    //         $("#pdfChecked").prop('checked',false);
+    //         $("#signtype").val(1);
+    //          $("#pdfsign").val(0);
+    //         $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+    //         $("#namesign").addClass('d-flex').show();
+    //         $(".customSubmitButton").removeClass("hideBtn");
+    //         $(".customSubmitButton").addClass("showBtn");
+    //          $("input[name='pdfsign']").removeAttr('required');
+    //         $("input[name='namesign']").attr('required','required');
+    //         $("#clear").hide();
+    //         $("#sign").removeClass('d-flex').hide();
+           
+    //     }
+    //     else{
+    //         $("#signtype").val(2);
+    //         $("#sign").addClass('d-flex').show();
+    //         $("#namesign").removeClass('d-flex').hide();
+    //         $("input[name='namesign']").removeAttr('required');
+    //         $("#clear").show();
+    //         $(".customSubmitButton").addClass("hideBtn");
+    //         $(".customSubmitButton").removeClass("showBtn");
+    //     }
+    // })
+    $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#pdfChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
             $("#signtype").val(1);
              $("#pdfsign").val(0);
+             $("#Drawtype").val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("#namesign").addClass('d-flex').show();
             $(".customSubmitButton").removeClass("hideBtn");
@@ -984,21 +1056,50 @@
         }
     })
 
+    // $("#pdfChecked").change(function(){
+
+    //     if($(this).is(':checked'))
+    //     {
+    //         $("#flexCheckChecked").prop('checked',false);
+    //         $("#pdfsign").val(1);
+    //         $("#signtype").val(0);
+    //         $("input[name='pdfsign']").attr('required','required');
+    //         $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+    //         $("#namesign").removeClass('d-flex').hide();
+    //         $("input[name='namesign']").removeAttr('required');
+    //         $("#clear").hide();
+    //         $("#sign").removeClass('d-flex').hide();
+           
+    //     }
+    //     else{
+    //         $("#pdfsign").val(0);
+    //         $("#signtype").val(2);
+    //         $("#sign").addClass('d-flex').show();
+    //         $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+    //         $("#namesign").removeClass('d-flex').hide();
+    //         $("input[name='namesign']").removeAttr('required');
+    //         $("input[name='pdfsign']").removeAttr('required');
+    //         $("#clear").show();
+             
+    //     }
+    // })
     $("#pdfChecked").change(function(){
 
         if($(this).is(':checked'))
         {
             $("#flexCheckChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
             $("#pdfsign").val(1);
             $("#signtype").val(0);
+            $("#Drawtype").val(0);
             $("input[name='pdfsign']").attr('required','required');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
             $("#namesign").removeClass('d-flex').hide();
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
-           
-        }
+        
+        }       
         else{
             $("#pdfsign").val(0);
             $("#signtype").val(2);
@@ -1008,7 +1109,7 @@
             $("input[name='namesign']").removeAttr('required');
             $("input[name='pdfsign']").removeAttr('required');
             $("#clear").show();
-             
+            
         }
     })
 

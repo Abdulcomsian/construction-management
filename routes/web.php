@@ -255,6 +255,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('get-designs',[DesignerController::class,'get_desings'])->name('get-designs');
      Route::post('share-drawing',[DesignerController::class,'share_drawing'])->name('drawing.share');
      Route::post('share-drawing-checker',[DesignerController::class,'share_drawing_checker'])->name('drawingchecker.share');
+     Route::post('update-design-checker',[DesignerController::class,'update_drawing_checker'])->name('drawingchecker.update');
      Route::get('get_share-drawing',[DesignerController::class,'get_share_drawing'])->name('get.share.drawings');
      Route::post('reply-drawing',[DesignerController::class,'reply_drawing'])->name('drawing.reply');
      Route::get('get-reply-drawing',[DesignerController::class,'get_reply_drawing'])->name('get.reply.drawings');

@@ -395,6 +395,7 @@ class DesignerController extends Controller
         $tempworkid = $request->tempworkid;
         $designearray=[];
         $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
+        // dd($ramsno);
         $designearray[0]=$ramsno->designer_company_email;
         if($ramsno->desinger_email_2)
         {
@@ -471,7 +472,7 @@ class DesignerController extends Controller
                         $list .= '<td>' . $construction . '</td>';
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
+                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                     <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -482,7 +483,7 @@ class DesignerController extends Controller
                                 </td>';
                         } else {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
+                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
                                  &nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -600,7 +601,7 @@ class DesignerController extends Controller
                     $list .= '<td>' . $construction . '</td>';
                     if ($construction == 'Yes') {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                              <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -611,7 +612,7 @@ class DesignerController extends Controller
                             </td>';
                     } else {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                              <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
@@ -1178,6 +1179,20 @@ class DesignerController extends Controller
      return $list;
    }
 
+   public function update_drawing_checker(Request $request){
+        try{
+        $id=$request->id;
+        $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
+        TemporaryWork::find($tempworkid->temporary_work_id)->update([
+                'desinger_email_2' => $request->email,
+            ]);
+            toastSuccess('Design Checker Updated');
+            return Redirect::back();
+        }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
+   }
    public function share_drawing_checker(Request $request)
    {
      $id=$request->id;

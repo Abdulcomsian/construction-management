@@ -3248,16 +3248,19 @@
        });
    })
    
-   $(document).on('click','.drawingshare',function(e){
+$(document).on('click','.drawingshare',function(e){
+        email=$(this).attr('data-email');    
         e.stopPropagation();
         id=$(this).attr('data-id');
         $("#sharedrwingid").val($(this).attr('data-id'));
+        $("#sharedrwingid2").val($(this).attr('data-id'));
+        $("#designer_email").val($(this).attr('data-email'));
         $("#sharedrwingwithchecckerid").val($(this).attr('data-id'));
        $.ajax({
            url: "{{route('get.share.drawings')}}",
            method: "get",
            data: {
-               id
+               id, email
            },
            success: function(res) {
                

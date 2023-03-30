@@ -96,6 +96,36 @@
                         
                     </tbody>
                 </table>
+
+                <br>
+                <br>
+                <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('drawingchecker.update') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" id="sharedrwingid2" value="">
+                    <!--begin::Heading-->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Update Design Checker Email</h1>
+                        <!--end::Title-->
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-8 fv-row">
+                            <label class="required fs-6 fw-bold mb-2">Email</label>
+                            <input type="email" class="form-control form-control-solid" id="designer_email" placeholder="Enter email address" name="email" required />
+                        </div>
+                        <div class="col-md-2 fv-row">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Send</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+
             </div>
             <!--end::Modal body-->
         </div>

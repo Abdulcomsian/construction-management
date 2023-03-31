@@ -32,6 +32,8 @@
                                                                     </h5>
                                                                     <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempdata->id).'/?mail='.$tempdata->desinger_email_2)}}">View and Upload Design</a><br><br>
                                                                     <a style="text-decoration: none" href="{{asset('pdf'.'/'.$tempdata->ped_url)}}">Design Brief - {{$tempdata->twc_id_no}}</a><br>
+                                                                    <h4>Drawings File</h4>
+                                                                    <a  style="text-decoration: none" href="{{asset($drawings->file_name)}}">File</a><br>
                                                                     <h4>Drawing Title</h4>
                                                                     <p>{{$drawings->drawing_title}}</p>
                                                                     <br>
@@ -61,8 +63,7 @@
                                                                     @endforeach
                                                                     @endif
                                                 
-                                                                    <h4>Drawings File</h4>
-                                                                    <a  style="text-decoration: none" href="{{asset($drawings->file_name)}}">File</a>
+                                                                    
                                                                        
                                                                     <hr>
                                                                    

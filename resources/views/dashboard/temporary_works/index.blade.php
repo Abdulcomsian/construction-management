@@ -1285,7 +1285,7 @@
                                                       @endif
                                                       @endforeach --}}
                                                    </div>
-                                                   <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
+                                                   <div data-type="3" data-id="{{$item->id}}" class="rams" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
                                                       <span style="position: relative; bottom:3px; left:3px;">
                                                          @php
                                                             $rams = count($item->uploadfile);
@@ -2835,6 +2835,26 @@
            success: function(res) {
                $("#drawingdesigntable").html(res);
                $("#drawinganddesignlist").modal('show');
+           }
+       });
+   
+   })
+//popup for rams
+   $(".rams").on('click', function() {
+   
+       var tempworkid = $(this).attr('data-id');
+   console.log("123",tempworkid);
+       $.ajax({
+           url: "{{route('tempwork.getrams')}}",
+           method: "post",
+           data: {
+               tempworkid: tempworkid,
+               _token: "{{csrf_token()}}"
+           },
+           success: function(res) {
+            console.log(res);
+            //    $("#drawingdesigntable").html(res);
+            //    $("#drawinganddesignlist").modal('show');
            }
        });
    

@@ -999,6 +999,25 @@ $notify_admins_msg = [
             return Redirect::back();
         }
     }
+    //get rams
+    public function get_rams(Request $request)
+    {
+        // dd($request->tempworkid);
+        try { 
+            $data = TempWorkUploadFiles::where(['temporary_work_id' => $request->tempworkid])->get();
+            $list = '';
+            if (count($data) > 0) {
+                $i = 1;
+                foreach ($data as $d) {
+                    $list .= '<tr><td>' . $i . '</td><td>' . $d->file_name . '</td><td>' . $d->created_at->todatestring() . '</td></tr>';
+                    $i++;
+                }
+            }
+            echo $list;
+        } catch (\Exception $exception) { return "2";
+            return response()->json(['error' =>  $exception->getline()]);
+        }
+    }
     //upload file and drawings
     public function temp_file_uplaod(Request $request)
     {

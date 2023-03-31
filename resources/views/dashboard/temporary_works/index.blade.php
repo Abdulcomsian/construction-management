@@ -2677,6 +2677,7 @@
 @include('dashboard.modals.designername')
 @include('dashboard.modals.comments')
 @include('dashboard.modals.drawingdesignlist')
+@include('dashboard.modals.ramfiles')
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load')
 @include('dashboard.modals.description')
@@ -2852,9 +2853,8 @@
                _token: "{{csrf_token()}}"
            },
            success: function(res) {
-            console.log(res);
-            //    $("#drawingdesigntable").html(res);
-            //    $("#drawinganddesignlist").modal('show');
+               $("#ramfilestable").html(res);
+                $("#ramfiles").modal('show');
            }
        });
    

@@ -46,8 +46,7 @@ class ShareDrawingNotification extends Notification
     public function toMail($notifiable)
     {
         $drawings=TempWorkUploadFiles::with('comment')->find($this->data);
-        //dd($drawings);
-        $tempdata=TemporaryWork::select('id','twc_id_no','ped_url')->find($drawings->temporary_work_id);
+        $tempdata=TemporaryWork::select('id','desinger_email_2', 'twc_id_no','ped_url')->find($drawings->temporary_work_id);
         return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Drawing  Share Notifications')

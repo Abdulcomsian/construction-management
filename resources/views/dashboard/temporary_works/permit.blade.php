@@ -800,6 +800,18 @@
                                             approval is required.</span>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="d-none inputDiv pc-twc mb-0 mt-6">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                            style="width:fit-content% !important">
+                                            <span>PC TWC Email:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="email" class="form-control form-control-solid" name="pc_twc_email"
+                                            id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -1023,17 +1035,7 @@
                                     </div>
                                     <div class="col">
                                         <!-- Approval div -->
-                                        <div class="d-none inputDiv pc-twc">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:fit-content% !important">
-                                                <span>PC TWC Email:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="email" class="form-control form-control-solid"
-                                                name="pc_twc_email" id="pc-twc-email" placeholder="Email"
-                                                value="{{old('pc-twc-email')}}">
-                                        </div>
+
 
                                         <div class="d-flex inputDiv" style="border: none">
                                             <label class="fs-6 fw-bold mb-2"

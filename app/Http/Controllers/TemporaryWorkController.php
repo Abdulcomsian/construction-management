@@ -1011,7 +1011,7 @@ $notify_admins_msg = [
             if (count($data) > 0) {
                 $i = 1;
                 foreach ($data as $d) {
-                    $list .= '<tr style="text-align:center;"><td>' . $i . '</td><td><a targt="_blank" href="'. $app_url . '/' .$d->file_name .'">RAMS'. $i . '</a></td><td>' . $d->created_at->todatestring() . '</td></tr>';
+                    $list .= '<tr style="text-align:center;"><td>' . $i . '</td><td><a target="_blank" href="'. $app_url . '/' .$d->file_name .'">RAMS'. $i . '</a></td><td>' . $d->created_at->todatestring() . '</td></tr>';
                     $i++;
                 }
             }

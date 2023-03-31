@@ -1,6 +1,6 @@
 <div class="modal fade" id="ramfiles" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-750px">
+    <div class="modal-dialog modal-dialog-centered mw-650px" style="max-width:650px !important">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -27,7 +27,7 @@
                 <div class="mb-13 text-center">
                         <!--begin::Title-->
                          <h3>Rams</h3>
-                        <!--end::Title-asd->
+                        <!--end::Title-asd -->
                 </div>
                
                 <div id="ramfilestable">

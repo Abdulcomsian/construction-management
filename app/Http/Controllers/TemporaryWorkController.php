@@ -1006,13 +1006,15 @@ $notify_admins_msg = [
         try { 
             $data = TempWorkUploadFiles::where(['temporary_work_id' => $request->tempworkid])->get();
             $list = '';
+            $list.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th></tr></thead><tbody>';
             if (count($data) > 0) {
                 $i = 1;
                 foreach ($data as $d) {
-                    $list .= '<tr><td>' . $i . '</td><td>' . $d->file_name . '</td><td>' . $d->created_at->todatestring() . '</td></tr>';
+                    $list .= '<tr style="text-align:center;"><td>' . $i . '</td><td><a href="'. $d->file_name .'"></td><td>' . $d->created_at->todatestring() . '</td></tr>';
                     $i++;
                 }
             }
+            $list .= '</tbody></table>';
             echo $list;
         } catch (\Exception $exception) { return "2";
             return response()->json(['error' =>  $exception->getline()]);

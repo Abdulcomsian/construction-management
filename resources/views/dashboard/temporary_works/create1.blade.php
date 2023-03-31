@@ -205,6 +205,10 @@
         .inputDiv label {
             font-size: 11px !important;
         }
+
+        .TWSection {
+            flex-wrap: wrap;
+        }
     }
 
     canvas {
@@ -223,6 +227,39 @@
 
     .nav-group.nav-group-fluid>label {
         padding: 0px !important;
+        width: 30px;
+        height: 30px;
+    }
+
+    #kt_content {
+        padding-bottom: 0px
+    }
+
+
+
+    @media screen and (max-width: 576px) {
+        #kt_content_container {
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        #kt_content_container {
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 960px) {
+        #kt_content_container {
+            margin: auto;
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 670px) {
+        #kt_content_container {
+            width: 100%;
+        }
     }
 </style>
 
@@ -411,7 +448,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 d-flex">
+                            <div class="col-md-6 d-flex TWSection">
                                 <div class="d-flex TWCatagory"
                                     style="position: relative;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
@@ -472,8 +509,9 @@
                                         <label>
                                             <input type="radio" class="btn-check" name="tw_risk_class" value="VL"
                                                 checked="checked" />
-                                            <span
-                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
+                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary"
+                                                style="white-space: nowrap"><span
+                                                    style="position: relative; right: 4px;">VL</span></span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
@@ -682,7 +720,7 @@
 
                         <!--end::Modal - Design Requirement -->
 
-                        <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        <button type="submit" class="btn btn-primary float-end mt-8">Submit</button>
                     </form>
                 </div>
                 <!--end::Card body-->

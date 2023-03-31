@@ -312,7 +312,7 @@
                     </div>
                 </div>
                 <!-- tab 2 -->
-                <div class="tab-pane" id="tab2" role="tabpanel">
+                <div class="tab-pane active" id="tab2" role="tabpanel">
                     <form id="desingform" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />

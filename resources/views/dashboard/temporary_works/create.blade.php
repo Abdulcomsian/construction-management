@@ -1015,7 +1015,7 @@
                                     @include('dashboard.modals.design-relief-modals')
                                     <button id="submitbutton" type="submit"
                                         class="btn btn-primary float-end submitbutton"
-                                        style="  top: 77% !important;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                                        style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
 
                                 </div>
 

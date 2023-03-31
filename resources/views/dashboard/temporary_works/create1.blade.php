@@ -2,29 +2,39 @@
 
 @section('styles')
 <style>
-    .customDate::-webkit-calendar-picker-indicator {   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>'); }
-    .whiteBack{
-            background-color: #f5f8fa !important;
-            color: #000 !important;
-        }
-        .form-select.form-select-solid{
-            background-color: #fff;
-            color: #fff;
-        }
-.list-div ul li, .list-check-div ul li{
-height: 72px;
-    overflow: visible;
-}
-    .aside-enabled.aside-fixed.header-fixed .header{
-        border-bottom: 1px solid #e4e6ef!important;
+    .customDate::-webkit-calendar-picker-indicator {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
     }
-    .header-fixed.toolbar-fixed .wrapper{
+
+    .whiteBack {
+        background-color: #f5f8fa !important;
+        color: #000 !important;
+    }
+
+    .form-select.form-select-solid {
+        background-color: #fff;
+        color: #fff;
+    }
+
+    .list-div ul li,
+    .list-check-div ul li {
+        height: 72px;
+        overflow: visible;
+    }
+
+    .aside-enabled.aside-fixed.header-fixed .header {
+        border-bottom: 1px solid #e4e6ef !important;
+    }
+
+    .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-    .content{
+
+    .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
     }
+
     .newDesignBtn {
         border-radius: 8px;
         background-color: #07d564;
@@ -41,21 +51,25 @@ height: 72px;
     .card>.card-body {
         padding: 32px;
     }
-    #kt_content_container{
+
+    #kt_content_container {
         background-color: #fff;
         width: 75%;
 
     }
-    #kt_toolbar_container{
-        background-color:#fff;
+
+    #kt_toolbar_container {
+        background-color: #fff;
     }
-    #kt_post{
+
+    #kt_post {
         background: white;
     }
-    .card{
+
+    .card {
         margin: 30px 0px;
-        border-radius: 10px !important;   
-        border: none !important; 
+        border-radius: 10px !important;
+        border: none !important;
     }
 
     table {
@@ -108,6 +122,7 @@ height: 72px;
         border-radius: 7px;
         height: 43px;
     }
+
     .inputDiv textarea {
         width: 100% !important;
         color: #000;
@@ -127,9 +142,11 @@ height: 72px;
         bottom: 22px;
         left: 8px;
     }
-    .select2-container{
-        width:100% !important;
+
+    .select2-container {
+        width: 100% !important;
     }
+
     .inputDiv {
         margin: 30px 0px;
         position: relative;
@@ -141,54 +158,79 @@ height: 72px;
         justify-content: space-between;
         align-items: center;
     }
-        .kbw-signature {
-            width: 100%;
-            height: 220px;
-        }
-        input::placeholder{
-    color: #fff !important;
-}
 
-        #sig canvas {
-            width: 100% !important;
-            max-height: 200px;
-        }
-        .modalDiv{
-            width:100% ;
-        }
-        .blackBack{
+    .kbw-signature {
+        width: 100%;
+        height: 220px;
+    }
+
+    input::placeholder {
+        color: #fff !important;
+    }
+
+    #sig canvas {
+        width: 100% !important;
+        max-height: 200px;
+    }
+
+    .modalDiv {
+        width: 100%;
+    }
+
+    .blackBack {
         background-color: #000 !important;
         color: #fff !important;
     }
-     .form-control.form-control-solid{
-        width:100%;
-        background-color:#fff;
+
+    .form-control.form-control-solid {
+        width: 100%;
+        background-color: #fff;
     }
 
-    .form-control.form-control-solid[type="file"]{
+    .form-control.form-control-solid[type="file"] {
         background-color: transparent;
     }
-     @media only screen and (min-width: 470px) {
-        .list_top{display:inline !important;}
-     }
-        @media only screen and (max-width: 470px) {
-            .list_top{margin-top:20px;}
-            .inputDiv label{font-size:11px !important;}
+
+    @media only screen and (min-width: 470px) {
+        .list_top {
+            display: inline !important;
+        }
     }
-    canvas{width:270px;height:110px;}
-    .inputDiv  #design_required_by_date{color:#fff;}
+
+    @media only screen and (max-width: 470px) {
+        .list_top {
+            margin-top: 20px;
+        }
+
+        .inputDiv label {
+            font-size: 11px !important;
+        }
+    }
+
+    canvas {
+        width: 270px;
+        height: 110px;
+    }
+
+    .inputDiv #design_required_by_date {
+        color: #fff;
+    }
 
     .TWRisk label,
-    .TWCatagory label{
+    .TWCatagory label {
         margin-bottom: 0;
+    }
+
+    .nav-group.nav-group-fluid>label {
+        padding: 0px !important;
     }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
-    <link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}"/>
-    <link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}"/>
-    <link rel="stylesheet" href="{{asset('css/signature.css')}}"/>
-    <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
+<link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}" />
+<link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}" />
+<link rel="stylesheet" href="{{asset('css/signature.css')}}" />
+<link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
 @section('content')
 @include('dashboard.modals.design-relief-modals')
@@ -198,7 +240,10 @@ height: 72px;
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
+            <div data-kt-place="true" data-kt-place-mode="prepend"
+                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
+                style="width: 100%; text-align: center;">
                 <!--begin::Title-->
                 <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Temporary Works</h1>
                 <!--end::Title-->
@@ -221,8 +266,8 @@ height: 72px;
                         <h2 style="display: inline-block;">Design Brief</h2>
                         <!-- <a style="width: 190px; text-align:center;float: right;" href="{{ route('temporary_works.create') }}" class="newDesignBtn">New Design Brief</a>
                         <a style="width: 190px; text-align:center;float: right;" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Existing Design Brief</a> -->
-                        
-                        
+
+
                     </div>
                     <!--begin::Card toolbar-->
 
@@ -232,20 +277,27 @@ height: 72px;
 
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{ route('temporary_works.store1') }}" method="post" enctype="multipart/form-data">
+                    <form id="desingform" action="{{ route('temporary_works.store1') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="d-flex inputDiv mb-0" style="border: 1px solid lightgray; border-radius: 8px;overflow: hidden;">
+                                <div class="d-flex inputDiv mb-0"
+                                    style="border: 1px solid lightgray; border-radius: 8px;overflow: hidden;">
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Select Project:</span>
                                     </label>
-                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required >
+                                    <select name="project_id" id="projects"
+                                        class="form-select form-select-lg form-select-solid" data-control="select2"
+                                        data-placeholder="Select an option" data-allow-clear="true" required>
                                         <option value="">Select Option</option>
                                         @forelse($projects as $item)
-                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ?
+                                            'selected' : '' }} @endisset @isset($project_ids) {{
+                                            in_array($item->id,$project_ids) ? 'selected' : '' }}
+                                            @endisset>{{$item->name .' - '. $item->no}}</option>
                                         @empty
                                         @endforelse
                                     </select>
@@ -260,7 +312,8 @@ height: 72px;
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="000" id="no" name="projno" value="{{old('projno')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -271,25 +324,29 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="text" class="blackBack form-control form-control-solid" placeholder="Twc Id No" id="twc_id_no" name="twc_id_no"  value="{{old('twc_id_no')}}" required>
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Twc Id No" id="twc_id_no" name="twc_id_no"
+                                        value="{{old('twc_id_no')}}" required>
                                 </div>
                             </div>
-                            
+
                         </div>
-                        
-                        
+
+
                         <div class="row">
-                        <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Project Name" id="name" name="projname"
+                                        value="{{old('projname')}}">
                                 </div>
                             </div>
-                        <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -297,33 +354,39 @@ height: 72px;
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Project Address" id="address" name="projaddress"
+                                        value="{{old('projaddress')}}">
                                 </div>
                             </div>
-                            
-                            
-                            
+
+
+
                         </div>
                         <div class="row">
-                        <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Upload Existing Design Brief:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="form-control form-control-solid"  id="pdf" name="pdf" required="required" style="padding: 20px 0 0 27px;">
+                                    <input type="file" class="form-control form-control-solid" id="pdf" name="pdf"
+                                        required="required" style="padding: 20px 0 0 27px;">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
-                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
+                                    <div class="d-flex modalDiv" data-bs-toggle="modal"
+                                        data-bs-target="#design-requirement">
                                         <!--begin::Label-->
-                                         <label style="" class="required  fs-6 fw-bold mb-2">
-                                           Design Requirement:
+                                        <label style="" class="required  fs-6 fw-bold mb-2">
+                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}" required>
+                                        <input type="text" class="blackBack" id="design_requirement_text"
+                                            placeholder="Design requirement" readonly name="design_requirement_text"
+                                            value="{{old('design_requirement_text')}}" required>
                                         <!--end::Label-->
                                     </div>
                                 </div>
@@ -331,98 +394,117 @@ height: 72px;
 
                         </div>
                         <div class="row">
-                        <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <div class="d-flex modalDiv">
                                         <!--begin::Label-->
-                                             <label class="required  fs-6 fw-bold mb-2" style="top: -12px; height: fit-content ">
-                                              Description:
-                                            </label>
-                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="height: 43px;border-radius: 7px;padding: 8px 0 0 17px;"  rows="2" cols="50" placeholder="Provide brief description of design requirements." required>{{old('description_temporary_work_required')}}</textarea>
+                                        <label class="required  fs-6 fw-bold mb-2"
+                                            style="top: -12px; height: fit-content ">
+                                            Description:
+                                        </label>
+                                        <textarea class="blackBack form-control"
+                                            name="description_temporary_work_required"
+                                            style="height: 43px;border-radius: 7px;padding: 8px 0 0 17px;" rows="2"
+                                            cols="50" placeholder="Provide brief description of design requirements."
+                                            required>{{old('description_temporary_work_required')}}</textarea>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="d-flex TWCatagory" style="position: relative;border: 1px solid lightgray;border-radius: 7px;width: 100%;margin-top: 24px;align-items: center">
+                            <div class="col-md-6 d-flex">
+                                <div class="d-flex TWCatagory"
+                                    style="position: relative;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2" style="position: absolute; bottom: 32px; background: white;">
+                                    <label class=" fs-6 fw-bold mb-2"
+                                        style="position: absolute; bottom: 32px; background: white;">
                                         <span class="required">TW Category</span>
 
                                     </label>
                                     <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid" style="background: white; padding-top:12px; width:100%">
+                                    <div class="nav-group nav-group-fluid"
+                                        style="background: white; padding-top:12px; width:100%">
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="0" checked="checked" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">0</span>
+                                            <input type="radio" class="btn-check" name="tw_category" value="0"
+                                                checked="checked" />
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary">0</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">1</span>
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">1</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">2</span>
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">2</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="tw_category" value="3" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">3</span>
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">3</span>
                                         </label>
                                         <!--end::Option-->
                                     </div>
-                                    <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
+                                    <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info"
+                                                src="{{asset('assets/media/logos/info.png')}}"
+                                                style="height:20px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
-                            </div>
-                            
-
-                            <div class="col-md-6">
-                                <div class="d-flex TWRisk" style="position: relative;border: 1px solid lightgray;border-radius: 7px;width: 100%;margin-top: 24px;align-items: center">
+                                <div class="d-flex TWRisk"
+                                    style="position: relative;width: 100%;margin-top: 24px;align-items: center">
                                     <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2" style="position: absolute; bottom: 32px; background: white;">
+                                    <label class=" fs-6 fw-bold mb-2"
+                                        style="position: absolute; bottom: 32px; background: white;">
                                         <span class="required">TW Risk Class</span>
                                     </label>
                                     <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid" style="background: white; padding-top:12px; width:100%">
+                                    <div class="nav-group nav-group-fluid"
+                                        style="background: white; padding-top:12px; width:100%">
                                         <!--begin::Option-->
                                         <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="VL" checked="checked" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
+                                            <input type="radio" class="btn-check" name="tw_risk_class" value="VL"
+                                                checked="checked" />
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="tw_risk_class" value="L" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">L</span>
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">L</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="tw_risk_class" value="M" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">M</span>
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">M</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label>
                                             <input type="radio" class="btn-check" name="tw_risk_class" value="H" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">H</span>
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">H</span>
                                         </label>
                                         <!--end::Option-->
                                     </div>
-                                    <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
+                                    <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info"
+                                                src="{{asset('assets/media/logos/info.png')}}"
+                                                style="height:20px"></span></a>
                                     <!--end::Radio group-->
                                 </div>
 
-                                
                             </div>
-                            
                             <div class="col-md-6">
                                 <div class="inputDiv d-none desinger_company_name2 mb-0" id="desinger_company_name2">
                                     <!--begin::Label-->
@@ -443,7 +525,9 @@ height: 72px;
                                         <span class="">Design Checker Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid " placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2" value="{{old('desinger_email_2')}}" autocomplete="off" >
+                                    <input type="text" class="blackBack form-control form-control-solid "
+                                        placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2"
+                                        value="{{old('desinger_email_2')}}" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -455,13 +539,15 @@ height: 72px;
                                         <span class="required">Designer Company Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid"   placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}"  required>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="Designer Company Name" id="designer_company_name"
+                                        name="designer_company_name" value="{{old('designer_company_name')}}" required>
                                 </div>
                             </div>
-                        
+
                         </div>
                         <div class="row">
-                           
+
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
@@ -469,9 +555,11 @@ height: 72px;
                                         <span class="">Drawing Title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" placeholder="Drawing title" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"  required>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="Drawing title" id="drawing_title" name="drawing_title"
+                                        value="{{old('drawing_title')}}" required>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
@@ -479,21 +567,25 @@ height: 72px;
                                         <span class="">Drawing Number:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number" name="drawing_number"  value="{{old('drawing_number')}}">
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="Drawing Number" id="drawing_number" name="drawing_number"
+                                        value="{{old('drawing_number')}}">
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                         <div class="row">
-                            
-                            
-                             <div class="col-md-6">
+
+
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="date" class="customDate form-control form-control-solid" placeholder="Date" name="design_issued_date"  value="{{old('design_issued_date')}}">
+                                    <input type="date" class="customDate form-control form-control-solid"
+                                        placeholder="Date" name="design_issued_date"
+                                        value="{{old('design_issued_date')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -502,7 +594,11 @@ height: 72px;
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Design Required by Date:</span>
                                     </label>
-                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  required>
+                                    <input style=" cursor: pointer;color: #a9abb7 !important;" type="date"
+                                        class="customDate form-control form-control-solid"
+                                        placeholder="Design Required by Date" id="design_required_by_date"
+                                        name="design_required_by_date" value="{{old('design_required_by_date')}}"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -515,7 +611,10 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date"  class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_returned" value="{{old('design_returned')}}" required="required" >
+                                    <input style=" cursor: pointer;color: #a9abb7 !important;" type="date"
+                                        class="customDate form-control form-control-solid"
+                                        placeholder="Design Required by Date" id="design_required_by_date"
+                                        name="design_returned" value="{{old('design_returned')}}" required="required">
                                     <!-- </p> -->
                                 </div>
                             </div>
@@ -526,13 +625,14 @@ height: 72px;
                                         <span class="">Upload Design Check Certificate:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="whiteBack form-control form-control-solid" id="dcc" name="dcc" style="padding: 20px 0 0 27px;">
+                                    <input type="file" class="whiteBack form-control form-control-solid" id="dcc"
+                                        name="dcc" style="padding: 20px 0 0 27px;">
                                 </div>
-                            </div> 
-                           
+                            </div>
 
 
-                           
+
+
                         </div>
                         <!-- <div class="row">
                             
@@ -556,29 +656,33 @@ height: 72px;
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
-                                        <input  style=" cursor: pointer;color: #a9abb7 !important;" type="date" class="customDate form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="dcc_returned" value="{{old('dcc_returned')}}"  >
+                                    <input style=" cursor: pointer;color: #a9abb7 !important;" type="date"
+                                        class="customDate form-control form-control-solid"
+                                        placeholder="Design Required by Date" id="design_required_by_date"
+                                        name="dcc_returned" value="{{old('dcc_returned')}}">
                                     <!-- </p> -->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2" >
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Upload Drawings and Design:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="whiteBack form-control form-control-solid" id="drawing" name="drawing" style="padding: 20px 0 0 27px;">
+                                    <input type="file" class="whiteBack form-control form-control-solid" id="drawing"
+                                        name="drawing" style="padding: 20px 0 0 27px;">
                                 </div>
                             </div>
-                            
+
                         </div>
-                        
-                         
-                          <!--begin::Modal - Design Requirement-->
-                        
+
+
+                        <!--begin::Modal - Design Requirement-->
+
                         <!--end::Modal - Design Requirement -->
 
-                        <button  type="submit" class="btn btn-primary float-end">Submit</button>
+                        <button type="submit" class="btn btn-primary float-end">Submit</button>
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -692,6 +796,6 @@ height: 72px;
     })
 </script>
 
-    
+
 
 @endsection

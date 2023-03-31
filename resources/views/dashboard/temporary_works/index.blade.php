@@ -2844,7 +2844,7 @@
    $(".rams").on('click', function() {
    
        var tempworkid = $(this).attr('data-id');
-   console.log("123",tempworkid);
+  
        $.ajax({
            url: "{{route('tempwork.getrams')}}",
            method: "post",
@@ -2853,6 +2853,7 @@
                _token: "{{csrf_token()}}"
            },
            success: function(res) {
+            console.log(res);
                $("#ramfilestable").html(res);
                 $("#ramfiles").modal('show');
            }

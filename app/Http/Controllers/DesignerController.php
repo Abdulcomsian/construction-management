@@ -268,10 +268,11 @@ class DesignerController extends Controller
             abort(403);
         }
         $mail=$_GET['mail'];
+        
         $id = \Crypt::decrypt($id);
         $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($id);
 
-        if($mail=$tempdata->designer_company_email)
+        if($mail==$tempdata->designer_company_email)
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Company'])->orderBy('id','desc')->update(['status'=>1]);
         }
@@ -297,6 +298,7 @@ class DesignerController extends Controller
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles(); 
+            
              if(isset($request->designermail))
             {
                 $model->created_by = $request->designermail;
@@ -1197,8 +1199,8 @@ class DesignerController extends Controller
    {
      $id=$request->id;
      $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
-     $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
-    //  $tempdata=TemporaryWork::find($tempworkid->temporary_work_id);
+    // $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+      $tempdata=TemporaryWork::find($tempworkid->temporary_work_id);
      
       if($tempdata->desinger_email_2)
      {
@@ -1211,11 +1213,12 @@ class DesignerController extends Controller
              return Redirect::back();
         }
         else{
-            $model= TempWorkUploadFiles::find($id);
-            $newmodel=$model->replicate();
-            $newmodel->created_by=$tempdata->desinger_email_2;
-            $newmodel->share_id=$id;
-           $newmodel->save();
+        //     $model= TempWorkUploadFiles::find($id);
+        //     $newmodel=$model->replicate();
+        //     $newmodel->created_by=$tempdata->desinger_email_2;
+        //     $newmodel->share_id=$id;
+        //    $newmodel->save();
+        // Above lines are commented because client has asked that drawing should remain with current designer and checker should upload his own separate drawing after looking at current one.
             Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
             toastSuccess('Drawing Share Successfully!');
             return Redirect::back();

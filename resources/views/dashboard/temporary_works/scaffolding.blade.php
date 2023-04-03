@@ -2544,6 +2544,8 @@
     //     }
     // })
     
+
+    // alert
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
      signaturePad.addEventListener("endStroke", () => {

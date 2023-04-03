@@ -186,7 +186,13 @@
 
     /*.form-control.form-control-solid{background-color:#000;color:#5e6278 !important;}*/
     .twcTextArea:focus {
-        border: none;
+        border: 1px solid green
+    }
+
+    .twcTextArea:focus-visible {
+        /* border: none !important; */
+        border: 1px solid green;
+        border-width: 0;
     }
 
     #kt_post {

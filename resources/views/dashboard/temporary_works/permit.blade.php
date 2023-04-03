@@ -12,6 +12,7 @@
     .form-control.form-control-solid .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
+
     }
 
     .newDesignBtn {
@@ -196,6 +197,7 @@
     .form-control.form-control-solid {
         background-color: white !important;
         padding: 5px;
+        border: none !important;
     }
 
     #permitform {
@@ -238,6 +240,10 @@
     #kt_content_container .card-title h2 {
         font-weight: 600;
         font-size: 32px;
+    }
+
+    #first_member input {
+        padding-left: 11px;
     }
 
     @media screen and (max-width: 768px) {
@@ -892,8 +898,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <input type="text" class="form-control form-control-solid" placeholder="Name"
-                                            id="name1" name="name1" value="{{old('name1', Auth::user()->name ?? '')}}"
-                                            style="color:#5e6278">
+                                            id="name1" name="name1" style="color:#5e6278">
                                     </div>
                                     <div class="d-flex inputDiv principleno">
                                         <!--begin::Label-->
@@ -902,10 +907,32 @@
                                         </label>
                                         <!--end::Label-->
                                         <input type="text" class="form-control form-control-solid"
-                                            placeholder="Job Title" id="job_title1" name="job_title1"
-                                            value="{{old('job_title1', Auth::user()->job_title ?? '')}}">
+                                            placeholder="Job Title" id="job_title1" name="job_title1">
                                     </div>
-
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Company: </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
+                                                placeholder="Company" name="company" readonly="readonly">
+                                            <input type="hidden" id="companyid" class="form-control form-control-solid"
+                                                placeholder="Company" name="companyid" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                            <span class="required">Date:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="date" style="background-color:#f5f8fa"
+                                                value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                        </div>
+                                    </div>
 
                                     <div class="d-flex inputDiv" style="border: none">
                                         <label class="fs-6 fw-bold mb-2"
@@ -969,7 +996,7 @@
                                                 class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Signature:</span>
                                             </label> --}}
-                                            <br />
+                                            {{-- <br /> --}}
                                             <canvas id="sig1" style="border-radius: 9px"></canvas>
                                         </div>
                                         <div class="d-flex inputDiv principleno" id="sign1"

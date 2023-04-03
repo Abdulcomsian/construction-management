@@ -224,6 +224,10 @@
         border-radius: 8px;
     }
 
+    .nav-group {
+        background: none !important;
+    }
+
     @media screen and (max-width: 576px) {
         #kt_post {
             width: auto;
@@ -2577,5 +2581,27 @@
     $('#namesign2').change(function() {
         $('#namesign2').css("background-color", "#f5f8fa ");
     });
+    // $().click().addClass('d-none');
+    
+
+    $(document).ready(function() {
+        $('input[name="equipment_materials"]').on('change', function() {
+            if ($(this).val() === '1') {
+            $('textarea[name="equipment_materials_desc"]').css('display', 'block');
+            } else {
+            $('textarea[name="equipment_materials_desc"]').css('display', 'none');
+            }
+        });
+        
+        $('.btn-active-primary').on('click', function() {
+            $('textarea[name="equipment_materials_desc"]').css('display', 'block');
+            $('textarea[name="equipment_materials_desc"]').removeClass('d-none');
+        });
+});
+
+
+
+
+
 </script>
 @endsection

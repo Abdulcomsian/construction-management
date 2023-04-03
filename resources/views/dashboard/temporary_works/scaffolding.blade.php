@@ -228,6 +228,11 @@
         background: none !important;
     }
 
+    #signn {
+        border: 1px solid lightgray;
+        border-radius: 8px;
+    }
+
     @media screen and (max-width: 576px) {
         #kt_post {
             width: auto;

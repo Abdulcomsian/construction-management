@@ -2437,7 +2437,6 @@
         }
     })
     $("#flexCheckChecked").change(function () {
-        alert();
         if ($(this).is(':checked')) {
             $("#pdfChecked").prop('checked', false);
             $("#DrawCheck").prop('checked', false);

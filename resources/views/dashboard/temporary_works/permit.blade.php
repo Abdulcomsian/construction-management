@@ -916,8 +916,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <div class="input">
-                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
-                                                placeholder="Company" name="company" readonly="readonly">
+                                            <input type="text" id="companyadmin2" class="form-control form-control-solid"
+                                                placeholder="Company"  name="company1">
+                                                <!-- name="company1" -->
                                             <input type="hidden" id="companyid" class="form-control form-control-solid"
                                                 placeholder="Company" name="companyid" readonly="readonly">
                                         </div>
@@ -929,8 +930,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <div class="input">
-                                            <input type="date" style="background-color:#f5f8fa"
+                                            <input type="date"  style="background-color:#f5f8fa"
                                                 value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                                <!-- name="date1" -->
                                         </div>
                                     </div>
 
@@ -1105,7 +1107,7 @@
                                             <canvas id="sig" onblure="draw()"
                                                 style="background: lightgray; border-radius:10px"></canvas>
                                             <br />
-                                            <!-- <textarea id="signature" name="signed" style="display: none"></textarea> -->
+                                            <textarea id="signature" name="signed" style="display: none"></textarea>
                                             <span id="clear" class="fa fa-undo cursor-pointer"
                                                 style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                         </div>
@@ -1155,9 +1157,9 @@
                     <div class="row">
                         <div class="col">
                             <button id="submitbutton" type="button" class="btn btn-primary ">Submit</button>
-                            <div class="d-flex inputDiv principleno" style="display: none !important">
+                            <!-- <div class="d-flex inputDiv principleno" style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </form>

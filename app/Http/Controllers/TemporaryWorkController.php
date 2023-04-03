@@ -1434,13 +1434,15 @@ $notify_admins_msg = [
 
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
                 $all_inputs['name1'] = $request->name1;
                 $all_inputs['job_title1'] = $request->job_title1;
+                // $all_inputs['company1'] = $request->company1;
+                // $all_inputs['date1'] = $request->date1;
                 //old work =================================================
                 if ($request->signtype1 == 1) {
                     $all_inputs['signature1'] = $request->namesign1;
@@ -1500,7 +1502,7 @@ $notify_admins_msg = [
                 //save permit image
                 $pojectdata=Project::select('name','no')->find($request->project_id);
                 $image_links = $this->permitfiles($request, $permitload->id);
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'company1' => $request->company1, 'date1'=>$request->date1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -1534,7 +1536,7 @@ $notify_admins_msg = [
                 toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
-        } catch (\Exception $exception) {
+        } catch (\Exception $exception) {dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

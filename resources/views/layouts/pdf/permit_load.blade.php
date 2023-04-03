@@ -218,9 +218,9 @@
                         </td>
                         <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
-                                <b style="font-size:12px;">  </b></label>
+                                <b style="font-size:12px;"> Company </b></label>
                         </td>
-                        <td style="width:200px; font-size:12px;"> </td>
+                        <td style="width:200px; font-size:12px;">{{$company1 ?? ''}} </td>
 
                        
                     </tr>
@@ -252,7 +252,7 @@
                         @if($data['principle_contractor']==1) Date @endif</b></label></td>
                         <td style="width: 200px; font-size:12px;"> 
                         @if($data['principle_contractor']==1)
-                        {{ date('d-m-Y', strtotime($data['date'])) }}
+                        {{ date('d-m-Y', $date1) }}
                         @endif
                     </td>
 

@@ -2244,7 +2244,7 @@
                                         style="bottom: 93px;background: white;z-index: 1;left: 7px;">
                                         Take upload photos or documents
                                     </label> --}}
-                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                    <div class="d-flex inputDiv principleno" id="signn" style="">
                                         <div class="uploadingDiv">
                                             <div class="uploadDiv">
                                                 <div class="input-images"></div>
@@ -2441,7 +2441,8 @@
             $('#Drawtype').val(0);
             $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             $("div#sign").removeClass('d-flex').addClass('d-none');
-            $("div#namesign").addClass('d-flex').show();
+            $("#namesign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-none');
             $(".customSubmitButton").removeClass("hideBtn");
             $(".customSubmitButton").addClass("showBtn");
             $("input[name='pdfsign']").removeAttr('required');
@@ -2492,6 +2493,7 @@
 
         if ($(this).is(':checked')) {
             $("#flexCheckChecked").prop('checked', false);
+            $("#DrawCheck").prop('checked', false);
             $("#pdfsign").val(1);
             $("#signtype").val(0);
             $('#Drawtype').val(0);

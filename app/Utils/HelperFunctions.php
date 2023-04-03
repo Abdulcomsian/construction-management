@@ -107,12 +107,12 @@ class HelperFunctions
             $diff_in_days = $to->diffInDays($current);
             $result =  $current->gt($to);
             if ($result) {
-                $class = "background:red;color:black";
+                $class = "background:red !important;color:black !important;";
                 $blinkclass="redBgBlink";
             } elseif ($diff_in_days >= 7) {
-                $class = "background:green;color:black";
+                $class = "background:green !important;color:black !important;";
             } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                $class = "background:yellow;color:black";
+                $class = "background:yellow !important;color:black !important;";
             }
             return array($class,$blinkclass);
             } else {
@@ -120,13 +120,13 @@ class HelperFunctions
                 $diff_in_days = $to->diffInDays($current);
                 $result =  $current->gt($to);
                 if ($result) {
-                    $class = "background:red";
+                    $class = "background:red !important;";
                     $blinkclass="redBgBlink";
                 } elseif ($diff_in_days >= 7) {
-                    $class = "background:green";
+                    $class = "background:green !important";
                      $blinkclass=" ";
                 } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                    $class = "background:yellow";
+                    $class = "background:yellow !important";
                      $blinkclass=" ";
                 }
                 foreach ($array as $arr) {
@@ -137,13 +137,13 @@ class HelperFunctions
                         $diff_in_days = $to->diffInDays($current);
                         $result =  $current->gt($to);
                         if ($result) {
-                            $class = "background:#f2f2f2;color:red";
+                            $class = "background:#f2f2f2 !important;color:red !important;";
                              $blinkclass=" ";
                         } elseif ($diff_in_days >= 7) {
-                            $class = "background:#f2f2f2;color:green";
+                            $class = "background:#f2f2f2 !important;color:green !important";
                              $blinkclass=" ";
                         } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                            $class = "background:#f2f2f2;color:orange";
+                            $class = "background:#f2f2f2 !important;color:orange !important";
                              $blinkclass=" ";
                         }
                         return array($class,$blinkclass);

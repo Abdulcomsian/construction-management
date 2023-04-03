@@ -999,6 +999,28 @@ $notify_admins_msg = [
             return Redirect::back();
         }
     }
+    //get rams
+    public function get_rams(Request $request)
+    {
+        // dd($request->tempworkid);
+        try { 
+            $data = TempWorkUploadFiles::where(['temporary_work_id' => $request->tempworkid])->get();
+            $list = '';
+            $app_url = env('APP_URL');
+            $list.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>RAMS File</th><th style="width:120px;">Date</th></tr></thead><tbody>';
+            if (count($data) > 0) {
+                $i = 1;
+                foreach ($data as $d) {
+                    $list .= '<tr style="text-align:center;"><td>' . $i . '</td><td><a target="_blank" href="'. $app_url . '/' .$d->file_name .'">RAMS'. $i . '</a></td><td>' . $d->created_at->todatestring() . '</td></tr>';
+                    $i++;
+                }
+            }
+            $list .= '</tbody></table>';
+            echo $list;
+        } catch (\Exception $exception) { return "2";
+            return response()->json(['error' =>  $exception->getline()]);
+        }
+    }
     //upload file and drawings
     public function temp_file_uplaod(Request $request)
     {

@@ -227,6 +227,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('temporary_works_shared',[TemporaryWorkController::class,'shared_temporarywork'])->name('temporary_works.shared');
     Route::post('temporary_work_shared_delete',[TemporaryWorkController::class,'Delete_shared_temp'])->name('temporary_works.sharedelete');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
+    Route::post('get-rams', [TemporaryWorkController::class, 'get_rams'])->name('tempwork.getrams');
+    
     //upload photo
     Route::post('temporary_works/uploadphoto', [TemporaryWorkController::class, 'temp_photo_uplaod'])->name('tempwork.upload.photo');
     //get upload photo or document

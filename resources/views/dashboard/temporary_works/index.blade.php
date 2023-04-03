@@ -1020,7 +1020,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between my-2">
                                                 <span class="titleColumn">Required by:</span>
-                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline" style="font-weight:500; color:black;position:relative; top:1px;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</span>
+                                                <span class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? '123'}} desc cursor-pointer" style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"  data-toggle="tooltip" data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span class="label  label-inline" style="font-weight:500; position:relative; top:1px;">{{date('d-m-Y', strtotime($item->design_required_by_date)) ?: '-' }}</span>
                                             </div>
                                             <div>
                                             <div class="d-flex justify-content-between">
@@ -1285,7 +1285,7 @@
                                                       @endif
                                                       @endforeach --}}
                                                    </div>
-                                                   <div data-type="2" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
+                                                   <div data-type="3" data-id="{{$item->id}}" class="rams" style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
                                                       <span style="position: relative; bottom:3px; left:3px;">
                                                          @php
                                                             $rams = count($item->uploadfile);
@@ -2677,6 +2677,7 @@
 @include('dashboard.modals.designername')
 @include('dashboard.modals.comments')
 @include('dashboard.modals.drawingdesignlist')
+@include('dashboard.modals.ramfiles')
 @include('dashboard.modals.datemodal')
 @include('dashboard.modals.permit_to_load')
 @include('dashboard.modals.description')
@@ -2835,6 +2836,26 @@
            success: function(res) {
                $("#drawingdesigntable").html(res);
                $("#drawinganddesignlist").modal('show');
+           }
+       });
+   
+   })
+//popup for rams
+   $(".rams").on('click', function() {
+   
+       var tempworkid = $(this).attr('data-id');
+  
+       $.ajax({
+           url: "{{route('tempwork.getrams')}}",
+           method: "post",
+           data: {
+               tempworkid: tempworkid,
+               _token: "{{csrf_token()}}"
+           },
+           success: function(res) {
+            console.log(res);
+               $("#ramfilestable").html(res);
+                $("#ramfiles").modal('show');
            }
        });
    

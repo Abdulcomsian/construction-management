@@ -201,17 +201,18 @@
             <div class="row">
                 <div class=' d-flex col-md-6'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
+                        
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100 active" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false" tabindex="-1">Queries</button>
-                        </li>
-                        <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="signup" aria-selected="true">Drawing Info</button>
+                            <button class="nav-link tab btn btn_outline w-100 active" id="" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="signup" aria-selected="true">Drawing Info</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab" data-bs-target="#tab3"  type="button" role="tab" aria-controls="owner" aria-selected="false" tabindex="-1">Certificate</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="owner" aria-selected="false" tabindex="-1">Others</button>
+                        </li>
+                        <li class="nav-item w-100" role="presentation">
+                            <button class="nav-link tab btn btn_outline w-100 " id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false" tabindex="-1">Queries</button>
                         </li>
                     </ul>
                 </div>
@@ -311,7 +312,7 @@
                     </div>
                 </div>
                 <!-- tab 2 -->
-                <div class="tab-pane" id="tab2" role="tabpanel">
+                <div class="tab-pane active" id="tab2" role="tabpanel">
                     <form id="desingform" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />

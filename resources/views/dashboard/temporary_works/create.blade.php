@@ -305,7 +305,7 @@
     }
 
     #desingform input {
-        background-color: #fff !important;
+        background-color: #fff;
         border: none !important;
         color: #000 !important;
     }
@@ -313,7 +313,15 @@
     #desingform input::placeholder {
         color: #9D9D9D !important;
     }
-
+    input[type="radio"]:focus,  input[type="radio"]:active {
+    outline: max(2px, 0.15em) solid #000;  background-color: #000 !important;
+    outline-offset: max(2px, 0.15em);
+  }
+  input[type="radio"]:checked {
+  /* Add your styles here */
+  background-color: #07d564  !important;
+  color:#07d564  !important;border:1px solid #000;
+}
     .nav-group.nav-group-fluid>label {
         top: 0 !important;
         padding: 0 2px !important;

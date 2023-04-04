@@ -529,7 +529,7 @@ $('input[name="other_radio"]').change(function () {
 });
 
 $('input[name="drawings_design"]').change(function () {
-    if ($(this).val() == 2) {
+    if ($(this).val() == 1) {
         $('textarea[name="drawings_design_desc"]')
             .removeClass("d-none")
             .attr("required", "required");

@@ -510,14 +510,14 @@
                                             <li class="invisible List-Attachment d-flex  my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault1" value="yes" />
+                                                        <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="" value="yes" />
                                                         <input class="form-check-input" type="hidden" name="list_of_attachments" value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
-                                                        <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                        <label class="form-check-label" for=""> YES </label>
                                                     </div>
                                                     <!-- NO -->
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="flexRadioDefault2" value="no" />
-                                                        <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                        <input class="form-check-input" type="radio" name="list_of_attachments_folder" id="" value="no" />
+                                                        <label class="form-check-label" for=""> NO </label>
                                                     </div>
                                                 </div>
                                                 <div class="list_of_attach_comment d-none">
@@ -534,14 +534,14 @@
                                             <li class="invisible Report-Site d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault1" value="yes" />
+                                                        <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="" value="yes" />
                                                         <input class="form-check-input" type="hidden" name="reports_including_site_investigations" value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
-                                                        <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                        <label class="form-check-label" for=""> YES </label>
                                                     </div>
                                                     <!-- NO -->
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="flexRadioDefault2" value="no" />
-                                                        <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                        <input class="form-check-input" type="radio" name="reports_including_site_investigations_folder" id="" value="no" />
+                                                        <label class="form-check-label" for=""> NO </label>
                                                     </div>
                                                 </div>
                                                 <div class="reports_including_site_investigations_comment d-none">
@@ -556,14 +556,14 @@
                                             <li class="invisible Exsisting-Ground d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                                 <div class="multi-Radio">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault1" value="yes" />
+                                                        <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="" value="yes" />
                                                         <input class="form-check-input" type="hidden" name="existing_ground_conditions" value="Existing Ground conditions:" />
-                                                        <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                        <label class="form-check-label" for=""> YES </label>
                                                     </div>
                                                     <!-- NO -->
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="flexRadioDefault2" value="no" />
-                                                        <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                        <input class="form-check-input" type="radio" name="existing_ground_conditions_folder" id="" value="no" />
+                                                        <label class="form-check-label" for=""> NO </label>
                                                     </div>
                                                 </div>
                                                 <div class="existing_ground_conditions_comment d-none">
@@ -583,14 +583,14 @@
                                         <li class="invisible System-Type d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="" value="yes" />
                                                     <input class="form-check-input" type="hidden" name="preferred_non_preferred_methods" value="Preferred/non-preferred methods, systems or types of equipment:" />
-                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    <label class="form-check-label" for=""> YES </label>
                                                 </div>
                                                 <!-- NO -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="flexRadioDefault2" value="no" />
-                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    <input class="form-check-input" type="radio" name="preferred_non_preferred_methods_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
                                         </li>
@@ -610,14 +610,14 @@
                                         <li class="invisible Limitations d-flex my-0" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="radio" name="access_limitations_folder" id="" value="yes" />
                                                     <input class="form-check-input" type="hidden" name="access_limitations" value="Access Limitations (or edge protection requirements)" />
-                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    <label class="form-check-label" for=""> YES </label>
                                                 </div>
                                                 <!-- NO -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="access_limitations_folder" id="flexRadioDefault2" value="no" />
-                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    <input class="form-check-input" type="radio" name="access_limitations_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
                                             <div class="access_limitations_comment d-none">
@@ -639,14 +639,14 @@
                                         <li class="invisible Back-Propping d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="radio" name="back_propping_folder" id="" value="yes" />
                                                     <input class="form-check-input" type="hidden" name="back_propping" value="Back Propping  / Re-Propping Sequence" />
-                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    <label class="form-check-label" for=""> YES </label>
                                                 </div>
                                                 <!-- NO -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="back_propping_folder" id="flexRadioDefault2" value="no" />
-                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    <input class="form-check-input" type="radio" name="back_propping_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
                                             <div class="back_propping_comment d-none">
@@ -666,14 +666,14 @@
                                         <li class="invisible Temporary-Work d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="" value="yes" />
                                                     <input class="form-check-input" type="hidden" name="limitations_on_temporary_works_design" value="Limitations on Temporary Works Design:" />
-                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    <label class="form-check-label" for=""> YES </label>
                                                 </div>
                                                 <!-- NO -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="flexRadioDefault2" value="no" />
-                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    <input class="form-check-input" type="radio" name="limitations_on_temporary_works_design_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
                                             <div class="limitations_on_temporary_works_design_comment d-none">
@@ -697,14 +697,14 @@
                                         <li class="invisible Hazard-Risk d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="" value="yes" />
                                                     <input class="form-check-input" type="hidden" name="details_of_any_hazards" value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
-                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    <label class="form-check-label" for=""> YES </label>
                                                 </div>
                                                 <!-- NO -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="flexRadioDefault2" value="no" />
-                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    <input class="form-check-input" type="radio" name="details_of_any_hazards_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
                                             <div class="details_of_any_hazards_comment d-none">
@@ -726,14 +726,14 @@
                                         <li class="invisible Party-Requirements d-flex" style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault1" value="yes" />
+                                                    <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="" value="yes" />
                                                     <input class="form-check-input" type="hidden" name="3rd_party_requirements" value="3rd Party Requirements:" />
-                                                    <label class="form-check-label" for="flexRadioDefault1"> YES </label>
+                                                    <label class="form-check-label" for=""> YES </label>
                                                 </div>
                                                 <!-- NO -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="flexRadioDefault2" value="no" />
-                                                    <label class="form-check-label" for="flexRadioDefault2"> NO </label>
+                                                    <input class="form-check-input" type="radio" name="3rd_party_requirements_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
                                         </li>

@@ -30,13 +30,13 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Submitted</th>
-                            <th>Comments</th>
-                            <th>Updated</th>
+                            <th style="text-align:left;padding-left:0px;">No</th>
+                            <th style="text-align:left;padding-left:0px;">Submitted</th>
+                            <th style="text-align:left;padding-left:0px;">Comments</th>
+                            <th style="text-align:left;padding-left:0px;">Updated</th>
                             <!-- <th>Rejectd By</th>
                             <th>Date</th>  -->
-                            <th>Actions</th>
+                            <th style="text-align:left;padding-left:0px;">Actions</th>
                         </tr>
                     </thead>
                

@@ -2592,20 +2592,30 @@
     // $().click().addClass('d-none');
     
 
-    $(document).ready(function() {
-        $('input[name="equipment_materials"]').on('change', function() {
-            if ($(this).val() === '1') {
-            $('textarea[name="equipment_materials_desc"]').css('display', 'block');
-            } else {
-            $('textarea[name="equipment_materials_desc"]').css('display', 'none');
-            }
-        });
+    // $(document).ready(function() {
+    //     $('input[name="equipment_materials"]').on('change', function() {
+    //         if ($(this).val() === '1') {
+    //         $('textarea[name="equipment_materials_desc"]').css('display', 'block');
+    //         } else {
+    //         $('textarea[name="equipment_materials_desc"]').css('display', 'none');
+    //         }
+    //     });
         
-        $('.btn-active-primary').on('click', function() {
-            $('textarea[name="equipment_materials_desc"]').css('display', 'block');
-            $('textarea[name="equipment_materials_desc"]').removeClass('d-none');
-        });
-});
+    //     $('.btn-active-primary').on('click', function() {
+    //         $('textarea[name="equipment_materials_desc"]').css('display', 'block');
+    //         $('textarea[name="equipment_materials_desc"]').removeClass('d-none');
+    //     });
+    // });
+
+    // $(document).ready(function() {
+    //     $('input[name="workmanship"]').on('click', function() {
+    //         console.log($(this).val())
+    //         if ($(this).val() === '1') {
+    //         $('textarea[name="workmanship_desc"]').removeClass('d-none');
+    //         } 
+    //         if($(this).val() === "2") $('textarea[name="workmanship_desc"]').addClass('d-none');
+    //     });
+    // });
 
 
 

@@ -212,6 +212,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('permit-save', [TemporaryWorkController::class, 'permit_save'])->name('permit.save');
     // Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
     Route::get('permit-renew/{id}', [TemporaryWorkController::class, 'permit_renew'])->name('permit.renew');
+    Route::get('permit-renew-test/{id}', [TemporaryWorkController::class, 'permit_renew_test'])->name('permit.renew.test');
     Route::get('permit-unload/{id}', [TemporaryWorkController::class, 'permit_unload'])->name('permit.unload');
     Route::get('permit-unload-test/{id}', [TemporaryWorkController::class, 'permit_unload_test']);
     Route::post('permit-unload-save', [TemporaryWorkController::class, 'permit_unload_save'])->name('permit.unload.save');

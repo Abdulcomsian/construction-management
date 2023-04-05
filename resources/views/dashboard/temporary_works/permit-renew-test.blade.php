@@ -733,23 +733,6 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv upload_signature_div">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:16%">
-
-                                </label>
-                                <div class="d-flex inputDiv principleno" id="sign"
-                                    style="width:100%; border: none; margin:auto">
-                                    <div class="uploadingDiv">
-                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                            <div class="input-images"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
                             <div class="d-flex inputDiv" style="height: 41px; align-items:center; gap: 17px">
                                 <!--begin::Label-->
                                 <label class="fs-6 fw-bold mb-2">
@@ -890,7 +873,19 @@
                                             </label>
                                             <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
                                         </div> -->
+                                    <div class="d-flex inputDiv upload_signature_div">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:16%">
 
+                                        </label>
+                                        <div class="d-flex inputDiv principleno" id="sign"
+                                            style="width:100%; border: none; margin:auto">
+                                            <div class="uploadingDiv">
+                                                <div class="uploadDiv" style="padding-left: 10px;">
+                                                    <div class="input-images"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="d-flex inputDiv" style="border: none">
                                         <label class="fs-6 fw-bold mb-2"
                                             style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
@@ -1134,6 +1129,19 @@
                                         <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                     </div>
                                 </div> --}}
+                                <div class="d-flex inputDiv upload_signature_div"
+                                    style="visibility: hidden; height: 152px">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:16%">
+
+                                    </label>
+                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                        <div class="uploadingDiv">
+                                            <div class="uploadDiv" style="padding-left: 10px;">
+                                                <div class="input-images"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="d-flex inputDiv" style="border: none">
                                     <label class="fs-6 fw-bold mb-2"
                                         style="width:40% !important;font-size: 600 !important; font-size: 16px !important">

@@ -1779,6 +1779,27 @@ $notify_admins_msg = [
         $project = Project::with('company')->where('id', $permitdata->project_id)->first();
         return view('dashboard.temporary_works.permit-renew', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata'));
     }
+    //permit renew
+    public function permit_renew_test($id)
+    {
+        $permitid =  \Crypt::decrypt($id);
+        $permitdata = PermitLoad::find($permitid);
+        $tempid = $permitdata->temporary_work_id;
+        $tempdata = TemporaryWork::find($tempid);
+        $data = explode("-", $permitdata->permit_no);
+        $lastkey = count($data) - 1;
+        $lastindex = end($data);
+        if (preg_match("/[R]/", $lastindex)) {
+            $str = (int)preg_replace('/\D/', '', $lastindex);
+            $str = ++$str;
+            $data[$lastkey] = 'R' . $str;
+            $twc_id_no = implode('-', $data);
+        } else {
+            $twc_id_no = $permitdata->permit_no . '-R1';
+        }
+        $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+        return view('dashboard.temporary_works.permit-renew-test', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata'));
+    }
     //permit unlaod
     public function permit_unload($id)
     {

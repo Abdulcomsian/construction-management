@@ -916,9 +916,10 @@
                                         </label>
                                         <!--end::Label-->
                                         <div class="input">
-                                            <input type="text" id="companyadmin2" class="form-control form-control-solid"
-                                                placeholder="Company"  name="company1">
-                                                <!-- name="company1" -->
+                                            <input type="text" id="companyadmin2"
+                                                class="form-control form-control-solid" placeholder="Company"
+                                                name="company1">
+                                            <!-- name="company1" -->
                                             <input type="hidden" id="companyid" class="form-control form-control-solid"
                                                 placeholder="Company" name="companyid" readonly="readonly">
                                         </div>
@@ -930,9 +931,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <div class="input">
-                                            <input type="date"  style="background-color:#f5f8fa"
+                                            <input type="date" style="background-color:#f5f8fa"
                                                 value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
-                                                <!-- name="date1" -->
+                                            <!-- name="date1" -->
                                         </div>
                                     </div>
 

@@ -869,7 +869,7 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
                                     <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal"
                                         data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->

@@ -1053,7 +1053,7 @@
                                         <!--end::Label-->
                                         <div class="input">
                                             <input type="text" class="form-control form-control-solid"
-                                                placeholder="Name" id="name2" name="name"
+                                                placeholder="Name" id="name2" name="name1"
                                                 value="{{$permitdata->name ?? ''}}">
                                         </div>
                                     </div>
@@ -1065,7 +1065,7 @@
                                         <!--end::Label-->
                                         <div class="input">
                                             <input type="text" class="form-control form-control-solid"
-                                                placeholder="Job Title" id="job_title" name="job_title"
+                                                placeholder="Job Title" id="job_title" name="job_title1"
                                                 value="{{$permitdata->job_title ?? ''}}">
                                         </div>
                                     </div>

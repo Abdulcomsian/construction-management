@@ -24,7 +24,7 @@
     }
 
     #kt_content_container {
-        background-color: #e9edf1;
+        background-color: #fff;
     }
 
     #kt_toolbar_container {
@@ -158,6 +158,47 @@
         background: #FFBF00;
     }
 
+    .inputDiv {
+        margin: 30px 0px;
+        border: 1px solid #D2D5DA;
+        border-radius: 8px;
+        position: relative;
+        padding: 5px 5px;
+    }
+
+    .inputDiv label {
+        /* width: 40%; */
+        color: #000;
+        position: absolute;
+        bottom: 31px;
+        background: white;
+        font-family: 'Inter', sans-serif;
+        width: fit-content;
+    }
+
+    .form-control.form-control-solid {
+        background-color: white !important;
+        padding: 5px;
+        border: none !important;
+    }
+
+    #kt_content_container textarea {
+        border: none;
+        height: 41px;
+    }
+
+    .nav-group {
+        background: none;
+    }
+
+    .form-select.form-select-solid {
+        background-color: white !important;
+    }
+
+    .signatureTitle {
+        white-space: nowrap;
+    }
+
     @media only screen and (max-width: 450px) {
         #sig1 {
             width: 200px;
@@ -168,6 +209,17 @@
         }
     }
 
+    @media only screen and (min-width:990px) {
+        #kt_post {
+            width: 75%;
+        }
+    }
+
+    @media only screen and (max-width:768px) {
+        #first_member .upload_signature_div {
+            display: none !important;
+        }
+    }
 </style>
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
@@ -193,7 +245,8 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form id="permitrenew" class="from-prevent-multiple-submits" action="{{route('permit.save')}}" method="post" enctype="multipart/form-data">
+                <form id="permitrenew" class="from-prevent-multiple-submits" action="{{route('permit.save')}}"
+                    method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
@@ -205,10 +258,11 @@
                     <input type="hidden" name="type" value="renew">
                     <input type="hidden" name="permitid" value="{{$permitdata->id}}">
                     @endif
+
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <div class="col">
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <label class="fs-6 fw-bold mb-2" style="z-index: 1">
                                     <span class="required">Select Project:</span>
                                 </label>
                                 <select name="project_id" id="projects"
@@ -219,10 +273,14 @@
                                         {{$project->name .' - '. $project->no}}</option>
                                 </select>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project No :</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid"
@@ -230,10 +288,12 @@
                                         readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project Name :</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid"
@@ -241,10 +301,14 @@
                                         readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Drawing Number:</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
@@ -252,10 +316,27 @@
                                         value="{{$permitdata->drawing_no ?? ''}}" required>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv d-block">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2">
+                                        Date :
+                                    </label>
+                                    <input type="date" value="{{ date('Y-m-d') }}"
+                                        class="form-control form-control-solid" placeholder="Date"
+                                        style="background-color:#f5f8fa" name="date">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name :</span>
                                     </label>
                                     <input type="text" class="form-control form-control-solid" placeholder="TWC Name"
@@ -266,69 +347,66 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="col-md-12">
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            Date :
-                                        </label>
-                                        <input type="date" value="{{ date('Y-m-d') }}"
-                                            class="form-control form-control-solid" placeholder="Date"
-                                            style="background-color:#f5f8fa" name="date">
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Permit Number :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}"
-                                            readonly="readonly" required>
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Drawing Title :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Drawing Title" name="drawing_title"
-                                            value="{{$permitdata->drawing_title ?? ''}}" required>
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">TWS Name :</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="TWS Name" name="tws_name"
-                                            value="{{$permitdata->tws_name ?? ''}}" required>
-                                    </div>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block">
-
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">MS/RA Number</span>
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="MS/RA Number" name="ms_ra_no"
-                                            value="{{old('ms_ra_no',$permitdata->ms_ra_no ?? '')}}">
-                                    </div>
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">Permit Number :</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Permit No"
+                                        name="permit_no" value="{{$twc_id_no}}" readonly="readonly" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">Drawing Title :</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="Drawing Title" name="drawing_title"
+                                        value="{{$permitdata->drawing_title ?? ''}}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">TWS Name :</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="TWS Name"
+                                        name="tws_name" value="{{$permitdata->tws_name ?? ''}}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex modalDiv d-block">
+
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required">MS/RA Number</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="MS/RA Number" name="ms_ra_no"
+                                        value="{{old('ms_ra_no',$permitdata->ms_ra_no ?? '')}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 42px">
                                         Location of the temporary works
                                     </label>
                                     <textarea class="form-control" name="location_temp_work" rows="2"
@@ -336,10 +414,12 @@
                                         placeholder=" Location of the temporary works">{{old('location_temp_work',$permitdata->location_temp_work ?? '')}}</textarea>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="d-flex inputDiv d-block">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 42px">
                                         Description of Structure which is ready for use:
                                     </label>
                                     <textarea class="form-control" name="description_structure" rows="2"
@@ -347,8 +427,11 @@
                                         placeholder="Description of structure:">{{old('description_structure',$permitdata->description_structure ?? '')}}</textarea>
                                 </div>
                             </div>
-
-                            <div class="d-flex inputDiv requiredDiv">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Equipment & materials used as specified & fit for
@@ -372,10 +455,13 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-
-                            <div class="d-flex inputDiv">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Workmanship checked (i.e. all props, ties, struts, joints,
                                         stop-ends, etc)</span>
 
@@ -406,8 +492,11 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-
-                            <div class="d-flex inputDiv">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">TW checked to drawings / design output</span>
@@ -440,8 +529,11 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-
-                            <div class="d-flex inputDiv">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Loading /use limitations understood e.g. Rate of pour,
@@ -475,8 +567,11 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-
-                            <div class="d-flex inputDiv">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Approval by TWC required?</span>
@@ -512,14 +607,18 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="">
                                 <div class="d-flex modalDiv">
                                     <textarea name="description_approval_temp_works" rows="2" class="form-control"
-                                        style="display: none">{{old('description_approval_temp_works',$permitdata->description_approval_temp_works)}}</textarea>
+                                        style="display: none; border: 1px solid lightgray; border-radius: 7px;">{{old('description_approval_temp_works',$permitdata->description_approval_temp_works)}}</textarea>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <!-- new work here -->
-                            <div class="d-flex inputDiv requiredDiv">
+                            <div class="d-flex justify-content-between align-items-center requiredDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Add rate of rise?</span>
@@ -560,15 +659,19 @@
 
                             }
                             @endphp
-                            <div class="d-flex inputDiv">
+                            <div class="">
                                 <div class="d-flex modalDiv">
                                     <textarea name="rate_rise_comment" rows="2" class="form-control"
-                                        style="{{$display}}">{{old('rate_rise_comment',$permitdata->rate_rise_comment)}}</textarea>
+                                        style="{{$display}};border: 1px solid lightgray; border-radius: 7px;">{{old('rate_rise_comment',$permitdata->rate_rise_comment)}}</textarea>
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Has the construction methodology changed?</span>
 
                                 </label>
@@ -602,29 +705,63 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex ">
                                 <div class="d-flex modalDiv">
                                     <textarea name="construction_methodology_comment" rows="2" class="form-control"
-                                        style="display: {{$permitdata->construction_methodology==1 ? 'block' : 'none';}}">{{old('construction_methodology_comment',$permitdata->construction_methodology_comment ?? '')}}</textarea>
+                                        style="display: {{$permitdata->construction_methodology==1 ? 'block' : 'none';}}; border: 1px solid lightgray; border-radius: 7px;">{{old('construction_methodology_comment',$permitdata->construction_methodology_comment ?? '')}}</textarea>
                                 </div>
                             </div>
-
-                            <h5 style="color: #000">Permit to Load / Use</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5 style="color: #000;font-weight: 600;font-size: 24px;margin-top: 15px;">Permit to Load /
+                                Use</h5>
                             <br>
-                            <p style="color: #000;">
+                            <ul style="color: #000;">
 
-                                I confirm that I have inspected this temporary structure and I am satisfied that it
-                                conforms to the criteria given above.<br>
-                                I consider that the temporary structure is ready to be loaded and put into use.<br>
-                                I confirm that I am authorised to use a Permit to Load for this temporary structure.<br>
-                            </p>
+                                <li>
+                                    I confirm that I have inspected this temporary structure and I am satisfied that it
+                                    conforms to the criteria given above.
+                                </li>
+                                <li>I consider that the temporary structure is ready to be loaded and put into use.</li>
+                                <li>I confirm that I am authorised to use a Permit to Load for this temporary structure.
+                                </li>
+                            </ul>
 
-                            <!--end::Option-->
-
-
-                            <div class="d-flex inputDiv">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv" style="height: 41px; align-items:center; gap: 17px">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span>Approval:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="checkbox" name="approval" id="approval"
+                                    style="width: 12px;margin-top:5px; margin-left: 12px">
+                                <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
+                                    required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-none inputDiv pc-twc">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span>PC TWC Email:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="email" class="form-control form-control-solid" name="pc_twc_email"
+                                    id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Other approval required?</span>
 
                                 </label>
@@ -657,264 +794,429 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="" id="second_member">
+                                <div class="col" style="flex:100% !important;">
 
-                            <!-- obaid work -->
-                            <div class="col-md-12">
-                                @php
-                                $display='display:none;';
-                                if(isset($permitdata) && $permitdata->principle_contractor==1)
-                                {
-                                $display='display:block;';
-                                }
-                                @endphp
-                                <div class="row" id="first_member" style="{{$display}}">
-                                    <div class="col" style="flex:100% !important;">
-
-                                        <div class="d-flex inputDiv d-block">
+                                    {{-- <div class="d-flex inputDiv">
+                                    </div> --}}
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name::</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Name" id="name2" name="name"
+                                                value="{{$permitdata->name ?? ''}}">
                                         </div>
-                                        <div class="d-flex inputDiv principleno">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name::</span>
-                                            </label>
-                                            <!--end::Label-->
-
+                                    </div>
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Job Title:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Job Title" id="job_title" name="job_title"
+                                                value="{{$permitdata->job_title ?? ''}}">
                                         </div>
-                                        <div class="d-flex inputDiv principleno">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Job Title:</span>
-                                            </label>
-                                            <!--end::Label-->
-
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Company: </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
+                                                placeholder="Company" name="company"
+                                                value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                            <input type="hidden" id="companyid" class="form-control form-control-solid"
+                                                placeholder="Company" name="companyid"
+                                                value="{{$project->company->id ?? ''}}" readonly="readonly">
                                         </div>
-
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                            <span class="required">Date:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="date" style="background-color:#f5f8fa"
+                                                value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                        </div>
                                     </div>
 
-                                    <div class="col">
-                                        <div class="d-flex inputDiv" style="">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:33% !important">
+                                </div>
+
+                                <div class="col">
+                                    <!-- Approval div -->
+
+                                    <!-- <div class="d-flex inputDiv" style="">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                 <span>Name/signature:</span>
                                             </label>
-                                            <input type="checkbox" id="flexCheckChecked1"
-                                                style="width: 12px;margin-top:5px">
-                                            <input type="hidden" id="signtype1" name="signtype1"
-                                                class="form-control form-control-solid" value="0">
-                                            <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
-                                                name signature?</span>
-                                        </div>
-                                        <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name Signature:</span>
-                                            </label>
-                                            <input type="text" name="namesign1" id="namesign_id2"
-                                                class="form-control form-control-solid">
-                                        </div>
-                                        <div class="d-flex inputDiv principleno" id="sign1" style="">
-                                            <label style="width:33%"
-                                                class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Signature:</span>
-                                            </label>
-                                            <br />
-                                            <canvas id="sig1"></canvas>
-                                        </div>
-                                        <div class="d-flex inputDiv principleno" id="sign1" style="">
-                                            <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Second person -->
-                                <div class="row" id="second_member">
-                                    <div class="col" style="flex:100% !important;">
-
-                                        <div class="d-flex inputDiv">
-                                        </div>
-                                        <div class="d-flex inputDiv principleno">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name::</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="text" class="form-control form-control-solid"
-                                                    placeholder="Name" id="name2" name="name"
-                                                    value="{{$permitdata->name ?? ''}}">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex inputDiv principleno">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Job Title:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="text" class="form-control form-control-solid"
-                                                    placeholder="Job Title" id="job_title" name="job_title"
-                                                    value="{{$permitdata->job_title ?? ''}}">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex inputDiv ">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Company: </span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="text" id="companyadmin"
-                                                    class="form-control form-control-solid" placeholder="Company"
-                                                    name="company" value="{{$project->company->name ?? ''}}"
-                                                    readonly="readonly">
-                                                <input type="hidden" id="companyid"
-                                                    class="form-control form-control-solid" placeholder="Company"
-                                                    name="companyid" value="{{$project->company->id ?? ''}}"
-                                                    readonly="readonly">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex inputDiv ">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                                <span class="required">Date:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <div class="input">
-                                                <input type="date" style="background-color:#f5f8fa"
-                                                    value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col">
-                                        <!-- Approval div -->
-                                        <div class="d-flex inputDiv">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:17%">
-                                                <span>Approval:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="checkbox" name="approval" id="approval"
-                                                style="width: 12px;margin-top:5px">
-                                            <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
-                                                required.</span>
-                                        </div>
-                                        <div class="d-none inputDiv pc-twc">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:17%">
-                                                <span>PC TWC Email:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="email" class="form-control form-control-solid"
-                                                name="pc_twc_email" id="pc-twc-email" placeholder="PC TWC Email"
-                                                value="{{old('pc-twc-email')}}">
-                                        </div>
-                                        <!-- <div class="d-flex inputDiv" style="">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
-                                                    <span>Name/signature:</span>
-                                                </label>
-                                                <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
-                                                <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
-                                                <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want name signature?</span>
-                                            </div>
-                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Name Signature:</span>
-                                                </label>
-                                                <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
-                                            </div> -->
-                                        <div class="d-flex inputDiv upload_signature_div">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:16%">
-
-                                            </label>
-                                            <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                <div class="uploadingDiv">
-                                                    <div class="uploadDiv" style="padding-left: 10px;">
-                                                        <div class="input-images"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex inputDiv">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:17%">
-                                                <span>Type Signature:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="checkbox" class="" id="flexCheckChecked"
-                                                style="width: 12px;margin-top:5px">
-                                            <input type="hidden" id="signtype" name="signtype"
-                                                class="form-control form-control-solid" value="2">
-                                            <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name
-                                                signature?</span>
-                                            &nbsp;
-                                            <!--end::Label-->
-                                            <input type="checkbox" class="" id="pdfChecked"
-                                                style="width: 12px;margin-top:5px">
-                                            <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                                class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf
-                                                signature?</span>
-
-                                        </div>
-                                        <div class="inputDiv d-none" id="pdfsign">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Upload Signature:<br>Allowed format (PNG, JPG)</span>
-                                            </label>
-                                            <input type="file" name="pdfphoto" class="form-control" accept="image/*">
-                                        </div>
-
-                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Name Signature:</span>
-                                            </label>
-                                            <input type="text" name="namesign" class="form-control form-control-solid">
+                                            <input type="checkbox" id="flexCheckChecked" style="width: 12px;margin-top:5px">
+                                            <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="0">
+                                            <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want name signature?</span>
                                         </div>
                                         <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Name Signature:</span>
                                             </label>
-                                            <input type="text" name="namesign" id="namesign_id"
-                                                class="form-control form-control-solid">
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                    <div class="signatureDiv">
-                                                        <label style="width:26%;"
-                                                            class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Signature:</span>
-                                                        </label>
-                                                        <br />
-                                                        <canvas id="sig"></canvas>
-                                                    </div>
+                                            <input type="text" name="namesign" id="namesign_id" class="form-control form-control-solid">
+                                        </div> -->
+                                    <div class="d-flex inputDiv upload_signature_div">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:16%">
+
+                                        </label>
+                                        <div class="d-flex inputDiv principleno" id="sign"
+                                            style="width:100%; border: none; margin:auto">
+                                            <div class="uploadingDiv">
+                                                <div class="uploadDiv" style="padding-left: 10px;">
+                                                    <div class="input-images"></div>
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-md-4">
-                                                    <div class="d-flex inputDiv principleno" id="sign" style="">
-                                                        <div class="uploadingDiv">
-                                                        <div class="uploadDiv" style="padding-left: 10px;">
-                                                                <div class="input-images"></div>
-                                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex inputDiv" style="border: none">
+                                        <label class="fs-6 fw-bold mb-2"
+                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                            <span class="signatureTitle">Signature
+                                                Type:</span>
+                                        </label>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                                style="width: 12px;">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype"
+                                                class="form-control form-control-solid" value="2">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                        </div>
+                                        &nbsp;
+                                        <!--end::Label-->
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                            <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                                class="form-control form-control-solid" value="0">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap;">PNG/JPG
+                                                Upload </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                        <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label>
+                                        <br/> -->
+                                        <canvas id="sig" onblure="draw()"
+                                            style="background: lightgray; border-radius:10px"></canvas>
+                                        <br />
+                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                            style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Upload Signature:<br>Allowed format (PNG,
+                                                JPG)</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                    </div>
+
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign" class="form-control form-control-solid">
+                                    </div>
+                                    {{-- <div class="d-flex inputDiv">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
+                                            <span>Type Signature:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="checkbox" class="" id="flexCheckChecked"
+                                            style="width: 12px;margin-top:5px">
+                                        <input type="hidden" id="signtype" name="signtype"
+                                            class="form-control form-control-solid" value="2">
+                                        <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name
+                                            signature?</span>
+                                        &nbsp;
+                                        <!--end::Label-->
+                                        <input type="checkbox" class="" id="pdfChecked"
+                                            style="width: 12px;margin-top:5px">
+                                        <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                            class="form-control form-control-solid" value="0">
+                                        <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf
+                                            signature?</span>
+
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Upload Signature:<br>Allowed format (PNG,
+                                                JPG)</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                    </div>
+
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign" class="form-control form-control-solid">
+                                    </div>
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign" id="namesign_id"
+                                            class="form-control form-control-solid">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                <div class="signatureDiv">
+                                                    <label style="width:26%;"
+                                                        class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Signature:</span>
+                                                    </label>
+                                                    <br />
+                                                    <canvas id="sig"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4">
+                                                <div class="d-flex inputDiv principleno" id="sign" style="">
+                                                    <div class="uploadingDiv">
+                                                    <div class="uploadDiv" style="padding-left: 10px;">
+                                                            <div class="input-images"></div>
                                                         </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
+                                            </div> -->
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                        <textarea id="signature" name="signed" style="opacity: 0"></textarea>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @php
+                            $display='display:none;';
+                            if(isset($permitdata) && $permitdata->principle_contractor==1)
+                            {
+                            $display='display:block;';
+                            }
+                            @endphp
+                            <div id="first_member" style="{{$display}}">
+                                <div class="col" style="flex:100% !important;">
+
+                                    {{-- <div class="d-flex inputDiv d-block">
+                                    </div> --}}
+                                    {{-- <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name::</span>
+                                        </label>
+                                        <!--end::Label-->
+
+                                    </div>
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Job Title:</span>
+                                        </label>
+                                        <!--end::Label-->
+
+                                    </div> --}}
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name::</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Name" id="name2" name="name1"
+                                                value="{{$permitdata->name ?? ''}}">
                                         </div>
-                                        <div class="d-flex inputDiv principleno" id="sign" style="">
-                                            <textarea id="signature" name="signed" style="opacity: 0"></textarea>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Job Title:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Job Title" id="job_title" name="job_title1"
+                                                value="{{$permitdata->job_title ?? ''}}">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Company: </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
+                                                placeholder="Company" name="company"
+                                                value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                            <input type="hidden" id="companyid" class="form-control form-control-solid"
+                                                placeholder="Company" name="companyid"
+                                                value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                            <span class="required">Date:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="date" style="background-color:#f5f8fa"
+                                                value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                {{-- <div class="col">
+                                    <div class="d-flex inputDiv" style="">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                            style="width:33% !important">
+                                            <span>Name/signature:</span>
+                                        </label>
+                                        <input type="checkbox" id="flexCheckChecked1"
+                                            style="width: 12px;margin-top:5px">
+                                        <input type="hidden" id="signtype1" name="signtype1"
+                                            class="form-control form-control-solid" value="0">
+                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
+                                            name signature?</span>
+                                    </div>
+                                    <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign1" id="namesign_id2"
+                                            class="form-control form-control-solid">
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign1" style="">
+                                        <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label>
+                                        <br />
+                                        <canvas id="sig1"></canvas>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign1" style="">
+                                        <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="d-flex inputDiv upload_signature_div"
+                                    style="visibility: hidden; height: 152px">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:16%">
+
+                                    </label>
+                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                        <div class="uploadingDiv">
+                                            <div class="uploadDiv" style="padding-left: 10px;">
+                                                <div class="input-images"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- obaid end work -->
-                            <div class="col-md-12">
+                                <div class="d-flex inputDiv" style="border: none">
+                                    <label class="fs-6 fw-bold mb-2"
+                                        style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                        <span class="signatureTitle">Signature Type:</span>
+                                    </label>
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true
+                                            style="width: 12px;">
+                                        <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                    </div>
+                                    <!--end::Label-->
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
+                                        <input type="hidden" id="signtype1" name="signtype1"
+                                            class="form-control form-control-solid" value="2">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                    </div>
+                                    &nbsp;
+                                    <!--end::Label-->
+                                    {{-- <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
+                                        <input type="hidden" id="pdfsign1" name="pdfsign1"
+                                            class="form-control form-control-solid" value="0">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
+                                            Upload </span>
+                                    </div> --}}
 
-                                <br>
-                                <button id="submitbutton" type="submit"
-                                    class="btn btn-primary float-end from-prevent-multiple-submits">Submit</button>
+                                </div>
+                                <div class="col-md-12">
+                                    {{-- <div class="d-flex inputDiv" style="">
+                                        <label class="fs-6 fw-bold mb-2" style="">
+                                            <span>Name/signature:</span>
+                                        </label>
+                                        <input type="checkbox" id="flexCheckChecked1"
+                                            style="width: 12px;margin-top:5px">
+                                        <input type="hidden" id="signtype1" name="signtype1"
+                                            class="form-control form-control-solid" value="0">
+                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
+                                            name signature?</span>
+                                    </div> --}}
+                                    <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign1" id="namesign_id2"
+                                            class="form-control form-control-solid">
+                                    </div>
+
+                                    <div class="d-flex inputDiv principleno" id="sign1" style="border:none !important;">
+                                        {{-- <label style="width:33%"
+                                            class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label> --}}
+                                        {{-- <br /> --}}
+                                        <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign1"
+                                        style=" display: none !important">
+                                        <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button id="submitbutton" type="submit"
+                                class="btn btn-primary from-prevent-multiple-submits">Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -923,8 +1225,11 @@
         <script>
             $("#flexCheckChecked1").change(function () {
                 if ($(this).is(':checked')) {
+                    $("#DrawCheck1").prop('checked',false);
                     $("#signtype1").val(1);
                     $("#namesign1").addClass('d-flex').show();
+                    $("#namesign1").removeClass('d-none');
+                    $("#namesign1").css('display', 'block');
                     $("input[name='namesign1']").attr('required', 'required');
                     $("#signature1").removeAttr('required', 'required');
                     $("#clear1").hide();
@@ -961,10 +1266,13 @@
             $("#flexCheckChecked").change(function () {
                 if ($(this).is(':checked')) {
                     $("#pdfChecked").prop('checked', false);
+                    $("#DrawCheck").prop('checked', false);
                     $("#signtype").val(1);
                     $("#pdfsign").val(0);
                     $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-                    $("#namesign").addClass('d-flex').show();
+                    $("div#sign").removeClass('d-flex').addClass('d-none');
+                    $("div#namesign").removeClass('d-none').addClass('d-flex').show();
+                    $("div#namesign").css('display', 'block');
                     $(".customSubmitButton").removeClass("hideBtn");
                     $(".customSubmitButton").addClass("showBtn");
                     $("input[name='pdfsign']").removeAttr('required');
@@ -981,6 +1289,69 @@
                     $(".customSubmitButton").addClass("hideBtn");
                     $(".customSubmitButton").removeClass("showBtn");
                 }
+            })
+
+            $("#DrawCheck").change(function(){
+                if($(this).is(':checked'))
+                {
+                    $("#pdfChecked").prop('checked',false);
+                    $("#flexCheckChecked").prop('checked',false);
+                    $("#signtype").val(0);
+                    $("#pdfsign").val(0);
+                    $("#Drawtype").val(1);
+                    // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+                    // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+                    // $(".customSubmitButton").removeClass("hideBtn");
+                    // $(".customSubmitButton").addClass("showBtn");
+                    //  $("input[name='pdfsign']").removeAttr('required');
+                    // $("input[name='namesign']").attr('required','required');
+                    $("#clear").show();
+                    $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+                    $("#namesign").removeClass('d-flex').addClass("d-none");
+                    $("div#sign").css('display','flex');
+                    $("div#sign").removeClass('d-none');
+                
+                }
+                // else{
+                //     $("#signtype").val(2);
+                //     $("#sign").addClass('d-flex').show();
+                //     $("#namesign").removeClass('d-flex').hide();
+                //     $("input[name='namesign']").removeAttr('required');
+                //     $("#clear").show();
+                //     $(".customSubmitButton").addClass("hideBtn");
+                //     $(".customSubmitButton").removeClass("showBtn");
+                // }
+            })
+            $("#DrawCheck1").change(function(){
+                if($(this).is(':checked'))
+                {
+                    $("#pdfChecked1").prop('checked',false);
+                    $("#flexCheckChecked1").prop('checked',false);
+                    $("#signtype").val(0);
+                    $("#pdfsign").val(0);
+                    $("#Drawtype").val(1);
+                    // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+                    // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+                    // $(".customSubmitButton").removeClass("hideBtn");
+                    // $(".customSubmitButton").addClass("showBtn");
+                    //  $("input[name='pdfsign']").removeAttr('required');
+                    // $("input[name='namesign']").attr('required','required');
+                    $("#clear").show();
+                    $("div#pdfsign1").removeClass('d-flex').addClass("d-none");
+                    $("div#namesign1").removeClass('d-flex').addClass("d-none");
+                    $("#sign1").css('display','block');
+                    $("#sign1").removeClass('d-none');
+                
+                }
+                // else{
+                //     $("#signtype").val(2);
+                //     $("#sign").addClass('d-flex').show();
+                //     $("#namesign").removeClass('d-flex').hide();
+                //     $("input[name='namesign']").removeAttr('required');
+                //     $("#clear").show();
+                //     $(".customSubmitButton").addClass("hideBtn");
+                //     $(".customSubmitButton").removeClass("showBtn");
+                // }
             })
 
             $("#pdfChecked").change(function () {

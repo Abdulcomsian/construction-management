@@ -24,7 +24,7 @@
     }
 
     #kt_content_container {
-        background-color: #e9edf1;
+        background-color: #fff;
     }
 
     #kt_toolbar_container {
@@ -191,6 +191,14 @@
         background: none;
     }
 
+    .form-select.form-select-solid {
+        background-color: white !important;
+    }
+
+    .signatureTitle {
+        white-space: nowrap;
+    }
+
     @media only screen and (max-width: 450px) {
         #sig1 {
             width: 200px;
@@ -198,6 +206,18 @@
 
         #sig {
             width: 200px;
+        }
+    }
+
+    @media only screen and (min-width:990px) {
+        #kt_post {
+            width: 75%;
+        }
+    }
+
+    @media only screen and (max-width:768px) {
+        #first_member .upload_signature_div {
+            display: none !important;
         }
     }
 </style>
@@ -242,7 +262,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="d-flex inputDiv d-block mb-0">
-                                <label class="fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2" style="z-index: 1">
                                     <span class="required">Select Project:</span>
                                 </label>
                                 <select name="project_id" id="projects"
@@ -712,6 +732,32 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex inputDiv" style="height: 41px; align-items:center; gap: 17px">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span>Approval:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="checkbox" name="approval" id="approval"
+                                    style="width: 12px;margin-top:5px; margin-left: 12px">
+                                <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
+                                    required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-none inputDiv pc-twc">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span>PC TWC Email:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="email" class="form-control form-control-solid" name="pc_twc_email"
+                                    id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <div class="d-flex justify-content-between align-items-center">
                                 <!--begin::Label-->
@@ -812,27 +858,7 @@
 
                                 <div class="col">
                                     <!-- Approval div -->
-                                    <div class="d-flex inputDiv">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
-                                            <span>Approval:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <input type="checkbox" name="approval" id="approval"
-                                            style="width: 12px;margin-top:5px">
-                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
-                                            required.</span>
-                                    </div>
-                                    <div class="d-none inputDiv pc-twc">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
-                                            <span>PC TWC Email:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <input type="email" class="form-control form-control-solid" name="pc_twc_email"
-                                            id="pc-twc-email" placeholder="PC TWC Email"
-                                            value="{{old('pc-twc-email')}}">
-                                    </div>
+
                                     <!-- <div class="d-flex inputDiv" style="">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:33% !important">
                                                 <span>Name/signature:</span>
@@ -851,7 +877,8 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:16%">
 
                                         </label>
-                                        <div class="d-flex inputDiv principleno" id="sign" style="">
+                                        <div class="d-flex inputDiv principleno" id="sign"
+                                            style="width:100%; border: none; margin:auto">
                                             <div class="uploadingDiv">
                                                 <div class="uploadDiv" style="padding-left: 10px;">
                                                     <div class="input-images"></div>
@@ -859,7 +886,66 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex inputDiv">
+                                    <div class="d-flex inputDiv" style="border: none">
+                                        <label class="fs-6 fw-bold mb-2"
+                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                            <span class="signatureTitle">Signature
+                                                Type:</span>
+                                        </label>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                                style="width: 12px;">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype"
+                                                class="form-control form-control-solid" value="2">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                        </div>
+                                        &nbsp;
+                                        <!--end::Label-->
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                            <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                                class="form-control form-control-solid" value="0">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap;">PNG/JPG
+                                                Upload </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                        <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label>
+                                        <br/> -->
+                                        <canvas id="sig" onblure="draw()"
+                                            style="background: lightgray; border-radius:10px"></canvas>
+                                        <br />
+                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                            style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Upload Signature:<br>Allowed format (PNG,
+                                                JPG)</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                    </div>
+
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign" class="form-control form-control-solid">
+                                    </div>
+                                    {{-- <div class="d-flex inputDiv">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
                                             <span>Type Signature:</span>
                                         </label>
@@ -926,7 +1012,7 @@
                                     </div>
                                     <div class="d-flex inputDiv principleno" id="sign" style="">
                                         <textarea id="signature" name="signed" style="opacity: 0"></textarea>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -941,9 +1027,9 @@
                             <div id="first_member" style="{{$display}}">
                                 <div class="col" style="flex:100% !important;">
 
-                                    <div class="d-flex inputDiv d-block">
-                                    </div>
-                                    <div class="d-flex inputDiv principleno">
+                                    {{-- <div class="d-flex inputDiv d-block">
+                                    </div> --}}
+                                    {{-- <div class="d-flex inputDiv principleno">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Name::</span>
@@ -958,11 +1044,61 @@
                                         </label>
                                         <!--end::Label-->
 
+                                    </div> --}}
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name::</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Name" id="name2" name="name"
+                                                value="{{$permitdata->name ?? ''}}">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Job Title:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Job Title" id="job_title" name="job_title"
+                                                value="{{$permitdata->job_title ?? ''}}">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Company: </span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
+                                                placeholder="Company" name="company"
+                                                value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                            <input type="hidden" id="companyid" class="form-control form-control-solid"
+                                                placeholder="Company" name="companyid"
+                                                value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex inputDiv ">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                            <span class="required">Date:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input">
+                                            <input type="date" style="background-color:#f5f8fa"
+                                                value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                        </div>
                                     </div>
 
                                 </div>
 
-                                <div class="col">
+                                {{-- <div class="col">
                                     <div class="d-flex inputDiv" style="">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2"
                                             style="width:33% !important">
@@ -992,6 +1128,84 @@
                                     <div class="d-flex inputDiv principleno" id="sign1" style="">
                                         <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="d-flex inputDiv upload_signature_div"
+                                    style="visibility: hidden; height: 152px">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:16%">
+
+                                    </label>
+                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                        <div class="uploadingDiv">
+                                            <div class="uploadDiv" style="padding-left: 10px;">
+                                                <div class="input-images"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex inputDiv" style="border: none">
+                                    <label class="fs-6 fw-bold mb-2"
+                                        style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                        <span class="signatureTitle">Signature Type:</span>
+                                    </label>
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true
+                                            style="width: 12px;">
+                                        <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                    </div>
+                                    <!--end::Label-->
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
+                                        <input type="hidden" id="signtype1" name="signtype1"
+                                            class="form-control form-control-solid" value="2">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                    </div>
+                                    &nbsp;
+                                    <!--end::Label-->
+                                    {{-- <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
+                                        <input type="hidden" id="pdfsign1" name="pdfsign1"
+                                            class="form-control form-control-solid" value="0">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
+                                            Upload </span>
+                                    </div> --}}
+
+                                </div>
+                                <div class="col-md-12">
+                                    {{-- <div class="d-flex inputDiv" style="">
+                                        <label class="fs-6 fw-bold mb-2" style="">
+                                            <span>Name/signature:</span>
+                                        </label>
+                                        <input type="checkbox" id="flexCheckChecked1"
+                                            style="width: 12px;margin-top:5px">
+                                        <input type="hidden" id="signtype1" name="signtype1"
+                                            class="form-control form-control-solid" value="0">
+                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
+                                            name signature?</span>
+                                    </div> --}}
+                                    <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign1" id="namesign_id2"
+                                            class="form-control form-control-solid">
+                                    </div>
+
+                                    <div class="d-flex inputDiv principleno" id="sign1" style="border:none !important;">
+                                        {{-- <label style="width:33%"
+                                            class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Signature:</span>
+                                        </label> --}}
+                                        {{-- <br /> --}}
+                                        <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign1"
+                                        style=" display: none !important">
+                                        <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1011,8 +1225,11 @@
         <script>
             $("#flexCheckChecked1").change(function () {
                 if ($(this).is(':checked')) {
+                    $("#DrawCheck1").prop('checked',false);
                     $("#signtype1").val(1);
                     $("#namesign1").addClass('d-flex').show();
+                    $("#namesign1").removeClass('d-none');
+                    $("#namesign1").css('display', 'block');
                     $("input[name='namesign1']").attr('required', 'required');
                     $("#signature1").removeAttr('required', 'required');
                     $("#clear1").hide();
@@ -1049,10 +1266,13 @@
             $("#flexCheckChecked").change(function () {
                 if ($(this).is(':checked')) {
                     $("#pdfChecked").prop('checked', false);
+                    $("#DrawCheck").prop('checked', false);
                     $("#signtype").val(1);
                     $("#pdfsign").val(0);
                     $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-                    $("#namesign").addClass('d-flex').show();
+                    $("div#sign").removeClass('d-flex').addClass('d-none');
+                    $("div#namesign").removeClass('d-none').addClass('d-flex').show();
+                    $("div#namesign").css('display', 'block');
                     $(".customSubmitButton").removeClass("hideBtn");
                     $(".customSubmitButton").addClass("showBtn");
                     $("input[name='pdfsign']").removeAttr('required');
@@ -1069,6 +1289,69 @@
                     $(".customSubmitButton").addClass("hideBtn");
                     $(".customSubmitButton").removeClass("showBtn");
                 }
+            })
+
+            $("#DrawCheck").change(function(){
+                if($(this).is(':checked'))
+                {
+                    $("#pdfChecked").prop('checked',false);
+                    $("#flexCheckChecked").prop('checked',false);
+                    $("#signtype").val(0);
+                    $("#pdfsign").val(0);
+                    $("#Drawtype").val(1);
+                    // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+                    // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+                    // $(".customSubmitButton").removeClass("hideBtn");
+                    // $(".customSubmitButton").addClass("showBtn");
+                    //  $("input[name='pdfsign']").removeAttr('required');
+                    // $("input[name='namesign']").attr('required','required');
+                    $("#clear").show();
+                    $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+                    $("#namesign").removeClass('d-flex').addClass("d-none");
+                    $("div#sign").css('display','flex');
+                    $("div#sign").removeClass('d-none');
+                
+                }
+                // else{
+                //     $("#signtype").val(2);
+                //     $("#sign").addClass('d-flex').show();
+                //     $("#namesign").removeClass('d-flex').hide();
+                //     $("input[name='namesign']").removeAttr('required');
+                //     $("#clear").show();
+                //     $(".customSubmitButton").addClass("hideBtn");
+                //     $(".customSubmitButton").removeClass("showBtn");
+                // }
+            })
+            $("#DrawCheck1").change(function(){
+                if($(this).is(':checked'))
+                {
+                    $("#pdfChecked1").prop('checked',false);
+                    $("#flexCheckChecked1").prop('checked',false);
+                    $("#signtype").val(0);
+                    $("#pdfsign").val(0);
+                    $("#Drawtype").val(1);
+                    // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+                    // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+                    // $(".customSubmitButton").removeClass("hideBtn");
+                    // $(".customSubmitButton").addClass("showBtn");
+                    //  $("input[name='pdfsign']").removeAttr('required');
+                    // $("input[name='namesign']").attr('required','required');
+                    $("#clear").show();
+                    $("div#pdfsign1").removeClass('d-flex').addClass("d-none");
+                    $("div#namesign1").removeClass('d-flex').addClass("d-none");
+                    $("#sign1").css('display','block');
+                    $("#sign1").removeClass('d-none');
+                
+                }
+                // else{
+                //     $("#signtype").val(2);
+                //     $("#sign").addClass('d-flex').show();
+                //     $("#namesign").removeClass('d-flex').hide();
+                //     $("input[name='namesign']").removeAttr('required');
+                //     $("#clear").show();
+                //     $(".customSubmitButton").addClass("hideBtn");
+                //     $(".customSubmitButton").removeClass("showBtn");
+                // }
             })
 
             $("#pdfChecked").change(function () {

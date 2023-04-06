@@ -2385,6 +2385,7 @@
 @section('scripts')
 <script src="{{asset('assets/js/scaffolding.js')}}"></script>
 <script type="text/javascript">
+    $("#signtype").val(1);
     // $("#flexCheckChecked").change(function() {
     //     if ($(this).is(':checked')) {
     //         $("#signtype").val(1);

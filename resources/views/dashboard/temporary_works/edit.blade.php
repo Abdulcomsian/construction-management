@@ -141,7 +141,7 @@
 
     #sig canvas {
         width: 100% !important;
-        max-height: 200px;
+        /* max-height: 200px; */
     }
 
     .modalDiv {
@@ -175,8 +175,8 @@
     }
 
     canvas {
-        width: 270px;
-        height: 110px;
+        /* width: 270px;
+        height: 110px; */
     }
 
     /* .inputDiv  #design_required_by_date{color:#fff;} */

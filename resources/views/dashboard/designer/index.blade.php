@@ -219,7 +219,7 @@
             </div>
             <div class="tab-content" id="myTabContent">
                 <!-- tab 1 -->
-                <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                <div class="tab-pane fade show " id="tab1" role="tabpanel">
                     <div class="card-header border-0 pt-2">
                         <!--begin::Card title-->
                         <div class="card-title list_top" style="width:98%">
@@ -247,7 +247,7 @@
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span>Attachment</span>
                                 </label>
-                                <input type="file" class="form-control fileInput" id="inputGroupFile02">
+                                <input type="file" name="image" class="form-control fileInput" id="inputGroupFile02">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
                         </div>
@@ -268,7 +268,17 @@
                                     @foreach($comments as $cments)
                                     <tr >
                                         <td><b>{{$loop->index+1}}</b></td>
-                                        <td class="designer-comment">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b></td>
+                                        <td class="designer-comment">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b>
+                                        <br><br>
+										@php
+										if(isset($cments->image)){
+										@endphp
+											<a href="{{$path}}{{$cments->image}}">Download File</a>
+										@php
+										}
+										@endphp
+										</b>
+                                        </td>
                                         <td class="twc-reply">
                                             @if($cments->replay)
                                              @php $i=0;@endphp
@@ -278,30 +288,30 @@
                                              @endforeach
                                             @endif
                                         </td>
-                                        <td >
+                                        <td > 
                                             @php
                                              $path = config('app.url');
                                              if(isset($cments->reply_image))
                                              {
-                                            for($j=0;$j < count($cments->reply_image);$j++)
-                                             {
-                    
-                                                $image='';
-                                                if(isset($cments->reply_image[$j]))
+                                                for($j=0;$j < count($cments->reply_image);$j++)
                                                 {
-                                                    $n = strrpos($cments->reply_image[$j], '.');
-                                                    $ext=substr($cments->reply_image[$j], $n+1);
-                                                    if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                        
+                                                    $image='';
+                                                    if(isset($cments->reply_image[$j]))
                                                     {
-                                                       echo $image='<a target="_blank" style="color: dodgerblue;" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
+                                                        $n = strrpos($cments->reply_image[$j], '.');
+                                                        $ext=substr($cments->reply_image[$j], $n+1);
+                                                        if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                                        {
+                                                            echo $image='<a target="_blank" style="color: dodgerblue;" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
+                                                        }
+                                                        else{
+                                                            echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
+                                                        }
+                        
                                                     }
-                                                    else{
-                                                       echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
-                                                    }
-                    
                                                 }
-                                             }
-                                         }
+                                            }
                                             @endphp
                                         </td>
                                     </tr>
@@ -464,7 +474,7 @@
                                         }
                                         $comments=\App\Models\DrawingComment::where('temp_work_upload_files_id',$uploads->id)->get();
                                         @endphp
-                                        <tr style="background: {{$background ?? ''}}">
+                                        <tr style="background: {{$background ?? ''}}  !important">
                                             <td>{{$loop->index+1}}</td>
                                             <td>{{$uploads->drawing_number}}</td>
                                             <td>{{$uploads->comments}}</td>

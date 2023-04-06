@@ -1264,7 +1264,19 @@ $notify_admins_msg = [
                         }
                     }
                 }
-
+                if (isset($request->type) && $request->type == 'normal') {
+                    $input = '<input type="hidden" name="scan" value="scan" />';
+                    if ($comment->image) {
+                        $n = strrpos($comment->image, '.');
+                        $ext = substr($comment->image, $n + 1);
+                        if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                            $a = '<a target="_blank" href="' . $path . $comment->image . '"><img width="50px" height="50px" src=' . $path . $comment->image . ' ></a>';
+                        } else {
+                              
+                            $a = '<a target="_blank" href="' . $path . $comment->image . '">Download File</a>';
+                        }
+                    }
+                }
                 $list = '';
                 $k = 1;
                 $formorreply='';
@@ -1321,6 +1333,7 @@ $notify_admins_msg = [
                                <td>' . $date_comment . '</td>
                            </tr>' . $list . '';
                 } else {
+                    
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td>' . $comment->comment . '</td>
                                <td>' . $a . '</td>
@@ -1956,7 +1969,7 @@ $notify_admins_msg = [
             $project = Project::with('company')->where('id', $tempdata->project_id)->first();
             $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
             return view('dashboard.temporary_works.scaffolding', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile'));
-        } catch (\Exception $exception) {
+        } catch (\Exception $exception) {  
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -2007,7 +2020,7 @@ $notify_admins_msg = [
             }
             // dd($check_images['ev en_stable_image']);
             $all_inputs  = $request->only('temporary_work_id', 'project_id', 'drawing_no', 'type', 'twc_name', 'loadclass', 'permit_no', 'drawing_title', 'tws_name', 'ms_ra_no', 'location_temp_work', 'description_structure', 'equipment_materials', 'equipment_materials_desc', 'workmanship', 'workmanship_desc', 'drawings_design', 'drawings_design_desc', 'loading_limit', 'loading_limit_desc', 'inspected_by', 'job_title', 'company', 'Scaff_tag_signed', 'carry_out_inspection', 'signature', 'created_by');
-
+           
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
@@ -2029,7 +2042,7 @@ $notify_admins_msg = [
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name;
             }
-
+            
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['type'] = 'load';
             //save data in scaffolign model
@@ -2097,7 +2110,7 @@ $notify_admins_msg = [
                 toastSuccess('Scaffolding Created Successfully');
                 return redirect()->route('temporary_works.index');
             }
-        } catch (\Exception $exception) {
+        } catch (\Exception $exception) { dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

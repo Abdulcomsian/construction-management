@@ -265,6 +265,9 @@
                                     </tr>
                                 </thead>
                                  <tbody>
+                                    @php
+                                    $path = config('app.url');
+                                    @endphp
                                     @foreach($comments as $cments)
                                     <tr >
                                         <td><b>{{$loop->index+1}}</b></td>

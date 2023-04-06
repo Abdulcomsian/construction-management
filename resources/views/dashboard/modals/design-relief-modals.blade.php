@@ -593,11 +593,14 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
+                                            <div class="preferred_non_preferred_methods_comment d-none">
+                                            <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                            </div>
                                         </li>
                                         <!-- <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
                                         </li> -->
                                     <li class="preferred_non_preferred_methods_comment d-none">
-                                        <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" type="text" name="preferred_non_preferred_methods_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                        
                                     </li>
                                 </div>
                                 <!-- Prefered/Non prefered container end -->

@@ -261,7 +261,7 @@
                                         <th>No</th>
                                         <th>Designer's Comments</th>
                                         <th>TWC Reply</th>
-                                        <th>Attachement</th>
+                                        <th>Attachment</th>
                                     </tr>
                                 </thead>
                                  <tbody>

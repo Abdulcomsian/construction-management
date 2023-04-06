@@ -2310,7 +2310,7 @@ $notify_admins_msg = [
         try {
             $data = TemporaryWork::with('temp_work_images', 'uploadfile', 'permits', 'scaffold')->find($id);
             Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TempAttachmentNotifications($data));
-            toastSuccess('Attachements sent successfully!');
+            toastSuccess('Attachments sent successfully!');
             return Redirect::back();
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');

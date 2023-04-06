@@ -402,7 +402,7 @@
                 <tr>
                     <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;font-size: 10px;
             font-weight: 700;">
-                        <strong style="font-size:12px;">List of Attachements Uploaded </strong>
+                        <strong style="font-size:12px;">List of Attachments Uploaded </strong>
                         <table style="width: 100%;">
                             <tr>
                                 <td style="width: 100%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4; font-size:12px;">

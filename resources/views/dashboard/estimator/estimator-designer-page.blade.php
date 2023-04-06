@@ -323,7 +323,7 @@
                                             <th>No</th>
                                             <th>Project</th>
                                             <th>Company</th>
-                                            <th>Attachement</th>
+                                            <th>Attachment</th>
                                         </tr>
                                     </thead>
                                      <tbody>
@@ -537,7 +537,7 @@
                                             <th>No</th>
                                             <th>Project</th>
                                             <th>Company</th>
-                                            <th>Attachement</th>
+                                            <th>Attachment</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>

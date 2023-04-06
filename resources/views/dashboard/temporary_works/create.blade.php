@@ -961,7 +961,7 @@
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
                                                 style="width: 12px;">
-                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
                                             <span
                                                 style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
@@ -1061,6 +1061,7 @@
 </script>
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script type="text/javascript">
+     $("#signtype").val(2);
     $(document).on("change","[name='req_check[]']",function(){
         if($(this).is(':checked'))
         {
@@ -1109,6 +1110,7 @@
         console.log(project);
     });
     $("#DrawCheck").change(function(){
+        console.log("3");
         if($(this).is(':checked'))
         {
             $("#pdfChecked").prop('checked',false);
@@ -1139,6 +1141,7 @@
         // }
     })
     $("#flexCheckChecked").change(function(){
+        console.log("1");
         if($(this).is(':checked'))
         {
             $("#pdfChecked").prop('checked',false);
@@ -1168,7 +1171,7 @@
     })
 
     $("#pdfChecked").change(function(){
-
+        console.log("2");
         if($(this).is(':checked'))
         {
             $("#flexCheckChecked").prop('checked',false);

@@ -945,6 +945,7 @@
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
 <script type="text/javascript">
+    $("#signtype").val(2);
     $('.input-imagess').imageUploader({
         preloaded: 
         [

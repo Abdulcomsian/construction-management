@@ -539,7 +539,7 @@ $('input[name="drawings_design"]').change(function () {
 });
 
 $('input[name="equipment_materials"]').change(function () {
-    if ($(this).val() == 1) {
+    if ($(this).val() == 2) {
         $('textarea[name="equipment_materials_desc"]')
             .removeClass("d-none")
             .attr("required", "required");
@@ -551,7 +551,7 @@ $('input[name="equipment_materials"]').change(function () {
 });
 
 $('input[name="workmanship"]').change(function () {
-    if ($(this).val() == 1) {
+    if ($(this).val() == 2) {
         $('textarea[name="workmanship_desc"]')
             .removeClass("d-none")
             .attr("required", "required");
@@ -563,7 +563,7 @@ $('input[name="workmanship"]').change(function () {
 });
 
 $('input[name="loading_limit"]').change(function () {
-    if ($(this).val() == 1) {
+    if ($(this).val() == 2) {
         $('textarea[name="loading_limit_desc"]')
             .removeClass("d-none")
             .attr("required", "required");
@@ -575,7 +575,7 @@ $('input[name="loading_limit"]').change(function () {
 });
 
 $('input[name="drawings_design"]').change(function () {
-    if ($(this).val() == 1) {
+    if ($(this).val() == 2) {
         $('textarea[name="drawings_design_desc"]')
             .removeClass("d-none")
             .attr("required", "required");

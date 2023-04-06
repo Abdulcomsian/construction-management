@@ -523,7 +523,7 @@
                                     <div style=" position: relative;">
                                         <!-- <h3 style="position: absolute; top:-10px; left: 8px; background:white; padding: 0 9px;">Comments</h3> -->
                                         <textarea name="equipment_materials_desc" rows="2" style="width:100%;"
-                                            class="form-control"></textarea>
+                                            class="form-control d-none"></textarea>
                                     </div>
                                 </div>
                                 <div class="mb-5">
@@ -556,7 +556,7 @@
                                     <!--end::Radio group-->
                                     <div>
                                         <textarea name="workmanship_desc" rows="2" style="width:100%;"
-                                            class="form-control"></textarea>
+                                            class="form-control d-none"></textarea>
                                     </div>
 
 
@@ -598,7 +598,7 @@
                                     <div style="">
 
                                         <textarea name="drawings_design_desc" rows="2" style="width:100%;"
-                                            class="form-control"></textarea>
+                                            class="form-control d-none"></textarea>
 
                                     </div>
                                 </div>
@@ -637,7 +637,7 @@
                                     </div>
                                     <div>
                                         <textarea name="loading_limit_desc" rows="2" style="width:100%;"
-                                            class="form-control"></textarea>
+                                            class="form-control d-none"></textarea>
                                     </div>
                                 </div>
                                 <p style="color: #000;">Inspect each of the following items & select PASS if installed

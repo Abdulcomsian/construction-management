@@ -259,7 +259,17 @@
                 <form id="permitunload" action="{{route('permit.unload.save')}}" method="post"
                     enctype="multipart/form-data">
                     @csrf
-                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                    @if($errors->any())
+                    <ul>
+                        @foreach($errors->all() as $error)
+                        <li class="text-danger"><strong>{{$error}} </strong></li>
+                        @endforeach
+
+                    </ul>
+
+                    @endif
+                    {{--
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
                     <input type="hidden" name="permitid" value="{{$permitdata->id}}">
                     <input type="hidden" name="designer_company_email"
@@ -533,14 +543,14 @@
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="principle_contractor" value="1"
                                             @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==1){{'checked'}}@endif/>
+                                            $permitdata->principle_contractor==2){{'checked'}}@endif/>
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="principle_contractor" value="2"
                                             @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==2){{'checked'}}@endif/>
+                                            $permitdata->principle_contractor==1){{'checked'}}@endif/>
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>

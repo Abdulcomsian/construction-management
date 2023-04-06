@@ -869,7 +869,7 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
                                     <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal"
                                         data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->
@@ -961,7 +961,7 @@
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
                                                 style="width: 12px;">
-                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
                                             <span
                                                 style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
@@ -1061,6 +1061,7 @@
 </script>
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script type="text/javascript">
+     $("#signtype").val(2);
     $(document).on("change","[name='req_check[]']",function(){
         if($(this).is(':checked'))
         {
@@ -1168,7 +1169,6 @@
     })
 
     $("#pdfChecked").change(function(){
-
         if($(this).is(':checked'))
         {
             $("#flexCheckChecked").prop('checked',false);

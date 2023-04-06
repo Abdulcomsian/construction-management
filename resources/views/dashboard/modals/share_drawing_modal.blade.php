@@ -115,9 +115,9 @@
                             <label class="required fs-6 fw-bold mb-2">Email</label>
                             <input type="email" class="form-control form-control-solid" id="designer_email" placeholder="Enter email address" name="email" required />
                         </div>
-                        <div class="col-md-2 fv-row">
+                        <div class="col-md-4 fv-row" style="margin-top: 22px;">
                             <button type="submit" class="btn btn-primary">
-                                <span class="indicator-label">Send</span>
+                                <span class="indicator-label" style="font-size:11px;">Update Design Checker Email</span>
                                 <span class="indicator-progress">Please wait...
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>

@@ -9,7 +9,9 @@ $(document).ready(function () {
             "disabled"
         );
     });
-
+    $("#attachment-of-design .submit-requirment button").click(function (event){
+        document.getElementById("attachment_specs").style.borderColor = "black";
+    });
     $("#design-requirement .requirment-first ul li.majorMenu").click(function (
         event
     ) {
@@ -78,6 +80,7 @@ $(document).ready(function () {
                 '</td><td style="width: 55%"><input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px"/></td></tr>';
         }
         list += "</tbody></table>";
+        document.getElementById("designReq").style.borderColor = "black";
         $("#req_details_data").html(list);
     });
     var show_val = "";
@@ -196,7 +199,7 @@ $(document).ready(function () {
             $("li." + id + "")
                 .toggleClass("invisible")
                 .toggle();
-            var val = $(this).text();
+            var val = $(this).text(); console.log(val);
             $("#attachment-of-design .requirment-first-value").val(val);
         }
     );

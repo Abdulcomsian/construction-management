@@ -209,6 +209,11 @@
         font-size: 14px;
     }
 
+    #name1,
+    #job_title1 {
+        border: none
+    }
+
     @media screen and (max-width: 576px) {
         #kt_post {
             width: auto;
@@ -519,7 +524,7 @@
                         <div class="col-md-6">
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
-                                <label class="fs-6 fw-bold mb-2" style="bottom: 36px;">
+                                <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
                                     <span class="required">Principle Contractor approval required?</span>
                                 </label>
                                 <!--begin::Radio group-->
@@ -612,8 +617,8 @@
                                         <span class="required" style="width: 27%">Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control" placeholder="Name" id="name1" name="name1"
-                                        value="{{old('name1',$permitdata->name1 ?? '')}}">
+                                    <input type="text" class="form-control" placeholder="Name" id="name1" name="name1">
+                                    {{-- value="{{old('name1',$permitdata->name1 ?? '')}}" --}}
                                 </div>
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->
@@ -622,7 +627,8 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="form-control" placeholder="Job title" id="job_title1"
-                                        name="job_title1" value="{{old('job_title1',$permitdata->job_title1 ?? '')}}">
+                                        name="job_title1">
+                                    {{-- value="{{old('job_title1',$permitdata->job_title1 ?? '')}}" --}}
                                 </div>
                                 @endif
                             </div>
@@ -931,10 +937,10 @@
         $('#ms_ra_no').css("background-color", "#f5f8fa ");
     });
     $('#name1').change(function () {
-        $('#name1').css("background-color", "#f5f8fa ");
+        $('#name1').css("background-color", "#fff ");
     });
     $('#job_title1').change(function () {
-        $('#job_title1').css("background-color", "#f5f8fa ");
+        $('#job_title1').css("background-color", "#fff");
     });
     $('#name2').change(function () {
         $('#name2').css("background-color", "#f5f8fa ");

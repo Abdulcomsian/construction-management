@@ -736,12 +736,15 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
+                                            <div class="3rd_party_requirements_comment d-none">
+                                                <textarea style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"  type="text" name="3rd_party_requirements_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                            </div>
                                         </li>
                                         <!-- <li class="3rd_party_requirements_comment d-none" style="background: white;height:73px">
                                         </li> -->
-                                    <li class="3rd_party_requirements_comment d-none">
-                                        <textarea style="background: black;color:white;ay:none" type="text" name="3rd_party_requirements_comment" cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                    </li>
+                                    <!-- <li class="3rd_party_requirements_comment d-none">
+                                        
+                                    </li> -->
                                 </div>
 
                                 <!-- 3rd part Requirements end  -->

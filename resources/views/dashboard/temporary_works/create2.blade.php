@@ -853,6 +853,7 @@ height: 72px;
 @endsection
 @section('scripts')
 <script>
+    $("#signtype").val(2);
     var url="{{asset('js/myfile.json')}}";
     var jsondata="";
     $(document).ready(function(){

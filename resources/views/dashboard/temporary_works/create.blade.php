@@ -1110,7 +1110,6 @@
         console.log(project);
     });
     $("#DrawCheck").change(function(){
-        console.log("3");
         if($(this).is(':checked'))
         {
             $("#pdfChecked").prop('checked',false);
@@ -1141,7 +1140,6 @@
         // }
     })
     $("#flexCheckChecked").change(function(){
-        console.log("1");
         if($(this).is(':checked'))
         {
             $("#pdfChecked").prop('checked',false);
@@ -1171,7 +1169,6 @@
     })
 
     $("#pdfChecked").change(function(){
-        console.log("2");
         if($(this).is(':checked'))
         {
             $("#flexCheckChecked").prop('checked',false);

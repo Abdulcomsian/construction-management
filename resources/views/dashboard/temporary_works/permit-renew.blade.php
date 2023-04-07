@@ -1089,8 +1089,8 @@
                                         </label>
                                         <!--end::Label-->
                                         <div class="input">
-                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
-                                                placeholder="Company" name="company"
+                                            <input type="text" id="companyadmin2" class="form-control form-control-solid"
+                                                placeholder="Company" name="company1"
                                                 value="{{$project->company->name ?? ''}}" readonly="readonly">
                                             <input type="hidden" id="companyid" class="form-control form-control-solid"
                                                 placeholder="Company" name="companyid"
@@ -1105,7 +1105,7 @@
                                         <!--end::Label-->
                                         <div class="input">
                                             <input type="date" style="background-color:#f5f8fa"
-                                                value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                                value="{{ date('Y-m-d') }}" name="date1" class="form-control form-control-solid">
                                         </div>
                                     </div>
 

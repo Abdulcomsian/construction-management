@@ -179,14 +179,12 @@
             <table>
                 <tbody>
                     <tr>
-                        <td style="font-size:12px;">Rate of Rise</td>
+                        <td style="font-size:12px;">Rate of Rise<br><br><span style="font-size:12px;">{{$data['rate_rise_comment'] ?? ''}}</span></td>
                         <td style="font-size:12px;">@if($data['rate_rise']==1){{'Y'}}@else{{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{$data['rate_rise_comment'] ?? ''}}</td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Has the construction methodology changed?</td>
+                        <td style="font-size:12px;">Has the construction methodology changed?<br><br><span style="font-size:12px;">{{$data['construction_methodology_comment'] ?? ''}}</span></td>
                         <td style="font-size:12px;">@if($data['construction_methodology']==1){{'Y'}}@else{{'N'}}@endif</td>
-                        <td style="font-size:12px;">{{$data['construction_methodology_comment'] ?? ''}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -218,7 +216,7 @@
                         </td>
                         <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
-                                <b style="font-size:12px;"> Company </b></label>
+                                <b style="font-size:12px;"> @if($data['principle_contractor']==1) Company @endif</b></label>
                         </td>
                         <td style="width:200px; font-size:12px;">{{$company1 ?? ''}} </td>
 

@@ -610,7 +610,7 @@
                             <div class="">
                                 <div class="d-flex modalDiv">
                                     <textarea name="description_approval_temp_works" rows="2" class="form-control"
-                                        style="display: none; border: 1px solid lightgray; border-radius: 7px;">{{old('description_approval_temp_works',$permitdata->description_approval_temp_works)}}</textarea>
+                                        style="{{$display}}; border: 1px solid lightgray; border-radius: 7px;">{{old('description_approval_temp_works',$permitdata->description_approval_temp_works)}}</textarea>
                                 </div>
                             </div>
                         </div>

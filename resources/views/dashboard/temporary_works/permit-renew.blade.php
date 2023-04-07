@@ -607,6 +607,14 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
+                            @php
+                            $display='display:none;';
+                            if(isset($permitdata) && $permitdata->works_coordinator==1)
+                            {
+                            $display='display:block;';
+
+                            }
+                            @endphp
                             <div class="">
                                 <div class="d-flex modalDiv">
                                     <textarea name="description_approval_temp_works" rows="2" class="form-control"

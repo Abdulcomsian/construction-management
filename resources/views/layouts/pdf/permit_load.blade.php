@@ -148,7 +148,7 @@
                     <tr style="height: 40px;">
                         <td style="font-size:10px;">
                             @if($data['works_coordinator']==1)
-                            Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)<br><br>
+                            Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)<br>
                             <span style="font-size:12px;">{{$data['description_approval_temp_works']}}</span>
                             @endif
                         </td>
@@ -179,11 +179,11 @@
             <table>
                 <tbody>
                     <tr>
-                        <td style="font-size:12px;">Rate of Rise<br><br><span style="font-size:12px;">{{$data['rate_rise_comment'] ?? ''}}</span></td>
+                        <td style="font-size:12px;">Rate of Rise<br><span style="font-size:12px;">{{$data['rate_rise_comment'] ?? ''}}</span></td>
                         <td style="font-size:12px;">@if($data['rate_rise']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
                     <tr>
-                        <td style="font-size:12px;">Has the construction methodology changed?<br><br><span style="font-size:12px;">{{$data['construction_methodology_comment'] ?? ''}}</span></td>
+                        <td style="font-size:12px;">Has the construction methodology changed?<br><span style="font-size:12px;">{{$data['construction_methodology_comment'] ?? ''}}</span></td>
                         <td style="font-size:12px;">@if($data['construction_methodology']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
                 </tbody>

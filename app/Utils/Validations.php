@@ -237,6 +237,7 @@ class Validations
             'permit_no' => ['required'],
             'drawing_title' => ['required'],
             'tws_name' => ['required'],
+            
             // 'ms_ra_no' => ['required'],
             'equipment_materials_desc' => 'required_if:equipment_materials,2',
             'workmanship_desc' => 'required_if:workmanship,2',

@@ -1116,6 +1116,7 @@
                                                             $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                                             $color="orange";
                                                             $class='';
+                                                            $width="auto";
                                                             if($permitexpire>0 || $scaffoldexpire>0)
                                                             {
                                                             $color="red";

@@ -1444,22 +1444,22 @@ $notify_admins_msg = [
     //save permit
     public function permit_save(Request $request)
     {
-
+        
         Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
-            if ($request->principle_contractor == 1) {
+            if ($request->principle_contractor == 1) { 
                 $all_inputs['name1'] = $request->name1;
                 $all_inputs['job_title1'] = $request->job_title1;
                 // $all_inputs['company1'] = $request->company1;
                 // $all_inputs['date1'] = $request->date1;
                 //old work =================================================
-                if ($request->signtype1 == 1) {
+                if ($request->signtype1 == 1) { 
                     $all_inputs['signature1'] = $request->namesign1;
-                } else {
+                } else { 
                     $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed1);
                     $image_type = explode("image/", $image[0]);
@@ -1468,9 +1468,9 @@ $notify_admins_msg = [
                     $image_name1 = uniqid() . '.' . $image_type_png;
                     $file = $folderPath . $image_name1;
                     file_put_contents($file, $image_base64);
-                    $all_inputs['signature1'] = $image_name1;
+                    $all_inputs['signature1'] = $image_name1; 
                 }
-            }
+            } 
             //second person signature and name
             $image_name = '';
             if ($request->signtype == 1) {
@@ -1491,7 +1491,7 @@ $notify_admins_msg = [
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
-               $all_inputs['signature'] = $image_name;
+               $all_inputs['signature'] = $image_name; 
             }
             $all_inputs['created_by'] = auth()->user()->id;
             if (isset($request->approval)) {

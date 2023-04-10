@@ -88,6 +88,7 @@
     .inputDiv input {
         width: 100%;
         color: #000 !important;
+        background: white;
     }
 
     .inputDiv input,
@@ -255,7 +256,7 @@
 
                     <div class="row">
                         <div class="col">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <label class=" fs-6 fw-bold mb-2">
                                     <span class="required">Select Project:</span>
                                 </label>
@@ -271,7 +272,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -284,7 +285,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -299,7 +300,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -311,7 +312,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -327,7 +328,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -339,7 +340,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -353,7 +354,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -367,7 +368,21 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex modalDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="required">TWS Name :</span>
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="TWS Name" name="tws_name"
+                                        value="{{$permitdata->tws_name ?? ''}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
@@ -378,20 +393,10 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="d-flex inputDiv d-block">
-                            <div class="d-flex modalDiv d-block">
-                                <!--begin::Label-->
-                                <label class=" fs-6 fw-bold mb-2">
-                                    <span class="required">TWS Name :</span>
-                                </label>
-                                <input type="text" class="form-control" placeholder="TWS Name" name="tws_name"
-                                    value="{{$permitdata->tws_name ?? ''}}">
-                            </div>
-                        </div> --}}
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="d-flex inputDiv d-block">
+                            <div class="d-flex inputDiv d-block mb-0">
                                 <div class="d-flex modalDiv d-block">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2" style="bottom: 43px">

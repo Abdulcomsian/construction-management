@@ -1234,7 +1234,7 @@ $notify_admins_msg = [
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
                 $table.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;">No</th><th style="width:35%;">Designer Comment</th><th style="width:40%">TWC Reply</th><th></th><th style="width:25%;">Date</th></tr></thead><tbody>';
+                $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;text-align:left;">No</th><th style="width:35%;text-align:left;">Designer Comment</th><th style="width:40%;text-align:left;">TWC Reply</th><th>Attachment</th><th style="width:25%;text-align:left;">Date</th></tr></thead><tbody>';
             }
 
             $i = 1;

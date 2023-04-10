@@ -276,7 +276,7 @@
 										@php
 										if(isset($cments->image)){
 										@endphp
-											<a href="{{$path}}{{$cments->image}}">Download File</a>
+											<a href="{{$path}}{{$cments->image}}">View File</a>
 										@php
 										}
 										@endphp

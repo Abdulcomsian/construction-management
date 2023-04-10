@@ -1087,7 +1087,10 @@
                                             </div>
                                             
                                             <div class="row my-2">
-                                                <span class="col-sm-6 titleColumn">Permit to load:</span>
+                                                <span class="col-sm-6 titleColumn">Permit to load: @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
+                                                            <span class="text-danger redBgBlink" style="">DNL</span><br>
+                                                    
+                                                            @endif</span>
                                                 <div class="d-flex col-sm-6" id="ptl" style="column-gap: 1rem">
                                                    @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0 || $drawingscount)
                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
@@ -1098,7 +1101,7 @@
                                                         <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-type="view" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 10px; color: #07D564; position: relative !important; bottom: 3px" class="fa fa-eye" title="permit to load"></span></p>
                                                     </div> -->
                                                     @elseif(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
-                                                    <div style="background: #07D56426;padding: 4px 8px; border-radius: 4px; width: 20px; height:20px;visibility:hidden;">
+                                                    <div style="background: #07D56426;padding: 4px 8px; border-radius: 4px; width: 20px; height:20px;display:none;">
                                                    </div>
                                                     @endif
                                                     <div style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
@@ -1108,28 +1111,27 @@
                                                         
                                                         @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
                                                             @php
+                                                            $width ="108px";
                                                             $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                                             $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at', '<=',\Carbon\Carbon::now()->subDays(7))->count();
                                                             $color="orange";
                                                             $class='';
+                                                            $width="auto";
                                                             if($permitexpire>0 || $scaffoldexpire>0)
                                                             {
                                                             $color="red";
                                                             $class="redBgBlink";
+                                                            $width="auto";
                                                             }
                                                             @endphp
-                                                            @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                                            <br>
-                                                            <span class="text-danger redBgBlink" style="">DNL</span><br>
-                                                    
-                                                            @endif
+                                                            
                                                             <!-- <br> -->
                                                             @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0)
                                                             @if(!$drawingscount)
-                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 16px;visibility:hidden;">123</span>
+                                                            <span class="label label-lg font-weight-bold label-inline" style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 16px;display:none;">123</span>
                                                             @endif
                                                             @endif
-                                                            <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: 108px; text-align:center; border-radius: 4px" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
+                                                            <span class="permit-to-load-btn cursor-pointer {{$class}}" style="width: {{$width}}; text-align:center; border-radius: 4px;display:inherit;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">
                                                             <span class="label label-lg font-weight-bold label-inline " style="background-color:{{$color}};color:white;position: relative;top:1px;right:0px;font-size:10px;padding: 3px 11px; @if(count($item->unloadpermits)==0 && count($item->closedpermits)==0) padding : 3px 11px; @endif">Live({{count($item->permits ?? 0)+count($item->scaffold ?? 0)}})</span>
                                                             </span>
                                                     
@@ -1167,8 +1169,10 @@
                                             <div class="row">
                                                 <span class="col-sm-6 titleColumn">Permit to unload:</span>
                                                 <div class="d-flex col-sm-6" id="ptu" style="column-gap: 1rem;">
-                                                    <div style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                    <div style="@if(count($item->unloadpermits)>0) background: #07D56426; @endif padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                    @if(count($item->unloadpermits)>0)
                                                     <p class="permit-to-unload cursor-pointer" style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus" title="Upload Drawings"></span></p>
+                                                    @endif
                                                     </div>
                                                     
                                                 

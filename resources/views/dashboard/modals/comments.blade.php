@@ -43,7 +43,7 @@
 
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
-                        <h1 class="mb-3">TWC Comments</h1>
+                        <h1 class="mb-3">TWC Notes</h1>
                         <!--end::Title-->
                     </div>
                     <div id="twccommenttable">

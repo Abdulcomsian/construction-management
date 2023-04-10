@@ -958,11 +958,11 @@
                                         </label>
                                         <input type="text" name="namesign" class="form-control form-control-solid">
                                     </div>
-                                    {{-- <div class="d-flex inputDiv">
+                                    {{--  <!--  <div class="d-flex inputDiv">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:17%">
                                             <span>Type Signature:</span>
                                         </label>
-                                        <!--end::Label-->
+                                        
                                         <input type="checkbox" class="" id="flexCheckChecked"
                                             style="width: 12px;margin-top:5px">
                                         <input type="hidden" id="signtype" name="signtype"
@@ -970,7 +970,7 @@
                                         <span style="padding-left:3px;color:#000;font-size:10px;line-height: 2">name
                                             signature?</span>
                                         &nbsp;
-                                        <!--end::Label-->
+                                      
                                         <input type="checkbox" class="" id="pdfChecked"
                                             style="width: 12px;margin-top:5px">
                                         <input type="hidden" id="pdfsign" name="pdfsigntype"
@@ -1012,7 +1012,7 @@
                                                     <canvas id="sig"></canvas>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="col-md-4">
                                                 <div class="d-flex inputDiv principleno" id="sign" style="">
                                                     <div class="uploadingDiv">
@@ -1023,9 +1023,10 @@
                                                 </div>
                                             </div> -->
                                     </div>
-                                    <div class="d-flex inputDiv principleno" id="sign" style="">
+                                    <!-- <div class="d-flex inputDiv principleno" id="sign" style="">
                                         <textarea id="signature" name="signed" style="opacity: 0"></textarea>
-                                    </div> --}}
+                                    </div>  -->
+                                    --}}
                                 </div>
                             </div>
                         </div>
@@ -1089,8 +1090,8 @@
                                         </label>
                                         <!--end::Label-->
                                         <div class="input">
-                                            <input type="text" id="companyadmin2" class="form-control form-control-solid"
-                                                placeholder="Company" name="company1"
+                                            <input type="text" id="companyadmin" class="form-control form-control-solid"
+                                                placeholder="Company" name="company"
                                                 value="{{$project->company->name ?? ''}}" readonly="readonly">
                                             <input type="hidden" id="companyid" class="form-control form-control-solid"
                                                 placeholder="Company" name="companyid"
@@ -1105,7 +1106,7 @@
                                         <!--end::Label-->
                                         <div class="input">
                                             <input type="date" style="background-color:#f5f8fa"
-                                                value="{{ date('Y-m-d') }}" name="date1" class="form-control form-control-solid">
+                                                value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                         </div>
                                     </div>
 
@@ -1471,6 +1472,9 @@
             var canvas = document.getElementById("sig");
             var signaturePad = new SignaturePad(canvas);
             var canvas1 = document.getElementById("sig1");
+            if (canvas) {
+                var signaturePad = new SignaturePad(canvas);
+            }
             if (canvas1) {
                 var signaturePad1 = new SignaturePad(canvas1);
             }
@@ -1481,7 +1485,7 @@
             });
 
             signaturePad1.addEventListener("endStroke", () => {
-                $("#signature1").val(signaturePad.toDataURL('image/png'));
+                $("#signature1").val(signaturePad1.toDataURL('image/png'));
             }, {
                 once: true
             });

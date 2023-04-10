@@ -261,7 +261,7 @@
                                         <th>No</th>
                                         <th>Designer's Comments</th>
                                         <th>TWC Reply</th>
-                                        <th>Attachment</th>
+                                       
                                     </tr>
                                 </thead>
                                  <tbody>
@@ -290,8 +290,7 @@
                                               @php $i++; @endphp
                                              @endforeach
                                             @endif
-                                        </td>
-                                        <td > 
+                                            <br><br>
                                             @php
                                              $path = config('app.url');
                                              if(isset($cments->reply_image))
@@ -317,6 +316,7 @@
                                             }
                                             @endphp
                                         </td>
+                                        
                                     </tr>
                                     @endforeach
                                 </tbody>

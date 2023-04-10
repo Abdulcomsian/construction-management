@@ -181,6 +181,13 @@
         background: #FFBF00;
     }
 
+    .permit-edit li {
+        margin-bottom: 10px;
+        color: #121826;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
     @media only screen and (max-width: 450px) {
         #sig1 {
             width: 200px;
@@ -393,7 +400,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex justify-content-between">
                                 <!--begin::Label-->
                                 <label class=" fs-6 fw-bold mb-2">
                                     <span class="required">Equipment/materials used as a specified/fit for
@@ -419,7 +426,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex justify-content-between">
                                 <!--begin::Label-->
                                 <label class=" fs-6 fw-bold mb-2">
                                     <span class="required">Workmanship checked (i.e. all props, ties, struts, joints,
@@ -454,7 +461,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex justify-content-between">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">TW checked to drawings/design output</span>
@@ -489,9 +496,9 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex justify-content-between">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Loading /use limitations understood e.g. Rate of pour,
                                         sequence of loading, access/plant loading</span>
 
@@ -526,7 +533,7 @@
 
                         </div>
                         <div class="col-12">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex justify-content-between">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Approval by Temp Works Coordinator Required? <br>
@@ -577,9 +584,9 @@
                         </div>
                         <div class="col-12">
                             <!-- rate of rise work -->
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex justify-content-between">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Add rate of rise (IF YES, SPECIFY BELOW)</span>
 
                                 </label>
@@ -619,9 +626,9 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="d-flex inputDiv">
+                            <div class="d-flex justify-content-between">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Has the construction methodology changed?</span>
 
                                 </label>
@@ -664,25 +671,30 @@
                         </div>
                     </div>
 
-
-
                     <div class="row">
-                        <div class="col-md-12">
-                            <h5 style="color: #000">Permit to load/Use</h5>
+                        <div class="col-12">
+                            <h5 style="color: #000;font-weight: 600;font-size: 24px;margin-top: 15px;">Permit to
+                                load/Use</h5>
                             <br>
-                            <p style="color: #000;">
+                            <ul style="color: #000;" class="permit-edit">
 
-                                I confirm that I have inspected the above temporary structure and I
-                                am satisfied that it conforms to the above.<br>
-                                I consider that the temporary structure is ready to be loaded and
-                                taken into use.<br>
-                                I confirm that I am authorised to issue a Permit to Load for this
-                                temporary structure.<br>
-                            </p>
-
-                            <!--end::Option-->
-
-
+                                <li>
+                                    I confirm that I have inspected the above temporary structure and I
+                                    am satisfied that it conforms to the above.
+                                </li>
+                                <li>
+                                    I consider that the temporary structure is ready to be loaded and
+                                    taken into use.
+                                </li>
+                                <li>
+                                    I confirm that I am authorised to issue a Permit to Load for this
+                                    temporary structure.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="d-flex inputDiv">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -718,6 +730,14 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
                             <div class="row" id="second_member">
                                 <div class="col" style="flex:100% !important;">
                                     <div class="d-flex inputDiv">

@@ -1064,9 +1064,6 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <!-- Approval div -->
-
-
                                         <div class="d-flex inputDiv" style="border: none">
                                             <label class="fs-6 fw-bold mb-2"
                                                 style="width:40% !important;font-size: 600 !important; font-size: 16px !important">

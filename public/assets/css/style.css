@@ -80,6 +80,7 @@ input:focus {
 #scope-of-design .list-div ul li {
     height: 58px;
     display: flex;
+    align-items: center;
 }
 
 /* #scope-of-design .modal-content{
@@ -512,10 +513,10 @@ input:focus {
     }*/
 }
 
-@media screen and (max-width: 1150px) {
-    /* #submitbutton {
-        right: 20.5%;
-    } */
+@media screen and (max-width: 575px) {
+    #scope-of-design .requirment-first .list-div ul li {
+        padding-right: 27px;
+    }
 }
 
 @media screen and (max-width: 1500px) {

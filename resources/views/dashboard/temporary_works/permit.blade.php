@@ -260,11 +260,27 @@
         .otherApproval {
             width: 97%;
         }
+
+        .otherApprovals {
+            left: 67% !important;
+        }
+
+        #submitbutton {
+            left: 78%;
+        }
+
+        #clear {
+            top: 48px !important;
+        }
     }
 
     @media screen and (max-width: 576px) {
         #kt_post {
             width: auto;
+        }
+
+        #clear {
+            top: 30px !important;
         }
     }
 
@@ -847,8 +863,8 @@
                                         <span class="required">Other approval required?</span>
                                     </label>
                                     <!--begin::Radio group-->
-                                    <div class=" justify-content-end"
-                                        style="position:relative; left:80%; background: white; height: 32px; padding:0;width : fit-content">
+                                    <div class=" justify-content-end otherApprovals"
+                                        style="position:relative; left:64%; background: white; height: 32px; padding:0;width : fit-content">
                                         <!--begin::Option-->
                                         <!--end::Option-->
                                         <!--begin::Option-->
@@ -940,7 +956,8 @@
                                     <div class="d-flex inputDiv" style="border: none">
                                         <label class="fs-6 fw-bold mb-2"
                                             style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
-                                            <span class="signatureTitle">Signature Type:</span>
+                                            <span class="signatureTitle" style="white-space: nowrap">Signature
+                                                Type:</span>
                                         </label>
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true
@@ -1067,7 +1084,8 @@
                                         <div class="d-flex inputDiv" style="border: none">
                                             <label class="fs-6 fw-bold mb-2"
                                                 style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
-                                                <span class="signatureTitle">Signature Type:</span>
+                                                <span class="signatureTitle" style="white-space: nowrap">Signature
+                                                    Type:</span>
                                             </label>
                                             <div style="display:flex; align-items: center; padding-left:10px">
                                                 <input type="radio" class="checkbox-field" id="DrawCheck" checked=true

@@ -23,7 +23,8 @@
     }
 
     table {
-        margin-top: 20px;=
+        margin-top: 20px;
+        =
     }
 
     #kt_toolbar_container h1 {
@@ -104,7 +105,10 @@
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
+            <div data-kt-place="true" data-kt-place-mode="prepend"
+                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
+                style="width: 100%; text-align: center;">
                 <!--begin::Title-->
                 <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Temporary Work</h1>
                 <!--end::Title-->
@@ -128,7 +132,8 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{route('design.store')}}" method="post" enctype="multipart/form-data">
+                    <form id="desingform" action="{{route('design.store')}}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <input type="hidden" name="tempworkid" value="{{$tempworkdetail->id}}">
@@ -143,30 +148,36 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <textarea class="form-control" id="comments" name="comments" required="required"></textarea>
+                                            <textarea class="form-control" id="comments" name="comments"
+                                                required="required"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv requiredDiv">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 14%">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                                style="width: 14%">
                                                 <span class="required">Accept:</span>
 
                                             </label>
                                             <!--begin::Radio group-->
                                             <div class="nav-group nav-group-fluid">
                                                 <label>
-                                                    <input type="radio" datacheck1='yes' class="btn-check" name="status" value="1" checked />
-                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                                    <input type="radio" datacheck1='yes' class="btn-check" name="status"
+                                                        value="1" checked />
+                                                    <span
+                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" datacheck1='no' class="btn-check" name="status" value="2" />
-                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                                    <input type="radio" datacheck1='no' class="btn-check" name="status"
+                                                        value="2" />
+                                                    <span
+                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <br>
                                 <button type="submit" class="btn btn-primary float-end">Submit</button>
                             </div>
@@ -177,7 +188,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>TWC ID</th>
-                                 <th>Design Brief</th>
+                                <th>Design Brief</th>
                                 <th>Sent By</th>
                                 <th>Comments by Pc Twc</th>
                             </tr>
@@ -186,10 +197,11 @@
                             @foreach($rejectedcomments as $cmt)
                             <tr>
                                 <td>{{$loop->index+1}}</td>
-                                 <td> {{$tempworkdetail->twc_id_no}}</td>
-                                 <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
-                                 <td><b>{{$cmt->email}}</b><br><br><b>Sent To: <br>{{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td>
-                                 <td>{{$cmt->comment}}<br>{{$cmt->updated_at}}</td>
+                                <td> {{$tempworkdetail->twc_id_no}}</td>
+                                <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
+                                <td><b>{{$cmt->email}}</b><br><br><b>Sent To:
+                                        <br>{{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td>
+                                <td>{{$cmt->comment}}<br>{{$cmt->updated_at}}</td>
                             </tr>
                             @endforeach
                         </tbody>

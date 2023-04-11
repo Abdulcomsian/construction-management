@@ -212,7 +212,15 @@
         }
     }
 
-    @media screen and (min-width: 992px) {
+    @media only screen and (max-width: 450px) {
+
+        #clear,
+        #clear1 {
+            top: 31px !important;
+        }
+    }
+
+    @media screen and (min-width: 1256px) {
         #kt_post {
             width: 75%;
         }
@@ -1069,6 +1077,11 @@
                                     </label> --}}
                                     {{-- <br /> --}}
                                     <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                    <textarea id="signature1" name="signed" style="display: none"></textarea>
+                                    <span id="clear1" class="fa fa-undo cursor-pointer"
+                                        style="line-height: 6; position:relative; top:83px; right:26px"></span>
+                                    {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
+                                        style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
                                 </div>
                                 {{-- <div class="d-flex inputDiv principleno" id="sign1"
                                     style=" display: none !important">
@@ -1112,6 +1125,16 @@
             //     }
             // })
 
+            $('#clear').click(function(e) {
+                e.preventDefault();
+                signaturePad.clear();
+                $("#signature").val('');
+            });
+            $('#clear1').click(function(e) {
+                e.preventDefault();
+                signaturePad1.clear();
+                $("#signature1").val('');
+            });
             // New Conditions embedded by Basit 
             $("#flexCheckChecked").change(function(){
                 if($(this).is(':checked'))
@@ -1328,7 +1351,6 @@
             $("#namesign1").css('display', 'block');
             $("input[name='namesign1']").attr('required', 'required');
             $("#signature1").removeAttr('required', 'required');
-            $("#clear1").hide();
             $("#sign1").removeClass('d-flex').hide();
 
         } else {
@@ -1354,10 +1376,9 @@
             // $(".customSubmitButton").addClass("showBtn");
             //  $("input[name='pdfsign']").removeAttr('required');
             // $("input[name='namesign']").attr('required','required');
-            $("#clear").show();
             $("div#pdfsign1").removeClass('d-flex').addClass("d-none");
             $("div#namesign1").removeClass('d-flex').addClass("d-none");
-            $("#sign1").css('display','block');
+            $("#sign1").css('display','flex');
             $("#sign1").removeClass('d-none');
            
         }

@@ -1109,6 +1109,7 @@
         @endsection
         @section('scripts')
         <script>
+            $("#signtype").val(1);
             // $("#flexCheckChecked").change(function() {
             //     if ($(this).is(':checked')) {
             //         $("#signtype").val(1);

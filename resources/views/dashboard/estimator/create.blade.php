@@ -2,50 +2,66 @@
 
 @section('styles')
 <style>
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #fff !important;
-  opacity: 1; /* Firefox */
-}
-    #scope-of-design{
-
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #fff !important;
+        opacity: 1;
+        /* Firefox */
     }
-    .whiteBack::placeholder{
+
+    #scope-of-design {}
+
+    .whiteBack::placeholder {
         color: #000 !important;
     }
+
     .form-select,
     #design_requirement_text,
-    .inputDiv input{
+    .inputDiv input {
         border-radius: 0.25rem !important;
     }
+
     .form-control[readonly] {
-    background-color: #000;
-}
-input {
-  /* custom */
-  caret-color: gray;
-}
-.customDate::-webkit-calendar-picker-indicator {   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>'); }
-input::placeholder{
-    color: #fff !important;
-}
-#design_requirement_text{
-    color: #000 !important;
-}
-.list-div ul li, .list-check-div ul li{
-height: 72px;
-    overflow: visible;
-    border-radius: 5px;
-}
-    .aside-enabled.aside-fixed.header-fixed .header{
-        border-bottom: 1px solid #e4e6ef!important;
+        background-color: #000;
     }
-    .header-fixed.toolbar-fixed .wrapper{
+
+    input {
+        /* custom */
+        caret-color: gray;
+    }
+
+    .customDate::-webkit-calendar-picker-indicator {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+    }
+
+    input::placeholder {
+        color: #fff !important;
+    }
+
+    #design_requirement_text {
+        color: #000 !important;
+    }
+
+    .list-div ul li,
+    .list-check-div ul li {
+        height: 72px;
+        overflow: visible;
+        border-radius: 5px;
+    }
+
+    .aside-enabled.aside-fixed.header-fixed .header {
+        border-bottom: 1px solid #e4e6ef !important;
+    }
+
+    .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-    .content{
+
+    .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
     }
+
     .newDesignBtn {
         border-radius: 8px;
         background-color: #07d564;
@@ -62,18 +78,21 @@ height: 72px;
     .card>.card-body {
         padding: 32px;
     }
-    #kt_content_container{
-        background-color: #e9edf1;
+
+    #kt_content_container {
+        background-color: #fff;
     }
-    #kt_toolbar_container{
-        background-color:#fff;
-        
-        
+
+    #kt_toolbar_container {
+        background-color: #fff;
+
+
     }
-    .card{
+
+    .card {
         margin: 9px 0px;
-        border-radius: 10px !important;   
-        border: none !important; 
+        border-radius: 10px !important;
+        border: none !important;
     }
 
     table {
@@ -81,20 +100,25 @@ height: 72px;
         border-collapse: separate;
         background-color: red;
     }
-    .blackBack{
+
+    /* .blackBack {
         background-color: #000 !important;
         color: #fff !important;
-    }
-    .whiteBack{
+    } */
+
+    /* .whiteBack {
         background-color: #f5f8fa !important;
         color: #000 !important;
-    }
-    select:focus,input:focus,
-    .form-select.form-select-solid:focus{
+    } */
+
+    select:focus,
+    input:focus,
+    .form-select.form-select-solid:focus {
         background-color: #f5f8fa;
         color: #000;
     }
-    .form-control[readonly]{
+
+    .form-control[readonly] {
         background-color: #000;
     }
 
@@ -138,10 +162,12 @@ height: 72px;
         width: 50%;
         color: #000;
     }
-    .hideBtn{
+
+    .hideBtn {
         display: none !important;
     }
-    .showBtn{
+
+    .showBtn {
         display: block !important
     }
 
@@ -151,12 +177,31 @@ height: 72px;
     }
 
     .inputDiv label {
-        width: 40%;
+        /* width: 40%; */
         color: #000;
+        position: absolute;
+        bottom: 25px;
+        background: white;
+        font-family: 'Inter', sans-serif;
+        z-index: 1;
     }
-    .select2-container{width:250px !important;}
+
+    input {
+        background-color: #fff !important;
+        border: none !important;
+        color: #000 !important;
+    }
+
+    .select2-container {
+        width: 250px !important;
+    }
+
     .inputDiv {
-        margin: 20px 0px;
+        margin: 30px 0px;
+        border: 1px solid #D2D5DA;
+        border-radius: 8px;
+        position: relative;
+        padding: 5px 5px;
     }
 
     .card-title {
@@ -165,71 +210,114 @@ height: 72px;
         justify-content: space-between;
         align-items: center;
     }
-        .kbw-signature {
-            width: 100%;
-            height: 220px;
-        }
 
-        /*#sig canvas {
+    .kbw-signature {
+        width: 100%;
+        height: 220px;
+    }
+
+    /*#sig canvas {
             width: 50% !important;
             max-height: 200px;
         }*/
-        .modalDiv{
-            width:100% ;
-        }
-        .whiteBack{
-            background-color: #f5f8fa !important;
-            color: #000 !important;
-        }
-        .form-select.form-select-solid{
-            background-color: #000;
-            color: #fff;
-        }
-     .form-control.form-control-solid{width:250px;}
-     @media only screen and (min-width: 470px) {
-        .list_top{display:inline !important;}
-     }
-        @media only screen and (max-width: 470px) {
-            .list_top{margin-top:20px;display:block !important;}
-            .newDesignBtn{margin-top:20px; margin-bottom:10px;}
-            .inputDiv label{font-size:11px !important;}
-           
+    .modalDiv {
+        width: 100%;
     }
+
+    .whiteBack {
+        background-color: #f5f8fa !important;
+        color: #000 !important;
+    }
+
+    #kt_content {
+        background: white !important;
+    }
+
+    /* .form-select.form-select-solid {
+        background-color: #000;
+        color: #fff;
+    } */
+
+    .form-control.form-control-solid {
+        width: 250px;
+    }
+
+    .twLayout label {
+        padding: 0 !important;
+        flex-grow: 1
+    }
+
+    .twLayout label span {
+        padding: 12px !important;
+    }
+
+    @media only screen and (min-width: 470px) {
+        .list_top {
+            display: inline !important;
+        }
+    }
+
+    @media only screen and (max-width: 470px) {
+        .list_top {
+            margin-top: 20px;
+            display: block !important;
+        }
+
+        .newDesignBtn {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .inputDiv label {
+            font-size: 11px !important;
+        }
+
+    }
+
     @media only screen and (max-width: 550px) {
-        .db_mr{
-                display:block !important;
-                width:100% !important; 
-                margin-bottom:20px !important;
-            }
+        .db_mr {
+            display: block !important;
+            width: 100% !important;
+            margin-bottom: 20px !important;
+        }
     }
+
+    @media only screen and (min-width: 992px) {
+        #kt_post {
+            width: 75%;
+        }
+    }
+
     #scopofdesign::placeholder {
         /* modern browser */
         color: #fff;
     }
-    
+
     /*canvas{width:50%;height:110px;}*/
     /* .inputDiv  #design_required_by_date{color:#fff;} */
-    .form-control.form-control-solid:focus{color:#000 !important;}
-    .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg 
-    {
-        word-break: break-all;
-    }
-    .select2-selection__choice__display
-    {
-        color:black;
+    .form-control.form-control-solid:focus {
+        color: #000 !important;
     }
 
-    textarea.select2-search__field::placeholder 
-    {
-        color: rgb(138, 136, 136)!important;
+    .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg {
+        word-break: break-all;
+        height: 32px;
+    }
+
+    .select2-selection__choice__display {
+        color: black;
+    }
+
+    textarea.select2-search__field::placeholder {
+        color: rgb(138, 136, 136) !important;
     }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
-    <link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}"/>
-    <link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}"/>
-    <link rel="stylesheet" href="{{asset('css/signature.css')}}"/>
-     <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}"/>
+<link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}" />
+<link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}" />
+<link rel="stylesheet" href="{{asset('css/signature.css')}}" />
+<link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -242,342 +330,488 @@ height: 72px;
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 class="db_mr" style="display: inline-block;width:30%">Estimate Design Brief</h2>
+                        <h2 class="db_mr" style="display: inline-block;">Estimate Design Brief</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{ route('estimator.store') }}" method="post" enctype="multipart/form-data">
+                    <form id="desingform" action="{{ route('estimator.store') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <div class="col">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Select Project:</span>
                                     </label>
-                                    <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
+                                    <select name="project_id" id="projects"
+                                        class="form-select form-select-lg form-select-solid" data-control="select2"
+                                        data-placeholder="Select an option" data-allow-clear="true" required>
                                         <option value="">Select Option</option>
                                         @forelse($projects as $item)
-                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ? 'selected' : '' }} @endisset @isset($project_ids) {{ in_array($item->id,$project_ids) ? 'selected' : '' }} @endisset>{{$item->name .' - '. $item->no}}</option>
+                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ?
+                                            'selected' : '' }} @endisset @isset($project_ids) {{
+                                            in_array($item->id,$project_ids) ? 'selected' : '' }}
+                                            @endisset>{{$item->name .' - '. $item->no}}</option>
                                         @empty
                                         @endforelse
                                     </select>
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{old('projno')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="000" id="no" name="projno" value="{{old('projno')}}">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project Name:</span>
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Name" id="name" name="projname"  value="{{old('projname')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Project Name" id="name" name="projname"
+                                        value="{{old('projname')}}">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" readonly type="date" value="" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date"  id="design_issued_date" value="{{old('design_issued_date')}}">
+                                    <input data-date-inline-picker="true" readonly type="date" value=""
+                                        class="blackBack form-control form-control-solid" placeholder="Date"
+                                        name="design_issued_date" id="design_issued_date"
+                                        value="{{old('design_issued_date')}}">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Design Required by Date:</span>
-                                    </label>
-                                        <input data-date-inline-picker="true"  style=" cursor: pointer;color:#a9abb7 !important;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}"  >
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Project Address:</span>
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid" placeholder="Project Address" id="address" name="projaddress" value="{{old('projaddress')}}">
+                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Project Address" id="address" name="projaddress"
+                                        value="{{old('projaddress')}}">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Select Online Designers</span>
-                                    </label>
-                                    <select name="designers[]"  class="form-select form-select-lg form-select-solid adminDesigners" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple >
-                                        <option value="">Select Option</option>
-                                        
-                                            @foreach($adminDesigners as $desig)
-                                               <optgroup  label="Designer List">
-                                                @if($desig->hasRole(['designer','Design Checker','Designer and Design Checker']))
-                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} | {{$desig->email}}</option>
-                                                @endif
-                                                 </optgroup>
-                                            @endforeach
-                                        
-                                    </select>
-                                </div>
+                            </div>
+                        </div>
 
-                                <div class="d-flex inputDiv d-block">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Select Online Supplier</span>
-                                    </label>
-                                    <select name="suppliers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple >
-                                        <option value="">Select Option</option>
-                                        
-                                            @foreach($adminSuppliers as $supp)
-                                               <optgroup  label="Supplier List">
-                                                @if($supp->hasRole('supplier'))
-                                                <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
-                                                @endif
-                                                 </optgroup>
-                                            @endforeach
-                                        
-                                    </select>
-                                </div>
-                                
-                                <div class="d-flex inputDiv d-block">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Designer Email Address:</span>
-
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Enter Comma Seperated" id="designer_company_emails" name="designer_company_emails" value="{{old('designer_company_emails')}}">
-                                </div>
-                                <h6>And/Or</h6>
-                                <div class="d-flex inputDiv d-block">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Select company approved designer</span>
-                                    </label>
-                                    <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true"  multiple>
-                                        <option value="">Select Option</option>
-                                        <optgroup label="Designer List">
-                                            @foreach($designers as $desig)
-                                                @if($desig->hasRole('designer'))
-                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->email}}</option>
-                                                @endif
-                                            @endforeach
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Supplier Email Address:</span>
-
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Enter Comma Seperated" id="supplier_company_emails" name="supplier_company_emails" value="{{old('supplier_company_emails')}}">
-                                </div>
-                                 <h6>And/Or</h6>
-                                 <div class="d-flex inputDiv d-block">
-
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Select company approved supplier</span>
-                                    </label>
-                                    <select name="suppliers[]"  class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" multiple>
-                                        <option value="">Select Option</option>
-                                        <optgroup label="Suppliers List">
-                                            @foreach($suppliers as $supp)
-                                                <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
-                                            @endforeach
-                                        </optgroup>
-                                       
-                                    </select>
-                                </div>
-                                <div class="d-flex inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">TWC Name:</span>
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Name" id="twc_name" name="twc_name" value="">
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="TWC Name" id="twc_name" name="twc_name" value="">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">TWC Email Address:</span>
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="TWC Email Address" id="twc_email" name="twc_email" value="" style="background: #f5f8fa" readonly>
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="TWC Email Address" id="twc_email" name="twc_email" value=""
+                                        style="background: #f5f8fa" readonly>
                                 </div>
-                                <div class="d-flex inputDiv">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">TW Category</span>
-
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Design Required by Date:</span>
                                     </label>
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid">
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="0" checked="checked" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">0</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="1" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">1</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="2" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">2</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_category" value="3" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">3</span>
-                                        </label>
-                                        <!--end::Option-->
-                                    </div>
-                                    <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
-                                    <!--end::Radio group-->
-                                </div>
-                                <div class="d-flex inputDiv">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">TW Risk Class</span>
-                                    </label>
-                                    <!--begin::Radio group-->
-                                    <div class="nav-group nav-group-fluid">
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="VL" checked="checked" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="L" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">L</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="M" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">M</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label>
-                                            <input type="radio" class="btn-check" name="tw_risk_class" value="H" />
-                                            <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">H</span>
-                                        </label>
-                                        <!--end::Option-->
-                                    </div>
-                                    <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:32px"></span></a>
-                                    <!--end::Radio group-->
+                                    <input data-date-inline-picker="true"
+                                        style=" cursor: pointer;color:#a9abb7 !important;" type="date"
+                                        class="customDate blackBack form-control form-control-solid"
+                                        placeholder="Design Required by Date" id="design_required_by_date"
+                                        name="design_required_by_date" value="{{old('design_required_by_date')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block">
-                                
-                                    <div class="d-flex modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement" >
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <div class="d-flex modalDiv" data-bs-toggle="modal"
+                                        data-bs-target="#design-requirement">
                                         <!--begin::Label-->
-                                         <label style="" class=" d-flex align-items-center fs-6 fw-bold mb-2">
-                                           Design Requirement:
+                                        <label style="" class="  fs-6 fw-bold mb-2">
+                                            Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack" style="width: 50%;"  id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <input type="text" class="blackBack" style="width: 50%;"
+                                            id="design_requirement_text" placeholder="Design requirement" readonly
+                                            name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
                                     </div>
-                                
-                                 </div>
-                                  <div class="d-flex inputDiv d-block">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Select Online Designers</span>
+                                    </label>
+                                    <select name="designers[]"
+                                        class="form-select form-select-lg form-select-solid adminDesigners"
+                                        data-control="select2" data-placeholder="Select an option"
+                                        data-allow-clear="true" multiple>
+                                        <option value="">Select Option</option>
+
+                                        @foreach($adminDesigners as $desig)
+                                        <optgroup label="Designer List">
+                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                            Checker']))
+                                            <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
+                                                {{$desig->email}}</option>
+                                            @endif
+                                        </optgroup>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Select Online Supplier</span>
+                                    </label>
+                                    <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
+                                        data-control="select2" data-placeholder="Select an option"
+                                        data-allow-clear="true" multiple>
+                                        <option value="">Select Option</option>
+
+                                        @foreach($adminSuppliers as $supp)
+                                        <optgroup label="Supplier List">
+                                            @if($supp->hasRole('supplier'))
+                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
+                                            @endif
+                                        </optgroup>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Designer Email Address:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Enter Comma Seperated" id="designer_company_emails"
+                                        name="designer_company_emails" value="{{old('designer_company_emails')}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Select company approved designer</span>
+                                    </label>
+                                    <select name="designers[]" id="desingers"
+                                        class="form-select form-select-lg form-select-solid" data-control="select2"
+                                        data-placeholder="Select an option" data-allow-clear="true" multiple>
+                                        <option value="">Select Option</option>
+                                        <optgroup label="Designer List">
+                                            @foreach($designers as $desig)
+                                            @if($desig->hasRole('designer'))
+                                            <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->email}}</option>
+                                            @endif
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0" style="margin-top: 63px">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Supplier Email Address:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Enter Comma Seperated" id="supplier_company_emails"
+                                        name="supplier_company_emails" value="{{old('supplier_company_emails')}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                <div class="d-flex inputDiv d-block mb-0">
+
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Select company approved supplier</span>
+                                    </label>
+                                    <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
+                                        data-control="select2" data-placeholder="Select an option"
+                                        data-allow-clear="true" multiple>
+                                        <option value="">Select Option</option>
+                                        <optgroup label="Suppliers List">
+                                            @foreach($suppliers as $supp)
+                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
+                                            @endforeach
+                                        </optgroup>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                             <label class="required d-flex align-items-center fs-6 fw-bold mb-2">
-                                              Description:
-                                            </label>
-                                            <textarea class="blackBack form-control" name="description_temporary_work_required"  style="width:50%"  rows="2" cols="50" placeholder="Provide brief description of design requirements.">{{old('description_temporary_work_required')}}</textarea>
+                                        <label class="required  fs-6 fw-bold mb-2">
+                                            Description:
+                                        </label>
+                                        <textarea class="blackBack form-control"
+                                            name="description_temporary_work_required"
+                                            style="height:32px; border: none " rows="2" cols="50"
+                                            placeholder="Provide brief description of design requirements.">{{old('description_temporary_work_required')}}</textarea>
                                     </div>
-                                 </div>
-                                  <div class="d-flex inputDiv d-block">
-                                    <div class="d-flex modalDiv d-block" data-bs-toggle="modal" data-bs-target="#scope-of-design">
-                                         <!--begin::Label-->
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                              Scope of Design:
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex mt-2">
+                                <div class="col-md-6">
+                                    <div class="d-flex flex-column mb-0">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required">TW Category</span>
+                                        </label>
+                                        <!--begin::Radio group-->
+                                        <div class="d-flex twLayout">
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="0"
+                                                    checked="checked" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary">0</span>
                                             </label>
-                                            <textarea class="blackBack form-control"  style="width:50%; "  id="scopofdesign" rows="2" cols="50"  placeholder="Scope of Design Output Required From TW Engineer" ></textarea>
-                                    </div>
-                                  </div>
-                                   <div class="d-flex inputDiv d-block">
-                                    <div style="position:relative;" class="d-flex modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
-                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                              Attachments / Spec:
-                                              <span style="margin-left: 10px;">
-                                        <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img alt="info" src="{{asset('assets/media/logos/info.png')}}" style="height:25px"></span></a>
-                                    </span>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="1" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">1</span>
                                             </label>
-                                           
-                                        <input id="attachment" class="blackBack" style="background-color: #000; color:#fff" type="text" placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" readonly>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="2" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">2</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_category" value="3" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">3</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <a href="{{asset('temporary/tw_pdfs/1.pdf')}}" target="_blank"><span><img
+                                                        alt="info" src="{{asset('assets/media/logos/info.png')}}"
+                                                        style="height:32px"></span></a>
+                                        </div>
+                                        <!--end::Radio group-->
                                     </div>
-                                    
-                                  </div>
-                                  
-                                <div class="d-flex inputDiv d-block">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex flex-column  ">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required">TW Risk Class</span>
+                                        </label>
+                                        <!--begin::Radio group-->
+                                        <div class="d-flex twLayout">
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="VL"
+                                                    checked="checked" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary">VL</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="L" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">L</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="M" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">M</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label>
+                                                <input type="radio" class="btn-check" name="tw_risk_class" value="H" />
+                                                <span
+                                                    class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">H</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <a href="{{asset('temporary/tw_pdfs/2.pdf')}}" target="_blank"><span><img
+                                                        alt="info" src="{{asset('assets/media/logos/info.png')}}"
+                                                        style="height:32px"></span></a>
+                                        </div>
+                                        <!--end::Radio group-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <div class="d-flex modalDiv d-block" data-bs-toggle="modal"
+                                        data-bs-target="#scope-of-design">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            Scope of Design:
+                                        </label>
+                                        <textarea class="blackBack form-control" style="height:32px; border: none "
+                                            id="scopofdesign" rows="2" cols="50"
+                                            placeholder="Scope of Design Output Required From TW Engineer"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <div style="position:relative;" class="d-flex modalDiv d-block"
+                                        data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            Attachments / Spec:
+                                            <span style="margin-left: 10px;">
+                                                <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img
+                                                            alt="info" src="{{asset('assets/media/logos/info.png')}}"
+                                                            style="height:25px"></span></a>
+                                            </span>
+                                        </label>
+                                        <input id="attachment" class="blackBack"
+                                            style="background-color: #000; color:#fff" type="text"
+                                            placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly">
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Name" name="name" id="admin_name"
+                                        value="{{\Auth::user()->name ?? ''}}" readonly="readonly">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Job title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly" >
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="Job title" name="job_title" id="job_title"
+                                        value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                     <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company" >
-                                     <input type="hidden" id="company_id"  name="company_id"  >
+                                    <input type="text" id="companyadmin"
+                                        class="blackBack form-control form-control-solid"
+                                        style="background-color:#f5f8fa" placeholder="Company" name="company">
+                                    <input type="hidden" id="company_id" name="company_id">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
+                                    <input data-date-inline-picker="true" type="date" name="date"
+                                        value="{{ date('Y-m-d') }}" style="background-color:#fff"
+                                        class="form-control form-control-solid">
                                 </div>
-                                <div class="d-flex inputDiv d-block">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span>Photo:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input  type="file" class="form-control"  id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
+                                    <input type="file" class="form-control" id="photo" name="photo"
+                                        value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
-                            
                             </div>
-
                         </div>
+
                         @include('dashboard.modals.design-relief-modals')
-                         <input type="submit" name="action"  style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Save & Email">
-                         <input type="submit" name="action"  style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Save">
-                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->
+                        <div class="row mt-5">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <input type="submit" name="action" style="margin-left: 10px;"
+                                    class="btn btn-primary float-end submitbutton" value="Save & Email">
+                                <input type="submit" name="action" style="margin-left: 10px;"
+                                    class="btn btn-primary float-end submitbutton" value="Save">
+                            </div>
+                        </div>
+                        <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save</button> -->
 
-                        
+
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -604,7 +838,7 @@ height: 72px;
     });
 </script>
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
- <script type="text/javascript">
+<script type="text/javascript">
     $(document).on("change","[name='req_check[]']",function(){
         if($(this).is(':checked'))
         {
@@ -614,9 +848,8 @@ height: 72px;
             $(this).val(0);
         }
     })
- </script>
+</script>
 <script>
-
     var projects = {!!$projects!!};
     var address='';
     $('#projects').change(function() {
@@ -795,6 +1028,6 @@ height: 72px;
     })
 </script>
 
-    
+
 
 @endsection

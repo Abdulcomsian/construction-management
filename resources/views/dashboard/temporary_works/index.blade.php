@@ -1264,7 +1264,7 @@
                                                     </td>
                                                     <td style="min-width: 254px; max-width: 80px;">
                                                         <div class="d-flex">
-                                                            <span class="col-sm-5 titleColumn">Drawings &
+                                                            <span class="col-5 titleColumn">Drawings &
                                                                 Designs:</span>
                                                             <div class="d-flex col-sm-6"
                                                                 style="column-gap:1rem;margin-left: 32px">
@@ -1333,7 +1333,7 @@
                                                         </div>
 
                                                         <div class="row my-2">
-                                                            <span class="col-sm-6 titleColumn">Permit to load:
+                                                            <span class="col-6 titleColumn">Permit to load:
                                                                 @if(isset($item->rejectedpermits) &&
                                                                 count($item->rejectedpermits)>0)
                                                                 <span class="text-danger redBgBlink"
@@ -1461,7 +1461,7 @@
                                                         </div>
                                                         <div>
                                                             <div class="row">
-                                                                <span class="col-sm-6 titleColumn">Permit to
+                                                                <span class="col-6 titleColumn">Permit to
                                                                     unload:</span>
                                                                 <div class="d-flex col-sm-6" id="ptu"
                                                                     style="column-gap: 1rem;">
@@ -2054,7 +2054,7 @@
                                                     <td
                                                         style="min-width: 254px; max-width: 80px;width:200px;padding:10px 0 !important;">
                                                         <div class="d-flex">
-                                                            <span class="col-sm-5 titleColumn">Drawings &
+                                                            <span class="col-5 titleColumn">Drawings &
                                                                 Designs:</span>
                                                             <div class="d-flex col-sm-6"
                                                                 style="column-gap:1rem;margin-left: 32px">
@@ -2123,9 +2123,8 @@
                                                         </div>
 
                                                         <div class="row my-2">
-                                                            <span class="col-sm-6 titleColumn">Permit to load:</span>
-                                                            <div class="d-flex col-sm-6" id="ptl"
-                                                                style="column-gap: 1rem">
+                                                            <span class="col-6 titleColumn">Permit to load:</span>
+                                                            <div class="d-flex col-6" id="ptl" style="column-gap: 1rem">
                                                                 @if(count($item->unloadpermits)>0 ||
                                                                 count($item->closedpermits)>0 || $drawingscount)
                                                                 <div
@@ -2248,9 +2247,9 @@
                                                         </div>
                                                         <div>
                                                             <div class="row">
-                                                                <span class="col-sm-6 titleColumn">Permit to
+                                                                <span class="col-6 titleColumn">Permit to
                                                                     unload:</span>
-                                                                <div class="d-flex col-sm-6" id="ptu"
+                                                                <div class="d-flex col-6" id="ptu"
                                                                     style="column-gap: 1rem;">
                                                                     <div
                                                                         style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
@@ -2426,8 +2425,8 @@
 
                                     <td style="min-width: 254px; max-width: 80px;padding:10px 0px !important;">
                                         <div class="d-flex">
-                                            <span class="col-sm-5 titleColumn">Drawings & Designs:</span>
-                                            <div class="d-flex col-sm-6" style="column-gap:1rem;margin-left: 32px">
+                                            <span class="col-5 titleColumn">Drawings & Designs:</span>
+                                            <div class="d-flex col-6" style="column-gap:1rem;margin-left: 32px">
                                                 <div
                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                     <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}"
@@ -2490,7 +2489,7 @@
                                         </div>
 
                                         <div class="row my-2">
-                                            <span class="col-sm-6 titleColumn">Permit to load:</span>
+                                            <span class="col-6 titleColumn">Permit to load:</span>
                                             <div class="d-flex col-sm-6" id="ptl"
                                                 style="column-gap: 1rem;padding-left:3px;">
                                                 @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0 ||
@@ -2603,8 +2602,8 @@
                                         </div>
                                         <div>
                                             <div class="row">
-                                                <span class="col-sm-6 titleColumn">Permit to unload:</span>
-                                                <div class="d-flex col-sm-6" id="ptu"
+                                                <span class="col-6 titleColumn">Permit to unload:</span>
+                                                <div class="d-flex col-6" id="ptu"
                                                     style="column-gap: 1rem;margin-left:-7px;">
                                                     <div
                                                         style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
@@ -2952,7 +2951,7 @@
 
                                                         <td style="min-width: 254px; max-width: 80px;">
                                                             <div class="d-flex">
-                                                                <span class="col-sm-5 titleColumn">Drawings &
+                                                                <span class="col-5 titleColumn">Drawings &
                                                                     Designs:</span>
                                                                 <div class="d-flex col-sm-6"
                                                                     style="column-gap:1rem;margin-left: 32px">

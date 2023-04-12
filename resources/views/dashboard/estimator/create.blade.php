@@ -342,7 +342,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="d-flex inputDiv d-block mb-0">
-                                    <label class=" fs-6 fw-bold mb-2">
+                                    <label class=" fs-6 fw-bold mb-2" style="bottom: 38px;">
                                         <span class="required">Select Project:</span>
                                     </label>
                                     <select name="project_id" id="projects"
@@ -595,7 +595,8 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                        <label class="required  fs-6 fw-bold mb-2">
+                                        <label class="required  fs-6 fw-bold mb-2"
+                                            style="bottom: 0; top: -13px; height: fit-content;">
                                             Description:
                                         </label>
                                         <textarea class="blackBack form-control"
@@ -702,7 +703,8 @@
                                     <div class="d-flex modalDiv d-block" data-bs-toggle="modal"
                                         data-bs-target="#scope-of-design">
                                         <!--begin::Label-->
-                                        <label class=" fs-6 fw-bold mb-2">
+                                        <label class=" fs-6 fw-bold mb-2"
+                                            style="bottom: 0; top: -13px; height: fit-content;">
                                             Scope of Design:
                                         </label>
                                         <textarea class="blackBack form-control" style="height:32px; border: none "

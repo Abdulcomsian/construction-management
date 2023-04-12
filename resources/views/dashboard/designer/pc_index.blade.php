@@ -201,7 +201,11 @@
                                 <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
                                 <td><b>{{$cmt->email}}</b><br><br><b>Sent To:
                                         <br>{{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td>
-                                <td>{{$cmt->comment}}<br>{{$cmt->updated_at}}</td>
+                                <td>{{$cmt->comment}}<br>
+                                    @if(isset($cmt->comment))
+                                        {{$cmt->updated_at}}
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -114,7 +114,7 @@
     select:focus,
     input:focus,
     .form-select.form-select-solid:focus {
-        background-color: #f5f8fa;
+        background-color: #fff;
         color: #000;
     }
 
@@ -251,6 +251,7 @@
         padding: 12px !important;
     }
 
+
     @media only screen and (min-width: 470px) {
         .list_top {
             display: inline !important;
@@ -302,6 +303,13 @@
     .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg {
         word-break: break-all;
         height: 32px;
+        background: white;
+        border: none;
+    }
+
+    .form-select.form-select-solid {
+        background: white;
+        border: none;
     }
 
     .select2-selection__choice__display {

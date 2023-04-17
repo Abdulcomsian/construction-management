@@ -812,9 +812,11 @@
                         <div class="row mt-5">
                             <div class="col-md-6"></div>
                             <div class="col-md-6">
-                                <input type="submit" name="action" style="margin-left: 10px;"
+                                <input type="submit" name="action"
+                                    style="margin-left: 10px; background: #07d564 !important"
                                     class="btn btn-primary float-end submitbutton" value="Save & Email">
-                                <input type="submit" name="action" style="margin-left: 10px;"
+                                <input type="submit" name="action"
+                                    style="margin-left: 10px; background: #07d564 !important"
                                     class="btn btn-primary float-end submitbutton" value="Save">
                             </div>
                         </div>

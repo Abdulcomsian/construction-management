@@ -338,6 +338,29 @@
             text-align: center;
         }
     }
+
+    @media (max-width: 800px) {
+        .action {
+            justify-content: center !important;
+            max-width: 83px !important;
+            margin-left: 26px !important;
+        }
+    }
+
+    @media (min-width: 801px) {
+        .action {
+            justify-content: center !important;
+            max-width: 85px !important;
+            margin-left: 26px !important;
+        }
+    }
+
+    @media (min-width: 1330px) {
+        .action {
+            justify-content: center !important;
+            max-width: 91px !important;
+            margin-left: 26px !important;
+        }
     }
 
     .modal-backdrop {
@@ -511,6 +534,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col my-2 my-md-0 positionChange">
+                                    <!--end::Dropdown-->
+                                    <!--begin::Button-->
+                                    <a href="{{ route('estimator.create') }}"
+                                        class="btn pull-right btn-primary font-weight-bolder"
+                                        style="color:white !important;border-radius:0px;">
+                                        <span class="fa fa-plus"></span> Estimate Design Brief</a>
+                                    <!--end::Button-->
+                                </div>
                             </div>
                         </div>
                         <!--begin::Table-->
@@ -521,15 +553,7 @@
                             </div>
                             <div class="col-md-2">
                             </div>
-                            <div class="col-md-3 my-2 my-md-0 positionChange">
-                                <!--end::Dropdown-->
-                                <!--begin::Button-->
-                                <a href="{{ route('estimator.create') }}"
-                                    class="btn pull-right btn-primary font-weight-bolder"
-                                    style="color:white !important;border-radius:0px;">
-                                    <span class="fa fa-plus"></span> Estimate Design Brief</a>
-                                <!--end::Button-->
-                            </div>
+
                         </div>
                         <div class="row">
                             <div style="float:left;width:100%;position:relative;top:-5px;">
@@ -593,26 +617,25 @@
                                                         </span> --}}
                                                         {{--
                                                     </td> --}}
-                                                    <td style="min-width: 220px; max-width: 80px;">
-                                                        <div class="d-flex">
-                                                            <span class="col-5 titleColumn text-start">Serial No.</span>
-                                                            <div class="d-flex col-6"> {{$item->estimator_serial_no}}
-                                                            </div>
+                                                    <td style="">
+                                                        <div class="">
+                                                            {{-- <span class="col-5 titleColumn text-start">Serial
+                                                                No.</span> --}}
+                                                            {{$item->estimator_serial_no}}
                                                         </div>
-                                                        <div class="d-flex">
-                                                            <span class="col-5 titleColumn text-start">Project
-                                                                Name</span>
-                                                            <div class="d-flex col-6"> {{ $item->project->name ?? '' }}
-                                                            </div>
+                                                        <div style="font-weight: bold">
+                                                            {{-- <span class="col-5 titleColumn text-start">Project
+                                                                Name</span> --}}
+                                                            {{ $item->project->name ?? '' }}
                                                         </div>
                                                     </td>
-                                                    <td style="min-width: 220px; max-width: 80px;">
+                                                    <td style="width:170px">
                                                         <div class="d-flex">
                                                             <p style="font-weight:400;font-size:14px;">
                                                                 {{$item->design_requirement_text ?? ''}}</p>
                                                         </div>
                                                     </td>
-                                                    <td style="min-width: 220px; max-width: 80px;">
+                                                    <td style="">
                                                         <div
                                                             style="max-height:100%; display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:15px;">
                                                             <div class="commentSection" style="">
@@ -655,7 +678,7 @@
                                                         </div>
                                                     </td>
 
-                                                    <td style="min-width: 220px; max-width: 80px;">
+                                                    <td style="">
                                                         <div class="d-flex justify-content-between">
                                                             <span class="titleColumn">Issue Date:</span>
                                                             <span
@@ -767,7 +790,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td style="min-width: 220px; max-width: 80px;">
+                                                    <td style="">
                                                         <div class="d-flex justify-content-between">
                                                             <span class="titleColumn">Designer:</span>
                                                             <div
@@ -787,17 +810,18 @@
                                                         <div class="d-flex justify-content-between">
                                                             <span class="col-5 titleColumn">Drawings & Designs:</span>
                                                             <div class="d-flex col-6"
-                                                                style="display: flex; justify-content: space-evenly; flex-grow: 1; max-width:80px; margin-left: 26px;">
+                                                                style="display: flex; justify-content: space-evenly; align-items: center; flex-grow: 1; max-width:80px; margin-left: 26px;">
                                                                 <p class="uploaddrawinglist cursor-pointer"
                                                                     data-id="{{$item->id}}" data-type="1"
                                                                     style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
                                                                     <!-- View Drawings -->
-                                                                    <span style="font-size: 18px;color:{{$dcolor}}"
+                                                                    <span
+                                                                        style="font-size: 16px;opacity: 0.8;color:{{$dcolor}}"
                                                                         class="fa fa-eye" title="View Drawings"></span>
                                                                 </p>
                                                                 <p class="assessmentlist cursor-pointer"
                                                                     data-id="{{$item->id}}" data-type="1"
-                                                                    style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
+                                                                    style="margin-bottom:0px;font-weight: 400;font-size: 16px;opacity: 0.8;position: relative;top: 0px;">
                                                                     <!-- View Drawings -->
                                                                     @php
                                                                     $color="";
@@ -815,7 +839,7 @@
                                                         </div>
                                                         <div class="d-flex">
                                                             <span class="col-5 titleColumn text-start">Action</span>
-                                                            <div class="d-flex col-6"
+                                                            <div class="d-flex col-6 action"
                                                                 style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; max-width:80px; margin-left: 26px;">
                                                                 @if(auth()->user()->hasRole('estimator'))
                                                                 <a href="{{route('estimator.edit',$item->id)}}"><i
@@ -836,14 +860,16 @@
                                                         </div>
 
                                                     </td>
-                                                    <td style="min-width: 220px; max-width: 80px;">
+                                                    <td style="width:200px">
                                                         <div class="d-flex">
                                                             <span class="col-5 titleColumn">Status</span>
                                                             <div class="d-flex col-6" style="column-gap:1rem;">
                                                                 @if($item->estimatorApprove)
-                                                                <span class="text-success">Awarded</span>
+                                                                <span class="text-success"
+                                                                    style="white-space: nowrap">Awarded</span>
                                                                 @else
-                                                                <span class="text-danger">Not Awarded</span>
+                                                                <span class="text-danger"
+                                                                    style="white-space: nowrap">Not Awarded</span>
                                                                 @endif
                                                             </div>
 

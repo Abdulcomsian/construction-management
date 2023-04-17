@@ -368,6 +368,15 @@
     .rowcolor {
         background: #D5D8DC !important;
     }
+
+    .titleColumn {
+        color: #9D9D9D;
+        font-weight: 500;
+        font-size: 13px;
+        margin-left: 21px;
+        font-family: 'Inter', sans-serif;
+        white-space: nowrap;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -759,7 +768,7 @@
                                                         </div>
                                                     </td>
                                                     <td style="min-width: 220px; max-width: 80px;">
-                                                        <div class="d-flex " style="position:relative; top:4px;">
+                                                        <div class="d-flex justify-content-between">
                                                             <span class="titleColumn">Designer:</span>
                                                             <div
                                                                 style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
@@ -775,10 +784,10 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex">
+                                                        <div class="d-flex justify-content-between">
                                                             <span class="col-5 titleColumn">Drawings & Designs:</span>
                                                             <div class="d-flex col-6"
-                                                                style="column-gap:1rem;margin-left: 32px">
+                                                                style="display: flex; justify-content: space-evenly; flex-grow: 1; max-width:80px; margin-left: 26px;">
                                                                 <p class="uploaddrawinglist cursor-pointer"
                                                                     data-id="{{$item->id}}" data-type="1"
                                                                     style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
@@ -797,7 +806,7 @@
                                                                     $color="green";
                                                                     }
                                                                     @endphp
-                                                                    <span style="font-size: 18px; color:{{$color}}"
+                                                                    <span style="font-size: 14px; color:{{$color}}"
                                                                         class="fa fa-file"
                                                                         title="View Calculation/Risk Assessment"></span>
                                                                 </p>
@@ -805,9 +814,9 @@
 
                                                         </div>
                                                         <div class="d-flex">
-                                                            <span class="col-5 titleColumn">Action</span>
+                                                            <span class="col-5 titleColumn text-start">Action</span>
                                                             <div class="d-flex col-6"
-                                                                style="column-gap:1rem;margin-left: 32px">
+                                                                style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; max-width:80px; margin-left: 26px;">
                                                                 @if(auth()->user()->hasRole('estimator'))
                                                                 <a href="{{route('estimator.edit',$item->id)}}"><i
                                                                         class="fa fa-edit"></i></a>
@@ -829,9 +838,8 @@
                                                     </td>
                                                     <td style="min-width: 220px; max-width: 80px;">
                                                         <div class="d-flex">
-                                                            <span class="col-5 titleColumn">Action</span>
-                                                            <div class="d-flex col-6"
-                                                                style="column-gap:1rem;margin-left: 32px">
+                                                            <span class="col-5 titleColumn">Status</span>
+                                                            <div class="d-flex col-6" style="column-gap:1rem;">
                                                                 @if($item->estimatorApprove)
                                                                 <span class="text-success">Awarded</span>
                                                                 @else

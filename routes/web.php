@@ -147,6 +147,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix' => 'Estimator'],function(){
     Route::group(['middleware' => ['auth']], function () {
         Route::resource('estimator',EstimatorController::class); //Estimator
+        Route::get('/test',[EstimatorController::class,'testIndex']);
         Route::get('/estimator-designer/details/{id}',[EstimatorController::class,'estimatorQuotationDetails']);
         Route::get('/estimator-designer/comments/{id}',[EstimatorController::class,'estimatorDesignerComments']);
         Route::post('/estimator-designer/comments-save',[EstimatorController::class,'estimatorDesignerCommentsSave']);

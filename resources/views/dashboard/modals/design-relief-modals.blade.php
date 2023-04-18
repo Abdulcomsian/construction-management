@@ -547,7 +547,7 @@
                                     <li data-id="List-Attachment" class="majorList">Attachments (sketches / photos /
                                         specifications / drawings, etc)
                                     </li>
-                                    <ul>
+                                    <ul class="listAttachment--desc d-none">
                                         <li class="invisible List-Attachment d-flex  my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -582,7 +582,7 @@
                                         services above or below the ground where appropriate minimum clearances and
                                         protection are required to be maintained)
                                     </li>
-                                    <ul>
+                                    <ul class="report-site--desc d-none">
                                         <li class="invisible Report-Site d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -614,7 +614,7 @@
                                 </div>
                                 <div class="list">
                                     <li data-id="Exsisting-Ground" class="majorList">Existing Ground conditions</li>
-                                    <ul>
+                                    <ul class="existing-ground--desc d-none">
                                         <li class="invisible Exsisting-Ground d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -651,31 +651,35 @@
                                         or types of
                                         equipment:
                                     </li>
-                                    <li class="invisible System-Type d-flex my-0"
-                                        style="justify-content: space-between; align-items: center; min-height: 70px">
-                                        <div class="multi-Radio">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="preferred_non_preferred_methods_folder" id="" value="yes" />
-                                                <input class="form-check-input" type="hidden"
-                                                    name="preferred_non_preferred_methods"
-                                                    value="Preferred/non-preferred methods, systems or types of equipment:" />
-                                                <label class="form-check-label" for=""> YES </label>
+                                    <ul class="perferred-NonPrefered--desc d-none">
+                                        <li class="invisible System-Type d-flex my-0"
+                                            style="justify-content: space-between; align-items: center; min-height: 70px">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="preferred_non_preferred_methods_folder" id=""
+                                                        value="yes" />
+                                                    <input class="form-check-input" type="hidden"
+                                                        name="preferred_non_preferred_methods"
+                                                        value="Preferred/non-preferred methods, systems or types of equipment:" />
+                                                    <label class="form-check-label" for=""> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="preferred_non_preferred_methods_folder" id=""
+                                                        value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
+                                                </div>
                                             </div>
-                                            <!-- NO -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="preferred_non_preferred_methods_folder" id="" value="no" />
-                                                <label class="form-check-label" for=""> NO </label>
+                                            <div class="preferred_non_preferred_methods_comment d-none">
+                                                <textarea
+                                                    style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
+                                                    type="text" name="preferred_non_preferred_methods_comment" cols="80"
+                                                    rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
-                                        </div>
-                                        <div class="preferred_non_preferred_methods_comment d-none">
-                                            <textarea
-                                                style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
-                                                type="text" name="preferred_non_preferred_methods_comment" cols="80"
-                                                rows="2" placeholder="Enter Comment"></textarea>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </ul>
                                     <!-- <li class="preferred_non_preferred_methods_comment d-none" style="background: white;height:73px">
                                         </li> -->
                                     <li class="preferred_non_preferred_methods_comment d-none">
@@ -690,30 +694,33 @@
                                 <div class="list">
                                     <li data-id="Limitations" class="majorList">Access Limitations (or edge protection
                                         requirements)</li>
-                                    <li class="invisible Limitations d-flex my-0"
-                                        style="justify-content: space-between; align-items: center; min-height: 70px">
-                                        <div class="multi-Radio">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="access_limitations_folder" id="" value="yes" />
-                                                <input class="form-check-input" type="hidden" name="access_limitations"
-                                                    value="Access Limitations (or edge protection requirements)" />
-                                                <label class="form-check-label" for=""> YES </label>
+                                    <ul class="access-limitation--desc d-none">
+                                        <li class="invisible Limitations d-flex my-0"
+                                            style="justify-content: space-between; align-items: center; min-height: 70px">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="access_limitations_folder" id="" value="yes" />
+                                                    <input class="form-check-input" type="hidden"
+                                                        name="access_limitations"
+                                                        value="Access Limitations (or edge protection requirements)" />
+                                                    <label class="form-check-label" for=""> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="access_limitations_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
+                                                </div>
                                             </div>
-                                            <!-- NO -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="access_limitations_folder" id="" value="no" />
-                                                <label class="form-check-label" for=""> NO </label>
+                                            <div class="access_limitations_comment d-none">
+                                                <textarea
+                                                    style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
+                                                    type="text" name="access_limitations_comment" cols="80" rows="2"
+                                                    placeholder="Enter Comment"></textarea>
                                             </div>
-                                        </div>
-                                        <div class="access_limitations_comment d-none">
-                                            <textarea
-                                                style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
-                                                type="text" name="access_limitations_comment" cols="80" rows="2"
-                                                placeholder="Enter Comment"></textarea>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </ul>
                                     <!-- <li class="access_limitations_comment d-none" style="background: white;height:73px">
                                         </li> -->
 
@@ -727,30 +734,32 @@
                                 <div class="list">
                                     <li data-id="Back-Propping" class="majorList">Back Propping / Re-Propping Sequence
                                     </li>
-                                    <li class="invisible Back-Propping d-flex"
-                                        style="justify-content: space-between; align-items: center; min-height: 70px">
-                                        <div class="multi-Radio">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="back_propping_folder"
-                                                    id="" value="yes" />
-                                                <input class="form-check-input" type="hidden" name="back_propping"
-                                                    value="Back Propping  / Re-Propping Sequence" />
-                                                <label class="form-check-label" for=""> YES </label>
+                                    <ul class="back-propping--desc d-none">
+                                        <li class="invisible Back-Propping d-flex"
+                                            style="justify-content: space-between; align-items: center; min-height: 70px">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="back_propping_folder" id="" value="yes" />
+                                                    <input class="form-check-input" type="hidden" name="back_propping"
+                                                        value="Back Propping  / Re-Propping Sequence" />
+                                                    <label class="form-check-label" for=""> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="back_propping_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
+                                                </div>
                                             </div>
-                                            <!-- NO -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="back_propping_folder"
-                                                    id="" value="no" />
-                                                <label class="form-check-label" for=""> NO </label>
+                                            <div class="back_propping_comment d-none">
+                                                <textarea
+                                                    style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
+                                                    type="text" name="back_propping_comment" cols="80" rows="2"
+                                                    placeholder="Enter Comment"></textarea>
                                             </div>
-                                        </div>
-                                        <div class="back_propping_comment d-none">
-                                            <textarea
-                                                style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
-                                                type="text" name="back_propping_comment" cols="80" rows="2"
-                                                placeholder="Enter Comment"></textarea>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </ul>
                                     <!-- <li class="back_propping_comment d-none" style="background: white;height:73px">
                                         </li> -->
                                 </div>
@@ -762,33 +771,35 @@
                                 <div class="list">
                                     <li data-id="Temporary-Work" class="majorList">Limitations on Temporary Works
                                         Design:</li>
-                                    <li class="invisible Temporary-Work d-flex"
-                                        style="justify-content: space-between; align-items: center; min-height: 70px">
-                                        <div class="multi-Radio">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="limitations_on_temporary_works_design_folder" id=""
-                                                    value="yes" />
-                                                <input class="form-check-input" type="hidden"
-                                                    name="limitations_on_temporary_works_design"
-                                                    value="Limitations on Temporary Works Design:" />
-                                                <label class="form-check-label" for=""> YES </label>
+                                    <ul class="temporary-work--desc d-none">
+                                        <li class="invisible Temporary-Work d-flex"
+                                            style="justify-content: space-between; align-items: center; min-height: 70px">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="limitations_on_temporary_works_design_folder" id=""
+                                                        value="yes" />
+                                                    <input class="form-check-input" type="hidden"
+                                                        name="limitations_on_temporary_works_design"
+                                                        value="Limitations on Temporary Works Design:" />
+                                                    <label class="form-check-label" for=""> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="limitations_on_temporary_works_design_folder" id=""
+                                                        value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
+                                                </div>
                                             </div>
-                                            <!-- NO -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="limitations_on_temporary_works_design_folder" id=""
-                                                    value="no" />
-                                                <label class="form-check-label" for=""> NO </label>
+                                            <div class="limitations_on_temporary_works_design_comment d-none">
+                                                <textarea
+                                                    style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
+                                                    type="text" name="limitations_on_temporary_works_design_comment"
+                                                    cols="80" rows="2" placeholder="Enter Comment"></textarea>
                                             </div>
-                                        </div>
-                                        <div class="limitations_on_temporary_works_design_comment d-none">
-                                            <textarea
-                                                style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
-                                                type="text" name="limitations_on_temporary_works_design_comment"
-                                                cols="80" rows="2" placeholder="Enter Comment"></textarea>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </ul>
                                     <!-- <li class="limitations_on_temporary_works_design_comment d-none" style="background: white;height:73px">
                                         </li> -->
                                 </div>
@@ -804,31 +815,33 @@
                                         assessment that require action by the Temporary Works Designer to eliminate or
                                         control all risks or hazard
                                     </li>
-                                    <li class="invisible Hazard-Risk d-flex"
-                                        style="justify-content: space-between; align-items: center; min-height: 70px">
-                                        <div class="multi-Radio">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="details_of_any_hazards_folder" id="" value="yes" />
-                                                <input class="form-check-input" type="hidden"
-                                                    name="details_of_any_hazards"
-                                                    value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
-                                                <label class="form-check-label" for=""> YES </label>
+                                    <ul class="hazard-risk--desc d-none">
+                                        <li class="invisible Hazard-Risk d-flex"
+                                            style="justify-content: space-between; align-items: center; min-height: 70px">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="details_of_any_hazards_folder" id="" value="yes" />
+                                                    <input class="form-check-input" type="hidden"
+                                                        name="details_of_any_hazards"
+                                                        value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
+                                                    <label class="form-check-label" for=""> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="details_of_any_hazards_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
+                                                </div>
                                             </div>
-                                            <!-- NO -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="details_of_any_hazards_folder" id="" value="no" />
-                                                <label class="form-check-label" for=""> NO </label>
+                                            <div class="details_of_any_hazards_comment d-none">
+                                                <textarea
+                                                    style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
+                                                    type="text" name="details_of_any_hazards_comment" cols="80" rows="2"
+                                                    placeholder="Enter Comment"></textarea>
                                             </div>
-                                        </div>
-                                        <div class="details_of_any_hazards_comment d-none">
-                                            <textarea
-                                                style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
-                                                type="text" name="details_of_any_hazards_comment" cols="80" rows="2"
-                                                placeholder="Enter Comment"></textarea>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </ul>
                                     <!-- <li class="details_of_any_hazards_comment d-none" style="background: white;height:73px">
                                         </li> -->
 
@@ -841,30 +854,32 @@
 
                                 <div class="list">
                                     <li data-id="Party-Requirements" class="majorList">3rd Party Requirements:</li>
-                                    <li class="invisible Party-Requirements d-flex"
-                                        style="justify-content: space-between; align-items: center; min-height: 70px">
-                                        <div class="multi-Radio">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="3rd_party_requirements_folder" id="" value="yes" />
-                                                <input class="form-check-input" type="hidden"
-                                                    name="3rd_party_requirements" value="3rd Party Requirements:" />
-                                                <label class="form-check-label" for=""> YES </label>
+                                    <ul class="partyRequirment--desc d-none">
+                                        <li class="invisible Party-Requirements d-flex"
+                                            style="justify-content: space-between; align-items: center; min-height: 70px">
+                                            <div class="multi-Radio">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="3rd_party_requirements_folder" id="" value="yes" />
+                                                    <input class="form-check-input" type="hidden"
+                                                        name="3rd_party_requirements" value="3rd Party Requirements:" />
+                                                    <label class="form-check-label" for=""> YES </label>
+                                                </div>
+                                                <!-- NO -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="3rd_party_requirements_folder" id="" value="no" />
+                                                    <label class="form-check-label" for=""> NO </label>
+                                                </div>
                                             </div>
-                                            <!-- NO -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="3rd_party_requirements_folder" id="" value="no" />
-                                                <label class="form-check-label" for=""> NO </label>
+                                            <div class="3rd_party_requirements_comment d-none">
+                                                <textarea
+                                                    style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
+                                                    type="text" name="3rd_party_requirements_comment" cols="80" rows="2"
+                                                    placeholder="Enter Comment"></textarea>
                                             </div>
-                                        </div>
-                                        <div class="3rd_party_requirements_comment d-none">
-                                            <textarea
-                                                style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
-                                                type="text" name="3rd_party_requirements_comment" cols="80" rows="2"
-                                                placeholder="Enter Comment"></textarea>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    </ul>
                                     <!-- <li class="3rd_party_requirements_comment d-none" style="background: white;height:73px">
                                         </li> -->
                                     <!-- <li class="3rd_party_requirements_comment d-none">

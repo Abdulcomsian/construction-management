@@ -1199,6 +1199,26 @@ $notify_admins_msg = [
             }
         }
     }
+     //get emails
+    public function get_emails(Request $request)
+    {
+        $table = '';
+        // echo $request->temporary_work_id;
+        $data = TempWorkUploadFiles::where(['temporary_work_id' => $request->temporary_work_id, 'file_type'=>4])->get();
+        // $commetns = TemporaryWork::with('uploadfile')::where(['temporary_work_id' => $request->temporary_work_id])->get();
+        $list = '';
+        $app_url = env('APP_URL');
+        $list.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style=""><tr><th>No</th><th>Emails File</th><th style="width:120px;">Date</th></tr></thead><tbody>';
+        if (count($data) > 0) {
+            $i = 1;
+            foreach ($data as $d) {
+                $list .= '<tr style="text-align:center;"><td>' . $i . '</td><td><a target="_blank" href="'. $app_url . '/' .$d->file_name .'">E'. $i . '</a></td><td>' . $d->created_at->todatestring() . '</td></tr>';
+                $i++;
+            }
+        }
+        $list .= '</tbody></table>';
+        echo $list;
+    }
     //get commetns
     public function get_comments(Request $request)
     {

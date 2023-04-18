@@ -32,6 +32,8 @@
                     <input type="hidden" name="type" id="type">
                </form>
                 <!--end:Form-->
+                <div id="uploadfiles_popup">
+                </div>
             </div>
             <!--end::Modal body-->
         </div>

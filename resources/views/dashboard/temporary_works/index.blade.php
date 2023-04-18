@@ -1186,7 +1186,7 @@
                                                     <td style="min-width:112px;">
 
                                                         <div
-                                                            style="max-height:100%; display:flex;flex-direction:column;justify-content:space-between;gap:15px;">
+                                                            style="max-height:100%; display:flex;flex-direction:column;justify-content:space-between;gap:5px;padding:5px 0">
                                                             <div class="commentSection" style="">
                                                                 @php
                                                                 $drawingscount=0;
@@ -1216,6 +1216,20 @@
                                                                         </span>
                                                                     </span>
                                                                 </p>
+                                                            </div>
+                                                            <div>
+                                                            @php $i=0;
+                                                            $tot = count($item->uploadfile ); @endphp
+                                          <!-- @foreach($item->uploadfile as $file)
+                                          @if($file->file_type==4)
+                                          @php $i++ @endphp -->
+                                          <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
+                                          @endif
+                                          @endforeach -->
+                                                            <p class="uploadfile  cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; @if($tot>0) background: #3A7DFF26; color: #3A7DFF;  @else background: grey; color: #fff; @endif border-radius: 7px; padding: 4px 10px; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;" data-id="{{$item->id}}" data-type="4">
+                                                                <!-- <span class="fa fa-plus"></span> -->
+                                                               Emails
+                                                            </p>
                                                             </div>
                                                             <span class="desc cursor-pointer"
                                                                 style="width: 112px;padding: 2px;" data-toggle="tooltip"
@@ -1625,22 +1639,24 @@
                                                                             style="font-size: 12px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span></p>
-                                                                    {{-- @php $i=0;@endphp
-                                                                    @foreach($item->uploadfile as $file)
-                                                                    @if($file->file_type==3)
-                                                                    @php $i++ @endphp
-                                                                    <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span> -->
-                                                                    @endif
-                                                                    @endforeach --}}
+                                                                   
                                                                 </div>
                                                                 <div data-type="3" data-id="{{$item->id}}" class="rams"
                                                                     style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
                                                                     <span
                                                                         style="position: relative; bottom:3px; left:3px;">
-                                                                        @php
+                                                                        <!-- @php
                                                                         $rams = count($item->uploadfile);
-                                                                        @endphp
-                                                                        {{$rams}}
+                                                                        @endphp -->
+                                                                        <!-- {{$rams}}  -->
+                                                                        @php $i=0;@endphp
+                                                                        @foreach($item->uploadfile as $file)
+                                                                            @if($file->file_type==3)
+                                                                                @php $i++ @endphp
+                                                                                <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span> -->
+                                                                                @endif
+                                                                        @endforeach 
+                                                                        {{$i}}
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -3492,7 +3508,7 @@
    };
 </script>
 <script>
-    $(".uploadfile").on('click', function() {
+    $(".uploadfile").on('click', function() { 
        if (role == 'supervisor' || role == "scaffolder") {
            alert("You are not allowed to add File");
            return false;
@@ -3504,6 +3520,20 @@
        } else {
            $("#rams_no").addClass('d-none');
        }
+       $.ajax({
+           url: "{{route('temporarywork.get-emails')}}",
+           method: "get",
+           data: {
+               type:$(this).attr('data-type'),
+               temporary_work_id: $(this).attr('data-id'),
+              
+           },
+           success: function(res) {
+                //  res=JSON.parse(res);
+               $("#uploadfiles_popup").html(res);
+            //    $("#comment_modal_id").modal('show');
+           }
+       });
        $("#upload_file_id").modal('show');
    
    })

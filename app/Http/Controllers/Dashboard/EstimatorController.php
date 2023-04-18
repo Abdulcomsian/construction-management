@@ -180,6 +180,7 @@ class EstimatorController extends Controller
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
                 $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                //dd($adminDesigners);
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
             }
             return view('dashboard.estimator.create', compact('projects','designers','suppliers','adminDesigners','adminSuppliers'));

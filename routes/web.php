@@ -38,6 +38,7 @@ Route::get('show-scan-temporary-work/{id}', [TemporaryWorkController::class, 'sh
 Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
 
 Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
+Route::get('get-emails', [TemporaryWorkController::class, 'get_emails'])->name('temporarywork.get-emails');
 Route::get('comments-status', [TemporaryWorkController::class, 'comments_status'])->name('temporarywork.comments.status');
 Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
 Route::post('temporary_works/comments-replay', [TemporaryWorkController::class, 'temp_savecommentreplay'])->name('temporarywork.storecommentreplay');

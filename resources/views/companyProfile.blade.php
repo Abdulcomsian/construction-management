@@ -610,7 +610,7 @@ button.createbtn i {
                 <div class="col-md-3">
                   <div class="attachment-container">
                     <strong>Other Documents:</strong><br />
-                    
+                    @if(isset($companyProfile->otherdocs))
                          @foreach($companyProfile->otherdocs as $doc)
                          @php 
                             $n = strrpos($doc->file, '.');
@@ -622,12 +622,13 @@ button.createbtn i {
                           <p class="attachment"><a href="{{asset($doc->file)}}">Attachment</a></p>
                          @endif
                         @endforeach
-                        
+                      @endif
                   </div>
                 </div>
                 <div class="col-md-6">
 
                   <div class="gallery">
+                  @if(isset($companyProfile->otherdocs))
                    @foreach($companyProfile->otherdocs as $doc)
                          @php 
                             $n = strrpos($doc->file, '.');
@@ -638,7 +639,7 @@ button.createbtn i {
                           <img src="{{asset($doc->file)}}" alt=""/>
                          @endif
                         @endforeach
-                        
+                    @endif  
                   </div>
                 </div>
               </div>
@@ -651,8 +652,10 @@ button.createbtn i {
                     <th>S.No</th>
                     <th>User Name</th>
                     <th>Email</th>
+                    @if(isset($companyProfile->nomination_link_check))
                     @if($companyProfile->nomination_link_check)
                     <th>Nomination Link</th>
+                    @endif
                     @endif
                   </tr>
                 </thead>
@@ -662,6 +665,7 @@ button.createbtn i {
                     <td>{{$loop->index+1}}</td>
                     <td>{{$list->name}}</td>
                     <td>{{$list->email}}</td>
+                    @if(isset($companyProfile->nomination_link_check))
                     @if($companyProfile->nomination_link_check)
                     <td>
                       @if($list->usernomination)
@@ -670,6 +674,7 @@ button.createbtn i {
                         <a href="javascript:void(0)" style="text-decoration:none">N/A</a>
                       @endif
                     </td>
+                    @endif
                     @endif
                   </tr>
                   @endforeach

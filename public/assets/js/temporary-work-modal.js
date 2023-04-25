@@ -9,7 +9,9 @@ $(document).ready(function () {
             "disabled"
         );
     });
-    $("#attachment-of-design .submit-requirment button").click(function (event){
+    $("#attachment-of-design .submit-requirment button").click(function (
+        event
+    ) {
         document.getElementById("attachment_specs").style.borderColor = "black";
     });
     $("#design-requirement .requirment-first ul li.majorMenu").click(function (
@@ -199,7 +201,8 @@ $(document).ready(function () {
             $("li." + id + "")
                 .toggleClass("invisible")
                 .toggle();
-            var val = $(this).text(); console.log(val);
+            var val = $(this).text();
+            console.log(val);
             $("#attachment-of-design .requirment-first-value").val(val);
         }
     );
@@ -292,3 +295,65 @@ $("input[name='3rd_party_requirements_folder']").change(function () {
         $(".3rd_party_requirements_comment").removeClass("d-none").hide();
     }
 });
+
+document
+    .querySelector("[data-id='Exsisting-Ground']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".existing-ground--desc")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='System-Type']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".perferred-NonPrefered--desc")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Limitations']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".access-limitation--desc")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Back-Propping']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".back-propping--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Temporary-Work']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".temporary-work--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Hazard-Risk']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".hazard-risk--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Party-Requirements']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".partyRequirment--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='List-Attachment']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".listAttachment--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Report-Site']")
+    .addEventListener("click", function (e) {
+        document.querySelector(".report-site--desc").classList.toggle("d-none");
+    });

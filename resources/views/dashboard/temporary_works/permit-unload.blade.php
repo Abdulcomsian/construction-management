@@ -527,7 +527,6 @@
                                 observing the extents, limits and controls listed above. </p>
 
                         </div>
-                        pc twc box goes here
                     </div>
 
                     <div class="row">

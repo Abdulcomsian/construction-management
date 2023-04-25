@@ -408,7 +408,7 @@ class DesignerController extends Controller
         
         if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
                
-               if(auth()->user()->hasRole('admin'))
+               if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') )
                {
                 $company=Project::find($ramsno->project_id);
                 $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();

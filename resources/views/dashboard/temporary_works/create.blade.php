@@ -313,15 +313,21 @@
     #desingform input::placeholder {
         color: #9D9D9D !important;
     }
-    input[type="radio"]:focus,  input[type="radio"]:active {
-    outline: max(2px, 0.15em) solid #000;  background-color: #000 !important;
-    outline-offset: max(2px, 0.15em);
-  }
-  input[type="radio"]:checked {
-  /* Add your styles here */
-  background-color: #07d564  !important;
-  color:#07d564  !important;border:1px solid #000;
-}
+
+    input[type="radio"]:focus,
+    input[type="radio"]:active {
+        outline: max(2px, 0.15em) solid #000;
+        background-color: #000 !important;
+        outline-offset: max(2px, 0.15em);
+    }
+
+    input[type="radio"]:checked {
+        /* Add your styles here */
+        background-color: #07d564 !important;
+        color: #07d564 !important;
+        border: 1px solid #000;
+    }
+
     .nav-group.nav-group-fluid>label {
         top: 0 !important;
         padding: 0 2px !important;
@@ -961,7 +967,8 @@
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
                                                 style="width: 12px;">
-                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
+                                            <input type="hidden" id="Drawtype" name=""
+                                                class="form-control form-control-solid" value="1">
                                             <span
                                                 style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
@@ -996,6 +1003,7 @@
                                         <span id="clear" class="fa fa-undo cursor-pointer"
                                             style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                     </div>
+                                    <span id="sigimage" class="text-danger">Signature Not Added</span>
                                     <div class="inputDiv d-none" id="pdfsign">
                                         <label class="fs-6 fw-bold mb-2" style="width: fit-content">
                                             <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
@@ -1047,6 +1055,10 @@
 @include('dashboard.modals.hazardlist')
 @endsection
 @section('scripts')
+
+
+
+
 <script>
     var url="{{asset('js/myfile.json')}}";
     var jsondata="";
@@ -1061,7 +1073,7 @@
 </script>
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script type="text/javascript">
-     $("#signtype").val(2);
+    $("#signtype").val(2);
     $(document).on("change","[name='req_check[]']",function(){
         if($(this).is(':checked'))
         {
@@ -1229,126 +1241,154 @@
     })
 
 
-     var canvas = document.getElementById("sig");
-     var signaturePad = new SignaturePad(canvas);
-     signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
-              $("#signature").val(signaturePad.toDataURL('image/png'));
-            });
-    // $("#submitbutton").on('click',function(e){
-    //     if ( $("#desingform-form").valid() ) {
 
-    //          $("#signature").val(signaturePad.toDataURL('image/png'));
-    //           $("#desingform").submit();
-    //         } else {
-    //             console.log('form invalid');
-    //         }
-        
-        
-    // })
+//     <script type="text/javascript">
+//     var canvas = document.getElementById("sig");
+//     console.log(canvas)
+//     var signaturePad = new SignaturePad(canvas);
+//     signaturePad.addEventListener("endStroke", () => {
+//        console.log("here1234");
+//              $("#signature").val(signaturePad.toDataURL('image/png'));
+//              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+//            });
 
-
-   
-     $('#clear').click(function(e) {
-        e.preventDefault();
-        signaturePad.clear();
-        $("#signature").val('');
-    });
-    $("#attachment").click(function() {
-        $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-        });
+//     $('#clear').click(function(e) {
+//        e.preventDefault();
+//        signaturePad.clear();
+//        $("#signature").val('');
+//         $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+//    });
+// 
 
 
-    $('#design_required_by_date').change(function() {
-        $('#design_required_by_date').css("background-color", "#eee ");
-        $('#design_required_by_date').css({"color": "#000"});
-    });
-    $('#designer_company_name').change(function() {
-        $('#designer_company_name').css("background-color", "#f5f8fa ");
-        $('#design_required_by_date').css("color", "#000");
-    });
-    $('#designer_company_email').change(function() {
-        $('#designer_company_email').css("background-color", "#f5f8fa ");
-        $('#designer_company_email').css("color", "#000");
-    });
-    $('#twc_name').change(function() {
-        $('#twc_name').css("background-color", "#f5f8fa ");
-        $('#twc_name').css("color", "#000");
-    });
-    $('#twc_email').change(function() {
-        $('#twc_email').css("background-color", "#f5f8fa ");
-        $('#twc_email').css("color", "#000");
-    });
-    $("#scopofdesign").click(function() {
-        $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-        });
 
-    $(".hazardlist").on('click',function(){
-        $("#hazard_modal_id").modal('show');
-    })
-            
+var canvas = document.getElementById("sig");
+var signaturePad = new SignaturePad(canvas);
+signaturePad.addEventListener("endStroke", () => {
+console.log("hello");
+$("#signature").val(signaturePad.toDataURL('image/png'));
+$("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+});
+$('#clear').click(function(e) {
+       e.preventDefault();
+       signaturePad.clear();
+       $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+   });
+// $("#submitbutton").on('click',function(e){
+// if ( $("#desingform-form").valid() ) {
 
-    $(function() {
-       var email= $("#twc_email").val();
-       if(email.length>0){
-        $("#twc_email").removeClass("blackBack")
-       } else{
-        $("#twc_email").addClass("blackBack")
-       }
-        $("input").on("change paste keyup cut select", function() {
-            if($(this).val() !== "") {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-            }
-        });
-        $("textarea").on("change", function() {
-            if($(this).val() !== "") {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-            }
-        });
-       
-        $("#design_requirement_text").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-    
-        });
-        $("#scope-of-design #submit-requirment button").on("click", function() {
-            console.log("here");
-                $("#scopofdesign").removeClass("blackBack")
-                $("#scopofdesign").addClass("whiteBack")
-    
-        });
-        $("#attachment-of-design  #submit-requirment button").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-    
-        });
+// $("#signature").val(signaturePad.toDataURL('image/png'));
+// $("#desingform").submit();
+// } else {
+// console.log('form invalid');
+// }
 
-        $("#projects").change(function(){
-            console.log("hello")
-            $(this).removeClass("blackBack")
-            $("#projects span.form-select").removeClass("blackBack")
-        //    $(".form-control[readonly]").removeClass("blackBack")
-            $("#no").removeClass("blackBack").addClass("whiteBack");
-            $("#name").removeClass("blackBack").addClass("whiteBack");
-            $("#design_issued_date").removeClass("blackBack").addClass("whiteBack");
-            $("#address").removeClass("blackBack").addClass("whiteBack");
-            $("#job_title").removeClass("blackBack").addClass("whiteBack");
-            $("#admin_name").removeClass("blackBack").addClass("whiteBack");
-            $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
-            $(".form-select.form-select-solid").css("background-color","#f5f8fa")
-            $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
-            $("#twc_name").removeClass("blackBack").addClass("whiteBack");
-         //   $("#scopofdesign").addClass("blackBack")
-        })
 
-        $(".customDate").click(function(){
-            $(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)") 
-        })
-    });
+// })
+
+
+
+$('#clear').click(function(e) {
+e.preventDefault();
+signaturePad.clear();
+$("#signature").val('');
+});
+$("#attachment").click(function() {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+});
+
+
+$('#design_required_by_date').change(function() {
+$('#design_required_by_date').css("background-color", "#eee ");
+$('#design_required_by_date').css({"color": "#000"});
+});
+$('#designer_company_name').change(function() {
+$('#designer_company_name').css("background-color", "#f5f8fa ");
+$('#design_required_by_date').css("color", "#000");
+});
+$('#designer_company_email').change(function() {
+$('#designer_company_email').css("background-color", "#f5f8fa ");
+$('#designer_company_email').css("color", "#000");
+});
+$('#twc_name').change(function() {
+$('#twc_name').css("background-color", "#f5f8fa ");
+$('#twc_name').css("color", "#000");
+});
+$('#twc_email').change(function() {
+$('#twc_email').css("background-color", "#f5f8fa ");
+$('#twc_email').css("color", "#000");
+});
+$("#scopofdesign").click(function() {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+});
+
+$(".hazardlist").on('click',function(){
+$("#hazard_modal_id").modal('show');
+})
+
+
+$(function() {
+var email= $("#twc_email").val();
+if(email.length>0){
+$("#twc_email").removeClass("blackBack")
+} else{
+$("#twc_email").addClass("blackBack")
+}
+$("input").on("change paste keyup cut select", function() {
+if($(this).val() !== "") {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+}
+});
+$("textarea").on("change", function() {
+if($(this).val() !== "") {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+}
+});
+
+$("#design_requirement_text").on("click", function() {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+
+});
+$("#scope-of-design #submit-requirment button").on("click", function() {
+console.log("here");
+$("#scopofdesign").removeClass("blackBack")
+$("#scopofdesign").addClass("whiteBack")
+
+});
+$("#attachment-of-design #submit-requirment button").on("click", function() {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+
+});
+
+$("#projects").change(function(){
+console.log("hello")
+$(this).removeClass("blackBack")
+$("#projects span.form-select").removeClass("blackBack")
+// $(".form-control[readonly]").removeClass("blackBack")
+$("#no").removeClass("blackBack").addClass("whiteBack");
+$("#name").removeClass("blackBack").addClass("whiteBack");
+$("#design_issued_date").removeClass("blackBack").addClass("whiteBack");
+$("#address").removeClass("blackBack").addClass("whiteBack");
+$("#job_title").removeClass("blackBack").addClass("whiteBack");
+$("#admin_name").removeClass("blackBack").addClass("whiteBack");
+$("#companyadmin").removeClass("blackBack").addClass("whiteBack");
+$(".form-select.form-select-solid").css("background-color","#f5f8fa")
+$("#companyadmin").removeClass("blackBack").addClass("whiteBack");
+$("#twc_name").removeClass("blackBack").addClass("whiteBack");
+// $("#scopofdesign").addClass("blackBack")
+})
+
+$(".customDate").click(function(){
+$(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)")
+})
+});
 </script>
 
 

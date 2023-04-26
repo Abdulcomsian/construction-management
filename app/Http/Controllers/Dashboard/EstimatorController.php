@@ -658,7 +658,7 @@ class EstimatorController extends Controller
 
                         if($request->action="Update & Email")
                         {
-                            Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
+                            // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
                             Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
                             //designer
                             if ($request->designer_company_email) {

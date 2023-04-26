@@ -131,6 +131,7 @@ $(document).ready(function () {
         $("#scope-of-design .requirment-second-value").val(date);
         show_val += $(this).attr("name") + " " + date + "\n";
         $("#scopofdesign").val(show_val);
+        $("#scopeOfDesignArea").val(show_val);
     });
 
     // $("#attachment-of-design .requirment-first ul li").click(function (event) {
@@ -201,9 +202,11 @@ $(document).ready(function () {
             $("li." + id + "")
                 .toggleClass("invisible")
                 .toggle();
-            var val = $(this).text();
+
+            var val = $(this).text().split(" ").join("");
             console.log(val);
             $("#attachment-of-design .requirment-first-value").val(val);
+            $("#attachment").val(val);
         }
     );
 });

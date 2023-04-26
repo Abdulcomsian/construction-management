@@ -1003,7 +1003,8 @@
                                         <span id="clear" class="fa fa-undo cursor-pointer"
                                             style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                     </div>
-                                    <span id="sigimage" class="text-danger">Signature Not Added</span>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                        Added</span>
                                     <div class="inputDiv d-none" id="pdfsign">
                                         <label class="fs-6 fw-bold mb-2" style="width: fit-content">
                                             <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
@@ -1030,7 +1031,7 @@
                                     <!-- work for approval -->
                                     @include('dashboard.modals.design-relief-modals')
                                     <button id="submitbutton" type="submit"
-                                        class="btn btn-primary float-end submitbutton"
+                                        class="btn btn-secondary float-end submitbutton" disabled
                                         style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
 
                                 </div>
@@ -1268,12 +1269,15 @@ signaturePad.addEventListener("endStroke", () => {
 console.log("hello");
 $("#signature").val(signaturePad.toDataURL('image/png'));
 $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+$("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+// $('#submitbutton')
 });
 $('#clear').click(function(e) {
        e.preventDefault();
        signaturePad.clear();
        $("#signature").val('');
         $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
    });
 // $("#submitbutton").on('click',function(e){
 // if ( $("#desingform-form").valid() ) {

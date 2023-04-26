@@ -712,7 +712,7 @@ $notify_admins_msg = [
                     Notification::route('mail', $request->pc_twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
                 } else {
                     //send email to admin
-                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
 
                     //send to twc email
                     Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
@@ -965,7 +965,7 @@ $notify_admins_msg = [
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                 } else {
-                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                     Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                     //designer
                     if ($request->designer_company_email) {
@@ -1563,7 +1563,7 @@ $notify_admins_msg = [
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 } else {
-                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 }
                 toastSuccess('Permit ' . $message . ' sucessfully!');
@@ -1781,7 +1781,7 @@ $notify_admins_msg = [
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email)->notify(new PermitNotification($notify_admins_msg));
                 } else {
-                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 }
                 toastSuccess('Permit Updatd sucessfully!');
@@ -2330,8 +2330,8 @@ $notify_admins_msg = [
     {
         try {
             $data = TemporaryWork::with('temp_work_images', 'uploadfile', 'permits', 'scaffold')->find($id);
-            Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TempAttachmentNotifications($data));
-            toastSuccess('Attachments sent successfully!');
+            // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TempAttachmentNotifications($data));
+            // toastSuccess('Attachments sent successfully!');
             return Redirect::back();
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
@@ -2376,7 +2376,7 @@ $notify_admins_msg = [
                     'action_text' => 'View Closed Permit',
                     'action_url' => '',
                 ];
-            Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+            // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
             Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
             return Redirect::back();
         } catch (\Exception $exception) {

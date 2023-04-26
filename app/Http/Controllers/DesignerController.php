@@ -734,7 +734,7 @@ class DesignerController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ];
-                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
                     toastSuccess('Design Brief Rejected Successfully!');
@@ -786,7 +786,7 @@ class DesignerController extends Controller
                     'action_url' => '',
                 ];
 
-                Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
+                // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
 
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 

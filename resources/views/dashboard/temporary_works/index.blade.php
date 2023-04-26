@@ -1218,18 +1218,20 @@
                                                                 </p>
                                                             </div>
                                                             <div>
-                                                            @php $i=0;
-                                                            $tot = count($item->uploadfile ); @endphp
-                                          <!-- @foreach($item->uploadfile as $file)
+                                                                @php $i=0;
+                                                                $tot = count($item->uploadfile ); @endphp
+                                                                <!-- @foreach($item->uploadfile as $file)
                                           @if($file->file_type==4)
                                           @php $i++ @endphp -->
-                                          <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
+                                                                <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">E{{$i}}</a></span>
                                           @endif
                                           @endforeach -->
-                                                            <p class="uploadfile  cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; @if($tot>0) background: #3A7DFF26; color: #3A7DFF;  @else background: grey; color: #fff; @endif border-radius: 7px; padding: 4px 10px; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;" data-id="{{$item->id}}" data-type="4">
-                                                                <!-- <span class="fa fa-plus"></span> -->
-                                                               Emails
-                                                            </p>
+                                                                <p class="uploadfile  cursor-pointer"
+                                                                    style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; @if($tot>0) background: #3A7DFF26; color: #3A7DFF;  @else background: grey; color: #fff; @endif border-radius: 7px; padding: 4px 10px; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;"
+                                                                    data-id="{{$item->id}}" data-type="4">
+                                                                    <!-- <span class="fa fa-plus"></span> -->
+                                                                    Emails
+                                                                </p>
                                                             </div>
                                                             <span class="desc cursor-pointer"
                                                                 style="width: 112px;padding: 2px;" data-toggle="tooltip"
@@ -1639,7 +1641,7 @@
                                                                             style="font-size: 12px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span></p>
-                                                                   
+
                                                                 </div>
                                                                 <div data-type="3" data-id="{{$item->id}}" class="rams"
                                                                     style="background: #07D56426;padding: 4px; border-radius: 4px; width:20px; height:20px">
@@ -1651,11 +1653,11 @@
                                                                         <!-- {{$rams}}  -->
                                                                         @php $i=0;@endphp
                                                                         @foreach($item->uploadfile as $file)
-                                                                            @if($file->file_type==3)
-                                                                                @php $i++ @endphp
-                                                                                <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span> -->
-                                                                                @endif
-                                                                        @endforeach 
+                                                                        @if($file->file_type==3)
+                                                                        @php $i++ @endphp
+                                                                        <!-- <span><a href="{{asset($file->file_name)}}" target="_blank">RAMS{{$i}}</a></span> -->
+                                                                        @endif
+                                                                        @endforeach
                                                                         {{$i}}
                                                                     </span>
                                                                 </div>
@@ -4227,10 +4229,10 @@ $(document).on('click','.drawingshare',function(e){
            success: function(res) {
              if(status==1)
              {
-                input.parent().parent().removeClass('rowcolor');
+                input.parent().parent().parent().removeClass('rowcolor');
              }
              else{
-                input.parent().parent().addClass('rowcolor');
+                input.parent().parent().parent().addClass('rowcolor');
              }
                
            }

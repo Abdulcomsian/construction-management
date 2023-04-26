@@ -2036,8 +2036,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex ">
+                                <div class="d-flex w-100 justify-content-between">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Scaff-tag signed and displayed?
@@ -2077,8 +2077,8 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv">
-                                <div class="d-flex modalDiv">
+                            <div class="d-flex ">
+                                <div class="d-flex w-100 justify-content-between">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         Are you competent to carry out inspection?
@@ -2177,7 +2177,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-top: 40px">
                         <div class="col">
                             <div class="d-flex inputDiv mt-0" style="border: none">
                                 <label class="fs-6 fw-bold mb-2"

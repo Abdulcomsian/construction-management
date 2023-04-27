@@ -593,6 +593,7 @@ $notify_admins_msg = [
 
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
             }
+
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
@@ -616,6 +617,7 @@ $notify_admins_msg = [
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
             }
+
             // $image_name = HelperFunctions::savesignature($request);
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -626,6 +628,7 @@ $notify_admins_msg = [
             $j = HelperFunctions::generatetempid($request->project_id);
             $all_inputs['tempid'] = $j;
             $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
+
             $all_inputs['twc_id_no'] = $twc_id_no;
             if (isset($request->approval)) {
                 $all_inputs['status'] = '0';
@@ -655,6 +658,7 @@ $notify_admins_msg = [
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
                     foreach ($files  as $key => $file) {
+                        dd("ssss");
                         $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                         $model = new TemporayWorkImage();
                         $model->image = $imagename;
@@ -1252,9 +1256,9 @@ $notify_admins_msg = [
         }
         if (count($commetns) > 0) {
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
-                $table.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+                $table.= '<table class="table " style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table .= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:10%;text-align:left;">No</th><th style="width:35%;text-align:left;">Designer Comment</th><th style="width:40%;text-align:left;">TWC Reply</th><th>Attachment</th><th style="width:25%;text-align:left;">Date</th></tr></thead><tbody>';
+                $table .= '<table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">TWC Reply</th><th style="color:white !important; font-weight: 600 !important; font-size:16px !important">Attachment</th><th style="width:25%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Date</th></tr></thead><tbody>';
             }
 
             $i = 1;
@@ -1331,7 +1335,7 @@ $notify_admins_msg = [
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
 
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td>'.$comment->sender_name.'<br>'. $comment->sender_email . '<br>' . $comment->comment . '<br>' . date('H:i d-m-Y', strtotime($comment->created_at)) . '</td>
+                               <td>' . $i . '</td><td>'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div></td>
                                <td style=" flex-direction: column;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">

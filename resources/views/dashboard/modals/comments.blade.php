@@ -9,10 +9,14 @@
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                fill="#000000">
                                 <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                                <rect fill="#000000" opacity="0.5"
+                                    transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                    x="0" y="7" width="16" height="2" rx="1" />
                             </g>
                         </svg>
                     </span>
@@ -25,16 +29,18 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
                 <div class="mb-13 text-center">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">Comments</h1>
-                        <!--end::Title-->
-                    </div>
+                    <!--begin::Title-->
+                    <h1 class="mb-3" style="text-align: left; font-weight: 700; font-size: 26px;font-family: 'Inter';">
+                        Comments</h1>
+                    <!--end::Title-->
+                </div>
                 <div id="commenttable">
 
                 </div>
                 <br>
                 @if(isset($scantempwork) || $scantempwork=='sharedview')
-                <form id="kt_modal_new_target_form"  class="form comments_details_form comments_form" action="{{ route('temporarywork.storecomment') }}" method="post" enctype="multipart/form-data">
+                <form id="kt_modal_new_target_form" class="form comments_details_form comments_form"
+                    action="{{ route('temporarywork.storecomment') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Heading-->
                     <input type="hidden" name="temp_work_id" id="temp_work_id" />
@@ -51,7 +57,7 @@
                     </div>
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
-                         @if(isset($scantempwork) && $scantempwork=='scantempwork')
+                        @if(isset($scantempwork) && $scantempwork=='scantempwork')
                         <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
@@ -59,18 +65,18 @@
                             </label>
                             <!--begin::Label-->
                             <!--begin::Label-->
-                            
+
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                               <select name="status" class="form-control">
-                                   <option value="0">Good Practice</option>
-                                   <option value="1">Minor Amendment</option>
-                                   <option value="2">Not Compliant - TW to be Revised</option>
-                               </select>
+                                <select name="status" class="form-control">
+                                    <option value="0">Good Practice</option>
+                                    <option value="1">Minor Amendment</option>
+                                    <option value="2">Not Compliant - TW to be Revised</option>
+                                </select>
                             </div>
-                           
+
                             <!--begin::Label-->
                         </div>
-                         @endif
+                        @endif
                         <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
@@ -79,30 +85,30 @@
                             <!--begin::Label-->
                             <!--begin::Label-->
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                                <textarea class="form-control form-control-solid mb-8" rows="4" placeholder="Enter Comment" name="comment" required>{{old('comment')}}</textarea>
+                                <textarea class="form-control form-control-solid mb-8" rows="4"
+                                    placeholder="Enter Comment" name="comment" required>{{old('comment')}}</textarea>
                                 <!--end:Input-->
                             </div>
                             <!--begin::Label-->
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
-                         @if(isset($scantempwork) && $scantempwork=='scantempwork')
-                         <style>
-                             select option[value="0"] {
-                                  background: green;
-                                }
+                        @if(isset($scantempwork) && $scantempwork=='scantempwork')
+                        <style>
+                            select option[value="0"] {
+                                background: green;
+                            }
 
-                                select option[value="1"] {
-                                  background: orange;
-                                }
-                                select option[value="2"] {
-                                  background: red;
-                                }
+                            select option[value="1"] {
+                                background: orange;
+                            }
 
-                                
-                         </style>
-                         <input type="hidden" name="type" value="scan" />
-                         <div class="col-md-12">
+                            select option[value="2"] {
+                                background: red;
+                            }
+                        </style>
+                        <input type="hidden" name="type" value="scan" />
+                        <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
                                 <span>Insert Image or photo:</span>
@@ -110,7 +116,7 @@
                             <!--begin::Label-->
                             <!--begin::Label-->
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                               <input type="file" name="image" class="form-control form-control-solid">
+                                <input type="file" name="image" class="form-control form-control-solid">
                                 <!--end:Input-->
                             </div>
                             <!--begin::Label-->
@@ -123,11 +129,11 @@
                             <!--begin::Label-->
                             <!--begin::Label-->
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                               <input type="text" name="sender_name" class="form-control">
+                                <input type="text" name="sender_name" class="form-control">
                             </div>
                             <!--begin::Label-->
                         </div>
-                         <div class="col-md-12">
+                        <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
                                 <span>Email:</span>
@@ -135,12 +141,12 @@
                             <!--begin::Label-->
                             <!--begin::Label-->
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                               <input type="email" name="mail" class="form-control" required>
+                                <input type="email" name="mail" class="form-control" required>
                             </div>
                             <!--begin::Label-->
                         </div>
-                        
-                       
+
+
                         @endif
                         <!--end::Col-->
                     </div>
@@ -153,7 +159,7 @@
                 </form>
                 @endif
                 <!--end:Form-->
-                
+
             </div>
             <!--end::Modal body-->
         </div>

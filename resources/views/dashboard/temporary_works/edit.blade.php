@@ -825,9 +825,10 @@
                                     <textarea id="signature" name="signed" style="display: none"></textarea>
                                     <span id="clear" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:51px; right:26px"></span>
-                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
-                                        Added</span>
                                 </div>
+                                <span id="sigimage" class="text-danger"
+                                    style="font-size: 15px; font-weight: 600;">Signature Not
+                                    Added</span>
                                 <div class="inputDiv d-none" id="pdfsign">
                                     <label class="fs-6 fw-bold mb-2" style="width: fit-content">
                                         <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
@@ -848,7 +849,8 @@
 
                                     </label> --}}
                                     {{-- <br /> --}}
-                                    <button type="submit" style="" class="updateBtn btn btn-primary">Update</button>
+                                    <button type="submit" id="updateBtn" disabled
+                                        class="updateBtn btn btn-secondary">Update</button>
                                     <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->
                                     {{--
                                 </div> --}}
@@ -1166,16 +1168,17 @@
     console.log("hello");
     $("#signature").val(signaturePad.toDataURL('image/png'));
     $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-    $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+    $("#updateBtn").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
     // $('#submitbutton')
     });
     $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.clear();
         $("#signature").val('');
-            $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
-            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
-   });
+        $("#sigimage").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
+        $("#updateBtn").removeClass("btn-primary").addClass("btn-secondary").attr("disabled", true);
+    });
+
     $('#design_required_by_date').change(function() {
         $('#design_required_by_date').css("background-color", "#eee ");
         $('#design_required_by_date').css({"color": "#000"});

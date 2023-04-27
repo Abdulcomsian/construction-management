@@ -1243,12 +1243,12 @@ $notify_admins_msg = [
         }
         //twc comments here
         if (isset($twccommetns) && count($twccommetns) > 0) {
-            $tabletwc.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>Twc Comment</th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+            $tabletwc.= '<table class="table"  style="border-radius: 8px; overflow: hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">No</th><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Twc Comment</th><th style="width:120px;color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">Date</th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($twccommetns as $comment) {
                  $tabletwc .= '<tr style="background:white">
-                               <td>' . $i . '</td><td>' . $comment->comment . '</td>
-                               <td>' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
+                               <td style="padding: 11px !important">' . $i . '</td><td style="padding: 11px !important">' . $comment->comment . '</td>
+                               <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                            </tr>';
                 $i++;
             }
@@ -1256,7 +1256,7 @@ $notify_admins_msg = [
         }
         if (count($commetns) > 0) {
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
-                $table.= '<table class="table " style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
+                $table.= '<table class="table" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
                 $table .= '<table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">TWC Reply</th></tr></thead><tbody>';
             }
@@ -1335,7 +1335,9 @@ $notify_admins_msg = [
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
 
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td style="background: #07D56480;">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
+                               <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
+
+                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
                                <td style=" flex-direction: column;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">

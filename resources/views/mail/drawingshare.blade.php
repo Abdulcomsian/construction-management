@@ -30,7 +30,11 @@
                                                                     <h5>
                                                                         The Drawing for ({{$drawings->drawing_title}})  has been shared with you 
                                                                     </h5>
+                                                                  
+                                                                    @if($user_reg==0)
+                                                                    
                                                                     <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempdata->id).'/?mail='.$tempdata->desinger_email_2)}}">View and Upload Design</a><br><br>
+                                                                    @endif
                                                                     <a style="text-decoration: none" href="{{asset('pdf'.'/'.$tempdata->ped_url)}}">Design Brief - {{$tempdata->twc_id_no}}</a><br>
                                                                     <h4>Drawings File</h4>
                                                                     <a  style="text-decoration: none" href="{{asset($drawings->file_name)}}">File</a><br>

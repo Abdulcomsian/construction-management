@@ -20,10 +20,12 @@ class ShareDrawingNotification extends Notification
      */
     protected $data;
     protected $check;
-    public function __construct($data,$check=null)
+    public function __construct($data,$check=null, $user_reg)
     {
         $this->data=$data;
         $this->check=$check;
+        $this->user_reg=$user_reg;
+        
     }
 
     /**
@@ -50,7 +52,7 @@ class ShareDrawingNotification extends Notification
         return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Drawing  Share Notifications')
-            ->view('mail.drawingshare',['drawings'=>$drawings,'tempdata'=>$tempdata,'check'=>$this->check]);
+            ->view('mail.drawingshare',['drawings'=>$drawings,'tempdata'=>$tempdata,'check'=>$this->check, 'user_reg'=>$this->user_reg]);
     }
 
     /**

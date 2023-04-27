@@ -567,21 +567,42 @@
                     <form class="form-inline" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                          <input type="hidden" name="tempworkid" value="{{$id}}">
-                          <input type="hidden" name="designermail" value="{{$mail}}">
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <div class="col-md-6">
-                                <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Check Certificate:</span>
-                                    </label>
-                                    <div class="d-flex" >
-                                        <input type="file" style="width:25%; flex-grow:1"class="form-control" id="designcheckfile" name="designcheckfile" required="required">
-                                                                   &nbsp;&nbsp;
-                                                                   <button type="submit" class="btn btn-primary mb-2" style="margin-bottom:0px !important">Upload</button>
+                          
+                            <div class="row" style="background:white;margin: 0 4px;">
+                                <div class="col-md-4">
+                                    <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Designer's Company Name:</span>
+                                        </label>
+                                        <div class="d-flex" >
+                                        <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name}}">
+                                        <!-- name="designer_company_name" -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Design Checker Name:</span>
+                                        </label>
+                                        <div class="d-flex" >
+                                        <input type="text" class="form-control" readonly name="designermail" value="{{$tempdata->desinger_company_name2}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Design Check Certificate:</span>
+                                        </label>
+                                        <div class="d-flex" >
+                                            <input type="file" style="width:25%; flex-grow:1"class="form-control" id="designcheckfile" name="designcheckfile" required="required">
+                                                                    &nbsp;&nbsp;
+                                                                    <button type="submit" class="btn btn-primary mb-2" style="margin-bottom:0px !important">Upload</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </form>
                    
                     <div class="row" style="background:white;margin: 0 4px;">

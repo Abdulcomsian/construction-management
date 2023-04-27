@@ -270,8 +270,7 @@ class DesignerController extends Controller
         $mail=$_GET['mail'];
         
         $id = \Crypt::decrypt($id);
-        $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($id);
-
+        $tempdata=TemporaryWork::select('designer_company_name', 'designer_company_email', 'desinger_company_name2', 'desinger_email_2')->find($id);
         if($mail==$tempdata->designer_company_email)
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Company'])->orderBy('id','desc')->update(['status'=>1]);
@@ -291,9 +290,13 @@ class DesignerController extends Controller
     }
     public function store(Request $request)
     {  
-         try {
+       
+         try { 
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
-            $tempworkdata->tw_name=$request->twd_name;
+            
+            if(isset($request->twd_name)){
+                $tempworkdata->tw_name=$request->twd_name;
+            }
             $tempworkdata->save();
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
@@ -934,10 +937,17 @@ class DesignerController extends Controller
         }
         if($model->save())
         {
-         
-         Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check));
-         toastSuccess('Drawing Share Successfully!');
-          return Redirect::back();
+            $Userdata = User::where(['email' => $email])->first();
+            if($Userdata){
+                $user_reg =0; //if user is not on platofmr then he wont see link in view.
+                Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check, $user_reg));
+            }else{
+                $user_reg =1;
+                Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check, $user_reg));
+            }
+            // Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check));
+            toastSuccess('Drawing Shared Successfully!');
+            return Redirect::back();
         }
     }
 

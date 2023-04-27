@@ -825,6 +825,8 @@
                                     <textarea id="signature" name="signed" style="display: none"></textarea>
                                     <span id="clear" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                        Added</span>
                                 </div>
                                 <div class="inputDiv d-none" id="pdfsign">
                                     <label class="fs-6 fw-bold mb-2" style="width: fit-content">
@@ -1145,19 +1147,35 @@
     })
 
 
+    // var canvas = document.getElementById("sig");
+    // var signaturePad = new SignaturePad(canvas);
+    // signaturePad.addEventListener("endStroke", () => {
+    //           $("#signature").val(signaturePad.toDataURL('image/png'));
+    //         });
+    
+    //  $('#clear').click(function(e) {
+    //     e.preventDefault();
+    //     signaturePad.clear();
+    //     $("#signature").val('');
+    // });
+
+
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
     signaturePad.addEventListener("endStroke", () => {
-              $("#signature").val(signaturePad.toDataURL('image/png'));
-            });
-    
-     $('#clear').click(function(e) {
+    console.log("hello");
+    $("#signature").val(signaturePad.toDataURL('image/png'));
+    $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+    $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+    // $('#submitbutton')
+    });
+    $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.clear();
         $("#signature").val('');
-    });
-
-
+            $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
+   });
     $('#design_required_by_date').change(function() {
         $('#design_required_by_date').css("background-color", "#eee ");
         $('#design_required_by_date').css({"color": "#000"});

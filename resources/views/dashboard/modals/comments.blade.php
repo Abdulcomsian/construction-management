@@ -84,9 +84,10 @@
                             </label>
                             <!--begin::Label-->
                             <!--begin::Label-->
-                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                                <textarea class="form-control form-control-solid mb-8" rows="4"
-                                    placeholder="Enter Comment" name="comment" required>{{old('comment')}}</textarea>
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6"
+                                style="border: 2px dashed #07D56480">
+                                <textarea class="form-control form-control-solid" rows="4" placeholder="Enter Comment"
+                                    name="comment" required>{{old('comment')}}</textarea>
                                 <!--end:Input-->
                             </div>
                             <!--begin::Label-->

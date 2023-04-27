@@ -915,6 +915,7 @@ table th {
 }
 
 .submmitBtnDiv {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -927,12 +928,12 @@ table th {
 
 #commenttable td {
     vertical-align: middle;
-    padding: 10px !important;
+    padding: 12px 35px !important;
 }
 
-#commenttable td form button {
+/* #commenttable td form button {
     padding: 5px;
-}
+} */
 
 #commenttable td form .replay {
     border: 1px solid #e4e6ef;

@@ -430,11 +430,11 @@ class DesignerController extends Controller
                if($registerupload)
                 {
                     $list.="<h3>TWC Uploaded</h3>";            
-                    $list .= '<table class="table table-hover"><thead><tr>';
-                    $list .= '<th>No</th>';
-                    $list .= '<th>Drawing No</th>';
-                    $list .= '<th>Comments</th>';
-                    $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action<br>View/Share/ send coment to designer</th>';
+                    $list .= '<table class="table " style="border-radius: 8px; overflow: hidden;"><thead style="background: #07D564"><tr>';
+                    $list .= '<th style="color: white !important;">No</th>';
+                    $list .= '<th style="color: white !important;">Drawing No</th>';
+                    $list .= '<th style="color: white !important;">Comments</th>';
+                    $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th>';
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
                      $background='';
@@ -560,11 +560,11 @@ class DesignerController extends Controller
                 }
                 
                 $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<th>No</th>';
-                $list .= '<th>Drawing No</th>';
-                $list .= '<th>Comments</th>';
-                $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action<br>View/Share/ send coment to designer</th>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                $list .= '<th style="color: white !important;">No</th>';
+                $list .= '<th style="color: white !important;">Drawing No</th>';
+                $list .= '<th style="color: white !important;">Comments</th>';
+                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th>';
                     $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';
@@ -597,28 +597,28 @@ class DesignerController extends Controller
                         }
 
                     $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
-                    $list .= '<td>' . $i . '</td>';
-                    $list .= '<td>' . $uploads->drawing_number . '</td>';
-                    $list .= '<td>' . $uploads->comments . '</td>';
-                    $list .= '<td>' . $uploads->twd_name . '</td>';
-                    $list .= '<td>' . $uploads->drawing_title . '</td>';
-                    $list .= '<td>' . $papproval . '</td>';
-                    $list .= '<td>' . $construction . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_title . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $papproval . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $construction . '</td>';
                     if ($construction == 'Yes') {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                             <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                                 <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
                                  <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                <button style="font-size:8px" type="button" class="btn btn-primary btn-small openpermitform" id="' . $uploads->id . '">Open Permit</button>
+                                <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
                             </form>
                             </td>';
                     } else {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                             <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
                                 <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />

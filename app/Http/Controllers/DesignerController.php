@@ -655,9 +655,9 @@ class DesignerController extends Controller
                                         $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
                                     }
                                 }
-                            $list .='<tr>';
+                            $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
                             $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
-                            $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply</td>';
+                            $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
                             $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
                             $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                             $list .='</tr>';

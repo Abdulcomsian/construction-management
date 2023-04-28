@@ -45,70 +45,36 @@
 
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
-                        <div class="col-md-7 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Email</label>
-                            <input type="email" class="form-control form-control-solid"
-                                placeholder="Enter email address" name="email" required />
-                            <div class="fv-row">
-                                <label class="fs-6 fw-bold mb-2">Share Comment</label>
-                                <input type="checkbox" name="commentcheckbox" />
+                        <div class="col-12 fv-row"
+                            style="display: flex; justify-content:space-between;gap:10px; align-items: flex-end;">
+                            <div class="" style="flex-grow: 1;">
+                                <label class="required fs-6 fw-bold mb-2" style="padding: 0 !important">Email</label>
+                                <input type="email" class="form-control form-control-solid"
+                                    placeholder="Enter email address" name="email" required
+                                    style="padding: 10px 15px;" />
                             </div>
-                        </div>
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        <!--begin::Actions-->
-                        <div class="col-md-5">
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">
+
+                            <div class=" text-center">
+                                <button type="submit" class="btn btn-primary"
+                                    style="padding: 11px 37px;width: 100% !important;">
                                     <span class="indicator-label">Submit</span>
                                     <span class="indicator-progress">Please wait...
                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 </button>
                             </div>
                         </div>
+                        <div class="fv-row col-12" style="margin-top:9px;">
+                            <input type="checkbox" name="commentcheckbox" />
+                            <label class="fs-6 fw-bold mb-2">Share Comment</label>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <!--begin::Actions-->
+
                         <!--end::Actions-->
 
                     </div>
                 </form>
-                <br>
-                <br>
-                <form id="kt_modal_new_target_form" class="form company_details_form"
-                    action="{{ route('drawingchecker.share') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id" id="sharedrwingwithchecckerid" value="">
-                    <!--begin::Heading-->
-                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-                    <div class="mb-13 text-center">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">Share Drawing with Design Checker</h1>
-                        <!--end::Title-->
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">
-                            <span class="indicator-label">Send</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                    </div>
-                    <!--end::Actions-->
-                </form>
-                <!--end:Form-->
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Shared With</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="drawingsharedata">
-
-                    </tbody>
-                </table>
-
-                <br>
-                <br>
                 <form id="kt_modal_new_target_form" class="form company_details_form"
                     action="{{ route('drawingchecker.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -116,28 +82,69 @@
                     <!--begin::Heading-->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                    <div class="mb-13 text-center">
+                    <div class="my-4">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Update Design Checker Email</h1>
+                        <h1 class="mb-3" style="font-size: 18px; font-weight: 700;font-family: 'Inter';">Update Design
+                            Checker Email</h1>
                         <!--end::Title-->
                     </div>
-                    <div class="row text-center">
-                        <div class="col-md-8 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Email</label>
-                            <input type="email" class="form-control form-control-solid" id="designer_email"
-                                placeholder="Enter email address" name="email" required />
-                        </div>
-                        <div class="col-md-4 fv-row" style="margin-top: 22px;">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="indicator-label" style="font-size:11px;">Update Design Checker Email</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
+                    <div class="row">
+                        <div class="col-12 fv-row"
+                            style="display: flex; justify-content:space-between;gap:10px; align-items: flex-end;">
+                            <div style="flex-grow: 1">
+                                <label class="required fs-6 fw-bold mb-2" style="padding: 0 !important">Email</label>
+                                <input type="email" class="form-control form-control-solid" id="designer_email"
+                                    placeholder="Enter email address" name="email" required
+                                    style="padding: 10px 15px;" />
+                            </div>
+                            <div class="">
+                                <button type="submit" class="btn btn-primary"
+                                    style="padding: 11px 37px;width: 100% !important;">
+                                    <span class="indicator-label" style="font-size:11px;">Update</span>
+                                    <span class="indicator-progress">Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <!--end::Actions-->
                 </form>
+                <form id="kt_modal_new_target_form" class="form company_details_form"
+                    action="{{ route('drawingchecker.share') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" id="sharedrwingwithchecckerid" value="">
+                    <!--begin::Heading-->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
+                    <div class="mb-4 mt-6">
+                        <!--begin::Title-->
+                        <h1 class="mb-3" style="font-size: 18px; font-weight: 700;font-family: 'Inter';">Share Drawing
+                            with Design Checker</h1>
+                        <!--end::Title-->
+                    </div>
+
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+                <table class="table" style="border-radius: 8px; overflow: hidden;">
+                    <thead style="background: #08d564;">
+                        <tr>
+                            <th style="color: white !important; text-align:left;">No</th>
+                            <th style="color: white !important; text-align:left;">Shared With</th>
+                            <th style="color: white !important; text-align:left;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="drawingsharedata">
+
+                    </tbody>
+                </table>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary" style="width: 115px">
+                        <span class="indicator-label">Send</span>
+                        <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                </div>
             </div>
             <!--end::Modal body-->
         </div>

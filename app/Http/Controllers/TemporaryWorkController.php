@@ -658,7 +658,6 @@ $notify_admins_msg = [
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
                     foreach ($files  as $key => $file) {
-                        dd("ssss");
                         $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                         $model = new TemporayWorkImage();
                         $model->image = $imagename;

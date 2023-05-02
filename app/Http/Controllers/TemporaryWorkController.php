@@ -43,6 +43,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Auth;
+use App\Mail\PermitUnloadMail;
+use Illuminate\Support\Facades\Mail;
+
 
 class TemporaryWorkController extends Controller
 {
@@ -1561,9 +1564,9 @@ $notify_admins_msg = [
                     'action_text' => $actiontext,
                     'action_url' => '',
                 ];
-
                 if (isset($request->approval)) {
                     $notify_admins_msg['body']['pc_twc'] = '1';
+
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 } else {
                     // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
@@ -1902,6 +1905,7 @@ $notify_admins_msg = [
                 $file->move($folderPath, $filename);
                 $image_name = $filename;
                 $all_inputs['signature'] = $image_name;
+                $all_input['pc_twc_email'] = $request->pc_twc_email;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -1913,14 +1917,20 @@ $notify_admins_msg = [
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name;
             }
-            $all_inputs['status'] = 3;
+            // $all_inputs['status'] = 3;
+            if($request->principle_contractor != 1)
+            {
+                $all_inputs['status'] = 3;
+            }
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
+                
                 //make status 0 if permit is 
-                PermitLoad::find($request->permitid)->update(['status' => 4]);
+                // PermitLoad::find($request->permitid)->update(['status' => 4]);
                 //upload permit unload files
                 $image_links = $this->permitfiles($request, $permitload->id);
+                $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
                 $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
@@ -1941,7 +1951,17 @@ $notify_admins_msg = [
                     'action_text' => 'View Permit',
                     'action_url' => '',
                 ];
-                Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                
+                if($request->principle_contractor == 1)
+                {
+                    // $pojectdata=Project::select('name','no')->find($request->project_id);
+                    $url = route('pc.permit.unload.approved',Crypt::encrypt($permitload->id));
+                    $msg= Auth::user()->name .' has renewed a permit to unload.';
+                    Mail::to($request->pc_twc_email)->send(new PermitUnloadMail($request->name1 , $url , $msg ));
+                    
+                }else{
+                    Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
+                }
                 toastSuccess('Permit Unloaded sucessfully!');
                 return redirect()->route('temporary_works.index');
             }

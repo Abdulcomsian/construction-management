@@ -1005,15 +1005,7 @@
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
 
                             {{-- old code --}}
-                            {{-- <div class="d-flex inputDiv principleno" id="sign1">
-                                <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Signature:</span>
-                                </label>
-                                <br />
-                                <canvas id="sig1"></canvas>
-                                <br />
-                                <textarea id="signature1" name="signed1" style="display: none"></textarea>
-                            </div> --}}
+                          
                             {{-- old code end here --}}
 
                             <div class="d-flex inputDiv principleno" style="border: none">
@@ -1077,16 +1069,16 @@
                                     </label> --}}
                                     {{-- <br /> --}}
                                     <canvas id="sig1" style="border-radius: 9px"></canvas>
-                                    <textarea id="signature1" name="signed" style="display: none"></textarea>
+                                    <textarea id="signature1" name="signed1" style="display: none"></textarea>
                                     <span id="clear1" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:83px; right:26px"></span>
                                     {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
                                 </div>
-                                {{-- <div class="d-flex inputDiv principleno" id="sign1"
+                                 <!-- <div class="d-flex inputDiv principleno" id="sign1"
                                     style=" display: none !important">
                                     <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
-                                </div> --}}
+                                </div>  -->
                             </div>
                             @endif
                         </div>
@@ -1345,6 +1337,7 @@
 
     $("#flexCheckChecked1").change(function () {
         if ($(this).is(':checked')) {
+
             $("#DrawCheck1").prop('checked',false);
             $("#signtype1").val(1);
             $("#namesign1").addClass('d-flex').show();

@@ -250,7 +250,7 @@
                         @if($data['principle_contractor']==1) Date @endif</b></label></td>
                         <td style="width: 200px; font-size:12px;"> 
                         @if($data['principle_contractor']==1)
-                        {{ date('d-m-Y', $date1) }}
+                        {{ date('d-m-Y', strtotime($data['date'])) }}
                         @endif
                     </td>
 

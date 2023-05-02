@@ -3,7 +3,7 @@
 @section('styles')
 <style>
     .card>.card-body {
-        padding: 32px;
+        padding: 0;
     }
 
     #kt_content_container {
@@ -54,8 +54,11 @@
     }
 
     table thead th {
-        color: #000 !important;
-        text-align: center;
+        color: #fff !important;
+        text-align: left;
+        padding: 10px !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
     }
 
     tbody tr:nth-child(odd) {
@@ -95,6 +98,12 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    .designBriefAccepted tr td {
+        text-align: left;
+        padding: 10px !important;
+        /* font-family: 'Inter'; */
+    }
 </style>
 
 @endsection
@@ -123,7 +132,7 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
-            <div class="card">
+            <div class="card container" style="margin: 40px auto">
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
@@ -131,6 +140,37 @@
                         <h2 style="display: inline-block;">Design Brief Accepted</h2>
                     </div>
                 </div>
+                <table class="table container" style="border-radius: 8px; overflow:hidden;">
+                    <thead style="background: #07D564">
+                        <tr>
+                            <th>No</th>
+                            <th>TWC ID</th>
+                            <th>Design Brief</th>
+                            {{-- <th>Sent By</th> --}}
+                            <th>Comments by Pc Twc</th>
+                        </tr>
+                    </thead>
+                    <tbody class="designBriefAccepted">
+                        @foreach($rejectedcomments as $cmt)
+                        <tr>
+                            <td>{{$loop->index+1}}</td>
+                            <td> {{$tempworkdetail->twc_id_no}}</td>
+                            <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a><br><b>Sent
+                                    by:</b> <span style="color: #9D9D9D">{{$cmt->email}}</span><br><b>Sent
+                                    To:</b><span
+                                    style="color: #9D9D9D">{{$tempworkdetail->pc_twc_email}}</span><br>{{$cmt->created_at}}
+                            </td>
+                            {{-- <td><b>{{$cmt->email}}</b><br><br><b>Sent To:
+                                    <br>{{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td> --}}
+                            <td><b>Comment:</b>{{$cmt->comment}}<br>
+                                @if(isset($cmt->comment))
+                                <span style="color:#9D9D9D">{{$cmt->updated_at}}</span>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 <div class="card-body pt-0">
                     <form id="desingform" action="{{route('design.store')}}" method="post"
                         enctype="multipart/form-data">
@@ -141,7 +181,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="d-flex inputDiv d-block">
+                                        <div class="d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Comments for TWC:</span>
@@ -152,10 +192,9 @@
                                                 required="required"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="d-flex inputDiv requiredDiv">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width: 14%">
+                                    <div class="col-md-4 d-flex justify-content-end align-items-center">
+                                        <div class="d-flex align-items-baseline requiredDiv">
+                                            <label class="fs-6 fw-bold mb-2">
                                                 <span class="required">Accept:</span>
 
                                             </label>
@@ -183,33 +222,7 @@
                             </div>
                         </div>
                     </form>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>TWC ID</th>
-                                <th>Design Brief</th>
-                                <th>Sent By</th>
-                                <th>Comments by Pc Twc</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($rejectedcomments as $cmt)
-                            <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td> {{$tempworkdetail->twc_id_no}}</td>
-                                <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a></td>
-                                <td><b>{{$cmt->email}}</b><br><br><b>Sent To:
-                                        <br>{{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td>
-                                <td>{{$cmt->comment}}<br>
-                                    @if(isset($cmt->comment))
-                                        {{$cmt->updated_at}}
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+
                     <hr>
                     <!-- <table class="table table-hover">
                         <thead>

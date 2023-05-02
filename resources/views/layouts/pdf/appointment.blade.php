@@ -239,7 +239,7 @@ the duties placed on me by this appointment.</b></label>
                                         </td>
                                         <td style="width:500px; font-size:12px;">
                                             @if($data['signtype']==1)
-                                            {{signature}}
+                                            {{$signature ?? ''}} 
                                             @else
                                              <img src="temporary/signature/{{$signature}}" width="auto" height="40">
                                             @endif

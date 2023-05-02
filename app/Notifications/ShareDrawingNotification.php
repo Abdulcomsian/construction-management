@@ -20,10 +20,12 @@ class ShareDrawingNotification extends Notification
      */
     protected $data;
     protected $check;
-    public function __construct($data,$check=null)
+    public function __construct($data,$check=null, $user_reg)
     {
         $this->data=$data;
         $this->check=$check;
+        $this->user_reg=$user_reg;
+        
     }
 
     /**
@@ -46,12 +48,11 @@ class ShareDrawingNotification extends Notification
     public function toMail($notifiable)
     {
         $drawings=TempWorkUploadFiles::with('comment')->find($this->data);
-        //dd($drawings);
-        $tempdata=TemporaryWork::select('twc_id_no','ped_url')->find($drawings->temporary_work_id);
+        $tempdata=TemporaryWork::select('id','desinger_email_2', 'twc_id_no','ped_url')->find($drawings->temporary_work_id);
         return (new MailMessage)
             ->greeting('Greetings')
             ->subject('Drawing  Share Notifications')
-            ->view('mail.drawingshare',['drawings'=>$drawings,'tempdata'=>$tempdata,'check'=>$this->check]);
+            ->view('mail.drawingshare',['drawings'=>$drawings,'tempdata'=>$tempdata,'check'=>$this->check, 'user_reg'=>$this->user_reg]);
     }
 
     /**

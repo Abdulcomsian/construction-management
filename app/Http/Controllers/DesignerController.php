@@ -268,10 +268,10 @@ class DesignerController extends Controller
             abort(403);
         }
         $mail=$_GET['mail'];
+        
         $id = \Crypt::decrypt($id);
-        $tempdata=TemporaryWork::select('designer_company_email','desinger_email_2')->find($id);
-
-        if($mail=$tempdata->designer_company_email)
+        $tempdata=TemporaryWork::select('designer_company_name', 'designer_company_email', 'desinger_company_name2', 'desinger_email_2')->find($id);
+        if($mail==$tempdata->designer_company_email)
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Company'])->orderBy('id','desc')->update(['status'=>1]);
         }
@@ -290,13 +290,18 @@ class DesignerController extends Controller
     }
     public function store(Request $request)
     {  
-         try {
+       
+         try { 
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
-            $tempworkdata->tw_name=$request->twd_name;
+            
+            if(isset($request->twd_name)){
+                $tempworkdata->tw_name=$request->twd_name;
+            }
             $tempworkdata->save();
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles(); 
+            
              if(isset($request->designermail))
             {
                 $model->created_by = $request->designermail;
@@ -381,7 +386,7 @@ class DesignerController extends Controller
                 ];
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                toastSuccess('Desinger Uploaded Successfully!');
+                toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
@@ -395,6 +400,7 @@ class DesignerController extends Controller
         $tempworkid = $request->tempworkid;
         $designearray=[];
         $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
+        // dd($ramsno);
         $designearray[0]=$ramsno->designer_company_email;
         if($ramsno->desinger_email_2)
         {
@@ -405,7 +411,7 @@ class DesignerController extends Controller
         
         if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
                
-               if(auth()->user()->hasRole('admin'))
+               if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') )
                {
                 $company=Project::find($ramsno->project_id);
                 $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
@@ -424,11 +430,11 @@ class DesignerController extends Controller
                if($registerupload)
                 {
                     $list.="<h3>TWC Uploaded</h3>";            
-                    $list .= '<table class="table table-hover"><thead><tr>';
-                    $list .= '<th>No</th>';
-                    $list .= '<th>Drawing No</th>';
-                    $list .= '<th>Comments</th>';
-                    $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action<br>View/Share/ send coment to designer</th>';
+                    $list .= '<table class="table " style="border-radius: 8px; overflow: hidden;"><thead style="background: #07D564"><tr>';
+                    $list .= '<th style="color: white !important;">No</th>';
+                    $list .= '<th style="color: white !important;">Drawing No</th>';
+                    $list .= '<th style="color: white !important;">Comments</th>';
+                    $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th>';
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
                      $background='';
@@ -449,7 +455,7 @@ class DesignerController extends Controller
                         {
                             $userList[] = $fullString;
 
-                            $background = $uploads->preliminary_approval==1 ? 'yellow' : 'lightgreen'; 
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
                         
                         }else{
                             $background = "";
@@ -471,7 +477,7 @@ class DesignerController extends Controller
                         $list .= '<td>' . $construction . '</td>';
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
+                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                     <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -482,7 +488,7 @@ class DesignerController extends Controller
                                 </td>';
                         } else {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
+                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
                                  &nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -554,11 +560,11 @@ class DesignerController extends Controller
                 }
                 
                 $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<th>No</th>';
-                $list .= '<th>Drawing No</th>';
-                $list .= '<th>Comments</th>';
-                $list .= '<th>Designer Name</th><th>Drawing Title</th><th>Preliminary / For approval</th><th>For Construction Drawing</th><th>Action<br>View/Share/ send coment to designer</th>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                $list .= '<th style="color: white !important;">No</th>';
+                $list .= '<th style="color: white !important;">Drawing No</th>';
+                $list .= '<th style="color: white !important;">Comments</th>';
+                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th>';
                     $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';
@@ -578,7 +584,7 @@ class DesignerController extends Controller
                         {
                             $userList[] = $fullString;
 
-                            $background = $uploads->preliminary_approval==1 ? 'yellow' : 'lightgreen'; 
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
                         
                         }else{
                             $background = "";
@@ -591,28 +597,28 @@ class DesignerController extends Controller
                         }
 
                     $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
-                    $list .= '<td>' . $i . '</td>';
-                    $list .= '<td>' . $uploads->drawing_number . '</td>';
-                    $list .= '<td>' . $uploads->comments . '</td>';
-                    $list .= '<td>' . $uploads->twd_name . '</td>';
-                    $list .= '<td>' . $uploads->drawing_title . '</td>';
-                    $list .= '<td>' . $papproval . '</td>';
-                    $list .= '<td>' . $construction . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_title . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $papproval . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $construction . '</td>';
                     if ($construction == 'Yes') {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                             <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                                 <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
                                  <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                <button style="font-size:8px" type="button" class="btn btn-primary btn-small openpermitform" id="' . $uploads->id . '">Open Permit</button>
+                                <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
                             </form>
                             </td>';
                     } else {
                         $list .= '<td style="display:flex">
-                             <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                             <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
                                 <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -649,9 +655,9 @@ class DesignerController extends Controller
                                         $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
                                     }
                                 }
-                            $list .='<tr>';
-                            $list .='<td>'.$i.'-'.$k.'</td>';
-                            $list .='<td>Comment/Reply</td>';
+                            $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
+                            $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
+                            $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
                             $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
                             $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                             $list .='</tr>';
@@ -731,7 +737,7 @@ class DesignerController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ];
-                    Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
                     toastSuccess('Design Brief Rejected Successfully!');
@@ -783,7 +789,7 @@ class DesignerController extends Controller
                     'action_url' => '',
                 ];
 
-                Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
+                // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
 
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
@@ -931,10 +937,17 @@ class DesignerController extends Controller
         }
         if($model->save())
         {
-         
-         Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check));
-         toastSuccess('Drawing Share Successfully!');
-          return Redirect::back();
+            $Userdata = User::where(['email' => $email])->first();
+            if($Userdata){
+                $user_reg =0; //if user is not on platofmr then he wont see link in view.
+                Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check, $user_reg));
+            }else{
+                $user_reg =1;
+                Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check, $user_reg));
+            }
+            // Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check));
+            toastSuccess('Drawing Shared Successfully!');
+            return Redirect::back();
         }
     }
 
@@ -1178,29 +1191,77 @@ class DesignerController extends Controller
      return $list;
    }
 
+   public function update_drawing_checker(Request $request){
+        try{
+        $id=$request->id;
+        $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
+        TemporaryWork::find($tempworkid->temporary_work_id)->update([
+                'desinger_email_2' => $request->email,
+            ]);
+            toastSuccess('Design Checker Updated');
+            return Redirect::back();
+        }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
+   }
    public function share_drawing_checker(Request $request)
    {
      $id=$request->id;
      $tempworkid=TempWorkUploadFiles::select('temporary_work_id')->find($id);
-     $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+    // $tempdata=TemporaryWork::select('desinger_email_2')->find($tempworkid->temporary_work_id);
+      $tempdata=TemporaryWork::find($tempworkid->temporary_work_id);
+     
       if($tempdata->desinger_email_2)
      {
+        // commenting code that was earlier work as per clients requirement, it was written by obaid
         $exist=TempWorkUploadFiles::where(['share_id'=> $id,'created_by'=>$tempdata->desinger_email_2])->count();
         if($exist>0)
         {
-             toastSuccess('Drawing Already Shared!');
+            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
+             toastSuccess('Drawing Shared Again!');
              return Redirect::back();
         }
         else{
-            $model= TempWorkUploadFiles::find($id);
-            $newmodel=$model->replicate();
-            $newmodel->created_by=$tempdata->desinger_email_2;
-            $newmodel->share_id=$id;
-           $newmodel->save();
+        //     $model= TempWorkUploadFiles::find($id);
+        //     $newmodel=$model->replicate();
+        //     $newmodel->created_by=$tempdata->desinger_email_2;
+        //     $newmodel->share_id=$id;
+        //    $newmodel->save();
+        // Above lines are commented because client has asked that drawing should remain with current designer and checker should upload his own separate drawing after looking at current one.
             Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
             toastSuccess('Drawing Share Successfully!');
             return Redirect::back();
         } 
+
+        // $notify_admins_msg = [
+        //     'greeting' => 'Temporary Work Pdf',
+        //     'subject' => 'TWP – Design Brief Review -'.$tempdata->projname . '-' .$tempdata->projno,
+        //     'body' => [
+        //         'company' => $tempdata->company,
+        //         'filename' => $tempdata->ped_url,
+        //         'links' => '',
+        //         'name' =>  $tempdata->design_requirement_text . '-' . $tempdata->twc_id_no,
+        //         'designer' => '',
+        //         'pc_twc' => '',
+
+        //     ],
+        //     'thanks_text' => 'Thanks For Using our site',
+        //     'action_text' => '',
+        //     'action_url' => '',
+        // ];
+       
+        //     $notify_admins_msg['body']['designer'] = 'designer1';
+        //     $cmh= new ChangeEmailHistory();
+        //     $cmh->email=$tempdata->desinger_email_2;
+        //     $cmh->type ='Designer Checker';
+        //     $cmh->foreign_idd=$tempdata->id;
+        //     $cmh->message='Email send to Designer Checker';
+        //     $cmh->save();
+        //     Notification::route('mail', $tempdata->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $tempdata->id, $tempdata->desinger_email_2));
+        //     toastSuccess('Drawing Share Successfully!');
+        //     return Redirect::back();
+        // dd($notify_admins_msg);
      }
      else{
         toastSuccess('Design Chcecker Not found!!!');

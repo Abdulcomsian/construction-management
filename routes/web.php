@@ -38,6 +38,7 @@ Route::get('show-scan-temporary-work/{id}', [TemporaryWorkController::class, 'sh
 Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
 
 Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
+Route::get('get-emails', [TemporaryWorkController::class, 'get_emails'])->name('temporarywork.get-emails');
 Route::get('comments-status', [TemporaryWorkController::class, 'comments_status'])->name('temporarywork.comments.status');
 Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
 Route::post('temporary_works/comments-replay', [TemporaryWorkController::class, 'temp_savecommentreplay'])->name('temporarywork.storecommentreplay');
@@ -147,6 +148,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix' => 'Estimator'],function(){
     Route::group(['middleware' => ['auth']], function () {
         Route::resource('estimator',EstimatorController::class); //Estimator
+        Route::get('/test',[EstimatorController::class,'testIndex']);
         Route::get('/estimator-designer/details/{id}',[EstimatorController::class,'estimatorQuotationDetails']);
         Route::get('/estimator-designer/comments/{id}',[EstimatorController::class,'estimatorDesignerComments']);
         Route::post('/estimator-designer/comments-save',[EstimatorController::class,'estimatorDesignerCommentsSave']);
@@ -212,6 +214,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('permit-save', [TemporaryWorkController::class, 'permit_save'])->name('permit.save');
     // Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
     Route::get('permit-renew/{id}', [TemporaryWorkController::class, 'permit_renew'])->name('permit.renew');
+    Route::get('permit-renew-test/{id}', [TemporaryWorkController::class, 'permit_renew_test'])->name('permit.renew.test');
     Route::get('permit-unload/{id}', [TemporaryWorkController::class, 'permit_unload'])->name('permit.unload');
     Route::get('permit-unload-test/{id}', [TemporaryWorkController::class, 'permit_unload_test']);
     Route::post('permit-unload-save', [TemporaryWorkController::class, 'permit_unload_save'])->name('permit.unload.save');
@@ -227,6 +230,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('temporary_works_shared',[TemporaryWorkController::class,'shared_temporarywork'])->name('temporary_works.shared');
     Route::post('temporary_work_shared_delete',[TemporaryWorkController::class,'Delete_shared_temp'])->name('temporary_works.sharedelete');
     Route::post('temporary_works/uploadfile', [TemporaryWorkController::class, 'temp_file_uplaod'])->name('tempwork.upload');
+    Route::post('get-rams', [TemporaryWorkController::class, 'get_rams'])->name('tempwork.getrams');
+    
     //upload photo
     Route::post('temporary_works/uploadphoto', [TemporaryWorkController::class, 'temp_photo_uplaod'])->name('tempwork.upload.photo');
     //get upload photo or document
@@ -255,6 +260,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('get-designs',[DesignerController::class,'get_desings'])->name('get-designs');
      Route::post('share-drawing',[DesignerController::class,'share_drawing'])->name('drawing.share');
      Route::post('share-drawing-checker',[DesignerController::class,'share_drawing_checker'])->name('drawingchecker.share');
+     Route::post('update-design-checker',[DesignerController::class,'update_drawing_checker'])->name('drawingchecker.update');
      Route::get('get_share-drawing',[DesignerController::class,'get_share_drawing'])->name('get.share.drawings');
      Route::post('reply-drawing',[DesignerController::class,'reply_drawing'])->name('drawing.reply');
      Route::get('get-reply-drawing',[DesignerController::class,'get_reply_drawing'])->name('get.reply.drawings');

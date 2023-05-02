@@ -9,7 +9,11 @@ $(document).ready(function () {
             "disabled"
         );
     });
-
+    $("#attachment-of-design .submit-requirment button").click(function (
+        event
+    ) {
+        document.getElementById("attachment_specs").style.borderColor = "black";
+    });
     $("#design-requirement .requirment-first ul li.majorMenu").click(function (
         event
     ) {
@@ -78,6 +82,7 @@ $(document).ready(function () {
                 '</td><td style="width: 55%"><input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px"/></td></tr>';
         }
         list += "</tbody></table>";
+        document.getElementById("designReq").style.borderColor = "black";
         $("#req_details_data").html(list);
     });
     var show_val = "";
@@ -126,6 +131,7 @@ $(document).ready(function () {
         $("#scope-of-design .requirment-second-value").val(date);
         show_val += $(this).attr("name") + " " + date + "\n";
         $("#scopofdesign").val(show_val);
+        $("#scopeOfDesignArea").val(show_val);
     });
 
     // $("#attachment-of-design .requirment-first ul li").click(function (event) {
@@ -196,8 +202,11 @@ $(document).ready(function () {
             $("li." + id + "")
                 .toggleClass("invisible")
                 .toggle();
-            var val = $(this).text();
+
+            var val = $(this).text().split(" ").join("");
+            console.log(val);
             $("#attachment-of-design .requirment-first-value").val(val);
+            $("#attachment").val(val);
         }
     );
 });
@@ -289,3 +298,65 @@ $("input[name='3rd_party_requirements_folder']").change(function () {
         $(".3rd_party_requirements_comment").removeClass("d-none").hide();
     }
 });
+
+document
+    .querySelector("[data-id='Exsisting-Ground']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".existing-ground--desc")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='System-Type']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".perferred-NonPrefered--desc")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Limitations']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".access-limitation--desc")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Back-Propping']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".back-propping--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Temporary-Work']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".temporary-work--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Hazard-Risk']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".hazard-risk--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Party-Requirements']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".partyRequirment--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='List-Attachment']")
+    .addEventListener("click", function (e) {
+        document
+            .querySelector(".listAttachment--desc ")
+            .classList.toggle("d-none");
+    });
+document
+    .querySelector("[data-id='Report-Site']")
+    .addEventListener("click", function (e) {
+        document.querySelector(".report-site--desc").classList.toggle("d-none");
+    });

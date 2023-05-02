@@ -54,6 +54,43 @@ class EstimatorController extends Controller
         $scantempwork = '';
         return view('dashboard.estimator.index',compact('estimator_works','scantempwork','projects'));
     }
+    public function testIndex()
+    {
+        $user=Auth::user();
+        if($user->hasRole('estimator'))
+        {
+            $user = User::with('userCompany')->find(Auth::user()->id);
+            $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
+            $ids = [];
+            foreach ($project_idds as $id) {
+                $ids[] = $id->id;
+            }
+        }
+        elseif($user->hasRole('user'))
+        {
+           $user = User::with('userCompany')->find(Auth::user()->id);
+            $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
+            $ids = [];
+            foreach ($project_idds as $id) {
+                $ids[] = $id->id;
+            }
+        }
+        else
+        {
+            return redirect('/temporary_works');
+        }
+
+        
+
+        
+        $estimator_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits','rejecteddesign','checkQuestion')->whereHas('project', function ($q) use ($ids) {
+            $q->whereIn('project_id', $ids);
+        })->where(['estimator'=>1])->latest()->paginate(20);
+        // dd($estimator_works);
+        $projects = Project::with('company')->whereIn('id', $ids)->get();
+        $scantempwork = '';
+        return view('dashboard.estimator.index-test',compact('estimator_works','scantempwork','projects'));
+    }
     //serarch
      //search tempwork
     public function estimator_project_search(Request $request)
@@ -143,6 +180,7 @@ class EstimatorController extends Controller
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
                 $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                //dd($adminDesigners);
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
             }
             return view('dashboard.estimator.create', compact('projects','designers','suppliers','adminDesigners','adminSuppliers'));
@@ -620,7 +658,7 @@ class EstimatorController extends Controller
 
                         if($request->action="Update & Email")
                         {
-                            Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
+                            // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
                             Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
                             //designer
                             if ($request->designer_company_email) {

@@ -1,6 +1,6 @@
-<div class="modal fade" id="rejected_designbrief_modal_id" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="ramfiles" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-750px">
+    <div class="modal-dialog modal-dialog-centered mw-650px" style="max-width:650px !important">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -23,28 +23,16 @@
             <!--begin::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                <div style="display: flex">
-                <h3 style="width: 50%">Design Breif Number: <strong id="design-brief" class="text-danger"></strong></h3>
-                <h3 style="width: 30%;color:red;background: #c4c0c0;padding:10px"><span id="rejectstatus"></span></h3>
+                <!--end:Form-->
+                <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                         <h3>Rams</h3>
+                        <!--end::Title-asd -->
                 </div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;padding-left:0px;">No</th>
-                            <th style="text-align:left;padding-left:0px;">Submitted</th>
-                            <th style="text-align:left;padding-left:0px;">Comments</th>
-                            <th style="text-align:left;padding-left:0px;">Updated</th>
-                            <!-- <th>Rejectd By</th>
-                            <th>Date</th>  -->
-                            <th style="text-align:left;padding-left:0px;">Actions</th>
-                        </tr>
-                    </thead>
                
-                <tbody id="rejected-designbrief-body">
-                    
-                </tbody>
-                 </table>
-                
+                <div id="ramfilestable">
+ 
+                </div>
             </div>
             <!--end::Modal body-->
         </div>

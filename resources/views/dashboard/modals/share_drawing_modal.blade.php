@@ -122,7 +122,13 @@
                             with Design Checker</h1>
                         <!--end::Title-->
                     </div>
-
+                    <div class="text-end">
+                    <button type="submit" class="btn btn-primary" style="width: 115px">
+                        <span class="indicator-label">Send</span>
+                        <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                </div>
                     <!--end::Actions-->
                 </form>
                 <!--end:Form-->
@@ -138,13 +144,7 @@
 
                     </tbody>
                 </table>
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary" style="width: 115px">
-                        <span class="indicator-label">Send</span>
-                        <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                </div>
+               
             </div>
             <!--end::Modal body-->
         </div>

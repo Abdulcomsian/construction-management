@@ -1229,7 +1229,10 @@ class DesignerController extends Controller
         //     $newmodel->share_id=$id;
         //    $newmodel->save();
         // Above lines are commented because client has asked that drawing should remain with current designer and checker should upload his own separate drawing after looking at current one.
-            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id));
+        // dd($tempdata->desinger_email_2);
+            // Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check, $user_reg));
+            $user_reg=1;
+            Notification::route('mail',$tempdata->desinger_email_2)->notify(new ShareDrawingNotification($id, null, $user_reg));
             toastSuccess('Drawing Share Successfully!');
             return Redirect::back();
         } 

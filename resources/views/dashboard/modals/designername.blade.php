@@ -24,13 +24,13 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <table class="table table-hover">
-                    <thead>
+                    <!-- <thead>
                         <tr>
                             <th>No</th>
                             <th>Temporary work designer company name</th>
                             <th>Twd Name</th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <tbody id="desginerbody">
 
                     </tbody>

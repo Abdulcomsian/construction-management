@@ -674,6 +674,162 @@ class DesignerController extends Controller
         
         echo $list;
     }
+
+//duplicated get_desings for fetching twd names
+    public function get_designersinfo(Request $request)
+    {
+        $tempworkid = $request->tempworkid;
+        $designearray=[];
+        $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
+        // dd($ramsno);
+        $designearray[0]=$ramsno->designer_company_email;
+    
+        if($ramsno->desinger_email_2)
+        {
+        $designearray[1]=$ramsno->desinger_email_2;
+        }
+        $list='';
+        $path = config('app.url');
+        
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
+               
+              
+              
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
+                       $query->where(['created_by'=>auth()->user()->email])
+                       ->orWhere('created_by','hani.thaher@gmail.com');
+                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+              
+               
+            //    if($registerupload)
+            //     {
+            //         $list.="<h3>TWC Uploaded</h3>";            
+            //         $list .= '<table class="table " style="border-radius: 8px; overflow: hidden;"><thead style="background: #07D564"><tr>';
+                    
+            //         $list .= '<th style="color: white !important;">Designer Name</th>';
+            //         $list .= '</tr></thead><tbody>';
+            //          $i = 1;
+            //          $background='';
+            //          $userList = []; 
+                            
+            //          $checksamenodesign='';
+            //         foreach ($registerupload as $uploads) {
+            //             $papproval = 'No';
+            //             $construction = 'No';
+            //             $dno=explode('-',$uploads->drawing_number);
+            //             $drawinglastno=$dno[sizeof($dno)-1];
+            //             $sliced = array_slice($dno, 0, -1);
+            //             $string = implode("-", $sliced);
+
+            //             $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
+            //             $fullString=$string.$remove_p_c;
+            //             if(!in_array($fullString,$userList))
+            //             {
+            //                 $userList[] = $fullString;
+
+            //                 $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
+                        
+            //             }else{
+            //                 $background = "";
+            //             }
+            //             if ($uploads->preliminary_approval == 1) {
+                            
+            //                 $papproval = 'Yes';
+            //             } elseif ($uploads->construction == 1) {
+            //                 $construction = 'Yes';
+            //             }
+
+            //             $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                        
+            //             $list .= '<td>' . $uploads->twd_name . '</td>';
+                        
+            //             $list .= '</tr>';
+                      
+            //             $i++;
+            //         }
+            //         $list .= '</tbody></table>';
+            //     }
+        }
+
+        
+        for($j=0;$j<count($designearray);$j++)
+        {
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->orderBy('id','desc')->get();            
+            $i = 1;
+            if($DesignerUploads)
+            {
+                if($j==0)
+                {
+                    $list.="<h3>Designer Company</h3>";
+                }
+                else{
+                     $list.="<h3 style='margin-top:15px;'>Designer checker Company</h3>";
+                }
+                
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+               
+                $list .= '<th style="color: white !important;">Designer Name</th>';
+                $list .= '</tr></thead><tbody>';
+                $list .= '</tr></thead><tbody>';
+                $background='';
+                
+                $userList=[];
+                foreach ($DesignerUploads as $uploads) {
+                    
+
+                    $list .= '<tr class=""  style="background:' . $background . '">';
+                    
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                   
+                    
+                    $list .= '</tr>';
+                    // if(count($uploads->comment)>0)
+                    // {
+                    //     $k=1;
+
+                    //     foreach($uploads->comment as $comment)
+                    //     {
+                    //          $reply='';
+                    //          $replydate='';
+                    //         if(isset($comment->drawing_reply[0]))
+                    //         {
+                    //             $reply=$comment->drawing_reply[0];
+                    //         }
+                    //         if(isset($comment->reply_date[0]))
+                    //         {
+                    //             $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
+                    //         }
+                    //          $image = '';
+                    //             if (isset($comment->reply_image[0])) {
+                    //                 $n = strrpos($comment->reply_image[0], '.');
+                    //                 $ext = substr($comment->reply_image[0], $n + 1);
+                    //                 if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                    //                     $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                    //                 } else {
+                    //                     $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
+                    //                 }
+                    //             }
+                    //         $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
+                    //         $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
+                    //         $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
+                    //         $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                    //         $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                    //         $list .='</tr>';
+                    //         $k++;
+
+                    //     }
+                        
+                    // }
+                    $i++;
+                }
+                $list .= '</tbody></table>';
+            }
+        }
+        
+        echo $list;
+    }
+
     //PC TWC EMAIL WORK HERE
     public function pc_index($id)
     {

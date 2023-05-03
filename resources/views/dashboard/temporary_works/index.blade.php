@@ -1616,6 +1616,7 @@
                                                                 style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
                                                                 <span class="designer-company cursor-pointer"
                                                                     style="display: inline-block;width: 100%;"
+                                                                    data-id="{{$item->id}}"
                                                                     data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}"
                                                                     data-tw="{{$item->tw_name ?? ''}}"><span
                                                                         class="label label-lg font-weight-bold label-inline"
@@ -3918,22 +3919,53 @@
        });
    })
    
-   $(".designer-company").on('click', function() {
-       var companies = $(this).attr('data-desing');
-       const names = companies.split("-");
-       var tw_name = $(this).attr('data-tw');
-       console.log(tw_name);
-       var list = '';
-       if (names[0] != '') {
-           list += '<tr><td>1</td><td>' + names[0] + '</td><td>' + tw_name + '</td></tr>';
+   $(".asd").on('click', function() {
+    //    var companies = $(this).attr('data-desing');
+    //    const names = companies.split("-");
+    //    var tw_name = $(this).attr('data-tw');
+    //    console.log(tw_name);
+    //    var list = '';
+    //    if (names[0] != '') {
+    //        list += '<tr><td>1</td><td>' + names[0] + '</td><td>' + tw_name + '</td></tr>';
+    //    }
+    //    if (names[1] != '') {
+    //        list += '<tr><td>2</td><td>' + names[1] + '</td><td>' + tw_name + '</td></tr>';
+    //    }
+
+    var tempworkid = $(this).attr('data-id');
+//    alert(tempworkid);
+   $.ajax({
+       url: "{{route('get-designs')}}",
+       method: "get",
+       data: {
+           tempworkid: tempworkid
+       },
+       success: function(res) {
+            $("#desginerbody").html(list);
+        $("#desingername").modal('show');
        }
-       if (names[1] != '') {
-           list += '<tr><td>2</td><td>' + names[1] + '</td><td>' + tw_name + '</td></tr>';
-       }
-       $("#desginerbody").html(list);
-       $("#desingername").modal('show');
+   });
+       
    })
    
+
+   $(".designer-company").on('click', function() {
+       var tempworkid = $(this).attr('data-id');
+   
+       $.ajax({
+           url: "{{route('get-designersinfo')}}",
+           method: "get",
+           data: {
+               tempworkid: tempworkid
+           },
+           success: function(res) {
+               $("#desginerbody").html(res);
+               $("#desingername").modal('show');
+           }
+       });
+   
+   })
+
    $(document).on('click', ".commentstatus", function() {
        text = $(this).text();
        if (text == "Pending") {

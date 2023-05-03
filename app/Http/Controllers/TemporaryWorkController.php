@@ -1874,6 +1874,7 @@ $notify_admins_msg = [
     //permit unload save
     public function permit_unload_save(Request $request)
     {
+        
         Validations::storepermitunload($request);
         try {
             $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');

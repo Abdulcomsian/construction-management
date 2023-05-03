@@ -1944,8 +1944,10 @@ $notify_admins_msg = [
                     'subject' => $request->projname . '-' . $request->projno,
                     'body' => [
                         'text' => ''.Auth::user()->name.' has issued a permit to offload.',
+                        'id' => $permitload->id,
                         'filename' => $filename,
                         'links' =>  '',
+                        'allowed_permit' => 0,
                         'name' => 'Permit Unload',
                     ],
                     'thanks_text' => 'Thanks For Using our site',

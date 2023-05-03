@@ -1230,7 +1230,7 @@
                                                                     style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; @if($tot>0) background: #3A7DFF26; color: #3A7DFF;  @else background: grey; color: #fff; @endif border-radius: 7px; padding: 4px 10px; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;"
                                                                     data-id="{{$item->id}}" data-type="4">
                                                                     <!-- <span class="fa fa-plus"></span> -->
-                                                                    Emails
+                                                                    Emails ({{$item->emails->count()}})
                                                                 </p>
                                                             </div>
                                                             <span class="desc cursor-pointer"

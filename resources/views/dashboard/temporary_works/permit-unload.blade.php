@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master',['title' => 'Permit To Load'])
+@extends('layouts.dashboard.master',['title' => 'Permit To Unload'])
 @section('styles')
 <style>
     .aside-enabled.aside-fixed.header-fixed .header {
@@ -556,6 +556,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6 my-4" id="twc-email-box">
+                            <div class="inputDiv pc-twc mb-0 mt-6 d-flex">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                    style="width:fit-content% !important">
+                                    <span>PC TWC Email:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="email" class="form-control form-control-solid" name="pc_twc_email"
+                                    id="pc-twc-email" placeholder="Email" value="" required="required">
+                            </div>
+                        </div>
                     </div>
                     <!-- Second person -->
 
@@ -573,7 +585,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" class="form-control" placeholder="Name" id="name2" name="name"
+                                    <input type="text" class="form-control" placeholder="Name" id="name2" name="name1"
                                         value="{{old('name',$permitdata->name ?? '')}}">
                                 </div>
                             </div>
@@ -585,7 +597,7 @@
                                 <!--end::Label-->
                                 <div class="input">
                                     <input type="text" class="form-control" placeholder="Job title" id="job_title"
-                                        name="job_title" value="{{old('job_title',$permitdata->job_title ?? '')}}">
+                                        name="job_title1" value="{{old('job_title',$permitdata->job_title ?? '')}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -772,12 +784,14 @@
             $("#first_member").show();
             $("input[name='name1']").attr('required', 'required');
             $("input[name='job_title1']").attr('required', 'required');
+            document.getElementById("twc-email-box").classList.remove("d-none")
+            
 
         } else {
             $("#first_member").hide();
             $("input[name='name1']").removeAttr('required');
             $("input[name='job_title1']").removeAttr('required');
-
+            document.getElementById("twc-email-box").classList.add("d-none")
         }
     })
 
@@ -925,6 +939,12 @@
 
         }
     })
+
+    $('#clear').click(function(e) {
+    e.preventDefault();
+    signaturePad.clear();
+    $("#signature").val('');
+    });
 
 
     $('#drawing_no').change(function () {

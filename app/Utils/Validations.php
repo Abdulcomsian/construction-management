@@ -220,8 +220,7 @@ class Validations
             // 'ms_ra_no' => ['required'],
             'name1' => 'required_if:principle_contractor,1',
             'job_title1' => 'required_if:principle_contractor,1',
-            'name' => ['required'],
-            'job_title' => ['required'],
+            'pc_twc_email' => 'required_if:principle_contractor,1',
             'company' => ['required'],
             'signed' => 'required_if:signtype,0',
         ]);

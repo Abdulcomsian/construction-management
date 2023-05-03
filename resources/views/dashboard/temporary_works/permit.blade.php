@@ -1018,6 +1018,8 @@
                                             </label> --}}
                                             {{-- <br /> --}}
                                             <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                            <span id="clear1" class="fa fa-undo cursor-pointer"
+                                                style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                         </div>
                                         <div class="d-flex inputDiv principleno" id="sign1"
                                             style=" display: none !important">
@@ -1541,7 +1543,19 @@
     //     $("#signature").val('');
     // });
 
+    $('#clear').click(function(e) {
+    e.preventDefault();
+    signaturePad.clear();
+    $("#signature").val('');
+    });
 
+    $('#clear1').click(function(e) {
+        e.preventDefault();
+        signaturePad1.clear();
+        $("#signature1").val('');
+    });
+
+    
     //approval checkbox checkded
     $("#approval").change(function () {
         if ($(this).is(':checked')) {
@@ -1553,5 +1567,15 @@
         }
     })
 
+
+
 </script>
+
+<script>
+    document.querySelector("button[type='submit']").addEventListener("click" , function(e){
+        e.preventDefault();
+        alert("here");
+    })
+</script>
+
 @endsection

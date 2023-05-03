@@ -505,7 +505,7 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <form id="desingform" action="{{ route('temporary_works.store') }}" method="post"
-                        enctype="multipart/form-data">
+                        onsubmit="(fasd) => console.log('fasd')" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <div class="row">
@@ -1290,6 +1290,17 @@ $('#clear').click(function(e) {
 
 
 // })
+
+$("#submitbutton").on('click', function () {
+    if (signaturePad) {
+        $("#signature").val(signaturePad.toDataURL('image/png'));
+    }
+    // if (signaturePad1) {
+    //     $("#signature1").val(signaturePad1.toDataURL('image/png'));
+    // }
+    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+    $("#desingform").submit();
+});
 
 
 

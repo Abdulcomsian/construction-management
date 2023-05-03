@@ -1005,7 +1005,7 @@
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
 
                             {{-- old code --}}
-                          
+
                             {{-- old code end here --}}
 
                             <div class="d-flex inputDiv principleno" style="border: none">
@@ -1075,7 +1075,7 @@
                                     {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
                                 </div>
-                                 <!-- <div class="d-flex inputDiv principleno" id="sign1"
+                                <!-- <div class="d-flex inputDiv principleno" id="sign1"
                                     style=" display: none !important">
                                     <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                                 </div>  -->
@@ -1230,6 +1230,7 @@
                     console.log("hello");
                     $("#signature1").val(signaturePad1.toDataURL('image/png'));
                  }
+                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
                  $("#permitrenew").submit();
             });
      //approval checkbox checkded

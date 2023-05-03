@@ -2494,6 +2494,12 @@
     //     }
     // })
 
+    $('#clear').click(function(e) {
+    e.preventDefault();
+    signaturePad.clear();
+    $("#signature").val('');
+    });
+
     $("#pdfChecked").change(function () {
 
         if ($(this).is(':checked')) {
@@ -2523,6 +2529,13 @@
         }
     })
 
+//     $('#clear').click(function(e) {
+//        e.preventDefault();
+//        signaturePad.clear();
+//        $("#signature").val('');
+//         $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+//         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
+//    });
     // $("#pdfChecked").change(function(){
 
     //     if($(this).is(':checked'))

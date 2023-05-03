@@ -53,6 +53,7 @@ Route::post('design/store',[DesignerController::class,'pc_store'])->name('design
 
 //pc twc permit to load approval routes
 Route::get('design/permit-approve/{id}',[DesignerController::class,'pc_permit_index'])->name('pc.permit.approved');
+Route::get('design/permit-unload-approve/{id}',[DesignerController::class,'pc_permit_unload_index'])->name('pc.permit.unload.approved');
 Route::post('design/permit-store',[DesignerController::class,'pc_permit_store'])->name('design.permit.store');
 
 //risk assessemetn store

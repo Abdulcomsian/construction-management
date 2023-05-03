@@ -2357,6 +2357,12 @@
     signaturePad.clear();
     $("#signature").val('');
     });
+
+
+    
+
+
+
     $("#pdfChecked").change(function(){
         if($(this).is(':checked'))
         {
@@ -2389,9 +2395,19 @@
 
             var canvas = document.getElementById("sig");
             var signaturePad = new SignaturePad(canvas);            
-             $("#submitbutton").on('click',function(){
-                 $("#signature").val(signaturePad.toDataURL('image/png'));
-                 $("#scaffolding").submit();
+            //  $("#submitbutton").on('click',function(){
+            //      $("#signature").val(signaturePad.toDataURL('image/png'));
+            //      $("#scaffolding").submit();
+            // });
+
+            // diabling submit button functionality 
+            $("#submitbutton").on('click', function () {
+                if (signaturePad) {
+                    $("#signature").val(signaturePad.toDataURL('image/png'));
+                }
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                $("#scaffolding").submit();
             });
+
 </script>
 @endsection

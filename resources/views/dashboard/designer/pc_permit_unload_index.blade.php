@@ -139,6 +139,7 @@
                         <div class="row ">
                             <div class="col-md-12">
                                 <div class="row align-items-center">
+                                    <input type="hidden" name="type" value="permit-unload">
                                     <div class="col-md-6">
                                         <div class="d-flex inputDiv d-block">
                                             <!--begin::Label-->

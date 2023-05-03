@@ -20,24 +20,23 @@
                                             <td width="100%" cellpadding="0" cellspacing="0" style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;background-color:#ffffff;border-bottom:1px solid #edeff2;border-top:1px solid #edeff2;margin:0;padding:0;width:100%">
                                                 <table align="center" width="570" cellpadding="0" cellspacing="0" style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;background-color:#ffffff;margin:0 auto;padding:0;width:570px">
                                                     <tbody>
+                                                        {{-- {{dd($details)}} --}}
                                                         <tr>
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">{{$details['body']['text']}}</p>
                                                                    @if(isset($details['body']['pc_twc']) && $details['body']['pc_twc']==1)
-                                                                   <p>
+                                                                   {{-- <p>
                                                                        <a href="{{route('pc.permit.approved',Crypt::encrypt($details['body']['id']))}}">view to accept or reject permit to load</a>
-                                                                       
-                                                                   </p>
+                                                                   </p> --}}
                                                                    @else
                                                                   
                                                                    <p>
                                                                     @if($type=="tempwork")
                                                                      <a href="{{url('temporary_works')}}">View Design Brief</a>
                                                                     @else
-                                                                    {{-- {{dd($details)}} --}}
-                                                                    <a href="{{route('pc.approved',Crypt::encrypt($details['body']['id']))}}">{{$details['action_text']}}</a>
-                                                                     {{-- <a href="{{url('temporary_works')}}">{{$details['action_text']}}</a> --}}
+                                                                    {{-- <a href="{{route('pc.approved',Crypt::encrypt($details['body']['id']))}}">{{$details['action_text']}}</a> --}}
+                                                                     <a href="{{url('temporary_works')}}">{{$details['action_text']}}</a>
                                                                     @endif
                                                                    </p>
                                                                    @endif

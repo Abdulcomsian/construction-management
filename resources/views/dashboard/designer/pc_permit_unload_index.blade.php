@@ -167,7 +167,7 @@
                                                 </label>
                                                 <label>
                                                     <input type="radio" datacheck1='no' class="btn-check" name="status"
-                                                        value="5" />
+                                                        value="1" />
                                                     <span
                                                         class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">N</span>
                                                 </label>

@@ -1587,7 +1587,7 @@ $notify_admins_msg = [
            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
             $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
          }else{
-             $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->latest()->get();
+             $permited = PermitLoad::where(['temporary_work_id' => $tempid])->whereNotIn('status',[ 3 , 2 ])->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
          }
        
@@ -1923,9 +1923,10 @@ $notify_admins_msg = [
             
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
+            
             if ($permitload) {
                 //make status 0 if permit is 
-                PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);

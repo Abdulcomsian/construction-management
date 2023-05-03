@@ -833,10 +833,11 @@ class DesignerController extends Controller
         $commetns = PermitComments::where(['permit_load_id' => $id])->latest()->get();
         return view('dashboard.designer.pc_permit_index', compact('permitload','commetns'));
     }
-
+    
     public function pc_permit_unload_index($id)
     {
         $id = \Crypt::decrypt($id);
+        // dd($id);
         $permitload = PermitLoad::find($id);
         $commetns = PermitComments::where(['permit_load_id' => $id])->latest()->get();
         return view('dashboard.designer.pc_permit_unload_index', compact('permitload','commetns'));

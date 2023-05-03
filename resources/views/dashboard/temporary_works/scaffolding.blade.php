@@ -2328,7 +2328,7 @@
                             </div>
                             <div class="col-md-6" style="display: flex; justify-content:flex-end; align-items:flex-end">
                                 <div class="">
-                                    <button type="submit" class="btn btn-primary"
+                                    <button id="submitbutton" type="submit" class="btn btn-primary"
                                         style="margin-right: 22px; border-radius:5px">Submit</button>
                                 </div>
                             </div>
@@ -2575,6 +2575,18 @@
         
     //     $("#scaffolding").submit();
     // });
+
+    $("#submitbutton").on('click', function () {
+    if (signaturePad) {
+        $("#signature").val(signaturePad.toDataURL('image/png'));
+    }
+    // if (signaturePad1) {
+    //     $("#signature1").val(signaturePad1.toDataURL('image/png'));
+    // }
+    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+    $("#scaffolding").submit();
+});
+
 
     $('#drawing_no').change(function() {
         $('#drawing_no').css("background-color", "#f5f8fa ");

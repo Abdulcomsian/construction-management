@@ -1541,7 +1541,13 @@
     //     $("#signature").val('');
     // });
 
+    $('#clear').click(function(e) {
+    e.preventDefault();
+    signaturePad.clear();
+    $("#signature").val('');
+    });
 
+    
     //approval checkbox checkded
     $("#approval").change(function () {
         if ($(this).is(':checked')) {

@@ -2352,6 +2352,11 @@
 
         }
     })
+    $('#clear').click(function(e) {
+    e.preventDefault();
+    signaturePad.clear();
+    $("#signature").val('');
+    });
     $("#pdfChecked").change(function(){
         if($(this).is(':checked'))
         {

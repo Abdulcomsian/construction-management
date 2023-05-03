@@ -559,11 +559,13 @@
                         <div class="col-md-6 my-4" id="twc-email-box">
                             <div class="inputDiv pc-twc mb-0 mt-6 d-flex">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:fit-content% !important">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                    style="width:fit-content% !important">
                                     <span>PC TWC Email:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="" required="required">
+                                <input type="email" class="form-control form-control-solid" name="pc_twc_email"
+                                    id="pc-twc-email" placeholder="Email" value="" required="required">
                             </div>
                         </div>
                     </div>
@@ -937,6 +939,12 @@
 
         }
     })
+
+    $('#clear').click(function(e) {
+    e.preventDefault();
+    signaturePad.clear();
+    $("#signature").val('');
+    });
 
 
     $('#drawing_no').change(function () {

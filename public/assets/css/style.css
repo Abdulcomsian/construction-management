@@ -908,6 +908,12 @@ table th {
     display: block;
 }
 
+.fa-undo:before {
+    background-color: white;
+    padding: 5px;
+    border-radius: 100%;
+}
+
 #commenttable td form {
     display: flex;
     align-items: center;

@@ -1200,6 +1200,8 @@
                                     </label> --}}
                                     {{-- <br /> --}}
                                     <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                    <span id="clear1" class="fa fa-undo cursor-pointer"
+                                        style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                 </div>
                                 <div class="d-flex inputDiv principleno" id="sign1" style=" display: none !important">
                                     <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
@@ -1320,6 +1322,17 @@
                 //     $(".customSubmitButton").removeClass("showBtn");
                 // }
             })
+
+            $('#clear').click(function(e) {
+                e.preventDefault();
+                signaturePad.clear();
+                $("#signature").val('');
+            });
+            $('#clear1').click(function(e) {
+                e.preventDefault();
+                signaturePad1.clear();
+                $("#signature1").val('');
+            });
             $("#DrawCheck1").change(function(){
                 if($(this).is(':checked'))
                 {
@@ -1468,6 +1481,7 @@
             var canvas = document.getElementById("sig");
             var signaturePad = new SignaturePad(canvas);
             var canvas1 = document.getElementById("sig1");
+            // let signaturePad1 = new SignaturePad(canvas1);
             if (canvas) {
                 var signaturePad = new SignaturePad(canvas);
             }

@@ -888,7 +888,7 @@ class DesignerController extends Controller
             //new code starts here
             if($request->status == 3 && sizeof($otherPermits) > 0)
             {
-                PermitLoad::whereIn('id' , $otherPermits)->update(['status' => 3]);
+                PermitLoad::whereIn('id' , $otherPermits)->update(['status' => 4]);
             }
             //new code ends here
             Notification::route('mail',  $twc_email->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));

@@ -1610,14 +1610,14 @@ $notify_admins_msg = [
                         if (isset($request->type)) {
                             $button = '
                             <div>
-                                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Action
-                                      </button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
-                                        <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?">Close</a>
-                                      </div>
-                                    </div>
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
+                                <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?">Close</a>
+                                </div>
+                            </div>
                             ';
                         }
                         if ($diff_in_days > 7) {
@@ -1647,7 +1647,7 @@ $notify_admins_msg = [
                     if (auth()->user()->hasRole('scaffolder')) {
                         $button = '';
                     }
-                    $list .= '<tr style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;">' . $button . '</td></tr>';
+                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;">' . $button . '</td></tr>';
                 }
             $list .= '<hr>';
         }
@@ -1684,7 +1684,7 @@ $notify_admins_msg = [
                 if (isset($request->shared)) {
                     $button = '';
                 }
-                $list .= '<tr style="height: 50px;line-height: 15px;' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
+                $list .= '<tr data-permit-id="'.$permit->id.'" style="height: 50px;line-height: 15px;' . $class . '"><td><a target="_blank"href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' .  $days . ' days</td><td>Scaffold</td><td>' .  $status . '</td><td>' . $button . '</td></tr>';
             }
         }
         echo $list;
@@ -1919,15 +1919,15 @@ $notify_admins_msg = [
                $all_inputs['signature'] = $image_name;
             }
             // $all_inputs['status'] = 3;
-            $all_input['status'] = $request->principle_contractor == 1 ? 2 : 3;
+            $all_inputs['status'] = $request->principle_contractor == 1 ? 2 : 3;
             
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if ($permitload) {
                 //make status 0 if permit is 
-                PermitLoad::find($request->permitid)->update(['status' => 4]);
+                PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
                 //upload permit unload files
-                dd("here" , $request->permitid , $permitload->id);
+                // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
                 $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1]);

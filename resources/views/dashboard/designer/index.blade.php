@@ -569,24 +569,25 @@
                          <input type="hidden" name="tempworkid" value="{{$id}}">
                           
                             <div class="row" style="background:white;margin: 0 4px;">
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                     <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Designer's Company Name:</span>
                                         </label>
                                         <div class="d-flex" >
-                                        <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name}}">
+                                        <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name}}"> -->
                                         <!-- name="designer_company_name" -->
-                                        </div>
+                                        <!-- </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-4">
                                     <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Design Checker Name:</span>
                                         </label>
                                         <div class="d-flex" >
-                                        <input type="text" class="form-control" readonly name="designermail" value="{{$tempdata->desinger_company_name2}}">
+                                        <input type="hidden" name="mail" value="{{$mail}}">
+                                        <input type="text" class="form-control"  name="checkeremail" value="">
                                         </div>
                                     </div>
                                 </div>

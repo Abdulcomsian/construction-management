@@ -290,10 +290,8 @@ class DesignerController extends Controller
     }
     public function store(Request $request)
     {  
-       
          try { 
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
-            
             if(isset($request->twd_name)){
                 $tempworkdata->tw_name=$request->twd_name;
             }
@@ -305,10 +303,18 @@ class DesignerController extends Controller
              if(isset($request->designermail))
             {
                 $model->created_by = $request->designermail;
+            }else if(isset($request->mail)){
+                $model->created_by = $request->mail;
             }
             else{
                 $model->created_by =Auth::user()->email;
             }
+            if($request->mail == $tempworkdata->desinger_email_2){
+                $model->comments = 1;
+            }else if($request->mail == $tempworkdata->designer_company_email){
+                $model->comments = 2;
+            }
+            $model->twd_name = $request->checkeremail;
             if (isset($request->designcheckfile)) {
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
@@ -752,19 +758,99 @@ class DesignerController extends Controller
         }
 
         
-        for($j=0;$j<count($designearray);$j++)
-        {
-            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->orderBy('id','desc')->get();            
+        // for($j=0;$j<count($designearray);$j++)
+        // {
+        //     $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[$j]])->orderBy('id','desc')->get();  
+        //     // dd($DesignerUploads);          
+        //     $i = 1;
+        //     if($DesignerUploads)
+        //     {
+        //         if($j==0)
+        //         {
+        //             $list.="<h3>Designer Company</h3>";
+        //         }
+        //         else{
+        //              $list.="<h3 style='margin-top:15px;'>Designer checker Company</h3>";
+        //         }
+                
+        //         $list .= '<table class="table table-hover"><thead><tr>';
+        //         $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+               
+        //         $list .= '<th style="color: white !important;">Designer Name</th>';
+        //         $list .= '<th style="color: white !important;">Design Checker Name</th>';
+        //         $list .= '</tr></thead><tbody>';
+        //         $list .= '</tr></thead><tbody>';
+        //         $background='';
+                
+        //         $userList=[];
+        //         foreach ($DesignerUploads as $uploads) {
+                  
+
+        //             $list .= '<tr class=""  style="background:' . $background . '">';
+        //             // if($uploads->file_type==1){
+        //             //     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+        //             // }else{
+        //             //     $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+        //             // }
+        //             // if($uploads->file_type==2){
+        //             //     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+        //             // }else{
+        //             //     $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+        //             // }
+        //             $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+        //             $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+        //             $list .= '</tr>';
+        //             // if(count($uploads->comment)>0)
+        //             // {
+        //             //     $k=1;
+
+        //             //     foreach($uploads->comment as $comment)
+        //             //     {
+        //             //          $reply='';
+        //             //          $replydate='';
+        //             //         if(isset($comment->drawing_reply[0]))
+        //             //         {
+        //             //             $reply=$comment->drawing_reply[0];
+        //             //         }
+        //             //         if(isset($comment->reply_date[0]))
+        //             //         {
+        //             //             $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
+        //             //         }
+        //             //          $image = '';
+        //             //             if (isset($comment->reply_image[0])) {
+        //             //                 $n = strrpos($comment->reply_image[0], '.');
+        //             //                 $ext = substr($comment->reply_image[0], $n + 1);
+        //             //                 if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+        //             //                     $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+        //             //                 } else {
+        //             //                     $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
+        //             //                 }
+        //             //             }
+        //             //         $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
+        //             //         $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
+        //             //         $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
+        //             //         $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+        //             //         $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+        //             //         $list .='</tr>';
+        //             //         $k++;
+
+        //             //     }
+                        
+        //             // }
+        //             $i++;
+        //         }
+        //         $list .= '</tbody></table>';
+        //     }
+        // }
+
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[0]])->orderBy('id','desc')->get();  
+            // dd($DesignerUploads);          
             $i = 1;
             if($DesignerUploads)
             {
-                if($j==0)
-                {
+               
                     $list.="<h3>Designer Company</h3>";
-                }
-                else{
-                     $list.="<h3 style='margin-top:15px;'>Designer checker Company</h3>";
-                }
+                
                 
                 $list .= '<table class="table table-hover"><thead><tr>';
                 $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
@@ -776,57 +862,97 @@ class DesignerController extends Controller
                 
                 $userList=[];
                 foreach ($DesignerUploads as $uploads) {
-                    
+                  
 
                     $list .= '<tr class=""  style="background:' . $background . '">';
-                    
-                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
                    
-                    
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
                     $list .= '</tr>';
-                    // if(count($uploads->comment)>0)
-                    // {
-                    //     $k=1;
-
-                    //     foreach($uploads->comment as $comment)
-                    //     {
-                    //          $reply='';
-                    //          $replydate='';
-                    //         if(isset($comment->drawing_reply[0]))
-                    //         {
-                    //             $reply=$comment->drawing_reply[0];
-                    //         }
-                    //         if(isset($comment->reply_date[0]))
-                    //         {
-                    //             $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
-                    //         }
-                    //          $image = '';
-                    //             if (isset($comment->reply_image[0])) {
-                    //                 $n = strrpos($comment->reply_image[0], '.');
-                    //                 $ext = substr($comment->reply_image[0], $n + 1);
-                    //                 if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                    //                     $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
-                    //                 } else {
-                    //                     $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
-                    //                 }
-                    //             }
-                    //         $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
-                    //         $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
-                    //         $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
-                    //         $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
-                    //         $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
-                    //         $list .='</tr>';
-                    //         $k++;
-
-                    //     }
-                        
-                    // }
-                    $i++;
+                
                 }
                 $list .= '</tbody></table>';
             }
-        }
-        
+            //Design checker for designer company
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[0], 'comments'=>2])->orderBy('id','desc')->get();  
+            // dd($DesignerUploads);          
+            $i = 1;
+            if($DesignerUploads)
+            {
+               
+            
+                
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+               
+                $list .= '<th style="color: white !important;">Design Checker Name</th>';
+                $list .= '</tr></thead><tbody>';
+                $list .= '</tr></thead><tbody>';
+                $background='';
+                
+                $userList=[];
+                foreach ($DesignerUploads as $uploads) {
+                    $list .= '<tr class=""  style="background:' . $background . '">';
+                   
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                    $list .= '</tr>';
+                
+                }
+                $list .= '</tbody></table>';
+            }
+
+            //designer for Design checker company
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[1]])->orderBy('id','desc')->get();  
+            // dd($DesignerUploads);          
+            $i = 1;
+            if($DesignerUploads)
+            {
+                    $list.="<h3 style='margin-top:20px;'>Design Checker Company</h3>";
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+               
+                $list .= '<th style="color: white !important;">Designer Name</th>';
+                $list .= '</tr></thead><tbody>';
+                $list .= '</tr></thead><tbody>';
+                $background='';
+                
+                $userList=[];
+                foreach ($DesignerUploads as $uploads) {
+                    $list .= '<tr class=""  style="background:' . $background . '">';
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                    $list .= '</tr>';
+                    
+                }
+                $list .= '</tbody></table>';
+            }
+
+              //Design checker for Design checker company
+              $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[1], 'comments'=>1])->orderBy('id','desc')->get();  
+              // dd($DesignerUploads);          
+              $i = 1;
+              if($DesignerUploads)
+              {
+                  $list .= '<table class="table table-hover"><thead><tr>';
+                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                 
+                  $list .= '<th style="color: white !important;">Design Checker Name</th>';
+                  $list .= '</tr></thead><tbody>';
+                  $list .= '</tr></thead><tbody>';
+                  $background='';
+                  
+                  $userList=[];
+                  foreach ($DesignerUploads as $uploads) {
+                      $list .= '<tr class=""  style="background:' . $background . '">';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                      $list .= '</tr>';
+                      
+                  }
+                  $list .= '</tbody></table>';
+              }
+
         echo $list;
     }
 

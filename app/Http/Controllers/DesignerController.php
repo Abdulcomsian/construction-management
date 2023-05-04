@@ -901,7 +901,7 @@ class DesignerController extends Controller
                 }
                 $list .= '</tbody></table>';
             }
-
+        if(count($designearray)>1){
             //designer for Design checker company
             $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[1]])->orderBy('id','desc')->get();  
             // dd($DesignerUploads);          
@@ -952,7 +952,7 @@ class DesignerController extends Controller
                   }
                   $list .= '</tbody></table>';
               }
-
+        }
         echo $list;
     }
 

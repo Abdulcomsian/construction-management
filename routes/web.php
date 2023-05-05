@@ -250,7 +250,8 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //designer user crud routes
      Route::get('/designer',[DesignerController::class,'desginerView']);
-    //  Route::get('/designer',[DesignerController::class,'testDesigner']);
+     Route::get('/projectAssign', [DesignerController::class,'projectAssign']);
+//  Route::get('/designer',[DesignerController::class,'testDesigner']);
      Route::get('/list',[DesignerController::class,'List'])->name('designer.list');
      Route::get('/create',[DesignerController::class,'Create'])->name('designer.create');
      Route::post('/save',[DesignerController::class,'Save'])->name('designer.save');

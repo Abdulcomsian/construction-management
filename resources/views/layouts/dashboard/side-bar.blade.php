@@ -104,6 +104,11 @@
                         </a>
                     </div>
                     <div class="menu-item">
+                        <a class="menu-link" href="{{url('designer/projectAssign')}}">
+                            <span class="menu-title">Project Assign</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a class="menu-link" href="{{url('adminSupplier')}}">
                             <span class="menu-title">Admin Suppliers</span>
                         </a>

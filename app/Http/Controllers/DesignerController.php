@@ -79,6 +79,11 @@ class DesignerController extends Controller
             return Redirect::back();
          }
     }
+
+    //Project Assign
+    public function projectAssign(){
+        return view('projectAssign');
+    }
     //list designer
     public function List(Request $request)
     {

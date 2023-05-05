@@ -1583,15 +1583,21 @@ $notify_admins_msg = [
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
-         if (isset($request->type)) {
-           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
-            $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
-         }else{
-             $permited = PermitLoad::where(['temporary_work_id' => $tempid])->whereNotIn('status',[ 3  ])->latest()->get();
-            //  $permited = PermitLoad::where(['temporary_work_id' => $tempid])->whereNotIn('status',[ 3 , 2 ])->latest()->get(); //Nomans code for not showing pending permit.
-             $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
-         }
-       
+        //  if (isset($request->type)) {
+        //    $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+        //     $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+        //  }else{
+        //      $permited = PermitLoad::where(['temporary_work_id' => $tempid])->whereNotIn('status',[ 3  ])->latest()->get();
+        //     //  $permited = PermitLoad::where(['temporary_work_id' => $tempid])->whereNotIn('status',[ 3 , 2 ])->latest()->get(); //Nomans code for not showing pending permit.
+        //      $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
+        //  }
+        if (isset($request->type)) {
+            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+             $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+          }else{
+              $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->latest()->get();
+              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
+          }
         $list = '';
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();

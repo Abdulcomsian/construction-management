@@ -1135,7 +1135,7 @@ class DesignerController extends Controller
         try {
             $permitdata = PermitLoad::find($request->permitid);
             //new code starts here
-            // $otherPermits = PermitLoad::where('permit_no' , $permitdata->permit_no)->where('id' , '!=' ,  $request->permitid)->get()->pluck('id')->toArray();
+            $otherPermits = PermitLoad::where('permit_no' , $permitdata->permit_no)->where('id' , '!=' ,  $request->permitid)->get()->pluck('id')->toArray();
             //new code ends here
             
             $createdby = User::find($permitdata->created_by);
@@ -1174,10 +1174,10 @@ class DesignerController extends Controller
 
             $twc_email = TemporaryWork::select('twc_email')->find($permitdata->temporary_work_id);
             //new code starts here
-            // if($request->status == 3 && sizeof($otherPermits) > 0)
-            // {
-            //     PermitLoad::whereIn('id' , $otherPermits)->update(['status' => 4]);
-            // }
+            if($request->status == 3 && sizeof($otherPermits) > 0)
+            {
+                PermitLoad::whereIn('id' , $otherPermits)->update(['status' => 4]);
+            }
             //new code ends here
             Notification::route('mail',  $twc_email->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
             //Notification::route('mail',  $createdby->email ?? '')->notify(new PermitNotification($notify_admins_msg));

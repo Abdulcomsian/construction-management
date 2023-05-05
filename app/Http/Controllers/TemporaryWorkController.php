@@ -1592,10 +1592,12 @@ $notify_admins_msg = [
         //      $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         //  }
         if (isset($request->type)) {
-            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+            // dd("1");
+            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
           }else{
-              $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->latest()->get();
+            // dd("2");
+              $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();
               $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
           }
         $list = '';
@@ -1642,6 +1644,10 @@ $notify_admins_msg = [
                         $status = "Pending";
                     } elseif ($permit->status == 5) {
                         $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='font-size:20px;' class='fa fa-edit'></i></a>";
+                    }elseif ($permit->status == 6) {
+                        $status = "Pending";
+                    }elseif ($permit->status == 7) {
+                        $status = "Pending";
                     }
                     $path = config('app.url');
                     if (isset($request->scanuser)) {
@@ -1926,14 +1932,16 @@ $notify_admins_msg = [
                $all_inputs['signature'] = $image_name;
             }
             // $all_inputs['status'] = 3;
-            $all_inputs['status'] = $request->principle_contractor == 1 ? 2 : 3;
+            // $all_inputs['status'] = $request->principle_contractor == 1 ? 2 : 3;
+            $all_inputs['status'] = $request->principle_contractor == 1 ? 6 : 3;
             
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             
             if ($permitload) {
                 //make status 0 if permit is 
-                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);

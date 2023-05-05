@@ -338,29 +338,6 @@
             text-align: center;
         }
     }
-
-    @media (max-width: 800px) {
-        .action {
-            justify-content: center !important;
-            max-width: 83px !important;
-            margin-left: 26px !important;
-        }
-    }
-
-    @media (min-width: 801px) {
-        .action {
-            justify-content: center !important;
-            max-width: 85px !important;
-            margin-left: 26px !important;
-        }
-    }
-
-    @media (min-width: 1330px) {
-        .action {
-            justify-content: center !important;
-            max-width: 91px !important;
-            margin-left: 26px !important;
-        }
     }
 
     .modal-backdrop {
@@ -390,15 +367,6 @@
 
     .rowcolor {
         background: #D5D8DC !important;
-    }
-
-    .titleColumn {
-        color: #9D9D9D;
-        font-weight: 500;
-        font-size: 13px;
-        margin-left: 21px;
-        font-family: 'Inter', sans-serif;
-        white-space: nowrap;
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
@@ -534,15 +502,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col my-2 my-md-0 positionChange">
-                                    <!--end::Dropdown-->
-                                    <!--begin::Button-->
-                                    <a href="{{ route('estimator.create') }}"
-                                        class="btn pull-right btn-primary font-weight-bolder"
-                                        style="color:white !important;border-radius:0px;">
-                                        <span class="fa fa-plus"></span> Estimate Design Brief</a>
-                                    <!--end::Button-->
-                                </div>
                             </div>
                         </div>
                         <!--begin::Table-->
@@ -553,7 +512,15 @@
                             </div>
                             <div class="col-md-2">
                             </div>
-
+                            <div class="col-md-3 my-2 my-md-0 positionChange">
+                                <!--end::Dropdown-->
+                                <!--begin::Button-->
+                                <a href="{{ route('estimator.create') }}"
+                                    class="btn pull-right btn-primary font-weight-bolder"
+                                    style="color:white !important;border-radius:0px;">
+                                    <span class="fa fa-plus"></span> Estimate Design Brief</a>
+                                <!--end::Button-->
+                            </div>
                         </div>
                         <div class="row">
                             <div style="float:left;width:100%;position:relative;top:-5px;">
@@ -566,7 +533,7 @@
                                             class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive"
                                             id="kt_table_users">
                                             <!--begin::Table head-->
-                                            {{-- <thead>
+                                            <thead>
                                                 <!--begin::Table row-->
                                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                                     <th>Serial No</th>
@@ -591,297 +558,36 @@
                                                     <th class="">Actions</th>
                                                 </tr>
                                                 <!--end::Table row-->
-                                            </thead> --}}
+                                            </thead>
                                             <!--end::Table head-->
                                             <!--begin::Table body-->
                                             <tbody class="text-gray-600 fw-bold">
                                                 @forelse($estimator_works as $item)
                                                 <tr class=""
                                                     style="height: {{count($estimator_works)==1 ? '370px':''}}">
-                                                    {{-- <td
+                                                    <td
                                                         style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                                         {{$item->estimator_serial_no}}
-                                                    </td> --}}
-                                                    {{-- <td>{{ $item->project->name ?? '' }}</td> --}}
-                                                    {{-- <td
+                                                    </td>
+                                                    <td>{{ $item->project->name ?? '' }}</td>
+                                                    <td
                                                         style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
                                                         <p style="font-weight:400;font-size:14px;">
-                                                            {{$item->design_requirement_text ?? ''}}</p> --}}
-                                                        {{--
+                                                            {{$item->design_requirement_text ?? ''}}</p>
                                                         <hr style="margin: 5px;;color:red;border:1px solid red">
                                                         <span class="desc cursor-pointer"
                                                             style="width: 108px;padding: 2px;" data-toggle="tooltip"
                                                             data-placement="top"
                                                             title="{{ $item->description_temporary_work_required ?: '-' }}"><span
                                                                 class="label label-lg font-weight-bold label-light-success label-inline">Description</span>
-                                                        </span> --}}
-                                                        {{--
-                                                    </td> --}}
-                                                    <td style="">
-                                                        <div class="">
-                                                            {{-- <span class="col-5 titleColumn text-start">Serial
-                                                                No.</span> --}}
-                                                            {{$item->estimator_serial_no}}
-                                                        </div>
-                                                        <div style="font-weight: bold">
-                                                            {{-- <span class="col-5 titleColumn text-start">Project
-                                                                Name</span> --}}
-                                                            {{ $item->project->name ?? '' }}
-                                                        </div>
+                                                        </span>
                                                     </td>
-                                                    <td style="width:170px">
-                                                        <div class="d-flex">
-                                                            <p style="font-weight:400;font-size:14px;">
-                                                                {{$item->design_requirement_text ?? ''}}</p>
-                                                        </div>
-                                                    </td>
-                                                    <td style="">
-                                                        <div
-                                                            style="max-height:100%; display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:15px;">
-                                                            <div class="commentSection" style="">
-                                                                @php
-                                                                $drawingscount=0;
-                                                                $color="green";
-                                                                $class='';
-                                                                if(count($item->comments)>0)
-                                                                {
-                                                                $color="red";
-                                                                $class='redBgBlink';
-                                                                if(count($item->reply)== count($item->comments))
-                                                                {
-                                                                $color="blue";
-                                                                $class='';
-                                                                }
-                                                                }
-                                                                @endphp
-                                                                <p class="addcomment cursor-pointer"
-                                                                    style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;"
-                                                                    data-id="{{$item->id}}">
-                                                                    <!-- <span class="fa fa-plus"></span> -->
-                                                                    Comment
-                                                                    <span class="addcomment cursor-pointer"
-                                                                        style="border-radius:5px;width: 108px;color:{{$color}} !important;"
-                                                                        data-id="{{$item->id}}">
-                                                                        <span class="{{$class}} ">
-                                                                            ({{count($item->comments) ?? '-'}})
-                                                                        </span>
-                                                                    </span>
-                                                                </p>
-                                                            </div>
-                                                            <span class="desc cursor-pointer"
-                                                                style="width: 112px;padding: 2px;" data-toggle="tooltip"
-                                                                data-placement="top"
-                                                                title="{{ $item->description_temporary_work_required ?: '-' }}"><span
-                                                                    class="label label-lg font-weight-bold label-light-success label-inline"
-                                                                    style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-
-                                                    <td style="">
-                                                        <div class="d-flex justify-content-between">
-                                                            <span class="titleColumn">Issue Date:</span>
-                                                            <span
-                                                                style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{
-                                                                $item->design_issued_date ? date('d-m-Y',
-                                                                strtotime($item->design_issued_date)) : '-' }}</span>
-                                                        </div>
-                                                        <div class="d-flex justify-content-between my-2">
-                                                            <span class="titleColumn">Required by:</span>
-                                                            <span
-                                                                class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer"
-                                                                style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="{{ $item->description_temporary_work_required ?: '-' }}"><span
-                                                                    class="label label-lg font-weight-bold  label-inline">
-                                                                    <b>
-                                                                        @if($item->design_required_by_date)
-                                                                        {{date('d-m-Y',
-                                                                        strtotime($item->design_required_by_date))}}
-                                                                        @else
-                                                                        -
-                                                                        @endif
-                                                                    </b>
-                                                                </span>
-                                                        </div>
-                                                        <div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <span>
-                                                                    <span class="titleColumn">CAT Check:</span>
-                                                                    <span style="font-weight: 500; color: black">{{
-                                                                        $item->tw_category }}</span>
-                                                                </span>
-                                                                <span style="">
-                                                                    <span class="titleColumn">Risk Class:</span>
-                                                                    <span
-                                                                        style="margin-right: 11px; font-weight: 500; color: black">{{
-                                                                        $item->tw_risk_class ?: '-' }} </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td style="min-width: 254px; max-width: 80px;">
-                                                        <div class="d-flex" style="position: relative;bottom: 4px;">
-                                                            <span class="titleColumn">Date Design Returned:</span>
-                                                            <div
-                                                                style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
-                                                                @php
-                                                                $date='';
-                                                                $dcolor='';
-                                                                $drawingscount=0;
-                                                                @endphp
-                                                                @foreach($item->uploadfile as $file)
-                                                                @php
-                                                                if($file->file_type==1 && $file->construction==1)
-                                                                {
-                                                                $dcolor='green';
-                                                                $drawingscount=1;
-                                                                $date=$file->created_at->todatestring();
-                                                                }
-                                                                elseif($file->file_type==1 &&
-                                                                $file->preliminary_approval==1)
-                                                                {
-                                                                $dcolor='orange';
-                                                                $date=$file->created_at->todatestring();
-                                                                }
-                                                                @endphp
-                                                                @endforeach
-                                                                @if($date)
-
-                                                                <p class="dateclick cursor-pointer"
-                                                                    style="color:{{$dcolor ?? ''}};background: #f2f2f2;"
-                                                                    data-id="{{$item->id}}" data-type="1">
-                                                                    {{date('d-m-Y',
-                                                                    strtotime($date))}}
-                                                                </p>
-                                                                @endif
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="d-flex" style="position: relative;top: 0px;">
-                                                            <span class="titleColumn">Design Check CERT:</span>
-                                                            <div
-                                                                style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 18px;">
-                                                                @php $i=0;@endphp
-                                                                @foreach($item->uploadfile as $file)
-                                                                @if($file->file_type==2)
-                                                                @php $i++ @endphp
-                                                                <span><a href="{{asset($file->file_name)}}"
-                                                                        target="_blank">DC{{$i}}</a></span>
-                                                                @endif
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex my-2"
-                                                            style="position: relative;bottom: 2px;">
-                                                            <span class="titleColumn">Date DCC Returned:</span>
-                                                            <div
-                                                                style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
-                                                                @foreach($item->uploadfile as $file)
-                                                                @if($file->file_type==2)
-                                                                <p class="dateclick cursor-pointer"
-                                                                    data-id="{{$item->id}}" data-type="2">
-                                                                    {{date('d-m-Y',
-                                                                    strtotime($file->created_at->todatestring()))}}</p>
-                                                                @break
-                                                                @endif
-                                                                @endforeach
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td style="">
-                                                        <div class="d-flex justify-content-between">
-                                                            <span class="titleColumn">Designer:</span>
-                                                            <div
-                                                                style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                                <span class="designer-company cursor-pointer"
-                                                                    style="width: 108px;"
-                                                                    data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}"
-                                                                    data-tw="{{$item->tw_name ?? ''}}"><span
-                                                                        class="label label-lg font-weight-bold label-light-success label-inline">View</span>
-                                                                </span>
-                                                                <!-- {{$item->tw_name ?: '-'}} -->
-                                                                @if(!$item->tw_name)
-                                                                <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex justify-content-between">
-                                                            <span class="col-5 titleColumn">Drawings & Designs:</span>
-                                                            <div class="d-flex col-6"
-                                                                style="display: flex; justify-content: space-evenly; align-items: center; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                                <p class="uploaddrawinglist cursor-pointer"
-                                                                    data-id="{{$item->id}}" data-type="1"
-                                                                    style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                                                    <!-- View Drawings -->
-                                                                    <span
-                                                                        style="font-size: 16px;opacity: 0.8;color:{{$dcolor}}"
-                                                                        class="fa fa-eye" title="View Drawings"></span>
-                                                                </p>
-                                                                <p class="assessmentlist cursor-pointer"
-                                                                    data-id="{{$item->id}}" data-type="1"
-                                                                    style="margin-bottom:0px;font-weight: 400;font-size: 16px;opacity: 0.8;position: relative;top: 0px;">
-                                                                    <!-- View Drawings -->
-                                                                    @php
-                                                                    $color="";
-                                                                    if(count($item->riskassesment)>0)
-                                                                    {
-                                                                    $color="green";
-                                                                    }
-                                                                    @endphp
-                                                                    <span style="font-size: 14px; color:{{$color}}"
-                                                                        class="fa fa-file"
-                                                                        title="View Calculation/Risk Assessment"></span>
-                                                                </p>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="d-flex">
-                                                            <span class="col-5 titleColumn text-start">Action</span>
-                                                            <div class="d-flex col-6 action"
-                                                                style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                                @if(auth()->user()->hasRole('estimator'))
-                                                                <a href="{{route('estimator.edit',$item->id)}}"><i
-                                                                        class="fa fa-edit"></i></a>
-                                                                @endif
-                                                                @if(auth()->user()->hasRole('user'))
-                                                                @if($item->estimatorApprove)
-                                                                <a href="{{route('estimator.edit',$item->id)}}"><i
-                                                                        class="fa fa-edit"></i></a>
-                                                                @endif
-                                                                @endif
-                                                                <a href="{{route('estimator.show',$item->id)}}"
-                                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
-                                                                    <i class="fa fa-eye"></i>
-                                                                </a>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </td>
-                                                    <td style="width:200px">
-                                                        <div class="d-flex">
-                                                            <span class="col-5 titleColumn">Status</span>
-                                                            <div class="d-flex col-6" style="column-gap:1rem;">
-                                                                @if($item->estimatorApprove)
-                                                                <span class="text-success"
-                                                                    style="white-space: nowrap">Awarded</span>
-                                                                @else
-                                                                <span class="text-danger"
-                                                                    style="white-space: nowrap">Not Awarded</span>
-                                                                @endif
-                                                            </div>
-
-                                                        </div>
-                                                    </td>
-
-                                                    {{-- <td style="">{{ $item->tw_category }}</td> --}}
-                                                    {{-- <td style="">{{ $item->tw_risk_class ?: '-' }}</td> --}}
-                                                    {{-- <td style="min-width: 100px; max-width: 80px;">{{
+                                                    <td style="">{{ $item->tw_category }}</td>
+                                                    <td style="">{{ $item->tw_risk_class ?: '-' }}</td>
+                                                    <td style="min-width: 100px; max-width: 80px;">{{
                                                         $item->design_issued_date ? date('d-m-Y',
-                                                        strtotime($item->design_issued_date)) : '-' }}</td> --}}
-                                                    {{-- <td style="min-width:100px;">
+                                                        strtotime($item->design_issued_date)) : '-' }}</td>
+                                                    <td style="min-width:100px;">
                                                         <span
                                                             class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? ''}} desc cursor-pointer"
                                                             style="border-radius:6px;width: 108px;padding: 2px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}};"
@@ -897,8 +603,8 @@
                                                                     @endif
                                                                 </b>
                                                             </span>
-                                                    </td> --}}
-                                                    {{-- <td>
+                                                    </td>
+                                                    <td>
                                                         <p class="addcomment cursor-pointer"
                                                             style="margin-bottom:2px;font-weight: 400;font-size: 12px;"
                                                             data-id="{{$item->id}}">
@@ -928,8 +634,8 @@
                                                                 {{count($item->comments) ?? '-'}}
                                                             </span>
                                                         </span>
-                                                    </td> --}}
-                                                    {{-- <td style="">
+                                                    </td>
+                                                    <td style="">
                                                         <span class="designer-company cursor-pointer"
                                                             style="width: 108px;"
                                                             data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}"
@@ -937,9 +643,9 @@
                                                                 class="label label-lg font-weight-bold label-light-success label-inline">View</span>
                                                         </span>
 
-                                                    </td> --}}
+                                                    </td>
 
-                                                    {{-- <td style="">
+                                                    <td style="">
                                                         @php
                                                         $date='';
                                                         $dcolor='';
@@ -968,20 +674,19 @@
                                                             strtotime($date))}}
                                                         </p>
                                                         @endif
-                                                    </td> --}}
+                                                    </td>
                                                     <!--  <td></td> -->
-                                                    {{-- <td style="">
+                                                    <td style="">
                                                         @foreach($item->uploadfile as $file)
                                                         @if($file->file_type==2)
                                                         <p class="dateclick cursor-pointer" data-id="{{$item->id}}"
-                                                            data-type="2">
-                                                            {{date('d-m-Y',
+                                                            data-type="2">{{date('d-m-Y',
                                                             strtotime($file->created_at->todatestring()))}}</p>
                                                         @break
                                                         @endif
                                                         @endforeach
-                                                    </td> --}}
-                                                    {{-- <td>
+                                                    </td>
+                                                    <td>
                                                         <p class="uploaddrawinglist cursor-pointer"
                                                             data-id="{{$item->id}}" data-type="1"
                                                             style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
@@ -1004,8 +709,8 @@
                                                                 class="fa fa-file"
                                                                 title="View Calculation/Risk Assessment"></span>
                                                         </p>
-                                                    </td> --}}
-                                                    {{-- <td>
+                                                    </td>
+                                                    <td>
                                                         @php $i=0;@endphp
                                                         @foreach($item->uploadfile as $file)
                                                         @if($file->file_type==2)
@@ -1014,15 +719,15 @@
                                                                 target="_blank">DC{{$i}}</a></span>
                                                         @endif
                                                         @endforeach
-                                                    </td> --}}
-                                                    {{-- <td>
+                                                    </td>
+                                                    <td>
                                                         @if($item->estimatorApprove)
                                                         <span class="text-success">Awarded</span>
                                                         @else
                                                         <span class="text-danger">Not Awarded</span>
                                                         @endif
-                                                    </td> --}}
-                                                    {{-- <td>
+                                                    </td>
+                                                    <td>
                                                         @if(auth()->user()->hasRole('estimator'))
                                                         <a href="{{route('estimator.edit',$item->id)}}"><i
                                                                 class="fa fa-edit"></i></a>
@@ -1037,7 +742,7 @@
                                                             class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
-                                                    </td> --}}
+                                                    </td>
                                                 </tr>
                                                 @empty
                                                 @endforelse

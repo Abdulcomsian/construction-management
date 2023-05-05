@@ -1584,9 +1584,13 @@ $notify_admins_msg = [
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
+        // dd($tempid);
          if (isset($request->type)) {
-           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
-            $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+            
+           //$permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=' , 4)->where('pos_status' , '!=' , 'emailed-unloaded')->latest()->get();                
+           $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=' , 4)->where('pos_status', 0)->latest()->get();
+        //    dd($permited);    
+           $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
          }else{
              $permited = PermitLoad::where(['temporary_work_id' => $tempid])->whereNotIn('status',[ 3 , 2 ])->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
@@ -1873,8 +1877,7 @@ $notify_admins_msg = [
     }
     //permit unload save
     public function permit_unload_save(Request $request)
-    {
-        
+    { 
         Validations::storepermitunload($request);
         try {
             $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text');
@@ -1956,6 +1959,11 @@ $notify_admins_msg = [
                 
                 if($request->principle_contractor == 1)
                 {
+                    $newCreatedPermitNo = $permitload->permit_no;
+                    $newCreatedPermitId = $permitload->id;
+                    PermitLoad::where('permit_no' , $newCreatedPermitNo)
+                                ->where('id' , '!=' , $newCreatedPermitId )
+                                ->update([ 'pos_status' => 1 ]);
                     // $pojectdata=Project::select('name','no')->find($request->project_id);
                     $url = route('pc.permit.unload.approved',Crypt::encrypt($permitload->id));
                     $msg= Auth::user()->name .' has renewed a permit to unload.';

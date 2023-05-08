@@ -197,7 +197,7 @@
                         <tbody style="margin-top: -10px;">
                             <tr>
                                 <td style="font-size: 12px;">Principal contractor approval required?</td>
-                                <td style="font-size: 12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
+                                <td style="font-size: 12px;"> @if($principle_contractor==1){{'Y'}}@else{{'N'}}@endif</td>
                             </tr>
                         </tbody>
                     </table>
@@ -218,7 +218,7 @@
                         <td style="width: 200px; font-size: 12px;"> {{$data['name']}}</td>
                         <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size: 12px;">
                                     Name</b></label></td>
-                        <td style="width: 200px; font-size: 12px;">@if($data['principle_contractor']==1){{$data['name1']}}@endif</td>
+                        <td style="width: 200px; font-size: 12px;">@if($principle_contractor==1){{$data['name1']}}@endif</td>
 
 
                     </tr>
@@ -230,7 +230,7 @@
                         <td style="width: 200px; font-size:12px;">{{$data['job_title']}}</td>
                         <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;"><b style="font-size: 12px;">
                                     Job Title </b></label></td>
-                        <td style="width: 200px; font-size:12px;">@if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
+                        <td style="width: 200px; font-size:12px;">@if($principle_contractor==1){{$data['job_title1']}}@endif</td>
                     </tr>
                     <tr>
                         <td>
@@ -238,9 +238,9 @@
                                     Company</b></label>
                         </td>
                         <td style="width: 200px; font-size:12px;"> {{$data['company']}}</td>
-                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
+                        <!-- <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
                                     Company</b></label></td>
-                        <td style="width: 200px; font-size:12px;">@if($data['principle_contractor']==1) {{$data['company']}}@endif</td>
+                        <td style="width: 200px; font-size:12px;">@if($principle_contractor==1) {{$data['company']}}@endif</td> -->
 
 
                     </tr>
@@ -252,13 +252,13 @@
                         <td style="width: 200px; font-size:12px">
                             <img src="temporary/signature/{{$image_name}}" width="40px" height="40px" />
                         </td>
-                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black;  margin: 0px;"><b style="font-size: 12px;">
+                        <!-- <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black;  margin: 0px;"><b style="font-size: 12px;">
                                     Signature </b></label></td>
                         <td style="width: 200px; font-size:12px;">
                              @if(isset($image_name1) && $image_name1!='')
                             <img src="temporary/signature/{{$image_name1}}" width="40px" height="40px" />
                              @endif
-                        </td>
+                        </td> -->
                     </tr>
                     <tr>
                         <td>
@@ -268,11 +268,11 @@
                         <td style="width: 200px; font-size:12px;">
                             {{ date('d-m-Y', strtotime($data['date'])) }}
                         </td>
-                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
+                        <!-- <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
                                     Date </b></label></td>
                         <td style="width: 200px; font-size:12px;">
-                            @if($data['principle_contractor']==1){{ date('d-m-Y', strtotime($data['date'])) }}@endif
-                        </td>
+                            @if($principle_contractor==1){{ date('d-m-Y', strtotime($data['date'])) }}@endif
+                        </td> -->
 
                     </tr>
                 </tbody>

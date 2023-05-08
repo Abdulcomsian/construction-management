@@ -641,7 +641,8 @@
                             <div class="col" style="flex:100% !important;">
                                 {{-- <div class="d-flex inputDiv">
                                 </div> --}}
-                                @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                                <!-- @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                                @endif -->
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
@@ -661,7 +662,7 @@
                                         name="job_title1">
                                     {{-- value="{{old('job_title1',$permitdata->job_title1 ?? '')}}" --}}
                                 </div>
-                                @endif
+                                
                             </div>
 
                             <!-- <div class="col">

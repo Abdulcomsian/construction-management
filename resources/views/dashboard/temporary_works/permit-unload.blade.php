@@ -232,6 +232,10 @@
             width: 100%;
         }
     }
+
+    .btn-check:checked+.btn.btn-active-primary2 {
+        background: #FFBF00;
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 @endsection
@@ -552,14 +556,14 @@
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="approval_PC" value="1"
                                             @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==2){{'checked'}}@endif/>
+                                            $permitdata->principle_contractor==1){{'checked'}}@endif/>
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="approval_PC" value="2"
                                             @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==1){{'checked'}}@endif/>
+                                            $permitdata->principle_contractor==2){{'checked'}}@endif/>
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
@@ -1006,7 +1010,6 @@
         }
     })
     $("#pdfChecked1").change(function () {
-        alert('fakjsdfh')
         if ($(this).is(':checked')) {
             $("#DrawCheck1").prop('checked',false);
             $("#flexCheckChecked1").prop('checked',false);

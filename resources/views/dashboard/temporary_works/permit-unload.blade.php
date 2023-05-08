@@ -732,13 +732,13 @@
                                         <span class="required">Company: </span>
                                     </label>
                                     <!--end::Label-->
-                                    <div class="input">
+                                    <div class="input" style="width: 100%">
                                         <input type="text" id="companyadmin" class="form-control form-control-solid"
                                             placeholder="Company" name="company1"
-                                            value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                            value="{{$project->company->name ?? ''}}">
                                         <input type="hidden" id="companyid" class="form-control form-control-solid"
-                                            placeholder="Company" name="companyid"
-                                            value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                            placeholder="Company" name="companyid1"
+                                            value="{{$project->company->id ?? ''}}">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -792,7 +792,7 @@
                                                     <span class="required">Signature:</span>
                                                 </label>
                                                 <br/> -->
-                                        <canvas id="sig" onblure="draw()"
+                                        <canvas id="sig1" onblure="draw()"
                                             style="background: lightgray; border-radius:10px"></canvas>
                                         <br />
                                         <textarea id="signature" name="signed" style="display: none"></textarea>

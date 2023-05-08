@@ -539,15 +539,13 @@
                                     style="position: relative; left:82%;background: white">
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="principle_contractor" value="1"
-                                            @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==2){{'checked'}}@endif/>
+                                            {{-- @if(isset($permitdata) && $permitdata->principle_contractor==2){{'checked'}}@endif/> --}}
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" name="principle_contractor" value="2"
-                                            @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==1){{'checked'}}@endif/>
+                                            {{-- @if(isset($permitdata) && $permitdata->principle_contractor==1){{'checked'}}@endif/> --}}
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
@@ -555,18 +553,19 @@
                                
                             </div> -->
                             <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2" style="width:fit-content; bottom: 25px">
-                                            <span>Approval via Email Required by the PCTWC</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <input type="checkbox" name="principle_contractor" id="approval"
-                                            style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
-                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
-                                            approval is required.</span>
-                                    </div>
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2" style="width:fit-content; bottom: 25px">
+                                    <span>Approval via Email Required by the PCTWC</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="checkbox" name="principle_contractor" value="1" id="approval"
+                                    style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                                <input type="hidden" name="approavalEmailReq" value="0">
+                                <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
+                                    approval is required.</span>
+                            </div>
                         </div>
-                        <div class="col-md-6 my-4" id="twc-email-box">
+                        <div class="col-md-6 my-4" id="twc-email-box" class="twc-email-box">
                             <div class="inputDiv pc-twc mb-0 mt-6 d-flex">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2"
@@ -788,34 +787,36 @@
 @endsection
 @section('scripts')
 <script>
-     document.getElementById("twc-email-box").classList.add("d-none");
+    document.getElementById("twc-email-box").classList.add("d-none");
      $("#approval").change(function () {
         if ($(this).is(':checked')) {
-            $("#twc-email-box").removeClass('d-none').addClass('d-flex');
+            document.getElementById("twc-email-box").classList.remove("d-none")
             $(".pc-twc").removeClass('d-none').removeClass('d-flex');
             $("#pc-twc-email").attr('required', 'required');
+            $('input[name="approavalEmailReq"]').val(1);
         } else {
-            $("#twc-email-box").removeClass('d-none').addClass('d-flex');
+            $("#twc-email-box").removeClass('d-none');
             $(".pc-twc").removeClass('d-flex').addClass('d-none');
             $("#pc-twc-email").removeAttr('required');
+            $('input[name="approavalEmailReq"]').val(0);
         }
     })
-    $("input[name='principle_contractor']").change(function () {
-        if ($(this).val() == 1) {
+    // $("input[name='principle_contractor']").change(function () {
+    //     if ($(this).val() == 1) {
 
-            $("#first_member").show();
-            $("input[name='name1']").attr('required', 'required');
-            $("input[name='job_title1']").attr('required', 'required');
-            document.getElementById("twc-email-box").classList.remove("d-none")
+    //         $("#first_member").show();
+    //         $("input[name='name1']").attr('required', 'required');
+    //         $("input[name='job_title1']").attr('required', 'required');
+    //         document.getElementById("twc-email-box").classList.remove("d-none")
             
 
-        } else {
-            $("#first_member").hide();
-            $("input[name='name1']").removeAttr('required');
-            $("input[name='job_title1']").removeAttr('required');
-            document.getElementById("twc-email-box").classList.add("d-none")
-        }
-    })
+    //     } else {
+    //         $("#first_member").hide();
+    //         $("input[name='name1']").removeAttr('required');
+    //         $("input[name='job_title1']").removeAttr('required');
+    //         document.getElementById("twc-email-box").classList.add("d-none")
+    //     }
+    // })
 
 
 

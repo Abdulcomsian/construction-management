@@ -1,3 +1,9 @@
+<style>
+    .permitLoad-modal--table thead td {
+        padding: 4px;
+    }
+</style>
+
 <div class="modal fade" id="permit_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-900px">
@@ -9,10 +15,14 @@
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                fill="#000000">
                                 <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                                <rect fill="#000000" opacity="0.5"
+                                    transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                    x="0" y="7" width="16" height="2" rx="1" />
                             </g>
                         </svg>
                     </span>
@@ -30,7 +40,8 @@
                 </div>
                 @if(isset($scantempwork) && $scantempwork=='')
                 <div class=" text-center" id="permitloadbutton">
-                    <form method="get" action="{{route('scaffolding.load')}}" style="display:inline-block;margin-right:20px;">
+                    <form method="get" action="{{route('scaffolding.load')}}"
+                        style="display:inline-block;margin-right:20px;">
                         <input type="hidden" class="temp_work_id" name="temp_work_id" />
                         <button type="submit" class="btn btn-primary"> Scaffolding Permit / Inspection</button>
                     </form>
@@ -41,7 +52,7 @@
                 </div>
                 @endif
                 <div class="d-flex text-center">
-                    <table class="table table-hover">
+                    <table class="table table-hover permitLoad-modal--table">
                         <thead style="height: 60px;">
                             <tr style="background: #f5f8fa;color:#000;">
                                 <td><b>Temporary Work</b></td>

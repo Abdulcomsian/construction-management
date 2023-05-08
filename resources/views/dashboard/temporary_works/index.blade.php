@@ -353,6 +353,12 @@
             text-align: center;
         }
     }
+
+
+    @media (max-width: 546px) {
+        #kt_content_container .card-label {
+            padding-top: 3.25rem !important;
+        }
     }
 
     .modal-backdrop {

@@ -531,12 +531,10 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="d-flex inputDiv">
-                                <!--begin::Label-->
+                            <!-- <div class="d-flex inputDiv">
                                 <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
                                     <span class="required">Principle Contractor approval required?</span>
                                 </label>
-                                <!--begin::Radio group-->
                                 <div class=" justify-content-end"
                                     style="position: relative; left:82%;background: white">
                                     <label style="position: initial; flex-grow: 0; background: white">
@@ -554,7 +552,19 @@
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                 </div>
-                            </div>
+                               
+                            </div> -->
+                            <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2" style="width:fit-content; bottom: 25px">
+                                            <span>Approval via Email Required by the PCTWC</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="checkbox" name="principle_contractor" id="approval"
+                                            style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
+                                            approval is required.</span>
+                                    </div>
                         </div>
                         <div class="col-md-6 my-4" id="twc-email-box">
                             <div class="inputDiv pc-twc mb-0 mt-6 d-flex">
@@ -778,6 +788,18 @@
 @endsection
 @section('scripts')
 <script>
+     document.getElementById("twc-email-box").classList.add("d-none");
+     $("#approval").change(function () {
+        if ($(this).is(':checked')) {
+            $("#twc-email-box").removeClass('d-none').addClass('d-flex');
+            $(".pc-twc").removeClass('d-none').removeClass('d-flex');
+            $("#pc-twc-email").attr('required', 'required');
+        } else {
+            $("#twc-email-box").removeClass('d-none').addClass('d-flex');
+            $(".pc-twc").removeClass('d-flex').addClass('d-none');
+            $("#pc-twc-email").removeAttr('required');
+        }
+    })
     $("input[name='principle_contractor']").change(function () {
         if ($(this).val() == 1) {
 

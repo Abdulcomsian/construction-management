@@ -238,9 +238,9 @@
                                     Company</b></label>
                         </td>
                         <td style="width: 200px; font-size:12px;"> {{$data['company']}}</td>
-                        <!-- <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
                                     Company</b></label></td>
-                        <td style="width: 200px; font-size:12px;">@if($principle_contractor==1) {{$data['company']}}@endif</td> -->
+                        <td style="width: 200px; font-size:12px;">@if($principle_contractor==1) {{$data['company1']}}@endif</td>
 
 
                     </tr>
@@ -250,15 +250,21 @@
                                     Signature </b></label>
                         </td>
                         <td style="width: 200px; font-size:12px">
+                        @if(isset($image_name) && $image_name!='')
                             <img src="temporary/signature/{{$image_name}}" width="40px" height="40px" />
+                            @else
+                            {{ $data['namesign'] ?? ''}}
+                             @endif
                         </td>
-                        <!-- <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black;  margin: 0px;"><b style="font-size: 12px;">
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black;  margin: 0px;"><b style="font-size: 12px;">
                                     Signature </b></label></td>
                         <td style="width: 200px; font-size:12px;">
                              @if(isset($image_name1) && $image_name1!='')
                             <img src="temporary/signature/{{$image_name1}}" width="40px" height="40px" />
+                            @else
+                            {{ $data['namesign1'] ?? ''}}
                              @endif
-                        </td> -->
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -266,13 +272,13 @@
                                     Date </b></label>
                         </td>
                         <td style="width: 200px; font-size:12px;">
-                            {{ date('d-m-Y', strtotime($data['date'])) }}
+                            {{ date('d-m-Y', strtotime($data['date1'])) }}
                         </td>
-                        <!-- <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
+                        <td><label for="" style="width: 200px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size: 12px;">
                                     Date </b></label></td>
                         <td style="width: 200px; font-size:12px;">
-                            @if($principle_contractor==1){{ date('d-m-Y', strtotime($data['date'])) }}@endif
-                        </td> -->
+                            @if($principle_contractor==1){{ date('d-m-Y', strtotime($data['date2'])) }}@endif
+                        </td>
 
                     </tr>
                 </tbody>

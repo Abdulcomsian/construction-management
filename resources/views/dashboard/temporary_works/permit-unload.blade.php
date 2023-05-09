@@ -636,7 +636,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}"
+                                    <input type="date" name="date1" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}"
                                         class="form-control form-control-solid">
                                 </div>
                             </div>
@@ -746,7 +746,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <div class="input">
-                                        <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}"
+                                        <input type="date" name="date2" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}"
                                             class="form-control form-control-solid">
                                     </div>
                                 </div>
@@ -801,7 +801,7 @@
                                         <label class="fs-6 fw-bold mb-2" style="width: fit-content">
                                             <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
                                         </label>
-                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                        <input type="file" name="pdfphoto1" class="form-control" accept="image/*">
                                     </div>
 
                                     <div class="d-none inputDiv" id="namesign1">

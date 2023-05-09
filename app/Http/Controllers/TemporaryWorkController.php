@@ -1890,24 +1890,33 @@ $notify_admins_msg = [
         // dd($request->principle_contractor);
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
-            if (isset($request->signtype1)) {
+            
+            
                 if ($request->signtype1 == 1) {
                     $all_inputs['signature1'] = $request->namesign1;
-                } else {
+                }elseif ($request->pdfsigntype == 1) {
                     $folderPath = public_path('temporary/signature/');
-                    $image = explode(";base64,", $request->signed1);
-                    $image_type = explode("image/", $image[0]);
-                    $image_type_png = $image_type[1];
-                    $image_base64 = base64_decode($image[1]);
-                    $image_name1 = uniqid() . '.' . $image_type_png;
-                    $file = $folderPath . $image_name1;
-                    file_put_contents($file, $image_base64);
-                    $all_inputs['signature1'] = $image_name1;
+                    $file = $request->file('pdfphoto1');
+                    $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                    $file->move($folderPath, $filename);
+                    $image_name1 = $filename;
+                    $all_inputs['signature'] = $image_name1;
+                }else{
+                    $folderPath = public_path('temporary/signature/');
+                        $image = explode(";base64,", $request->signed1);
+                        $image_type = explode("image/", $image[0]);
+                        
+                        $image_type_png = $image_type[1];
+                        $image_base64 = base64_decode($image[1]);
+                        $image_name1 = uniqid() . '.' . $image_type_png;
+                        $file = $folderPath . $image_name1;
+                        file_put_contents($file, $image_base64);
+                        $all_inputs['signature1'] = $image_name1;
                 }
-            }
+            
             //for 2
             $image_name = '';
             if ($request->signtype == 1) {
@@ -1949,7 +1958,7 @@ $notify_admins_msg = [
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC]);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);

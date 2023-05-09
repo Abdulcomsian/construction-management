@@ -991,46 +991,17 @@
                            {{$item->design_requirement_text ?? ''}}</p>
                      </td>
                      <td
-                        style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
-
-                        <div class="commentSection"
-                           style="background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;">
-                           <p class="addcomment cursor-pointer"
-                              style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important;"
-                              data-id="{{$item->id}}">
-                              <!-- <span class="fa fa-plus"></span> -->
-                              Comment
-                           </p>
-                           @php
-                           $drawingscount=0;
-                           $color="green";
-                           $class='';
-                           if(count($item->commentlist)>0)
-                           {
-                           $color="red";
-                           $class='redBgBlink';
-                           if(count($item->reply)== count($item->commentlist))
-                           {
-                           $color="blue";
-                           $class='';
-                           }
-                           }
-                           @endphp
-                           <span class="addcomment cursor-pointer"
-                              style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;"
-                              data-id="{{$item->id}}">
-                              <span class="{{$class}} label label-lg font-weight-bold label-inline">
-                                 {{count($item->commentlist) ?? '-'}}
-                              </span>
+                        style="min-width:250px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
+                        <div class="d-flex justify-content-between">
+                           <span class="titleColumn">
+                              Description TWs:
+                           </span>
+                           <span class="desc cursor-pointer" style="width: 96px;padding: 2px;" data-toggle="tooltip"
+                              data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span
+                                 class="label label-lg font-weight-bold label-light-success label-inline"
+                                 style="display: inline-block;width: fit-content; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                            </span>
                         </div>
-                        <span class="desc cursor-pointer" style="width: 112px;padding: 2px;" data-toggle="tooltip"
-                           data-placement="top" title="{{ $item->description_temporary_work_required ?: '-' }}"><span
-                              class="label label-lg font-weight-bold label-light-success label-inline"
-                              style="display: inline-block;width: 100%; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
-                        </span>
-                     </td>
-                     <td style="min-width: 220px; max-width: 80px;">
                         <div class="d-flex justify-content-between">
                            <span class="titleColumn">Issue Date:</span>
                            <span style="width: 96px; text-align:center">{{ $item->design_issued_date ? date('d-m-Y',
@@ -1047,11 +1018,15 @@
                                     && !empty($item->design_required_by_date) ? date('d-m-Y',
                                     strtotime($item->design_required_by_date)) : '-' }}</b></span>
                         </div>
+
+
+                     </td>
+                     <td style="min-width: 220px; max-width: 80px; padding: 15px !important">
                         <div>
-                           <div class="d-flex justify-content-between"">
-                               <span>
-                                   <span class=" titleColumn">CAT Check:</span>
-                              <span>{{ $item->tw_category }}</span>
+                           <div class="d-flex justify-content-between">
+                              <span>
+                                 <span class=" titleColumn">CAT Check:</span>
+                                 <span>{{ $item->tw_category }}</span>
                               </span>
                               <span>
                                  <span class="titleColumn">Risk Class:</span>
@@ -1060,6 +1035,50 @@
 
                            </div>
                         </div>
+                        <div style="margin: 12px 0;">
+                           <div class="d-flex justify-content-between"">
+                              <span>
+                                  <span class=" titleColumn">Cost:</span>
+                              <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
+                                 '0'}}</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                           <div>Comment</div>
+                           <div class="commentSection"
+                              style="background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;">
+                              <p class="addcomment cursor-pointer"
+                                 style="margin-bottom:2px;font-weight: 400;font-size: 12px; display: inline-block; margin-right: 4px !important;"
+                                 data-id="{{$item->id}}">
+                                 <!-- <span class="fa fa-plus"></span> -->
+                                 Comment
+                              </p>
+                              @php
+                              $drawingscount=0;
+                              $color="green";
+                              $class='';
+                              if(count($item->commentlist)>0)
+                              {
+                              $color="red";
+                              $class='redBgBlink';
+                              if(count($item->reply)== count($item->commentlist))
+                              {
+                              $color="blue";
+                              $class='';
+                              }
+                              }
+                              @endphp
+                              <span class="addcomment cursor-pointer"
+                                 style="border-radius:5px;width: 108px;background:{{$color}} !important;color: white !important;"
+                                 data-id="{{$item->id}}">
+                                 <span class="{{$class}} label label-lg font-weight-bold label-inline">
+                                    {{count($item->commentlist) ?? '-'}}
+                                 </span>
+                              </span>
+                           </div>
+                        </div>
+
                      </td>
                      {{-- <td style="min-width: 254px; max-width: 80px;">
                         <div class="d-flex justify-content-between">
@@ -1199,8 +1218,8 @@
                            </div>
                         </div>
                      </td> --}}
-                     <td style="min-width: 254px; max-width: 80px;">
-                        {{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') : '0'}}
+                     {{-- <td style="min-width: 254px; max-width: 80px;"> --}}
+                        {{-- {{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') : '0'}} --}}
                         {{-- <div class="d-flex justify-content-between">
                            <span class="titleColumn">Design Check CERT:</span>
                            <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
@@ -1271,13 +1290,51 @@
 
                            </div>
                         </div> --}}
+                        {{--
+                     </td> --}}
+                     <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
+                        <div class="d-flex justify-content-between">
+                           <span>
+                              <span class=" titleColumn fw-bold">Allocated Designers:</span>
+                           </span>
+                        </div>
+                        <div class="d-flex justify-content-between" style="margin: 12px 0;">
+                           <span class=" titleColumn">Designer Name:</span>
+                           <span>John Deo</span>
+                        </div>
+                        <div class="d-flex justify-content-between"">
+                           <span class=" titleColumn">Checker Name:</span>
+                           <span>John Deo</span>
+                        </div>
+                     </td>
+                     <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
+                        <div class="d-flex justify-content-between">
+                           <span class=" titleColumn fw-bold">Design Check Cert:</span>
+                        </div>
+                        <div class="d-flex justify-content-between" style="margin: 12px 0;">
+                           <span class=" titleColumn">Designer Name:</span>
+                           <span>John Deo</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                           <span class=" titleColumn">Checker Name:</span>
+                           <span>John Deo</span>
+                        </div>
+                     </td>
+                     <td style="min-width: 154px; max-width: 80px;">
+                        <div class="d-flex justify-content-between">
+                           <span class=" titleColumn">Drawing:</span>
+                           <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$item->designer->email)}}"
+                              target="_blank"><i class="fa fa-eye"></i></a>
+                        </div>
+                        <button class="btn btn-sm"
+                           style="border: 1px solid #02B654; color: #02B654; display:block">Invoice
+                           Sent</button>
+                        <button class="btn btn-sm"
+                           style="border: 1px solid #FFA500; color: white; background-color:#FFA500;display:block">Invoice
+                           Paid</button>
                      </td>
                      <td style="min-width: 254px; max-width: 80px;">
                         {{$item->project->company ? $item->project->company->name : '--'}}
-                     </td>
-                     <td style="min-width: 254px; max-width: 80px;">
-                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$item->designer->email)}}"
-                           target="_blank"><i class="fa fa-eye"></i></a>
                      </td>
 
                   </tr>

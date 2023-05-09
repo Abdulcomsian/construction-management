@@ -989,10 +989,10 @@
                            Plant:</p>
                         <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">
                            {{$item->design_requirement_text ?? ''}}</p>
+                        <p>{{$item->project->company ? $item->project->company->name : '--'}}</p>
                      </td>
-                     <td
-                        style="min-width:250px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around">
-                        <div class="d-flex justify-content-between">
+                     <td style="min-width: 216px;padding: 11px !important;">
+                        <div class="d-flex justify-content-between align-items-center">
                            <span class="titleColumn">
                               Description TWs:
                            </span>
@@ -1002,16 +1002,16 @@
                                  style="display: inline-block;width: fit-content; text-align: center;background: #FFA50026;color: #FFA500; font-weight: 400">Description</span>
                            </span>
                         </div>
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center" style="margin: 11px 0;">
                            <span class="titleColumn">Issue Date:</span>
                            <span style="width: 96px; text-align:center">{{ $item->design_issued_date ? date('d-m-Y',
                               strtotime($item->design_issued_date)) : '-' }}</span>
                         </div>
-                        <div class="d-flex justify-content-between my-6">
+                        <div class="d-flex justify-content-between align-items-center">
                            <span class="titleColumn">Required by:</span>
                            <span
                               class="{{$item->design_required_by_date ? date('d-m-Y', strtotime($item->design_required_by_date)) : '-' }} desc cursor-pointer"
-                              style="border-radius:6px;width: 95px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"
+                              style="border-radius:6px;padding: 2px;width: fit-content;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"
                               data-toggle="tooltip" data-placement="top"
                               title="{{ $item->description_temporary_work_required ?: '-' }}"><span
                                  class="label label-lg font-weight-light  label-inline"><b>{{isset($item->design_required_by_date)
@@ -1037,14 +1037,12 @@
                         </div>
                         <div style="margin: 12px 0;">
                            <div class="d-flex justify-content-between"">
-                              <span>
                                   <span class=" titleColumn">Cost:</span>
                               <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
                                  '0'}}</span>
-                              </span>
                            </div>
                         </div>
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
                            <div>Comment</div>
                            <div class="commentSection"
                               style="background: #3A7DFF26; border-radius: 7px; padding: 4px 10px; color: #3A7DFF; padding: 4px 10px !important;">
@@ -1295,7 +1293,8 @@
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <span>
-                              <span class=" titleColumn fw-bold">Allocated Designers:</span>
+                              <span class=" titleColumn" style="font-weight: bold; color: black">Allocated
+                                 Designers:</span>
                            </span>
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
@@ -1309,7 +1308,8 @@
                      </td>
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
-                           <span class=" titleColumn fw-bold">Design Check Cert:</span>
+                           <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
+                              Cert:</span>
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
@@ -1320,21 +1320,18 @@
                            <span>John Deo</span>
                         </div>
                      </td>
-                     <td style="min-width: 154px; max-width: 80px;">
+                     <td style="min-width: 154px; max-width: 80px;padding: 15px !important">
                         <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Drawing:</span>
                            <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$item->designer->email)}}"
                               target="_blank"><i class="fa fa-eye"></i></a>
                         </div>
-                        <button class="btn btn-sm"
-                           style="border: 1px solid #02B654; color: #02B654; display:block">Invoice
+                        <button class="btn btn-sm w-100 my-1"
+                           style="border: 1px solid #02B654; color: #02B654; display:block; padding: 6px; border-radius: 5px">Invoice
                            Sent</button>
-                        <button class="btn btn-sm"
-                           style="border: 1px solid #FFA500; color: white; background-color:#FFA500;display:block">Invoice
+                        <button class="btn btn-sm w-100"
+                           style="border: 1px solid #FFA500; color: white; background-color:#FFA500;display:block;padding: 6px; border-radius: 5px">Invoice
                            Paid</button>
-                     </td>
-                     <td style="min-width: 254px; max-width: 80px;">
-                        {{$item->project->company ? $item->project->company->name : '--'}}
                      </td>
 
                   </tr>

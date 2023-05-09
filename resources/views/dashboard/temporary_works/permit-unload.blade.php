@@ -733,12 +733,10 @@
                                     </label>
                                     <!--end::Label-->
                                     <div class="input" style="width: 100%">
-                                        <input type="text" id="companyadmin" class="form-control form-control-solid"
-                                            placeholder="Company" name="company1"
-                                            value="{{$project->company->name ?? ''}}">
-                                        <input type="hidden" id="companyid" class="form-control form-control-solid"
-                                            placeholder="Company" name="companyid1"
-                                            value="{{$project->company->id ?? ''}}">
+                                        <input type="text" id="companyadmin1" class="form-control form-control-solid"
+                                            placeholder="Company" name="company1">
+                                        <input type="hidden" id="companyid1" class="form-control form-control-solid"
+                                            placeholder="Company" name="companyid1">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -795,7 +793,7 @@
                                         <canvas id="sig1" onblure="draw()"
                                             style="background: lightgray; border-radius:10px"></canvas>
                                         <br />
-                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <textarea id="signature1" name="signed1" style="display: none"></textarea>
                                         <span id="clear" class="fa fa-undo cursor-pointer"
                                             style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                     </div>
@@ -810,7 +808,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Name Signature:</span>
                                         </label>
-                                        <input type="text" name="namesign" class="form-control form-control-solid">
+                                        <input type="text" name="namesign1" class="form-control form-control-solid">
                                     </div>
                                 </div>
 

@@ -131,7 +131,7 @@ class HelperFunctions
                 }
                 foreach ($array as $arr) {
                         
-                    if ($arr->file_type == 1 && $arr->status==2) {
+                    if ($arr->file_type == 1 && $arr->construction==1) {
                         $current = $arr->created_at;
                         $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
                         $diff_in_days = $to->diffInDays($current);
@@ -148,7 +148,9 @@ class HelperFunctions
                         }
                         return array($class,$blinkclass);
                         break;
-                    } 
+                    } else{
+                        continue;
+                    }
                 }
                 return array($class,$blinkclass);
             }

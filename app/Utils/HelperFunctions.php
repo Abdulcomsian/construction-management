@@ -120,18 +120,18 @@ class HelperFunctions
                 $diff_in_days = $to->diffInDays($current);
                 $result =  $current->gt($to);
                 if ($result) {
-                    $class = "background:red !important;";
+                    $class = "background:red !important;color:black !important;";
                     $blinkclass="redBgBlink";
                 } elseif ($diff_in_days >= 7) {
-                    $class = "background:green !important";
+                    $class = "background:green !important;color:black !important;";
                      $blinkclass=" ";
                 } elseif ($diff_in_days <= 7 && $diff_in_days >= 0) {
-                    $class = "background:yellow !important";
+                    $class = "background:yellow !important;color:black !important;";
                      $blinkclass=" ";
                 }
                 foreach ($array as $arr) {
                         
-                    if ($arr->file_type == 1) {
+                    if ($arr->file_type == 1 && $arr->status==2) {
                         $current = $arr->created_at;
                         $to = \Carbon\Carbon::createFromFormat('Y-m-d', $desingdate);
                         $diff_in_days = $to->diffInDays($current);

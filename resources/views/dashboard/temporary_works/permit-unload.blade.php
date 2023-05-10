@@ -554,16 +554,12 @@
                                 <div class=" justify-content-end"
                                     style="position: relative; left:82%;background: white">
                                     <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" name="approval_PC" value="1"
-                                            @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==1){{'checked'}}@endif/>
+                                        <input type="radio" class="btn-check" name="approval_PC" value="1" /> 
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" name="approval_PC" value="2"
-                                            @if(isset($permitdata) &&
-                                            $permitdata->principle_contractor==2){{'checked'}}@endif/>
+                                        <input type="radio" class="btn-check" name="approval_PC" value="2" />
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>

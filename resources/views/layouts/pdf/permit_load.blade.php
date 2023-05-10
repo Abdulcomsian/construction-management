@@ -169,10 +169,7 @@
                             </label>
                         </td>
                     </tr>
-                    <tr>
-                            <td style="font-size:12px;">Approval by TWC required?</td>
-                            <td style="font-size:12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
-                    </tr>
+                    
                 </tbody>
             </table>
             <br>
@@ -186,12 +183,17 @@
                         <td style="font-size:12px;">Has the construction methodology changed?<br><span style="font-size:12px;">{{$data['construction_methodology_comment'] ?? ''}}</span></td>
                         <td style="font-size:12px;">@if($data['construction_methodology']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
+                    <tr>
+                            <td style="font-size:12px;">Other Approval Required?</td>
+                            <td style="font-size:12px;"> @if($data['principle_contractor']==1){{'Y'}}@else{{'N'}}@endif</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         <div class="tableDiv paddingTable" style="margin-top: 5px">
             <table>
                 <tbody>
+                
                     <tr>
                        
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">

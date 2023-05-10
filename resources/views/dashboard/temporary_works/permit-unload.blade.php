@@ -559,7 +559,7 @@
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" name="approval_PC" value="2" />
+                                        <input type="radio" class="btn-check" checked name="approval_PC" value="2" />
                                         <span
                                             class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>

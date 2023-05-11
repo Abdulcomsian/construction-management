@@ -45,7 +45,7 @@
                             <form id="kt_modal_new_target_form" class="form comments_details_form comments_form"
                     action="{{ route('temporarywork.storecomment') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="temp_work_id" id="temp_work_id" />
+                                <input type="hidden" name="temp_work_id" id="temp_work_id2" />
                                 <input type="hidden" name="type" value="twctodesigner" />
                                 <div class="col-lg-12 d-flex align-items-center fw-bold fs-6"
                                     style="border: 2px dashed #07D56480">
@@ -63,6 +63,7 @@
                                     </button>
                                 </div>
                             </form>
+                            <div id="twccommenttable2">
                             <!--begin::Label-->
                         </div>
 

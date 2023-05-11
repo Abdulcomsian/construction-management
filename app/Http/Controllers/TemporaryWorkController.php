@@ -1234,10 +1234,12 @@ $notify_admins_msg = [
     {
         $table = '';
         $tabletwc='';
+        $tabletwcdesigner='';
         $path = config('app.url');
         if ($request->type == 'normal') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
             $twccommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'twc'])->get();
+            $twcdesigncommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'twctodesigner'])->get();
         } elseif ($request->type == 'pc') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'pc'])->get();
         } elseif ($request->type == 'permit') {
@@ -1251,7 +1253,7 @@ $notify_admins_msg = [
         if (isset($twccommetns) && count($twccommetns) > 0) {
             $tabletwc.= '<table class="table"  style="border-radius: 8px; overflow: hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">No</th><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Twc Comment</th><th style="width:120px;color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">Date</th><th></th></tr></thead><tbody>';
             $i = 1;
-            foreach ($twccommetns as $comment) {
+            foreach ($twccommetns as $comment) { 
                  $tabletwc .= '<tr style="background:white">
                                <td style="padding: 11px !important">' . $i . '</td><td style="padding: 11px !important">' . $comment->comment . '</td>
                                <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
@@ -1260,6 +1262,19 @@ $notify_admins_msg = [
             }
              $tabletwc .= '</tbody></table>';
         }
+        if (isset($twcdesigncommetns) && count($twcdesigncommetns) > 0) {
+            $tabletwcdesigner.= '<table class="table"  style="border-radius: 8px; overflow: hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">No</th><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Twc Messages to Designer</th><th style="width:120px;color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">Date</th><th></th></tr></thead><tbody>';
+            $i = 1;
+            foreach ($twcdesigncommetns as $comment) { 
+                 $tabletwcdesigner .= '<tr style="background:white">
+                               <td style="padding: 11px !important">' . $i . '</td><td style="padding: 11px !important">' . $comment->comment . '</td>
+                               <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
+                           </tr>';
+                $i++;
+            }
+             $tabletwcdesigner .= '</tbody></table>';
+        }
+        
         if (count($commetns) > 0) {
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
                 $table.= '<table class="table" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
@@ -1377,7 +1392,7 @@ $notify_admins_msg = [
             $table .= '</tbody></table>';
             
         } 
-        echo  json_encode(array('comment'=>$table,'twccomment'=>$tabletwc));
+        echo  json_encode(array('comment'=>$table,'twccomment'=>$tabletwc, 'twcdesigner'=>$tabletwcdesigner));
     }
     //get file dates upload 
     public function file_upload_dates(Request $request)

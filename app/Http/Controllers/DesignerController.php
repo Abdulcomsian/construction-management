@@ -289,7 +289,7 @@ class DesignerController extends Controller
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
-        $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id,'type'=>'normal'])->get();
+        $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id])->whereIn('type', ['normal', 'twctodesigner'])->get();
         return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata'));
         
     }

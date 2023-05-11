@@ -1095,6 +1095,10 @@ $notify_admins_msg = [
                 $model->type = 'twc';
                 $twc="twc";
             }
+            if (isset($request->type) && $request->type == 'twctodesigner') {
+                $model->type = 'twctodesigner';
+                $twc="twctodesigner";
+            }
             if ($model->save()) {
                 if(!isset($twc))
                 {
@@ -1308,7 +1312,8 @@ $notify_admins_msg = [
                 $formorreply='';
                 $none='';
                 if ($comment->replay) {
-                    $none='display:none;';
+                    $none='display:block;';
+                    // $none='display:none;';
                   
                     // for ($j = 0; $j < count($comment->replay); $j++) {
                         if ($comment->replay[0]) {

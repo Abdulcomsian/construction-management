@@ -260,7 +260,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Designer's Comments</th>
-                                        <th>TWC Reply</th>
+                                        <th>TWC Comments</th>
                                        
                                     </tr>
                                 </thead>
@@ -271,24 +271,44 @@
                                     @foreach($comments as $cments)
                                     <tr >
                                         <td><b>{{$loop->index+1}}</b></td>
-                                        <td class="designer-comment">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b>
-                                        <br><br>
-										@php
-										if(isset($cments->image)){
-										@endphp
-											<a href="{{$path}}{{$cments->image}}">View File</a>
-										@php
-										}
-										@endphp
-										</b>
-                                        </td>
-                                        <td class="twc-reply">
+                                        @if($cments->type=='normal') 
+                                        <!-- added by Abdul to show only designers comment -->
+                                            <td class="designer-comment">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b>
+                                            <br><br>
+                                            @php
+                                            if(isset($cments->image)){
+                                            @endphp
+                                                <a href="{{$path}}{{$cments->image}}">View File</a>
+                                            @php
+                                            }
+                                            @endphp
+                                            </b>
+                                            </td>
+                                        @endif
+                                        
                                             @if($cments->replay)
+                                            
+                                            <td class="twc-reply">
                                              @php $i=0;@endphp
                                              @foreach($cments->replay as $reply)
                                               <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
                                               @php $i++; @endphp
                                              @endforeach
+                                             @endif
+                                            @if($cments->type=='twctodesigner')
+                                                <td class="designer-comment"></td>
+                                                <td class="twc-reply">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b>
+                                                <br><br>
+                                                @php
+                                                if(isset($cments->image)){
+                                                @endphp
+                                                    <a href="{{$path}}{{$cments->image}}">View File</a>
+                                                @php
+                                                }
+                                                @endphp
+                                                </b>
+                                                <hr />
+                                                </td>
                                             @endif
                                             <br><br>
                                             @php

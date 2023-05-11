@@ -34,6 +34,38 @@
                         Comments</h1>
                     <!--end::Title-->
                 </div>
+
+                <div class="col-md-12">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+                                <span class="required">TWC Message to Designers:</span>
+                            </label>
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <form id="kt_modal_new_target_form" class="form comments_details_form comments_form"
+                    action="{{ route('temporarywork.storecomment') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="temp_work_id" id="temp_work_id" />
+                                <input type="hidden" name="type" value="twctodesigner" />
+                                <div class="col-lg-12 d-flex align-items-center fw-bold fs-6"
+                                    style="border: 2px dashed #07D56480">
+                                    <textarea class="form-control form-control-solid" rows="4" placeholder="Enter Comment"
+                                        name="comment" required>{{old('comment')}}</textarea>
+                                    <!--end:Input-->
+                                </div>
+                                <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                                    <input type="file" name="image" class="form-control form-control-solid">
+                                    <!--end:Input-->
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                            <!--begin::Label-->
+                        </div>
+
                 <div id="commenttable">
 
                 </div>

@@ -97,11 +97,8 @@ class AdminDesignerController extends Controller
 
     public function awardedEstimatorModal(Request $request)
     {
-        $estimatorDesigner = EstimatorDesignerList::where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
-        // return view('dashboard.designer.table', ['title' => 'User Detail', 'user' => $user]);
-
+        $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
         return view('dashboard.designer.table',['estimatorDesigner' => $estimatorDesigner]);
-
     }
 
 

@@ -194,7 +194,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
+                            <a class="menu-link" href="{{route('add_estimator')}}">
                                 <span class="menu-title">Add Estimation</span>
                             </a>
                         </div>

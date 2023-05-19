@@ -1713,5 +1713,8 @@ class DesignerController extends Controller
       return Redirect::back();
    }
 
+   public function addEstimator(){
+    return view('dashboard.estimator.add_estimator');
+   }
 
 }

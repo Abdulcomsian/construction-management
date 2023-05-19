@@ -194,6 +194,11 @@
                             </a>
                         </div>
                         <div class="menu-item">
+                            <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
+                                <span class="menu-title">Add Estimation</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
                             <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
                                 <span class="menu-title">Designer List</span>
                             </a>
@@ -213,6 +218,7 @@
                                 <span class="menu-title">Awarded Estimator</span>
                             </a>
                         </div>
+
                         @endif
                         @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) &&
                         \Auth::user()->company_id)

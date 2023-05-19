@@ -338,7 +338,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 class="db_mr" style="display: inline-block;">New Estimate Design Brief</h2>
+                        <h2 class="db_mr" style="display: inline-block;">Edit Estimate Design Brief</h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">

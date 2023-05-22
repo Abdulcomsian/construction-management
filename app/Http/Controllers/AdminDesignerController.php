@@ -101,6 +101,11 @@ class AdminDesignerController extends Controller
         return view('dashboard.designer.table',['estimatorDesigner' => $estimatorDesigner]);
     }
 
+    public function storeAwardedEstimatorHours(Request $request, $id)
+    {
+        dd($reqeust);
+    }
+
 
     public function create()
     {

@@ -26,6 +26,6 @@ class EstimatorDesignerList extends Model
 
     public function estimatorDesignerListTasks()
     {
-        return $this->hasMany(EstimatorDesignerList::class,'estimator_designer_list_id');
+        return $this->hasMany(EstimatorDesignerListTask::class,'estimator_designer_list_id');
     }
 }

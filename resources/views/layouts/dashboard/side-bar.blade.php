@@ -194,6 +194,11 @@
                             </a>
                         </div>
                         <div class="menu-item">
+                            <a class="menu-link" href="{{url('designer/estimator')}}">
+                                <span class="menu-title">Add Estimation</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
                             <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
                                 <span class="menu-title">Designer List</span>
                             </a>

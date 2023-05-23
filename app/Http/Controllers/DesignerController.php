@@ -1745,5 +1745,14 @@ class DesignerController extends Controller
       return Redirect::back();
    }
 
+   public function Estimator(){
+    return view('dashboard.estimator.estimator');
+   }
+   public function editEstimation(){
+    return view('dashboard.estimator.edit_estimation');
+   }
+   public function addEstimator(){
+    return view('dashboard.estimator.add_estimator');
+   }
 
 }

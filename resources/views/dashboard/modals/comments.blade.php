@@ -63,7 +63,7 @@
                                     </button>
                                 </div>
                             </form>
-                            <div id="twccommenttable2">
+                            <div id="twccommenttable2"></div>
                             <!--begin::Label-->
                         </div>
 

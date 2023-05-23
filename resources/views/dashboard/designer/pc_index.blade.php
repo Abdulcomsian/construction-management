@@ -137,7 +137,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Design Brief Accepted</h2>
+                        <h2 style="display: inline-block;">Design Brief for PC TWC to review, to accept, or reject with comments.</h2>
                     </div>
                 </div>
                 <table class="table container" style="border-radius: 8px; overflow:hidden;">

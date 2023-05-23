@@ -281,6 +281,9 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      // Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
+     Route::get('estimator' , [DesignerController::class , 'Estimator'])->name('estimator');
+     Route::get('add-estimator' , [DesignerController::class , 'addEstimator'])->name('add_estimator');
+     Route::get('edit-estimation' , [DesignerController::class , 'editEstimation'])->name('edit_estimation');
 
 });
 

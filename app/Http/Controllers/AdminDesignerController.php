@@ -90,9 +90,29 @@ class AdminDesignerController extends Controller
     //awarded estiamtor
     public function awardedEstimator()
     {
-        $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
-        $AwardedEstimators=TemporaryWork::with('project.company')->whereIn('id',$awarded)->get();
-        return view('dashboard.designer.awarded-estimator',compact('AwardedEstimators'));
+        try
+        {
+            $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
+            
+            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments')->whereIn('id',$awarded)->get();
+            $projectIds = [];
+            foreach($AwardedEstimators as $awards)
+            {
+              $projectIds[] = $awards->project->id;
+            }
+            $projectIds = array_unique($projectIds);
+            
+            $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
+            // dd($AwardedEstimators);
+            $scantempwork = '';
+             return view('test-designer',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects'));
+            
+         }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
     }
 
     public function awardedEstimatorModal(Request $request)

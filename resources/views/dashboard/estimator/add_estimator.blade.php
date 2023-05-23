@@ -342,8 +342,8 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{ route('estimator.store') }}" method="post"
-                        enctype="multipart/form-data">
+
+                    <form id="desingform" action="{{ route('estimation_store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -379,7 +379,7 @@
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid"
                                         placeholder="Enter Project number" id="no" name="projno">
                                 </div>
                             </div>
@@ -391,7 +391,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid"
+                                    <input type="text" class="form-control form-control-solid"
                                         placeholder="Project Name" id="name" name="projname">
                                 </div>
                             </div>
@@ -417,7 +417,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid"
                                         placeholder="Project Address" id="address" name="projaddress">
                                 </div>
                             </div>

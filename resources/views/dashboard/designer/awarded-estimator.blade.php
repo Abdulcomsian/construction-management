@@ -507,9 +507,9 @@
                                  <!--begin::Table row-->
                                  <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th>Serial No</th>
-                                    <th>Project</th>
-                                    <th>Company</th>
+                                    <th>user name</th>
                                     <th>Email</th>
+                                    <th>Company Name</th>
                                     <th>Action</th>
                                  </tr>
                                  <!--end::Table row-->
@@ -519,21 +519,24 @@
                               <tbody class="text-gray-600 fw-bold">
                                  @if(count($AwardedEstimators)>0)
                                  @foreach($AwardedEstimators as $work)
-                                 <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>{{$work->project->name}}</td>
-                                    <td>{{$work->project->company->name}}</td>
-                                    <td>{{Auth::user()->email}}</td>
-                                    <td>
-                                       <a href="{{route('designer.uploaddesign',Crypt::encrypt($work->id).'/?mail='.$work->designer->email)}}"
-                                          target="_blank"><i class="fa fa-eye"></i></a>
-                                          <a class="mx-md-2" onclick="event.preventDefault();viewInfo({{$work->id}});" title="View Details" href="javascript:void(0)">
-                                             <i class="fa fa-plus"></i>
-                                         </a>
-                                          {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#AssignProjectModal" style="width: fit-content">Launch
-                                             Modal</button> --}}
-                                    </td>
-                                 </tr>
+                                 {{-- @if($work->id == 84) --}}
+                                 {{-- @dd($work) --}}
+                                    <tr>
+                                       <td>{{$loop->index+1}}</td>
+                                       <td>{{Auth::user()->name ?? ''}}</td>
+                                       <td>{{Auth::user()->email ?? ''}}</td>
+                                       <td>{{$work->company ?? ''}}</td>
+                                       <td>
+                                          <a href="{{route('designer.uploaddesign',Crypt::encrypt($work->id ?? '').'/?mail='.Auth::user()->email ?? '')}}"
+                                             target="_blank"><i class="fa fa-eye"></i></a>
+                                             <a class="mx-md-2" onclick="event.preventDefault();viewInfo({{$work->id ?? ''}});" title="View Details" href="javascript:void(0)">
+                                                <i class="fa fa-plus"></i>
+                                          </a>
+                                             {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#AssignProjectModal" style="width: fit-content">Launch
+                                                Modal</button> --}}
+                                       </td>
+                                    </tr>
+                                 {{-- @endif --}}
                                  @endforeach
                                  @else
                                  <tr>

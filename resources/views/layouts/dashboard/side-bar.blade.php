@@ -194,7 +194,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{url('designer/estimator')}}">
+                            <a class="menu-link" href="{{route('estimator_list')}}">
                                 <span class="menu-title">Add Estimation</span>
                             </a>
                         </div>

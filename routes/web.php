@@ -251,7 +251,8 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //designer user crud routes
      Route::get('/designer',[DesignerController::class,'desginerView']);
      Route::get('/projectAssign', [DesignerController::class,'projectAssign']);
-//  Route::get('/designer',[DesignerController::class,'testDesigner']);
+     Route::post('/projectAssign', [DesignerController::class,'storeProjectAssign'])->name('projectAssign');
+     //  Route::get('/designer',[DesignerController::class,'testDesigner']);
      Route::get('/list',[DesignerController::class,'List'])->name('designer.list');
      Route::get('/create',[DesignerController::class,'Create'])->name('designer.create');
      Route::post('/save',[DesignerController::class,'Save'])->name('designer.save');
@@ -278,8 +279,12 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
      Route::post('/awarded-estimator-modal',[AdminDesignerController::class,'awardedEstimatorModal'])->name('award-estimator-modal');
      Route::post('/store-awarded-estimator-hours',[AdminDesignerController::class,'storeAwardedEstimatorHours'])->name('store_award_estimator_hours');
-     // Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
+    //  Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
+     Route::get('estimator-list' , [DesignerController::class , 'estimator'])->name('estimator_list');
+     Route::get('add-estimator' , [DesignerController::class , 'addEstimator'])->name('add_estimator');
+     Route::post('estimation-store' , [DesignerController::class , 'storeEstimation'])->name('estimation_store');
+     Route::get('edit-estimation' , [DesignerController::class , 'editEstimation'])->name('edit_estimation');
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
      Route::get('estimator' , [DesignerController::class , 'Estimator'])->name('estimator');
      Route::get('add-estimator' , [DesignerController::class , 'addEstimator'])->name('add_estimator');

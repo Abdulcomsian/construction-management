@@ -194,7 +194,7 @@
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <div class="table-responsive">
-                        <table
+                        {{-- <table
                             class="cell-border table-hover datatable table align-middle table-row-dashed fs-6 gy-5 table-responsive">
                             <!--begin::Table head-->
                             <thead>
@@ -220,7 +220,35 @@
                                 </tr>
                             </tbody>
                             <!--end::Table body-->
-                        </table>
+                        </table> --}}
+                        <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
+                             <!--begin::Table head-->
+                             <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                   <th>Serial No</th>
+                                   <th>Project</th>
+                                   <th>Company</th>
+                                   <th>Email</th>
+                                   <th>Action</th>
+                                </tr>
+                                <!--end::Table row-->
+                             </thead>
+                             <!--end::Table head-->
+                             <!--begin::Table body-->
+                             <tbody class="text-gray-600 fw-bold">
+                              @foreach($estimatorWork as $work)
+                              <tr>
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$work->project->name}}</td>
+                                <td>{{$work->project->company->name}}</td>
+                                <td>{{Auth::user()->email}}</td>
+                                <td><a href="{{route('edit_estimation')}}" class="btn btn-primary">Edit</a></td>
+                            </tr>
+                              @endforeach
+                             </tbody>
+                             <!--end::Table body-->
+                          </table>
                     </div>
                     <!--end::Table-->
                 </div>

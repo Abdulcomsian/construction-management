@@ -989,7 +989,12 @@
                            Plant:</p>
                         <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">
                            {{$item->design_requirement_text ?? ''}}</p>
-                        <p>{{$item->project->company ? $item->project->company->name : '--'}}</p>
+                        {{-- <p>{{($item->project->company ? $item->project->company->name : '--')}}</p> --}}
+                        @if($item->project)
+                        <p>{{($item->project->company ? $item->project->company->name : $item->companty)}}</p>
+                        @else
+                        <p>{{($item->company)}}</p>
+                        @endif
                      </td>
                      <td style="min-width: 216px;padding: 11px !important;">
                         <div class="d-flex justify-content-between align-items-center">
@@ -1038,8 +1043,10 @@
                         <div style="margin: 12px 0;">
                            <div class="d-flex justify-content-between"">
                                   <span class=" titleColumn">Cost:</span>
-                              <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
-                                 '0'}}</span>
+                                 @if($item->designer)
+                                    <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
+                                       '0'}}</span>
+                                 @endif
                            </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
@@ -1323,7 +1330,8 @@
                      <td style="min-width: 154px; max-width: 80px;padding: 15px !important">
                         <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Drawing:</span>
-                           <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$item->designer->email)}}"
+                           @php $email = $item->designer->email ?? 'user@domain.com' @endphp
+                           <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$email)}}"
                               target="_blank"><i class="fa fa-eye"></i></a>
                         </div>
                         <button class="btn btn-sm w-100 my-1"

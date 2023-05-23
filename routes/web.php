@@ -275,8 +275,10 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::post('change-emails',[DesignerController::class,'change_email'])->name('change-email');
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
      //
-    //  Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
-    Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
+     Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
+     Route::post('/awarded-estimator-modal',[AdminDesignerController::class,'awardedEstimatorModal'])->name('award-estimator-modal');
+     Route::post('/store-awarded-estimator-hours',[AdminDesignerController::class,'storeAwardedEstimatorHours'])->name('store_award_estimator_hours');
+     // Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
      Route::get('estimator' , [DesignerController::class , 'Estimator'])->name('estimator');

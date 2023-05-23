@@ -95,6 +95,17 @@ class AdminDesignerController extends Controller
         return view('dashboard.designer.awarded-estimator',compact('AwardedEstimators'));
     }
 
+    public function awardedEstimatorModal(Request $request)
+    {
+        $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
+        return view('dashboard.designer.table',['estimatorDesigner' => $estimatorDesigner]);
+    }
+
+    public function storeAwardedEstimatorHours(Request $request, $id)
+    {
+        dd($reqeust);
+    }
+
 
     public function create()
     {

@@ -24,12 +24,13 @@ use App\Notifications\DesignUpload;
 use App\Notifications\PermitNotification;
 use App\Notifications\ShareDrawingNotification;
 use App\Notifications\DrawingCommentNotification;
-use App\Notifications\TemporaryWorkNotification;
+// use App\Notifications\TemporaryWorkNotification;
 use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Notifications\PasswordResetNotification;
 use DB;
+use App\Notifications\{DesignerAwarded,TemporaryWorkNotification};
 
 class DesignerController extends Controller
 {
@@ -82,8 +83,39 @@ class DesignerController extends Controller
 
     //Project Assign
     public function projectAssign(){
-        return view('projectAssign');
+        $data['designers'] = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
+        $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+        $data['AwardedEstimators']=TemporaryWork::with('designer.quotationSum')->with('project.company')->whereIn('id',$awarded)->get();
+        return view('projectAssign',$data);
     }
+
+    public function storeProjectAssign(Request $request){
+        try
+        {
+            $designer = User::findorfail($request->designerId);
+            $estimatorDesigner = new EstimatorDesignerList();
+            $estimatorDesigner->temporary_work_id = $request->projectId;
+            $estimatorDesigner->email = $designer->email;
+            $estimatorDesigner->user_id = $designer->id;
+            $estimatorDesigner->temporary_work_id = $request->projectId;
+            $estimatorDesigner->estimatorApprove = 1;
+            $estimatorDesigner->type = 'Designer';
+            $code="1234";
+            $estimatorDesigner->code = $code;
+            $email = $estimatorDesigner->email;
+            if($estimatorDesigner->save())
+            { 
+                 Notification::route('mail', $email)->notify(new DesignerAwarded($request->projectId,$email,$code));
+                 toastSuccess('Designer Approved successfully!');
+                 return redirect()->back();
+            }           
+        }catch (\Exception $exception) {
+            toastError($exception->getMessage());
+            return Redirect::back();
+         }
+    }
+
+
     //list designer
     public function List(Request $request)
     {

@@ -492,20 +492,20 @@
 
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <form id="projectAssig-form" method="post" enctype="multipart/form-data">
+                    <form id="projectAssig-form" method="post" action="{{route('projectAssign')}}" enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="inputDiv d-block" id="selectAssignedProject" style="margin-bottom:0px">
                                     <label class="fs-6 fw-bold mb-2">
-                                        <span class="required">Select Project:</span>
+                                        <span class="required">Select Designer:</span>
                                     </label>
-                                    <select id="selectProject" class="form-select" aria-label="Default select example">
+                                    <select name="designerId" id="selectProject" class="form-select" aria-label="Default select example">
                                         <option disabled selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        @foreach($designers as $designer)
+                                            <option value="{{$designer->id}}">{{$designer->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -515,23 +515,26 @@
                                 <div class="d-flex inputDiv d-block" id="projectNo">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Project No.:</span>
+                                        <span class="required">Select Project:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select name="projectId" class="form-select" aria-label="Default select example">
                                         <option disabled selected>Open this select menu</option>
-                                        <option value="1">Project-One</option>
-                                        <option value="2">Project-Two</option>
-                                        <option value="3">Project-Three</option>
+                                        @foreach($AwardedEstimators as $work)
+                                            <option value="{{$work->id}}">{{$work->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" type="submit">Assign</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            </form>
         </div>
         <!--end::Card body-->
     </div>

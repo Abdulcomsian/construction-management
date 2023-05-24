@@ -728,7 +728,7 @@
 </div>
 @endsection
 @section('scripts')
-<script>
+<script src="{{asset('assets/js/temporary-work-modal.js')}}">
 
 </script>
 @endsection

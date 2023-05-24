@@ -379,7 +379,7 @@
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid"
                                         placeholder="Enter Project number" id="no" name="projno">
                                 </div>
                             </div>
@@ -391,7 +391,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="form-control form-control-solid"
+                                    <input type="text" class="form-control form-control-solid"
                                         placeholder="Project Name" id="name" name="projname">
                                 </div>
                             </div>
@@ -404,7 +404,7 @@
                                         <span class="">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" readonly type="date" value=""
+                                    <input data-date-inline-picker="true" type="date" value=""
                                         class="blackBack form-control form-control-solid" placeholder="Date"
                                         name="design_issued_date" id="design_issued_date">
                                 </div>
@@ -417,7 +417,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid"
                                         placeholder="Project Address" id="address" name="projaddress">
                                 </div>
                             </div>
@@ -474,7 +474,7 @@
                                         </label>
                                         <br>
                                         <input type="text" class="blackBack" style="width: 50%;"
-                                            id="design_requirement_text" placeholder="Design requirement" readonly
+                                            id="design_requirement_text" placeholder="Design requirement"
                                             name="design_requirement_text">
                                         <!--end::Label-->
                                     </div>
@@ -618,8 +618,7 @@
                                         </label>
                                         <input id="attachment" class="blackBack"
                                             style="background-color: #000; color:#fff" type="text"
-                                            placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)"
-                                            readonly>
+                                            placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)">
                                     </div>
                                 </div>
                             </div>

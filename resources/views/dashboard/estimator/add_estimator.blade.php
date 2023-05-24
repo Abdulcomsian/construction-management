@@ -590,6 +590,33 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="inputDiv desinger_company_name2 mb-0 d-none" id="desinger_company_name2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Design Checker Company Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid "
+                                        placeholder="Design Checker Company Name" id="desinger_company_name2"
+                                        name="desinger_company_name2" value="" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="inputDiv desinger_company_name2 mb-0 d-none" style="margin-top: 30px">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">Design Checker Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid "
+                                        placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2"
+                                        value="" autocomplete="off">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block" data-bs-toggle="modal"
                                         data-bs-target="#scope-of-design">
@@ -728,6 +755,22 @@
 @endsection
 @section('scripts')
 <script src="{{asset('assets/js/temporary-work-modal.js')}}">
-
+    // document.querySelector('input[name="tw_category"]')addEventListener('click', function(){
+    //     alert(23434)
+    //     let value=$(this).val();
+    //     console.log(value);
+    //     if(value==3)
+    //     {
+    //         $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
+    //     //    $("#desinger_company_name2").attr('required','required');
+    //     //    $("#desinger_email_2").attr('required','required');
+          
+    //     }
+    //     else{
+    //         $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
+    //         $("#desinger_company_name2").removeAttr('required');
+    //         $("#desinger_email_2").removeAttr('required');
+    //     }
+    // })
 </script>
 @endsection

@@ -195,7 +195,7 @@
                         </div>
                         <div class="menu-item">
                             <a class="menu-link" href="{{route('estimator_list')}}">
-                                <span class="menu-title">Add Estimation</span>
+                                <span class="menu-title">Add Jobs</span>
                             </a>
                         </div>
                         <div class="menu-item">

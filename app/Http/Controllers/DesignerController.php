@@ -1837,6 +1837,7 @@ class DesignerController extends Controller
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
+            $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {

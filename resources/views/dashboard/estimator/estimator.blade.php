@@ -164,7 +164,7 @@
                 class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
                 style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Estimators</h1>
+                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Jobs</h1>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -182,10 +182,10 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Users</h2>
+                        <h2>Jobs</h2>
                     </div>
                     <!--begin::Card toolbar-->
-                    <a href="{{route('add_estimator')}}" class="btn btn-primary">Add New Estimator</a>
+                    <a href="{{route('add_estimator')}}" class="btn btn-primary">Add New Job</a>
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->

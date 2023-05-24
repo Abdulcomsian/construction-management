@@ -1043,10 +1043,10 @@
                         <div style="margin: 12px 0;">
                            <div class="d-flex justify-content-between"">
                                   <span class=" titleColumn">Cost:</span>
-                                 @if($item->designer)
-                                    <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
-                                       '0'}}</span>
-                                 @endif
+                              @if($item->designer)
+                              <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
+                                 '0'}}</span>
+                              @endif
                            </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
@@ -1300,8 +1300,11 @@
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <span>
-                              <span class=" titleColumn" style="font-weight: bold; color: black">Allocated
-                                 Designers:</span>
+                              <span class=" titleColumn"
+                                 style="font-weight: bold;width: 100%; border-radius:5px; color: black; ">Allocated
+                                 Designers:</span><i class="icon-edit" data-toggle="modal"
+                                 data-target="#allocationDesignerModal"
+                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 11px;"></i>
                            </span>
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
@@ -1315,8 +1318,18 @@
                      </td>
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
-                           <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
-                              Cert:</span>
+                           <div>
+                              <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
+                                 Cert:</span><i class="icon-edit" data-toggle="modal"
+                                 data-target="#DesignCheckCertModal"
+                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                           </div>
+                           <div>
+                              <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
+                                 Cert:</span><i class="icon-edit" data-toggle="modal"
+                                 data-target="#DesignCheckCertModal2"
+                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                           </div>
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
@@ -1358,16 +1371,8 @@
 <button class="btn btn-primary" data-toggle="modal" data-target="#AssignProjectModal" style="width: fit-content">Launch
    Modal</button>
 
-Field submit
 
-Update Work Progress
-Date, hours, task worked on submit
-
-Table:
-Date, hours spent, Task, % Completed
-
-
-<div class="modal  fade" id="AssignProjectModal">
+<div class="modal  fade" id="DesignCheckCertModal">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
          <div class="modal-body">
@@ -1434,6 +1439,125 @@ Date, hours spent, Task, % Completed
                   </table>
                </div>
             </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal  fade" id="DesignCheckCertModal2">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-body">
+            <span data-dismiss="modal" class="modal-close">&times;</span>
+            <form action="">
+               <div class="row">
+                  <div class="col-md-9">
+                     <div class="d-flex inputDiv d-block mb-3">
+                        <!--begin::Label-->
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Total Esimtated Hours required:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="" id="" style="border: none; width: 100%">
+                     </div>
+                  </div>
+                  <div class="col-md-3 mt-9">
+                     <button class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+               </div>
+            </form>
+            <div class="row">
+               <div class="col-md-6">
+                  <span class="fw-bold">Date:</span>
+                  <span>02/05/2023</span>
+               </div>
+               <div class="col-md-6">
+                  <span class="fw-bold">Hours:</span>
+                  <span>140h</span>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-12">
+                  <span class="fw-bold">Description</span>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio placeat distinctio repudiandae
+                     itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-12">
+                  <table class="table">
+                     <thead>
+                        <tr>
+                           <th scope="col">Date</th>
+                           <th scope="col">Hours spent</th>
+                           <th scope="col">Task</th>
+                           <th scope="col">Completed(%)</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row">1</th>
+                           <td>Mark</td>
+                           <td>Otto</td>
+                           <td>@mdo</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">2</th>
+                           <td>Jacob</td>
+                           <td>Thornton</td>
+                           <td>@fat</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal  fade" id="allocationDesignerModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-body">
+            <span data-dismiss="modal" class="modal-close">&times;</span>
+            <form action="">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="inputDiv d-block mb-3">
+                        <!--begin::Label-->
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Select Designer</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="projectId" class="form-select" aria-label="Default select example"
+                           style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
+                           <option disabled selected>Open this select menu</option>
+                           <option value="">Designer-1</option>
+                           <option value="">Designer-2</option>
+                           <option value="">Designer-3</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="inputDiv d-block mb-3">
+                        <!--begin::Label-->
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Select Project</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="projectId" class="form-select" aria-label="Default select example"
+                           style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
+                           <option disabled selected>Open this select menu</option>
+                           <option value="">Project-1</option>
+                           <option value="">Project-2</option>
+                           <option value="">Project-3</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-md-12 mt-4">
+                     <button class="btn btn-primary w-100" type="submit">Submit</button>
+                  </div>
+               </div>
+            </form>
          </div>
       </div>
    </div>

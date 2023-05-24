@@ -342,7 +342,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{ route('estimator.store') }}" method="post"
+                    <form id="desingform" action="{{ route('estimator_store') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />

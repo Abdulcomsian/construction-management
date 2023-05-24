@@ -241,9 +241,9 @@
                                 @foreach($estimatorWork as $work)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
-                                    <td>{{$work->project->name}}</td>
-                                    <td>{{$work->project->company->name}}</td>
-                                    <td>{{Auth::user()->email}}</td>
+                                    <td>{{$work->project->name ?? ''}}</td>
+                                    <td>{{$work->project->company->name ?? ''}}</td>
+                                    <td>{{Auth::user()->email ?? ''}}</td>
                                     <td><a href="{{route('edit_estimation')}}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                                 @endforeach

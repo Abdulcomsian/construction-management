@@ -1687,22 +1687,28 @@ class DesignerController extends Controller
    }
 
    public function estimator(){
-     // dd("here now");
      try
      {
          $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
          $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
-         $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
+         $estimatorWork=TemporaryWork::with('designer')->with('project.company')
+         ->whereIn('id',$record)
+         ->orWhere('created_by', Auth::user()->id)
+         ->where('work_status', 'draft')
+         ->get();
          
          $AwardedEstimators=TemporaryWork::with('designer.quotationSum')->with('project.company')->whereIn('id',$awarded)->get();
-         // dd($AwardedEstimators);
+        //  $AwardedEstimators=TemporaryWork::with('designer.quotationSum')->with('project.company')
+        //  ->whereIn('id',$awarded)
+        //  ->orWhere('created_by', Auth::user()->id)
+        //  ->where('work_status', 'draft')
+        //  ->get();
           return view('dashboard.estimator.estimator',compact('estimatorWork','AwardedEstimators'));
          
       }catch (\Exception $exception) {
          toastError('Something went wrong, try again!');
          return Redirect::back();
       }
-    return view('dashboard.estimator.estimator');
    }
    public function editEstimation(){
     return view('dashboard.estimator.edit_estimation');

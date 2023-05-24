@@ -754,23 +754,25 @@
 </div>
 @endsection
 @section('scripts')
-<script src="{{asset('assets/js/temporary-work-modal.js')}}">
-    // document.querySelector('input[name="tw_category"]')addEventListener('click', function(){
-    //     alert(23434)
-    //     let value=$(this).val();
-    //     console.log(value);
-    //     if(value==3)
-    //     {
-    //         $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
-    //     //    $("#desinger_company_name2").attr('required','required');
-    //     //    $("#desinger_email_2").attr('required','required');
-          
-    //     }
-    //     else{
-    //         $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
-    //         $("#desinger_company_name2").removeAttr('required');
-    //         $("#desinger_email_2").removeAttr('required');
-    //     }
-    // })
+<script src="{{asset('assets/js/temporary-work-modal.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        $('input[name="tw_category"]').on('click', function() {
+            // Get the value of the clicked input element
+            let value = $(this).val();
+
+            // Log the value to the console
+            console.log(value);
+
+            // Check if the value is equal to "3"
+            if (value === "3") {
+                $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
+                // $("#desinger_company_name2").attr('required','required');
+                // $("#desinger_email_2").attr('required','required');
+            } else {
+                $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
+            }
+        });
+    });
 </script>
 @endsection

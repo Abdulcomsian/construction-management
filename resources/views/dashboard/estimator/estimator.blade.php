@@ -150,7 +150,7 @@
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
-@include('layouts.datatables.datatables_css')
+{{-- @include('layouts.datatables.datatables_css') --}}
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -221,34 +221,35 @@
                             </tbody>
                             <!--end::Table body-->
                         </table> --}}
-                        <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
-                             <!--begin::Table head-->
-                             <thead>
+                        <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive"
+                            id="kt_table_users">
+                            <!--begin::Table head-->
+                            <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                   <th>Serial No</th>
-                                   <th>Project</th>
-                                   <th>Company</th>
-                                   <th>Email</th>
-                                   <th>Action</th>
+                                    <th>Serial No</th>
+                                    <th>Project</th>
+                                    <th>Company</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
                                 </tr>
                                 <!--end::Table row-->
-                             </thead>
-                             <!--end::Table head-->
-                             <!--begin::Table body-->
-                             <tbody class="text-gray-600 fw-bold">
-                              @foreach($estimatorWork as $work)
-                              <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$work->project->name}}</td>
-                                <td>{{$work->project->company->name}}</td>
-                                <td>{{Auth::user()->email}}</td>
-                                <td><a href="{{route('edit_estimation')}}" class="btn btn-primary">Edit</a></td>
-                            </tr>
-                              @endforeach
-                             </tbody>
-                             <!--end::Table body-->
-                          </table>
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="text-gray-600 fw-bold">
+                                @foreach($estimatorWork as $work)
+                                <tr>
+                                    <td>{{$loop->index+1}}</td>
+                                    <td>{{$work->project->name}}</td>
+                                    <td>{{$work->project->company->name}}</td>
+                                    <td>{{Auth::user()->email}}</td>
+                                    <td><a href="{{route('edit_estimation')}}" class="btn btn-primary">Edit</a></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
                     </div>
                     <!--end::Table-->
                 </div>
@@ -281,7 +282,7 @@ $data = [
 @endphp
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-@include('layouts.datatables.datatables_js',['data' => $data])
+{{-- @include('layouts.datatables.datatables_js',['data' => $data]) --}}
 @include('layouts.dashboard.ajax_call')
 @include('dashboard.modals.nomination_comment')
 <script>

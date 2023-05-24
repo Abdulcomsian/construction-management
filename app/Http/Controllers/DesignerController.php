@@ -1890,7 +1890,7 @@ class DesignerController extends Controller
                 $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier');
             }
             toastSuccess('Estimator Brief successfully added!');
-            return redirect()->route('temporary_works.index');
+            return redirect()->route('estimator_list');
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError($exception->getMessage());

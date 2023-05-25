@@ -769,48 +769,42 @@
                                     </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="appendresult" style="background:white;margin: 0 4px;">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span>Price:</span>
-                                                </label>
-                                                <input type="number" name="price[]" class="form-control"
-                                                    placeholder="Enter Price" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span>Description:</span>
-                                                </label>
-                                                <input type="text" name="description[]" placeholder="Enter Description"
-                                                    class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="input-group mb-3 row">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span>Submittal Date:</span>
-                                                </label>
-                                                <input type="date" name="date[]" class="form-control fileInput"
-                                                    id="inputGroupFile02">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="input-group mb-3 row">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mt-5">
-                                                    <span></span>
-                                                </label>
-                                                <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i
-                                                        class="fa fa-plus"></i>Add More</button>
-                                            </div>
-        
-                                        </div>
+                        <div class="appendresult" style="background:white;margin: 0 4px;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span>Price:</span>
+                                    </label>
+                                    <input type="number" name="price[]" class="form-control"
+                                    placeholder="Enter Price" />
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span>Description:</span>
+                                        </label>
+                                        <input type="text" name="description[]" placeholder="Enter Description"
+                                            class="form-control">
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mb-3 row">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span>Submittal Date:</span>
+                                        </label>
+                                        <input type="date" name="date[]" class="form-control fileInput"
+                                            id="inputGroupFile02">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group mb-3 row">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mt-5">
+                                            <span></span>
+                                        </label>
+                                        <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i
+                                                class="fa fa-plus"></i>Add More</button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

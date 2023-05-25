@@ -706,6 +706,16 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
+                                        <span>Client Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="email" name="client_email" class="form-control form-control-slid" placeholder="Enter Client Email" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span>Status:</span>
                                     </label>
                                     <!--end::Label-->
@@ -716,6 +726,9 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
@@ -727,8 +740,80 @@
                                         value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
                             </div>
-                        </div>
+                            
+                            <div class="col-md-6">
+                                {{-- <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span>Information Required:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <textarea class="form-control" rows="5" name="information_required" class="form-control form-control-solid"></textarea>
+                                </div> --}}
 
+                                    <!-- <div class="inputDiv d-none desinger_company_name2">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           Design Checker Name:</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger')}}"  >
+                                    </div> -->
+                                    <div class="d-flex align-items-center inputDiv" style="height: 41px">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span>Information Required?</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="checkbox" name="information_required" id="information_required"
+                                            style="margin-left:10px;opacity: 0.5" class="blackBack">
+                                        <span style="padding-left:22px;color:#000">Select if additional information is required.</span>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="appendresult" style="background:white;margin: 0 4px;">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Price:</span>
+                                                </label>
+                                                <input type="number" name="price[]" class="form-control"
+                                                    placeholder="Enter Price" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Description:</span>
+                                                </label>
+                                                <input type="text" name="description[]" placeholder="Enter Description"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group mb-3 row">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Submittal Date:</span>
+                                                </label>
+                                                <input type="date" name="date[]" class="form-control fileInput"
+                                                    id="inputGroupFile02">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="input-group mb-3 row">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mt-5">
+                                                    <span></span>
+                                                </label>
+                                                <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i
+                                                        class="fa fa-plus"></i>Add More</button>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @include('dashboard.modals.design-relief-modals')
                         <div class="row mt-5">
                             <div class="col-md-6"></div>
@@ -774,5 +859,51 @@
             }
         });
     });
+</script>
+<script type="text/javascript">
+    $(".add-more-price").on('click',function(){
+        $(".appendresult").append(`<div class="row"><div class="col-md-3">
+                              <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                  <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                   <span >Price:</span>
+                                  </label>
+                                   <input type="number" name="price[]" class="form-control"/>
+                
+                              </div>
+                                
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                  <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                   <span >Description:</span>
+                                  </label>
+                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
+                
+                              </div>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group mb-3 row">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span>Date:</span>
+                                    </label>
+                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group mb-3 row">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mt-5">
+                                    <span></span>
+                                    </label>
+                                    <button type="submit" class="btn btn-danger mb-2 queryButton remove"><i class="fa fa-minus"></i>Remove</button>
+                                </div>
+                                
+                            </div></div>`);
+    })
+
+    $(document).on("click",".remove",function(){
+        $(this).parent().parent().parent().remove();
+    })
 </script>
 @endsection

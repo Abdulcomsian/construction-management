@@ -769,13 +769,45 @@ class EstimatorController extends Controller
                 //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
                 $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
 
-                // return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
                 return view('dashboard.estimator.estimator-designer-page-test',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
-
             }
             else{
                 echo "<h1>You Are not allowed</h1>";
             }
+         }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
+        
+    }
+
+    //Estimator desinger page from designer side
+    public function estimatorDesignerClient(Request $request,$id)
+    {
+        try
+        {
+            $code=\Crypt::decrypt($request->code);
+            // $record=EstimatorDesignerList::where(['email'=>$request->mail,'code'=>$code])->first();
+            $record=EstimatorDesignerList::where(['email'=>'designer@vomoto.com'])->first();
+            if($record)
+            {
+                $estimatorWork=TemporaryWork::with('project')->find($id);
+                $designerquotation=DesignerQuotation::where(['estimator_designer_list_id'=>$record->id])->get();
+                $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$record->id,'temporary_work_id'=>$id])->get();
+                $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
+                //get company record
+                $company=Project::with('company')->find($estimatorWork->project_id);
+                //get rating of cuurent designer
+                //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
+                $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
+
+                return view('dashboard.designer.index-test',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
+            }
+            // return view('dashboard.designer.index-test');
+
+            // else{
+            //     echo "<h1>You Are not allowed</h1>";
+            // }
          }catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

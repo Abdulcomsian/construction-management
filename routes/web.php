@@ -163,6 +163,7 @@ Route::group(['prefix' => 'Estimator'],function(){
     });
     //Designer routes where he can price up and comment on brief
     Route::get('estimator-designer/design/{id}',[EstimatorController::class,'estimatorDesigner'])->name('estimator.designer');
+    Route::get('estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');
     Route::post('designer-quotation/save',[EstimatorController::class,'designerQuotation'])->name('designer.quotation');
     Route::post('designer-review/save',[EstimatorController::class,'designerReview'])->name('designer.review');
     Route::get('designer/read-message',[EstimatorController::class,'readMessage']);

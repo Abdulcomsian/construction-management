@@ -17,7 +17,7 @@ use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
-use App\Models\{Project,EstimatorDesignerList};
+use App\Models\{Project,DesignerQuotation,EstimatorDesignerList};
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
@@ -27,6 +27,8 @@ use App\Notifications\DesignUpload;
 use App\Notifications\PermitNotification;
 use App\Notifications\ShareDrawingNotification;
 use App\Notifications\DrawingCommentNotification;
+use App\Notifications\EstimatorNotification;
+use App\Notifications\EstimationClientNotification;
 // use App\Notifications\TemporaryWorkNotification;
 use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +38,7 @@ use DB;
 use App\Notifications\{DesignerAwarded,TemporaryWorkNotification};
 use Illuminate\Support\Str;
 use PDF;
+
 
 class DesignerController extends Controller
 {
@@ -1821,7 +1824,7 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'client_email', 'price', 'description', 'date', 'information_required');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -1840,6 +1843,17 @@ class DesignerController extends Controller
             $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             $temporary_work = TemporaryWork::create($all_inputs);
+            for($i=0;$i<count($request->price);$i++)
+            {
+                $model=new DesignerQuotation;
+                $model->price=$request->price[$i];
+                $model->description=$request->description[$i];
+                $model->date=$request->date[$i];
+                // $model->estimator_designer_list_id=$request->estimator_designer_id;
+                $model->email=$request->client_email;
+                $model->temporary_work_id=$temporary_work->id;
+                $model->save();
+            }
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
@@ -1882,12 +1896,14 @@ class DesignerController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
+                $list = $request->client_email;
+                Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list, 'Designer',));
+                // Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
 
-
-                //work for designer email list==============  
-                $this->saveDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer');
-                //work for supplier email list=============
-                $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier');
+                // //work for designer email list==============  
+                // $this->saveDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer');
+                // //work for supplier email list=============
+                // $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier');
             }
             toastSuccess('Estimator Brief successfully added!');
             return redirect()->route('estimator_list');
@@ -1943,6 +1959,7 @@ class DesignerController extends Controller
                     if($action=="Save & Email")
                     {
                         Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
+                        
                     }
                     
                 }

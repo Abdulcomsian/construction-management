@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master_user',['title' => 'Temporary Works'])
+{{-- @extends('layouts.dashboard.master_user',['title' => 'Temporary Works']) --}}
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
 
 @section('styles')
@@ -273,7 +273,7 @@
                             <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="temp_work_id" value="{{$id}}">
+                                <input type="hidden" name="temp_work_id" value="{{$id ?? ''}}">
                                 <input type="hidden" name="mail" value="{{$mail}}">
                                 <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -312,87 +312,89 @@
                                     @php
                                     $path = config('app.url');
                                     @endphp
-                                    @foreach($comments as $cments)
-                                    <tr>
-                                        <td><b>{{$loop->index+1}}</b></td>
-                                        @if($cments->type=='normal')
-                                        <!-- added by Abdul to show only designers comment -->
-                                        <td class="designer-comment">
-                                            {{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
-                                                d-m-Y',strtotime($cments->created_at))}}</b>
-                                            <br><br>
-                                            @php
-                                            if(isset($cments->image)){
-                                            @endphp
-                                            <a href="{{$path}}{{$cments->image}}">View File</a>
-                                            @php
-                                            }
-                                            @endphp
-                                            </b>
-                                        </td>
-                                        @endif
-
-                                        @if($cments->replay)
-
-                                        <td class="twc-reply">
-                                            @php $i=0;@endphp
-                                            @foreach($cments->replay as $reply)
-                                            <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i
-                                                    d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
-                                            @php $i++; @endphp
-                                            @endforeach
-                                            @endif
-                                            @if($cments->type=='twctodesigner')
-                                        <td class="designer-comment"></td>
-                                        <td class="twc-reply">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
-                                                d-m-Y',strtotime($cments->created_at))}}</b>
-                                            <br><br>
-                                            @php
-                                            if(isset($cments->image)){
-                                            @endphp
-                                            <a href="{{$path}}{{$cments->image}}">View File</a>
-                                            @php
-                                            }
-                                            @endphp
-                                            </b>
-                                            <hr />
-                                        </td>
-                                        @endif
-                                        <br><br>
-                                        @php
-                                        $path = config('app.url');
-                                        if(isset($cments->reply_image))
-                                        {
-                                        for($j=0;$j < count($cments->reply_image);$j++)
-                                            {
-
-                                            $image='';
-                                            if(isset($cments->reply_image[$j]))
-                                            {
-                                            $n = strrpos($cments->reply_image[$j], '.');
-                                            $ext=substr($cments->reply_image[$j], $n+1);
-                                            if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                                            {
-                                            echo $image='<a target="_blank" style="color: dodgerblue;"
-                                                href='.$path.$cments->reply_image[$j].'><img
-                                                    src="'.$path.$cments->reply_image[$j].'" width="50px"
-                                                    height="50px" /></a>
-                                            <hr>';
-                                            }
-                                            else{
-                                            echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View
-                                                File</a>
-                                            <hr>';
-                                            }
-
-                                            }
-                                            }
-                                            }
-                                            @endphp
+                                    @isset($comments)
+                                        @foreach($comments as $cments)
+                                        <tr>
+                                            <td><b>{{$loop->index+1}}</b></td>
+                                            @if($cments->type=='normal')
+                                            <!-- added by Abdul to show only designers comment -->
+                                            <td class="designer-comment">
+                                                {{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
+                                                    d-m-Y',strtotime($cments->created_at))}}</b>
+                                                <br><br>
+                                                @php
+                                                if(isset($cments->image)){
+                                                @endphp
+                                                <a href="{{$path}}{{$cments->image}}">View File</a>
+                                                @php
+                                                }
+                                                @endphp
+                                                </b>
                                             </td>
+                                            @endif
 
-                                    </tr>
-                                    @endforeach
+                                            @if($cments->replay)
+
+                                            <td class="twc-reply">
+                                                @php $i=0;@endphp
+                                                @foreach($cments->replay as $reply)
+                                                <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i
+                                                        d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
+                                                @php $i++; @endphp
+                                                @endforeach
+                                                @endif
+                                                @if($cments->type=='twctodesigner')
+                                            <td class="designer-comment"></td>
+                                            <td class="twc-reply">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
+                                                    d-m-Y',strtotime($cments->created_at))}}</b>
+                                                <br><br>
+                                                @php
+                                                if(isset($cments->image)){
+                                                @endphp
+                                                <a href="{{$path}}{{$cments->image}}">View File</a>
+                                                @php
+                                                }
+                                                @endphp
+                                                </b>
+                                                <hr />
+                                            </td>
+                                            @endif
+                                            <br><br>
+                                            @php
+                                            $path = config('app.url');
+                                            if(isset($cments->reply_image))
+                                            {
+                                            for($j=0;$j < count($cments->reply_image);$j++)
+                                                {
+
+                                                $image='';
+                                                if(isset($cments->reply_image[$j]))
+                                                {
+                                                $n = strrpos($cments->reply_image[$j], '.');
+                                                $ext=substr($cments->reply_image[$j], $n+1);
+                                                if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                                {
+                                                echo $image='<a target="_blank" style="color: dodgerblue;"
+                                                    href='.$path.$cments->reply_image[$j].'><img
+                                                        src="'.$path.$cments->reply_image[$j].'" width="50px"
+                                                        height="50px" /></a>
+                                                <hr>';
+                                                }
+                                                else{
+                                                echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View
+                                                    File</a>
+                                                <hr>';
+                                                }
+
+                                                }
+                                                }
+                                                }
+                                                @endphp
+                                                </td>
+
+                                        </tr>
+                                        @endforeach
+                                    @endisset
                                 </tbody>
                             </table>
                         </div>
@@ -571,7 +573,7 @@
                                             <span class="required">Designer's Company Name:</span>
                                         </label>
                                         <div class="d-flex" >
-                                        <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name}}"> -->
+                                        <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name ?? ''}}"> -->
                             <!-- name="designer_company_name" -->
                             <!-- </div>
                                     </div>
@@ -614,13 +616,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($Designerchecks as $dcc)
-                                    <tr>
-                                        <td>{{$loop->index+1}}</td>
-                                        <td><a href="{{asset($dcc->file_name)}}"
-                                                target="_blank">DC{{$loop->index+1}}</a></td>
-                                    </tr>
-                                    @endforeach
+                                    @isset($Designerchecks)
+                                        @foreach($Designerchecks as $dcc)
+                                        <tr>
+                                            <td>{{$loop->index+1}}</td>
+                                            <td><a href="{{asset($dcc->file_name)}}"
+                                                    target="_blank">DC{{$loop->index+1}}</a></td>
+                                        </tr>
+                                        @endforeach
+                                    @endisset
                                 </tbody>
                             </table>
                         </div>
@@ -672,6 +676,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @isset($riskassessment)
                                     @foreach($riskassessment as $riks)
                                     @php
                                     $type='';
@@ -692,6 +697,7 @@
                                         <td>{{date("d-m-Y",strtotime($riks->created_at));}}</td>
                                     </tr>
                                     @endforeach
+                                    @endisset
                                 </tbody>
                             </table>
                         </div>

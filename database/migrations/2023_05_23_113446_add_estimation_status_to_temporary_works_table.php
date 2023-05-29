@@ -15,6 +15,8 @@ class AddEstimationStatusToTemporaryWorksTable extends Migration
     {
         Schema::table('temporary_works', function (Blueprint $table) {
             $table->enum('work_status', ['draft','pending','publish'])->default('publish')->comment('This is for when user create');
+            $table->string('client_email')->nullable();
+            $table->string('projname')->nullable();
         });
     }
 
@@ -27,6 +29,8 @@ class AddEstimationStatusToTemporaryWorksTable extends Migration
     {
         Schema::table('temporary_works', function (Blueprint $table) {
             $table->dropColumn('work_status');
+            $table->dropColumn('client_email');
+            $table->dropColumn('projname');
         });
     }
 }

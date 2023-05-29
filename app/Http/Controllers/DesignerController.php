@@ -1716,6 +1716,42 @@ class DesignerController extends Controller
    public function editEstimation(){
     return view('dashboard.estimator.edit_estimation');
    }
+
+   public function showPricing(Request $request){
+        $temporary_work = TemporaryWork::with('designerQuote')->findOrFail($request->input('id'));
+        return view('dashboard.modals.pricing', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
+   }
+
+   public function approvePricing(Request $request){
+        $pricing = TemporaryWork::findorfail($request->temporary_work_id);
+        //upload signature here
+        $image_name = '';
+        if ($request->signtype == 1) {
+            $image_name = $request->namesign;
+        } elseif ($request->pdfsigntype == 1) {
+            $folderPath = public_path('temporary/signature/');
+            $file = $request->file('pdfphoto');
+            $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+            $file->move($folderPath, $filename);
+            $image_name = $filename;
+        } else {
+            $folderPath = public_path('temporary/signature/');
+            $image = explode(";base64,", $request->signed);
+            $image_type = explode("image/", $image[0]);
+            $image_type_png = $image_type[1];
+            $image_base64 = base64_decode($image[1]);
+            $image_name = uniqid() . '.' . $image_type_png;
+            $file = $folderPath . $image_name;
+            file_put_contents($file, $image_base64);
+        }
+
+        // $image_name = HelperFunctions::savesignature($request);
+        $pricing->signature = $image_name;
+        $pricing->work_status = 'publish';
+        $pricing->save();
+        return redirect()->back();
+   }
+
    public function addEstimator(){
     return view('dashboard.estimator.add_estimator');
    }
@@ -1824,7 +1860,7 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'client_email', 'price', 'description', 'date', 'information_required');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;

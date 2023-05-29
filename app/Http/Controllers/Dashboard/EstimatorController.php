@@ -788,20 +788,30 @@ class EstimatorController extends Controller
         {
             $code=\Crypt::decrypt($request->code);
             // $record=EstimatorDesignerList::where(['email'=>$request->mail,'code'=>$code])->first();
-            $record=EstimatorDesignerList::where(['email'=>'designer@vomoto.com'])->first();
-            if($record)
+            // $record=EstimatorDesignerList::where(['email'=>$request->email])->first();
+            // $estimatorWork=TemporaryWork::with('project')->find($id);
+            $estimatorWork=TemporaryWork::where('client_email',$request->mail)->get();
+            if($estimatorWork)
             {
-                $estimatorWork=TemporaryWork::with('project')->find($id);
-                $designerquotation=DesignerQuotation::where(['estimator_designer_list_id'=>$record->id])->get();
-                $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$record->id,'temporary_work_id'=>$id])->get();
+                // $estimatorWork=TemporaryWork::with('project')->find($id);
+                // $designerquotation=DesignerQuotation::where(['estimator_designer_list_id'=>$record->id])->get();
+                // $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$record->id,'temporary_work_id'=>$id])->get();
+                // $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
+                // //get company record
+                // $company=Project::with('company')->find($estimatorWork->project_id);
+                // //get rating of cuurent designer
+                // //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
+                // $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
+
+                $designerquotation=DesignerQuotation::where(['temporary_work_id'=>$estimatorWork[0]->id])->get();
+                $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$estimatorWork[0]->id,'temporary_work_id'=>$id])->get();
                 $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
                 //get company record
-                $company=Project::with('company')->find($estimatorWork->project_id);
+                // $company=Project::with('company')->find($estimatorWork->project_id);
                 //get rating of cuurent designer
                 //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
                 $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
-
-                return view('dashboard.designer.index-test',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
+                return view('dashboard.designer.index-test',['mail'=>$request->email,'estimatorWork'=>$estimatorWork,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators]);
             }
             // return view('dashboard.designer.index-test');
 

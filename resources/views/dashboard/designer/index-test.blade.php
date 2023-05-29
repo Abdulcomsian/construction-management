@@ -260,146 +260,7 @@
                 </div>
             </div>
             <div class="tab-content" id="myTabContent">
-                <!-- tab 1 -->
-                <div class="tab-pane fade show " id="tab1" role="tabpanel">
-                    <div class="card-header border-0 pt-2">
-                        <!--begin::Card title-->
-                        <div class="card-title list_top" style="width:98%">
-                            <h2 style="display: inline-block;">Queries for TWC (if applicable)</h2>
-                        </div>
-                    </div>
-                    <div class="row" style="background:white;margin: 0 4px;">
-                        <div class="col-md-6">
-                            <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="temp_work_id" value="{{$id ?? ''}}">
-                                <input type="hidden" name="mail" value="{{$mail}}">
-                                <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span>Ask questions or list further requirements for the TWC.</span>
-                                    </label>
-                                    <textarea rows="4" class="form-control" required="required" name="comment"
-                                        style="border-radius: var(--primary-border--radius)"></textarea>
-                                    &nbsp;&nbsp;
 
-                                </div>
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mb-3 row">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span>Attachment</span>
-                                </label>
-                                <input type="file" name="image" class="form-control fileInput" id="inputGroupFile02">
-                            </div>
-                            <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
-                        </div>
-                        </form>
-                    </div>
-                    <div class="row">
-                        <div class="col" style="margin: 0 10px">
-                            <table class="table query-table">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Designer's Comments</th>
-                                        <th>TWC Comments</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                    $path = config('app.url');
-                                    @endphp
-                                    @isset($comments)
-                                        @foreach($comments as $cments)
-                                        <tr>
-                                            <td><b>{{$loop->index+1}}</b></td>
-                                            @if($cments->type=='normal')
-                                            <!-- added by Abdul to show only designers comment -->
-                                            <td class="designer-comment">
-                                                {{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
-                                                    d-m-Y',strtotime($cments->created_at))}}</b>
-                                                <br><br>
-                                                @php
-                                                if(isset($cments->image)){
-                                                @endphp
-                                                <a href="{{$path}}{{$cments->image}}">View File</a>
-                                                @php
-                                                }
-                                                @endphp
-                                                </b>
-                                            </td>
-                                            @endif
-
-                                            @if($cments->replay)
-
-                                            <td class="twc-reply">
-                                                @php $i=0;@endphp
-                                                @foreach($cments->replay as $reply)
-                                                <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i
-                                                        d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
-                                                @php $i++; @endphp
-                                                @endforeach
-                                                @endif
-                                                @if($cments->type=='twctodesigner')
-                                            <td class="designer-comment"></td>
-                                            <td class="twc-reply">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
-                                                    d-m-Y',strtotime($cments->created_at))}}</b>
-                                                <br><br>
-                                                @php
-                                                if(isset($cments->image)){
-                                                @endphp
-                                                <a href="{{$path}}{{$cments->image}}">View File</a>
-                                                @php
-                                                }
-                                                @endphp
-                                                </b>
-                                                <hr />
-                                            </td>
-                                            @endif
-                                            <br><br>
-                                            @php
-                                            $path = config('app.url');
-                                            if(isset($cments->reply_image))
-                                            {
-                                            for($j=0;$j < count($cments->reply_image);$j++)
-                                                {
-
-                                                $image='';
-                                                if(isset($cments->reply_image[$j]))
-                                                {
-                                                $n = strrpos($cments->reply_image[$j], '.');
-                                                $ext=substr($cments->reply_image[$j], $n+1);
-                                                if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                                                {
-                                                echo $image='<a target="_blank" style="color: dodgerblue;"
-                                                    href='.$path.$cments->reply_image[$j].'><img
-                                                        src="'.$path.$cments->reply_image[$j].'" width="50px"
-                                                        height="50px" /></a>
-                                                <hr>';
-                                                }
-                                                else{
-                                                echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View
-                                                    File</a>
-                                                <hr>';
-                                                }
-
-                                                }
-                                                }
-                                                }
-                                                @endphp
-                                                </td>
-
-                                        </tr>
-                                        @endforeach
-                                    @endisset
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <!-- tab 2 -->
                 <div class="tab-pane active" id="tab2" role="tabpanel">
                     <form id="desingform" action="{{route('designer.store')}}" method="post"
@@ -410,116 +271,6 @@
                         <input type="hidden" name="designermail" value="{{$mail}}">
                         <!-- <input type="hidden" name="type" value="Add" id="formtype" />
                         <input type="hidden" name="designid" value="" id="designid"> -->
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class=" inputDiv d-block">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                style="width:65% !important">
-                                                <span class="required"> Drawing Status:</span>
-
-                                            </label>
-                                            <!--end::Label-->
-
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                    id="exampleRadios1" value="1" checked>
-                                                <label class="form-check-label" for="exampleRadios1">
-                                                    Preliminary / For Approval
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                    id="exampleRadios2" value="2">
-                                                <label class="form-check-label" for="exampleRadios2">
-                                                    For Construction
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="inputDiv d-block">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Drawing:</span>
-
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="file" class="form-control form-control-solid" id="file"
-                                                name="file[]" style="background: #f5f8fa" required>
-                                        </div>
-                                        <div style="text-align: center;">
-                                            <img class="d-none" width="100" height="100" id="editimage">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="inputDiv d-block">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Drawing Title:</span>
-
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid"
-                                                id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <div class="col-md-4">
-                                <div class=" inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Drawing No:</span>
-
-                                    </label>
-                                    <div class="d-flex">
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Drawing Number" id="drawing_number" name="drawing_number"
-                                            value="{{old('drawing_number')}}" required="required" style="width:34%">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" style="border:none"
-                                                id="drawingno-addon">P</span>
-                                        </div>
-                                        <input type="number" max="99" onKeyDown="limitText(this,2);"
-                                            onKeyUp="limitText(this,2);" class="form-control form-control-solid"
-                                            placeholder="01" name="drawing_postfix_no" required="required"
-                                            style="width: 20%">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class=" inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-
-                                    <input type="text" class="form-control form-control-solid" id="twd_name"
-                                        name="twd_name" value="{{old('twd_name')}}" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="inputDiv d-block">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span>Comments:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" id="comments"
-                                        name="comments">
-                                </div>
-                            </div>
-                        </div>
                         <div class="row" style="background:white;margin: 0 4px;">
                             <div class="col">
                                 <button type="submit" class="btn btn-primary float-start">Upload</button>
@@ -535,24 +286,23 @@
                                         <th>No</th>
                                         <th>Project</th>
                                         <th>Company</th>
-                                        <th>Attachment</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($estimatorWork as $row)
                                     <tr style="background: {{$background ?? ''}}  !important">
                                         <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                        <td>4</td>
+                                        <td>{{$row->projname}}</td>
+                                        <td>{{$row->company}}</td>
                                         <td style="width: 17%;"><button class="btn"
                                                 style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px"
                                                 data-bs-toggle="modal" data-bs-target="#modal1">text
                                                 Here</button>
-                                            <button class="btn" style="border: 1px solid #07d564; border-radius: 5px"
-                                                data-bs-toggle="modal" data-bs-target="#modal2">text Here</button>
+                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">text Here</button>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -561,147 +311,9 @@
                 </div>
                 <!-- tab 3 -->
                 <div class="tab-pane" id="tab3" role="tabpanel">
-                    <form class="form-inline" action="{{route('designer.store')}}" method="post"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="tempworkid" value="{{$id}}">
 
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <!-- <div class="col-md-4">
-                                    <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Designer's Company Name:</span>
-                                        </label>
-                                        <div class="d-flex" >
-                                        <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name ?? ''}}"> -->
-                            <!-- name="designer_company_name" -->
-                            <!-- </div>
-                                    </div>
-                                </div> -->
-                            <div class="col-md-4">
-                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Checker Name:</span>
-                                    </label>
-                                    <div class="d-flex">
-                                        <input type="hidden" name="mail" value="{{$mail}}">
-                                        <input type="text" class="form-control" name="checkeremail" value="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Check Certificate:</span>
-                                    </label>
-                                    <div class="d-flex">
-                                        <input type="file" style="width:25%; flex-grow:1" class="form-control"
-                                            id="designcheckfile" name="designcheckfile" required="required">
-                                        &nbsp;&nbsp;
-                                        <button type="submit" class="btn btn-primary mb-2"
-                                            style="margin-bottom:0px !important">Upload</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="row" style="background:white;margin: 0 4px;">
-                        <div class="col-md-6">
-                            <table class="table table-hover" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Design Check Certificate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @isset($Designerchecks)
-                                        @foreach($Designerchecks as $dcc)
-                                        <tr>
-                                            <td>{{$loop->index+1}}</td>
-                                            <td><a href="{{asset($dcc->file_name)}}"
-                                                    target="_blank">DC{{$loop->index+1}}</a></td>
-                                        </tr>
-                                        @endforeach
-                                    @endisset
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
                 <div class="tab-pane fade" id="tab4" role="tabpanel">
-                    <!-- Risk Assessment and calculations -->
-                    <form class="form-group" action="{{route('riskassesment.store')}}" method="post"
-                        enctype="multipart/form-data" style="width: 100%;margin: auto 0;">
-                        @csrf
-                        <input type="hidden" name="tempworkid" value="{{$id}}">
-                        <input type="hidden" name="designermail" value="{{$mail}}">
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" style="margin: 5px;">Select Document:</label><br>
-                                    <input type="file" class="form-control" id="riskassesmentfile"
-                                        name="riskassesmentfile" required="required">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1" style="margin: 5px">Select Document
-                                        Type:</label><br>
-                                    <select class="form-control" name="type" required>
-                                        <option value="" selected disabled>Risk Assessment-Calculations</option>
-                                        <option value="5">Risk Assessment</option>
-                                        <option value="6">Calculations (Design Notes)</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <div class="col"><button type="submit" class="btn btn-primary mt-2">Upload</button></div>
-                        </div>
-                    </form>
-
-
-                    <div class="row" style="background:white;margin: 0 4px;">
-                        <div class="col">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Email</th>
-                                        <th>Document Type</th>
-                                        <th>File</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @isset($riskassessment)
-                                    @foreach($riskassessment as $riks)
-                                    @php
-                                    $type='';
-                                    if($riks->file_type=="5")
-                                    {
-                                    $type='Risk Assessment';
-                                    }
-                                    if($riks->file_type=="6")
-                                    {
-                                    $type='Calculations';
-                                    }
-                                    @endphp
-                                    <tr>
-                                        <td>{{$loop->index+1}}</td>
-                                        <td>{{$riks->created_by}}</td>
-                                        <td>{{$type}}</td>
-                                        <td><a href="{{asset($riks->file_name)}}" target="_blank">File</a></td>
-                                        <td>{{date("d-m-Y",strtotime($riks->created_at));}}</td>
-                                    </tr>
-                                    @endforeach
-                                    @endisset
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -734,100 +346,93 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-                    <table class="table drawing_infoTable" style="border-collapse: collapse;background: none;">
-                        <thead>
-                            <tr>
-                                <th>Price</th>
-                                <th>Design</th>
-                                <th>Submition Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background: {{$background ?? ''}}  !important">
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="d-flex flex-column inputDiv mb-1" style="border: none">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                    style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
-                                    <span class="signatureTitle">Signature Type:</span>
-                                </label>
-                                <!--end::Label-->
-                                <div class="d-flex">
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
-                                            style="width: 12px;">
-                                        <input type="hidden" id="Drawtype" name=""
-                                            class="form-control form-control-solid" value="1">
-                                        <span
-                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
-                                    </div>
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
-                                        <input type="hidden" id="signtype" name="signtype"
-                                            class="form-control form-control-solid" value="2">
-                                        <span
-                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
-                                    </div>
-                                    &nbsp;
-                                    <!--end::Label-->
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="" id="pdfChecked" style="width: 12px;">
-                                        <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                            class="form-control form-control-solid" value="0">
-                                        <span
-                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
-                                            Upload </span>
-                                    </div>
-                                </div>
 
+                    <form method="post" action="{{route("approve_pricing")}}"  enctype="multipart/form-data">
+                        <div id="table">
+
+                        </div>
+                        @csrf
+
+                        <div class="row">
+                            <div class="col-md-8">
+                            <div class="d-flex flex-column inputDiv mb-1" style="border: none">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                            <span class="signatureTitle">Signature Type:</span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="d-flex">
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                style="width: 12px;">
+                            <input type="hidden" id="Drawtype" name=""
+                                class="form-control form-control-solid" value="1">
+                            <span
+                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                            </div>
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                            <input type="hidden" id="signtype" name="signtype"
+                                class="form-control form-control-solid" value="2">
+                            <span
+                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                            </div>
+                            &nbsp;
+                            <!--end::Label-->
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                            <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                class="form-control form-control-solid" value="0">
+                            <span
+                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                Upload </span>
+                            </div>
+                            </div>
+                        
                             </div>
                             <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
-                                <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Signature:</span>
-                                </label>
-                                <br/> -->
-                                <canvas id="sig" onblure="draw()"
-                                    style="background: lightgray; border-radius:10px"></canvas>
-                                <br />
-                                <textarea id="signature" name="signed" style="display: none"></textarea>
-                                <span id="clear" class="fa fa-undo cursor-pointer"
-                                    style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                            <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Signature:</span>
+                            </label>
+                            <br/> -->
+                            <canvas id="sig" onblure="draw()"
+                            style="background: lightgray; border-radius:10px"></canvas>
+                            <br />
+                            <textarea id="signature" name="signed" style="display: none"></textarea>
+                            <span id="clear" class="fa fa-undo cursor-pointer"
+                            style="line-height: 6; position:relative; top:51px; right:26px"></span>
                             </div>
                             <div class="inputDiv d-none" id="pdfsign">
-                                <label class="fs-6 fw-bold mb-2" style="width: fit-content">
-                                    <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
-                                </label>
-                                <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                            <label class="fs-6 fw-bold mb-2" style="width: fit-content">
+                            <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
+                            </label>
+                            <input type="file" name="pdfphoto" class="form-control" accept="image/*">
                             </div>
-
+                        
                             <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Name Signature:</span>
-                                </label>
-                                <input type="text" name="namesign" class="form-control form-control-solid">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Name Signature:</span>
+                            </label>
+                            <input type="text" name="namesign" class="form-control form-control-solid">
                             </div>
                             <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
-                                Added</span>
-                        </div>
-                        <div class="col-md-4">
+                            Added</span>
+                            </div>
+                            <div class="col-md-4">
                             <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton"
-                                disabled
-                                style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
-
+                            disabled
+                            style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                        
+                            </div>
+                        
                         </div>
-
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    {{-- @include('dashboard.modals.pricing') --}}
     @endsection
     @section('scripts')
     <script type="text/javascript">
@@ -1017,5 +622,20 @@
              
         }
     })
+    function showPricingModal(id){
+         // $.LoadingOverlay("show");
+         var CSRF_TOKEN = '{{ csrf_token() }}';
+            $.post("{{ route('show_pricing') }}", {
+                _token: CSRF_TOKEN,
+                id: id
+            }).done(function(response) {
+                // Add response in Modal body
+                $('#modal2 #table').html(response);
+                // Display Modal
+                $('#modal2').modal('show');
+                // $.LoadingOverlay("hide");
+            });
+
+    }
     </script>
     @endsection

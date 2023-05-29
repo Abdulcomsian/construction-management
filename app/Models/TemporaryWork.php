@@ -110,4 +110,8 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(EstimatorDesignerList::class)->where(['public_message'=>1]);
     }
+    public function designerQuote()
+    {
+        return $this->hasMany(DesignerQuotation::class);
+    }
 }

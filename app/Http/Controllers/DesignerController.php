@@ -1697,7 +1697,7 @@ class DesignerController extends Controller
          $estimatorWork=TemporaryWork::with('designer')->with('project.company')
          ->whereIn('id',$record)
          ->orWhere('created_by', Auth::user()->id)
-         ->where('work_status', 'draft')
+         ->whereIn('work_status', ['draft','pending'])
          ->get();
          
          $AwardedEstimators=TemporaryWork::with('designer.quotationSum')->with('project.company')->whereIn('id',$awarded)->get();
@@ -1713,8 +1713,9 @@ class DesignerController extends Controller
          return Redirect::back();
       }
    }
-   public function editEstimation(){
-    return view('dashboard.estimator.edit_estimation');
+   public function editEstimation($id){
+    $temporary_work = TemporaryWork::with('designerQuote')->findorfail($id);
+    return view('dashboard.estimator.edit_estimation',['temporary_work' => $temporary_work]);
    }
 
    public function showPricing(Request $request){
@@ -1724,32 +1725,43 @@ class DesignerController extends Controller
 
    public function approvePricing(Request $request){
         $pricing = TemporaryWork::findorfail($request->temporary_work_id);
-        //upload signature here
         $image_name = '';
-        if ($request->signtype == 1) {
-            $image_name = $request->namesign;
-        } elseif ($request->pdfsigntype == 1) {
-            $folderPath = public_path('temporary/signature/');
-            $file = $request->file('pdfphoto');
-            $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
-            $file->move($folderPath, $filename);
-            $image_name = $filename;
-        } else {
-            $folderPath = public_path('temporary/signature/');
-            $image = explode(";base64,", $request->signed);
-            $image_type = explode("image/", $image[0]);
-            $image_type_png = $image_type[1];
-            $image_base64 = base64_decode($image[1]);
-            $image_name = uniqid() . '.' . $image_type_png;
-            $file = $folderPath . $image_name;
-            file_put_contents($file, $image_base64);
+        //upload signature here
+        if($request->payment == 'approve'){
+            if ($request->signtype == 1) {
+                $image_name = $request->namesign;
+            } elseif ($request->pdfsigntype == 1) {
+                $folderPath = public_path('temporary/signature/');
+                $file = $request->file('pdfphoto');
+                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move($folderPath, $filename);
+                $image_name = $filename;
+            } else {
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name;
+                file_put_contents($file, $image_base64);
+            }
         }
 
         // $image_name = HelperFunctions::savesignature($request);
         $pricing->signature = $image_name;
-        $pricing->work_status = 'publish';
+        $status = 'draft';
+        if($request->payment == 'approve'){
+            $status = 'publish';
+        } else{
+            $status = 'pending';
+        }
+        $pricing->work_status = $status;
         $pricing->save();
-        return redirect()->back();
+        if($pricing->work_status == 'pending'){
+            Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list, 'Designer',));
+        }
+        return redirect(route('estimator_list'));
    }
 
    public function addEstimator(){

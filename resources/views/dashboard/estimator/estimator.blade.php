@@ -244,7 +244,7 @@
                                     <td>{{$work->project->name ?? $work->company}}</td>
                                     <td>{{$work->project->company->name ?? $work->projname}}</td>
                                     <td>{{Auth::user()->email ?? ''}}</td>
-                                    <td><a href="{{route('edit_estimation')}}" class="btn btn-primary">Edit</a></td>
+                                    <td><a href="{{route('edit_estimation',$work->id)}}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

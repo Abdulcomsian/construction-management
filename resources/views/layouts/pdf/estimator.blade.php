@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style type="text/css">
     table,
     td,
@@ -423,3 +424,5 @@
 
     </div>
 </page>
+=======
+>>>>>>> 73b32641e3be83bc6f668a3feb8bc545abb5cc3d

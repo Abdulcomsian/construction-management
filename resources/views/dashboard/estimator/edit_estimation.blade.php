@@ -728,7 +728,93 @@
                                 </div>
                             </div>
                         </div>
+                        @if($temporary_work->work_status == 'pending')
+                            <div class="row mt-md-3 text-center">
+                                <div class="col-md-12">
+                                    <p style="color:red"> Your price is rejected please update the prices</p>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="row mt-md-4">
+                            <div class="col-md-12">
+                                @foreach($temporary_work->designerQuote as $row)
+                                    <div class="row">
+                                        <div class="pl-3 col-md-3">
+                                            <div class="inputDiv mt-0">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Price:</span>
+                                                </label>
+                                                <input type="number" name="price[]" class="form-control" value="{{$row->price}}"
+                                                    placeholder="Enter Price" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="inputDiv form-group  mt-0 d-flex" style="flex-direction: column">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Description:</span>
+                                                </label>
+                                                <input type="text" name="description[]" placeholder="Enter Description" value="{{$row->description}}"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="inputDiv input-group mt-0 ">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Submittal Date:</span>
+                                                </label>
+                                                <input type="date" name="date[]" class="form-control fileInput" value="{{$row->date}}"
+                                                    id="inputGroupFile02">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
 
+
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="appendresult" style="background:white;margin: 4px;">
+                                    <div class="row">
+                                        <div class="pl-3 col-md-3">
+                                            <div class="inputDiv mt-0">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Price:</span>
+                                                </label>
+                                                <input type="number" name="price[]" class="form-control"
+                                                    placeholder="Enter Price" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="inputDiv form-group  mt-0 d-flex" style="flex-direction: column">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Description:</span>
+                                                </label>
+                                                <input type="text" name="description[]" placeholder="Enter Description"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="inputDiv input-group mt-0 ">
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span>Submittal Date:</span>
+                                                </label>
+                                                <input type="date" name="date[]" class="form-control fileInput"
+                                                    id="inputGroupFile02">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="d-flex justify-content-end">
+                                                {{-- <label class="d-flex align-items-center fs-6 fw-bold mt-5">
+                                                    <span></span>
+                                                </label> --}}
+                                                <button type="button" class="btn btn-primary  queryButton add-more-price"><i
+                                                        class="fa fa-plus"></i>Add More</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @include('dashboard.modals.design-relief-modals')
                         <div class="row mt-5">
                             <div class="col-md-6"></div>
@@ -755,6 +841,49 @@
 @endsection
 @section('scripts')
 <script src="{{asset('assets/js/temporary-work-modal.js')}}"></script>
+<script type="text/javascript">
+    $(".add-more-price").on('click',function(){
+        $(".appendresult").append(`<div class="row"><div class="pl-3 col-md-3">
+                              <div class=" inputDiv form-group  mt-0 d-flex" style="flex-direction: column">
+                                  <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                   <span >Price:</span>
+                                  </label>
+                                   <input type="number" name="price[]" class="form-control"/>
+                
+                              </div>
+                                
+                            </div>
+                            <div class="col-md-4">
+                              <div class="inputDiv form-group mt-0 d-flex" style="flex-direction: column">
+                                  <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                   <span >Description:</span>
+                                  </label>
+                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
+                
+                              </div>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <div class="inputDiv input-group mt-0 ">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span>Date:</span>
+                                    </label>
+                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-danger mb-2 queryButton remove"><i class="fa fa-minus"></i>Remove</button>
+                                </div>
+                                
+                            </div></div>`);
+    })
+
+    $(document).on("click",".remove",function(){
+        $(this).parent().parent().parent().remove();
+    })
+</script>
 <script>
     $(document).ready(function(){
         $('input[name="tw_category"]').on('click', function() {

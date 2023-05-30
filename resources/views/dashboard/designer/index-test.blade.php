@@ -241,42 +241,12 @@
                                 data-bs-target="#tab2" type="button" role="tab" aria-controls="signup"
                                 aria-selected="true">Jobs</button>
                         </li>
-                        <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab"
-                                data-bs-target="#tab3" type="button" role="tab" aria-controls="owner"
-                                aria-selected="false" tabindex="-1">Certificate</button>
-                        </li>
-                        <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab"
-                                data-bs-target="#tab4" type="button" role="tab" aria-controls="owner"
-                                aria-selected="false" tabindex="-1">Others</button>
-                        </li>
-                        <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100 " id="" type="button" role="tab"
-                                data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false"
-                                tabindex="-1">Queries</button>
-                        </li>
-                    </ul>
                 </div>
             </div>
             <div class="tab-content" id="myTabContent">
 
                 <!-- tab 2 -->
                 <div class="tab-pane active" id="tab2" role="tabpanel">
-                    <form id="desingform" action="{{route('designer.store')}}" method="post"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                        <input type="hidden" name="tempworkid" value="{{$id}}">
-                        <input type="hidden" name="designermail" value="{{$mail}}">
-                        <!-- <input type="hidden" name="type" value="Add" id="formtype" />
-                        <input type="hidden" name="designid" value="" id="designid"> -->
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary float-start">Upload</button>
-                            </div>
-                        </div>
-                    </form>
                     <!-- </div> -->
                     <div class="row" style="background:white;margin: 0 4px;">
                         <div class="col">
@@ -295,11 +265,9 @@
                                         <td>1</td>
                                         <td>{{$row->projname}}</td>
                                         <td>{{$row->company}}</td>
-                                        <td style="width: 17%;"><button class="btn"
-                                                style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px"
-                                                data-bs-toggle="modal" data-bs-target="#modal1">text
-                                                Here</button>
-                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">text Here</button>
+                                        <td style="width: 17%;">
+                                            <button class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal" data-bs-target="#modal1">Show Comments</button>
+                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">Show Pricing</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -307,13 +275,6 @@
                             </table>
                         </div>
                     </div>
-
-                </div>
-                <!-- tab 3 -->
-                <div class="tab-pane" id="tab3" role="tabpanel">
-
-                </div>
-                <div class="tab-pane fade" id="tab4" role="tabpanel">
 
                 </div>
             </div>
@@ -352,8 +313,26 @@
 
                         </div>
                         @csrf
-
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="padding-left: 10px">
+                                    <input type="radio" name="payment" value="approve" checked>
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I accept payment</span>
+                                </div>
+                                <div class="form-group" style="padding-left: 10px">
+                                    <input type="radio" name="payment" value="reject">
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I reject payment</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-md-3" id="payment_note" style="display:none">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="payment_note" rows="5" placeholder="Enter note"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="signature_div">
                             <div class="col-md-8">
                             <div class="d-flex flex-column inputDiv mb-1" style="border: none">
                             <!--begin::Label-->
@@ -420,13 +399,14 @@
                             Added</span>
                             </div>
                             <div class="col-md-4">
-                            <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton"
-                            disabled
-                            style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
-                        
+                           
                             </div>
                         
                         </div>
+                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton"
+                        disabled
+                        style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                    
                     </form>
                 </div>
             </div>
@@ -637,5 +617,21 @@
             });
 
     }
+
+    $('input[name="payment"]').on('change', function() {
+        if ($(this).val() === 'approve') {
+            $('#signature_div').show();
+            $('#submitbutton').prop('disabled', true);
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
+            $('#payment_note').hide(); // Remove the div with id "payment_note"
+            $('input[name="payment_note"]').prop('required', true);
+        } else {
+            $('#signature_div').hide();
+            $('#submitbutton').prop('disabled', false);
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary");
+            $('#payment_note').show(); // Remove the div with id "payment_note"
+            $('input[name="payment_note"]').prop('required', false);
+        }
+    });
     </script>
     @endsection

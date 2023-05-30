@@ -285,7 +285,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('estimator-list' , [DesignerController::class , 'estimator'])->name('estimator_list');
      Route::get('add-estimator' , [DesignerController::class , 'addEstimator'])->name('add_estimator');
      Route::post('estimation-store' , [DesignerController::class , 'storeEstimation'])->name('estimation_store');
-     Route::get('edit-estimation' , [DesignerController::class , 'editEstimation'])->name('edit_estimation');
+     Route::get('edit-estimation/{id}' , [DesignerController::class , 'editEstimation'])->name('edit_estimation');
      Route::post('show-pricing' , [DesignerController::class , 'showPricing'])->name('show_pricing');
      Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);

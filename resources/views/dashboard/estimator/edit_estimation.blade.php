@@ -686,8 +686,8 @@
                                     <!--end::Label-->
                                     <select name="" id=""
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
-                                        <option value="">Draft</option>
-                                        <option value="">Publish</option>
+                                        <option value="draft">Draft</option>
+                                        <option value="publish">Publish</option>
                                     </select>
                                 </div>
                             </div>

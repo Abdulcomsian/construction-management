@@ -1719,6 +1719,183 @@ class DesignerController extends Controller
     return view('dashboard.estimator.edit_estimation',['temporary_work' => $temporary_work]);
    }
 
+   public function updateEstimation(Request $request, $id){
+        try
+        {
+            $temporary_work = TemporaryWork::findOrFail($id); // Assuming you have the $id of the record you want to update
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $informationRequired = $request->information_required;
+            if($informationRequired == "on")
+            {
+                if(is_null($request->additional_information) || empty($request->additional_information))
+                {
+                    toastError("Please insert additionalInformation");
+                    return Redirect::back();
+                }
+            }
+            $scope_of_design = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'sod')) {
+                    $data = null;
+                    $data = [
+                        Str::replace('_sod', '', $key) => $request->$key
+                    ];
+                    $scope_of_design = array_merge($scope_of_design, $data);
+                    unset($request[$key]);
+                }
+            }
+            $folder_attachements = [];
+            $folder_attachements_pdf = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'folder')) {
+                    $data = null;
+                    $data1 = null;
+                    $data = [
+                        Str::replace('_folder', '', $key) => $request->$key
+                    ];
+                    $mykey = Str::replace('_folder', '', $key);
+                    if (isset($request->$mykey)) {
+                        $data1 = [
+                            $request->$mykey => $request->$key
+                        ];
+                        $folder_attachements_pdf = array_merge($folder_attachements_pdf, $data1);
+                    }
+                    $folder_attachements = array_merge($folder_attachements, $data);
+                    unset($request[$key]);
+                }
+            }
+            $attachcomments = [];
+            foreach ($request->keys() as $key) {
+                if (Str::contains($key, 'comment')) {
+                    $data = null;
+                    $data1 = null;
+                    $data = [
+                        $key => $request->$key
+                    ];
+                    $attachcomments = array_merge($attachcomments, $data);
+                    unset($request[$key]);
+                }
+            }
+
+            //if design req details is exist
+            if(isset($request->req_name))
+            {
+                $desing_req_details=[];
+                foreach($request->req_name as $key => $req)
+                {
+                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                }
+                $all_inputs['desing_req_details']=json_encode($desing_req_details);
+            }
+            //unset all keys 
+            $request = $this->Unset($request);
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $image_name = '';
+            $all_inputs['signature'] = $image_name;
+            $all_inputs['created_by'] = auth()->user()->id;
+            //work for qrcode
+            $all_inputs['status'] = '0';
+            //photo work here
+            if ($request->photo) {
+                $filePath = HelperFunctions::designbriefphotopath();
+                $file = $request->file('photo');
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $all_inputs['photo'] = $imagename;
+            }
+            $categorylabel=explode("-",$request->design_requirement_text);
+            $all_inputs['category_label']=$categorylabel[0];
+            $all_inputs['estimator']=1;
+            $all_inputs['work_status']=$request->work_status;
+            $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
+            $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
+            $all_inputs['admin_designer_email'] = Auth::user()->email;
+            $temporary_work = TemporaryWork::create($all_inputs);
+            $temporary_work->update($all_inputs);
+            for($i=0;$i<count($request->price);$i++)
+            {
+                $temporary_work->designerQuote()->update([
+                    'price' => $request->price[$i], // Update the desired fields with their respective new values
+                    'description' => $request->description[$i],
+                    'date' => $request->date[$i],
+                    'email' => $request->client_email,
+                    'temporary_work_id' => $request->client_email,
+                ]);
+            }
+            $temporaryWorkId = $temporary_work->id;
+            $additionalInformation = $request->additional_information;
+            $mainFile =null;
+
+            if($informationRequired == "on")
+            {
+                if($request->hasFile('additional_information_file'))
+                {
+                    $file = $request->file('additional_information_file');
+                    $fileName = $file->getClientOriginalName();
+                    $mainFile = time().'-'.$fileName;
+                    $file->move(public_path('uploads/additional_information') , $mainFile);
+                }
+
+                AdditionalInformation::create([
+                    "temporary_work_id" => $temporaryWorkId,
+                    "more_details" => $additionalInformation,
+                    "file_path" => $mainFile
+                ]);
+
+            }
+            if ($temporary_work) {
+                ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
+                Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
+                AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
+                //work for upload images here
+                $image_links = [];
+                if ($request->file('images')) {
+                    $filePath = HelperFunctions::temporaryworkImagePath();
+                    $files = $request->file('images');
+                    foreach ($files  as $key => $file) {
+                        $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                        $model = new TemporayWorkImage();
+                        $model->image = $imagename;
+                        $model->temporary_work_id = $temporary_work->id;
+                        $model->save();
+                        $image_links[] = $imagename;
+                    }
+                }
+                //work for pdf
+                // dd("eeee");
+                $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                $path = public_path('estimatorPdf');
+                $filename = rand() . '.pdf';
+                $pdf->save($path . '/' . $filename);
+                $model = TemporaryWork::find($temporary_work->id);
+                $model->ped_url = $filename;
+                $model->save();
+                //send mail to admin
+                $notify_msg = [
+                    'greeting' => 'Estimator Work Pdf',
+                    'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
+                    'body' => [
+                        'company' => $request->company,
+                        'filename' => $filename,
+                        'links' => '',
+                        'name' =>  $request->projname . '-' . $request->projno,
+
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                $list = $request->client_email;
+                Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
+                
+            toastSuccess("Data updated successfully!");
+            return Redirect::back();
+            }
+        } catch (\Exception $exception) {
+            toastError($exception->getMessage());
+            return Redirect::back();
+        }
+   }
+
    public function showPricing(Request $request){
         $temporary_work = TemporaryWork::with('designerQuote')->findOrFail($request->input('id'));
         return view('dashboard.modals.pricing', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
@@ -1883,7 +2060,7 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -2047,7 +2224,5 @@ class DesignerController extends Controller
                     
                 }
         }
-
-      
 
 }

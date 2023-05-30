@@ -380,7 +380,7 @@
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid"
+                                    <input type="number" class="blackBack form-control form-control-solid"
                                         placeholder="Enter Project number" id="no" name="projno">
                                 </div>
                             </div>

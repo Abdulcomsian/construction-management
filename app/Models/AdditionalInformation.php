@@ -14,7 +14,7 @@ class AdditionalInformation extends Model
     protected $primaryKey ="id";
     protected $fillable = ["temporary_work_id" , "more_details" ,"file_path"];
 
-    public function JobComment()
+    public function jobComment()
     {
         return $this->hasMany(JobComments::class , "additional_information_id" , "id");
     }

@@ -16,6 +16,7 @@ class CreateJobCommentsTable extends Migration
         Schema::create('job_comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("additional_information_id");
+            $table->unsignedBigInteger("parent_id")->nullable();
             $table->longText("comment");
             $table->longText("file_destination")->nullable();
             $table->foreign("additional_information_id")->references("id")->on("additional_information")->cascadeOnDelete();

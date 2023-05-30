@@ -941,4 +941,28 @@ class EstimatorController extends Controller
          return response()->json('error');
      }
    }
+
+   public function getAdditionalInformation(Request $request){
+        try{
+
+            $tempId = $request->id;
+            $tempWork =TemporaryWork::with('AdditionalInformation.jobComment.reply')->where('id',$tempId)->first();
+            $html = view('components.additional-information' , ['tempWorks' => $tempWork])->render();
+            return response()->json(['success' => true , 'msg' => 'Additional inforamtion find successfully' , 'html' => $html]);
+        }catch(\Exception $e){
+            return response()->json([ 'success'=>false , 'msg' => 'Something went wrong' , 'error' => $e->getMessage()]);
+        }
+
+   }
+
+   public function getAdditionalComment(Request $request)
+   {
+    dd($request->all());
+   }
+
+   public function jobCommentReply(Request $request)
+   {
+
+   }
+
 }

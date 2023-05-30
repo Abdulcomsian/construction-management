@@ -252,7 +252,7 @@
                         <div class="col">
                             <table class="table drawing_infoTable" style="border-collapse: collapse;background: none;">
                                 <thead>
-                                    <tr>
+                                    <tr style="padding-left: 10px;">
                                         <th>No</th>
                                         <th>Project</th>
                                         <th>Company</th>
@@ -265,9 +265,10 @@
                                         <td>1</td>
                                         <td>{{$row->projname}}</td>
                                         <td>{{$row->company}}</td>
-                                        <td style="width: 17%;">
-                                            <button class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal" data-bs-target="#modal1">Show Comments</button>
-                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">Show Pricing</button>
+                                        <td style="width: 40%;">
+                                            {{-- data-bs-target="#modal1" --}}
+                                            <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button>
+                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">text Here</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -287,7 +288,11 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form action="">
+                    <h1 class="mb-3" style="text-align: left; font-weight: 700; font-size: 26px;font-family: 'Inter';">Comments</h1>
+                    <div class="comment-body">
+
+                    </div>
+                    {{-- <form action="">
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
@@ -298,7 +303,7 @@
                         </div>
                         <button class="btn w-100" type="submit"
                             style="border: 1px solid #07d564; border-radius: 5px">Submit</button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>
@@ -602,6 +607,41 @@
              
         }
     })
+
+    function showAdditionalInformation(id){
+
+         // $.LoadingOverlay("show");
+         var CSRF_TOKEN = '{{ csrf_token() }}';
+            $.post("{{ route('get.additional.information') }}", {
+                _token: CSRF_TOKEN,
+                id: id
+            }).done(function(res) {
+                // Add response in Modal body
+                document.getElementById("modal1").querySelector(".comment-body").innerHTML = res.html;
+                // Display Modal
+                $('#modal1').modal('toggle');
+            });
+
+    }
+    $(document).on("click" , '.additional-comment' , function(e){
+        alert("here");
+        e.preventDefault();
+        let form = e.target.closest(".form");
+        let formdata = new FormData(form)
+        formdata.append('_token' , '{{ csrf_token() }}')
+
+        $.post("{{ route('additional.comment.reply') }}", {
+            data : formdata
+        }).done(function(res) {
+            // Add response in Modal body
+            if(res.msg == "success")
+            {
+                window.location.reload()
+            }
+        });
+    })
+
+
     function showPricingModal(id){
          // $.LoadingOverlay("show");
          var CSRF_TOKEN = '{{ csrf_token() }}';
@@ -633,5 +673,7 @@
             $('input[name="payment_note"]').prop('required', false);
         }
     });
+    
+
     </script>
     @endsection

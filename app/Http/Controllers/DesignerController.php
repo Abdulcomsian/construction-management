@@ -1762,7 +1762,6 @@ class DesignerController extends Controller
         $note = $request->payment_note;
         if($temporary_work->work_status == 'pending'){
             Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
-            dd("sss");
         }
         return redirect(route('estimator_list'));
    }

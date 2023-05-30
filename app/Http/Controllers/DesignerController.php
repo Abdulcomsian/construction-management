@@ -29,6 +29,7 @@ use App\Notifications\ShareDrawingNotification;
 use App\Notifications\DrawingCommentNotification;
 use App\Notifications\EstimatorNotification;
 use App\Notifications\EstimationClientNotification;
+use App\Notifications\EstimationPriceRejectedNotification;
 // use App\Notifications\TemporaryWorkNotification;
 use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
@@ -1724,7 +1725,7 @@ class DesignerController extends Controller
    }
 
    public function approvePricing(Request $request){
-        $pricing = TemporaryWork::findorfail($request->temporary_work_id);
+        $temporary_work = TemporaryWork::findorfail($request->temporary_work_id);
         $image_name = '';
         //upload signature here
         if($request->payment == 'approve'){
@@ -1749,17 +1750,18 @@ class DesignerController extends Controller
         }
 
         // $image_name = HelperFunctions::savesignature($request);
-        $pricing->signature = $image_name;
+        $temporary_work->signature = $image_name;
         $status = 'draft';
         if($request->payment == 'approve'){
             $status = 'publish';
         } else{
             $status = 'pending';
         }
-        $pricing->work_status = $status;
-        $pricing->save();
-        if($pricing->work_status == 'pending'){
-            Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list, 'Designer',));
+        $temporary_work->work_status = $status;
+        $temporary_work->save();
+        $note = $request->payment_note;
+        if($temporary_work->work_status == 'pending'){
+            Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
         }
         return redirect(route('estimator_list'));
    }
@@ -1900,6 +1902,7 @@ class DesignerController extends Controller
             $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
+            $all_inputs['admin_designer_email'] = Auth::user()->email;
             $temporary_work = TemporaryWork::create($all_inputs);
             for($i=0;$i<count($request->price);$i++)
             {

@@ -342,35 +342,10 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{ route('estimator.store') }}" method="post"
+                    <form id="desingform" action="{{ route('update_estimation', $temporary_work->id) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-                        {{-- <div class="row">
-                            <div class="col">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <label class=" fs-6 fw-bold mb-2" style="bottom: 38px;">
-                                        <span class="required">Select Project:</span>
-                                    </label>
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="00"
-                                        id="no" name="projno">
-                                    {{-- <select name="project_id" id="projects"
-                                        class="form-select form-select-lg form-select-solid" data-control="select2"
-                                        data-placeholder="Select an option" data-allow-clear="true" required>
-                                        <option value="">Select Option</option>
-                                        @forelse($projects as $item)
-                                        <option value="{{$item->id}}" @isset($old) {{ in_array($item->id,$old) ?
-                                            'selected' : '' }} @endisset @isset($project_ids) {{
-                                            in_array($item->id,$project_ids) ? 'selected' : '' }}
-                                            @endisset>{{$item->name .' - '. $item->no}}</option>
-                                        @empty
-                                        @endforelse
-                                    </select> --}}
-                                    {{--
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
@@ -380,7 +355,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="Enter Project number" id="no" name="projno">
+                                        placeholder="Enter Project number" id="no" value="{{$temporary_work->projno}}" name="projno">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -391,7 +366,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid"
+                                    <input type="text" class="form-control form-control-solid" value="{{$temporary_work->projname}}"
                                         placeholder="Project Name" id="name" name="projname">
                                 </div>
                             </div>
@@ -404,7 +379,7 @@
                                         <span class="">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" value=""
+                                    <input data-date-inline-picker="true" type="date" value="{{$temporary_work->date}}"
                                         class="blackBack form-control form-control-solid" placeholder="Date"
                                         name="design_issued_date" id="design_issued_date">
                                 </div>
@@ -417,7 +392,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporary_work->projaddress}}"
                                         placeholder="Project Address" id="address" name="projaddress">
                                 </div>
                             </div>
@@ -432,7 +407,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporary_work->twc_name}}"
                                         placeholder="TWC Name" id="twc_name" name="twc_name" value="">
                                 </div>
                             </div>
@@ -444,7 +419,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporary_work->twc_email}}"
                                         placeholder="TWC Email Address" id="twc_email" name="twc_email"
                                         style="background: #f5f8fa">
                                 </div>
@@ -458,7 +433,7 @@
                                         <span class="">Design Required by Date:</span>
                                     </label>
                                     <input data-date-inline-picker="true"
-                                        style=" cursor: pointer;color:#a9abb7 !important;" type="date"
+                                        style=" cursor: pointer;color:#a9abb7 !important;" type="date" value="{{$temporary_work->design_required_by_date}}"
                                         class="customDate blackBack form-control form-control-solid"
                                         placeholder="Design Required by Date" id="design_required_by_date"
                                         name="design_required_by_date">
@@ -473,7 +448,7 @@
                                             Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack" style="width: 50%;"
+                                        <input type="text" class="blackBack" style="width: 50%;" value="{{$temporary_work->design_requirement_text}}"
                                             id="design_requirement_text" placeholder="Design requirement"
                                             name="design_requirement_text">
                                         <!--end::Label-->
@@ -493,7 +468,7 @@
                                         <textarea class="blackBack form-control"
                                             name="description_temporary_work_required"
                                             style="height:32px; border: none " rows="2" cols="50"
-                                            placeholder="Provide brief description of design requirements."></textarea>
+                                            placeholder="Provide brief description of design requirements.">{{$temporary_work->description_temporary_work_required}}</textarea>
                                     </div>
                                 </div>
                             </div>

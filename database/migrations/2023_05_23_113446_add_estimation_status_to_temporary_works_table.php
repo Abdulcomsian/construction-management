@@ -17,6 +17,7 @@ class AddEstimationStatusToTemporaryWorksTable extends Migration
             $table->enum('work_status', ['draft','pending','publish'])->default('publish')->comment('This is for when user create');
             $table->string('client_email')->nullable();
             $table->string('projname')->nullable();
+            $table->string('projno')->nullable();
             $table->string('admin_designer_email')->nullable();
         });
     }
@@ -32,6 +33,7 @@ class AddEstimationStatusToTemporaryWorksTable extends Migration
             $table->dropColumn('work_status');
             $table->dropColumn('client_email');
             $table->dropColumn('projname');
+            $table->dropColumn('projno');
             $table->dropColumn('admin_designer_email');
         });
     }

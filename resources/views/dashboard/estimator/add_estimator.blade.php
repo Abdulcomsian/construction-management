@@ -772,6 +772,35 @@
                                         required.</span>
                                 </div>
                             </div>
+
+                            <div class="col-md-12 additional_information d-none" style="margin-top: -30px; margin-bottom: 20px;">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="required  fs-6 fw-bold mb-2"
+                                            style="bottom: 0; top: -13px; height: fit-content;">
+                                            Additional Information:
+                                        </label>
+                                        <textarea class="blackBack form-control"
+                                            name="additional_information"
+                                            style="height:64px; border: none " rows="4" cols="50"
+                                            placeholder="Provide additional information.">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 additional_information_photo d-none" style="margin-top: -30px; margin-bottom: 20px;">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span>Choose File:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="file" class="form-control" id="additional_information_photo" name="additional_information_photo"
+                                        value="{{old('additional_information_photo')}}" accept="image/*;capture=camera">
+                                </div>
+                            </div>
                         </div>
                         <div class="appendresult" style="background:white;margin: 0 4px;">
                             <div class="row">
@@ -901,6 +930,17 @@
 
     $(document).on("click",".remove",function(){
         $(this).parent().parent().parent().remove();
+    })
+
+    $(document).on("change" , "input[name='information_required']" , function(e){
+        if(e.target.checked == true)
+        {
+            document.querySelector(".additional_information").classList.remove("d-none");
+            document.querySelector(".additional_information_photo").classList.remove("d-none");
+        }else{
+            document.querySelector(".additional_information").classList.add("d-none");
+            document.querySelector(".additional_information_photo").classList.add("d-none");
+        }
     })
 </script>
 @endsection

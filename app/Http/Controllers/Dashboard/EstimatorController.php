@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use App\Utils\Validations;
-use App\Models\{EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating};
+use App\Models\{EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use Notification;
@@ -957,7 +957,24 @@ class EstimatorController extends Controller
 
    public function getAdditionalComment(Request $request)
    {
-    dd($request->all());
+        try{
+            $additional_id = $request->addId;
+            $comment = $request->comment;
+            $filePath = null;
+            if($request->hasFile('commentFile')){
+                $file = $request->file('commentFile');
+                $filePath = time().'-'.$file->getClientOriginalName();
+                $file->move( public_path('uploads/additional_information') , $filePath);
+            }
+    
+            $comment = JobComments::create(['additional_information_id'=> $additional_id , 'comment' => $comment , 'file_destination' => $filePath]);
+
+            return response()->json(['success' => true , 'msg' => 'Comment Added Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['success' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
+
+
    }
 
    public function jobCommentReply(Request $request)

@@ -46,10 +46,10 @@
                 </form>
             @endforeach
         <form style="display:block;" class="form"  enctype="multipart/form-data">
-            <input type="hidden" name="tempid" value="{{$detail->id}}">
-            <textarea style="width: 100%" type="text" class="replay" name="replay" placeholder="Add comment here..."></textarea>
+            <input type="hidden" name="addId" value="{{$detail->id}}">
+            <textarea style="width: 100%" type="text" class="replay" name="comment" placeholder="Add comment here..."></textarea>
             <div class="submmitBtnDiv">
-                <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile">
+                <input style="width:50%;margin-top:20px;float:left" type="file" name="commentFile">
                 <button type="button" class="btn btn-primary additional-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
             </div>
 

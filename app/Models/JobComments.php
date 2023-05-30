@@ -21,7 +21,7 @@ class JobComments extends Model
 
     public function reply()
     {
-        return $this->hasMany(JobComment::class , 'parent_id' , 'id');
+        return $this->hasMany(JobComments::class , 'parent_id' , 'id');
     }
 
 }

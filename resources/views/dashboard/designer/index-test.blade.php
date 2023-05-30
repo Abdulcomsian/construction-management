@@ -623,23 +623,50 @@
             });
 
     }
-    $(document).on("click" , '.additional-comment' , function(e){
-        alert("here");
-        e.preventDefault();
-        let form = e.target.closest(".form");
-        let formdata = new FormData(form)
-        formdata.append('_token' , '{{ csrf_token() }}')
+    // $(document).on("click" , '.additional-comment' , function(e){
+    //     e.preventDefault();
+    //     let form = e.target.closest(".form");
+    //     let formdata = new FormData(form)
+    //     formdata.append('_token' , '{{ csrf_token() }}')
 
-        $.post("{{ route('additional.comment.reply') }}", {
-            data : formdata
-        }).done(function(res) {
+    //     $.post("{{ route('additional.comment.reply') }}", {
+    //         data : formdata,
+    //         processData: false, // Important: prevent jQuery from processing the FormData
+    //         contentType: false,
+    //     }).done(function(res) {
+    //         // Add response in Modal body
+    //         if(res.msg == "success")
+    //         {
+    //             window.location.reload()
+    //         }
+    //     });
+    // })
+
+    $(document).on("click", '.additional-comment', function(e) {
+    e.preventDefault();
+    let form = $(this).closest(".form")[0];
+    let formdata = new FormData(form);
+    formdata.append('_token', '{{ csrf_token() }}');
+
+    $.ajax({
+        type: "POST",
+        url: "{{ route('additional.comment.reply') }}",
+        data: formdata,
+        processData: false, // Important: prevent jQuery from processing the FormData
+        contentType: false, // Important: prevent jQuery from setting the content type
+        success: function(res) {
             // Add response in Modal body
-            if(res.msg == "success")
-            {
-                window.location.reload()
+            if (res.msg === "success") {
+                window.location.reload();
             }
-        });
-    })
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            console.log(xhr.responseText);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+});
 
 
     function showPricingModal(id){

@@ -1765,7 +1765,7 @@ class DesignerController extends Controller
    }
 
    public function addEstimator(){
-    return view('dashboard.estimator.add_estimator');
+      return view('dashboard.estimator.add_estimator');
    }
 
    public function change_email_history(Request $request)

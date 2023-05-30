@@ -16,6 +16,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+
                                         <tr>
                                             <td width="100%" cellpadding="0" cellspacing="0" style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;background-color:#ffffff;border-bottom:1px solid #edeff2;border-top:1px solid #edeff2;margin:0;padding:0;width:100%">
                                                 <table align="center" width="570" cellpadding="0" cellspacing="0" style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;background-color:#ffffff;margin:0 auto;padding:0;width:570px">
@@ -26,14 +27,35 @@
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Welcome to the Temporary Works Portal.  <br><br>
                                                                         Attached is a PDF Estimator design brief created by {{$details['body']['company']}} for your attention.<br><br>
+
+                                                                        @if($information == "on")
+                                                                        Click on the link below to get more detail
+                                                                        @else
                                                                         The Estimator design brief includes all relevant documents.
-                                                                        
+                                                                        @endif                                                                       
                                                                    </p>
-                                                                   <p>
-                                                                       <a href="{{route('estimator.designer_client',$id.'/?mail='.$email.'&code='.Crypt::encrypt($code))}}">View Estimate</a>
-                                                                   </p>
+
+                                                                   
+                                                                       <a href="{{route('estimator.designer_client',$id.'/?mail='.$email.'&code='.Crypt::encrypt($code))}}"> 
+                                                                        <p>   
+                                                                        @if($information == "on")  
+                                                                        View Details
+                                                                        @else
+                                                                        View Estimate
+                                                                        @endif
+                                                                        </p>
+                                                                      </a>
                                                                   
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Review Design Brief If you have any questions about this Estimate brief, please refer to {{$details['body']['company']}} Ltd. <br><br>
+                                                                    
+                                                                        <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                            @if($information == "on")
+                                                                            {{$detail}}
+                                                                            @else
+                                                                            Review Design Brief If you have any questions about this Estimate brief, please refer to {{$details['body']['company']}} Ltd. 
+                                                                            @endif
+                                                                            
+                                                                            <br><br></p>
+                                                                    <p>
                                                                     Regards, The Temporary Works Portal Team <br><br>
                                                                     <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>
                                                                    </p>

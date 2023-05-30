@@ -797,8 +797,8 @@
                                         <span>Choose File:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="file" class="form-control" id="additional_information_photo" name="additional_information_photo"
-                                        value="{{old('additional_information_photo')}}" accept="image/*;capture=camera">
+                                    <input type="file" class="form-control" id="additional_information_file" name="additional_information_file"
+                                        value="{{old('additional_information_file')}}" accept="image/*;capture=camera">
                                 </div>
                             </div>
                         </div>

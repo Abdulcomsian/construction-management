@@ -412,9 +412,10 @@
 
                         </td>
                     </tr>
+                    
                     <tr>
                         <td> <label for="" style="float: left;width: 400px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Date</b></label></td>
-                        <td style="font-size:12px;"> {{ date('d-m-Y',strtotime($data['date']))}}</td>
+                        <td style="font-size:12px;"> {{ date('d-m-Y',strtotime($data['date'][0]))}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -17,7 +17,7 @@ use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
-use App\Models\{Project,DesignerQuotation,EstimatorDesignerList};
+use App\Models\{Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation};
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
@@ -1818,6 +1818,15 @@ class DesignerController extends Controller
    {
     // Validations::storeEstimatorWork($request);
     try {
+            $informationRequired = $request->information_required;
+            if($informationRequired == "on")
+            {
+                if(is_null($request->additional_information) || empty($request->additional_information))
+                {
+                    toastError("Please insert additionalInformation");
+                    return Redirect::back();
+                }
+            }
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -1874,7 +1883,7 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -1892,6 +1901,7 @@ class DesignerController extends Controller
             $all_inputs['estimator']=1;
             $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
+            $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
             $temporary_work = TemporaryWork::create($all_inputs);
             for($i=0;$i<count($request->price);$i++)
@@ -1904,6 +1914,28 @@ class DesignerController extends Controller
                 $model->email=$request->client_email;
                 $model->temporary_work_id=$temporary_work->id;
                 $model->save();
+            }
+
+            $temporaryWorkId = $temporary_work->id;
+            $additionalInformation = $request->additional_information;
+            $mainFile =null;
+
+            if($informationRequired == "on")
+            {
+                if($request->hasFile('additional_information_file'))
+                {
+                    $file = $request->file('additional_information_file');
+                    $fileName = $file->getClientOriginalName();
+                    $mainFile = time().'-'.$fileName;
+                    $file->move(public_path('uploads/additional_information') , $mainFile);
+                }
+
+                AdditionalInformation::create([
+                    "temporary_work_id" => $temporaryWorkId,
+                    "more_details" => $additionalInformation,
+                    "file_path" => $mainFile
+                ]);
+
             }
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -1948,7 +1980,7 @@ class DesignerController extends Controller
                     'action_url' => '',
                 ];
                 $list = $request->client_email;
-                Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list, 'Designer',));
+                Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
                 // Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
 
                 // //work for designer email list==============  

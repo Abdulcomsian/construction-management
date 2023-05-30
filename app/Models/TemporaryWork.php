@@ -114,4 +114,9 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(DesignerQuotation::class);
     }
+
+    public function additionalInformation()
+    {
+        return $this->hasMany(AdditionalInformation::class , 'temporary_work_id' , 'id' );
+    }
 }

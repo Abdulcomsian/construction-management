@@ -1809,18 +1809,23 @@ class DesignerController extends Controller
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
-            $temporary_work = TemporaryWork::create($all_inputs);
             $temporary_work->update($all_inputs);
-            for($i=0;$i<count($request->price);$i++)
-            {
-                $temporary_work->designerQuote()->update([
-                    'price' => $request->price[$i], // Update the desired fields with their respective new values
-                    'description' => $request->description[$i],
-                    'date' => $request->date[$i],
-                    'email' => $request->client_email,
-                    'temporary_work_id' => $request->client_email,
-                ]);
-            }
+             // Delete existing designer_quote records
+             $temporary_work->designerQuote()->delete();
+
+             // Create new designer_quote records with updated values
+             $designerQuotes = [];
+             for ($i = 0; $i < count($request->price); $i++) {
+                 $designerQuotes[] = [
+                     'price' => $request->price[$i],
+                     'description' => $request->description[$i],
+                     'date' => $request->date[$i],
+                     'email' => $request->client_email,
+                     'temporary_work_id' => $request->id,
+                 ];
+             }
+            $temporary_work->designerQuote()->createMany($designerQuotes);
+
             $temporaryWorkId = $temporary_work->id;
             $additionalInformation = $request->additional_information;
             $mainFile =null;

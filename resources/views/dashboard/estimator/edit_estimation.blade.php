@@ -354,7 +354,7 @@
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid"
+                                    <input type="number" class="blackBack form-control form-control-solid"
                                         placeholder="Enter Project number" id="no" value="{{$temporary_work->projno}}" name="projno">
                                 </div>
                             </div>
@@ -681,6 +681,17 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
+                                        <span>Client Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="email" name="client_email" class="form-control form-control-slid"
+                                        placeholder="Enter Client Email" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span>Status:</span>
                                     </label>
                                     <!--end::Label-->
@@ -691,6 +702,8 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
@@ -700,6 +713,19 @@
                                     <!--end::Label-->
                                     <input type="file" class="form-control" id="photo" name="photo"
                                         value="{{old('photo')}}" accept="image/*;capture=camera">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center inputDiv" style="height: 41px">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span>Information Required?</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="checkbox" name="information_required" id="information_required"
+                                        style="margin-left:10px;opacity: 0.5" class="blackBack">
+                                    <span style="padding-left:22px;color:#000">Select if additional information is
+                                        required.</span>
                                 </div>
                             </div>
                         </div>

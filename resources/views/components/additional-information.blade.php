@@ -23,36 +23,23 @@
         <td style=" flex-direction: column;">
             @foreach($detail->jobComment as $comments )
             <div>
-                <div><p>{{$comments->comment}}</p></div>
-                <a target="_blank" href="{{ asset('uploads/additional_information/' . $comments->file_destinaion) }}">View File</a>
+                <div>{{$comments->comment}}</div>
+                @if(isset($comments->file_destination) && !is_null($comments->file_destination))
+                    <a target="_blank" href="{{ asset('uploads/additional_information/' . $comments->file_destinaion) }}">View File</a>
+                @endif
+                <div>
+                    {{date("d-m-Y H:i:s", strtotime($comments->created_at))}}
+                </div>
             </div>
-            <br>{{date("d-m-Y H:i:s", strtotime($comments->created_at))}}
-                @foreach($comments->reply as $reply)
-                    <div>
-                        <div><p>{{$reply->comment}}</p></div>
-                        <a target="_blank" href="{{ asset('uploads/additional_information/' . $reply->file_destinaion) }}">View File</a>
-                    </div>
-                @endforeach
-                <form style="display:block;" method="get" action="{{url('job/comment/reply')}}" enctype="multipart/form-data">
-                    <input type="hidden" name="tempid" value="{{$comments->id}}">
-                    <textarea style="width: 100%" type="text" class="replay" name="replay" placeholder="Add comment here..."></textarea>
-                    <div class="submmitBtnDiv">
-                        <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile">
-                        <input type="hidden" name="commentid" value="228">
-                        <input type="hidden" name="scan" value="scan">
-                        <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
-                    </div>
-        
-                </form>
+            <hr>
             @endforeach
-        <form style="display:block;" class="form"  enctype="multipart/form-data">
+        <form style="display:block;" class="form" enctype="multipart/form-data">
             <input type="hidden" name="addId" value="{{$detail->id}}">
             <textarea style="width: 100%" type="text" class="replay" name="comment" placeholder="Add comment here..."></textarea>
             <div class="submmitBtnDiv">
                 <input style="width:50%;margin-top:20px;float:left" type="file" name="commentFile">
                 <button type="button" class="btn btn-primary additional-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
             </div>
-
         </form>
 
         </td>

@@ -12,16 +12,12 @@ class JobComments extends Model
 
     protected $table = "job_comments";
     protected $primaryKey ="id";
-    protected $fillable = ["additional_information_id" , "comment" ,"file_destination" , "parent_id"];
+    protected $fillable = ["additional_information_id" , "comment" ,"file_destination"];
 
     public function AdditionalInformation()
     {
         return $this->belongsTo(AdditionalInformation::class ,"additional_information_id" , "id");
     }
 
-    public function reply()
-    {
-        return $this->hasMany(JobComments::class , 'parent_id' , 'id');
-    }
 
 }

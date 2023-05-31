@@ -946,7 +946,9 @@ class EstimatorController extends Controller
         try{
 
             $tempId = $request->id;
-            $tempWork =TemporaryWork::with('AdditionalInformation.jobComment.reply')->where('id',$tempId)->first();
+            $tempWork =TemporaryWork::with(['AdditionalInformation.jobComment' => function ($query) {
+                $query->orderByDesc('created_at');
+            }])->where('id', $tempId)->first();
             $html = view('components.additional-information' , ['tempWorks' => $tempWork])->render();
             return response()->json(['success' => true , 'msg' => 'Additional inforamtion find successfully' , 'html' => $html]);
         }catch(\Exception $e){
@@ -977,9 +979,5 @@ class EstimatorController extends Controller
 
    }
 
-   public function jobCommentReply(Request $request)
-   {
-
-   }
 
 }

@@ -199,6 +199,9 @@
     .drawing_infoTable tbody tr:nth-child(odd) {
         background: #c8e6c8 !important;
     }
+    .commentsTable th{
+        text-align: center!important;
+    }
 </style>
 
 @endsection
@@ -233,7 +236,7 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container" style="padding-top: 80px">
             <div class="row">
-                <div class=' d-flex col-md-6'>
+                {{-- <div class=' d-flex col-md-6'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
 
                         <li class="nav-item w-100" role="presentation">
@@ -241,7 +244,7 @@
                                 data-bs-target="#tab2" type="button" role="tab" aria-controls="signup"
                                 aria-selected="true">Jobs</button>
                         </li>
-                </div>
+                </div> --}}
             </div>
             <div class="tab-content" id="myTabContent">
 
@@ -268,7 +271,7 @@
                                         <td style="width: 40%;">
                                             {{-- data-bs-target="#modal1" --}}
                                             <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button>
-                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">text Here</button>
+                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -322,11 +325,11 @@
                             <div class="col-md-12">
                                 <div class="form-group" style="padding-left: 10px">
                                     <input type="radio" name="payment" value="approve" checked>
-                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I accept payment</span>
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I accept payment terms</span>
                                 </div>
                                 <div class="form-group" style="padding-left: 10px">
                                     <input type="radio" name="payment" value="reject">
-                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I reject payment</span>
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I reject payment terms</span>
                                 </div>
                             </div>
                         </div>
@@ -652,18 +655,14 @@
         type: "POST",
         url: "{{ route('additional.comment.reply') }}",
         data: formdata,
-        processData: false, // Important: prevent jQuery from processing the FormData
-        contentType: false, // Important: prevent jQuery from setting the content type
+        processData: false, 
+        contentType: false,
         success: function(res) {
             // Add response in Modal body
-            if (res.msg === "success") {
+            if (res.success === true) {
                 window.location.reload();
+                toastr.success(res.msg);
             }
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            console.log(xhr.responseText);
-            console.log(textStatus);
-            console.log(errorThrown);
         }
     });
 });

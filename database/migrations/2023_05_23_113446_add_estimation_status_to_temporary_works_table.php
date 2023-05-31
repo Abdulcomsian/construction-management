@@ -30,11 +30,21 @@ class AddEstimationStatusToTemporaryWorksTable extends Migration
     public function down()
     {
         Schema::table('temporary_works', function (Blueprint $table) {
-            $table->dropColumn('work_status');
-            $table->dropColumn('client_email');
-            $table->dropColumn('projname');
-            $table->dropColumn('projno');
-            $table->dropColumn('admin_designer_email');
+            if (Schema::hasColumn('temporary_works', 'work_status')){
+                $table->dropColumn('work_status');
+            }
+            if (Schema::hasColumn('temporary_works', 'client_email')){
+                $table->dropColumn('client_email');
+            }
+            if (Schema::hasColumn('temporary_works', 'projname')){
+                $table->dropColumn('projname');
+            }
+            if (Schema::hasColumn('temporary_works', 'projno')){
+                $table->dropColumn('projno');
+            }
+            if (Schema::hasColumn('temporary_works', 'admin_designer_email')){
+                $table->dropColumn('admin_designer_email');
+            }
         });
     }
 }

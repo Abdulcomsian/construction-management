@@ -117,6 +117,6 @@ class TemporaryWork extends Model
 
     public function additionalInformation()
     {
-        return $this->hasMany(AdditionalInformation::class , 'temporary_work_id' , 'id' );
+        return $this->hasMany(AdditionalInformation::class , 'temporary_work_id' , 'id' )->orderBy('id','desc');
     }
 }

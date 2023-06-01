@@ -100,6 +100,7 @@ class AdminDesignerController extends Controller
             ->orWhere('created_by', Auth::user()->id)
             ->where('work_status', 'publish')
             ->get();
+            $users = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
             $projectIds = [];
             foreach($AwardedEstimators as $awards)
             {
@@ -112,7 +113,7 @@ class AdminDesignerController extends Controller
             $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
             // dd($AwardedEstimators);
             $scantempwork = '';
-             return view('test-designer',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects'));
+             return view('test-designer',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
             
          }catch (\Exception $exception) {
             dd($exception->getMessage());

@@ -82,23 +82,42 @@ class DesignerController extends Controller
     public function storeProjectAssign(Request $request){
         try
         {
-            $designer = User::findorfail($request->designerId);
-            $estimatorDesigner = new EstimatorDesignerList();
-            $estimatorDesigner->temporary_work_id = $request->projectId;
-            $estimatorDesigner->email = $designer->email;
-            $estimatorDesigner->user_id = $designer->id;
-            $estimatorDesigner->temporary_work_id = $request->projectId;
-            $estimatorDesigner->estimatorApprove = 1;
-            $estimatorDesigner->type = 'Designer';
-            $code="1234";
-            $estimatorDesigner->code = $code;
-            $email = $estimatorDesigner->email;
-            if($estimatorDesigner->save())
-            { 
+            if($request->designer){
+                $designer = User::findorfail($request->designer);
+                $estimatorDesigner = new EstimatorDesignerList();
+                $estimatorDesigner->temporary_work_id = $request->jobId;
+                $estimatorDesigner->email = $designer->email;
+                $estimatorDesigner->user_id = $designer->id;
+                $estimatorDesigner->estimatorApprove = 1;
+                $estimatorDesigner->type = 'Designer';
+                $code="1234";
+                $estimatorDesigner->code = $code;
+                $email = $estimatorDesigner->email;
+
+                if($estimatorDesigner->save()){ 
                  Notification::route('mail', $email)->notify(new DesignerAwarded($request->projectId,$email,$code));
                  toastSuccess('Designer Approved successfully!');
                  return redirect()->back();
-            }           
+                }     
+            }
+            if($request->checker){
+                $designer = User::findorfail($request->checker);
+                $estimatorDesigner = new EstimatorDesignerList();
+                $estimatorDesigner->temporary_work_id = $request->jobId;
+                $estimatorDesigner->email = $designer->email;
+                $estimatorDesigner->user_id = $designer->id;
+                $estimatorDesigner->estimatorApprove = 1;
+                $estimatorDesigner->type = 'Designer and Design Checker';
+                $code="1234";
+                $estimatorDesigner->code = $code;
+                $email = $estimatorDesigner->email;
+
+                if($estimatorDesigner->save()){ 
+                 Notification::route('mail', $email)->notify(new DesignerAwarded($request->projectId,$email,$code));
+                 toastSuccess('Designer Approved successfully!');
+                 return redirect()->back();
+                }     
+            }          
         }catch (\Exception $exception) {
             toastError($exception->getMessage());
             return Redirect::back();

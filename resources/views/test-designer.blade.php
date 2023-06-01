@@ -515,7 +515,7 @@
                                     </div>
                                     <div class="col-2 ">
                                        <button type="submit" class="btn btn-light-primary mb-2 w-100"
-                                          style="border-radius: 0px;padding: 6px 10px; margin-left:10px;    margin-bottom: 0px !important;width: auto !important;    "><span
+                                          style="border-radius: 0px;padding: 6px 10px; margin-left:10px;margin-bottom: 0px !important;width: auto !important;    "><span
                                              class="fa fa-filter"></span></button>
                                     </div>
                                  </form>
@@ -1085,225 +1085,13 @@
                         </div>
 
                      </td>
-                     {{-- <td style="min-width: 254px; max-width: 80px;">
-                        <div class="d-flex justify-content-between">
-                           <span class="titleColumn">Drawings & Designs:</span>
-                           <div style="display: flex; justify-content:space-between; flex-grow: 0.5">
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1"
-                                    style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
-                                    <span style="font-size: 12px; color: #07D564;" class="fa fa-plus"
-                                       title="Upload Drawings"></span>
-                                 </p>
-                              </div>
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1"
-                                    style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
-                                    <span style="font-size: 12px; color: #07D564;" class="fa fa-plus"
-                                       title="Upload Drawings"></span>
-                                 </p>
-                              </div>
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1"
-                                    style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
-                                    <!-- View Drawings -->
-                                    @php
-                                    $color="";
-                                    if(count($item->riskassesment)>0)
-                                    {
-                                    $color="green";
-                                    }
-                                    @endphp
-                                    <span style="font-size: 18px; color:{{$color}}" class="fa fa-file"
-                                       title="View Calculation/Risk Assessment"></span>
-                                 </p>
-                              </div>
-
-                           </div>
-                        </div>
-                        <div class="d-flex justify-content-between my-3">
-                           <span class="titleColumn">Permit to load:</span>
-                           <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="cursor-pointer permit-to-load-btn"
-                                    style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
-                                    data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9"
-                                    data-desc="Site Establishment - Temporary Office / Cabins foundations"><span
-                                       style="font-size: 12px; color: #07D564;" class="fa fa-eye"
-                                       title="permit to load"></span></p>
-                              </div>
-                              <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px">
-                                 @if($drawingscount)
-                                 <p class="cursor-pointer permit-to-load-btn"
-                                    style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
-                                    data-id="{{Crypt::encrypt($item->id)}}"
-                                    data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                 @endif
-                                 @if(count($item->scancomment)>0)
-                                 @php
-                                 $n=count($item->scancomment);
-                                 if($item->scancomment[$n-1]->status==2)
-                                 {
-                                 $scolor="red";
-                                 }elseif($item->scancomment[$n-1]->status==1)
-                                 {
-                                 $scolor="#FFA500";
-                                 }elseif($item->scancomment[$n-1]->status==0)
-                                 {
-                                 $scolor="green";
-                                 }
-                                 @endphp
-                                 <br>
-                                 <button
-                                    style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;"
-                                    class="btn btn-info scancomment" data-id="{{$item->id}}"><span
-                                       class="fa fa-comments"></span>
-                                 </button>
-                                 <br>
-                                 @endif
-                                 @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
-                                 @php
-                                 $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at',
-                                 '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                    $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at',
-                                    '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                       $color="orange";
-                                       $class='';
-                                       if($permitexpire>0 || $scaffoldexpire>0)
-                                       {
-                                       $color="red";
-                                       $class="redBgBlink";
-                                       }
-                                       @endphp
-                                       @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                       <br>
-                                       <span class="text-danger redBgBlink" style="">DNL</span><br>
-
-                                       @endif
-                                       <br>
-                                       <span class="permit-to-load-btn cursor-pointer" style="width: 108px"
-                                          data-id="{{Crypt::encrypt($item->id)}}"
-                                          data-desc="{{$item->design_requirement_text}}">
-                                          <span
-                                             class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}"
-                                             style=";background-color:{{$color}};color:white">Live({{count($item->permits
-                                             ?? 0)+count($item->scaffold ?? 0)}})</span>
-                                       </span>
-
-                                       @else
-                                       <span style="width: 108px;">
-                                          <span class="label label-lg font-weight-bold label-inline"
-                                             style="padding: 0.2rem 0.35rem; color: white;">
-                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
-                                             Closed
-                                             @else
-                                             0
-                                             @endif
-                                          </span>
-                                       </span>
-                                       @endif
-                              </div>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="d-flex" style="justify-content: space-between">
-                              <span class="titleColumn">Permit to unload:</span>
-                              <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                                 <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                    <p class="permit-to-unload cursor-pointer"
-                                       style="font-weight: 400;font-size: 14px;position: relative;top: -17px;"
-                                       data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9"
-                                       data-desc="Site Establishment - Temporary Office / Cabins foundations"><span
-                                          style="font-size: 12px; color: #07D564;" class="fa fa-eye"
-                                          title="Upload Drawings"></span></p>
-                                 </div>
-                              </div>
-
-
-                           </div>
-                        </div>
-                     </td> --}}
-                     {{-- <td style="min-width: 254px; max-width: 80px;"> --}}
-                        {{-- {{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') : '0'}} --}}
-                        {{-- <div class="d-flex justify-content-between">
-                           <span class="titleColumn">Design Check CERT:</span>
-                           <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                              @php $dccstyle='';@endphp
-                              @foreach($item->uploadfile as $file)
-                              @if($file->file_type==2)
-                              @php $dccstyle="display:none"; @endphp
-                              @endif
-                              @endforeach
-                              <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}"
-                                 style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;"
-                                 data-type="2"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus"
-                                    title="Upload Drawings"></span></p>
-                              @php $i=0;@endphp
-                              @foreach($item->uploadfile as $file)
-                              @if($file->file_type==2)
-                              @php $i++ @endphp
-                              <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
-                              @endif
-                              @endforeach
-                           </div>
-                        </div>
-                        <div class="d-flex justify-content-between my-6">
-                           <span class="titleColumn">Date DCC Returned:</span>
-                           <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
-
-                              @php
-                              $date='';
-                              $dcolor='';
-                              $drawingscount=0;
-                              @endphp
-                              @foreach($item->uploadfile as $file)
-                              @php
-                              if($file->file_type==1 && $file->construction==1)
-                              {
-                              $dcolor='green';
-                              $drawingscount=1;
-                              $date=$file->created_at->todatestring();
-                              }
-                              elseif($file->file_type==1 && $file->preliminary_approval==1)
-                              {
-                              $dcolor='orange';
-                              $date=$file->created_at->todatestring();
-                              }
-                              @endphp
-                              @endforeach
-                              @if($date)
-
-                              <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};"
-                                 data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
-                              </p>
-                              @endif
-                           </div>
-                        </div>
-                        <div>
-                           <div class="d-flex" style="justify-content: space-between">
-                              <span class="titleColumn">Date Design Returned:</span>
-                              <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                                 @foreach($item->uploadfile as $file)
-                                 @if($file->file_type==2)
-                                 <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">
-                                    {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
-                                 @break
-                                 @endif
-                                 @endforeach
-                              </div>
-
-
-                           </div>
-                        </div> --}}
-                        {{--
-                     </td> --}}
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <span>
-                              <span class=" titleColumn"
+                              <span class=" titleColumn" id="allocationDesignerModalButton"
                                  style="font-weight: bold;width: 100%; border-radius:5px; color: black; ">Allocated
-                                 Designers:</span><i class="icon-edit" data-toggle="modal"
-                                 data-target="#allocationDesignerModal"
+                                 Designers:</span><i class="icon-edit" data-rowid="{{ $item->id }}"
+
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 11px;"></i>
                            </span>
                         </div>
@@ -1514,12 +1302,14 @@
       </div>
    </div>
 </div>
-<div class="modal  fade" id="allocationDesignerModal">
+<div class="modal fade" id="allocationDesignerModal">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
          <div class="modal-body">
             <span data-dismiss="modal" class="modal-close">&times;</span>
-            <form action="">
+            <form action="{{route("projectAssign")}}" method="post">
+               @csrf
+               <input type="hidden" name="jobId" id="rowId" />
                <div class="row">
                   <div class="col-md-12">
                      <div class="inputDiv d-block mb-3">
@@ -1528,12 +1318,16 @@
                            <span class="required">Select Designer</span>
                         </label>
                         <!--end::Label-->
-                        <select name="projectId" class="form-select" aria-label="Default select example"
+                        <select name="designer" class="form-select" aria-label="Default select example"
                            style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
                            <option disabled selected>Open this select menu</option>
-                           <option value="">Designer-1</option>
-                           <option value="">Designer-2</option>
-                           <option value="">Designer-3</option>
+                           @isset($users)
+                              @foreach($users as $user)
+                                 @if($user->hasRole('designer') OR $user->hasRole('Designer and Design Checker'))
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                 @endif
+                              @endforeach
+                           @endisset
                         </select>
                      </div>
                   </div>
@@ -1541,15 +1335,19 @@
                      <div class="inputDiv d-block mb-3">
                         <!--begin::Label-->
                         <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">Select Project</span>
+                           <span class="required">Select Checker</span>
                         </label>
                         <!--end::Label-->
-                        <select name="projectId" class="form-select" aria-label="Default select example"
+                        <select name="checker" class="form-select" aria-label="Default select example"
                            style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
                            <option disabled selected>Open this select menu</option>
-                           <option value="">Project-1</option>
-                           <option value="">Project-2</option>
-                           <option value="">Project-3</option>
+                           @isset($users)
+                              @foreach($users as $user)
+                                 @if($user->hasRole('Design Checker') OR $user->hasRole('Designer and Design Checker'))
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                 @endif
+                              @endforeach
+                           @endisset
                         </select>
                      </div>
                   </div>
@@ -1593,5 +1391,16 @@
        });
    
    });
+</script>
+<script>
+   $(document).ready(function() {
+      $(document).on('click', '.icon-edit', function() {
+         var rowId = $(this).data('rowid');
+         // Your code here
+         console.log('Icon clicked! Row ID:', rowId);
+         $('#rowId').val(rowId)
+         $('#allocationDesignerModal').modal('show');
+   });
+});
 </script>
 @endsection

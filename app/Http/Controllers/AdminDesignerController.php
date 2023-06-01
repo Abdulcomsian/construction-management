@@ -95,7 +95,7 @@ class AdminDesignerController extends Controller
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments')
+            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments', 'desginerAssign','checkerAssign')
             ->whereIn('id',$awarded)
             ->orWhere('created_by', Auth::user()->id)
             ->where('work_status', 'publish')
@@ -111,7 +111,6 @@ class AdminDesignerController extends Controller
             $projectIds = array_unique($projectIds);
 
             $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
-            // dd($AwardedEstimators);
             $scantempwork = '';
              return view('test-designer',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
             

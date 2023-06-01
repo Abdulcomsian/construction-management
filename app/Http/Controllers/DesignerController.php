@@ -1695,7 +1695,7 @@ class DesignerController extends Controller
      {
          $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
          $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
-         $estimatorWork=TemporaryWork::with('designer')->with('project.company')
+         $estimatorWork=TemporaryWork::with('designer', 'additionalInformation.unreadComment')->with('project.company')
          ->whereIn('id',$record)
          ->orWhere('created_by', Auth::user()->id)
          ->whereIn('work_status', ['draft','pending'])

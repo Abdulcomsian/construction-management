@@ -167,6 +167,8 @@ Route::group(['prefix' => 'Estimator'],function(){
     Route::post('job/comment/reply',[EstimatorController::class , 'jobCommentReply']);
     Route::post('additional/comment/reply',[EstimatorController::class , 'getAdditionalComment'])->name('additional.comment.reply');
     Route::post('get-additional-information',[EstimatorController::class , 'getAdditionalInformation'])->name('get.additional.information');
+    Route::post('get-additional-information-comment',[EstimatorController::class , 'getAdditionalInformationComment'])->name('get.additional.information.comment');
+    Route::post('set-comment-notification',[EstimatorController::class , 'setCommentNotification'])->name('set.comment.notification');
     Route::post('designer-quotation/save',[EstimatorController::class,'designerQuotation'])->name('designer.quotation');
     Route::post('designer-review/save',[EstimatorController::class,'designerReview'])->name('designer.review');
     Route::get('designer/read-message',[EstimatorController::class,'readMessage']);

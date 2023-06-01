@@ -17,7 +17,7 @@
                   </div>
                </div>
             </form>
-            @if($estimatorDesigner->total_hours)
+            {{-- @if($estimatorDesigner->total_hours) --}}
                 @foreach($estimatorDesigner->estimatorDesignerListTasks as $row)
                     @php 
                        $hours = ($row->hours/$estimatorDesigner->total_hours)*100;
@@ -61,5 +61,5 @@
                         </table>
                     </div>
                     </div>
-                @endforeach
+                {{-- @endforeach --}}
             @endif

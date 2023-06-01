@@ -1090,18 +1090,19 @@
                            <span>
                               <span class=" titleColumn" id="allocationDesignerModalButton"
                                  style="font-weight: bold;width: 100%; border-radius:5px; color: black; ">Allocated
-                                 Designers:</span><i class="icon-edit" data-rowid="{{ $item->id }}"
+                                 Designers:</span><i class="icon-edit" id="allocated-designer" data-rowid="{{ $item->id }}"
 
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 11px;"></i>
                            </span>
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
-                           <span>John Deo</span>
+                           {{-- @dd($item->desginerAssign->user->name ?? '') --}}
+                           <span>{{$item->desginerAssign->user->name ?? ''}}</span>
                         </div>
-                        <div class="d-flex justify-content-between"">
+                        <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Checker Name:</span>
-                           <span>John Deo</span>
+                           <span>{{$item->checkerAssign->user->name ?? ''}}</span>
                         </div>
                      </td>
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
@@ -1109,7 +1110,7 @@
                            <div>
                               <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
                                  Cert:</span><i class="icon-edit" data-toggle="modal"
-                                 data-target="#DesignCheckCertModal"
+                                 data-target="#DesignCheckCertModal" id="time-estimator"  data-rowid="{{$item->id}}"
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                            </div>
                            <div>
@@ -1156,15 +1157,12 @@
    </div>
    <!--end::Post-->
 </div>
-<button class="btn btn-primary" data-toggle="modal" data-target="#AssignProjectModal" style="width: fit-content">Launch
-   Modal</button>
 
-
-<div class="modal  fade" id="DesignCheckCertModal">
+<div class="modal  fade" id="AssignProjectModal">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
          <div class="modal-body">
-            <span data-dismiss="modal" class="modal-close">&times;</span>
+            {{-- <span data-dismiss="modal" class="modal-close">&times;</span>
             <form action="">
                <div class="row">
                   <div class="col-md-9">
@@ -1226,7 +1224,7 @@
                      </tbody>
                   </table>
                </div>
-            </div>
+            </div> --}}
          </div>
       </div>
    </div>
@@ -1331,6 +1329,24 @@
                         </select>
                      </div>
                   </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Start Designer Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="designer_start_date"/>
+                     {{-- </div> --}}
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">End Designer Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="designer_end_date"/>
+                     {{-- </div> --}}
+                  </div>
+               </div>
+               <div class="row">
                   <div class="col-md-12">
                      <div class="inputDiv d-block mb-3">
                         <!--begin::Label-->
@@ -1350,6 +1366,22 @@
                            @endisset
                         </select>
                      </div>
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Start Design Checker Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="checker_start_date"/>
+                     {{-- </div> --}}
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">End Designer Cheker Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="checker_end_date"/>
+                     {{-- </div> --}}
                   </div>
                   <div class="col-md-12 mt-4">
                      <button class="btn btn-primary w-100" type="submit">Submit</button>
@@ -1394,7 +1426,7 @@
 </script>
 <script>
    $(document).ready(function() {
-      $(document).on('click', '.icon-edit', function() {
+      $(document).on('click', '#allocated-designer', function() {
          var rowId = $(this).data('rowid');
          // Your code here
          console.log('Icon clicked! Row ID:', rowId);
@@ -1403,4 +1435,23 @@
    });
 });
 </script>
+<script type="text/javascript">
+      $(document).on('click', '#time-estimator', function() {
+            var temporary_work_id = $(this).data('rowid');
+               console.log(temporary_work_id);
+              // $.LoadingOverlay("show");
+              var CSRF_TOKEN = '{{ csrf_token() }}';
+              $.post("{{ route('award-estimator-modal') }}", {
+                  _token: CSRF_TOKEN,
+                  temporary_work_id: temporary_work_id
+              }).done(function(response) {
+                 console.log("hello")
+                  // Add response in Modal body
+                  $('.modal-body').html(response);
+                  // Display Modal
+                  $('#AssignProjectModal').modal('show');
+                  // $.LoadingOverlay("hide");
+              });
+      });
+  </script>
 @endsection

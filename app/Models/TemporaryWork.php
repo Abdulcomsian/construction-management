@@ -119,4 +119,14 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(AdditionalInformation::class , 'temporary_work_id' , 'id' )->orderBy('id','desc');
     }
+
+    public function desginerAssign()
+    {
+        return $this->hasOne(JobAssign::class , 'temporary_work_id' , 'id' )->whereIn('type',['designer','Designer and Design Checker'])->orderBy('id','desc');
+    }
+
+    public function checkerAssign()
+    {
+        return $this->hasOne(JobAssign::class , 'temporary_work_id' , 'id' )->whereIn('type',['Design Checker','Designer and Design Checker'])->orderBy('id','desc');
+    }
 }

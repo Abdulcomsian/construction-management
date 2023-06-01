@@ -8,13 +8,14 @@
    </thead>
    <tbody>
       @php
-        $detail = $tempWorks->AdditionalInformation;
+        $detail = $additionalInformation;
       @endphp 
  
     <tr style="background:white">
         <td>1</td>
         <td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">
-            <span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span><span style="font-size:16px">{{$detail->more_details}}</span><br>
+            <span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>
+            <div><span style="font-size:16px">{{$detail->more_details}}</span></div>
             <div style="display:flex; justify-content: center;"><span style="color: #9D9D9D">{{date('d-m-Y H:i:s' , strtotime($detail->created_at))}}</span></div>
             @if(isset($detail->file_path) && !is_null($detail->file_path))
             <div>
@@ -33,17 +34,14 @@
                 <div>
                     {{date("d-m-Y H:i:s", strtotime($comments->created_at))}}
                 </div>
+                @if($comments->notified == 0)
+                <div>
+                    <input type="checkbox" value="{{$comments->id}}" class="notified">
+                </div>
+                @endif
             </div>
             <hr>
             @endforeach
-        <form style="display:block;" class="form" enctype="multipart/form-data">
-            <input type="hidden" name="addId" value="{{$detail->id}}">
-            <textarea style="width: 100%" type="text" class="replay" name="comment" placeholder="Add comment here..."></textarea>
-            <div class="submmitBtnDiv">
-                <input style="width:50%;margin-top:20px;float:left" type="file" name="commentFile">
-                <button type="button" class="btn btn-primary additional-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
-            </div>
-        </form>
 
         </td>
     </tr>

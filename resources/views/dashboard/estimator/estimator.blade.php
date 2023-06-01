@@ -148,11 +148,51 @@
         border-color: #07d564 !important;
         background-color: #07d564 !important;
     }
+
+    #modal1 th {
+    text-align: center!important;
+}
+    .circle.unblink{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(92, 92, 92);
+        margin: auto;
+    }
+
+    .circle.blink {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(30, 255, 0);
+        animation: blink 1s infinite;
+        margin: auto;
+        cursor: pointer;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    } 
+
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 {{-- @include('layouts.datatables.datatables_css') --}}
 @endsection
 @section('content')
+<div class="modal fade" id="modal1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h1 class="mb-3" style="text-align: left; font-weight: 700; font-size: 26px;font-family: 'Inter';">Comments</h1>
+                <div class="comment-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -231,6 +271,7 @@
                                     <th>Project</th>
                                     <th>Company</th>
                                     <th>Email</th>
+                                    <th>Comment</th>
                                     <th>Action</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -244,6 +285,17 @@
                                     <td>{{$work->project->name ?? $work->company}}</td>
                                     <td>{{$work->project->company->name ?? $work->projname}}</td>
                                     <td>{{Auth::user()->email ?? ''}}</td>
+                                    <td>
+                                        @if(isset($work->AdditionalInformation) && !is_null($work->AdditionalInformation))
+                                            @if($work->additionalInformation->unreadComment->count() > 0)
+                                                <div class="circle blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
+                                            @else
+                                                <div class="circle unblink"></div>
+                                            @endif
+                                        @else
+                                            <div class="circle unblink"></div>
+                                        @endif
+                                    </td>
                                     <td><a href="{{route('edit_estimation',$work->id)}}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                                 @endforeach
@@ -286,6 +338,52 @@ $data = [
 @include('layouts.dashboard.ajax_call')
 @include('dashboard.modals.nomination_comment')
 <script>
+    let circles = document.querySelectorAll(".circle.blink");
+        circles.forEach(function(circle) {
+            circle.addEventListener("click", function(e) {
+                let element = this;
+                let id = element.dataset.additionalId;
+                $.ajax({
+                    type : "POST",
+                    url : "{{route('get.additional.information.comment')}}",
+                    data : {
+                        id : id,
+                        _token : "{{csrf_token()}}"
+                    },
+                    success : function(res){
+                        document.querySelector("#modal1").querySelector(".comment-body").innerHTML = res.html;
+                        $("#modal1").modal("toggle");
+                    }
+
+                })
+            });
+        });
+
+
+        $(document).on("change" ,".notified", function(e){
+            let element = this;
+            let id = element.value;
+                $.ajax({
+                    type : "POST",
+                    url : "{{route('set.comment.notification')}}",
+                    data : {
+                        id : id,
+                        _token : "{{csrf_token()}}"
+                    },
+                    success : function(res){
+                        if(res.success == true )
+                        {
+                            element.setAttribute('disabled', true);
+                            toastr.success(res.msg);
+                        }else{
+                            toastr.error(res.msg);
+                        }
+                    }
+
+                })
+
+        })
+
 
 </script>
 @endsection

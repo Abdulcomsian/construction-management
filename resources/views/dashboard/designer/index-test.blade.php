@@ -202,6 +202,29 @@
     .commentsTable th{
         text-align: center!important;
     }
+
+    /* .circle.nonblink{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(92, 92, 92);
+        margin: auto;
+    }
+
+    .circle.blink {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(30, 255, 0);
+        animation: blink 1s infinite;
+        margin: auto;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    } */
 </style>
 
 @endsection
@@ -259,6 +282,7 @@
                                         <th>No</th>
                                         <th>Project</th>
                                         <th>Company</th>
+                                        {{-- <th>Comment</th> --}}
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -268,6 +292,18 @@
                                         <td>1</td>
                                         <td>{{$row->projname}}</td>
                                         <td>{{$row->company}}</td>
+                                        {{-- <td>
+                                        
+                                            @if(isset($row->AdditionalInformation) && !is_null($row->AdditionalInformation))
+                                                @if($row->additionalInformation->unreadComment->count() > 0)
+                                                    <div class="cicle blink"></div>
+                                                @else
+                                                    <div class="cicle unblink"></div>
+                                                @endif
+                                            @else
+                                                <div class="cicle unblink"></div>
+                                            @endif
+                                        </td> --}}
                                         <td style="width: 40%;">
                                             {{-- data-bs-target="#modal1" --}}
                                             <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button>
@@ -626,46 +662,40 @@
             });
 
     }
-    // $(document).on("click" , '.additional-comment' , function(e){
-    //     e.preventDefault();
-    //     let form = e.target.closest(".form");
-    //     let formdata = new FormData(form)
-    //     formdata.append('_token' , '{{ csrf_token() }}')
-
-    //     $.post("{{ route('additional.comment.reply') }}", {
-    //         data : formdata,
-    //         processData: false, // Important: prevent jQuery from processing the FormData
-    //         contentType: false,
-    //     }).done(function(res) {
-    //         // Add response in Modal body
-    //         if(res.msg == "success")
-    //         {
-    //             window.location.reload()
-    //         }
-    //     });
-    // })
+   
 
     $(document).on("click", '.additional-comment', function(e) {
-    e.preventDefault();
-    let form = $(this).closest(".form")[0];
-    let formdata = new FormData(form);
-    formdata.append('_token', '{{ csrf_token() }}');
+        e.preventDefault();
+        let form = $(this).closest(".form")[0];
+        let formdata = new FormData(form);
+        formdata.append('_token', '{{ csrf_token() }}');
 
-    $.ajax({
-        type: "POST",
-        url: "{{ route('additional.comment.reply') }}",
-        data: formdata,
-        processData: false, 
-        contentType: false,
-        success: function(res) {
-            // Add response in Modal body
-            if (res.success === true) {
-                window.location.reload();
-                toastr.success(res.msg);
+        $.ajax({
+            type: "POST",
+            url: "{{ route('additional.comment.reply') }}",
+            data: formdata,
+            processData: false, 
+            contentType: false,
+            success: function(res) {
+                // Add response in Modal body
+                if (res.success === true) {
+                    toastr.success(res.msg);
+                    window.location.reload();
+                }else{
+                    toastr.error(res.msg);
+                    let errors = res.error;
+                    for(let key of Object.keys(errors) )
+                    {
+                        let errorList = errors[key];
+                        errorList.forEach(err => {
+                            toastr.error(err)
+                        })
+                    }
+                    
+                }
             }
-        }
+        });
     });
-});
 
 
     function showPricingModal(id){

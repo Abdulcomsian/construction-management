@@ -19,6 +19,11 @@ class AdditionalInformation extends Model
         return $this->hasMany(JobComments::class , "additional_information_id" , "id");
     }
 
+    public function unreadComment()
+    {
+        return $this->hasMany(JobComments::class , "additional_information_id" , "id")->where('notified' , 0);
+    }
+
     public function temporaryWork()
     {
         return $this->belongsTo(TemporaryWork::class ,"temporary_work_id" , "id");

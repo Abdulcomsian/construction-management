@@ -195,7 +195,11 @@
                 <tbody>
                     <tr>
                             <td style="font-size:12px;">Comments</td>
-                            <td style="font-size:12px;"> {{$data['comments']}}</td>
+                            <td style="font-size:12px;"> 
+                            @if(isset($data['comments']))
+                                {{$data['comments']}}
+                            @endif
+                        </td>
                     </tr>
                 </tbody>
             </table>

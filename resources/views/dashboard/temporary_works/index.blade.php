@@ -4280,14 +4280,7 @@
                                                             @endforeach
                                                         </td> -->
                                                 <!-- <td>
-                                                            @php
-                                                            $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
-                                                            @endphp
-                                                            @if(isset($qrcode->qrcode) && file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
-                                                            <a href="{{route('tempwork.qrcodedetail',$item->id)}}">
-                                                            <img class="p-2" src="{{asset('qrcode/projects/'.$qrcode->qrcode.'')}}" width="60px" height="60px">
-                                                            </a>
-                                                            @endif
+                                                            
                                                         </td> -->
                                                 <!-- <td>
                                                             <span class="svg-icon svg-icon-md dropdown-toggle dropdownaction" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

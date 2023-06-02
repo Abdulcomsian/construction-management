@@ -3428,6 +3428,11 @@
                                         <tbody class="text-gray-600 fw-bold taable">
 
                                             @forelse($temporary_works as $item)
+                                            @if(count($item->permits) == 0 &&  count($item->scaffold) == 0 )
+                                                @php
+                                                    continue;
+                                                @endphp
+                                            @endif
                                             <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
                                                 style="height: {{count($temporary_works)==1 ? '100px':''}}">
                                                 <td

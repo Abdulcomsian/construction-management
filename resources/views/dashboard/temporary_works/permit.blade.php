@@ -903,7 +903,7 @@
                                 <div class="col-md-6   mt-0" style="margin-left:7px; ">
                                     <div class="d-flex inputDiv">
                                         <label class="fs-6 fw-bold mb-2" style="">
-                                            <span class="required">Comments:</span>
+                                            <span >Comments:</span>
                                         </label>
                                         <textarea  name="comments" class="form-control"></textarea>
                                     </div>

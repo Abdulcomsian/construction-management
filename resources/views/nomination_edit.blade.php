@@ -344,8 +344,11 @@
                                         <input type="hidden" name="qualifications_ids[]" value="{{$qf->id}}">
                                         <td class="tdhight"><input type="text" name="qualification[]" value="{{$qf->qualification}}" required></td>
                                         <td class="tdhight" style="width:25%"><input type="date" name="qualification_date[]" value="{{$qf->date}}" required></td>
-                                         <td class="tdhight" style="width:35%"><input type="file" name="qualification_file[]">
-										 <a target="_blank" href="{{$qf->qualification_certificate}}"> Old File</a>
+                                        <td class="tdhight" style="width:35%">
+											<a target="_blank" href="{{$qf->qualification_certificate}}"> Use Uploaded File</a>
+											<span>Or</span>
+											<input type="file" style="display:inline-block;width:200px;" name="qualification_file[]">
+										 
 										 </td>
                                          </tr>
                                         @endforeach
@@ -381,8 +384,11 @@
                                         <input type="hidden" name="course_ids[]" value="{{$cs->id}}">
                                         <td class="tdhight"><input type="text" name="course[]" value="{{$cs->course}}" required></td>
                                         <td class="tdhight" style="width:25%"><input type="date" name="course_date[]" value="{{$cs->date}}" required></td>
-                                        <td class="tdhight" style="width:35%"><input type="file" name="course_file[]">
-										 <a target="_blank" href="{{$cs->course_certificate}}"> Old File</a>
+                                        <td class="tdhight" style="width:35%">
+											<a target="_blank" href="{{$cs->course_certificate}}"> Use Uploaded File</a>
+											<span>Or</span>
+											<input type="file" style="display:inline-block;width:200px;" name="course_file[]">
+										 
 										</td>
                                         </tr>
                                         @endforeach

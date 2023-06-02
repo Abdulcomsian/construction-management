@@ -397,8 +397,8 @@
 
     @foreach($projecttotalbrief as $projectlabel)
         @php 
-         $projectlabels[]=$projectlabel->project->name;
-         $projecttotalbreifs[]=$projectlabel->totalbreif;
+         $projectlabels[]=$projectlabel->project->name ?? '';
+         $projecttotalbreifs[]=$projectlabel->totalbreif ?? '';
          $redbriefs[]=$projectredbrief[$i]->redbreif ?? '';
          $amberbreifs[]=$projectamberbrief[$i]->amberbreif ?? '';
          $greenbreifs[]=$projectgreenbrief[$i]->greenbreif ?? '';

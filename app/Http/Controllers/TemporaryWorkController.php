@@ -1492,7 +1492,7 @@ $notify_admins_msg = [
         
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'comments');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -1910,7 +1910,7 @@ $notify_admins_msg = [
         // dd($request->principle_contractor);
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2', 'comments');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             

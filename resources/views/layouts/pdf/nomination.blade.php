@@ -38,6 +38,13 @@
         <table>
             <tbody>
                 <tr style="min-height: 150px;">
+                    <td style="width: 400px;background:gray;color:white">
+                        <label for="" style="float: left;width: 200px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;">
+                            <b style="font-size:12px;">Project Title</b></label>
+                    </td>
+                    <td colspan="3" style="width: 300px; font-size:11px;">{{$project_name ?? ''}}</td>
+                </tr>
+                <tr style="min-height: 150px;">
                 <td style="width: 400px;background:gray;color:white">
                         <label for="" style="float: left;width: 200px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;">
                             <b style="font-size:12px;">Project</b></label>
@@ -626,6 +633,17 @@
                         <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Job title</b></label>
                     </td>
                     <td colspan="3" style="width: 300px; font-size:10px;">{{$data['job_title']}}</td>
+                </tr>
+                <tr style="height: 150px;">
+                <td style="width: 200px;background:gray;color:white">
+                        <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Date</b></label>
+                    </td>
+                    <td colspan="3" style="width: 300px; font-size:10px;">
+						@php
+						$ldate = date('d-m-Y');
+						@endphp
+						{{$ldate}}
+					</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;background:gray;color:white">

@@ -1127,7 +1127,7 @@
                                                         <div
                                                             style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;">
                                                             @php
-                                                            $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
+                                                            $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id ?? ''])->first();
                                                             @endphp
                                                             @if(isset($qrcode->qrcode) &&
                                                             file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
@@ -2366,7 +2366,7 @@
                                                         <div
                                                             style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;">
                                                             @php
-                                                            $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
+                                                            $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id ?? ''])->first();
                                                             @endphp
                                                             @if(isset($qrcode->qrcode) &&
                                                             file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))
@@ -2824,7 +2824,7 @@
                                                             <div
                                                                 style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;">
                                                                 @php
-                                                                $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id])->first();
+                                                                $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id ?? ''])->first();
                                                                 @endphp
                                                                 @if(isset($qrcode->qrcode) &&
                                                                 file_exists(public_path('qrcode/projects/'.$qrcode->qrcode.'')))

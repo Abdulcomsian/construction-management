@@ -198,12 +198,17 @@ background-color: #07d564 !important;
                             <tbody class="text-gray-600 fw-bold">
                                 @foreach($project_wise_nominations as $nomination)
                                 <tr>
+                                    @php
+                                    $url = url('Nomination/nomination-formm',Crypt::encrypt($nomination->user->id)).'?project='.Crypt::encrypt($nomination->projectt->id)
+                                    @endphp
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$nomination->user->name}}</td>
                                     <td>{{$nomination->user->email}}</td>
                                     <td>{{$nomination->user->userCompany->name}}</td>
                                     <td>{{$nomination->projectt->name}}</td>
-                                    <td><a href="{{asset('pdf').'/'.$nomination->pdf_url}}">PDF</a></td>
+                                    <td><a href="{{asset('pdf').'/'.$nomination->pdf_url}}">PDF</a><br>
+                                   <a href="{{$url}}">Nomination link<a>
+                                </td>
                                      <td>
                                         @if($nomination->appointment_pdf)
                                         <a href="{{asset('pdf').'/'.$nomination->appointment_pdf}}">PDF</a>

@@ -351,6 +351,25 @@
                             </div>
                         </div>
                     </div>
+                    @if(count($project->blocks) > 0)
+                        <div class="row">
+                            <div class="col-12">
+                                <div class=" inputDiv d-block mb-0s">
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
+                                        <span class="required">Select Blocks:</span>
+                                    </label>
+                                    <select name="block_id" id="block"
+                                        class="form-select form-select-lg form-select-solid" data-control="select2"
+                                        data-placeholder="Select an option" data-allow-clear="true" readonly>
+                                        <option value="">Select Option</option>
+                                        @foreach($project->blocks as $block)
+                                            <option value="{{$block->id}}">{{$block->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv d-block m-0" id="projectNo">

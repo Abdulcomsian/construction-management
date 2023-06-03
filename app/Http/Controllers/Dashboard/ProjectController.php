@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Projectblock;
 use App\Models\ProjectQrCode;
 use App\Models\User;
 use App\Models\ProjectDocuments;
@@ -21,7 +22,7 @@ use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Crypt;
 use App\Utils\HelperFunctions;
-use DB;
+use Illuminate\Support\Facades\DB;
 //use Artisan;
 use ZipArchive;
 use File;
@@ -126,6 +127,54 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     abort_if(!auth()->user()->hasRole(['admin']), 403);
+
+    //     Validations::storeProject($request);
+    //     if ($request->has('id')) {
+    //         Validations::updateProjectId($request);
+    //     }
+    //     try {
+    //         $all_inputs  = $request->except('_token','qrcodeno', 'block');
+    //         if ($request->has('id')) {
+    //             try {
+    //                 unset($all_inputs['id']);
+    //                 Project::where('id', $request->id)
+    //                     ->update($all_inputs);
+                    
+    //                 $message = 'updated';
+    //             } catch (DecryptException $decryptException) {
+    //                 toastError('Something went wrong,try again');
+    //                 return Redirect::back();
+    //             }
+    //         } else {
+    //             $project=Project::create($all_inputs);
+    //             for ($i = 1; $i <= $request->qrcodeno; $i++) {
+    //                   $j = $i;
+    //                 \QrCode::size(500)
+    //                     ->format('png')
+    //                     ->generate(route('qrlink', $project->id . '?temp=' .  Crypt::encryptString($j) . ''), public_path('qrcode/projects/qrcode' .$project->id .  $j . '.png'));
+    //                 $model = new ProjectQrCode();
+    //                 $model->project_id = $project->id;
+    //                 $model->tempid =  $j;
+    //                 $model->qrcode = 'qrcode' . $project->id .  $j . '.png';
+    //                 $model->save();
+                    
+    //             }
+    //         $message = 'added';
+    //        }
+
+
+    //         toastSuccess('Project successfully ' . $message . '!');
+    //         return Redirect::back();
+    //     } catch (\Exception $exception) {
+    //         dd($exception->getMessage());
+    //         toastError('Something went wrong, try again');
+    //         return Redirect::back();
+    //     }
+    // }
+
     public function store(Request $request)
     {
         abort_if(!auth()->user()->hasRole(['admin']), 403);
@@ -134,42 +183,82 @@ class ProjectController extends Controller
         if ($request->has('id')) {
             Validations::updateProjectId($request);
         }
+
         try {
-            $all_inputs  = $request->except('_token','qrcodeno');
+            DB::beginTransaction();
+
+            $all_inputs = $request->except('_token', 'qrcodeno', 'blocks');
             if ($request->has('id')) {
                 try {
+                    $projectId = $request->id;
                     unset($all_inputs['id']);
-                    Project::where('id', $request->id)
-                        ->update($all_inputs);
-                    
+            
+                    // Update the project details
+                    Project::where('id', $projectId)->update($all_inputs);
+            
+                    // Remove existing project blocks
+                    ProjectBlock::where('project_id', $projectId)->delete();
+            
+                    // Insert new project blocks
+                    if ($request->has('blocks')) {
+                        $blocks = $request->input('blocks');
+            
+                        foreach ($blocks as $block) {
+                            $projectBlock = new ProjectBlock();
+                            $projectBlock->project_id = $projectId;
+                            $projectBlock->title = $block;
+                            $projectBlock->save();
+                        }
+                    }
+            
                     $message = 'updated';
                 } catch (DecryptException $decryptException) {
-                    toastError('Something went wrong,try again');
-                    return Redirect::back();
+                    throw new \Exception('Something went wrong, try again');
                 }
             } else {
-                $project=Project::create($all_inputs);
+                $project = Project::create($all_inputs);
+
                 for ($i = 1; $i <= $request->qrcodeno; $i++) {
-                      $j = $i;
-                    \QrCode::size(500)
-                        ->format('png')
-                        ->generate(route('qrlink', $project->id . '?temp=' .  Crypt::encryptString($j) . ''), public_path('qrcode/projects/qrcode' .$project->id .  $j . '.png'));
+                    $j = $i;
+                    // \QrCode::size(500)
+                    //     ->format('png')
+                    //     ->generate(route('qrlink', $project->id . '?temp=' . Crypt::encryptString($j) . ''), public_path('qrcode/projects/qrcode' . $project->id . $j . '.png'));
+
                     $model = new ProjectQrCode();
                     $model->project_id = $project->id;
                     $model->tempid =  $j;
                     $model->qrcode = 'qrcode' . $project->id .  $j . '.png';
                     $model->save();
-                    
                 }
-            $message = 'added';
-           }
+
+                // Store project blocks
+                if ($request->has('blocks')) {
+                    $blocks = $request->input('blocks');
+
+                    foreach ($blocks as $block) {
+                        $projectBlock = new ProjectBlock();
+                        $projectBlock->project_id = $project->id;
+                        $projectBlock->title = $block;
+                        $projectBlock->save();
+                    }
+                }
+
+                $message = 'added';
+            }
+
+            DB::commit();
+
             toastSuccess('Project successfully ' . $message . '!');
             return Redirect::back();
         } catch (\Exception $exception) {
-            toastError('Something went wrong, try again');
+            DB::rollBack();
+            dd($exception->getMessage());
+            toastError($exception->getMessage());
             return Redirect::back();
         }
     }
+
+    
 
     /**
      * Display the specified resource.
@@ -197,6 +286,7 @@ class ProjectController extends Controller
     {
         try {
             if (!empty($project)) {
+                $project->load('blocks'); // Eager load the blocks relationship
                 $data = [
                     'status' => true,
                     'project' => $project

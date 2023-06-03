@@ -73,6 +73,25 @@
                         </div>
                         <!--end::Col-->
                     </div>
+                    <div class="old_rows"></div>
+                    <div class="row g-9 mb-8">
+                        <!--begin::Col-->
+                        <div class="col-md-9">
+                            <!--begin::Label-->
+                            <!--begin::Label-->
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                                <input type="text" name="blocks[]" placeholder="Enter new block"  class="form-control"/>
+                                <!--end:Input-->
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                         <div class="col-md-3">
+                            <button type="button" class="btn btn-primary add-btn">Add New</button>
+                        </div>
+                        <!--end::Col-->
+                    </div>
 
                     <!--end::Input group-->
                     <!--begin::Actions-->

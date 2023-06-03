@@ -44,6 +44,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Auth;
 use App\Mail\PermitUnloadMail;
+use App\Models\ProjectBlock;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -122,6 +123,12 @@ class TemporaryWorkController extends Controller
     }
     public function index()
     {
+        $assignedBlocks = [];
+        $block = '';
+        if(isset($_GET['block']))
+        {
+            $block = $_GET['block'];
+        }
         if(auth::user()->hasRole('estimator'))
         {
             return redirect('Estimator/estimator');
@@ -149,6 +156,14 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
             } elseif ($user->hasRole('company')) {
                 $users = User::select(['id','name'])->where('company_id', $user->id)->get();
                 $ids = [];
@@ -157,6 +172,14 @@ class TemporaryWorkController extends Controller
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                
@@ -169,6 +192,14 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('project_id', $ids);
                 })->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -184,7 +215,7 @@ class TemporaryWorkController extends Controller
             }
             //work for datatable
             $scantempwork = '';
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork','nominations','users'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','assignedBlocks', 'scantempwork','nominations','users','block'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1438,7 +1469,7 @@ $notify_admins_msg = [
             } else {
                 $twc_id_no = $twc_id_no . '-A';
             }
-            $project = Project::with('company')->where('id', $tempdata->project_id)->first();
+            $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
             $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
             return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile'));
         } catch (\Exception $exception) {

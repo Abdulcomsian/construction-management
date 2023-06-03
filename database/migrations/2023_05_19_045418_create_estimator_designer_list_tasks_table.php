@@ -16,10 +16,11 @@ class CreateEstimatorDesignerListTasksTable extends Migration
         Schema::create('estimator_designer_list_tasks', function (Blueprint $table) {
             $table->id();
             $table->date('date')->nullable();
-            $table->time('hours')->nullable();
+            $table->string('hours')->nullable();
             $table->longText('task')->nullable();
+            $table->longText('completed')->nullable();
             $table->unsignedBigInteger('estimator_designer_list_id')->nullable();
-            $table->foreign('estimator_designer_list_id')->references('id')->on('estimator_designer_lists')->onDelete('cascade');
+            // $table->foreign('estimator_designer_list_id')->references('id')->on('estimator_designer_lists')->onDelete('cascade');
             $table->timestamps();
         });
     }

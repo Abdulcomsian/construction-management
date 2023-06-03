@@ -1158,10 +1158,11 @@
    <!--end::Post-->
 </div>
 
-<div class="modal  fade" id="AssignProjectModal">
+<div class="modal  fade" id="AssignProjectModal" style="width: 100%">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
          <div class="modal-body">
+            <input type="hidden" name="assigned_task" id="assigned_task" />
             {{-- <span data-dismiss="modal" class="modal-close">&times;</span>
             <form action="">
                <div class="row">
@@ -1275,8 +1276,8 @@
                         <tr>
                            <th scope="col">Date</th>
                            <th scope="col">Hours spent</th>
-                           <th scope="col">Task</th>
                            <th scope="col">Completed(%)</th>
+                           <th scope="col">Description</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -1447,7 +1448,8 @@
               }).done(function(response) {
                  console.log("hello")
                   // Add response in Modal body
-                  $('.modal-body').html(response);
+                  $('#AssignProjectModal .modal-body').html(response);
+                  $('#assigned_task').val(temporary_work_id)
                   // Display Modal
                   $('#AssignProjectModal').modal('show');
                   // $.LoadingOverlay("hide");

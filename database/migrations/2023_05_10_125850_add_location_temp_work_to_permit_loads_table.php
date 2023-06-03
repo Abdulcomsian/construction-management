@@ -26,8 +26,9 @@ class AddLocationTempWorkToPermitLoadsTable extends Migration
     public function down()
     {
         Schema::table('permit_loads', function (Blueprint $table) {
-            //
-            // $table->longText('location_temp_work', 50)->nullable()->change();
+            if (Schema::hasColumn('permit_loads', 'permit_loads')){
+                $table->dropColumn('location_temp_work');
+            }
         });
     }
 }

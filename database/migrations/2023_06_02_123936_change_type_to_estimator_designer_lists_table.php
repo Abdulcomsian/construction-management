@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddEstimatorDesignerListIdToDesignerQuotationsTable extends Migration
+class ChangeTypeToEstimatorDesignerListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddEstimatorDesignerListIdToDesignerQuotationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('designer_quotations', function (Blueprint $table) {
-            $table->unsignedBigInteger('estimator_designer_list_id')->nullable()->change();
+        Schema::table('estimator_designer_lists', function (Blueprint $table) {
+            $table->string('type')->nullable()->change();
         });
     }
 
@@ -25,6 +25,8 @@ class AddEstimatorDesignerListIdToDesignerQuotationsTable extends Migration
      */
     public function down()
     {
-        
+        Schema::table('estimator_designer_lists', function (Blueprint $table) {
+            //
+        });
     }
 }

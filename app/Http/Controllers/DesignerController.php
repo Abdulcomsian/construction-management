@@ -35,7 +35,7 @@ use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Notifications\PasswordResetNotification;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Notifications\{DesignerAwarded,TemporaryWorkNotification};
 use Illuminate\Support\Str;
 use PDF;
@@ -79,43 +79,88 @@ class DesignerController extends Controller
         return view('projectAssign',$data);
     }
 
-    public function storeProjectAssign(Request $request){
-        try
-        {
-            if($request->designer){
-                $designer = User::findorfail($request->designer);
-                $job_assign = new JobAssign();
+    // public function storeProjectAssign(Request $request){
+    //     try
+    //     {
+    //         if($request->designer){
+    //             $designer = User::findorfail($request->designer);
+    //             $job_assign = new JobAssign();
+    //             $job_assign->temporary_work_id = $request->jobId;
+    //             $job_assign->user_id = $designer->id;
+    //             $job_assign->type = $designer->roles[0]->name;
+    //             $job_assign->start_date = $request->designer_start_date;
+    //             $job_assign->end_date = $request->designer_end_date;
+    //             $code='123';
+    //             if($job_assign->save()){ 
+    //                 Notification::route('mail', $designer->email)->notify(new DesignerAwarded($request->jobId,$designer->email,$code));
+    //             }     
+    //         }
+
+    //         if($request->checker){
+    //             $checker = User::findorfail($request->checker);
+    //             $job_assign = new JobAssign();
+    //             $job_assign->temporary_work_id = $request->jobId;
+    //             $job_assign->user_id = $checker->id;
+    //             $job_assign->type = $checker->roles[0]->name;
+    //             $job_assign->start_date = $request->checker_start_date;
+    //             $job_assign->end_date = $request->checker_end_date;
+    //             $code='123';
+    //             if($job_assign->save()){ 
+    //                 Notification::route('mail', $checker->email)->notify(new DesignerAwarded($request->jobId,$checker->email,$code));
+    //             }     
+    //         }
+    //         toastSuccess('Project Assign successfully!');
+    //         return redirect()->back();          
+    //     }catch (\Exception $exception) {
+    //         dd($exception->getMessage());
+    //         toastError($exception->getMessage());
+    //         return Redirect::back();
+    //      }
+    // }
+
+
+    public function storeProjectAssign(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            if ($request->designer) {
+                $designer = User::findOrFail($request->designer);
+                $job_assign = new EstimatorDesignerList();
                 $job_assign->temporary_work_id = $request->jobId;
                 $job_assign->user_id = $designer->id;
                 $job_assign->type = $designer->roles[0]->name;
                 $job_assign->start_date = $request->designer_start_date;
                 $job_assign->end_date = $request->designer_end_date;
-                $code='123';
-                if($job_assign->save()){ 
-                    Notification::route('mail', $designer->email)->notify(new DesignerAwarded($request->jobId,$designer->email,$code));
-                }     
+                $code = '123';
+                if ($job_assign->save()) {
+                    Notification::route('mail', $designer->email)->notify(new DesignerAwarded($request->jobId, $designer->email, $code));
+                }
             }
 
-            if($request->checker){
-                $checker = User::findorfail($request->checker);
-                $job_assign = new JobAssign();
+            if ($request->checker) {
+                $checker = User::findOrFail($request->checker);
+                $job_assign = new EstimatorDesignerList();
                 $job_assign->temporary_work_id = $request->jobId;
                 $job_assign->user_id = $checker->id;
                 $job_assign->type = $checker->roles[0]->name;
                 $job_assign->start_date = $request->checker_start_date;
                 $job_assign->end_date = $request->checker_end_date;
-                $code='123';
-                if($job_assign->save()){ 
-                    Notification::route('mail', $checker->email)->notify(new DesignerAwarded($request->jobId,$checker->email,$code));
-                }     
+                $code = '123';
+                if ($job_assign->save()) {
+                    Notification::route('mail', $checker->email)->notify(new DesignerAwarded($request->jobId, $checker->email, $code));
+                }
             }
-            toastSuccess('Project Assign successfully!');
-            return redirect()->back();          
-        }catch (\Exception $exception) {
-            dd($exception->getMessage());
+
+            DB::commit();
+
+            toastSuccess('Project assigned successfully!');
+            return redirect()->back();
+        } catch (\Exception $exception) {
+            DB::rollback();
             toastError($exception->getMessage());
-            return Redirect::back();
-         }
+            return redirect()->back();
+        }
     }
 
 

@@ -12,7 +12,7 @@ use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
 use App\Notifications\AdminDesignerNomination;
 use App\Notifications\AdminDesignerAppointmentNotification;
-use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,ProfileOtherDocuments};
+use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,EstimatorDesignerListTask,ProfileOtherDocuments};
 use Carbon\Carbon;
 use App\Utils\HelperFunctions;
 use DB;
@@ -115,7 +115,6 @@ class AdminDesignerController extends Controller
              return view('test-designer',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
             
          }catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
          }
@@ -129,7 +128,22 @@ class AdminDesignerController extends Controller
 
     public function storeAwardedEstimatorHours(Request $request, $id)
     {
-        dd($reqeust);
+        try
+        {
+            $designer_tasks = new EstimatorDesignerListTask();
+            $designer_tasks->estimator_designer_list_id = $id;
+            $designer_tasks->date = $request->date;
+            $designer_tasks->hours = $request->hours;
+            $designer_tasks->completed = $request->completed;
+            $designer_tasks->user_id = Auth::user()->id;
+            $designer_tasks->save();
+            toastSuccess('Designer tasks saved successfully!');
+            return Redirect::back();
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
 

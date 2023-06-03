@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\Projectblock;
+use App\Models\ProjectBlock;
 use App\Models\ProjectQrCode;
 use App\Models\User;
 use App\Models\ProjectDocuments;

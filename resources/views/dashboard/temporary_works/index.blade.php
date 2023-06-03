@@ -3478,15 +3478,17 @@
                                         <tbody class="text-gray-600 fw-bold taable">
                                             @php
                                                 $selectedBlock = request('block');
+                                                $count =0;
                                             @endphp
                                             @forelse($temporary_works as $item)
                                                 @php
                                                     $hasMatchingBlock = false;
                                                 @endphp
-                                            
+
                                                 @foreach ($item->permits as $permit)
                                                     @if ($permit->block_id == $selectedBlock)
                                                         @php
+                                                            $count++;
                                                             $hasMatchingBlock = true;
                                                             break; // Exit the loop if a matching block is found
                                                         @endphp
@@ -3497,7 +3499,7 @@
                                                             continue;
                                                         @endphp
                                                 @endif
-                                                @if ($hasMatchingBlock)
+                                                @if ($hasMatchingBlock || $count == 0)
                                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
                                                         style="height: {{count($temporary_works)==1 ? '100px':''}}">
                                                         <td

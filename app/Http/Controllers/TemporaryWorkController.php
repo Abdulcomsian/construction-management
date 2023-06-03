@@ -2248,10 +2248,19 @@ $notify_admins_msg = [
     //search tempwork
     public function tempwork_search(Request $request)
     {
+        $assignedBlocks = [];
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
@@ -2264,6 +2273,14 @@ $notify_admins_msg = [
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
             } else {
@@ -2275,6 +2292,14 @@ $notify_admins_msg = [
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('id', $ids);
                 })->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -2292,7 +2317,7 @@ $notify_admins_msg = [
             }
              $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects','scantempwork'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects','scantempwork','assignedBlocks'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

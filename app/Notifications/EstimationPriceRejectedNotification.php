@@ -6,22 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\TemporaryWork;
 
-class DesignerAwarded extends Notification
+class EstimationPriceRejectedNotification extends Notification
 {
     use Queueable;
+    protected $text;
+    protected $editRoute;
 
-    public $tempid;
-    public $email;
-    public $code;
-    public function __construct($tempid,$email,$code)
+    /**
+     * Create a new notification instance.
+     *
+     * @return void
+     */
+    public function __construct($text, $editRoute)
     {
-        $this->tempid=$tempid;
-        $this->email=$email;
-        $this->code=$code;
+        $this->text = $text;
+        $this->editRoute = $editRoute;
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -41,13 +42,11 @@ class DesignerAwarded extends Notification
      */
     public function toMail($notifiable)
     {
-        $data=TemporaryWork::with('project')->find($this->tempid);
-        $proj_name = $data->project->name ?? $data->projname;
-        $proj_no = $data->project->no ?? $data->projno;
         return (new MailMessage)
-            ->greeting('Design Brief Awarded')
-            ->subject('Design Brief Awarded -'.$proj_name. '-' .$proj_no)
-            ->view('mail.designerAwarded', ['details' => $data,'id'=>$this->tempid,'email'=>$this->email,'code'=>$this->code]);
+                    ->line('Your pricing is rejected by the client. Plese update the prices.')
+                    ->line($this->text) // Use the specific text
+                    ->action('Link', route('edit_estimation',$this->editRoute->id))
+                    ->line('Thank you for using our application!');
     }
 
     /**

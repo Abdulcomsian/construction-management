@@ -12,7 +12,7 @@ use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
 use App\Notifications\AdminDesignerNomination;
 use App\Notifications\AdminDesignerAppointmentNotification;
-use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,ProfileOtherDocuments};
+use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,EstimatorDesignerListTask,ProfileOtherDocuments};
 use Carbon\Carbon;
 use App\Utils\HelperFunctions;
 use DB;
@@ -90,9 +90,60 @@ class AdminDesignerController extends Controller
     //awarded estiamtor
     public function awardedEstimator()
     {
-        $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
-        $AwardedEstimators=TemporaryWork::with('project.company')->whereIn('id',$awarded)->get();
-        return view('dashboard.designer.awarded-estimator',compact('AwardedEstimators'));
+        try
+        {
+            $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
+            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments', 'desginerAssign','checkerAssign')
+            ->whereIn('id',$awarded)
+            ->orWhere('created_by', Auth::user()->id)
+            ->where('work_status', 'publish')
+            ->get();
+            $users = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
+            $projectIds = [];
+            foreach($AwardedEstimators as $awards)
+            {
+                if($awards->project_id !== null){
+                    $projectIds[] = $awards->project->id;
+                }
+            }
+            $projectIds = array_unique($projectIds);
+
+            $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
+            $scantempwork = '';
+             return view('test-designer',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+            
+         }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
+    }
+
+    public function awardedEstimatorModal(Request $request)
+    {
+        $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
+        return view('dashboard.designer.table',['estimatorDesigner' => $estimatorDesigner]);
+    }
+
+    public function storeAwardedEstimatorHours(Request $request, $id)
+    {
+        try
+        {
+            $designer_tasks = new EstimatorDesignerListTask();
+            $designer_tasks->estimator_designer_list_id = $id;
+            $designer_tasks->date = $request->date;
+            $designer_tasks->hours = $request->hours;
+            $designer_tasks->completed = $request->completed;
+            $designer_tasks->user_id = Auth::user()->id;
+            $designer_tasks->save();
+            toastSuccess('Designer tasks saved successfully!');
+            return Redirect::back();
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
 

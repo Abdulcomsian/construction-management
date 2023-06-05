@@ -110,4 +110,28 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(EstimatorDesignerList::class)->where(['public_message'=>1]);
     }
+    public function designerQuote()
+    {
+        return $this->hasMany(DesignerQuotation::class);
+    }
+
+    public function additionalInformation()
+    {
+        return $this->hasOne(AdditionalInformation::class , 'temporary_work_id' , 'id' )->orderBy('id','desc');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class , 'created_by' , 'id');
+    }
+
+    public function desginerAssign()
+    {
+        return $this->hasOne(JobAssign::class , 'temporary_work_id' , 'id' )->whereIn('type',['designer','Designer and Design Checker'])->orderBy('id','desc');
+    }
+
+    public function checkerAssign()
+    {
+        return $this->hasOne(JobAssign::class , 'temporary_work_id' , 'id' )->whereIn('type',['Design Checker','Designer and Design Checker'])->orderBy('id','desc');
+    }
 }

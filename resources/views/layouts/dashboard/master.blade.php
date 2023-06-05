@@ -81,7 +81,8 @@ License: -->
     @endauth()
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(used by all pages)-->
-    @jquery
+    {{-- @jquery --}}
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <!--  <script src="{{asset('js/Jquery-ui-min.js')}}"></script> -->
     <!--  <script src="{{ asset('js/signature.js')}}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>

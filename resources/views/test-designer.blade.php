@@ -515,7 +515,7 @@
                                     </div>
                                     <div class="col-2 ">
                                        <button type="submit" class="btn btn-light-primary mb-2 w-100"
-                                          style="border-radius: 0px;padding: 6px 10px; margin-left:10px;    margin-bottom: 0px !important;width: auto !important;    "><span
+                                          style="border-radius: 0px;padding: 6px 10px; margin-left:10px;margin-bottom: 0px !important;width: auto !important;    "><span
                                              class="fa fa-filter"></span></button>
                                     </div>
                                  </form>
@@ -989,7 +989,12 @@
                            Plant:</p>
                         <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">
                            {{$item->design_requirement_text ?? ''}}</p>
-                        <p>{{$item->project->company ? $item->project->company->name : '--'}}</p>
+                        {{-- <p>{{($item->project->company ? $item->project->company->name : '--')}}</p> --}}
+                        @if($item->project)
+                        <p>{{($item->project->company ? $item->project->company->name : $item->companty)}}</p>
+                        @else
+                        <p>{{($item->company)}}</p>
+                        @endif
                      </td>
                      <td style="min-width: 216px;padding: 11px !important;">
                         <div class="d-flex justify-content-between align-items-center">
@@ -1038,8 +1043,10 @@
                         <div style="margin: 12px 0;">
                            <div class="d-flex justify-content-between"">
                                   <span class=" titleColumn">Cost:</span>
+                              @if($item->designer)
                               <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
                                  '0'}}</span>
+                              @endif
                            </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
@@ -1078,238 +1085,40 @@
                         </div>
 
                      </td>
-                     {{-- <td style="min-width: 254px; max-width: 80px;">
-                        <div class="d-flex justify-content-between">
-                           <span class="titleColumn">Drawings & Designs:</span>
-                           <div style="display: flex; justify-content:space-between; flex-grow: 0.5">
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1"
-                                    style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
-                                    <span style="font-size: 12px; color: #07D564;" class="fa fa-plus"
-                                       title="Upload Drawings"></span>
-                                 </p>
-                              </div>
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}" data-type="1"
-                                    style="margin-bottom:0px;font-weight: 400;position: relative;top: 4px;">
-                                    <span style="font-size: 12px; color: #07D564;" class="fa fa-plus"
-                                       title="Upload Drawings"></span>
-                                 </p>
-                              </div>
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}" data-type="1"
-                                    style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
-                                    <!-- View Drawings -->
-                                    @php
-                                    $color="";
-                                    if(count($item->riskassesment)>0)
-                                    {
-                                    $color="green";
-                                    }
-                                    @endphp
-                                    <span style="font-size: 18px; color:{{$color}}" class="fa fa-file"
-                                       title="View Calculation/Risk Assessment"></span>
-                                 </p>
-                              </div>
-
-                           </div>
-                        </div>
-                        <div class="d-flex justify-content-between my-3">
-                           <span class="titleColumn">Permit to load:</span>
-                           <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
-                              <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                 <p class="cursor-pointer permit-to-load-btn"
-                                    style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
-                                    data-id="eyJpdiI6ImcrMzZ1L2tFOGE4L3QzbUUvZGJPcFE9PSIsInZhbHVlIjoiS0s2TkIyOVRBY3BDbno0Vkg1VmFxQT09IiwibWFjIjoiODAwODk4OWU2MjJkZTJjZmMxYmUyMTI3NGNhNDQ0ZTM1OGNhYjg4YmFjNTU1M2RkMzIwYzY1NGExZGVjMmFmMyIsInRhZyI6IiJ9"
-                                    data-desc="Site Establishment - Temporary Office / Cabins foundations"><span
-                                       style="font-size: 12px; color: #07D564;" class="fa fa-eye"
-                                       title="permit to load"></span></p>
-                              </div>
-                              <div style="background: #3A7DFF;padding: 4px; border-radius: 4px; margin-left:9px">
-                                 @if($drawingscount)
-                                 <p class="cursor-pointer permit-to-load-btn"
-                                    style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
-                                    data-id="{{Crypt::encrypt($item->id)}}"
-                                    data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p>
-                                 @endif
-                                 @if(count($item->scancomment)>0)
-                                 @php
-                                 $n=count($item->scancomment);
-                                 if($item->scancomment[$n-1]->status==2)
-                                 {
-                                 $scolor="red";
-                                 }elseif($item->scancomment[$n-1]->status==1)
-                                 {
-                                 $scolor="#FFA500";
-                                 }elseif($item->scancomment[$n-1]->status==0)
-                                 {
-                                 $scolor="green";
-                                 }
-                                 @endphp
-                                 <br>
-                                 <button
-                                    style="padding: 3px !important;border-radius: 4px;background:{{$scolor}} ; font-size: 12px;"
-                                    class="btn btn-info scancomment" data-id="{{$item->id}}"><span
-                                       class="fa fa-comments"></span>
-                                 </button>
-                                 <br>
-                                 @endif
-                                 @if(isset($item->permits[0]->id) || isset($item->scaffold[0]->id) )
-                                 @php
-                                 $permitexpire=\App\Models\PermitLoad::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at',
-                                 '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                    $scaffoldexpire=\App\Models\Scaffolding::where(['temporary_work_id'=>$item->id,'status'=>1])->whereDate('created_at',
-                                    '<=',\Carbon\Carbon::now()->subDays(7))->count();
-                                       $color="orange";
-                                       $class='';
-                                       if($permitexpire>0 || $scaffoldexpire>0)
-                                       {
-                                       $color="red";
-                                       $class="redBgBlink";
-                                       }
-                                       @endphp
-                                       @if(isset($item->rejectedpermits) && count($item->rejectedpermits)>0)
-                                       <br>
-                                       <span class="text-danger redBgBlink" style="">DNL</span><br>
-
-                                       @endif
-                                       <br>
-                                       <span class="permit-to-load-btn cursor-pointer" style="width: 108px"
-                                          data-id="{{Crypt::encrypt($item->id)}}"
-                                          data-desc="{{$item->design_requirement_text}}">
-                                          <span
-                                             class="label label-lg font-weight-bold label-light-yellow label-inline {{$class}}"
-                                             style=";background-color:{{$color}};color:white">Live({{count($item->permits
-                                             ?? 0)+count($item->scaffold ?? 0)}})</span>
-                                       </span>
-
-                                       @else
-                                       <span style="width: 108px;">
-                                          <span class="label label-lg font-weight-bold label-inline"
-                                             style="padding: 0.2rem 0.35rem; color: white;">
-                                             @if(count($item->unloadpermits)>0 || count($item->closedpermits)>0)
-                                             Closed
-                                             @else
-                                             0
-                                             @endif
-                                          </span>
-                                       </span>
-                                       @endif
-                              </div>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="d-flex" style="justify-content: space-between">
-                              <span class="titleColumn">Permit to unload:</span>
-                              <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                                 <div style="background: #07D56426;padding: 4px; border-radius: 4px">
-                                    <p class="permit-to-unload cursor-pointer"
-                                       style="font-weight: 400;font-size: 14px;position: relative;top: -17px;"
-                                       data-id="eyJpdiI6InZDNUFWNUZDVDFVcU5GV1d1SHFDcXc9PSIsInZhbHVlIjoicUlLbDE1UTRpT3R6SWRpcThuUnE1Zz09IiwibWFjIjoiZDM4ZTYwNTg3YjBjNDhmZmIyZmZjYTE5ZGQ4YjFhNTNiOTdhOTZkY2Q3ODIyY2RlM2E4M2VhMWQ3Mjg4MDU3MSIsInRhZyI6IiJ9"
-                                       data-desc="Site Establishment - Temporary Office / Cabins foundations"><span
-                                          style="font-size: 12px; color: #07D564;" class="fa fa-eye"
-                                          title="Upload Drawings"></span></p>
-                                 </div>
-                              </div>
-
-
-                           </div>
-                        </div>
-                     </td> --}}
-                     {{-- <td style="min-width: 254px; max-width: 80px;"> --}}
-                        {{-- {{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') : '0'}} --}}
-                        {{-- <div class="d-flex justify-content-between">
-                           <span class="titleColumn">Design Check CERT:</span>
-                           <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                              @php $dccstyle='';@endphp
-                              @foreach($item->uploadfile as $file)
-                              @if($file->file_type==2)
-                              @php $dccstyle="display:none"; @endphp
-                              @endif
-                              @endforeach
-                              <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}"
-                                 style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;"
-                                 data-type="2"><span style="font-size: 12px; color: #07D564;" class="fa fa-plus"
-                                    title="Upload Drawings"></span></p>
-                              @php $i=0;@endphp
-                              @foreach($item->uploadfile as $file)
-                              @if($file->file_type==2)
-                              @php $i++ @endphp
-                              <span><a href="{{asset($file->file_name)}}" target="_blank">DC{{$i}}</a></span>
-                              @endif
-                              @endforeach
-                           </div>
-                        </div>
-                        <div class="d-flex justify-content-between my-6">
-                           <span class="titleColumn">Date DCC Returned:</span>
-                           <div style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px">
-
-                              @php
-                              $date='';
-                              $dcolor='';
-                              $drawingscount=0;
-                              @endphp
-                              @foreach($item->uploadfile as $file)
-                              @php
-                              if($file->file_type==1 && $file->construction==1)
-                              {
-                              $dcolor='green';
-                              $drawingscount=1;
-                              $date=$file->created_at->todatestring();
-                              }
-                              elseif($file->file_type==1 && $file->preliminary_approval==1)
-                              {
-                              $dcolor='orange';
-                              $date=$file->created_at->todatestring();
-                              }
-                              @endphp
-                              @endforeach
-                              @if($date)
-
-                              <p class="dateclick cursor-pointer" style="color:{{$dcolor ?? ''}};"
-                                 data-id="{{$item->id}}" data-type="1"> {{date('d-m-Y', strtotime($date))}}
-                              </p>
-                              @endif
-                           </div>
-                        </div>
-                        <div>
-                           <div class="d-flex" style="justify-content: space-between">
-                              <span class="titleColumn">Date Design Returned:</span>
-                              <div style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px">
-                                 @foreach($item->uploadfile as $file)
-                                 @if($file->file_type==2)
-                                 <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">
-                                    {{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
-                                 @break
-                                 @endif
-                                 @endforeach
-                              </div>
-
-
-                           </div>
-                        </div> --}}
-                        {{--
-                     </td> --}}
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <span>
-                              <span class=" titleColumn" style="font-weight: bold; color: black">Allocated
-                                 Designers:</span>
+                              <span class=" titleColumn" id="allocationDesignerModalButton"
+                                 style="font-weight: bold;width: 100%; border-radius:5px; color: black; ">Allocated
+                                 Designers:</span><i class="icon-edit" id="allocated-designer" data-rowid="{{ $item->id }}"
+
+                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 11px;"></i>
                            </span>
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
-                           <span>John Deo</span>
+                           {{-- @dd($item->desginerAssign->user->name ?? '') --}}
+                           <span>{{$item->desginerAssign->user->name ?? ''}}</span>
                         </div>
-                        <div class="d-flex justify-content-between"">
+                        <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Checker Name:</span>
-                           <span>John Deo</span>
+                           <span>{{$item->checkerAssign->user->name ?? ''}}</span>
                         </div>
                      </td>
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
-                           <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
-                              Cert:</span>
+                           <div>
+                              <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
+                                 Cert:</span><i class="icon-edit" data-toggle="modal"
+                                 data-target="#DesignCheckCertModal" id="time-estimator"  data-rowid="{{$item->id}}"
+                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                           </div>
+                           <div>
+                              <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
+                                 Cert:</span><i class="icon-edit" data-toggle="modal"
+                                 data-target="#DesignCheckCertModal2"
+                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                           </div>
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
@@ -1323,7 +1132,8 @@
                      <td style="min-width: 154px; max-width: 80px;padding: 15px !important">
                         <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Drawing:</span>
-                           <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$item->designer->email)}}"
+                           @php $email = $item->designer->email ?? 'user@domain.com' @endphp
+                           <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$email)}}"
                               target="_blank"><i class="fa fa-eye"></i></a>
                         </div>
                         <button class="btn btn-sm w-100 my-1"
@@ -1347,23 +1157,13 @@
    </div>
    <!--end::Post-->
 </div>
-<button class="btn btn-primary" data-toggle="modal" data-target="#AssignProjectModal" style="width: fit-content">Launch
-   Modal</button>
 
-Field submit
-
-Update Work Progress
-Date, hours, task worked on submit
-
-Table:
-Date, hours spent, Task, % Completed
-
-
-<div class="modal  fade" id="AssignProjectModal">
+<div class="modal  fade" id="AssignProjectModal" style="width: 100%">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
          <div class="modal-body">
-            <span data-dismiss="modal" class="modal-close">&times;</span>
+            <input type="hidden" name="assigned_task" id="assigned_task" />
+            {{-- <span data-dismiss="modal" class="modal-close">&times;</span>
             <form action="">
                <div class="row">
                   <div class="col-md-9">
@@ -1425,7 +1225,170 @@ Date, hours spent, Task, % Completed
                      </tbody>
                   </table>
                </div>
+            </div> --}}
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal  fade" id="DesignCheckCertModal2">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-body">
+            <span data-dismiss="modal" class="modal-close">&times;</span>
+            <form action="">
+               <div class="row">
+                  <div class="col-md-9">
+                     <div class="d-flex inputDiv d-block mb-3">
+                        <!--begin::Label-->
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Total Esimtated Hours required:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" name="" id="" style="border: none; width: 100%">
+                     </div>
+                  </div>
+                  <div class="col-md-3 mt-9">
+                     <button class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+               </div>
+            </form>
+            <div class="row">
+               <div class="col-md-6">
+                  <span class="fw-bold">Date:</span>
+                  <span>02/05/2023</span>
+               </div>
+               <div class="col-md-6">
+                  <span class="fw-bold">Hours:</span>
+                  <span>140h</span>
+               </div>
             </div>
+            <div class="row">
+               <div class="col-12">
+                  <span class="fw-bold">Description</span>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio placeat distinctio repudiandae
+                     itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-12">
+                  <table class="table">
+                     <thead>
+                        <tr>
+                           <th scope="col">Date</th>
+                           <th scope="col">Hours spent</th>
+                           <th scope="col">Completed(%)</th>
+                           <th scope="col">Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row">1</th>
+                           <td>Mark</td>
+                           <td>Otto</td>
+                           <td>@mdo</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">2</th>
+                           <td>Jacob</td>
+                           <td>Thornton</td>
+                           <td>@fat</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="allocationDesignerModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-body">
+            <span data-dismiss="modal" class="modal-close">&times;</span>
+            <form action="{{route("projectAssign")}}" method="post">
+               @csrf
+               <input type="hidden" name="jobId" id="rowId" />
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="inputDiv d-block mb-3">
+                        <!--begin::Label-->
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Select Designer</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="designer" class="form-select" aria-label="Default select example"
+                           style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
+                           <option disabled selected>Open this select menu</option>
+                           @isset($users)
+                              @foreach($users as $user)
+                                 @if($user->hasRole('designer') OR $user->hasRole('Designer and Design Checker'))
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                 @endif
+                              @endforeach
+                           @endisset
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Start Designer Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="designer_start_date"/>
+                     {{-- </div> --}}
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">End Designer Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="designer_end_date"/>
+                     {{-- </div> --}}
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="inputDiv d-block mb-3">
+                        <!--begin::Label-->
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Select Checker</span>
+                        </label>
+                        <!--end::Label-->
+                        <select name="checker" class="form-select" aria-label="Default select example"
+                           style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
+                           <option disabled selected>Open this select menu</option>
+                           @isset($users)
+                              @foreach($users as $user)
+                                 @if($user->hasRole('Design Checker') OR $user->hasRole('Designer and Design Checker'))
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                 @endif
+                              @endforeach
+                           @endisset
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">Start Design Checker Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="checker_start_date"/>
+                     {{-- </div> --}}
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="inputDiv d-block mb-3"> --}}
+                        <label class=" fs-6 fw-bold mb-2">
+                           <span class="required">End Designer Cheker Date</span>
+                        </label>
+                        <input type="date" class="form-control" name="checker_end_date"/>
+                     {{-- </div> --}}
+                  </div>
+                  <div class="col-md-12 mt-4">
+                     <button class="btn btn-primary w-100" type="submit">Submit</button>
+                  </div>
+               </div>
+            </form>
          </div>
       </div>
    </div>
@@ -1462,4 +1425,35 @@ Date, hours spent, Task, % Completed
    
    });
 </script>
+<script>
+   $(document).ready(function() {
+      $(document).on('click', '#allocated-designer', function() {
+         var rowId = $(this).data('rowid');
+         // Your code here
+         console.log('Icon clicked! Row ID:', rowId);
+         $('#rowId').val(rowId)
+         $('#allocationDesignerModal').modal('show');
+   });
+});
+</script>
+<script type="text/javascript">
+      $(document).on('click', '#time-estimator', function() {
+            var temporary_work_id = $(this).data('rowid');
+               console.log(temporary_work_id);
+              // $.LoadingOverlay("show");
+              var CSRF_TOKEN = '{{ csrf_token() }}';
+              $.post("{{ route('award-estimator-modal') }}", {
+                  _token: CSRF_TOKEN,
+                  temporary_work_id: temporary_work_id
+              }).done(function(response) {
+                 console.log("hello")
+                  // Add response in Modal body
+                  $('#AssignProjectModal .modal-body').html(response);
+                  $('#assigned_task').val(temporary_work_id)
+                  // Display Modal
+                  $('#AssignProjectModal').modal('show');
+                  // $.LoadingOverlay("hide");
+              });
+      });
+  </script>
 @endsection

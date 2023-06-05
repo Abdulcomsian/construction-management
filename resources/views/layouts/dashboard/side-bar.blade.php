@@ -194,6 +194,11 @@
                             </a>
                         </div>
                         <div class="menu-item">
+                            <a class="menu-link" href="{{route('estimator_list')}}">
+                                <span class="menu-title">Add Jobs</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
                             <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
                                 <span class="menu-title">Designer List</span>
                             </a>
@@ -232,6 +237,11 @@
                         <div class="menu-item">
                             <a class="menu-link" href="{{url('adminDesigner/create-nomination',auth()->user()->id)}}">
                                 <span class="menu-title">Add Nomination</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
+                                <span class="menu-title">Awarded Estimator</span>
                             </a>
                         </div>
                         <div class="menu-item">

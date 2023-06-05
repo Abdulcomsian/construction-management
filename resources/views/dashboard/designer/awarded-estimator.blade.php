@@ -372,6 +372,36 @@
    .tab-content>.active {
       background: none !important;
    }
+
+   .modal-content {
+      position: relative;
+   }
+
+   .modal-close {
+      cursor: pointer;
+      font-size: 27px;
+      display: inline-block;
+      position: absolute;
+      top: 5px;
+      right: 20px;
+   }
+
+   .inputDiv {
+      margin: 30px 0px;
+      border: 1px solid #D2D5DA;
+      border-radius: 8px;
+      position: relative;
+      padding: 8px 5px;
+   }
+
+   .inputDiv label {
+      /* width: 40%; */
+      color: #000;
+      position: absolute;
+      bottom: 21px;
+      background: white;
+      font-family: 'Inter', sans-serif;
+   }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -477,9 +507,9 @@
                                  <!--begin::Table row-->
                                  <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th>Serial No</th>
-                                    <th>Project</th>
-                                    <th>Company</th>
+                                    <th>user name</th>
                                     <th>Email</th>
+                                    <th>Company Name</th>
                                     <th>Action</th>
                                  </tr>
                                  <!--end::Table row-->
@@ -488,18 +518,26 @@
                               <!--begin::Table body-->
                               <tbody class="text-gray-600 fw-bold">
                                  @if(count($AwardedEstimators)>0)
-                                 @foreach($AwardedEstimators as $work)
-                                 <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>{{$work->project->name}}</td>
-                                    <td>{{$work->project->company->name}}</td>
-                                    <td>{{Auth::user()->email}}</td>
-                                    <td>
-                                       <a href="{{route('designer.uploaddesign',Crypt::encrypt($work->id).'/?mail='.$work->designer->email)}}"
-                                          target="_blank"><i class="fa fa-eye"></i></a>
-                                    </td>
-                                 </tr>
-                                 @endforeach
+                                    @foreach($AwardedEstimators as $work)
+                                    {{-- @if($work->id == 84) --}}
+                                    {{-- @dd($work) --}}
+                                       <tr>
+                                          <td>{{$loop->index+1}}</td>
+                                          <td>{{Auth::user()->name ?? ''}}</td>
+                                          <td>{{Auth::user()->email ?? ''}}</td>
+                                          <td>{{$work->company ?? ''}}</td>
+                                          <td>
+                                             <a href="{{route('designer.uploaddesign',Crypt::encrypt($work->id ?? '').'/?mail='.Auth::user()->email ?? '')}}"
+                                                target="_blank"><i class="fa fa-eye"></i></a>
+                                                <a class="mx-md-2" onclick="event.preventDefault();viewInfo({{$work->id ?? ''}});" title="View Details" href="javascript:void(0)">
+                                                   <i class="fa fa-plus"></i>
+                                             </a>
+                                                {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#AssignProjectModal" style="width: fit-content">Launch
+                                                   Modal</button> --}}
+                                          </td>
+                                       </tr>
+                                    {{-- @endif --}}
+                                    @endforeach
                                  @else
                                  <tr>
                                     <td colspan="5">
@@ -528,9 +566,31 @@
    </div>
    <!--end::Post-->
 </div>
+<div class="modal fade" id="AssignProjectModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-body">
+         </div>
+      </div>
+   </div>
+</div>
 @endsection
 @section('scripts')
 <script type="text/javascript">
-
+ function viewInfo(temporary_work_id) {
+            // $.LoadingOverlay("show");
+            var CSRF_TOKEN = '{{ csrf_token() }}';
+            $.post("{{ route('award-estimator-modal') }}", {
+                _token: CSRF_TOKEN,
+                temporary_work_id: temporary_work_id
+            }).done(function(response) {
+               console.log("hello")
+                // Add response in Modal body
+                $('.modal-body').html(response);
+                // Display Modal
+                $('#AssignProjectModal').modal('show');
+                // $.LoadingOverlay("hide");
+            });
+        }
 </script>
 @endsection

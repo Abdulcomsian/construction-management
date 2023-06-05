@@ -8,13 +8,15 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use App\Utils\Validations;
-use App\Models\{EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating};
+use App\Models\{AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use Notification;
 use DB;
 use PDF;
 use Auth;
+use App\Mail\CommentEmail;
+use Illuminate\Support\Facades\Validator;
 
 class EstimatorController extends Controller
 {
@@ -769,11 +771,55 @@ class EstimatorController extends Controller
                 //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
                 $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
 
-                return view('dashboard.estimator.estimator-designer-page',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
+                return view('dashboard.estimator.estimator-designer-page-test',['mail'=>$record->email,'estimatorWork'=>$estimatorWork,'esitmator_designer_id'=>$record->id,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'company'=>$company,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators,'record'=>$record]);
             }
             else{
                 echo "<h1>You Are not allowed</h1>";
             }
+         }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
+        
+    }
+
+    //Estimator desinger page from designer side
+    public function estimatorDesignerClient(Request $request,$id)
+    {
+        try
+        {
+            $code=\Crypt::decrypt($request->code);
+            // $record=EstimatorDesignerList::where(['email'=>$request->mail,'code'=>$code])->first();
+            // $record=EstimatorDesignerList::where(['email'=>$request->email])->first();
+            // $estimatorWork=TemporaryWork::with('project')->find($id);
+            $estimatorWork=TemporaryWork::with('additionalInformation.unreadComment')->where('client_email',$request->mail)->get();
+            if($estimatorWork)
+            {
+                // $estimatorWork=TemporaryWork::with('project')->find($id);
+                // $designerquotation=DesignerQuotation::where(['estimator_designer_list_id'=>$record->id])->get();
+                // $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$record->id,'temporary_work_id'=>$id])->get();
+                // $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
+                // //get company record
+                // $company=Project::with('company')->find($estimatorWork->project_id);
+                // //get rating of cuurent designer
+                // //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
+                // $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
+
+                $designerquotation=DesignerQuotation::where(['temporary_work_id'=>$estimatorWork[0]->id])->get();
+                $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$estimatorWork[0]->id,'temporary_work_id'=>$id])->get();
+                $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
+                //get company record
+                // $company=Project::with('company')->find($estimatorWork->project_id);
+                //get rating of cuurent designer
+                //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
+                $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
+                return view('dashboard.designer.index-test',['mail'=>$request->email,'estimatorWork'=>$estimatorWork,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators]);
+            }
+            // return view('dashboard.designer.index-test');
+
+            // else{
+            //     echo "<h1>You Are not allowed</h1>";
+            // }
          }catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -897,4 +943,98 @@ class EstimatorController extends Controller
          return response()->json('error');
      }
    }
+
+   public function getAdditionalInformation(Request $request){
+        try{
+
+            $tempId = $request->id;
+            $tempWork =TemporaryWork::with(['AdditionalInformation.jobComment' => function ($query) {
+                $query->orderByDesc('created_at');
+            }])->where('id', $tempId)->first();
+            $html = view('components.additional-information' , ['tempWorks' => $tempWork])->render();
+            return response()->json(['success' => true , 'msg' => 'Additional inforamtion find successfully' , 'html' => $html]);
+        }catch(\Exception $e){
+            return response()->json([ 'success'=>false , 'msg' => 'Something went wrong' , 'error' => $e->getMessage()]);
+        }
+
+   }
+
+
+   public function getAdditionalInformationComment(Request $request){
+    try{
+
+        $id = $request->id;
+        $additionalInformation = AdditionalInformation::with(['jobComment' => function ($query) {
+            $query->orderByDesc('created_at');
+        }])->where('id', $id)->first();
+        $html = view('components.additional-information-comment' , ['additionalInformation' => $additionalInformation])->render();
+        return response()->json(['success' => true , 'msg' => 'Additional inforamtion find successfully' , 'html' => $html]);
+    }catch(\Exception $e){
+        return response()->json([ 'success'=>false , 'msg' => 'Something went wrong' , 'error' => $e->getMessage()]);
+    }
+
+}
+
+
+
+
+   public function getAdditionalComment(Request $request)
+   {
+
+    $validator = Validator::make($request->all() , [
+                    'comment' => 'required',
+                ]);
+
+    if($validator->fails())
+    {
+        return response()->json(['success' => false , 'msg' => 'Something went wrong!' , 'error' => $validator->getMessageBag()]);
+    }
+         
+   
+       try{
+           $additional_id = $request->addId;
+            $comment = $request->comment;
+            $filePath = null;
+            if($request->hasFile('commentFile')){
+                $file = $request->file('commentFile');
+                $filePath = time().'-'.$file->getClientOriginalName();
+                $file->move( public_path('uploads/additional_information') , $filePath);
+            }
+
+            //new email code starts here
+            $additionalInformation = AdditionalInformation::with('temporaryWork.creator', 'temporaryWork.project')->where('id' , $request->addId)->first();
+            
+            $comment = JobComments::create(['additional_information_id'=> $additional_id , 'comment' => $comment , 'file_destination' => $filePath]);
+
+            $creator = $additionalInformation->temporaryWork->creator;
+            $designerEmail =  isset($creator) && !is_null($creator) ? $creator->email : null ;
+            if(isset($designerEmail) && !is_null($designerEmail))
+            {
+                $projName = $additionalInformation->temporaryWork->projname;
+                \Mail::to($designerEmail)->send(new CommentEmail($comment , $projName));
+            }
+            //new email code ends here
+
+            return response()->json(['success' => true , 'msg' => 'Comment Added Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['success' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
+
+
+   }
+
+
+   public function setCommentNotification(Request $request)
+   {
+        try{
+            $id = $request->id;
+            JobComments::where('id' , $id)->update(['notified' => 1]);
+            return response()->json(["success" => true ,"msg"=> "Comment updated successfully"]);
+        }catch(\Exception $e)
+        {
+            return response()->json(["success" => false ,"msg"=> "Something Went Wrong" , 'error' => $e->getMessage()]);
+        }
+   }
+
+
 }

@@ -919,9 +919,11 @@
                                             style="background: lightgray; border-radius:10px"></canvas>
                                         <br />
                                         <textarea id="signature" name="signed" style="display: none"></textarea>
-                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                        <span id="clear" class="fa fa-undo cursor-pointer btn--clear"
                                             style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                     </div>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                        Added</span>
                                     <div class="inputDiv d-none" id="pdfsign">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Upload Signature:(PNG,
@@ -1070,11 +1072,13 @@
                                     {{-- <br /> --}}
                                     <canvas id="sig1" style="border-radius: 9px"></canvas>
                                     <textarea id="signature1" name="signed1" style="display: none"></textarea>
-                                    <span id="clear1" class="fa fa-undo cursor-pointer"
+                                    <span id="clear1" class="fa fa-undo cursor-pointer btn--clear"
                                         style="line-height: 6; position:relative; top:83px; right:26px"></span>
                                     {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
                                 </div>
+                                <span id="sigimage1" class="text-danger" style="font-size: 15px">Signature Not
+                                    Added</span>
                                 <!-- <div class="d-flex inputDiv principleno" id="sign1"
                                     style=" display: none !important">
                                     <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
@@ -1092,7 +1096,7 @@
                             <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                <div class="input-images"></div>
                              </div> -->
-                            <button id="submitbutton" type="button" class="btn btn-primary">Update</button>
+                            <button id="submitbutton" type="button" class="btn btn-secondary" disabled>Update</button>
                         </div>
                     </div>
                 </form>
@@ -1118,16 +1122,16 @@
             //     }
             // })
 
-            $('#clear').click(function(e) {
-                e.preventDefault();
-                signaturePad.clear();
-                $("#signature").val('');
-            });
-            $('#clear1').click(function(e) {
-                e.preventDefault();
-                signaturePad1.clear();
-                $("#signature1").val('');
-            });
+            // $('#clear').click(function(e) {
+            //     e.preventDefault();
+            //     signaturePad.clear();
+            //     $("#signature").val('');
+            // });
+            // $('#clear1').click(function(e) {
+            //     e.preventDefault();
+            //     signaturePad1.clear();
+            //     $("#signature1").val('');
+            // });
             // New Conditions embedded by Basit 
             $("#flexCheckChecked").change(function(){
                 if($(this).is(':checked'))
@@ -1162,9 +1166,11 @@
     $("input[name='principle_contractor']").change(function(){
        if ($(this).val()==1){
           $(".principleno").addClass('d-flex').show();
+          $("#sigimage1").css("display", "block");
        }
        else{
-          $(".principleno").removeClass('d-flex').hide()
+          $(".principleno").removeClass('d-flex').hide();
+          $("#sigimage1").hide();
         
        }
     })
@@ -1232,6 +1238,40 @@
                  }
                  $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
                  $("#permitrenew").submit();
+            });
+
+            signaturePad.addEventListener('endStroke', function(){
+                $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            })
+            
+            signaturePad1.addEventListener('endStroke', function(){
+                $("#sigimage1").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            })
+
+
+            const clearBtns = document.querySelectorAll('.btn--clear');
+            console.log(clearBtns);
+
+            clearBtns.forEach(clearbtn => {
+                clearbtn.addEventListener('click', function(e){
+                    console.log(e.target);
+                    if (e.target.getAttribute('id') === 'clear') {
+                        e.preventDefault();
+                        signaturePad.clear();
+                        $("#signature").val('');
+                        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                        $("#sigimage").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
+                    }
+                    if (e.target.getAttribute('id') === 'clear1') {
+                        e.preventDefault();
+                        signaturePad1.clear();
+                        $("#signature1").val('');
+                        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                        $("#sigimage1").text("Signature Added").removeClass('text-success').addClass('text-danger');
+                    }
+                });
             });
      //approval checkbox checkded
     $("#approval").change(function(){

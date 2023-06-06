@@ -380,13 +380,14 @@ $data = [
     });
 </script>
 <script>
-    $(document).ready(function () {
+     $(document).ready(function () {
         // Add New button click event
         $(document).on('click', '.add-btn', function () {
-            var newRow = $(this).closest('.row').clone(); // Clone the current row
-            newRow.find('.add-btn').text('Remove').removeClass('add-btn btn-primary').addClass('remove-btn btn-danger'); // Change button text and class
+            var newRow = $('.template-row').clone(); // Clone the template row
+            newRow.removeClass('template-row'); // Remove the template row class
             newRow.find('.block-input').val(''); // Clear the input field
-            $(this).closest('.row').after(newRow); // Add the new row after the current row
+            newRow.find('.add-btn').text('Remove').removeClass('add-btn btn-primary').addClass('remove-btn btn-danger'); // Change button text and class
+            $('.old_rows').append(newRow); // Add the new row at the bottom
         });
 
         // Remove button click event

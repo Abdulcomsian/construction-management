@@ -2328,8 +2328,17 @@ $notify_admins_msg = [
     {
         $user = auth()->user();
         try {
+            $assignedBlocks = '';
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
@@ -2341,6 +2350,14 @@ $notify_admins_msg = [
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('created_by', $ids)->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
             } else {
@@ -2350,6 +2367,14 @@ $notify_admins_msg = [
                     $ids[] = $id->project_id;
                 }
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -2365,7 +2390,7 @@ $notify_admins_msg = [
             }
             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects', 'scantempwork'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works','projects','scantempwork','assignedBlocks'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

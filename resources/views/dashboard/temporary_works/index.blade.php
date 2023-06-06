@@ -883,15 +883,17 @@
                                                         <span class="navi-text">All</span>
                                                     </a>
                                                 </li>
-                                                @foreach($assignedBlocks as $block)
-                                                    <li class="navi-item">
-                                                        <a href="{{url('/temporary_works?block='.$block['id'])}}"
-                                                            class="navi-link">
+                                                @if(!empty($assignedBlocks))
+                                                    @foreach($assignedBlocks as $block)
+                                                        <li class="navi-item">
+                                                            <a href="{{url('/temporary_works?block='.$block['id'])}}"
+                                                                class="navi-link">
 
-                                                            <span class="navi-text">{{$block['title']}}</span>
-                                                        </a>
-                                                    </li>
-                                                @endforeach                                              
+                                                                <span class="navi-text">{{$block['title']}}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endisset                                              
                                             </ul>
                                         </div>
                                         <!--end::Dropdown Menu-->

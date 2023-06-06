@@ -1065,7 +1065,8 @@
                                         class="form-control form-control-solid">
                                 </div>
 
-                                <div class="d-flex inputDiv principleno" id="sign1" style="border:none !important;">
+                                <div class="d-flex inputDiv principleno mb-0" id="sign1"
+                                    style="border:none !important;">
                                     {{-- <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
                                     </label> --}}
@@ -1221,58 +1222,79 @@
      $('#namesign_id2').change(function() {
         $('#namesign_id2').css("background-color", "#f5f8fa ");
      });
-            var canvas = document.getElementById("sig");
-            var signaturePad = new SignaturePad(canvas);
-            var canvas1 = document.getElementById("sig1");
+
+     
+    var canvas = document.getElementById("sig");
+    var signaturePad = new SignaturePad(canvas);
+    var canvas1 = document.getElementById("sig1");
+    let signaturepad1 = false;
+    let signaturepad2 = false;
+    if(canvas1)
+    {
+        var signaturePad1 = new SignaturePad(canvas1);
+    }
+    
+    $("#submitbutton").on('click',function(){
+            $("#signature").val(signaturePad.toDataURL('image/png'));
             if(canvas1)
             {
-             var signaturePad1 = new SignaturePad(canvas1);
+            console.log("hello");
+            $("#signature1").val(signaturePad1.toDataURL('image/png'));
             }
-            
-            $("#submitbutton").on('click',function(){
-                 $("#signature").val(signaturePad.toDataURL('image/png'));
-                 if(canvas1)
-                 {
-                    console.log("hello");
-                    $("#signature1").val(signaturePad1.toDataURL('image/png'));
-                 }
-                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
-                 $("#permitrenew").submit();
-            });
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+            $("#permitrenew").submit();
+    });
 
-            signaturePad.addEventListener('endStroke', function(){
-                $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-            })
-            
-            signaturePad1.addEventListener('endStroke', function(){
-                $("#sigimage1").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-            })
+    signaturePad.addEventListener('endStroke', function(){
+        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-success');
+        signaturepad1 = true;
+        enableFormSubmition()
+        console.log(signaturepad1);
+    })
+    
+    signaturePad1.addEventListener('endStroke', function(){
+        $("#sigimage1").text("Signature Added").removeClass('text-danger').addClass('text-success');
+        signaturepad2 = true;
+        enableFormSubmition();
+        console.log(signaturepad2);
+    })
+    
 
 
-            const clearBtns = document.querySelectorAll('.btn--clear');
-            console.log(clearBtns);
+    const clearBtns = document.querySelectorAll('.btn--clear');
+    
+    console.log(clearBtns);
 
-            clearBtns.forEach(clearbtn => {
-                clearbtn.addEventListener('click', function(e){
-                    console.log(e.target);
-                    if (e.target.getAttribute('id') === 'clear') {
-                        e.preventDefault();
-                        signaturePad.clear();
-                        $("#signature").val('');
-                        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
-                        $("#sigimage").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
-                    }
-                    if (e.target.getAttribute('id') === 'clear1') {
-                        e.preventDefault();
-                        signaturePad1.clear();
-                        $("#signature1").val('');
-                        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
-                        $("#sigimage1").text("Signature Added").removeClass('text-success').addClass('text-danger');
-                    }
-                });
-            });
+    clearBtns.forEach(clearbtn => {
+        clearbtn.addEventListener('click', function(e){
+            console.log(e.target);
+            if (e.target.getAttribute('id') === 'clear') {
+                e.preventDefault();
+                signaturepad1 = false;
+                console.log(signaturepad1);
+                signaturePad.clear();
+                $("#signature").val('');
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                $("#sigimage").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
+            }
+            if (e.target.getAttribute('id') === 'clear1') {
+                e.preventDefault();
+                signaturepad2 = false;
+                console.log(signaturepad2);
+                signaturePad1.clear();
+                $("#signature1").val('');
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                $("#sigimage1").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
+            }
+        });
+    });
+
+    function enableFormSubmition(){
+        if(signaturepad1 && signaturepad2){
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").prop("disabled", false);
+        }
+
+    }
      //approval checkbox checkded
     $("#approval").change(function(){
         if($(this).is(':checked'))

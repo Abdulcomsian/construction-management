@@ -220,9 +220,9 @@ class ProjectController extends Controller
 
                 for ($i = 1; $i <= $request->qrcodeno; $i++) {
                     $j = $i;
-                    // \QrCode::size(500)
-                    //     ->format('png')
-                    //     ->generate(route('qrlink', $project->id . '?temp=' . Crypt::encryptString($j) . ''), public_path('qrcode/projects/qrcode' . $project->id . $j . '.png'));
+                    \QrCode::size(500)
+                        ->format('png')
+                        ->generate(route('qrlink', $project->id . '?temp=' . Crypt::encryptString($j) . ''), public_path('qrcode/projects/qrcode' . $project->id . $j . '.png'));
 
                     $model = new ProjectQrCode();
                     $model->project_id = $project->id;

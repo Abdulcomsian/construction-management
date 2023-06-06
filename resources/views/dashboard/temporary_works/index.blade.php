@@ -3483,6 +3483,9 @@
                                             @forelse($temporary_works as $item)
                                                 @php
                                                     $hasMatchingBlock = false;
+                                                    if(!$selectedBlock){
+                                                    $hasMatchingBlock = true;
+                                                    }
                                                 @endphp
 
                                                 @foreach ($item->permits as $permit)
@@ -3499,7 +3502,7 @@
                                                             continue;
                                                         @endphp
                                                 @endif
-                                                @if ($hasMatchingBlock || $count == 0)
+                                                @if ($hasMatchingBlock)
                                                     <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
                                                         style="height: {{count($temporary_works)==1 ? '100px':''}}">
                                                         <td

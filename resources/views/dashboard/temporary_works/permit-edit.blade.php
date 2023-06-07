@@ -1164,17 +1164,7 @@
                     $(".customSubmitButton").removeClass("showBtn");
                 }
             })
-    $("input[name='principle_contractor']").change(function(){
-       if ($(this).val()==1){
-          $(".principleno").addClass('d-flex').show();
-          $("#sigimage1").css("display", "block");
-       }
-       else{
-          $(".principleno").removeClass('d-flex').hide();
-          $("#sigimage1").hide();
-        
-       }
-    })
+    
 
     $("input[name='works_coordinator']").change(function(){
        if ($(this).val()==1){
@@ -1229,6 +1219,7 @@
     var canvas1 = document.getElementById("sig1");
     let signaturepad1 = false;
     let signaturepad2 = false;
+    let isSecondMemEnable = true;
     if(canvas1)
     {
         var signaturePad1 = new SignaturePad(canvas1);
@@ -1290,11 +1281,27 @@
     });
 
     function enableFormSubmition(){
-        if(signaturepad1 && signaturepad2){
-            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").prop("disabled", false);
+        if(isSecondMemEnable){
+            signaturepad1 && signaturepad2 ? $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").prop("disabled", false): $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+        }else{
+            signaturepad1 && $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").prop("disabled", false)
         }
-
     }
+    $("input[name='principle_contractor']").change(function(){
+       if ($(this).val()==1){
+            isSecondMemEnable = true;
+          $(".principleno").addClass('d-flex').show();
+          $("#sigimage1").css("display", "block");
+          enableFormSubmition()
+        }
+        else{
+            isSecondMemEnable = false;
+            $(".principleno").removeClass('d-flex').hide();
+            $("#sigimage1").hide();
+            enableFormSubmition()
+        
+       }
+    })
      //approval checkbox checkded
     $("#approval").change(function(){
         if($(this).is(':checked'))

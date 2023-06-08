@@ -535,7 +535,7 @@
                             </div> -->
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Equipment & materials used as specified & fit for
                                         purpose</span>
 
@@ -560,7 +560,7 @@
 
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Workmanship checked (i.e. all props, ties, struts, joints,
                                         stop-ends, etc)</span>
 
@@ -594,7 +594,7 @@
 
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">TW checked to drawings / design output</span>
 
                                 </label>
@@ -628,7 +628,7 @@
 
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Loading / use limitations understood (e.g. rate of pour,
                                         sequence of loading, access/plant loading, etc)</span>
 
@@ -663,7 +663,7 @@
 
                             <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Approval by TWC required?</span>
 
                                 </label>
@@ -714,7 +714,7 @@
 
                             <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Add rate of rise?</span>
 
                                 </label>
@@ -762,7 +762,7 @@
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Has the construction methodology changed?</span>
 
                                 </label>
@@ -814,7 +814,7 @@
                             <h5 style="color: #000; font-weight: 600; font-size: 24px; margin-top: 15px">Permit to Load
                                 / Use</h5>
                             <br>
-                            <ul style="color: #000;" class="permitToLoadList">
+                            <ul style="color: #000; padding-left: 1.3rem" class="permitToLoadList">
 
                                 <li>
                                     I confirm that I have inspected this temporary structure and I am satisfied that it
@@ -919,8 +919,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6   mt-0" style="margin-left:7px; ">
-                                    <div class="d-flex inputDiv">
+                                <div class="col-md-6   mt-0">
+                                    <div class="d-flex inputDiv mt-0">
                                         <label class="fs-6 fw-bold mb-2" style="">
                                             <span>Comments:</span>
                                         </label>

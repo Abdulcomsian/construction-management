@@ -132,6 +132,7 @@ class DesignerController extends Controller
                 $job_assign->type = $designer->roles[0]->name;
                 $job_assign->start_date = $request->designer_start_date;
                 $job_assign->end_date = $request->designer_end_date;
+                $job_assign->estimatorApprove = 1;
                 $code = '123';
                 if ($job_assign->save()) {
                     Notification::route('mail', $designer->email)->notify(new DesignerAwarded($request->jobId, $designer->email, $code));
@@ -146,6 +147,7 @@ class DesignerController extends Controller
                 $job_assign->type = $checker->roles[0]->name;
                 $job_assign->start_date = $request->checker_start_date;
                 $job_assign->end_date = $request->checker_end_date;
+                $job_assign->estimatorApprove = 1;
                 $code = '123';
                 if ($job_assign->save()) {
                     Notification::route('mail', $checker->email)->notify(new DesignerAwarded($request->jobId, $checker->email, $code));
@@ -2253,39 +2255,55 @@ class DesignerController extends Controller
         return $request;
     }
 
-        //send email to desinger and save in database
-        public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
-        {
-               
-                $email_list1=[];
-                $email_list2=[];
-                if(!empty($emails))
+    //send email to desinger and save in database
+    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
+    {
+            
+            $email_list1=[];
+            $email_list2=[];
+            if(!empty($emails))
+            {
+                $email_list1=explode(",",$emails);
+            }
+            if($designers_or_suppliers)
+            {
+                $email_list2=$designers_or_suppliers;
+            }
+            $finalList=array_merge($email_list1,$email_list2);
+            foreach($finalList as $list)
+            {
+                $list=explode('-',$list);
+                $code=random_int(100000, 999999);
+                EstimatorDesignerList::create([
+                    'email'=>$list[0],
+                    'temporary_work_id'=>$temporary_work_id,
+                    'code'=>$code,
+                    'type'=>$type,
+                    'user_id'=>$list[1] ?? NULL,
+                ]);
+                if($action=="Save & Email")
                 {
-                    $email_list1=explode(",",$emails);
-                }
-                if($designers_or_suppliers)
-                {
-                    $email_list2=$designers_or_suppliers;
-                }
-                $finalList=array_merge($email_list1,$email_list2);
-                foreach($finalList as $list)
-                {
-                    $list=explode('-',$list);
-                    $code=random_int(100000, 999999);
-                    EstimatorDesignerList::create([
-                        'email'=>$list[0],
-                        'temporary_work_id'=>$temporary_work_id,
-                        'code'=>$code,
-                        'type'=>$type,
-                        'user_id'=>$list[1] ?? NULL,
-                    ]);
-                    if($action=="Save & Email")
-                    {
-                        Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
-                        
-                    }
+                    Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
                     
                 }
-        }
+                
+            }
+    }
+    
+    public function calendar()
+    {
+        $jobs = TemporaryWork::with('desginerAssign','desginerAssign.estimatorDesignerListTasks')->get();
+        $events = [];
+            foreach($jobs as $job){
+                $events[] = [
+                    'title' => $job->projname,
+                    'start' => $job->desginerAssign->start_date,
+                    'end' => $job->desginerAssign->end_date,
+                ];
+            }
+                
+        return view('dashboard.calendar.index', compact('events'));
+    }
+    
 
 }

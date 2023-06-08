@@ -122,8 +122,34 @@ class AdminDesignerController extends Controller
 
     public function awardedEstimatorModal(Request $request)
     {
-        $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
+
+        $loggedInUser = Auth::user();
+        // $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
+        
+        if ($loggedInUser->di_designer_id !== null) {
+            // Child Designer
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+                ->where([
+                    'temporary_work_id' => $request->temporary_work_id,
+                    'user_id' => $loggedInUser->id
+                ])
+                ->first();
+        } else {
+            // Admin Designer
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+                ->whereHas('Estimator', function ($query) use ($loggedInUser) {
+                    $query->where('created_by', $loggedInUser->id);
+                })
+                ->where('temporary_work_id', $request->temporary_work_id)
+                ->first();
+        }
+
         return view('dashboard.designer.table',['estimatorDesigner' => $estimatorDesigner]);
+    }
+
+    public function allocatedDesignerModal(Request $request)
+    {
+
     }
 
     public function storeAwardedEstimatorHours(Request $request, $id)

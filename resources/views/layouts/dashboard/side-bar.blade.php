@@ -218,6 +218,11 @@
                                 <span class="menu-title">Awarded Estimator</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('calendar')}}">
+                                <span class="menu-title">Calendar</span>
+                            </a>
+                        </div>
                         @endif
                         @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) &&
                         \Auth::user()->company_id)

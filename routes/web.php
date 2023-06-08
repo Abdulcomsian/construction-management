@@ -285,6 +285,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
      Route::post('/awarded-estimator-modal',[AdminDesignerController::class,'awardedEstimatorModal'])->name('award-estimator-modal');
      Route::post('/store-awarded-estimator-hours/{id}',[AdminDesignerController::class,'storeAwardedEstimatorHours'])->name('store_award_estimator_hours');
+     Route::post('/allocated-designer-modal',[AdminDesignerController::class,'allocatedDesignerModal'])->name('allocated-designer-modal');
     //  Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
      Route::get('estimator-list' , [DesignerController::class , 'estimator'])->name('estimator_list');
@@ -295,6 +296,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::post('show-pricing' , [DesignerController::class , 'showPricing'])->name('show_pricing');
      Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
+     Route::get('calendar' , [DesignerController::class , 'calendar'])->name('calendar');
     //  Route::get('estimator' , [DesignerController::class , 'Estimator'])->name('estimator');
     //  Route::get('add-estimator' , [DesignerController::class , 'addEstimator'])->name('add_estimator');
 

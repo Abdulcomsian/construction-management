@@ -1,6 +1,7 @@
 <span data-dismiss="modal" class="modal-close">&times;</span>
 <form action="{{route('store_award_estimator_hours', $estimatorDesigner->id)}}" method="post">
 @csrf
+@if(auth()->user()->di_designer_id != null)
 <div class="row">
     <div class="col-md-4">
         <div class="d-flex inputDiv d-block mb-3">
@@ -49,46 +50,47 @@
     </div>
 </div>
 </form>
+@endif
 {{-- @if($estimatorDesigner->total_hours) --}}
-@foreach($estimatorDesigner->estimatorDesignerListTasks as $row)
-<div class="row">
-<div class="col-md-6">
-    <span class="fw-bold">Date:</span>
-    <span>02/05/2023</span>
-</div>
-<div class="col-md-6">
-    <span class="fw-bold">Hours:</span>
-    <span>{{$estimatorDesigner->total_hours ?? ''}}h</span>
-</div>
-</div>
-<div class="row">
-<div class="col-12">
-    <span class="fw-bold">Description</span>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio placeat distinctio repudiandae
-        itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
-</div>
+{{-- <div class="row">
+    <div class="col-md-6">
+        <span class="fw-bold">Date:</span>
+        <span>02/05/2023</span>
+    </div>
+    <div class="col-md-6">
+        <span class="fw-bold">Hours:</span>
+        <span>{{$estimatorDesigner->total_hours ?? ''}}h</span>
+    </div>
 </div>
 <div class="row">
-<div class="col-12">
-    <table class="table">
-        <thead>
-            <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Hours spent</th>
-            <th scope="col">Task</th>
-            <th scope="col">Completed(%)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <th scope="row">{{$estimatorDesigner->date ?? ''}}</th>
-            <td>{{$estimatorDesigner->hours ?? ''}}</td>
-            <td>{{$estimatorDesigner->task ?? ''}}</td>
-            <td>{{$estimatorDesigner->completed ?? ''}}%</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="col-12">
+        <span class="fw-bold">Description</span>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio placeat distinctio repudiandae
+            itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
+    </div>
+</div> --}}
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Hours spent</th>
+                <th scope="col">Task</th>
+                <th scope="col">Completed(%)</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($estimatorDesigner->estimatorDesignerListTasks as $row)    
+                <tr>
+                <th scope="row">{{$row->date ?? ''}}</th>
+                <td>{{$row->hours ?? ''}}</td>
+                <td>{{$row->task ?? ''}}</td>
+                <td>{{$row->completed ?? ''}}%</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
-</div>
-@endforeach
 {{-- @endif --}}

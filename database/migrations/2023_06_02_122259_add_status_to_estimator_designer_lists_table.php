@@ -14,7 +14,7 @@ class AddStatusToEstimatorDesignerListsTable extends Migration
     public function up()
     {
         Schema::table('estimator_designer_lists', function (Blueprint $table) {
-            $table->enum('status', ['approved','pending','rejected'])->nullable();
+            $table->enum('status', ['approved','pending','rejected'])->default('approved')->nullable();
         });
     }
 

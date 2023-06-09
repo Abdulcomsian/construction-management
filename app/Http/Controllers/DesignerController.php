@@ -2050,12 +2050,12 @@ class DesignerController extends Controller
              $rdate=$history->updated_at;
         }
         $list.='<tr>';
-        $list.='<td>'.$i.'</td>';
-        $list.='<td>'.$history->email.'</td>';
-        $list.='<td>'.$history->type.'</td>';
-        $list.='<td>'.$status.'</td>';
-         $list.='<td>'.$history->message.'</td>';
-        $list.='<td>'.$cdate.'</td><td>'.$rdate.'</td></tr>';
+        $list.='<td style="text-align: center;">'.$i.'</td>';
+        $list.='<td style="text-align: center;">'.$history->email.'</td>';
+        $list.='<td style="text-align: center;">'.$history->type.'</td>';
+        $list.='<td style="text-align: center;">'.$status.'</td>';
+         $list.='<td style="text-align: center;">'.$history->message.'</td>';
+        $list.='<td style="text-align: center;">'.$cdate.'</td><td>'.$rdate.'</td></tr>';
         $i++;
      }
      echo $list;

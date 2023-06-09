@@ -23,4 +23,8 @@ class PermitLoad extends Model
     {
         return $this->belongsTo(TemporaryWork::class,'temporary_work_id','id');
     }
+    public function blocks()
+    {
+        return $this->belongsTo(ProjectBlock::class,'block_id');
+    }
 }

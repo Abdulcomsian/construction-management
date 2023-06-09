@@ -32,4 +32,9 @@ class Project extends Model
         return $this->hasMany(TemporaryWork::class);
     }
 
+    public function blocks()
+    {
+        return $this->hasMany(ProjectBlock::class);
+    }
+
 }

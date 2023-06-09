@@ -1,16 +1,19 @@
 @extends('layouts.dashboard.master',['title' => 'User Project Details'])
 @section('styles')
 <style>
-     .aside-enabled.aside-fixed.header-fixed .header{
-        border-bottom: 1px solid #e4e6ef!important;
+    .aside-enabled.aside-fixed.header-fixed .header {
+        border-bottom: 1px solid #e4e6ef !important;
     }
-    .header-fixed.toolbar-fixed .wrapper{
+
+    .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-    .content{
+
+    .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
     }
+
     .newDesignBtn {
         border-radius: 8px;
         background-color: #07d564;
@@ -33,23 +36,27 @@
         margin-top: 20px;
         border-collapse: separate;
     }
-    #kt_content_container{
+
+    #kt_content_container {
         background-color: #e9edf1;
     }
-    #kt_toolbar_container{
-        background-color:#fff;
+
+    #kt_toolbar_container {
+        background-color: #fff;
     }
 
     #kt_toolbar_container h1 {
         font-size: 35px !important;
         color: #000 !important;
         padding: 15px 0px;
-        
+
     }
-    .card{
+
+    .card {
         margin: 30px 0px;
-        border-radius: 10px;    
+        border-radius: 10px;
     }
+
     .toolbar-fixed .toolbar {
         background-color: transparent !important;
         border: none !important;
@@ -127,16 +134,19 @@
         font-size: 12px;
         font-weight: normal;
     }
-    table td .d-flex{
+
+    table td .d-flex {
         justify-content: center;
     }
+
     .btn.btn-active-color-primary:hover:not(.btn-active),
-    .btn.btn-active-color-primary:hover:not(.btn-active) i{
-    color: #07d564;
-}
-.modal .btn.btn-primary{
+    .btn.btn-active-color-primary:hover:not(.btn-active) i {
+        color: #07d564;
+    }
+
+    .modal .btn.btn-primary {
         border-color: #07d564 !important;
-background-color: #07d564 !important;
+        background-color: #07d564 !important;
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
@@ -148,9 +158,13 @@ background-color: #07d564 !important;
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
+            <div data-kt-place="true" data-kt-place-mode="prepend"
+                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
+                style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">User Project Nominations Details</h1>
+                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">User Project
+                    Nominations Details</h1>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -177,7 +191,8 @@ background-color: #07d564 !important;
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <div class="table-responsive">
-                        <table class="cell-border table-hover datatable table align-middle table-row-dashed fs-6 gy-5 table-responsive">
+                        <table
+                            class="cell-border table-hover datatable table align-middle table-row-dashed fs-6 gy-5 table-responsive">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
@@ -199,7 +214,8 @@ background-color: #07d564 !important;
                                 @foreach($project_wise_nominations as $nomination)
                                 <tr>
                                     @php
-                                    $url = url('Nomination/nomination-formm',Crypt::encrypt($nomination->user->id)).'?project='.Crypt::encrypt($nomination->projectt->id)
+                                    $url =
+                                    url('Nomination/nomination-formm',Crypt::encrypt($nomination->user->id)).'?project='.Crypt::encrypt($nomination->projectt->id)
                                     @endphp
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$nomination->user->name}}</td>
@@ -207,33 +223,36 @@ background-color: #07d564 !important;
                                     <td>{{$nomination->user->userCompany->name}}</td>
                                     <td>{{$nomination->projectt->name}}</td>
                                     <td><a href="{{asset('pdf').'/'.$nomination->pdf_url}}">PDF</a><br>
-                                   <a href="{{$url}}">Nomination link<a>
-                                </td>
-                                     <td>
+                                        <a href="{{$url}}">Nomination link<a>
+                                    </td>
+                                    <td>
                                         @if($nomination->appointment_pdf)
                                         <a href="{{asset('pdf').'/'.$nomination->appointment_pdf}}">PDF</a>
                                         @endif
                                     </td>
                                     <td>
-                                        @php 
-                                            $class='';
-                                            $bgclass='';
-                                             if($nomination->status==0)
-                                             {
-                                                 $class="text-warning";
-                                                 $bgclass='redBgBlink';
-                                             }elseif($nomination->status==1)
-                                             {
-                                                 $class="text-success";
-                                             }
-                                             else{
-                                                 $class="text-danger";
-                                             }
+                                        @php
+                                        $class='';
+                                        $bgclass='';
+                                        if($nomination->status==0)
+                                        {
+                                        $class="text-warning";
+                                        $bgclass='redBgBlink';
+                                        }elseif($nomination->status==1)
+                                        {
+                                        $class="text-success";
+                                        }
+                                        else{
+                                        $class="text-danger";
+                                        }
 
                                         @endphp
-                                        <button type="button" userid="{{$nomination->user->id}}" nominationid="{{$nomination->id}}" project="{{$nomination->project}}" class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm {{$bgclass}}" title="View Nomination Comments">
-                                        <i class="fa fa-comment {{$class}}" aria-hidden="true"></i>
-                                        
+                                        <button type="button" userid="{{$nomination->user->id}}"
+                                            nominationid="{{$nomination->id}}" project="{{$nomination->project}}"
+                                            class="nominationcomment btn btn-icon btn-bg-light btn-active-color-primary btn-sm {{$bgclass}}"
+                                            title="View Nomination Comments">
+                                            <i class="fa fa-comment {{$class}}" aria-hidden="true"></i>
+
                                         </button>
                                     </td>
                                 </tr>
@@ -260,16 +279,19 @@ background-color: #07d564 !important;
 @include('layouts.sweetalert.sweetalert_js')
 
 <script type="text/javascript">
-     var canvas = document.getElementById("sig");
+    var canvas = document.getElementById("sig");
      var signaturePad = new SignaturePad(canvas);
      signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
-              $("#signature").val(signaturePad.toDataURL('image/png'));
+                $("#signature").val(signaturePad.toDataURL('image/png'));
+              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-success');
+              $('.submitBtn').removeClass('btn-secondary').addClass('btn-primary').prop('disabled', false);
             });
      $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.clear();
         $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+         $('.submitBtn').removeClass('btn-primary').addClass('btn-secondary').prop('disabled', true)
     });
     $(document).on("click",".nominationcomment",function(){
         let nomination_id=$(this).attr('nominationid');

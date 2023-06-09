@@ -982,9 +982,13 @@
                      </td>
                      @endif
                      <td>
-                        <p
-                           style="font-size: 16px !important; font-weight: 600; font-family: 'Poppins'; color: black; margin-bottom: 10px !important">
+                        @if($item->project_id)
+                        <p style="font-size: 16px !important; font-weight: 600; font-family: 'Poppins'; color: black; margin-bottom: 10px !important">
                            {{ $item->project->name ?? '' }}</p>
+                        @else
+                        <p style="font-size: 16px !important; font-weight: 600; font-family: 'Poppins'; color: black; margin-bottom: 10px !important">
+                              {{ $item->projname ?? '' }}</p>   
+                        @endif
                         <p style="font-weight:400;font-size:11px !important; font-family: 'Poppins';">Equipment and
                            Plant:</p>
                         <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">
@@ -1118,21 +1122,16 @@
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                            </div>
                         </div>
-                        <div class="d-flex justify-content-between" style="margin: 12px 0;">
-                           <span class=" titleColumn">Designer Name:</span>
-                           <span>John Deo</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                           <span class=" titleColumn">Checker Name:</span>
-                           <span>John Deo</span>
-                        </div>
                      </td>
                      <td style="min-width: 154px; max-width: 80px;padding: 15px !important">
                         <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Drawing:</span>
                            @php $email = $item->designer->email ?? 'user@domain.com' @endphp
-                           <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$email)}}"
-                              target="_blank"><i class="fa fa-eye"></i></a>
+                           {{-- <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$email)}}"
+                              target="_blank"><i class="fa fa-eye"></i></a> --}}
+                              <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; ">
+                                 <span style="font-size: 10px; color: #fff;" class="fa fa-eye" title="Upload Drawings"></span>
+                             </p>
                         </div>
                         <button class="btn btn-sm w-100 my-1"
                            style="border: 1px solid #02B654; color: #02B654; display:block; padding: 6px; border-radius: 5px">Invoice
@@ -1246,7 +1245,10 @@
       </div>
    </div>
 </div>
+@include('dashboard.modals.drawingdesign')
+@include('dashboard.modals.drawingdesignlist')
 @endsection
+
 @section('scripts')
 <script type="text/javascript">
    let role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
@@ -1327,5 +1329,24 @@
                   // $.LoadingOverlay("hide");
               });
       });
+
+         //upload drawing and design
+      $(".uploaddrawinglist").on('click', function() {
+         var tempworkid = $(this).attr('data-id');
+         console.log("id",tempworkid)
+      
+         $.ajax({
+            url: "{{route('get-designs')}}",
+            method: "get",
+            data: {
+                  tempworkid: tempworkid
+            },
+            success: function(res) {
+                  $("#drawingdesigntable").html(res);
+                  $("#drawinganddesignlist").modal('show');
+            }
+         });
+      
+      })
   </script>
 @endsection

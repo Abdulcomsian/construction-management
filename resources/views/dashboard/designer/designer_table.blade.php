@@ -49,7 +49,7 @@
         <button class="btn btn-primary" type="submit">Submit</button>
     </div>
 </div>
-</form>
+</form
 @endif
 {{-- @if($estimatorDesigner->total_hours) --}}
 {{-- <div class="row">

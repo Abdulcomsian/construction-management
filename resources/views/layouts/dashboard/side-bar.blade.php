@@ -121,6 +121,11 @@
                                 <span class="menu-title">Suppliers</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('calendar')}}">
+                                <span class="menu-title">Calendar</span>
+                            </a>
+                        </div>
                         @endif
 
                         @if(\Auth::user()->hasAnyRole(['company']))

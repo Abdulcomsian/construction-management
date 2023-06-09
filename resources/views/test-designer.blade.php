@@ -1097,7 +1097,6 @@
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
-                           {{-- @dd($item->desginerAssign->user->name ?? '') --}}
                            <span>{{$item->desginerAssign->user->name ?? ''}}</span>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -1115,8 +1114,7 @@
                            </div>
                            <div>
                               <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
-                                 Cert:</span><i class="icon-edit" data-toggle="modal"
-                                 data-target="#DesignCheckCertModal2"
+                                 Cert:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                            </div>
                         </div>
@@ -1163,69 +1161,7 @@
       <div class="modal-content">
          <div class="modal-body">
             <input type="hidden" name="assigned_task" id="assigned_task" />
-            {{-- <span data-dismiss="modal" class="modal-close">&times;</span>
-            <form action="">
-               <div class="row">
-                  <div class="col-md-9">
-                     <div class="d-flex inputDiv d-block mb-3">
-                        <!--begin::Label-->
-                        <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">Total Esimtated Hours required:</span>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" name="" id="" style="border: none; width: 100%">
-                     </div>
-                  </div>
-                  <div class="col-md-3 mt-9">
-                     <button class="btn btn-primary" type="submit">Submit</button>
-                  </div>
-               </div>
-            </form>
-            <div class="row">
-               <div class="col-md-6">
-                  <span class="fw-bold">Date:</span>
-                  <span>02/05/2023</span>
-               </div>
-               <div class="col-md-6">
-                  <span class="fw-bold">Hours:</span>
-                  <span>140h</span>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-12">
-                  <span class="fw-bold">Description</span>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio placeat distinctio repudiandae
-                     itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-12">
-                  <table class="table">
-                     <thead>
-                        <tr>
-                           <th scope="col">Date</th>
-                           <th scope="col">Hours spent</th>
-                           <th scope="col">Task</th>
-                           <th scope="col">Completed(%)</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <th scope="row">1</th>
-                           <td>Mark</td>
-                           <td>Otto</td>
-                           <td>@mdo</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">2</th>
-                           <td>Jacob</td>
-                           <td>Thornton</td>
-                           <td>@fat</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-            </div> --}}
+      
          </div>
       </div>
    </div>
@@ -1305,90 +1241,7 @@
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
          <div class="modal-body">
-            <span data-dismiss="modal" class="modal-close">&times;</span>
-            <form action="{{route("projectAssign")}}" method="post">
-               @csrf
-               <input type="hidden" name="jobId" id="rowId" />
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="inputDiv d-block mb-3">
-                        <!--begin::Label-->
-                        <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">Select Designer</span>
-                        </label>
-                        <!--end::Label-->
-                        <select name="designer" class="form-select" aria-label="Default select example"
-                           style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
-                           <option disabled selected>Open this select menu</option>
-                           @isset($users)
-                              @foreach($users as $user)
-                                 @if($user->hasRole('designer') OR $user->hasRole('Designer and Design Checker'))
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                 @endif
-                              @endforeach
-                           @endisset
-                        </select>
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     {{-- <div class="inputDiv d-block mb-3"> --}}
-                        <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">Start Designer Date</span>
-                        </label>
-                        <input type="date" class="form-control" name="designer_start_date"/>
-                     {{-- </div> --}}
-                  </div>
-                  <div class="col-md-6">
-                     {{-- <div class="inputDiv d-block mb-3"> --}}
-                        <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">End Designer Date</span>
-                        </label>
-                        <input type="date" class="form-control" name="designer_end_date"/>
-                     {{-- </div> --}}
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="inputDiv d-block mb-3">
-                        <!--begin::Label-->
-                        <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">Select Checker</span>
-                        </label>
-                        <!--end::Label-->
-                        <select name="checker" class="form-select" aria-label="Default select example"
-                           style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
-                           <option disabled selected>Open this select menu</option>
-                           @isset($users)
-                              @foreach($users as $user)
-                                 @if($user->hasRole('Design Checker') OR $user->hasRole('Designer and Design Checker'))
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                 @endif
-                              @endforeach
-                           @endisset
-                        </select>
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     {{-- <div class="inputDiv d-block mb-3"> --}}
-                        <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">Start Design Checker Date</span>
-                        </label>
-                        <input type="date" class="form-control" name="checker_start_date"/>
-                     {{-- </div> --}}
-                  </div>
-                  <div class="col-md-6">
-                     {{-- <div class="inputDiv d-block mb-3"> --}}
-                        <label class=" fs-6 fw-bold mb-2">
-                           <span class="required">End Designer Cheker Date</span>
-                        </label>
-                        <input type="date" class="form-control" name="checker_end_date"/>
-                     {{-- </div> --}}
-                  </div>
-                  <div class="col-md-12 mt-4">
-                     <button class="btn btn-primary w-100" type="submit">Submit</button>
-                  </div>
-               </div>
-            </form>
+           
          </div>
       </div>
    </div>
@@ -1425,33 +1278,52 @@
    
    });
 </script>
-<script>
-   $(document).ready(function() {
-      $(document).on('click', '#allocated-designer', function() {
-         var rowId = $(this).data('rowid');
-         // Your code here
-         console.log('Icon clicked! Row ID:', rowId);
-         $('#rowId').val(rowId)
-         $('#allocationDesignerModal').modal('show');
-   });
-});
-</script>
 <script type="text/javascript">
       $(document).on('click', '#time-estimator', function() {
             var temporary_work_id = $(this).data('rowid');
-               console.log(temporary_work_id);
               // $.LoadingOverlay("show");
               var CSRF_TOKEN = '{{ csrf_token() }}';
               $.post("{{ route('award-estimator-modal') }}", {
                   _token: CSRF_TOKEN,
                   temporary_work_id: temporary_work_id
               }).done(function(response) {
-                 console.log("hello")
                   // Add response in Modal body
                   $('#AssignProjectModal .modal-body').html(response);
-                  $('#assigned_task').val(temporary_work_id)
                   // Display Modal
                   $('#AssignProjectModal').modal('show');
+                  // $.LoadingOverlay("hide");
+              });
+      });
+
+      $(document).on('click', '#time-estimator-checker', function() {
+            var temporary_work_id = $(this).data('rowid');
+              // $.LoadingOverlay("show");
+              var CSRF_TOKEN = '{{ csrf_token() }}';
+              $.post("{{ route('award-estimator-modal-checker') }}", {
+                  _token: CSRF_TOKEN,
+                  temporary_work_id: temporary_work_id
+              }).done(function(response) {
+                  // Add response in Modal body
+                  $('#DesignCheckCertModal2 .modal-body').html(response);
+                  // Display Modal
+                  $('#DesignCheckCertModal2').modal('show');
+                  // $.LoadingOverlay("hide");
+              });
+      });
+
+   
+      $(document).on('click', '#allocated-designer', function() {
+         var temporary_work_id = $(this).data('rowid');         // Your code here
+
+            var CSRF_TOKEN = '{{ csrf_token() }}';
+              $.post("{{ route('allocated-designer-modal') }}", {
+                  _token: CSRF_TOKEN,
+                  temporary_work_id: temporary_work_id
+              }).done(function(response) {
+                  // Add response in Modal body
+                  $('#allocationDesignerModal .modal-body').html(response);
+                  // Display Modal
+                  $('#allocationDesignerModal').modal('show');
                   // $.LoadingOverlay("hide");
               });
       });

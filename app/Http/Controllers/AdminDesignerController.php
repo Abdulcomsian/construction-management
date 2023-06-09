@@ -144,12 +144,65 @@ class AdminDesignerController extends Controller
                 ->first();
         }
 
-        return view('dashboard.designer.table',['estimatorDesigner' => $estimatorDesigner]);
+        return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner]);
     }
+
+    public function awardedEstimatorModalChecker(Request $request)
+    {
+
+        $loggedInUser = Auth::user();
+        
+        if ($loggedInUser->di_designer_id !== null) {
+            // Child Designer
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+                ->where([
+                    'temporary_work_id' => $request->temporary_work_id,
+                    'user_id' => $loggedInUser->id
+                ])
+                ->first();
+        } else {
+            // Admin Designer
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+                ->whereHas('Estimator', function ($query) use ($loggedInUser) {
+                    $query->where('created_by', $loggedInUser->id);
+                })
+                ->where('temporary_work_id', $request->temporary_work_id)
+                ->first();
+        }
+
+        return view('dashboard.designer.checker_table',['estimatorDesigner' => $estimatorDesigner]);
+    }
+
 
     public function allocatedDesignerModal(Request $request)
     {
+        $loggedInUser = Auth::user();
 
+        $users = User::where('di_designer_id',$loggedInUser->id)->get();
+
+        $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks','user')
+                ->where([
+                    'temporary_work_id' => $request->temporary_work_id,
+                    'user_id' => $loggedInUser->id
+                ])->whereIn('type',['designer','Designer and Design Checker'])
+                ->first();
+
+        $estimatorChecker = EstimatorDesignerList::with('estimatorDesignerListTasks','user')
+        ->where([
+            'temporary_work_id' => $request->temporary_work_id,
+            'user_id' => $loggedInUser->id
+        ])->whereIn('type',['checker','Designer and Design Checker'])
+        ->first();
+        // Prepare the data to be passed to the view
+        $data = [
+            'loggedInUser' => $loggedInUser,
+            'estimatorDesigner' => $estimatorDesigner,
+            'estimatorChecker' => $estimatorChecker,
+            'users' => $users,
+            'temporary_work_id' => $request->temporary_work_id,
+        ];
+
+        return view('components.assign_project',$data);
     }
 
     public function storeAwardedEstimatorHours(Request $request, $id)

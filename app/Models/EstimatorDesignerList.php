@@ -28,4 +28,9 @@ class EstimatorDesignerList extends Model
     {
         return $this->hasMany(EstimatorDesignerListTask::class,'estimator_designer_list_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

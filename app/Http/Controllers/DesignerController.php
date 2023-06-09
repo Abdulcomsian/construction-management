@@ -119,7 +119,7 @@ class DesignerController extends Controller
     // }
 
 
-    public function storeProjectAssign(Request $request)
+    public function storeProjectAssign(Request $request, $id)
     {
         try {
             DB::beginTransaction();
@@ -127,30 +127,30 @@ class DesignerController extends Controller
             if ($request->designer) {
                 $designer = User::findOrFail($request->designer);
                 $job_assign = new EstimatorDesignerList();
-                $job_assign->temporary_work_id = $request->jobId;
+                $job_assign->temporary_work_id = $id;
                 $job_assign->user_id = $designer->id;
-                $job_assign->type = $designer->roles[0]->name;
+                $job_assign->type = 'designer';
                 $job_assign->start_date = $request->designer_start_date;
                 $job_assign->end_date = $request->designer_end_date;
                 $job_assign->estimatorApprove = 1;
                 $code = '123';
                 if ($job_assign->save()) {
-                    Notification::route('mail', $designer->email)->notify(new DesignerAwarded($request->jobId, $designer->email, $code));
+                    Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
                 }
             }
 
             if ($request->checker) {
                 $checker = User::findOrFail($request->checker);
                 $job_assign = new EstimatorDesignerList();
-                $job_assign->temporary_work_id = $request->jobId;
+                $job_assign->temporary_work_id = $id;
                 $job_assign->user_id = $checker->id;
-                $job_assign->type = $checker->roles[0]->name;
+                $job_assign->type = 'checker';
                 $job_assign->start_date = $request->checker_start_date;
                 $job_assign->end_date = $request->checker_end_date;
                 $job_assign->estimatorApprove = 1;
                 $code = '123';
                 if ($job_assign->save()) {
-                    Notification::route('mail', $checker->email)->notify(new DesignerAwarded($request->jobId, $checker->email, $code));
+                    Notification::route('mail', $checker->email)->notify(new DesignerAwarded($id, $checker->email, $code));
                 }
             }
 

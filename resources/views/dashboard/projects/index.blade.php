@@ -337,6 +337,34 @@ $data = [
                             $("textarea[name='address']").text(data.address);
                             $(".projectqrcodeinput").hide();
                             $('#project_modal_id').modal('show');
+                            console.log(data.blocks)
+                            // Clear existing blocks
+                            $('.old_rows').empty();
+                            // Display project blocks
+                            if (data.blocks && data.blocks.length > 0) {
+                                var blocks = data.blocks;
+
+                                // Remove the existing input field
+                                // $('.old-rows .col-md-9').remove();
+
+                                // Add the blocks input fields
+                                for (var i = 0; i < blocks.length; i++) {
+                                    var block = blocks[i];
+                                    var blockInput = '<div class="row g-9 mb-8">' +
+                                        '<div class="col-md-9">' +
+                                        '<div class="col-lg-12 d-flex align-items-center fw-bold fs-6">' +
+                                        '<input type="text" name="blocks[]" placeholder="Enter new block" class="form-control" value="' + block.title + '"/>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="col-md-3">' +
+                                        '<button type="button" class="btn btn-danger remove-btn">Remove</button>'
+                                        '</div>' +
+                                        '</div>';
+
+                                    // Append the block input field
+                                    $('.old_rows').append(blockInput);
+                                }
+                            }
                         } else {
                             alert('Something went wrong,try again');
                         }
@@ -348,6 +376,36 @@ $data = [
                 $("#projectid").val($(this).attr('data-id'));
                 $("#qrcodemodal").modal('show');
             }
+        });
+    });
+</script>
+<script>
+     $(document).ready(function () {
+        // Add New button click event
+        $(document).on('click', '.add-btn', function () {
+            var inputValue = $(this).closest('.row').find('input[name="blocks[]"]').val(); // Get the value from the input field
+            var newRow = '<div class="row g-9 mb-8">' +
+                                        '<div class="col-md-9">' +
+                                        '<div class="col-lg-12 d-flex align-items-center fw-bold fs-6">' +
+                                        '<input type="text" name="blocks[]" placeholder="Enter new block" class="form-control" value="' + inputValue + '"/>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="col-md-3">' +
+                                        '<button type="button" class="btn btn-danger remove-btn">Remove</button>'
+                                        '</div>' +
+                                        '</div>';
+                                        var inputValue = $(this).closest('.row').find('input[name="blocks[]"]').val(''); // Get the value from the input field
+            // var newRow = $('.template-row').clone(); // Clone the template row
+            // newRow.removeClass('template-row'); // Remove the template row class
+            // newRow.find('.block-input').val(''); // Clear the input field
+            // newRow.find('.add-btn').text('Remove').removeClass('add-btn btn-primary').addClass('remove-btn btn-danger'); // Change button text and class
+            // $('.old_rows').append(newRow); // Add the new row at the bottom
+            $(this).closest('.row').before(newRow); // Add the new row after the current row
+        });
+
+        // Remove button click event
+        $(document).on('click', '.remove-btn', function () {
+            $(this).closest('.row').remove(); // Remove the current row
         });
     });
 </script>

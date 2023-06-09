@@ -351,6 +351,25 @@
                             </div>
                         </div>
                     </div>
+                    @if(count($project->blocks) > 0)
+                    <div class="row">
+                        <div class="col-12">
+                            <div class=" inputDiv d-block mb-0s">
+                                <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
+                                    <span class="required">Select Blocks:</span>
+                                </label>
+                                <select name="block_id" id="block" class="form-select form-select-lg form-select-solid"
+                                    data-control="select2" data-placeholder="Select an option" data-allow-clear="true"
+                                    readonly>
+                                    <option value="">Select Option</option>
+                                    @foreach($project->blocks as $block)
+                                    <option value="{{$block->id}}">{{$block->title}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv d-block m-0" id="projectNo">
@@ -516,7 +535,7 @@
                             </div> -->
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Equipment & materials used as specified & fit for
                                         purpose</span>
 
@@ -541,7 +560,7 @@
 
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Workmanship checked (i.e. all props, ties, struts, joints,
                                         stop-ends, etc)</span>
 
@@ -575,7 +594,7 @@
 
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">TW checked to drawings / design output</span>
 
                                 </label>
@@ -609,7 +628,7 @@
 
                             <div class="d-flex justify-content-between mb-5 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Loading / use limitations understood (e.g. rate of pour,
                                         sequence of loading, access/plant loading, etc)</span>
 
@@ -644,7 +663,7 @@
 
                             <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Approval by TWC required?</span>
 
                                 </label>
@@ -695,7 +714,7 @@
 
                             <div class="d-flex justify-content-between mb-3 requiredDiv">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Add rate of rise?</span>
 
                                 </label>
@@ -743,7 +762,7 @@
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 px-0">
                                     <span class="required">Has the construction methodology changed?</span>
 
                                 </label>
@@ -795,7 +814,7 @@
                             <h5 style="color: #000; font-weight: 600; font-size: 24px; margin-top: 15px">Permit to Load
                                 / Use</h5>
                             <br>
-                            <ul style="color: #000;" class="permitToLoadList">
+                            <ul style="color: #000; padding-left: 1.3rem" class="permitToLoadList">
 
                                 <li>
                                     I confirm that I have inspected this temporary structure and I am satisfied that it
@@ -900,12 +919,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6   mt-0" style="margin-left:7px; ">
-                                    <div class="d-flex inputDiv">
+                                <div class="col-md-6   mt-0">
+                                    <div class="d-flex inputDiv mt-0">
                                         <label class="fs-6 fw-bold mb-2" style="">
-                                            <span class="required">Comments:</span>
+                                            <span>Comments:</span>
                                         </label>
-                                        <textarea  name="comments" class="form-control"></textarea>
+                                        <textarea name="comments" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1019,7 +1038,7 @@
                                                 class="form-control form-control-solid">
                                         </div>
 
-                                        <div class="d-flex inputDiv principleno" id="sign1"
+                                        <div class="d-flex inputDiv principleno mb-0" id="sign1"
                                             style="border:none !important;">
                                             {{-- <label style="width:33%"
                                                 class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1027,9 +1046,11 @@
                                             </label> --}}
                                             {{-- <br /> --}}
                                             <canvas id="sig1" style="border-radius: 9px"></canvas>
-                                            <span id="clear1" class="fa fa-undo cursor-pointer"
-                                                style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                            <span id="clear1" class="fa fa-undo cursor-pointer btn--clear"
+                                                style="line-height: 11; position:relative; top:51px; right:26px"></span>
                                         </div>
+                                        <span id="sigimage1" class="text-danger" style="font-size: 15px">Signature Not
+                                            Added</span>
                                         <div class="d-flex inputDiv principleno" id="sign1"
                                             style=" display: none !important">
                                             <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
@@ -1135,9 +1156,11 @@
                                                 style="background: lightgray; border-radius:10px"></canvas>
                                             <br />
                                             <textarea id="signature" name="signed" style="display: none"></textarea>
-                                            <span id="clear" class="fa fa-undo cursor-pointer"
+                                            <span id="clear" class="fa fa-undo cursor-pointer btn--clear"
                                                 style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                         </div>
+                                        <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                            Added</span>
                                         <div class="inputDiv d-none" id="pdfsign">
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Upload Signature:<br>Allowed format (PNG,
@@ -1183,7 +1206,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button id="submitbutton" type="button" class="btn btn-primary ">Submit</button>
+                            <button id="submitbutton" type="button" class="btn btn-secondary " disabled>Submit</button>
                             <!-- <div class="d-flex inputDiv principleno" style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                             </div> -->
@@ -1198,15 +1221,45 @@
 @endsection
 @section('scripts')
 <script>
+    const canvas = document.getElementById("sig");
+    const signaturePad = new SignaturePad(canvas);
+    const canvas1 = document.getElementById("sig1");
+    const signaturePad1 = new SignaturePad(canvas1);
+
+    $("#submitbutton").on('click', function () {
+        if (signaturePad) {
+            $("#signature").val(signaturePad.toDataURL('image/png'));
+        }
+        if (signaturePad1) {
+            $("#signature1").val(signaturePad1.toDataURL('image/png'));
+        }
+        $(this).attr('disabled', 'disabled');
+        $("#permitform").submit();
+    })
+
+    signaturePad.addEventListener('endStroke', function(){
+        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+    })
+    
+    signaturePad1.addEventListener('endStroke', function(){
+            $("#sigimage1").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+        })
+
+
+
     var principle_contractor = '{{old('
     principle_contractor ')}}';
     if (principle_contractor == 2) {
         $("#first_member").hide();
     }
+
     $("input[name='principle_contractor']").change(function () {
         if ($(this).val() == 1) {
 
             $("#first_member").show();
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
             $("input[name='name1']").attr('required', 'required');
             $("input[name='job_title1']").attr('required', 'required');
 
@@ -1530,39 +1583,49 @@
     //  });
 
 
-    var canvas = document.getElementById("sig");
-    var signaturePad = new SignaturePad(canvas);
-    var canvas1 = document.getElementById("sig1");
-    var signaturePad1 = new SignaturePad(canvas1);
-
-    $("#submitbutton").on('click', function () {
-        if (signaturePad) {
-            $("#signature").val(signaturePad.toDataURL('image/png'));
-        }
-        if (signaturePad1) {
-            $("#signature1").val(signaturePad1.toDataURL('image/png'));
-        }
-        $(this).attr('disabled', 'disabled');
-        $("#permitform").submit();
-    })
-
+   
     //  $('#clear').click(function(e) {
     //     e.preventDefault();
     //     signaturePad.clear();
     //     $("#signature").val('');
     // });
+    
 
-    $('#clear').click(function(e) {
-    e.preventDefault();
-    signaturePad.clear();
-    $("#signature").val('');
+    const clearBtns = document.querySelectorAll('.btn--clear');
+    console.log(clearBtns);
+
+    clearBtns.forEach(clearbtn => {
+        clearbtn.addEventListener('click', function(e){
+            console.log(e.target);
+            if (e.target.getAttribute('id') === 'clear') {
+                e.preventDefault();
+                signaturePad.clear();
+                $("#signature").val('');
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                $("#sigimage").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
+            }
+            if (e.target.getAttribute('id') === 'clear1') {
+                e.preventDefault();
+                signaturePad1.clear();
+                $("#signature1").val('');
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                $("#sigimage1").text("Signature Added").removeClass('text-success').addClass('text-danger');
+            }
+        });
     });
 
-    $('#clear1').click(function(e) {
-        e.preventDefault();
-        signaturePad1.clear();
-        $("#signature1").val('');
-    });
+
+    // $('#clear').click(function(e) {
+    // e.preventDefault();
+    // signaturePad.clear();
+    // $("#signature").val('');
+    // });
+
+    // $('#clear1').click(function(e) {
+    //     e.preventDefault();
+    //     signaturePad1.clear();
+    //     $("#signature1").val('');
+    // });
 
     
     //approval checkbox checkded
@@ -1576,7 +1639,7 @@
         }
     })
 
-
+   
 
 </script>
 

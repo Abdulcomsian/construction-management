@@ -44,6 +44,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Auth;
 use App\Mail\PermitUnloadMail;
+use App\Models\ProjectBlock;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -122,6 +123,12 @@ class TemporaryWorkController extends Controller
     }
     public function index()
     {
+        $assignedBlocks = [];
+        $block = '';
+        if(isset($_GET['block']))
+        {
+            $block = $_GET['block'];
+        }
         if(auth::user()->hasRole('estimator'))
         {
             return redirect('Estimator/estimator');
@@ -149,6 +156,14 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
             } elseif ($user->hasRole('company')) {
                 $users = User::select(['id','name'])->where('company_id', $user->id)->get();
                 $ids = [];
@@ -157,6 +172,14 @@ class TemporaryWorkController extends Controller
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                
@@ -169,6 +192,14 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('project_id', $ids);
                 })->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -184,7 +215,7 @@ class TemporaryWorkController extends Controller
             }
             //work for datatable
             $scantempwork = '';
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork','nominations','users'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','assignedBlocks', 'scantempwork','nominations','users','block'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -220,7 +251,6 @@ class TemporaryWorkController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
-                // dd($temporary_works);
             } elseif ($user->hasRole('company')) {
                 $users = User::select(['id','name'])->where('company_id', $user->id)->get();
                 $ids = [];
@@ -254,7 +284,6 @@ class TemporaryWorkController extends Controller
                      $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                 }
             }
-            // dd($temporary_works);
             //work for datatable
             $scantempwork = '';
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects', 'scantempwork','nominations','users'));
@@ -312,7 +341,6 @@ class TemporaryWorkController extends Controller
                 $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
                 $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             }
-            //dd($temporary_works);
             $scantempwork = 'sharedview';
             //work for datatable
             return view('dashboard.temporary_works.shared', compact('temporary_works', 'users', 'scantempwork', 'projects'));
@@ -450,7 +478,6 @@ class TemporaryWorkController extends Controller
    
     public function store1(Request $request)
     {
-        // dd($request->all());
         Validations::storeManuallyTemporaryWork($request);
         try {
             $all_inputs  = $request->except('_token', 'pdf', 'projaddress', 'projno', 'projname', 'dcc_returned', 'drawing', 'dcc','design_returned','drawing_number','drawing_title');
@@ -465,8 +492,6 @@ class TemporaryWorkController extends Controller
                 $file->move($path, $filename);
                 $all_inputs['ped_url'] = $filename;
             } 
-			
-            // dd($all_inputs);
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 $filePath = HelperFunctions::temporaryworkuploadPath();
@@ -753,7 +778,6 @@ $notify_admins_msg = [
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
             dd($exception->getMessage());
-            dd("test");
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -1008,7 +1032,6 @@ $notify_admins_msg = [
     //get rams
     public function get_rams(Request $request)
     {
-        // dd($request->tempworkid);
         try { 
             $data = TempWorkUploadFiles::where(['temporary_work_id' => $request->tempworkid])->get();
             $list = '';
@@ -1446,7 +1469,7 @@ $notify_admins_msg = [
             } else {
                 $twc_id_no = $twc_id_no . '-A';
             }
-            $project = Project::with('company')->where('id', $tempdata->project_id)->first();
+            $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
             $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
             return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile'));
         } catch (\Exception $exception) {
@@ -1492,7 +1515,7 @@ $notify_admins_msg = [
         
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'comments');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
             $image_name1 = '';
@@ -1612,11 +1635,9 @@ $notify_admins_msg = [
         //      $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         //  }
         if (isset($request->type)) {
-            // dd("1");
             $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
           }else{
-            // dd("2");
               $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();
               $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
           }
@@ -1907,10 +1928,9 @@ $notify_admins_msg = [
     //permit unload save
     public function permit_unload_save(Request $request)
     {
-        // dd($request->principle_contractor);
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2', 'comments');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2');
             $all_inputs['created_by'] = auth()->user()->id;
             $image_name1 = '';
             
@@ -1969,7 +1989,6 @@ $notify_admins_msg = [
             
             if($request->principle_contractor==null){$request->principle_contractor=0;}
             $data['principle_contractor'] = $request->approval_PC;
-            // dd($data);
             if ($permitload) {
                 //make status 0 if permit is 
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
@@ -1978,7 +1997,7 @@ $notify_admins_msg = [
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2]);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -2229,10 +2248,19 @@ $notify_admins_msg = [
     //search tempwork
     public function tempwork_search(Request $request)
     {
+        $assignedBlocks = [];
         $user = auth()->user();
         try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
@@ -2245,6 +2273,14 @@ $notify_admins_msg = [
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
             } else {
@@ -2256,6 +2292,14 @@ $notify_admins_msg = [
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
                     $q->whereIn('id', $ids);
                 })->where('description_temporary_work_required', 'LIKE', '%' . $request->terms . '%')->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -2273,7 +2317,7 @@ $notify_admins_msg = [
             }
              $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects','scantempwork'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects','scantempwork','assignedBlocks'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -2284,8 +2328,17 @@ $notify_admins_msg = [
     {
         $user = auth()->user();
         try {
+            $assignedBlocks = '';
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
@@ -2297,6 +2350,14 @@ $notify_admins_msg = [
                 }
                 $ids[] = $user->id;
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('created_by', $ids)->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
             } else {
@@ -2306,6 +2367,14 @@ $notify_admins_msg = [
                     $ids[] = $id->project_id;
                 }
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                foreach ($temporary_works as $temporary_work) {
+                    $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
+                        ->pluck('block_id')
+                        ->toArray();
+
+                    $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
+                    $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -2321,7 +2390,7 @@ $notify_admins_msg = [
             }
             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works', 'projects', 'scantempwork'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works','projects','scantempwork','assignedBlocks'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

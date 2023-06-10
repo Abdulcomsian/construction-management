@@ -354,8 +354,7 @@
                     <div id="table">
                             
                     </div>
-                    @if($estimatorWork[0]->work_status == "publish")
-                    <form method="post" action="{{route("approve_pricing")}}"  enctype="multipart/form-data">
+                    <form method="post" action="{{route("approve_pricing")}}"  class="@if($estimatorWork[0]->work_status == "publish") d-none @endif" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="temporary_work_id" value="{{$id}}">
                         <div class="row">
@@ -454,7 +453,6 @@
 
                         
                     </form>
-                    @endif
 
                 </div>
             </div>

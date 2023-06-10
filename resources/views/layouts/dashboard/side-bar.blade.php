@@ -121,11 +121,6 @@
                                 <span class="menu-title">Suppliers</span>
                             </a>
                         </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{route('calendar')}}">
-                                <span class="menu-title">Calendar</span>
-                            </a>
-                        </div>
                         @endif
 
                         @if(\Auth::user()->hasAnyRole(['company']))
@@ -223,6 +218,11 @@
                             <div class="menu-item">
                                 <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
                                     <span class="menu-title">Awarded Estimator</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{route('calendar')}}">
+                                    <span class="menu-title">Calendar</span>
                                 </a>
                             </div>
                             @endif

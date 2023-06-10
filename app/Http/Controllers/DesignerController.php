@@ -90,7 +90,7 @@ class DesignerController extends Controller
                 $job_assign = new EstimatorDesignerList();
                 $job_assign->temporary_work_id = $id;
                 $job_assign->user_id = $designer->id;
-                $job_assign->type = 'checker';
+                $job_assign->type = 'designer';
                 $job_assign->start_date = $request->designer_start_date;
                 $job_assign->end_date = $request->designer_end_date;
                 $job_assign->email = $designer->email;
@@ -106,7 +106,7 @@ class DesignerController extends Controller
                         'company' => $temporary_work->company,
                         'filename' => $temporary_work->ped_url,
                         'links' => '',
-                        'name' =>  'this is new job assigned',
+                        'name' => $temporary_work->ped_url,
                         'designer' => '123',
                         'pc_twc' => '',
 
@@ -115,7 +115,7 @@ class DesignerController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                    Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email));
+                    Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email, $is_check = true));
 
                     // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
                 }
@@ -137,7 +137,7 @@ class DesignerController extends Controller
                     //send mail to admin
                     $notify_admins_msg = [
                         'greeting' => 'Temporary Work Pdf',
-                        'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$temporary_work->projno,
+                        'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$request->projno,
                         'body' => [
                             'company' => $temporary_work->company,
                             'filename' => $temporary_work->ped_url,
@@ -151,11 +151,12 @@ class DesignerController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ];
-                    Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email));
+                    // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
+                    Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check = true));
                 }
             }
             $temporary_work = TemporaryWork::find($id);
-            $temporary_work->designer_company_name	= $designer->email;
+            $temporary_work->designer_company_email	= $designer->email;
             $temporary_work->desinger_email_2	= $checker->email;
             $temporary_work->save();
             DB::commit();
@@ -2210,7 +2211,7 @@ class DesignerController extends Controller
                 }
                 //work for pdf
                 $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
-                $path = public_path('pdf');
+                $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
                 $model = TemporaryWork::find($temporary_work->id);
@@ -2302,7 +2303,8 @@ class DesignerController extends Controller
     
     public function calendar()
     {
-        $jobs = TemporaryWork::with('desginerAssign','desginerAssign.estimatorDesignerListTasks')->get();
+        try{
+            $jobs = TemporaryWork::with('desginerAssign','desginerAssign.estimatorDesignerListTasks')->where('created_by', Auth::user()->id)->get();
         $events = [];
             foreach($jobs as $job){
                 $events[] = [
@@ -2313,6 +2315,11 @@ class DesignerController extends Controller
             }
                 
         return view('dashboard.calendar.index', compact('events'));
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError($exception->getMessage());
+            return Redirect::back();
+        }
     }
     
 

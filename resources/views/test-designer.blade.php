@@ -1126,11 +1126,24 @@
                      <td style="min-width: 154px; max-width: 80px;padding: 15px !important">
                         <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Drawing:</span>
-                           @php $email = $item->designer->email ?? 'user@domain.com' @endphp
-                           {{-- <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$email)}}"
-                              target="_blank"><i class="fa fa-eye"></i></a> --}}
+                           @php
+                           $userEmail = auth()->user()->email;
+                           $email = '';
+                           @endphp
+                       
+                           @if(isset($item->designerAssign) && $userEmail == $item->designerAssign->email)
+                                 @php $email = $item->designerAssign->email; @endphp
+                           @elseif(isset($item->checkerAssign) && $userEmail == $item->checkerAssign->email)
+                                 @php $email = $item->checkerAssign->email; @endphp
+                           @endif
+                         
+                           <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$email)}}"
+                              target="_blank"><i class="fa fa-plus"></i></a>
+                              {{-- <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; ">
+                                 <span style="font-size: 10px; color: #red;" class="fa fa-plus" title="Upload Drawings"></span>
+                             </p> --}}
                               <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; ">
-                                 <span style="font-size: 10px; color: #fff;" class="fa fa-eye" title="Upload Drawings"></span>
+                                 <span style="font-size: 10px; color: #black;" class="fa fa-eye" title="Upload Drawings"></span>
                              </p>
                         </div>
                         <button class="btn btn-sm w-100 my-1"

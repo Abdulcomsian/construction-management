@@ -95,7 +95,7 @@ class AdminDesignerController extends Controller
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments', 'desginerAssign','checkerAssign')
+            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments', 'designerAssign','checkerAssign')
             ->whereIn('id',$awarded)
             ->orWhere('created_by', Auth::user()->id)
             ->where('work_status', 'publish')
@@ -177,22 +177,9 @@ class AdminDesignerController extends Controller
     public function allocatedDesignerModal(Request $request)
     {
         $loggedInUser = Auth::user();
-
         $users = User::where('di_designer_id',$loggedInUser->id)->get();
-
-        $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks','user')
-                ->where([
-                    'temporary_work_id' => $request->temporary_work_id,
-                    'user_id' => $loggedInUser->id
-                ])->whereIn('type',['designer','Designer and Design Checker'])
-                ->first();
-
-        $estimatorChecker = EstimatorDesignerList::with('estimatorDesignerListTasks','user')
-        ->where([
-            'temporary_work_id' => $request->temporary_work_id,
-            'user_id' => $loggedInUser->id
-        ])->whereIn('type',['checker','Designer and Design Checker'])
-        ->first();
+        $estimatorDesigner = TemporaryWork::with('designerAssign','designerAssign.user')->findorfail($request->temporary_work_id);
+        $estimatorChecker = TemporaryWork::with('checkerAssign','checkerAssign.user')->findorfail($request->temporary_work_id);
         // Prepare the data to be passed to the view
         $data = [
             'loggedInUser' => $loggedInUser,

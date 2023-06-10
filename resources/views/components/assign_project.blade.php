@@ -81,15 +81,47 @@
        <b>Designer Name</b>
     </div>
     <div class="col-md-6">
-       {{$estimatorDesigner->user->name ?? ''}}
+       {{$estimatorDesigner->designerAssign->user->email ?? ''}}
     </div>
+</div>
+<div class="row">
+   <div class="col-md-6">
+      <b>Start Date</b>
+   </div>
+   <div class="col-md-6">
+      {{$estimatorDesigner->designerAssign->start_date ?? ''}}
+   </div>
+</div>
+<div class="row">
+   <div class="col-md-6">
+      <b>End Date</b>
+   </div>
+   <div class="col-md-6">
+      {{$estimatorDesigner->designerAssign->end_date ?? ''}}
+   </div>
 </div>
 <div class="row">
     <div class="col-md-6">
         <b>Checker Name</b>
      </div>
      <div class="col-md-6">
-        {{$estimatorDesigner->user->name ?? ''}}
+        {{$estimatorDesigner->checkerAssign->user->email ?? ''}}
      </div>
  </div>
+ <div class="row">
+   <div class="col-md-6">
+      <b>Start Date</b>
+   </div>
+   <div class="col-md-6">
+      {{$estimatorDesigner->checkerAssign->start_date ?? ''}}
+   </div>
+</div>
+<div class="row">
+   <div class="col-md-6">
+      <b>End Date</b>
+   </div>
+   <div class="col-md-6">
+      {{$estimatorDesigner->checkerAssign->end_date ?? ''}}
+   </div>
+</div>
 @endif

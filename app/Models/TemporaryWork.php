@@ -125,7 +125,7 @@ class TemporaryWork extends Model
         return $this->belongsTo(User::class , 'created_by' , 'id');
     }
 
-    public function desginerAssign()
+    public function designerAssign()
     {
         return $this->hasOne(EstimatorDesignerList::class , 'temporary_work_id')->where('type', 'designer')->orderBy('id','desc');
     }

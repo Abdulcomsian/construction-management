@@ -1101,7 +1101,7 @@
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
-                           <span>{{$item->desginerAssign->user->name ?? ''}}</span>
+                           <span>{{$item->designerAssign->user->name ?? ''}}</span>
                         </div>
                         <div class="d-flex justify-content-between">
                            <span class=" titleColumn">Checker Name:</span>

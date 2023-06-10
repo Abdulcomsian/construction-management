@@ -2304,13 +2304,13 @@ class DesignerController extends Controller
     public function calendar()
     {
         try{
-            $jobs = TemporaryWork::with('desginerAssign','desginerAssign.estimatorDesignerListTasks')->where('created_by', Auth::user()->id)->get();
+            $jobs = TemporaryWork::with('designerAssign','designerAssign.estimatorDesignerListTasks')->where('created_by', Auth::user()->id)->get();
         $events = [];
             foreach($jobs as $job){
                 $events[] = [
                     'title' => $job->projname,
-                    'start' => $job->desginerAssign->start_date,
-                    'end' => $job->desginerAssign->end_date,
+                    'start' => $job->designerAssign->start_date,
+                    'end' => $job->designerAssign->end_date,
                 ];
             }
                 

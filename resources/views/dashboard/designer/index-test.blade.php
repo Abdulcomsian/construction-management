@@ -347,16 +347,17 @@
             </div>
         </div>
     </div>
-    <div class="modal  fade" id="modal2">
+    <div class="modal fade" id="modal2">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-
+                    <div id="table">
+                            
+                    </div>
+                    @if($estimatorWork[0]->work_status == "publish")
                     <form method="post" action="{{route("approve_pricing")}}"  enctype="multipart/form-data">
-                        <div id="table">
-
-                        </div>
                         @csrf
+                        <input type="hidden" name="temporary_work_id" value="{{$id}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" style="padding-left: 10px">
@@ -450,8 +451,11 @@
                         <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton"
                         disabled
                         style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
-                    
+
+                        
                     </form>
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -460,34 +464,40 @@
     @endsection
     @section('scripts')
     <script type="text/javascript">
-    //     var canvas = document.getElementById("sig");
-    //     var signaturePad = new SignaturePad(canvas);
 
-    //     signaturePad.addEventListener("endStroke", () => {
-    //         $("#signature").val(signaturePad.toDataURL('image/png'));
-    //         $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-    //         $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-    //         // $('#submitbutton')
-    //         });
-    //         $('#clear').click(function(e) {
-    //             e.preventDefault();
-    //             signaturePad.clear();
-    //             $("#signature").val('');
-    //                 $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
-    //                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
-    //         });
+        @if (\Session::has('success'))
+            toastr.success("{{\Session::get('success')}}")
+        @endif
 
 
-    //     $('input[name="preliminary_approval"]').on('click', function() {
-    //     var val = $(this).val();
-    //     if (val == 1) {
-    //         $("[datacheck='no']").prop('checked', true);
-    //         $("[datacheck='yes']").prop('checked', false);
-    //     } else {
-    //         $("[datacheck='no']").prop('checked', false);
-    //         $("[datacheck='yes']").prop('checked', true);
-    //     }
-    // })
+        var canvas = document.getElementById("sig");
+        var signaturePad = new SignaturePad(canvas);
+
+        signaturePad.addEventListener("endStroke", () => {
+            $("#signature").val(signaturePad.toDataURL('image/png'));
+            $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            // $('#submitbutton')
+            });
+            $('#clear').click(function(e) {
+                e.preventDefault();
+                signaturePad.clear();
+                $("#signature").val('');
+                    $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
+            });
+
+
+        $('input[name="preliminary_approval"]').on('click', function() {
+        var val = $(this).val();
+        if (val == 1) {
+            $("[datacheck='no']").prop('checked', true);
+            $("[datacheck='yes']").prop('checked', false);
+        } else {
+            $("[datacheck='no']").prop('checked', false);
+            $("[datacheck='yes']").prop('checked', true);
+        }
+    })
 
     $('input[name="construction"]').on('click', function() {
         var val = $(this).val();

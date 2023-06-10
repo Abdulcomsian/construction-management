@@ -25,7 +25,7 @@
             <span style="color: #3A7DFF; font-size: 14px; font-weight: 400;"></span>
         </td>
         <td style=" flex-direction: column;">
-            @foreach($detail->jobComment as $comments )
+            @forelse($detail->jobComment as $comments )
             <div>
                 <div>{{$comments->comment}}</div>
                 @if(isset($comments->file_destination) && !is_null($comments->file_destination))
@@ -41,7 +41,9 @@
                 @endif
             </div>
             <hr>
-            @endforeach
+            @empty
+                <strong>No Comments Available</strong>
+            @endforelse
 
         </td>
     </tr>

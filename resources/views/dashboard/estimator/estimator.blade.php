@@ -352,26 +352,48 @@ $data = [
 @include('layouts.dashboard.ajax_call')
 @include('dashboard.modals.nomination_comment')
 <script>
-    let circles = document.querySelectorAll(".circle.blink");
-        circles.forEach(function(circle) {
-            circle.addEventListener("click", function(e) {
-                let element = this;
-                let id = element.dataset.additionalId;
-                $.ajax({
-                    type : "POST",
-                    url : "{{route('get.additional.information.comment')}}",
-                    data : {
-                        id : id,
-                        _token : "{{csrf_token()}}"
-                    },
-                    success : function(res){
-                        document.querySelector("#modal1").querySelector(".comment-body").innerHTML = res.html;
-                        $("#modal1").modal("toggle");
-                    }
+    document.addEventListener("click" , function(e){
+        if(e.target.matches(".circle.blink") || e.target.matches(".circle.danger-blink"))
+        {
+            // alert("danger blink")
+            let element = e.target;
+            let id = element.dataset.additionalId;
+            $.ajax({
+                type : "POST",
+                url : "{{route('get.additional.information.comment')}}",
+                data : {
+                    id : id,
+                    _token : "{{csrf_token()}}"
+                },
+                success : function(res){
+                    document.querySelector("#modal1").querySelector(".comment-body").innerHTML = res.html;
+                    $("#modal1").modal("toggle");
+                }
 
-                })
-            });
-        });
+            })
+        }
+    })
+
+    // let circles = document.querySelectorAll(".circle.blink");
+    //     circles.forEach(function(circle) {
+    //         circle.addEventListener("click", function(e) {
+    //             let element = this;
+    //             let id = element.dataset.additionalId;
+    //             $.ajax({
+    //                 type : "POST",
+    //                 url : "{{route('get.additional.information.comment')}}",
+    //                 data : {
+    //                     id : id,
+    //                     _token : "{{csrf_token()}}"
+    //                 },
+    //                 success : function(res){
+    //                     document.querySelector("#modal1").querySelector(".comment-body").innerHTML = res.html;
+    //                     $("#modal1").modal("toggle");
+    //                 }
+
+    //             })
+    //         });
+    //     });
 
 
         $(document).on("change" ,".notified", function(e){

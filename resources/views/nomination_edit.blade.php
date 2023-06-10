@@ -371,6 +371,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                            @php   
+                             $app_url = env('APP_URL');
+                            @endphp
 
                                     @foreach($qualifications as $qf)
                                     <tr>
@@ -380,7 +383,7 @@
                                         <td class="tdhight" style="width:25%"><input type="date"
                                                 name="qualification_date[]" value="{{$qf->date}}" required></td>
                                         <td class="tdhight" style="width:35%">
-                                            <a target="_blank" href="{{$qf->qualification_certificate}}"> Use Uploaded
+                                            <a target="_blank" href="{{$app_url.$qf->qualification_certificate}}"> Use Uploaded
                                                 File</a>
                                             <span>Or</span>
                                             <input type="file" style="display:inline-block;width:200px;"
@@ -424,7 +427,7 @@
                                         <td class="tdhight" style="width:25%"><input type="date" name="course_date[]"
                                                 value="{{$cs->date}}" required></td>
                                         <td class="tdhight" style="width:35%">
-                                            <a target="_blank" href="{{$cs->course_certificate}}"> Use Uploaded File</a>
+                                            <a target="_blank" href="{{$app_url.$cs->course_certificate}}"> Use Uploaded File</a>
                                             <span>Or</span>
                                             <input type="file" style="display:inline-block;width:200px;"
                                                 name="course_file[]">
@@ -482,6 +485,7 @@
                             <table class="table nom_table proj table5 table-bordered mt-0">
                                 <input type="file" name="cv" class="form-control">
                             </table>
+                            {{$app_url.$nomination->cv}}
                         </div>
 
                         <!-- 5th table -->

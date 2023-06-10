@@ -48,7 +48,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-bold mb-2">No</label>
-                            <input type="number" class="form-control form-control-solid" placeholder="Enter Project No" name="no" value="{{old('no')}}" {{$readonly}}/>
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter Project No" name="no" value="{{old('no')}}" {{$readonly}}/>
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->

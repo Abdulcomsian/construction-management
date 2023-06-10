@@ -481,7 +481,7 @@ class UserController extends Controller
         foreach($ncomments as $comment)
         {
             $list.="<tr><td>".$i."</td><td>".$comment->email."</td><td>".$comment->comment."</td>";
-            $list.="<td>".$comment->type."</td><td>".$comment->send_date."</td><td>".$comment->read_date."</td></tr>";
+            $list.="<td>".$comment->type."</td><td>".date('d-m-Y', strtotime($comment->send_date))."</td><td>".$comment->read_date."</td></tr>";
             $i++;
         }
         echo $list;

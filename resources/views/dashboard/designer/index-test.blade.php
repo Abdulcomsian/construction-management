@@ -347,16 +347,17 @@
             </div>
         </div>
     </div>
-    <div class="modal  fade" id="modal2">
+    <div class="modal fade" id="modal2">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-
+                    <div id="table">
+                            
+                    </div>
+                    @if($estimatorWork[0]->work_status == "publish")
                     <form method="post" action="{{route("approve_pricing")}}"  enctype="multipart/form-data">
-                        <div id="table">
-
-                        </div>
                         @csrf
+                        <input type="hidden" name="temporary_work_id" value="{{$id}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" style="padding-left: 10px">
@@ -450,8 +451,11 @@
                         <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton"
                         disabled
                         style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
-                    
+
+                        
                     </form>
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -460,6 +464,12 @@
     @endsection
     @section('scripts')
     <script type="text/javascript">
+
+        @if (\Session::has('success'))
+            toastr.success("{{\Session::get('success')}}")
+        @endif
+
+
         var canvas = document.getElementById("sig");
         var signaturePad = new SignaturePad(canvas);
 

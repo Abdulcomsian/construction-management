@@ -946,12 +946,12 @@ class EstimatorController extends Controller
 
    public function getAdditionalInformation(Request $request){
         try{
-
             $tempId = $request->id;
             $tempWork =TemporaryWork::with(['AdditionalInformation.jobComment' => function ($query) {
                 $query->orderByDesc('created_at');
             }])->where('id', $tempId)->first();
-            $html = view('components.additional-information' , ['tempWorks' => $tempWork])->render();
+
+            $html = $tempWork->AdditionalInformation ?  view('components.additional-information' , ['tempWorks' => $tempWork])->render() : "No Additional Information Added";
             return response()->json(['success' => true , 'msg' => 'Additional inforamtion find successfully' , 'html' => $html]);
         }catch(\Exception $e){
             return response()->json([ 'success'=>false , 'msg' => 'Something went wrong' , 'error' => $e->getMessage()]);

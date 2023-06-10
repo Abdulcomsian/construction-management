@@ -1829,6 +1829,10 @@ class DesignerController extends Controller
              // Create new designer_quote records with updated values
              $designerQuotes = [];
              for ($i = 0; $i < count($request->price); $i++) {
+                if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
                  $designerQuotes[] = [
                      'price' => $request->price[$i],
                      'description' => $request->description[$i],
@@ -1944,6 +1948,7 @@ class DesignerController extends Controller
             }
         }
 
+       
         // $image_name = HelperFunctions::savesignature($request);
         $temporary_work->signature = $image_name;
         $status = 'draft';
@@ -1958,7 +1963,9 @@ class DesignerController extends Controller
         if($temporary_work->work_status == 'pending'){
             Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
         }
-        return redirect(route('estimator_list'));
+
+        return redirect()->back()->with("success" , "Payment Terms Added Successfully");
+        // return redirect(route('estimator_list'));
    }
 
    public function addEstimator(){
@@ -2102,6 +2109,10 @@ class DesignerController extends Controller
             $temporary_work = TemporaryWork::create($all_inputs);
             for($i=0;$i<count($request->price);$i++)
             {
+                if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
                 $model=new DesignerQuotation;
                 $model->price=$request->price[$i];
                 $model->description=$request->description[$i];

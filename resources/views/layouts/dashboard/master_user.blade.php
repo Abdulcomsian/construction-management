@@ -20,6 +20,7 @@ License: -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <!-- work for signature -->
     @include('layouts.dashboard.styles')
     @toastr_css

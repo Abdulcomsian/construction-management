@@ -6,7 +6,7 @@
 </div>
   <div>
     <p>A new comment has been made against project: {{$project}}</p>
-    <p>{{$comment}}</p>
+    <p>{{$comment->comment}}</p>
   </div>
 <div>
     Regards, The Temporary Works Portal Team

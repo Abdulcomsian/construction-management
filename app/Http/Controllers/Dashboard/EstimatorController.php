@@ -980,7 +980,6 @@ class EstimatorController extends Controller
 
    public function getAdditionalComment(Request $request)
    {
-
     $validator = Validator::make($request->all() , [
                     'comment' => 'required',
                 ]);

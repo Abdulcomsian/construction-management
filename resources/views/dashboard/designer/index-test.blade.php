@@ -1,5 +1,5 @@
-{{-- @extends('layouts.dashboard.master_user',['title' => 'Temporary Works']) --}}
-@extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master_user',['title' => 'Temporary Works'])
+{{-- @extends('layouts.dashboard.master',['title' => 'Temporary Works']) --}}
 
 @section('styles')
 <style>
@@ -460,34 +460,34 @@
     @endsection
     @section('scripts')
     <script type="text/javascript">
-        var canvas = document.getElementById("sig");
-        var signaturePad = new SignaturePad(canvas);
-        signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
-        $("#signature").val(signaturePad.toDataURL('image/png'));
-        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-        // $('#submitbutton')
-        });
-        $('#clear').click(function(e) {
-            e.preventDefault();
-            signaturePad.clear();
-            $("#signature").val('');
-                $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
-                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
-        });
+    //     var canvas = document.getElementById("sig");
+    //     var signaturePad = new SignaturePad(canvas);
+
+    //     signaturePad.addEventListener("endStroke", () => {
+    //         $("#signature").val(signaturePad.toDataURL('image/png'));
+    //         $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+    //         $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+    //         // $('#submitbutton')
+    //         });
+    //         $('#clear').click(function(e) {
+    //             e.preventDefault();
+    //             signaturePad.clear();
+    //             $("#signature").val('');
+    //                 $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+    //                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
+    //         });
 
 
-        $('input[name="preliminary_approval"]').on('click', function() {
-        var val = $(this).val();
-        if (val == 1) {
-            $("[datacheck='no']").prop('checked', true);
-            $("[datacheck='yes']").prop('checked', false);
-        } else {
-            $("[datacheck='no']").prop('checked', false);
-            $("[datacheck='yes']").prop('checked', true);
-        }
-    })
+    //     $('input[name="preliminary_approval"]').on('click', function() {
+    //     var val = $(this).val();
+    //     if (val == 1) {
+    //         $("[datacheck='no']").prop('checked', true);
+    //         $("[datacheck='yes']").prop('checked', false);
+    //     } else {
+    //         $("[datacheck='no']").prop('checked', false);
+    //         $("[datacheck='yes']").prop('checked', true);
+    //     }
+    // })
 
     $('input[name="construction"]').on('click', function() {
         var val = $(this).val();

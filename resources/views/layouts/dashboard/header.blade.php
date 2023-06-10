@@ -33,16 +33,16 @@
                         class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
                         <div class="menu-item me-lg-1">
-                             @if(\Auth::user()->hasRole([['admin', 'company','user']]))
+                             @if(auth()->user() && \Auth::user()->hasRole([['admin', 'company','user']]))
                                 <a class="menu-link" href="{{route('dashboard')}}">
                                     <span class="menu-title">Dashboard</span>
                                 </a>
                             @endif
                             <a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{route('projects.index')}}" target="" title="" data-original-title="With Bootstrap&nbsp;5">Projects</a>
-                            @if(\Auth::user()->hasAnyRole(['admin', 'company']))
+                            @if(auth()->user() && \Auth::user()->hasAnyRole(['admin', 'company']))
                                 <a data-toggle="tooltip" class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('companies.index') }}" target="" title="" data-original-title="With Bootstrap&nbsp;4">Companies</a>
                             @endif
-                            @if(\Auth::user()->hasAnyRole(['admin', 'company']))
+                            @if(auth()->user() && \Auth::user()->hasAnyRole(['admin', 'company']))
                                 <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('users.index') }}" target="">Users</a>
                             @endif
                             <a class="btn btn-lg btn-light-hover-primary text-uppercase font-size-1 font-size-md-3 letter-spacing-sm font-weight-boldest px-3 px-md-6 mr-1 mr-md-2 " href="{{ route('temporary_works.index') }}" target="">Temporary Works Register</a>
@@ -65,7 +65,7 @@
                         <!-- THis notification is for user, was added later, when client asked to implement notification for user nomination flow. -->
                       
                         <!-- notification work here -->
-                         @if(auth()->user()->hasRole('company')) 
+                         @if(auth()->user() && auth()->user()->hasRole('company')) 
                         @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
                        
                         <ul class="navbar-nav ml-auto">
@@ -118,12 +118,15 @@
                             class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px"
                             data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                             data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                            @isset(auth()->user()->image)
-                                <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
-                            @else
-                                <div class="symbol-label fs-3 bg-light-primary text-primary">
-                                    {{ \Illuminate\Support\Str::upper(auth()->user()->name[0])  ?: '' }}</div>
-                            @endisset
+                            @if(auth()->user())
+                                @isset(auth()->user()->image)
+                                    <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                @else
+                                    <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                        {{ \Illuminate\Support\Str::upper(auth()->user()->name[0])  ?: '' }}</div>
+                                @endisset
+                            @endif
+
                         </div>
                         <!--begin::Menu-->
                         <div
@@ -134,6 +137,7 @@
                                 
                                 <div class="menu-content d-flex align-items-center px-3">
                                     <!--begin::Avatar-->
+                                    @if(auth()->user())
                                     <div class="symbol symbol-50px me-5">
                                         @isset(auth()->user()->image)
                                             <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
@@ -142,13 +146,15 @@
                                                 {{ auth()->user()->name[0] ?: '' }}</div>
                                         @endisset
                                     </div>
+                                    @endif
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
+                                    @if(auth()->user())
                                     <div class="d-flex flex-column">
-                                        <div class="fw-bolder d-flex align-items-center fs-5">{{ auth()->user()->name ?: '' }}
-                                        </div>
+                                        <div class="fw-bolder d-flex align-items-center fs-5">{{ auth()->user()->name ?: '' }}</div>
                                         <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
                                     </div>
+                                    @endif
                                     <!--end::Username-->
                                 </div>
                             </div>
@@ -157,10 +163,12 @@
                             <div class="separator my-2"></div>
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
-                            @if(auth()->user()->hasRole(['admin','company','user']))
-                            <div class="menu-item px-5">
-                                <a href="{{ route('users.admin.edit',auth()->id()) }}" class="menu-link px-5">Account Settings</a>
-                            </div>
+                            @if(auth()->user())
+                                @if(auth()->user()->hasRole(['admin','company','user']))
+                                <div class="menu-item px-5">
+                                    <a href="{{ route('users.admin.edit',auth()->id()) }}" class="menu-link px-5">Account Settings</a>
+                                </div>
+                                @endif
                             @endif
                             <!--end::Menu item-->
                             <!--begin::Menu item-->

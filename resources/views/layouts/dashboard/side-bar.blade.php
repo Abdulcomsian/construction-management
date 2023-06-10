@@ -45,6 +45,8 @@
             data-kt-scroll-offset="0">
             <!--begin::Menu-->
 
+            @if(auth()->user())
+
             <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                 @if(\Auth::user()->hasRole([['admin', 'company']]))
                 <span class="menu-link userIconLink">
@@ -171,6 +173,7 @@
                     </div>
                 </div>
                 @endif
+
                 @if(\Auth::user()->hasRole(['designer','Design Checker','Designer and Design Checker']))
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">
@@ -256,6 +259,8 @@
 
 
             </div>
+
+            @endif
             <!--end::Menu-->
         </div>
     </div>

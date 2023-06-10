@@ -170,6 +170,16 @@
         cursor: pointer;
     }
 
+    .circle.danger-blink {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(255, 30, 0);
+        animation: blink 1s infinite;
+        margin: auto;
+        cursor: pointer;
+    }
+
     @keyframes blink {
       50% {
         opacity: 0;
@@ -287,10 +297,14 @@
                                     <td>{{Auth::user()->email ?? ''}}</td>
                                     <td>
                                         @if(isset($work->AdditionalInformation) && !is_null($work->AdditionalInformation))
-                                            @if($work->additionalInformation->unreadComment->count() > 0)
-                                                <div class="circle blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
+                                            @if($work->additionalInformation->jobComment->count() == 0)
+                                                <div class="circle danger-blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
                                             @else
-                                                <div class="circle unblink"></div>
+                                                @if($work->additionalInformation->unreadComment->count() > 0)
+                                                    <div class="circle blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
+                                                @else
+                                                    <div class="circle unblink"></div>
+                                                @endif
                                             @endif
                                         @else
                                             <div class="circle unblink"></div>

@@ -84,7 +84,7 @@ class DesignerController extends Controller
     {
         try {
             DB::beginTransaction();
-
+            $temporary_work = TemporaryWork::findorfail($id);
             if ($request->designer) {
                 $designer = User::findOrFail($request->designer);
                 $job_assign = new EstimatorDesignerList();
@@ -98,14 +98,13 @@ class DesignerController extends Controller
                 $code=random_int(100000, 999999);
                 $job_assign->code = $code;
                 if ($job_assign->save()) {
-                    $temporary_work = TemporaryWork::findorfail($id);
                     //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                    'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$temporary_work->projno,
                     'body' => [
-                        'company' => $request->company,
-                        'filename' => '29625684.pdf',
+                        'company' => $temporary_work->company,
+                        'filename' => $temporary_work->ped_url,
                         'links' => '',
                         'name' =>  'this is new job assigned',
                         'designer' => '123',
@@ -135,14 +134,13 @@ class DesignerController extends Controller
                 $code=random_int(100000, 999999);
                 $job_assign->code = $code;
                 if ($job_assign->save()) {
-                    $temporary_work = TemporaryWork::findorfail($id);
                     //send mail to admin
                     $notify_admins_msg = [
                         'greeting' => 'Temporary Work Pdf',
-                        'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                        'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$temporary_work->projno,
                         'body' => [
-                            'company' => $request->company,
-                            'filename' => '29625684.pdf',
+                            'company' => $temporary_work->company,
+                            'filename' => $temporary_work->ped_url,
                             'links' => '',
                             'name' =>  'this is new job assigned',
                             'designer' => '123',
@@ -2211,9 +2209,8 @@ class DesignerController extends Controller
                     }
                 }
                 //work for pdf
-                // dd("eeee");
                 $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
-                $path = public_path('estimatorPdf');
+                $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
                 $model = TemporaryWork::find($temporary_work->id);

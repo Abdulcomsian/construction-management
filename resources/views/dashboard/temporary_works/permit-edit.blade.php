@@ -919,9 +919,11 @@
                                             style="background: lightgray; border-radius:10px"></canvas>
                                         <br />
                                         <textarea id="signature" name="signed" style="display: none"></textarea>
-                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                        <span id="clear" class="fa fa-undo cursor-pointer btn--clear"
                                             style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                     </div>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                        Added</span>
                                     <div class="inputDiv d-none" id="pdfsign">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Upload Signature:(PNG,
@@ -1063,18 +1065,21 @@
                                         class="form-control form-control-solid">
                                 </div>
 
-                                <div class="d-flex inputDiv principleno" id="sign1" style="border:none !important;">
+                                <div class="d-flex inputDiv principleno mb-0" id="sign1"
+                                    style="border:none !important;">
                                     {{-- <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Signature:</span>
                                     </label> --}}
                                     {{-- <br /> --}}
                                     <canvas id="sig1" style="border-radius: 9px"></canvas>
                                     <textarea id="signature1" name="signed1" style="display: none"></textarea>
-                                    <span id="clear1" class="fa fa-undo cursor-pointer"
+                                    <span id="clear1" class="fa fa-undo cursor-pointer btn--clear"
                                         style="line-height: 6; position:relative; top:83px; right:26px"></span>
                                     {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
                                 </div>
+                                <span id="sigimage1" class="text-danger" style="font-size: 15px">Signature Not
+                                    Added</span>
                                 <!-- <div class="d-flex inputDiv principleno" id="sign1"
                                     style=" display: none !important">
                                     <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
@@ -1092,7 +1097,7 @@
                             <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                <div class="input-images"></div>
                              </div> -->
-                            <button id="submitbutton" type="button" class="btn btn-primary">Update</button>
+                            <button id="submitbutton" type="button" class="btn btn-secondary" disabled>Update</button>
                         </div>
                     </div>
                 </form>
@@ -1118,16 +1123,16 @@
             //     }
             // })
 
-            $('#clear').click(function(e) {
-                e.preventDefault();
-                signaturePad.clear();
-                $("#signature").val('');
-            });
-            $('#clear1').click(function(e) {
-                e.preventDefault();
-                signaturePad1.clear();
-                $("#signature1").val('');
-            });
+            // $('#clear').click(function(e) {
+            //     e.preventDefault();
+            //     signaturePad.clear();
+            //     $("#signature").val('');
+            // });
+            // $('#clear1').click(function(e) {
+            //     e.preventDefault();
+            //     signaturePad1.clear();
+            //     $("#signature1").val('');
+            // });
             // New Conditions embedded by Basit 
             $("#flexCheckChecked").change(function(){
                 if($(this).is(':checked'))
@@ -1159,15 +1164,7 @@
                     $(".customSubmitButton").removeClass("showBtn");
                 }
             })
-    $("input[name='principle_contractor']").change(function(){
-       if ($(this).val()==1){
-          $(".principleno").addClass('d-flex').show();
-       }
-       else{
-          $(".principleno").removeClass('d-flex').hide()
-        
-       }
-    })
+    
 
     $("input[name='works_coordinator']").change(function(){
        if ($(this).val()==1){
@@ -1215,24 +1212,96 @@
      $('#namesign_id2').change(function() {
         $('#namesign_id2').css("background-color", "#f5f8fa ");
      });
-            var canvas = document.getElementById("sig");
-            var signaturePad = new SignaturePad(canvas);
-            var canvas1 = document.getElementById("sig1");
+
+     
+    var canvas = document.getElementById("sig");
+    var signaturePad = new SignaturePad(canvas);
+    var canvas1 = document.getElementById("sig1");
+    let signaturepad1 = false;
+    let signaturepad2 = false;
+    let isSecondMemEnable = true;
+    if(canvas1)
+    {
+        var signaturePad1 = new SignaturePad(canvas1);
+    }
+    
+    $("#submitbutton").on('click',function(){
+            $("#signature").val(signaturePad.toDataURL('image/png'));
             if(canvas1)
             {
-             var signaturePad1 = new SignaturePad(canvas1);
+            console.log("hello");
+            $("#signature1").val(signaturePad1.toDataURL('image/png'));
             }
-            
-            $("#submitbutton").on('click',function(){
-                 $("#signature").val(signaturePad.toDataURL('image/png'));
-                 if(canvas1)
-                 {
-                    console.log("hello");
-                    $("#signature1").val(signaturePad1.toDataURL('image/png'));
-                 }
-                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
-                 $("#permitrenew").submit();
-            });
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+            $("#permitrenew").submit();
+    });
+
+    signaturePad.addEventListener('endStroke', function(){
+        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-success');
+        signaturepad1 = true;
+        enableFormSubmition()
+        console.log(signaturepad1);
+    })
+    
+    signaturePad1.addEventListener('endStroke', function(){
+        $("#sigimage1").text("Signature Added").removeClass('text-danger').addClass('text-success');
+        signaturepad2 = true;
+        enableFormSubmition();
+        console.log(signaturepad2);
+    })
+    
+
+
+    const clearBtns = document.querySelectorAll('.btn--clear');
+    
+    console.log(clearBtns);
+
+    clearBtns.forEach(clearbtn => {
+        clearbtn.addEventListener('click', function(e){
+            console.log(e.target);
+            if (e.target.getAttribute('id') === 'clear') {
+                e.preventDefault();
+                signaturepad1 = false;
+                console.log(signaturepad1);
+                signaturePad.clear();
+                $("#signature").val('');
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                $("#sigimage").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
+            }
+            if (e.target.getAttribute('id') === 'clear1') {
+                e.preventDefault();
+                signaturepad2 = false;
+                console.log(signaturepad2);
+                signaturePad1.clear();
+                $("#signature1").val('');
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+                $("#sigimage1").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
+            }
+        });
+    });
+
+    function enableFormSubmition(){
+        if(isSecondMemEnable){
+            signaturepad1 && signaturepad2 ? $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").prop("disabled", false): $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+        }else{
+            signaturepad1 && $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").prop("disabled", false)
+        }
+    }
+    $("input[name='principle_contractor']").change(function(){
+       if ($(this).val()==1){
+            isSecondMemEnable = true;
+          $(".principleno").addClass('d-flex').show();
+          $("#sigimage1").css("display", "block");
+          enableFormSubmition()
+        }
+        else{
+            isSecondMemEnable = false;
+            $(".principleno").removeClass('d-flex').hide();
+            $("#sigimage1").hide();
+            enableFormSubmition()
+        
+       }
+    })
      //approval checkbox checkded
     $("#approval").change(function(){
         if($(this).is(':checked'))

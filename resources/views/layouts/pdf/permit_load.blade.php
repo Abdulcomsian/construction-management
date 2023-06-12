@@ -193,6 +193,20 @@
         <div class="tableDiv paddingTable" style="margin-top: 5px">
             <table>
                 <tbody>
+                    <tr>
+                            <td style="font-size:12px;">Comments</td>
+                            <td style="font-size:12px;"> 
+                            @if(isset($data['comments']))
+                                {{$data['comments']}}
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin-top: 5px">
+            <table>
+                <tbody>
                 
                     <tr>
                        

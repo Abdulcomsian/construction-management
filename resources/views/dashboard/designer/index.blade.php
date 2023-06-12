@@ -3,17 +3,20 @@
 @section('styles')
 <style>
     :root {
-    --primary-border--radius:5px;
+        --primary-border--radius: 5px;
     }
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
+
     .card>.card-body {
         padding: 32px;
     }
-    .tab-content{
+
+    .tab-content {
         background-color: white;
     }
 
@@ -26,9 +29,8 @@
 
 
     }
-    .
 
-    .card {
+    . .card {
         margin: 30px 0px;
         border-radius: 10px !important;
         border: none !important;
@@ -106,70 +108,94 @@
         justify-content: space-between;
         align-items: center;
     }
-    .border{
-        border:1px solid red !important;
+
+    .border {
+        border: 1px solid red !important;
         border-bottom: 1px solid red !important;
     }
-    .border-right{
-        border-right:1px solid red !important;
-         border-bottom: 1px solid red !important;
-    }
-    .border-bottom{
+
+    .border-right {
+        border-right: 1px solid red !important;
         border-bottom: 1px solid red !important;
     }
-    input#exampleRadios1:checked[type=radio]{
+
+    .border-bottom {
+        border-bottom: 1px solid red !important;
+    }
+
+    input#exampleRadios1:checked[type=radio] {
         background: orange;
     }
-    input#exampleRadios2:checked[type=radio]{
+
+    input#exampleRadios2:checked[type=radio] {
         background: green;
     }
-    .nav-item{
+
+    .nav-item {
         border-radius: 0px 35px 0px 0px;
         overflow: hidden;
     }
-    .nav-item .tab{
+
+    .nav-item .tab {
         color: black;
         background: white;
     }
-    .nav-item button.active{
+
+    .nav-item button.active {
         color: white !important;
     }
-    input, button, table, select, textarea{
+
+    input,
+    button,
+    table,
+    select,
+    textarea {
         border-radius: var(--primary-border--radius) !important;
     }
-    .fileInput{
+
+    .fileInput {
         margin-left: 9px !important;
     }
-    .queryButton{
+
+    .queryButton {
         margin-top: 10px;
     }
-    table{
+
+    table {
         overflow: hidden;
     }
-    table thead{
+
+    table thead {
         background-color: #000;
     }
-    table thead tr th{
+
+    table thead tr th {
         color: #fff !important;
     }
+
     .query-table tbody tr {
         background: #f6f6f6 !important;
     }
-    .designer-comment{
+
+    .designer-comment {
         background-color: #d7f7e6 !important;
         color: green !important;
     }
-    .twc-reply{
+
+    .twc-reply {
         background-color: #fcadad !important;
         color: red !important;
     }
-    .tab-pane.active{
+
+    .tab-pane.active {
         background: white !important;
     }
-    .tab-pane{
+
+    .tab-pane {
         padding: 20px 28px;
     }
-    .drawing_infoTable tbody tr:nth-child(odd){
+
+    .drawing_infoTable tbody tr:nth-child(odd) {
         background: #c8e6c8 !important;
     }
 </style>
@@ -182,9 +208,14 @@
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
+            <div data-kt-place="true" data-kt-place-mode="prepend"
+                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
+                style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">Temporary Works</h1>
+                <h1 class="passionate text-dark fw-bolder my-1 fs-3"
+                    style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">
+                    Temporary Works</h1>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -194,25 +225,33 @@
     <!--end::Toolbar-->
     <!--begin::Post-->
 
-    
+
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container" style="padding-top: 80px">
             <div class="row">
                 <div class=' d-flex col-md-6'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
-                        
+
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100 active" id="" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="signup" aria-selected="true">Drawing Info</button>
+                            <button class="nav-link tab btn btn_outline w-100 active" id="" data-bs-toggle="tab"
+                                data-bs-target="#tab2" type="button" role="tab" aria-controls="signup"
+                                aria-selected="true">Drawing Info</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab" data-bs-target="#tab3"  type="button" role="tab" aria-controls="owner" aria-selected="false" tabindex="-1">Certificate</button>
+                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab"
+                                data-bs-target="#tab3" type="button" role="tab" aria-controls="owner"
+                                aria-selected="false" tabindex="-1">Certificate</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="owner" aria-selected="false" tabindex="-1">Others</button>
+                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab"
+                                data-bs-target="#tab4" type="button" role="tab" aria-controls="owner"
+                                aria-selected="false" tabindex="-1">Others</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100 " id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false" tabindex="-1">Queries</button>
+                            <button class="nav-link tab btn btn_outline w-100 " id="" type="button" role="tab"
+                                data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false"
+                                tabindex="-1">Queries</button>
                         </li>
                     </ul>
                 </div>
@@ -228,24 +267,26 @@
                     </div>
                     <div class="row" style="background:white;margin: 0 4px;">
                         <div class="col-md-6">
-                            <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post" enctype="multipart/form-data">
+                            <form class="form-inline" action="{{route('temporarywork.storecomment')}}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
-                                 <input type="hidden" name="temp_work_id" value="{{$id}}">
-                                  <input type="hidden" name="mail" value="{{$mail}}">
-                                  <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
-                                      <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                       <span >Ask questions or list further requirements for the TWC.</span>
-                                      </label>
-                                       <textarea rows="4" class="form-control" required="required" name="comment" style="border-radius: var(--primary-border--radius)"></textarea>
-                                       &nbsp;&nbsp;
-                    
-                                  </div>
-                            
+                                <input type="hidden" name="temp_work_id" value="{{$id}}">
+                                <input type="hidden" name="mail" value="{{$mail}}">
+                                <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span>Ask questions or list further requirements for the TWC.</span>
+                                    </label>
+                                    <textarea rows="4" class="form-control" required="required" name="comment"
+                                        style="border-radius: var(--primary-border--radius)"></textarea>
+                                    &nbsp;&nbsp;
+
+                                </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="input-group mb-3 row">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span>Attachment</span>
+                                    <span>Attachment</span>
                                 </label>
                                 <input type="file" name="image" class="form-control fileInput" id="inputGroupFile02">
                             </div>
@@ -261,82 +302,92 @@
                                         <th>No</th>
                                         <th>Designer's Comments</th>
                                         <th>TWC Comments</th>
-                                       
+
                                     </tr>
                                 </thead>
-                                 <tbody>
+                                <tbody>
                                     @php
                                     $path = config('app.url');
                                     @endphp
                                     @foreach($comments as $cments)
-                                    <tr >
+                                    <tr>
                                         <td><b>{{$loop->index+1}}</b></td>
-                                        @if($cments->type=='normal') 
+                                        @if($cments->type=='normal')
                                         <!-- added by Abdul to show only designers comment -->
-                                            <td class="designer-comment">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b>
+                                        <td class="designer-comment">
+                                            {{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
+                                                d-m-Y',strtotime($cments->created_at))}}</b>
                                             <br><br>
                                             @php
                                             if(isset($cments->image)){
                                             @endphp
-                                                <a href="{{$path}}{{$cments->image}}">View File</a>
+                                            <a href="{{$path}}{{$cments->image}}">View File</a>
                                             @php
                                             }
                                             @endphp
                                             </b>
-                                            </td>
+                                        </td>
                                         @endif
-                                        
-                                            @if($cments->replay)
-                                            
-                                            <td class="twc-reply">
-                                             @php $i=0;@endphp
-                                             @foreach($cments->replay as $reply)
-                                              <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
-                                              @php $i++; @endphp
-                                             @endforeach
-                                             @endif
-                                            @if($cments->type=='twctodesigner')
-                                                <td class="designer-comment"></td>
-                                                <td class="twc-reply">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b>
-                                                <br><br>
-                                                @php
-                                                if(isset($cments->image)){
-                                                @endphp
-                                                    <a href="{{$path}}{{$cments->image}}">View File</a>
-                                                @php
-                                                }
-                                                @endphp
-                                                </b>
-                                                <hr />
-                                                </td>
+
+                                        @if($cments->replay)
+
+                                        <td class="twc-reply">
+                                            @php $i=0;@endphp
+                                            @foreach($cments->replay as $reply)
+                                            <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i
+                                                    d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
+                                            @php $i++; @endphp
+                                            @endforeach
                                             @endif
+                                            @if($cments->type=='twctodesigner')
+                                        <td class="designer-comment"></td>
+                                        <td class="twc-reply">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
+                                                d-m-Y',strtotime($cments->created_at))}}</b>
                                             <br><br>
                                             @php
-                                             $path = config('app.url');
-                                             if(isset($cments->reply_image))
-                                             {
-                                                for($j=0;$j < count($cments->reply_image);$j++)
-                                                {
-                        
-                                                    $image='';
-                                                    if(isset($cments->reply_image[$j]))
-                                                    {
-                                                        $n = strrpos($cments->reply_image[$j], '.');
-                                                        $ext=substr($cments->reply_image[$j], $n+1);
-                                                        if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                                                        {
-                                                            echo $image='<a target="_blank" style="color: dodgerblue;" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
-                                                        }
-                                                        else{
-                                                            echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
-                                                        }
-                        
-                                                    }
-                                                }
+                                            if(isset($cments->image)){
+                                            @endphp
+                                            <a href="{{$path}}{{$cments->image}}">View File</a>
+                                            @php
                                             }
                                             @endphp
+                                            </b>
+                                            <hr />
                                         </td>
-                                        
+                                        @endif
+                                        <br><br>
+                                        @php
+                                        $path = config('app.url');
+                                        if(isset($cments->reply_image))
+                                        {
+                                        for($j=0;$j < count($cments->reply_image);$j++)
+                                            {
+
+                                            $image='';
+                                            if(isset($cments->reply_image[$j]))
+                                            {
+                                            $n = strrpos($cments->reply_image[$j], '.');
+                                            $ext=substr($cments->reply_image[$j], $n+1);
+                                            if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                            {
+                                            echo $image='<a target="_blank" style="color: dodgerblue;"
+                                                href='.$path.$cments->reply_image[$j].'><img
+                                                    src="'.$path.$cments->reply_image[$j].'" width="50px"
+                                                    height="50px" /></a>
+                                            <hr>';
+                                            }
+                                            else{
+                                            echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View
+                                                File</a>
+                                            <hr>';
+                                            }
+
+                                            }
+                                            }
+                                            }
+                                            @endphp
+                                            </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -346,7 +397,8 @@
                 </div>
                 <!-- tab 2 -->
                 <div class="tab-pane active" id="tab2" role="tabpanel">
-                    <form id="desingform" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
+                    <form id="desingform" action="{{route('designer.store')}}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <input type="hidden" name="tempworkid" value="{{$id}}">
@@ -359,28 +411,31 @@
                                     <div class="col-md-4">
                                         <div class=" inputDiv d-block">
                                             <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:65% !important">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                                style="width:65% !important">
                                                 <span class="required"> Drawing Status:</span>
 
                                             </label>
                                             <!--end::Label-->
-                                            
+
                                         </div>
-                                       <div class="d-flex">
-                                           <div class="form-check" >
-                                              <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
-                                              <label class="form-check-label" for="exampleRadios1">
-                                                Preliminary / For Approval
-                                              </label>
+                                        <div class="d-flex">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status"
+                                                    id="exampleRadios1" value="1" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    Preliminary / For Approval
+                                                </label>
                                             </div>
-                                            <div class="form-check" >
-                                              <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="2">
-                                              <label class="form-check-label" for="exampleRadios2">
-                                                For Construction
-                                              </label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status"
+                                                    id="exampleRadios2" value="2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                    For Construction
+                                                </label>
                                             </div>
-                                       </div>
-                                        
+                                        </div>
+
                                     </div>
                                     <div class="col-md-4">
                                         <div class="inputDiv d-block">
@@ -390,7 +445,8 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="file" class="form-control form-control-solid" id="file" name="file[]" style="background: #f5f8fa" required>
+                                            <input type="file" class="form-control form-control-solid" id="file"
+                                                name="file[]" style="background: #f5f8fa" required>
                                         </div>
                                         <div style="text-align: center;">
                                             <img class="d-none" width="100" height="100" id="editimage">
@@ -404,7 +460,9 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="text" class="form-control form-control-solid" id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}" required>
+                                            <input type="text" class="form-control form-control-solid"
+                                                id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
@@ -419,12 +477,17 @@
 
                                     </label>
                                     <div class="d-flex">
-                                        <input type="text" class="form-control form-control-solid" placeholder="Drawing Number" id="drawing_number"  name="drawing_number" value="{{old('drawing_number')}}" required="required" style="width:34%">
+                                        <input type="text" class="form-control form-control-solid"
+                                            placeholder="Drawing Number" id="drawing_number" name="drawing_number"
+                                            value="{{old('drawing_number')}}" required="required" style="width:34%">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" style="border:none" id="drawingno-addon">P</span>
+                                            <span class="input-group-text" style="border:none"
+                                                id="drawingno-addon">P</span>
                                         </div>
-                                            <input type="number" max="99" onKeyDown="limitText(this,2);"
-                                                    onKeyUp="limitText(this,2);" class="form-control form-control-solid" placeholder="01" name="drawing_postfix_no" required="required" style="width: 20%">
+                                        <input type="number" max="99" onKeyDown="limitText(this,2);"
+                                            onKeyUp="limitText(this,2);" class="form-control form-control-solid"
+                                            placeholder="01" name="drawing_postfix_no" required="required"
+                                            style="width: 20%">
                                     </div>
                                 </div>
                             </div>
@@ -434,19 +497,21 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Designer Name:</span>
                                     </label>
-                                            <!--end::Label-->
+                                    <!--end::Label-->
 
-                                    <input type="text" class="form-control form-control-solid" id="twd_name" name="twd_name" value="{{old('twd_name')}}" required>
+                                    <input type="text" class="form-control form-control-solid" id="twd_name"
+                                        name="twd_name" value="{{old('twd_name')}}" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="inputDiv d-block">
-                                            <!--begin::Label-->
+                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span>Comments:</span>
                                     </label>
-                                            <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" id="comments" name="comments"  >
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control form-control-solid" id="comments"
+                                        name="comments">
                                 </div>
                             </div>
                         </div>
@@ -456,176 +521,193 @@
                             </div>
                         </div>
                     </form>
-                        <!-- </div> -->
-                        <div class="row" style="background:white;margin: 0 4px;">
-                            <div class="col">
-                                <table class="table drawing_infoTable" style="border-collapse: collapse;background: none;">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Drawing No</th>
-                                            <th>Comments</th>
-                                            <th>TWD Name</th>
-                                            <th>Drawing Title</th>
-                                            <th>Preliminary / For Approval</th>
-                                            <th>For Construction</th>
-                                            <th>Comments</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                        $l=1;
-                                        $background='';
-                                        $userList = [];
-                                        @endphp
-                                
-                                        @foreach($DesignerUploads as $uploads)
-                                        @php
-                                        $dno=explode('-',$uploads->drawing_number);
-                                        $drawinglastno=$dno[sizeof($dno)-1];
-                                        $sliced = array_slice($dno, 0, -1);
-                                        $string = implode("-", $sliced);
-                                        $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
-                                        $fullString=$string.$remove_p_c;
-                                        if(!in_array($fullString,$userList))
-                                        {
-                                            $userList[] = $fullString;
-                                            $background = $uploads->preliminary_approval==1 ? 'yellow' : 'lightgreen';
-                                
-                                        }else{
-                                            $background = "";
-                                        }
-                                        $comments=\App\Models\DrawingComment::where('temp_work_upload_files_id',$uploads->id)->get();
-                                        @endphp
-                                        <tr style="background: {{$background ?? ''}}  !important">
-                                            <td>{{$loop->index+1}}</td>
-                                            <td>{{$uploads->drawing_number}}</td>
-                                            <td>{{$uploads->comments}}</td>
-                                            <td>{{$uploads->twd_name}}</td>
-                                            <td>{{$uploads->drawing_title}}</td>
-                                            <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
-                                            <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
-                                            <td style="display:flex; flex-direction:column;padding: 10px">
-                                                <!-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button>
+                    <!-- </div> -->
+                    <div class="row" style="background:white;margin: 0 4px;">
+                        <div class="col">
+                            <table class="table drawing_infoTable" style="border-collapse: collapse;background: none;">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Drawing No</th>
+                                        <th>Comments</th>
+                                        <th>TWD Name</th>
+                                        <th>Drawing Title</th>
+                                        <th>Preliminary / For Approval</th>
+                                        <th>For Construction</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $l=1;
+                                    $background='';
+                                    $userList = [];
+                                    @endphp
+
+                                    @foreach($DesignerUploads as $uploads)
+                                    @php
+                                    $dno=explode('-',$uploads->drawing_number);
+                                    $drawinglastno=$dno[sizeof($dno)-1];
+                                    $sliced = array_slice($dno, 0, -1);
+                                    $string = implode("-", $sliced);
+                                    $remove_p_c = ltrim(ltrim($drawinglastno, 'P') , 'C');
+                                    $fullString=$string.$remove_p_c;
+                                    if(!in_array($fullString,$userList))
+                                    {
+                                    $userList[] = $fullString;
+                                    $background = $uploads->preliminary_approval==1 ? 'yellow' : 'lightgreen';
+
+                                    }else{
+                                    $background = "";
+                                    }
+                                    $comments=\App\Models\DrawingComment::where('temp_work_upload_files_id',$uploads->id)->get();
+                                    @endphp
+                                    <tr style="background: {{$background ?? ''}}  !important">
+                                        <td>{{$loop->index+1}}</td>
+                                        <td>{{$uploads->drawing_number}}</td>
+                                        <td>{{$uploads->comments}}</td>
+                                        <td>{{$uploads->twd_name}}</td>
+                                        <td>{{$uploads->drawing_title}}</td>
+                                        <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
+                                        <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
+                                        <td style="display:flex; flex-direction:column;padding: 10px">
+                                            <!-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button>
                                                 <a class="btn" href="{{route('designer.delete',$uploads->id)}}"><i class="fas fa-trash"></i></a> -->
-                                                <form method="post" action="{{route('drawing.comment')}}">
-                                                    @csrf
-                                                    <textarea class="form-control" row="2" required name="comment"></textarea><br>
-                                                    <input type="hidden" name="drawingid" value="{{$uploads->id}}">
-                                                    <input type="hidden" name="tempid" value="{{$uploads->temporary_work_id}}">
-                                                    <input type="hidden" name="mail" value="{{$mail}}">
-                                                    <button class="btn btn-primary" style="align-self:center">Add Comment</button>
-                                                </form></td>
-                                        </tr>
-                                        @if(count($comments)>0)
-                                        @foreach($comments as $cments)
-                                        <tr>
-                                            <td class="border"><b>{{$l}} - {{$loop->index+1}}</b></td>
-                                            <td class="border"><b>Comment/Reply</b></td>
-                                            @php $style='';@endphp
-                                            @if($mail==$cments->sender_email)
-                                            <td colspan="2" style="max-width: 30px;{{$style}}" class="border-bottom" >
-                                                <b>{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}
-                                            </td>
-                                            @else
-                                            <td colspan="2" style="max-width: 30px;" class="border-bottom" >
-                                
-                                            </td>
+                                            <form method="post" action="{{route('drawing.comment')}}">
+                                                @csrf
+                                                <textarea class="form-control" row="2" required
+                                                    name="comment"></textarea><br>
+                                                <input type="hidden" name="drawingid" value="{{$uploads->id}}">
+                                                <input type="hidden" name="tempid"
+                                                    value="{{$uploads->temporary_work_id}}">
+                                                <input type="hidden" name="mail" value="{{$mail}}">
+                                                <button class="btn btn-primary" style="align-self:center">Add
+                                                    Comment</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @if(count($comments)>0)
+                                    @foreach($comments as $cments)
+                                    <tr>
+                                        <td class="border"><b>{{$l}} - {{$loop->index+1}}</b></td>
+                                        <td class="border"><b>Comment/Reply</b></td>
+                                        @php $style='';@endphp
+                                        @if($mail==$cments->sender_email)
+                                        <td colspan="2" style="max-width: 30px;{{$style}}" class="border-bottom">
+                                            <b>{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i
+                                            d-m-Y',strtotime($cments->created_at))}}
+                                        </td>
+                                        @else
+                                        <td colspan="2" style="max-width: 30px;" class="border-bottom">
+
+                                        </td>
+                                        @endif
+
+                                        <td colspan="2" class="border-bottom" style="color: red">
+                                            @if($mail!=$cments->sender_email)
+                                            <b>{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i
+                                            d-m-Y',strtotime($cments->created_at))}}
                                             @endif
-                                
-                                            <td colspan="2" class="border-bottom" style="color: red">
-                                                @if($mail!=$cments->sender_email)
-                                                <b>{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i d-m-Y',strtotime($cments->created_at))}}
-                                                @endif
-                                                @if($cments->drawing_reply)
-                                                @php $i=0;@endphp
-                                                @foreach($cments->drawing_reply as $reply)
-                                                <p><b>{{$reply}}</b><br>{{$cments->reply_email}}<br>{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</p><hr>
-                                                @php $i++; @endphp
-                                                @endforeach
-                                                @endif
-                                            </td>
-                                            <td colspan="2" class="border-right">
-                                                @php
-                                                $path = config('app.url');
-                                                if(isset($cments->reply_image))
+                                            @if($cments->drawing_reply)
+                                            @php $i=0;@endphp
+                                            @foreach($cments->drawing_reply as $reply)
+                                            <p><b>{{$reply}}</b><br>{{$cments->reply_email}}<br>{{date('H:i
+                                                d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</p>
+                                            <hr>
+                                            @php $i++; @endphp
+                                            @endforeach
+                                            @endif
+                                        </td>
+                                        <td colspan="2" class="border-right">
+                                            @php
+                                            $path = config('app.url');
+                                            if(isset($cments->reply_image))
+                                            {
+                                            for($j=0;$j < count($cments->reply_image);$j++)
                                                 {
-                                                    for($j=0;$j < count($cments->reply_image);$j++)
-                                                    {
-                                
-                                                        $image='';
-                                                        if(isset($cments->reply_image[$j]))
-                                                        {
-                                                            $n = strrpos($cments->reply_image[$j], '.');
-                                                            $ext=substr($cments->reply_image[$j], $n+1);
-                                                            if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                                                            {
-                                                            echo $image='<a target="_blank" href='.$path.$cments->reply_image[$j].'><img src="'.$path.$cments->reply_image[$j].'" width="50px" height="50px"/></a><hr>';
-                                                            }
-                                                            else{
-                                                            echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View File</a><hr>';
-                                                            }
-                                
-                                                        }
-                                                    }
+
+                                                $image='';
+                                                if(isset($cments->reply_image[$j]))
+                                                {
+                                                $n = strrpos($cments->reply_image[$j], '.');
+                                                $ext=substr($cments->reply_image[$j], $n+1);
+                                                if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                                {
+                                                echo $image='<a target="_blank"
+                                                    href='.$path.$cments->reply_image[$j].'><img
+                                                        src="'.$path.$cments->reply_image[$j].'" width="50px"
+                                                        height="50px" /></a>
+                                                <hr>';
+                                                }
+                                                else{
+                                                echo $a='<a target="_blank"
+                                                    href="'. $path.$cments->reply_image[$j].'">View File</a>
+                                                <hr>';
+                                                }
+
+                                                }
+                                                }
                                                 }
                                                 @endphp
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                        @php $l++; @endphp
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                    @php $l++; @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    
+                    </div>
+
                 </div>
                 <!-- tab 3 -->
-                <div class="tab-pane" id="tab3" role="tabpanel" >
-                    <form class="form-inline" action="{{route('designer.store')}}" method="post" enctype="multipart/form-data">
+                <div class="tab-pane" id="tab3" role="tabpanel">
+                    <form class="form-inline" action="{{route('designer.store')}}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
-                         <input type="hidden" name="tempworkid" value="{{$id}}">
-                          
-                            <div class="row" style="background:white;margin: 0 4px;">
-                                <!-- <div class="col-md-4">
+                        <input type="hidden" name="tempworkid" value="{{$id}}">
+
+                        <div class="row" style="background:white;margin: 0 4px;">
+                            <!-- <div class="col-md-4">
                                     <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span class="required">Designer's Company Name:</span>
                                         </label>
                                         <div class="d-flex" >
                                         <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name}}"> -->
-                                        <!-- name="designer_company_name" -->
-                                        <!-- </div>
+                            <!-- name="designer_company_name" -->
+                            <!-- </div>
                                     </div>
                                 </div> -->
-                                <div class="col-md-4">
-                                    <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Design Checker Name:</span>
-                                        </label>
-                                        <div class="d-flex" >
+                            <div class="col-md-4">
+                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Design Checker Name:</span>
+                                    </label>
+                                    <div class="d-flex">
                                         <input type="hidden" name="mail" value="{{$mail}}">
-                                        <input type="text" class="form-control"  name="checkeremail" value="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Design Check Certificate:</span>
-                                        </label>
-                                        <div class="d-flex" >
-                                            <input type="file" style="width:25%; flex-grow:1"class="form-control" id="designcheckfile" name="designcheckfile" required="required">
-                                                                    &nbsp;&nbsp;
-                                                                    <button type="submit" class="btn btn-primary mb-2" style="margin-bottom:0px !important">Upload</button>
-                                        </div>
+                                        <input type="text" class="form-control" name="checkeremail" value="">
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Design Check Certificate:</span>
+                                    </label>
+                                    <div class="d-flex">
+                                        <input type="file" style="width:25%; flex-grow:1" class="form-control"
+                                            id="designcheckfile" name="designcheckfile" required="required">
+                                        &nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-primary mb-2"
+                                            style="margin-bottom:0px !important">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
-                   
+
                     <div class="row" style="background:white;margin: 0 4px;">
                         <div class="col-md-6">
                             <table class="table table-hover" style="width: 100%">
@@ -635,11 +717,12 @@
                                         <th>Design Check Certificate</th>
                                     </tr>
                                 </thead>
-                                 <tbody>
+                                <tbody>
                                     @foreach($Designerchecks as $dcc)
-                                    <tr >
+                                    <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td><a href="{{asset($dcc->file_name)}}" target="_blank">DC{{$loop->index+1}}</a></td>
+                                        <td><a href="{{asset($dcc->file_name)}}"
+                                                target="_blank">DC{{$loop->index+1}}</a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -647,36 +730,40 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="tab4" role="tabpanel" >
+                <div class="tab-pane fade" id="tab4" role="tabpanel">
                     <!-- Risk Assessment and calculations -->
-                    <form class="form-group" action="{{route('riskassesment.store')}}" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto 0;">
+                    <form class="form-group" action="{{route('riskassesment.store')}}" method="post"
+                        enctype="multipart/form-data" style="width: 100%;margin: auto 0;">
                         @csrf
                         <input type="hidden" name="tempworkid" value="{{$id}}">
-                          <input type="hidden" name="designermail" value="{{$mail}}">
-                          <div class="row" style="background:white;margin: 0 4px;">
-                              <div class="col-md-6">
-                                  <div class="form-group">
+                        <input type="hidden" name="designermail" value="{{$mail}}">
+                        <div class="row" style="background:white;margin: 0 4px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="exampleInputEmail1" style="margin: 5px;">Select Document:</label><br>
-                                    <input type="file" class="form-control" id="riskassesmentfile" name="riskassesmentfile" required="required">
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="exampleInputPassword1" style="margin: 5px">Select Document Type:</label><br>
-                                    <select class="form-control" name="type"  required>
-                                               <option value="" selected disabled>Risk Assessment-Calculations</option>
-                                               <option value="5">Risk Assessment</option>
-                                               <option value="6">Calculations (Design Notes)</option>
+                                    <input type="file" class="form-control" id="riskassesmentfile"
+                                        name="riskassesmentfile" required="required">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" style="margin: 5px">Select Document
+                                        Type:</label><br>
+                                    <select class="form-control" name="type" required>
+                                        <option value="" disabled></option>
+                                        <option value="" selected disabled>Risk Assessment-Calculations</option>
+                                        <option value="5">Risk Assessment</option>
+                                        <option value="6">Calculations (Design Notes)</option>
                                     </select>
-                                  </div>
-                              </div>
-                          </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row" style="background:white;margin: 0 4px;">
                             <div class="col"><button type="submit" class="btn btn-primary mt-2">Upload</button></div>
                         </div>
                     </form>
-                    
-                   
+
+
                     <div class="row" style="background:white;margin: 0 4px;">
                         <div class="col">
                             <table class="table table-hover">
@@ -689,26 +776,26 @@
                                         <th>Date</th>
                                     </tr>
                                 </thead>
-                                 <tbody>
+                                <tbody>
                                     @foreach($riskassessment as $riks)
                                     @php
-                                     $type='';
-                                     if($riks->file_type=="5")
-                                     {
-                                        $type='Risk Assessment';
-                                     }
-                                     if($riks->file_type=="6")
-                                     {
-                                        $type='Calculations';
-                                     }
-                                     @endphp
-                                     <tr>
+                                    $type='';
+                                    if($riks->file_type=="5")
+                                    {
+                                    $type='Risk Assessment';
+                                    }
+                                    if($riks->file_type=="6")
+                                    {
+                                    $type='Calculations';
+                                    }
+                                    @endphp
+                                    <tr>
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$riks->created_by}}</td>
                                         <td>{{$type}}</td>
                                         <td><a href="{{asset($riks->file_name)}}" target="_blank">File</a></td>
                                         <td>{{date("d-m-Y",strtotime($riks->created_at));}}</td>
-                                     </tr>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -717,7 +804,7 @@
 
                 </div>
             </div>
-            
+
         </div>
         <!--end::Container-->
     </div>

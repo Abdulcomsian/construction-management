@@ -125,13 +125,13 @@ class TemporaryWork extends Model
         return $this->belongsTo(User::class , 'created_by' , 'id');
     }
 
-    public function desginerAssign()
+    public function designerAssign()
     {
-        return $this->hasOne(JobAssign::class , 'temporary_work_id' , 'id' )->whereIn('type',['designer','Designer and Design Checker'])->orderBy('id','desc');
+        return $this->hasOne(EstimatorDesignerList::class , 'temporary_work_id')->where('type', 'designer')->orderBy('id','desc');
     }
 
     public function checkerAssign()
     {
-        return $this->hasOne(JobAssign::class , 'temporary_work_id' , 'id' )->whereIn('type',['Design Checker','Designer and Design Checker'])->orderBy('id','desc');
+        return $this->hasOne(EstimatorDesignerList::class , 'temporary_work_id')->where('type', 'checker')->orderBy('id','desc');
     }
 }

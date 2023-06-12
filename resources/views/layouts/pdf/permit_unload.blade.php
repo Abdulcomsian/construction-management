@@ -205,7 +205,16 @@
 
             </div>
         </div>
-
+        <div class="tableDiv paddingTable" style="margin-top: 5px">
+            <table>
+                <tbody>
+                    <tr>
+                            <td style="font-size:12px;">Comments</td>
+                            <td style="font-size:12px;"> {{$data['comments']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
@@ -284,5 +293,29 @@
                 </tbody>
             </table>
         </div>
+        @if(isset($image_links))
+        <div class="tableDiv paddingTable" style="margin: 5px">
+            <table>
+                <tbody>
+                @foreach($image_links as $image)
+                @php 
+                    $n = strrpos($image, '.');
+                    $ext=substr($image, $n+1);
+                     
+                @endphp
+                    <tr>
+                        <td>
+                            @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                            <img src="{{$image}}" width="500" alt="img"/>
+                            @else
+                            <a href="{{asset($image)}}" target="_blank">Attachment</a>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
     </div>
 </page>

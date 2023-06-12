@@ -42,9 +42,11 @@ class DesignerAwarded extends Notification
     public function toMail($notifiable)
     {
         $data=TemporaryWork::with('project')->find($this->tempid);
+        $proj_name = $data->project->name ?? $data->projname;
+        $proj_no = $data->project->no ?? $data->projno;
         return (new MailMessage)
             ->greeting('Design Brief Awarded')
-            ->subject('Design Brief Awarded -'.$data->project->name . '-' .$data->project->no)
+            ->subject('Design Brief Awarded -'.$proj_name. '-' .$proj_no)
             ->view('mail.designerAwarded', ['details' => $data,'id'=>$this->tempid,'email'=>$this->email,'code'=>$this->code]);
     }
 

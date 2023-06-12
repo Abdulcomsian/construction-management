@@ -1,3 +1,10 @@
+@php
+    $user = auth()->user();
+    $readonly = '';
+    if($user->hasRole('company') || $user->hasRole('twc') || auth()->user()->hasRole('user')){
+        $readonly = 'readonly';
+    }
+@endphp
 <div class="modal fade" id="project_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -41,18 +48,18 @@
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-bold mb-2">No</label>
-                            <input type="number" class="form-control form-control-solid" placeholder="Enter Project No" name="no" value="{{old('no')}}" />
+                            <input type="number" class="form-control form-control-solid" placeholder="Enter Project No" name="no" value="{{old('no')}}" {{$readonly}}/>
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <label class="required fs-6 fw-bold mb-2">Name</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Enter Project Name" name="name" value="{{old('name')}}" />
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter Project Name" name="name" value="{{old('name')}}" {{$readonly}}/>
                         </div>
                         <!--end::Col-->
                          <div class="col-md-12 projectqrcodeinput">
                             <label class="required fs-6 fw-bold mb-2">Number of QR codes:</label>
-                            <input type="number" class="form-control form-control-solid" placeholder="Enter NO of qrcode to generate" name="qrcodeno" required value="1">
+                            <input type="number" class="form-control form-control-solid" placeholder="Enter NO of qrcode to generate" name="qrcodeno" required value="1" {{$readonly}}>
                         </div>
                     </div>
 
@@ -66,10 +73,28 @@
                             <!--begin::Label-->
                             <!--begin::Label-->
                             <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
-                                <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Enter Project Address" name="address">{{old('address')}}</textarea>
+                                <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Enter Project Address" name="address" {{$readonly}}>{{old('address')}}</textarea>
                                 <!--end:Input-->
                             </div>
                             <!--begin::Label-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="old_rows"></div>
+                    <div class="row g-9 mb-8 template-row">
+                        <!--begin::Col-->
+                        <div class="col-md-9">
+                            <!--begin::Label-->
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+                                <input type="text" name="blocks[]" placeholder="Enter new block" class="form-control" />
+                                <!--end:Input-->
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                         <div class="col-md-3">
+                            <button type="button" class="btn btn-primary add-btn">Add New</button>
                         </div>
                         <!--end::Col-->
                     </div>

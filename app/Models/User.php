@@ -95,4 +95,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(CompanyProfile::class , 'user_id' , 'id');
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(TemporaryWork::class , 'created_by');
+    }
 }

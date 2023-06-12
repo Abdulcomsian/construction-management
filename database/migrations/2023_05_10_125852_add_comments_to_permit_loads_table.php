@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnInPermitLoadsTable extends Migration
+class AddCommentsToPermitLoadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddColumnInPermitLoadsTable extends Migration
     public function up()
     {
         Schema::table('permit_loads', function (Blueprint $table) {
-            $table->integer('pos_status')->default(0)->after('permit_no');
+            //
+            $table->longText('comments', 1000)->nullable();
         });
     }
 
@@ -26,8 +27,8 @@ class AddColumnInPermitLoadsTable extends Migration
     public function down()
     {
         Schema::table('permit_loads', function (Blueprint $table) {
-            if (Schema::hasColumn('permit_loads', 'pos_status')){
-                $table->dropColumn('pos_status');
+            if (Schema::hasColumn('permit_loads', 'comments')){
+                $table->dropColumn('comments');
             }
         });
     }

@@ -580,8 +580,38 @@
                         </div>
                     </div>
                     <!-- Second person -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class=" inputDiv upload_signature_div mt-0">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                    style="width: fit-content; bottom:124px;">
+                                    Photo Upload
+                                </label>
+                                <!-- <div class="principleno"  style=""> -->
+                                <div class="" style="">
+                                    <!-- <div class="uploadingDiv"> -->
+                                    <div class="">
+                                        <!-- <div class="uploadDiv"> -->
+                                        <div class="">
+                                            <!-- <div class="input-images"></div> -->
+                                            <div class="input-images"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-
+                    <div class="row">
+                        <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
+                            <div class="d-flex inputDiv">
+                                <label class="fs-6 fw-bold mb-2" style="">
+                                    <span >Comments:</span>
+                                </label>
+                                <textarea  name="comments" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-6" id="second_member">

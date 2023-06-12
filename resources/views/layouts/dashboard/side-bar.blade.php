@@ -207,11 +207,6 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{url('designer/projectAssign')}}">
-                                <span class="menu-title">Project Assign</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
                             <a class="menu-link" href="{{url('designer/designer')}}">
                                 <span class="menu-title">Estimator List</span>
                             </a>

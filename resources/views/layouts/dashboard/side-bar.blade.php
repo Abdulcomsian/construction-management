@@ -504,7 +504,7 @@
 </div>
             </div>
 
-            @endif
+            {{-- @endif --}}
             <!--end::Menu-->
         </div>
     </div>

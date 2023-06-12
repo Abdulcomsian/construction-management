@@ -2163,7 +2163,7 @@ class DesignerController extends Controller
             $all_inputs['estimator']=1;
             $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
-            $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
+            // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
             $temporary_work = TemporaryWork::create($all_inputs);
             for($i=0;$i<count($request->price);$i++)

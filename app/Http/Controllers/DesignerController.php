@@ -2305,12 +2305,12 @@ class DesignerController extends Controller
     {
         try{
             $jobs = TemporaryWork::with('designerAssign','designerAssign.estimatorDesignerListTasks')->where('created_by', Auth::user()->id)->get();
-        $events = [];
+            $events = [];
             foreach($jobs as $job){
                 $events[] = [
                     'title' => $job->projname,
-                    'start' => $job->designerAssign->start_date,
-                    'end' => $job->designerAssign->end_date,
+                    'start' => $job->designerAssign->start_date ?? '',
+                    'end' => $job->designerAssign->end_date ?? '',
                 ];
             }
                 

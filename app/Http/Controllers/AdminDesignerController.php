@@ -124,7 +124,6 @@ class AdminDesignerController extends Controller
     {
 
         $loggedInUser = Auth::user();
-        // $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
         
         if ($loggedInUser->di_designer_id !== null) {
             // Child Designer
@@ -140,10 +139,10 @@ class AdminDesignerController extends Controller
                 ->whereHas('Estimator', function ($query) use ($loggedInUser) {
                     $query->where('created_by', $loggedInUser->id);
                 })
+                ->where('type','designer')
                 ->where('temporary_work_id', $request->temporary_work_id)
                 ->first();
         }
-
         return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner]);
     }
 
@@ -166,6 +165,7 @@ class AdminDesignerController extends Controller
                 ->whereHas('Estimator', function ($query) use ($loggedInUser) {
                     $query->where('created_by', $loggedInUser->id);
                 })
+                ->where('type','checker')
                 ->where('temporary_work_id', $request->temporary_work_id)
                 ->first();
         }
@@ -201,7 +201,7 @@ class AdminDesignerController extends Controller
             $designer_tasks->date = $request->date;
             $designer_tasks->hours = $request->hours;
             $designer_tasks->completed = $request->completed;
-            $designer_tasks->user_id = Auth::user()->id;
+            // $designer_tasks->user_id = Auth::user()->id;
             $designer_tasks->save();
             toastSuccess('Designer tasks saved successfully!');
             return Redirect::back();

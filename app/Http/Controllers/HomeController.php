@@ -646,8 +646,7 @@ class HomeController extends Controller
                 $model->project_id=$request->project;
                 $model->nomination_id=$nomination->id;
                 $model->save();
-
-               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_no'=>$projectdata->no,'images'=>$images,'qimages'=>$qimages,'cimages'=>$cimages,'user'=>$user,'company'=>$company,'cv'=>$cv]);
+               $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_name'=>$projectdata->name, 'project_no'=>$projectdata->no,'images'=>$images,'qimages'=>$qimages,'cimages'=>$cimages,'user'=>$user,'company'=>$company,'cv'=>$cv]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     @unlink($nomination->pdf_url);

@@ -2312,6 +2312,8 @@
                                     <span id="clear" class="fa fa-undo cursor-pointer"
                                         style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                 </div>
+                                <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                    Added</span>
                                 <div class="inputDiv d-none" id="pdfsign">
                                     <label class="fs-6 fw-bold mb-2" style="width: fit-content">
                                         <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
@@ -2328,7 +2330,7 @@
                             </div>
                             <div class="col-md-6" style="display: flex; justify-content:flex-end; align-items:flex-end">
                                 <div class="">
-                                    <button id="submitbutton" type="submit" class="btn btn-primary"
+                                    <button id="submitbutton" type="submit" class="btn btn-secondary" disabled
                                         style="margin-right: 22px; border-radius:5px">Submit</button>
                                 </div>
                             </div>
@@ -2495,10 +2497,12 @@
     // })
 
     $('#clear').click(function(e) {
-    e.preventDefault();
-    signaturePad.clear();
-    $("#signature").val('');
-    });
+       e.preventDefault();
+       signaturePad.clear();
+       $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+   });
 
     $("#pdfChecked").change(function () {
 
@@ -2570,6 +2574,8 @@
     var signaturePad = new SignaturePad(canvas);
      signaturePad.addEventListener("endStroke", () => {
               $("#signature").val(signaturePad.toDataURL('image/png'));
+              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
             }, { once: true });
     // $("#submitbutton").on('click', function() {
         

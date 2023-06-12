@@ -595,7 +595,7 @@
                                     <!--end::Label-->
                                     <input type="text" class="form-control form-control-solid"
                                         placeholder="Drawing title" id="drawing_title" name="drawing_title"
-                                        value="{{old('drawing_title')}}" required>
+                                        value="{{old('drawing_title')}}" >
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -645,14 +645,14 @@
                                 <div class="d-flex inputDiv mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Date Design Returned:</span>
+                                        <span class="">Date Design Returned:</span>
                                     </label>
                                     <!--end::Label-->
                                     <!-- <p style=" cursor: pointer;background-color: #f5f8fa;color: #000 !important;"> -->
                                     <input style=" cursor: pointer;color: #a9abb7 !important;" type="date"
                                         class="customDate form-control form-control-solid"
                                         placeholder="Design Required by Date" id="design_required_by_date"
-                                        name="design_returned" value="{{old('design_returned')}}" required="required">
+                                        name="design_returned" value="{{old('design_returned')}}">
                                     <!-- </p> -->
                                 </div>
                             </div>

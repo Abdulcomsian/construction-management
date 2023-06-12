@@ -13,16 +13,18 @@ class TemporaryWorkNotification extends Notification
     private $offerData;
     public $id;
     public $email;
+    public $is_check;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData,$id,$email=NULL)
+    public function __construct($offerData,$id,$email=NULL,$is_check=true)
     {
         $this->offerData = $offerData;
         $this->id=$id;
         $this->email=$email;
+        $this->is_check=$is_check;
     }
 
     /**
@@ -44,11 +46,16 @@ class TemporaryWorkNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        if($this->is_check){
+            $path = public_path('estimatorPdf/' . $this->offerData['body']['filename']);
+        } else{
+            $path = public_path('pdf/' . $this->offerData['body']['filename']);
+        }
         return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
             ->view('mail.temporaryworkmail', ['details' => $this->offerData,'id'=>$this->id,'email'=>$this->email])
-            ->attach(public_path('pdf/' . $this->offerData['body']['filename']), [
+            ->attach($path, [
                 'as' =>  $this->offerData['body']['name'].'.pdf',
                 'mime' => 'text/pdf',
             ]);

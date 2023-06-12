@@ -35,7 +35,7 @@ use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Notifications\PasswordResetNotification;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Notifications\{DesignerAwarded,TemporaryWorkNotification};
 use Illuminate\Support\Str;
 use PDF;
@@ -79,43 +79,96 @@ class DesignerController extends Controller
         return view('projectAssign',$data);
     }
 
-    public function storeProjectAssign(Request $request){
-        try
-        {
-            if($request->designer){
-                $designer = User::findorfail($request->designer);
-                $job_assign = new JobAssign();
-                $job_assign->temporary_work_id = $request->jobId;
+
+    public function storeProjectAssign(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $temporary_work = TemporaryWork::findorfail($id);
+            if ($request->designer) {
+                $designer = User::findOrFail($request->designer);
+                $job_assign = new EstimatorDesignerList();
+                $job_assign->temporary_work_id = $id;
                 $job_assign->user_id = $designer->id;
-                $job_assign->type = $designer->roles[0]->name;
+                $job_assign->type = 'designer';
                 $job_assign->start_date = $request->designer_start_date;
                 $job_assign->end_date = $request->designer_end_date;
-                $code='123';
-                if($job_assign->save()){ 
-                    Notification::route('mail', $designer->email)->notify(new DesignerAwarded($request->jobId,$designer->email,$code));
-                }     
+                $job_assign->email = $designer->email;
+                $job_assign->estimatorApprove = 1;
+                $code=random_int(100000, 999999);
+                $job_assign->code = $code;
+                if ($job_assign->save()) {
+                    //send mail to admin
+                $notify_admins_msg = [
+                    'greeting' => 'Temporary Work Pdf',
+                    'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$temporary_work->projno,
+                    'body' => [
+                        'company' => $temporary_work->company,
+                        'filename' => $temporary_work->ped_url,
+                        'links' => '',
+                        'name' => $temporary_work->ped_url,
+                        'designer' => '123',
+                        'pc_twc' => '',
+
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                    Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email, $is_check = true));
+
+                    // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
+                }
             }
 
-            if($request->checker){
-                $checker = User::findorfail($request->checker);
-                $job_assign = new JobAssign();
-                $job_assign->temporary_work_id = $request->jobId;
+            if ($request->checker) {
+                $checker = User::findOrFail($request->checker);
+                $job_assign = new EstimatorDesignerList();
+                $job_assign->temporary_work_id = $id;
                 $job_assign->user_id = $checker->id;
-                $job_assign->type = $checker->roles[0]->name;
+                $job_assign->type = 'checker';
                 $job_assign->start_date = $request->checker_start_date;
                 $job_assign->end_date = $request->checker_end_date;
-                $code='123';
-                if($job_assign->save()){ 
-                    Notification::route('mail', $checker->email)->notify(new DesignerAwarded($request->jobId,$checker->email,$code));
-                }     
+                $job_assign->email = $checker->email;
+                $job_assign->estimatorApprove = 1;
+                $code=random_int(100000, 999999);
+                $job_assign->code = $code;
+                if ($job_assign->save()) {
+                    //send mail to admin
+                    $notify_admins_msg = [
+                        'greeting' => 'Temporary Work Pdf',
+                        'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$request->projno,
+                        'body' => [
+                            'company' => $temporary_work->company,
+                            'filename' => $temporary_work->ped_url,
+                            'links' => '',
+                            'name' =>  'this is new job assigned',
+                            'designer' => '123',
+                            'pc_twc' => '',
+
+                        ],
+                        'thanks_text' => 'Thanks For Using our site',
+                        'action_text' => '',
+                        'action_url' => '',
+                    ];
+                    // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
+                    Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check = true));
+                }
             }
-            toastSuccess('Project Assign successfully!');
-            return redirect()->back();          
-        }catch (\Exception $exception) {
+            $temporary_work = TemporaryWork::find($id);
+            $temporary_work->designer_company_email	= $designer->email;
+            $temporary_work->desinger_email_2	= $checker->email;
+            $temporary_work->save();
+            DB::commit();
+
+            toastSuccess('Project assigned successfully!');
+            return redirect()->back();
+        } catch (\Exception $exception) {
+            DB::rollback();
             dd($exception->getMessage());
             toastError($exception->getMessage());
-            return Redirect::back();
-         }
+            return redirect()->back();
+        }
     }
 
 
@@ -355,10 +408,13 @@ class DesignerController extends Controller
                 $model->comments = 2;
             }
             $model->twd_name = $request->checkeremail;
+
             if (isset($request->designcheckfile)) {
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
-                $subject = 'TWP– Design Check Certificate Uploaded - '. $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $proj_name = $tempworkdata->project->name ?? '';
+                $proj_no = $tempworkdata->project->no ?? '';
+                $subject = 'TWP– Design Check Certificate Uploaded - '. $proj_name . '-' . $proj_no;
                 $text = $model->created_by.' has uploaded a design check certificate to the Temporary Works Portal.';
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
@@ -371,8 +427,9 @@ class DesignerController extends Controller
                     $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
                     $model->file_name = $imagename;
                 }
-               
-                $subject = 'TWP – Design/Drawing Uploaded-' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $proj_name = $tempworkdata->project->name ?? '';
+                $proj_no = $tempworkdata->project->no ?? '';
+                $subject = 'TWP – Design/Drawing Uploaded-' . $proj_name . '-' . $proj_no;
                 $text =$model->created_by .' has uploaded a new drawing to the Temporary Works Portal.';
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
@@ -400,7 +457,6 @@ class DesignerController extends Controller
                 
                
             }
-           
             
             
             $model->file_type = $file_type;
@@ -420,7 +476,8 @@ class DesignerController extends Controller
                     'body' => [
                         'text' => $text,
                         'company'=>$tempworkdata->company,
-                        'filename' => $tempworkdata->ped_url,
+                        'filename' => '29625684.pdf',
+                        // 'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                         'ext' => '',
@@ -436,6 +493,7 @@ class DesignerController extends Controller
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -444,6 +502,7 @@ class DesignerController extends Controller
     public function get_desings(Request $request)
     {
         $tempworkid = $request->tempworkid;
+    
         $designearray=[];
         $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
         // dd($ramsno);
@@ -1997,12 +2056,12 @@ class DesignerController extends Controller
              $rdate=$history->updated_at;
         }
         $list.='<tr>';
-        $list.='<td>'.$i.'</td>';
-        $list.='<td>'.$history->email.'</td>';
-        $list.='<td>'.$history->type.'</td>';
-        $list.='<td>'.$status.'</td>';
-         $list.='<td>'.$history->message.'</td>';
-        $list.='<td>'.$cdate.'</td><td>'.$rdate.'</td></tr>';
+        $list.='<td style="text-align: center;">'.$i.'</td>';
+        $list.='<td style="text-align: center;">'.$history->email.'</td>';
+        $list.='<td style="text-align: center;">'.$history->type.'</td>';
+        $list.='<td style="text-align: center;">'.$status.'</td>';
+         $list.='<td style="text-align: center;">'.$history->message.'</td>';
+        $list.='<td style="text-align: center;">'.$cdate.'</td><td>'.$rdate.'</td></tr>';
         $i++;
      }
      echo $list;
@@ -2163,7 +2222,6 @@ class DesignerController extends Controller
                     }
                 }
                 //work for pdf
-                // dd("eeee");
                 $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
                 $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
@@ -2220,39 +2278,61 @@ class DesignerController extends Controller
         return $request;
     }
 
-        //send email to desinger and save in database
-        public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
-        {
-               
-                $email_list1=[];
-                $email_list2=[];
-                if(!empty($emails))
+    //send email to desinger and save in database
+    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
+    {
+            
+            $email_list1=[];
+            $email_list2=[];
+            if(!empty($emails))
+            {
+                $email_list1=explode(",",$emails);
+            }
+            if($designers_or_suppliers)
+            {
+                $email_list2=$designers_or_suppliers;
+            }
+            $finalList=array_merge($email_list1,$email_list2);
+            foreach($finalList as $list)
+            {
+                $list=explode('-',$list);
+                $code=random_int(100000, 999999);
+                EstimatorDesignerList::create([
+                    'email'=>$list[0],
+                    'temporary_work_id'=>$temporary_work_id,
+                    'code'=>$code,
+                    'type'=>$type,
+                    'user_id'=>$list[1] ?? NULL,
+                ]);
+                if($action=="Save & Email")
                 {
-                    $email_list1=explode(",",$emails);
-                }
-                if($designers_or_suppliers)
-                {
-                    $email_list2=$designers_or_suppliers;
-                }
-                $finalList=array_merge($email_list1,$email_list2);
-                foreach($finalList as $list)
-                {
-                    $list=explode('-',$list);
-                    $code=random_int(100000, 999999);
-                    EstimatorDesignerList::create([
-                        'email'=>$list[0],
-                        'temporary_work_id'=>$temporary_work_id,
-                        'code'=>$code,
-                        'type'=>$type,
-                        'user_id'=>$list[1] ?? NULL,
-                    ]);
-                    if($action=="Save & Email")
-                    {
-                        Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
-                        
-                    }
+                    Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
                     
                 }
+                
+            }
+    }
+    
+    public function calendar()
+    {
+        try{
+            $jobs = TemporaryWork::with('designerAssign','designerAssign.estimatorDesignerListTasks')->where('created_by', Auth::user()->id)->get();
+            $events = [];
+            foreach($jobs as $job){
+                $events[] = [
+                    'title' => $job->projname,
+                    'start' => $job->designerAssign->start_date ?? '',
+                    'end' => $job->designerAssign->end_date ?? '',
+                ];
+            }
+                
+        return view('dashboard.calendar.index', compact('events'));
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError($exception->getMessage());
+            return Redirect::back();
         }
+    }
+    
 
 }

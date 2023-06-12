@@ -1,5 +1,5 @@
-{{-- @extends('layouts.dashboard.master_user',['title' => 'Temporary Works']) --}}
-@extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master_user',['title' => 'Temporary Works'])
+{{-- @extends('layouts.dashboard.master',['title' => 'Temporary Works']) --}}
 
 @section('styles')
 <style>
@@ -347,16 +347,16 @@
             </div>
         </div>
     </div>
-    <div class="modal  fade" id="modal2">
+    <div class="modal fade" id="modal2">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-
-                    <form method="post" action="{{route("approve_pricing")}}"  enctype="multipart/form-data">
-                        <div id="table">
-
-                        </div>
+                    <div id="table">
+                            
+                    </div>
+                    <form method="post" action="{{route("approve_pricing")}}"  class="@if($estimatorWork[0]->work_status == "publish") d-none @endif" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="temporary_work_id" value="{{$id}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" style="padding-left: 10px">
@@ -450,8 +450,10 @@
                         <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton"
                         disabled
                         style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
-                    
+
+                        
                     </form>
+
                 </div>
             </div>
         </div>
@@ -460,22 +462,28 @@
     @endsection
     @section('scripts')
     <script type="text/javascript">
+
+        @if (\Session::has('success'))
+            toastr.success("{{\Session::get('success')}}")
+        @endif
+
+
         var canvas = document.getElementById("sig");
         var signaturePad = new SignaturePad(canvas);
+
         signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
-        $("#signature").val(signaturePad.toDataURL('image/png'));
-        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-        // $('#submitbutton')
-        });
-        $('#clear').click(function(e) {
-            e.preventDefault();
-            signaturePad.clear();
-            $("#signature").val('');
-                $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
-                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
-        });
+            $("#signature").val(signaturePad.toDataURL('image/png'));
+            $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            // $('#submitbutton')
+            });
+            $('#clear').click(function(e) {
+                e.preventDefault();
+                signaturePad.clear();
+                $("#signature").val('');
+                    $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
+            });
 
 
         $('input[name="preliminary_approval"]').on('click', function() {

@@ -1767,7 +1767,7 @@ class DesignerController extends Controller
      {
          $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
          $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
-         $estimatorWork=TemporaryWork::with('designer', 'additionalInformation.unreadComment')->with('project.company')
+         $estimatorWork=TemporaryWork::with('designer', 'additionalInformation.unreadComment' ,'additionalInformation.jobComment')->with('project.company')
          ->whereIn('id',$record)
          ->orWhere('created_by', Auth::user()->id)
          ->whereIn('work_status', ['draft','pending'])
@@ -1787,7 +1787,7 @@ class DesignerController extends Controller
       }
    }
    public function editEstimation($id){
-    $temporary_work = TemporaryWork::with('designerQuote')->findorfail($id);
+    $temporary_work = TemporaryWork::with('designerQuote','additionalInformation')->findorfail($id);
     return view('dashboard.estimator.edit_estimation',['temporary_work' => $temporary_work]);
    }
 
@@ -1795,7 +1795,7 @@ class DesignerController extends Controller
         try
         {
             $temporary_work = TemporaryWork::findOrFail($id); // Assuming you have the $id of the record you want to update
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
             $informationRequired = $request->information_required;
             if($informationRequired == "on")
             {
@@ -1861,7 +1861,7 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -1888,6 +1888,10 @@ class DesignerController extends Controller
              // Create new designer_quote records with updated values
              $designerQuotes = [];
              for ($i = 0; $i < count($request->price); $i++) {
+                if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
                  $designerQuotes[] = [
                      'price' => $request->price[$i],
                      'description' => $request->description[$i],
@@ -2003,6 +2007,7 @@ class DesignerController extends Controller
             }
         }
 
+       
         // $image_name = HelperFunctions::savesignature($request);
         $temporary_work->signature = $image_name;
         $status = 'draft';
@@ -2017,7 +2022,9 @@ class DesignerController extends Controller
         if($temporary_work->work_status == 'pending'){
             Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
         }
-        return redirect(route('estimator_list'));
+
+        return redirect()->back()->with("success" , "Payment Terms Added Successfully");
+        // return redirect(route('estimator_list'));
    }
 
    public function addEstimator(){
@@ -2137,7 +2144,8 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            // dd($all_inputs);
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -2160,6 +2168,10 @@ class DesignerController extends Controller
             $temporary_work = TemporaryWork::create($all_inputs);
             for($i=0;$i<count($request->price);$i++)
             {
+                if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
                 $model=new DesignerQuotation;
                 $model->price=$request->price[$i];
                 $model->description=$request->description[$i];

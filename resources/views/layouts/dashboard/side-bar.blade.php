@@ -46,6 +46,239 @@
                 data-kt-scroll-offset="0">
                 <!--begin::Menu-->
 
+            @if(auth()->user())
+
+                <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
+                    @if(\Auth::user()->hasRole([['admin', 'company']]))
+                    <span class="menu-link userIconLink">
+                        <span class="menu-icon userIcon">
+                            <!-- <i class="fas fa-user fs-3"></i> -->
+                            <img src="{{asset('assets/media/images/alpha-capital.png')}}">
+                        </span>
+                        <span class="menu-icon-hover">
+                            <!-- <i class="fas fa-user fs-3"></i> -->
+                            <img src="{{asset('assets/media/images/1.png')}}">
+                        </span>
+                        <span class="menu-title">Companies & Projects</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    @endif
+                    <div class="menu-sub menu-sub-accordion">
+                        @if(\Auth::user()->hasRole([['admin', 'company']]))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('dashboard')}}">
+                                <span class="menu-title">Dashboard</span>
+                            </a>
+                        </div>
+                        @if(\Auth::user()->hasRole([['user', 'company']]))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('projects.backup')}}">
+                                <span class="menu-title">Backup</span>
+                            </a>
+                        </div>
+                        @endif
+                        @endif
+                        @if(\Auth::user()->hasRole([['admin', 'company']]))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('projects.index')}}">
+                                <!-- <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span> -->
+                                <span class="menu-title">Projects</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('companies.index') }}">
+                                <!-- <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span> -->
+                                <span class="menu-title">Companies</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('users.index') }}">
+                                <span class="menu-title">Users</span>
+                            </a>
+                        </div>
+                        @if(\Auth::user()->hasRole(['admin','company']))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{url('adminDesigner')}}">
+                                <span class="menu-title">Admin Designers</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{url('adminSupplier')}}">
+                                <span class="menu-title">Admin Suppliers</span>
+                            </a>
+                        </div>
+                        @endif
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('designer.list')}}">
+                                <span class="menu-title">Designers</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('suppliers.index')}}">
+                                <span class="menu-title">Suppliers</span>
+                            </a>
+                        </div>
+                        @endif
+
+                        @if(\Auth::user()->hasAnyRole(['company']))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('users.assign.project') }}">
+                                <span class="menu-title">Project Nomination</span>
+                            </a>
+                        </div>
+                        @endif
+                        @if(\Auth::user()->hasAnyRole(['estimator','user']))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('estimator.index') }}">
+                                <span class="menu-title">Estimator Register</span>
+                            </a>
+                        </div>
+                        @endif
+
+                    </div>
+                    @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+                    <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
+                        <span class="menu-link userIconTask">
+                            <span class="menu-icon userTask">
+                                <img src="{{asset('assets/media/images/12.png')}}">
+                            </span>
+                            <span class="menu-icon userHoverTask">
+                                <img src="{{asset('assets/media/images/23.png')}}">
+                            </span>
+                            <span class="menu-title">Temporary Works</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion">
+
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('temporary_works.index') }}">
+                                    <span class="menu-title">Temporary Works Register</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('temporary_works.shared') }}">
+                                    <span class="menu-title">Shared Temporary Works</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('temporary_works.create') }}">
+                                    <span class="menu-title">New Design Brief</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    @endif
+    
+                @if(\Auth::user()->hasRole(['designer','Design Checker','Designer and Design Checker']))
+                    <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
+                        <span class="menu-link userIconTask">
+                            <span class="menu-icon userTask">
+                                <img src="{{asset('assets/media/images/12.png')}}">
+                            </span>
+                            <span class="menu-icon userHoverTask">
+                                <img src="{{asset('assets/media/images/23.png')}}">
+                            </span>
+                            <span class="menu-title">Temporary Work Designer</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion">
+
+                            @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])
+                            &&
+                            \Auth::user()->di_designer_id==NULL)
+
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{url('adminDesigner/create-profile',auth()->user()->id)}}">
+                                    <span class="menu-title">Create Company Profile</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{route('estimator_list')}}">
+                                    <span class="menu-title">Add Jobs</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
+                                    <span class="menu-title">Designer List</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{url('designer/designer')}}">
+                                    <span class="menu-title">Estimator List</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
+                                    <span class="menu-title">Awarded Estimator</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{route('calendar')}}">
+                                    <span class="menu-title">Calendar</span>
+                                </a>
+                            </div>
+                            @endif
+                            @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])
+                            &&
+                            \Auth::user()->company_id)
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{url('designer/designer')}}">
+                                    <span class="menu-title">Estimator List</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
+                                    <span class="menu-title">Awarded Estimator</span>
+                                </a>
+                            </div>
+                            @endif
+                            @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])
+                            &&
+                            \Auth::user()->di_designer_id != NULL)
+                            <div class="menu-item">
+                                <a class="menu-link"
+                                    href="{{url('adminDesigner/create-nomination',auth()->user()->id)}}">
+                                    <span class="menu-title">Add Nomination</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
+                                    <span class="menu-title">Awarded Estimator</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link"
+                                    href="{{url('adminDesigner/create-appointment',auth()->user()->id)}}">
+                                    <span class="menu-title">Add Appointment</span>
+                                </a>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+
+
+            </div>
+
+            @endif
+            <!--end::Menu-->
+        </div>
+        <!--end::Brand-->
+        <!--begin::Aside menu-->
+        <div class="aside-menu flex-column-fluid">
+            <!--begin::Aside Menu-->
+            <div class="hover-scroll-overlay-y my-2 py-5 py-lg-8" id="kt_aside_menu_wrapper" data-kt-scroll="true"
+                data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto"
+                data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu"
+                data-kt-scroll-offset="0">
+                <!--begin::Menu-->
+
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     @if(\Auth::user()->hasRole([['admin', 'company']]))
                     <span class="menu-link userIconLink">
@@ -268,4 +501,13 @@
         <!--end::Aside menu-->
         <!--end::Footer-->
     </div>
+</div>
+            </div>
+
+            @endif
+            <!--end::Menu-->
+        </div>
+    </div>
+    <!--end::Aside menu-->
+    <!--end::Footer-->
 </div>

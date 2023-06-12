@@ -170,6 +170,16 @@
         cursor: pointer;
     }
 
+    .circle.danger-blink {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(255, 30, 0);
+        animation: blink 1s infinite;
+        margin: auto;
+        cursor: pointer;
+    }
+
     @keyframes blink {
       50% {
         opacity: 0;
@@ -287,10 +297,14 @@
                                     <td>{{Auth::user()->email ?? ''}}</td>
                                     <td>
                                         @if(isset($work->AdditionalInformation) && !is_null($work->AdditionalInformation))
-                                            @if($work->additionalInformation->unreadComment->count() > 0)
-                                                <div class="circle blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
+                                            @if($work->additionalInformation->jobComment->count() == 0)
+                                                <div class="circle danger-blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
                                             @else
-                                                <div class="circle unblink"></div>
+                                                @if($work->additionalInformation->unreadComment->count() > 0)
+                                                    <div class="circle blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
+                                                @else
+                                                    <div class="circle unblink"></div>
+                                                @endif
                                             @endif
                                         @else
                                             <div class="circle unblink"></div>
@@ -338,26 +352,48 @@ $data = [
 @include('layouts.dashboard.ajax_call')
 @include('dashboard.modals.nomination_comment')
 <script>
-    let circles = document.querySelectorAll(".circle.blink");
-        circles.forEach(function(circle) {
-            circle.addEventListener("click", function(e) {
-                let element = this;
-                let id = element.dataset.additionalId;
-                $.ajax({
-                    type : "POST",
-                    url : "{{route('get.additional.information.comment')}}",
-                    data : {
-                        id : id,
-                        _token : "{{csrf_token()}}"
-                    },
-                    success : function(res){
-                        document.querySelector("#modal1").querySelector(".comment-body").innerHTML = res.html;
-                        $("#modal1").modal("toggle");
-                    }
+    document.addEventListener("click" , function(e){
+        if(e.target.matches(".circle.blink") || e.target.matches(".circle.danger-blink"))
+        {
+            // alert("danger blink")
+            let element = e.target;
+            let id = element.dataset.additionalId;
+            $.ajax({
+                type : "POST",
+                url : "{{route('get.additional.information.comment')}}",
+                data : {
+                    id : id,
+                    _token : "{{csrf_token()}}"
+                },
+                success : function(res){
+                    document.querySelector("#modal1").querySelector(".comment-body").innerHTML = res.html;
+                    $("#modal1").modal("toggle");
+                }
 
-                })
-            });
-        });
+            })
+        }
+    })
+
+    // let circles = document.querySelectorAll(".circle.blink");
+    //     circles.forEach(function(circle) {
+    //         circle.addEventListener("click", function(e) {
+    //             let element = this;
+    //             let id = element.dataset.additionalId;
+    //             $.ajax({
+    //                 type : "POST",
+    //                 url : "{{route('get.additional.information.comment')}}",
+    //                 data : {
+    //                     id : id,
+    //                     _token : "{{csrf_token()}}"
+    //                 },
+    //                 success : function(res){
+    //                     document.querySelector("#modal1").querySelector(".comment-body").innerHTML = res.html;
+    //                     $("#modal1").modal("toggle");
+    //                 }
+
+    //             })
+    //         });
+    //     });
 
 
         $(document).on("change" ,".notified", function(e){

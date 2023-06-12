@@ -124,15 +124,17 @@ class AdminDesignerController extends Controller
     {
 
         $loggedInUser = Auth::user();
-        
+        $designer = false;
         if ($loggedInUser->di_designer_id !== null) {
             // Child Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->where([
                     'temporary_work_id' => $request->temporary_work_id,
-                    'user_id' => $loggedInUser->id
+                    'type' => 'designer',
+                    // 'user_id' => $loggedInUser->id
                 ])
                 ->first();
+            $designer = ($estimatorDesigner->user_id == $loggedInUser->id) ? true : false;    
         } else {
             // Admin Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
@@ -143,22 +145,24 @@ class AdminDesignerController extends Controller
                 ->where('temporary_work_id', $request->temporary_work_id)
                 ->first();
         }
-        return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner]);
+        return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner, 'designer' => $designer]);
     }
 
     public function awardedEstimatorModalChecker(Request $request)
     {
 
         $loggedInUser = Auth::user();
-        
+        $checker = false;
         if ($loggedInUser->di_designer_id !== null) {
             // Child Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->where([
                     'temporary_work_id' => $request->temporary_work_id,
-                    'user_id' => $loggedInUser->id
+                    'type' => 'checker',
+                    // 'user_id' => $loggedInUser->id
                 ])
                 ->first();
+            $checker = ($estimatorDesigner->user_id == $loggedInUser->id) ? true : false ;
         } else {
             // Admin Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
@@ -170,7 +174,7 @@ class AdminDesignerController extends Controller
                 ->first();
         }
 
-        return view('dashboard.designer.checker_table',['estimatorDesigner' => $estimatorDesigner]);
+        return view('dashboard.designer.checker_table',['estimatorDesigner' => $estimatorDesigner, 'checker' => $checker]);
     }
 
 

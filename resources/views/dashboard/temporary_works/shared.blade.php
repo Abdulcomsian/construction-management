@@ -505,7 +505,7 @@ $tempWorkClass = "d-none";
                                 </select>
                                 </div>
                                 <div class="col-md-2 col-sm-7 margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
+                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 6px; margin:4px 0px 0px 7px;width: 35px !important;"><span class="fa fa-filter"></span></button>
                                 </div>
                             </form>
                         </div>
@@ -520,7 +520,7 @@ $tempWorkClass = "d-none";
                                 </select>
                                 </div>
                                 <div class="col-md-2 col-sm-7 margintop">
-                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 1px; margin:8px 0px 0px 10px;width: 35px !important;"><span class="fa fa-filter"></span></button>
+                                    <button type="submit" class="btn btn-primary mb-2 w-100" style="padding: 6px; margin:4px 0px 0px 7px;width: 35px !important;"><span class="fa fa-filter"></span></button>
                                 </div>
                             </form>
                         </div>

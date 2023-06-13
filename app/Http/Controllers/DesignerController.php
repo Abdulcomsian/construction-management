@@ -2343,17 +2343,17 @@ class DesignerController extends Controller
             foreach ($jobs as $job) {
                 if ($job->designerAssign && $job->checkerAssign) {
                     $color = self::getRandomColor(); // Generate a random color for each event
-
+                    $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
+                    $checker_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
                     // Associate the checker with the job
-                    // $job->checkerAssign->start_date = $job->designerAssign->start_date;
-                    // $job->checkerAssign->end_date = $job->designerAssign->end_date;
-                    $designer_details = 'Project Name: ' . $job->projname .' Designer Name : '.$job->designerAssign->user->name;
-                    $checker_details = 'Project Name: ' . $job->projname .' Checker Name : '.$job->designerAssign->user->name;
+                    $designer_details = 'Project Name: ' . $job->projname .' Designer Name : '.$job->designerAssign->user->name .' Checker Task: '.$designer_task.'%';
+                    $checker_details = 'Project Name: ' . $job->projname .' Checker Name : '.$job->checkerAssign->user->name.' Checker Task: '.$designer_task.'%';
                     $events[] = [
                         'title' => $designer_details,
                         'start' => $job->designerAssign->start_date ?? '',
                         'end' => $job->designerAssign->end_date ?? '',
                         'color' => $color,
+                        // 'task_completion' => $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? null,
                     ];
                     
                     // Use the same color for the checker
@@ -2362,7 +2362,9 @@ class DesignerController extends Controller
                         'start' => $job->checkerAssign->start_date ?? '',
                         'end' => $job->checkerAssign->end_date ?? '',
                         'color' => $color,
-                    ];
+                        // 'task_completion' => $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? null,
+                    ];                    
+                    
                 }
             }
             

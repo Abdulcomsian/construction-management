@@ -19,7 +19,7 @@ class TemporaryWorkNotification extends Notification
      *
      * @return void
      */
-    public function __construct($offerData,$id,$email=NULL,$is_check=true)
+    public function __construct($offerData,$id,$email=NULL,$is_check=null)
     {
         $this->offerData = $offerData;
         $this->id=$id;

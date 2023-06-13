@@ -371,6 +371,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 764b3c9bb24e0113c1e75d8210e59ac284965566
                             @php   
                              $app_url = env('APP_URL');
                             @endphp
@@ -384,6 +388,10 @@
                                                 name="qualification_date[]" value="{{$qf->date}}" required></td>
                                         <td class="tdhight" style="width:35%">
                                             <a target="_blank" href="{{$app_url.$qf->qualification_certificate}}"> Use Uploaded
+<<<<<<< HEAD
+=======
+
+>>>>>>> 764b3c9bb24e0113c1e75d8210e59ac284965566
                                                 File</a>
                                             <span>Or</span>
                                             <input type="file" style="display:inline-block;width:200px;"
@@ -486,11 +494,12 @@
                                     @endphp
                                     <a href="{{$app_url.$nomination->cv}}" target="_blank">View CV</a></h5>
                                     @php } @endphp
+                                <h5>You can upload your cv if applicable {{$app_url.$nomination->cv}}</a></h5>
                             </div>
                             <table class="table nom_table proj table5 table-bordered mt-0">
                                 <input type="file" name="cv" class="form-control">
                             </table>
-                            
+                            {{$app_url.$nomination->cv}}
                         </div>
 
                         <!-- 5th table -->

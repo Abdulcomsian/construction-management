@@ -733,7 +733,7 @@ $tempWorkClass = "d-none";
                                                             <span class="col-5 titleColumn">Drawings &
                                                                 Designs:</span>
                                                             <div class="d-flex col-sm-6"
-                                                                style="column-gap:1rem;margin-left: 32px">
+                                                                style="column-gap:1rem;margin-left: 39px">
                                                                 <div
                                                                     style="padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                     <!-- background: #07D56426; <p class="uploaddrawing cursor-pointer"
@@ -769,7 +769,7 @@ $tempWorkClass = "d-none";
                                                                     style="background: {{$dcolor}};padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                     <p class="uploaddrawinglist cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
-                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; ">
+                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important; ">
                                                                         <span style="font-size: 10px; color: #fff;"
                                                                             class="fa fa-eye"
                                                                             title="Upload Drawings"></span>
@@ -789,7 +789,7 @@ $tempWorkClass = "d-none";
                                                                         }
                                                                         @endphp
                                                                         <span
-                                                                            style="font-size: 13px; color:{{$color}};position: relative; bottom: 1px; left:1px"
+                                                                            style="font-size: 13px; color:{{$color}};position: relative; top: 1px; left:1px"
                                                                             class="fa fa-file"
                                                                             title="View Calculation/Risk Assessment"></span>
                                                                     </p>
@@ -1035,7 +1035,7 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                         </div>
                                                         <div class="d-flex my-2"
-                                                            style="position: relative;bottom: 2px;">
+                                                            style="position: relative;top: 2px;">
                                                             <span class="titleColumn">Date DCC Returned:</span>
                                                             <div
                                                                 style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\TemporaryWork;
 use App\Models\Tempworkshare;
 use App\Models\User;
+use App\Models\EstimatorDesignerList;
 use App\Notifications\TempworkshareNotify;
 use Notification;
 
@@ -282,5 +283,27 @@ class HelperFunctions
     {
         $notifications = auth()->user()->unreadNotifications;
         return $notifications;
+    }
+
+     
+    //get the client email of job id
+    public static function getClientEmailByJobId($temporary_id)
+    {
+        $client = TemporaryWork::select('client_email')->find($temporary_id);
+        return $client->client_email;
+    }
+
+    //get the awarded designer or checker
+    public static function getJobAwardedDesignerorCheckerByJobId($temporary_id, $type)
+    {
+        $designer = EstimatorDesignerList::select('user_id','email')->where(['temporary_work_id' => $temporary_id, 'type' => $type])->first();
+        return $designer;
+    }
+
+    //get the admin designer based on id
+    public static function getJobAdminDesigner($temporary_id)
+    {
+        $designer = TemporaryWork::with('creator')->find($temporary_id);
+        return $designer;
     }
 }

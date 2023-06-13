@@ -1,54 +1,54 @@
 <span data-dismiss="modal" class="modal-close">&times;</span>
+@if(auth()->user()->di_designer_id != null && $designer)
 <form action="{{route('store_award_estimator_hours', $estimatorDesigner->id)}}" method="post">
-@csrf
-@if(auth()->user()->di_designer_id != null)
-<div class="row">
-    <div class="col-md-4">
-        <div class="d-flex inputDiv d-block mb-3">
+    @csrf
+    <div class="row">
+        <div class="col-md-4">
+            <div class="d-flex inputDiv d-block mb-3">
+                <!--begin::Label-->
+                <label class=" fs-6 fw-bold mb-2">
+                    <span class="required">Date</span>
+                </label>
+                <!--end::Label-->
+                <input type="date" name="date"  id="date" style="border: none; width: 100%">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex inputDiv d-block mb-3">
+                <!--begin::Label-->
+                <label class="fs-6 fw-bold mb-2">
+                    <span class="required">Hours</span>
+                </label>
+                <!--end::Label-->
+                <input type="text" name="hours" id="hours" style="border: none; width: 100%">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex inputDiv d-block mb-3">
+                <!--begin::Label-->
+                <label class=" fs-6 fw-bold mb-2">
+                    <span class="required">Completed</span>
+                </label>
+                <!--end::Label-->
+                <input type="number" name="completed"  id="completed" style="border: none; width: 100%">
+            </div>
+        </div>
+        {{-- <div class="col-md-9">
+            <div class="d-flex inputDiv d-block mb-3">
             <!--begin::Label-->
             <label class=" fs-6 fw-bold mb-2">
-                <span class="required">Date</span>
+                <span class="required">Total Esimtated Hours required:</span>
             </label>
             <!--end::Label-->
-            <input type="date" name="date"  id="date" style="border: none; width: 100%">
+            <input type="text" name="name" value="{{$estimatorDesigner->total_hours ?? ''}}" id="" style="border: none; width: 100%">
+            </div>
+        </div> --}}
+    </div>    
+    <div class="row">    
+        <div class="col-md-3 mt-9">
+            <button class="btn btn-primary" type="submit">Submit</button>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="d-flex inputDiv d-block mb-3">
-            <!--begin::Label-->
-            <label class="fs-6 fw-bold mb-2">
-                <span class="required">Hours</span>
-            </label>
-            <!--end::Label-->
-            <input type="text" name="hours" id="hours" style="border: none; width: 100%">
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="d-flex inputDiv d-block mb-3">
-            <!--begin::Label-->
-            <label class=" fs-6 fw-bold mb-2">
-                <span class="required">Completed</span>
-            </label>
-            <!--end::Label-->
-            <input type="number" name="completed"  id="completed" style="border: none; width: 100%">
-        </div>
-    </div>
-    {{-- <div class="col-md-9">
-        <div class="d-flex inputDiv d-block mb-3">
-        <!--begin::Label-->
-        <label class=" fs-6 fw-bold mb-2">
-            <span class="required">Total Esimtated Hours required:</span>
-        </label>
-        <!--end::Label-->
-        <input type="text" name="name" value="{{$estimatorDesigner->total_hours ?? ''}}" id="" style="border: none; width: 100%">
-        </div>
-    </div> --}}
-</div>    
-<div class="row">    
-    <div class="col-md-3 mt-9">
-        <button class="btn btn-primary" type="submit">Submit</button>
-    </div>
-</div>
 </form>
 @endif
 {{-- @if($estimatorDesigner->total_hours) --}}
@@ -69,6 +69,13 @@
             itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
     </div>
 </div> --}}
+@if($estimatorDesigner == null || $estimatorDesigner->estimatorDesignerListTasks == null)
+<div class="row">
+    <div class="col-12">
+        <div class="h3">No Records Found</div>
+    </div>
+</div>
+@else
 <div class="row">
     <div class="col-12">
         <table class="table">
@@ -93,4 +100,4 @@
         </table>
     </div>
 </div>
-{{-- @endif --}}
+@endif

@@ -79,51 +79,12 @@ class DesignerController extends Controller
         return view('projectAssign',$data);
     }
 
-    // public function storeProjectAssign(Request $request){
-    //     try
-    //     {
-    //         if($request->designer){
-    //             $designer = User::findorfail($request->designer);
-    //             $job_assign = new JobAssign();
-    //             $job_assign->temporary_work_id = $request->jobId;
-    //             $job_assign->user_id = $designer->id;
-    //             $job_assign->type = $designer->roles[0]->name;
-    //             $job_assign->start_date = $request->designer_start_date;
-    //             $job_assign->end_date = $request->designer_end_date;
-    //             $code='123';
-    //             if($job_assign->save()){ 
-    //                 Notification::route('mail', $designer->email)->notify(new DesignerAwarded($request->jobId,$designer->email,$code));
-    //             }     
-    //         }
-
-    //         if($request->checker){
-    //             $checker = User::findorfail($request->checker);
-    //             $job_assign = new JobAssign();
-    //             $job_assign->temporary_work_id = $request->jobId;
-    //             $job_assign->user_id = $checker->id;
-    //             $job_assign->type = $checker->roles[0]->name;
-    //             $job_assign->start_date = $request->checker_start_date;
-    //             $job_assign->end_date = $request->checker_end_date;
-    //             $code='123';
-    //             if($job_assign->save()){ 
-    //                 Notification::route('mail', $checker->email)->notify(new DesignerAwarded($request->jobId,$checker->email,$code));
-    //             }     
-    //         }
-    //         toastSuccess('Project Assign successfully!');
-    //         return redirect()->back();          
-    //     }catch (\Exception $exception) {
-    //         dd($exception->getMessage());
-    //         toastError($exception->getMessage());
-    //         return Redirect::back();
-    //      }
-    // }
-
 
     public function storeProjectAssign(Request $request, $id)
     {
         try {
             DB::beginTransaction();
-
+            $temporary_work = TemporaryWork::findorfail($id);
             if ($request->designer) {
                 $designer = User::findOrFail($request->designer);
                 $job_assign = new EstimatorDesignerList();
@@ -132,10 +93,31 @@ class DesignerController extends Controller
                 $job_assign->type = 'designer';
                 $job_assign->start_date = $request->designer_start_date;
                 $job_assign->end_date = $request->designer_end_date;
+                $job_assign->email = $designer->email;
                 $job_assign->estimatorApprove = 1;
-                $code = '123';
+                $code=random_int(100000, 999999);
+                $job_assign->code = $code;
                 if ($job_assign->save()) {
-                    Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
+                    //send mail to admin
+                $notify_admins_msg = [
+                    'greeting' => 'Temporary Work Pdf',
+                    'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$temporary_work->projno,
+                    'body' => [
+                        'company' => $temporary_work->company,
+                        'filename' => $temporary_work->ped_url,
+                        'links' => '',
+                        'name' => $temporary_work->ped_url,
+                        'designer' => '123',
+                        'pc_twc' => '',
+
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                    Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email, $is_check = true));
+
+                    // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
                 }
             }
 
@@ -147,19 +129,43 @@ class DesignerController extends Controller
                 $job_assign->type = 'checker';
                 $job_assign->start_date = $request->checker_start_date;
                 $job_assign->end_date = $request->checker_end_date;
+                $job_assign->email = $checker->email;
                 $job_assign->estimatorApprove = 1;
-                $code = '123';
+                $code=random_int(100000, 999999);
+                $job_assign->code = $code;
                 if ($job_assign->save()) {
-                    Notification::route('mail', $checker->email)->notify(new DesignerAwarded($id, $checker->email, $code));
+                    //send mail to admin
+                    $notify_admins_msg = [
+                        'greeting' => 'Temporary Work Pdf',
+                        'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$request->projno,
+                        'body' => [
+                            'company' => $temporary_work->company,
+                            'filename' => $temporary_work->ped_url,
+                            'links' => '',
+                            'name' =>  'this is new job assigned',
+                            'designer' => '123',
+                            'pc_twc' => '',
+
+                        ],
+                        'thanks_text' => 'Thanks For Using our site',
+                        'action_text' => '',
+                        'action_url' => '',
+                    ];
+                    // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
+                    Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check = true));
                 }
             }
-
+            $temporary_work = TemporaryWork::find($id);
+            $temporary_work->designer_company_email	= $designer->email;
+            $temporary_work->desinger_email_2	= $checker->email;
+            $temporary_work->save();
             DB::commit();
 
             toastSuccess('Project assigned successfully!');
             return redirect()->back();
         } catch (\Exception $exception) {
             DB::rollback();
+            dd($exception->getMessage());
             toastError($exception->getMessage());
             return redirect()->back();
         }
@@ -402,10 +408,13 @@ class DesignerController extends Controller
                 $model->comments = 2;
             }
             $model->twd_name = $request->checkeremail;
+
             if (isset($request->designcheckfile)) {
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
-                $subject = 'TWP– Design Check Certificate Uploaded - '. $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $proj_name = $tempworkdata->project->name ?? '';
+                $proj_no = $tempworkdata->project->no ?? '';
+                $subject = 'TWP– Design Check Certificate Uploaded - '. $proj_name . '-' . $proj_no;
                 $text = $model->created_by.' has uploaded a design check certificate to the Temporary Works Portal.';
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
@@ -418,8 +427,9 @@ class DesignerController extends Controller
                     $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
                     $model->file_name = $imagename;
                 }
-               
-                $subject = 'TWP – Design/Drawing Uploaded-' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+                $proj_name = $tempworkdata->project->name ?? '';
+                $proj_no = $tempworkdata->project->no ?? '';
+                $subject = 'TWP – Design/Drawing Uploaded-' . $proj_name . '-' . $proj_no;
                 $text =$model->created_by .' has uploaded a new drawing to the Temporary Works Portal.';
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
@@ -447,7 +457,6 @@ class DesignerController extends Controller
                 
                
             }
-           
             
             
             $model->file_type = $file_type;
@@ -467,7 +476,8 @@ class DesignerController extends Controller
                     'body' => [
                         'text' => $text,
                         'company'=>$tempworkdata->company,
-                        'filename' => $tempworkdata->ped_url,
+                        'filename' => '29625684.pdf',
+                        // 'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                         'ext' => '',
@@ -483,6 +493,7 @@ class DesignerController extends Controller
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -491,6 +502,7 @@ class DesignerController extends Controller
     public function get_desings(Request $request)
     {
         $tempworkid = $request->tempworkid;
+    
         $designearray=[];
         $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
         // dd($ramsno);
@@ -1755,7 +1767,7 @@ class DesignerController extends Controller
      {
          $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
          $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
-         $estimatorWork=TemporaryWork::with('designer', 'additionalInformation.unreadComment')->with('project.company')
+         $estimatorWork=TemporaryWork::with('designer', 'additionalInformation.unreadComment' ,'additionalInformation.jobComment')->with('project.company')
          ->whereIn('id',$record)
          ->orWhere('created_by', Auth::user()->id)
          ->whereIn('work_status', ['draft','pending'])
@@ -1775,7 +1787,7 @@ class DesignerController extends Controller
       }
    }
    public function editEstimation($id){
-    $temporary_work = TemporaryWork::with('designerQuote')->findorfail($id);
+    $temporary_work = TemporaryWork::with('designerQuote','additionalInformation')->findorfail($id);
     return view('dashboard.estimator.edit_estimation',['temporary_work' => $temporary_work]);
    }
 
@@ -1783,7 +1795,7 @@ class DesignerController extends Controller
         try
         {
             $temporary_work = TemporaryWork::findOrFail($id); // Assuming you have the $id of the record you want to update
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
             $informationRequired = $request->information_required;
             if($informationRequired == "on")
             {
@@ -1849,7 +1861,7 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -1867,7 +1879,6 @@ class DesignerController extends Controller
             $all_inputs['estimator']=1;
             $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
-            $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
             $temporary_work->update($all_inputs);
              // Delete existing designer_quote records
@@ -1876,6 +1887,10 @@ class DesignerController extends Controller
              // Create new designer_quote records with updated values
              $designerQuotes = [];
              for ($i = 0; $i < count($request->price); $i++) {
+                if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
                  $designerQuotes[] = [
                      'price' => $request->price[$i],
                      'description' => $request->description[$i],
@@ -1991,6 +2006,7 @@ class DesignerController extends Controller
             }
         }
 
+       
         // $image_name = HelperFunctions::savesignature($request);
         $temporary_work->signature = $image_name;
         $status = 'draft';
@@ -2005,7 +2021,9 @@ class DesignerController extends Controller
         if($temporary_work->work_status == 'pending'){
             Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
         }
-        return redirect(route('estimator_list'));
+
+        return redirect()->back()->with("success" , "Payment Terms Added Successfully");
+        // return redirect(route('estimator_list'));
    }
 
    public function addEstimator(){
@@ -2125,7 +2143,8 @@ class DesignerController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            // dd($all_inputs);
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -2143,11 +2162,15 @@ class DesignerController extends Controller
             $all_inputs['estimator']=1;
             $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
-            $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
+            // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
             $temporary_work = TemporaryWork::create($all_inputs);
             for($i=0;$i<count($request->price);$i++)
             {
+                if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
                 $model=new DesignerQuotation;
                 $model->price=$request->price[$i];
                 $model->description=$request->description[$i];
@@ -2198,7 +2221,6 @@ class DesignerController extends Controller
                     }
                 }
                 //work for pdf
-                // dd("eeee");
                 $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
                 $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
@@ -2292,17 +2314,23 @@ class DesignerController extends Controller
     
     public function calendar()
     {
-        $jobs = TemporaryWork::with('desginerAssign','desginerAssign.estimatorDesignerListTasks')->get();
-        $events = [];
+        try{
+            $jobs = TemporaryWork::with('designerAssign','designerAssign.estimatorDesignerListTasks')->where('created_by', Auth::user()->id)->get();
+            $events = [];
             foreach($jobs as $job){
                 $events[] = [
                     'title' => $job->projname,
-                    'start' => $job->desginerAssign->start_date,
-                    'end' => $job->desginerAssign->end_date,
+                    'start' => $job->designerAssign->start_date ?? '',
+                    'end' => $job->designerAssign->end_date ?? '',
                 ];
             }
                 
         return view('dashboard.calendar.index', compact('events'));
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError($exception->getMessage());
+            return Redirect::back();
+        }
     }
     
 

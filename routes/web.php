@@ -163,7 +163,7 @@ Route::group(['prefix' => 'Estimator'],function(){
     });
     //Designer routes where he can price up and comment on brief
     Route::get('estimator-designer/design/{id}',[EstimatorController::class,'estimatorDesigner'])->name('estimator.designer');
-    Route::get('estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');
+    // Route::get('estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');
     Route::post('job/comment/reply',[EstimatorController::class , 'jobCommentReply']);
     Route::post('additional/comment/reply',[EstimatorController::class , 'getAdditionalComment'])->name('additional.comment.reply');
     Route::post('get-additional-information',[EstimatorController::class , 'getAdditionalInformation'])->name('get.additional.information');
@@ -294,8 +294,8 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::post('estimation-store' , [DesignerController::class , 'storeEstimation'])->name('estimation_store');
      Route::get('edit-estimation/{id}' , [DesignerController::class , 'editEstimation'])->name('edit_estimation');
      Route::post('update-estimation/{id}' , [DesignerController::class , 'updateEstimation'])->name('update_estimation');
-     Route::post('show-pricing' , [DesignerController::class , 'showPricing'])->name('show_pricing');
-     Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
+    //  Route::post('show-pricing' , [DesignerController::class , 'showPricing'])->name('show_pricing');
+    //  Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
      Route::get('calendar' , [DesignerController::class , 'calendar'])->name('calendar');
     //  Route::get('estimator' , [DesignerController::class , 'Estimator'])->name('estimator');
@@ -308,6 +308,9 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
 
 
 Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['auth'])->name('dashboard');
+Route::get('Estimator/estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');
+Route::post('designer/show-pricing' , [DesignerController::class , 'showPricing'])->name('show_pricing');
+Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
 
 require __DIR__ . '/auth.php';
 

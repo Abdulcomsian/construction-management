@@ -1,7 +1,7 @@
 <span data-dismiss="modal" class="modal-close">&times;</span>
 <form action="{{route('store_award_estimator_hours', $estimatorDesigner->id)}}" method="post">
 @csrf
-@if(auth()->user()->di_designer_id != null)
+@if(auth()->user()->di_designer_id != null && $checker)
 <div class="row">
     <div class="col-md-4">
         <div class="d-flex inputDiv d-block mb-3">

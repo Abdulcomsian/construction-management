@@ -388,7 +388,7 @@
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>{{$estimatorWork->project->name}}</td>
+                                            <td>{{$estimatorWork->project->name ?? ''}}</td>
                                             <td>{{$estimatorWork->company}}</td>
                                             <td><a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">PDF</a>
                                             </td>
@@ -611,7 +611,7 @@
                                             @foreach($AwardedEstimators as $est)
                                             <tr>
                                                 <td>{{$loop->index+1}}</td>
-                                                <td>{{$est->estimator->project->name}}</td>
+                                                <td>{{$est->estimator->project->name ?? $est->estimator->projname}}</td>
                                                 <td>{{$est->estimator->company}}</td>
                                                 <td><a
                                                         href="{{asset('estimatorPdf/'.$est->estimator->ped_url)}}">PDF</a>
@@ -628,79 +628,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- tab 4 -->
-                {{-- <div class="tab-pane" id="tab4" role="tabpanel">
-                    <div class="card-header border-0 pt-2">
-                        @if($ratings)
-                        <div class="container">
-                            <div class="row">
-                                <div class="col mt-4">
-                                    <p class="font-weight-bold ">Review</p>
-                                    <div class="form-group row">
-                                        <div class="col">
-                                            <div class="rated">
-                                                @for($i=1; $i<=$ratings->star_rating; $i++)
-                                                    <label class="star-rating-complete" title="text">{{$i}}
-                                                        stars</label>
-                                                    @endfor
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row mt-4">
-                                        <div class="col">
-                                            <p>{{ $ratings->comments }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @else
-                        <div class="container">
-                            <div class="row">
-                                <div class="col mt-4">
-                                    <form class="py-2 px-4" action="{{url('Estimator/designer-review/save')}}"
-                                        style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
-                                        @csrf
-                                        <input type="hidden" name="company" value="{{$company->company->id}}">
-                                        <input type="hidden" name="email" value="{{$mail}}">
-                                        <p class="font-weight-bold ">Review</p>
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <div class="rate">
-                                                    <input type="radio" id="star5" class="rate" name="rating"
-                                                        value="5" />
-                                                    <label for="star5" title="text">5 stars</label>
-                                                    <input type="radio" checked id="star4" class="rate" name="rating"
-                                                        value="4" />
-                                                    <label for="star4" title="text">4 stars</label>
-                                                    <input type="radio" id="star3" class="rate" name="rating"
-                                                        value="3" />
-                                                    <label for="star3" title="text">3 stars</label>
-                                                    <input type="radio" id="star2" class="rate" name="rating" value="2">
-                                                    <label for="star2" title="text">2 stars</label>
-                                                    <input type="radio" id="star1" class="rate" name="rating"
-                                                        value="1" />
-                                                    <label for="star1" title="text">1 star</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-4">
-                                            <div class="col">
-                                                <textarea class="form-control" name="comment" rows="6 "
-                                                    placeholder="Comment" maxlength="200"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3 text-right">
-                                            <button class="btn btn-sm py-2 px-3 btn-info">Submit
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-                </div> --}}
             </div>
 
         </div>

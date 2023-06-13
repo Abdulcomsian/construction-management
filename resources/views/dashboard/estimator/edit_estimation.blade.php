@@ -379,7 +379,8 @@
                                         <span class="">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" value="{{$temporary_work->date}}"
+                                  
+                                    <input data-date-inline-picker="true" type="date" value="{{$temporary_work->design_issued_date}}"
                                         class="blackBack form-control form-control-solid" placeholder="Date"
                                         name="design_issued_date" id="design_issued_date">
                                 </div>
@@ -392,6 +393,8 @@
 
                                     </label>
                                     <!--end::Label-->
+                                    
+                                    
                                     <input type="text" class="blackBack form-control form-control-solid" value="{{$temporary_work->projaddress}}"
                                         placeholder="Project Address" id="address" name="projaddress">
                                 </div>
@@ -432,6 +435,7 @@
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Design Required by Date:</span>
                                     </label>
+                                 
                                     <input data-date-inline-picker="true"
                                         style=" cursor: pointer;color:#a9abb7 !important;" type="date" value="{{$temporary_work->design_required_by_date}}"
                                         class="customDate blackBack form-control form-control-solid"
@@ -611,6 +615,7 @@
                                     <div style="position:relative;" class="d-flex modalDiv d-block"
                                         data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <label class=" fs-6 fw-bold mb-2" style="bottom: 32px">
+                                            
                                             Attachments / Spec:
                                             <span style="margin-left: 10px;">
                                                 <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img
@@ -635,7 +640,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="Name" name="name" id="admin_name">
+                                        placeholder="Name" name="name" value="{{$temporary_work->name}}" id="admin_name">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -646,7 +651,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="Job title" name="job_title" id="job_title">
+                                        placeholder="Job title" name="job_title" value="{{$temporary_work->job_title}}" id="job_title">
                                 </div>
                             </div>
                         </div>
@@ -658,10 +663,11 @@
                                         <span class="">Company: </span>
                                     </label>
                                     <!--end::Label-->
+                                  
                                     <input type="text" id="companyadmin"
                                         class="blackBack form-control form-control-solid"
-                                        style="background-color:#f5f8fa" placeholder="Company" name="company">
-                                    <input type="hidden" id="company_id" name="company_id">
+                                        style="background-color:#f5f8fa" placeholder="Company" name="company" value="{{$temporary_work->company}}">
+                                    <input type="hidden" id="company_id"  name="company_id">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -671,7 +677,7 @@
                                         <span class="">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" name="date" value=""
+                                    <input data-date-inline-picker="true" type="date" name="date" value="{{$temporary_work->date}}"
                                         style="background-color:#fff" class="form-control form-control-solid">
                                 </div>
                             </div>
@@ -684,8 +690,7 @@
                                         <span>Client Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" name="client_email" class="form-control form-control-slid"
-                                        placeholder="Enter Client Email" />
+                                    <input type="email" name="client_email" class="form-control form-control-slid" value="{{$temporary_work->designerQuote ? $temporary_work->designerQuote[0]->email : "" }}" placeholder="Enter Client Email" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -695,10 +700,10 @@
                                         <span>Status:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select name="" id=""
+                                    <select name="work_status" id=""
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
-                                        <option value="draft">Draft</option>
-                                        <option value="publish">Publish</option>
+                                        <option value="draft" @if($temporary_work->work_status == "draft") selected @endif >Draft</option>
+                                        <option value="publish" @if($temporary_work->work_status == "publish") selected @endif >Publish</option>
                                     </select>
                                 </div>
                             </div>
@@ -722,12 +727,33 @@
                                         <span>Information Required?</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="checkbox" name="information_required" id="information_required"
-                                        style="margin-left:10px;opacity: 0.5" class="blackBack">
-                                    <span style="padding-left:22px;color:#000">Select if additional information is
-                                        required.</span>
+                                    
+                                    <input type="checkbox" name="information_required" id="information_required" style="margin-left:10px;opacity: 0.5" class="blackBack" @if($temporary_work->additionalInformation) checked @endif>
+                                    <span style="padding-left:22px;color:#000">Select if additional information is required.</span>
                                 </div>
                             </div>
+
+                            <div class="col-md-12 additional_information @if(!$temporary_work->additionalInformation) d-none @endif" style="margin-top: -30px; margin-bottom: 20px;">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="required  fs-6 fw-bold mb-2"
+                                            style="bottom: 0; top: -13px; height: fit-content;">
+                                            Additional Information:
+                                        </label>
+                                        <textarea class="blackBack form-control"
+                                            name="additional_information"
+                                            style="height:64px; border: none" 
+                                            rows="4" 
+                                            cols="50"
+                                            placeholder="Provide additional information.">@if($temporary_work->additionalInformation) {{$temporary_work->additionalInformation->more_details}} @endif
+                                            
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                         @if($temporary_work->work_status == 'pending')
                             <div class="row mt-md-3 text-center">
@@ -904,5 +930,11 @@
             }
         });
     });
+
+    $(document).on("change" , "#information_required" , function(e){
+        let additionalInformation = document.querySelector(".additional_information");
+        let checkbox = this;
+        checkbox.checked == true ? additionalInformation.classList.remove("d-none") : additionalInformation.classList.add("d-none"); 
+    })
 </script>
 @endsection

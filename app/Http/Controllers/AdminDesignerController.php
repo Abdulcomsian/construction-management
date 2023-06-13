@@ -95,7 +95,7 @@ class AdminDesignerController extends Controller
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments', 'desginerAssign','checkerAssign')
+            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments', 'designerAssign','checkerAssign')
             ->whereIn('id',$awarded)
             ->orWhere('created_by', Auth::user()->id)
             ->where('work_status', 'publish')
@@ -124,75 +124,66 @@ class AdminDesignerController extends Controller
     {
 
         $loggedInUser = Auth::user();
-        // $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->where(['temporary_work_id'=>$request->temporary_work_id,'user_id'=>Auth::user()->id])->first();
-        
+        $designer = false;
         if ($loggedInUser->di_designer_id !== null) {
             // Child Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->where([
                     'temporary_work_id' => $request->temporary_work_id,
-                    'user_id' => $loggedInUser->id
+                    'type' => 'designer',
+                    // 'user_id' => $loggedInUser->id
                 ])
                 ->first();
+            $designer = ($estimatorDesigner->user_id == $loggedInUser->id) ? true : false;    
         } else {
             // Admin Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->whereHas('Estimator', function ($query) use ($loggedInUser) {
                     $query->where('created_by', $loggedInUser->id);
                 })
+                ->where('type','designer')
                 ->where('temporary_work_id', $request->temporary_work_id)
                 ->first();
         }
-
-        return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner]);
+        return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner, 'designer' => $designer]);
     }
 
     public function awardedEstimatorModalChecker(Request $request)
     {
 
         $loggedInUser = Auth::user();
-        
+        $checker = false;
         if ($loggedInUser->di_designer_id !== null) {
             // Child Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->where([
                     'temporary_work_id' => $request->temporary_work_id,
-                    'user_id' => $loggedInUser->id
+                    'type' => 'checker',
+                    // 'user_id' => $loggedInUser->id
                 ])
                 ->first();
+            $checker = ($estimatorDesigner->user_id == $loggedInUser->id) ? true : false ;
         } else {
             // Admin Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->whereHas('Estimator', function ($query) use ($loggedInUser) {
                     $query->where('created_by', $loggedInUser->id);
                 })
+                ->where('type','checker')
                 ->where('temporary_work_id', $request->temporary_work_id)
                 ->first();
         }
 
-        return view('dashboard.designer.checker_table',['estimatorDesigner' => $estimatorDesigner]);
+        return view('dashboard.designer.checker_table',['estimatorDesigner' => $estimatorDesigner, 'checker' => $checker]);
     }
 
 
     public function allocatedDesignerModal(Request $request)
     {
         $loggedInUser = Auth::user();
-
         $users = User::where('di_designer_id',$loggedInUser->id)->get();
-
-        $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks','user')
-                ->where([
-                    'temporary_work_id' => $request->temporary_work_id,
-                    'user_id' => $loggedInUser->id
-                ])->whereIn('type',['designer','Designer and Design Checker'])
-                ->first();
-
-        $estimatorChecker = EstimatorDesignerList::with('estimatorDesignerListTasks','user')
-        ->where([
-            'temporary_work_id' => $request->temporary_work_id,
-            'user_id' => $loggedInUser->id
-        ])->whereIn('type',['checker','Designer and Design Checker'])
-        ->first();
+        $estimatorDesigner = TemporaryWork::with('designerAssign','designerAssign.user')->findorfail($request->temporary_work_id);
+        $estimatorChecker = TemporaryWork::with('checkerAssign','checkerAssign.user')->findorfail($request->temporary_work_id);
         // Prepare the data to be passed to the view
         $data = [
             'loggedInUser' => $loggedInUser,
@@ -214,7 +205,7 @@ class AdminDesignerController extends Controller
             $designer_tasks->date = $request->date;
             $designer_tasks->hours = $request->hours;
             $designer_tasks->completed = $request->completed;
-            $designer_tasks->user_id = Auth::user()->id;
+            // $designer_tasks->user_id = Auth::user()->id;
             $designer_tasks->save();
             toastSuccess('Designer tasks saved successfully!');
             return Redirect::back();

@@ -184,7 +184,7 @@ $tempWorkClass = "d-none";
     }
 
     #kt_content_container {
-        background-color: #e9edf1;
+        background-color: #e9edf1 !important;
         padding: 0 !important;
     }
 

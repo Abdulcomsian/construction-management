@@ -735,14 +735,14 @@ $tempWorkClass = "d-none";
                                                             <div class="d-flex col-sm-6"
                                                                 style="column-gap:1rem;margin-left: 32px">
                                                                 <div
-                                                                    style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
-                                                                    <p class="uploaddrawing cursor-pointer"
+                                                                    style="padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                                    <!-- background: #07D56426; <p class="uploaddrawing cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
                                                                         style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
                                                                         <span style="font-size: 12px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span>
-                                                                    </p>
+                                                                    </p> -->
                                                                 </div>
                                                                 @php
                                                                 $date='';
@@ -811,8 +811,8 @@ $tempWorkClass = "d-none";
                                                                 @if(count($item->unloadpermits)>0 ||
                                                                 count($item->closedpermits)>0 || $drawingscount)
                                                                 <div
-                                                                    style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
-                                                                    <p class="cursor-pointer permit-to-load-btn"
+                                                                    style="padding: 4px; border-radius: 4px; width: 20px; height:20px;">
+                                                                    <!-- background: #07D56426; <p class="cursor-pointer permit-to-load-btn"
                                                                         style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
                                                                         data-type="add"
                                                                         data-id="{{Crypt::encrypt($item->id)}}"
@@ -821,7 +821,7 @@ $tempWorkClass = "d-none";
                                                                             style="font-size: 12px; color: #07D564; position: relative !important; bottom: 3px"
                                                                             class="fa fa-plus"
                                                                             title="permit to load"></span>
-                                                                    </p>
+                                                                    </p> -->
                                                                 </div>
                                                                 @elseif(count($item->unloadpermits)>0 ||
                                                                 count($item->closedpermits)>0)
@@ -846,7 +846,7 @@ $tempWorkClass = "d-none";
                                                                             subDays(7))->count();
                                                                             $color="orange";
                                                                             $class='';
-                                                                            $width="55px";
+                                                                            $width="76px";
                                                                             if($permitexpire>0 || $scaffoldexpire>0)
                                                                             {
                                                                             $color="red";
@@ -928,10 +928,10 @@ $tempWorkClass = "d-none";
                                                                 <div class="d-flex col-sm-6" id="ptu"
                                                                     style="column-gap: 1rem;">
                                                                     <div
-                                                                        style="@if(count($item->permits) > 0 || count($item->scaffold) > 0) background: #07D56426; @endif padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                                        style="@if(count($item->permits) > 0 || count($item->scaffold) > 0)  @endif padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                         @if(count($item->permits) > 0 ||
                                                                         count($item->scaffold) > 0)
-                                                                        <p class="permit-to-unload cursor-pointer"
+                                                                        <!-- background: #07D56426; <p class="permit-to-unload cursor-pointer"
                                                                             style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
                                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                                             data-desc="{{$item->design_requirement_text}}">
@@ -939,7 +939,7 @@ $tempWorkClass = "d-none";
                                                                                 style="font-size: 12px; color: #07D564;"
                                                                                 class="fa fa-plus"
                                                                                 title="Upload Drawings"></span>
-                                                                        </p>
+                                                                        </p> -->
                                                                         @endif
                                                                     </div>
 
@@ -1145,25 +1145,25 @@ $tempWorkClass = "d-none";
 
                                                                     @if(\Auth::user()->hasRole([['admin',
                                                                     'company','user']]))
-                                                                    <a href="javascript:void(0)"
+                                                                    <!-- <a href="javascript:void(0)"
                                                                         class="btn  p-0 m-1 sharebutton"
                                                                         style="border-radius: 21%;"
                                                                         data-id={{Crypt::encrypt($item->id)}}>
                                                                         <i style="padding:3px;"
                                                                             class="fa fa-share-alt"></i>
-                                                                    </a>
+                                                                    </a> -->
                                                                     @endif
                                                             </span>
                                                             <ul class=""
                                                                 style="display: flex;column-gap: 0.5rem;list-style: none; @if(count($item->scancomment)>0) padding: 0 1px 0px 38px; @else padding: 0 1px 0px 58px; @endif margin-bottom: 0;position: relative;bottom: 1px;">
-                                                                <li class="navi-item">
+                                                                <!-- <li class="navi-item">
                                                                     @if(\Auth::user()->hasRole('admin'))
                                                                     <a href="{{route('tempwork.sendattach',$item->id)}}"
                                                                         class="btn p-0 m-1"><i
                                                                             class="fa fa-arrow-right"></i></a>
                                                                     @endif
-                                                                </li>
-                                                                <li class="navi-item">
+                                                                </li> -->
+                                                                <!-- <li class="navi-item">
                                                                     @if(\Auth::user()->hasRole([['admin',
                                                                     'company','user']]))
                                                                     <span class="btn p-0 m-1 changeemail"
@@ -1173,8 +1173,8 @@ $tempWorkClass = "d-none";
                                                                             class="fa fa-exchange-alt"></i>
                                                                     </span>
                                                                     @endif
-                                                                </li>
-                                                                <li class="navi-item">
+                                                                </li> -->
+                                                                <!-- <li class="navi-item">
                                                                     @if(\Auth::user()->hasRole([['admin',
                                                                     'company','user']]))
                                                                     <form method="POST"
@@ -1189,7 +1189,7 @@ $tempWorkClass = "d-none";
                                                                         </button>
                                                                     </form>
                                                                     @endif
-                                                                </li>
+                                                                </li> -->
                                                                 <!-- <li class="navi-item">
                                                       
                                                                 </li> -->

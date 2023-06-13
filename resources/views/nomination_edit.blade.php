@@ -480,7 +480,12 @@
 
                         <div class="table-responsive bordered">
                             <div class="bg_grey p-3">
-                                <h5>You can upload your cv if applicable {{$app_url.$nomination->cv}}</a></h5>
+                                <h5>You can upload your cv if applicable 
+                                    @php
+                                    if($nomination->cv){
+                                    @endphp
+                                    <a href="{{$app_url.$nomination->cv}}">View CV</a></h5>
+                                    @php } @endphp
                             </div>
                             <table class="table nom_table proj table5 table-bordered mt-0">
                                 <input type="file" name="cv" class="form-control">

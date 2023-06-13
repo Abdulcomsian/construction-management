@@ -423,26 +423,48 @@ class HomeController extends Controller
                 $file = $request->file('cv');
                 $cv = HelperFunctions::saveFile(null, $file, $filePath);
             }
-            $all_inputs=[
-                'project'=>$request->project,
-                'project_manager'=>$request->project_manager,
-                'nominated_person'=>$request->nominated_person,
-                'nominated_role'=>$request->nominated_role,
-                'nominated_person_employer'=>$request->nominated_person_employer,
-                'description_of_role'=>$request->description_of_role,
-                'Description_limits_authority'=>$request->Description_limits_authority,
-                'authority_issue_permit'=>$request->authority_issue_permit,
-                'print_name'=>$request->print_name,
-                'job_title'=>$request->job_title,
-                'signature'=>$image_name,
-                'print_name1'=>$request->print_name1,
-                'job_title1'=>$request->job_title1,
-                'signature1'=>$request->signature1,
-                'user_id'=>$request->user_id,
-                'status'=>0,
-                'cv'=>$cv,
-
-            ];
+            if($cv==''){
+                $all_inputs=[
+                    'project'=>$request->project,
+                    'project_manager'=>$request->project_manager,
+                    'nominated_person'=>$request->nominated_person,
+                    'nominated_role'=>$request->nominated_role,
+                    'nominated_person_employer'=>$request->nominated_person_employer,
+                    'description_of_role'=>$request->description_of_role,
+                    'Description_limits_authority'=>$request->Description_limits_authority,
+                    'authority_issue_permit'=>$request->authority_issue_permit,
+                    'print_name'=>$request->print_name,
+                    'job_title'=>$request->job_title,
+                    'signature'=>$image_name,
+                    'print_name1'=>$request->print_name1,
+                    'job_title1'=>$request->job_title1,
+                    'signature1'=>$request->signature1,
+                    'user_id'=>$request->user_id,
+                    'status'=>0,
+                ];
+            }else{
+                $all_inputs=[
+                    'project'=>$request->project,
+                    'project_manager'=>$request->project_manager,
+                    'nominated_person'=>$request->nominated_person,
+                    'nominated_role'=>$request->nominated_role,
+                    'nominated_person_employer'=>$request->nominated_person_employer,
+                    'description_of_role'=>$request->description_of_role,
+                    'Description_limits_authority'=>$request->Description_limits_authority,
+                    'authority_issue_permit'=>$request->authority_issue_permit,
+                    'print_name'=>$request->print_name,
+                    'job_title'=>$request->job_title,
+                    'signature'=>$image_name,
+                    'print_name1'=>$request->print_name1,
+                    'job_title1'=>$request->job_title1,
+                    'signature1'=>$request->signature1,
+                    'user_id'=>$request->user_id,
+                    'status'=>0,
+                    'cv'=>$cv,
+    
+                ];
+            }
+            
 
                Nomination::where(['user_id'=>$request->user_id,'project'=>$request->project])->update($all_inputs);
                $nomination=Nomination::with('projectt')->where(['user_id'=>$request->user_id,'project'=>$request->project])->first();

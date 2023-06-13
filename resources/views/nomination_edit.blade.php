@@ -484,7 +484,7 @@
                                     @php
                                     if($nomination->cv){
                                     @endphp
-                                    <a href="{{$app_url.$nomination->cv}}">View CV</a></h5>
+                                    <a href="{{$app_url.$nomination->cv}}" target="_blank">View CV</a></h5>
                                     @php } @endphp
                             </div>
                             <table class="table nom_table proj table5 table-bordered mt-0">

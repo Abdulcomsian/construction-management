@@ -111,7 +111,7 @@
                         </td>
                         <td style="max-height:70px !important; font-size:12px;"> {{$data['twc_name']}}</td>
                         <td style="width: 150px;background:gray;color:white">
-                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWc Email</b></label>
+                            <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">TWC Email</b></label>
                         </td>
                         <td style="max-height:70px !important; font-size:12px;">
                             {{$data['twc_email']}}

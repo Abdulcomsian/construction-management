@@ -480,8 +480,17 @@ class UserController extends Controller
         $i=1;
         foreach($ncomments as $comment)
         {
+            $send_date = date('d-m-Y H:m', strtotime($comment->send_date));
+            $read_date = date('d-m-Y H:m', strtotime($comment->read_date));
+
+            if(date('d-m-Y', strtotime($send_date)) == "01-01-1970"){
+                $send_date ='';
+            }
+            if(date('d-m-Y', strtotime($read_date)) == "01-01-1970"){
+                $read_date ='';
+            }
             $list.="<tr><td>".$i."</td><td>".$comment->email."</td><td>".$comment->comment."</td>";
-            $list.="<td>".$comment->type."</td><td>".date('d-m-Y', strtotime($comment->send_date))."</td><td>".$comment->read_date."</td></tr>";
+            $list.="<td>".$comment->type."</td><td>".$send_date."</td><td>".$read_date."</td></tr>";
             $i++;
         }
         echo $list;

@@ -2056,8 +2056,6 @@ class DesignerController extends Controller
      $i=1;
      foreach($changedemailhistory as $history)
      {
-        
-         $cdate=$history->created_at;
         if($history->status==1)
         {
             $status="Read";
@@ -2072,13 +2070,24 @@ class DesignerController extends Controller
              $status="";
              $rdate=$history->updated_at;
         }
+
+        $cdate = date('d-m-Y H:m', strtotime($history->created_at));
+        $rdate = date('d-m-Y H:m', strtotime($rdate));
+
+        if(date('d-m-Y', strtotime($cdate)) == "01-01-1970"){
+            $cdate ='';
+        }
+        if(date('d-m-Y', strtotime($rdate)) == "01-01-1970"){
+            $rdate ='';
+        }
         $list.='<tr>';
         $list.='<td style="text-align: center;">'.$i.'</td>';
         $list.='<td style="text-align: center;">'.$history->email.'</td>';
         $list.='<td style="text-align: center;">'.$history->type.'</td>';
         $list.='<td style="text-align: center;">'.$status.'</td>';
          $list.='<td style="text-align: center;">'.$history->message.'</td>';
-        $list.='<td style="text-align: center;">'.$cdate.'</td><td>'.$rdate.'</td></tr>';
+        $list.='<td style="text-align: center;">'.$cdate.'</td>
+        <td>'.$rdate.'</td></tr>';
         $i++;
      }
      echo $list;

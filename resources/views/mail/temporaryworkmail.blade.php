@@ -25,8 +25,10 @@
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                         Welcome to the Temporary Works Portal.  <br><br>
-                                                                        Attached is a PDF design brief created by {{$details['body']['company']}} for your attention.<br><br>
-                                                                        The design brief includes all relevant documents.
+                                                                        <!-- Attached is a PDF design brief created by {{$details['body']['company']}} for your attention.<br><br>
+                                                                        The design brief includes all relevant documents. -->
+                                                                      
+                                                                        Attached is the design brief you have created and has been sent to the designer. your design brief is saved on the portal but we have also attached it in this email incase you need it. 
                                                                         
                                                                    </p>
                                                                    @if($details['body']['designer'])

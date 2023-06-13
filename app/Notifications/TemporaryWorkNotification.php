@@ -51,6 +51,7 @@ class TemporaryWorkNotification extends Notification
         } else{
             $path = public_path('pdf/' . $this->offerData['body']['filename']);
         }
+        
         return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])

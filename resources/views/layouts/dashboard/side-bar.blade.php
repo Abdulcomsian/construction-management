@@ -208,7 +208,7 @@
                         </div>
                         <div class="menu-item">
                             <a class="menu-link" href="{{url('designer/designer')}}">
-                                <span class="menu-title">Estimator List</span>
+                                <span class="menu-title">Estimator's Bid</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -226,7 +226,7 @@
                         \Auth::user()->company_id)
                         <div class="menu-item">
                             <a class="menu-link" href="{{url('designer/designer')}}">
-                                <span class="menu-title">Estimator List</span>
+                                <span class="menu-title">Estimator's Bid</span>
                             </a>
                         </div>
                         <div class="menu-item">

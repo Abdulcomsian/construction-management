@@ -371,12 +371,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<<<<<<< HEAD
+
                             @php   
                              $app_url = env('APP_URL');
                             @endphp
-=======
->>>>>>> aa27263102ee76330fdea3569ce74d93926201f6
 
                                     @foreach($qualifications as $qf)
                                     <tr>
@@ -386,11 +384,8 @@
                                         <td class="tdhight" style="width:25%"><input type="date"
                                                 name="qualification_date[]" value="{{$qf->date}}" required></td>
                                         <td class="tdhight" style="width:35%">
-<<<<<<< HEAD
                                             <a target="_blank" href="{{$app_url.$qf->qualification_certificate}}"> Use Uploaded
-=======
-                                            <a target="_blank" href="{{$qf->qualification_certificate}}"> Use Uploaded
->>>>>>> aa27263102ee76330fdea3569ce74d93926201f6
+
                                                 File</a>
                                             <span>Or</span>
                                             <input type="file" style="display:inline-block;width:200px;"
@@ -434,11 +429,9 @@
                                         <td class="tdhight" style="width:25%"><input type="date" name="course_date[]"
                                                 value="{{$cs->date}}" required></td>
                                         <td class="tdhight" style="width:35%">
-<<<<<<< HEAD
+
                                             <a target="_blank" href="{{$app_url.$cs->course_certificate}}"> Use Uploaded File</a>
-=======
-                                            <a target="_blank" href="{{$cs->course_certificate}}"> Use Uploaded File</a>
->>>>>>> aa27263102ee76330fdea3569ce74d93926201f6
+
                                             <span>Or</span>
                                             <input type="file" style="display:inline-block;width:200px;"
                                                 name="course_file[]">
@@ -491,16 +484,12 @@
 
                         <div class="table-responsive bordered">
                             <div class="bg_grey p-3">
-<<<<<<< HEAD
                                 <h5>You can upload your cv if applicable {{$app_url.$nomination->cv}}</a></h5>
-=======
-                                <h5>You can upload your cv if applicable</h5>
->>>>>>> aa27263102ee76330fdea3569ce74d93926201f6
                             </div>
                             <table class="table nom_table proj table5 table-bordered mt-0">
                                 <input type="file" name="cv" class="form-control">
                             </table>
-                            
+                            {{$app_url.$nomination->cv}}
                         </div>
 
                         <!-- 5th table -->

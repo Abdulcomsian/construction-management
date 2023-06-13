@@ -470,24 +470,41 @@ class DesignerController extends Controller
                 $chm->message='Designer Uploaded Design';
                 $chm->status = 2;
                 $chm->save();
-                $notify_admins_msg = [
-                    'greeting' => 'Designer Upload Document',
-                    'subject' => $subject,
-                    'body' => [
-                        'text' => $text,
-                        'company'=>$tempworkdata->company,
-                        'filename' => '29625684.pdf',
-                        // 'filename' => $tempworkdata->ped_url,
-                        'links' =>  '',
-                        'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
-                        'ext' => '',
-                        'filetype'=>$file_type,
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
-                ];
-                Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                $selectedEmails = $request->input('emails');
+                if(!$selectedEmails){
+                    $notify_admins_msg = [
+                        'greeting' => 'Designer Upload Document',
+                        'subject' => $subject,
+                        'body' => [
+                            'text' => $text,
+                            'company'=>$tempworkdata->company,
+                            'filename' => '29625684.pdf',
+                            // 'filename' => $tempworkdata->ped_url,
+                            'links' =>  '',
+                            'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
+                            'ext' => '',
+                            'filetype'=>$file_type,
+                        ],
+                        'thanks_text' => 'Thanks For Using our site',
+                        'action_text' => '',
+                        'action_url' => '',
+                    ];
+                    Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                } else{
+                    foreach ($selectedEmails as $email) {
+                        $notify_admins_msg['greeting'] = 'Designer Upload Document';
+                        $notify_admins_msg['subject'] = $subject;
+                        $notify_admins_msg['body']['text'] = $text;
+                        $notify_admins_msg['body']['company'] = $tempworkdata->company;
+                        $notify_admins_msg['body']['filename'] = '29625684.pdf';
+                        $notify_admins_msg['body']['name'] = $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
+                        $notify_admins_msg['body']['filetype'] = $file_type;
+                    
+                        Notification::route('mail', $email)->notify(new DesignUpload($notify_admins_msg));
+                    }
+                }
+                
+                    
                 // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();
@@ -1879,6 +1896,7 @@ class DesignerController extends Controller
             $all_inputs['estimator']=1;
             $all_inputs['work_status']=$request->work_status;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
+            // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
             $temporary_work->update($all_inputs);
              // Delete existing designer_quote records

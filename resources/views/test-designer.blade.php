@@ -1111,14 +1111,12 @@
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <div>
-                              <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
-                                 Cert:</span><i class="icon-edit" data-toggle="modal"
+                              <span class=" titleColumn" style="font-weight: bold; color: black">Designer Progress:</span><i class="icon-edit" data-toggle="modal"
                                  data-target="#DesignCheckCertModal" id="time-estimator"  data-rowid="{{$item->id}}"
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                            </div>
                            <div>
-                              <span class=" titleColumn" style="font-weight: bold; color: black">Design Check
-                                 Cert:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
+                              <span class=" titleColumn" style="font-weight: bold; color: black">Checker Progress:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                            </div>
                         </div>

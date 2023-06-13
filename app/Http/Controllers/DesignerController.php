@@ -2332,23 +2332,56 @@ class DesignerController extends Controller
     
     public function calendar()
     {
-        try{
-            $jobs = TemporaryWork::with('designerAssign','designerAssign.estimatorDesignerListTasks')->where('created_by', Auth::user()->id)->get();
+        try {
+            $jobs = TemporaryWork::with('checkerAssign', 'designerAssign','checkerAssign.user', 'designerAssign.user',
+                'designerAssign.estimatorDesignerListTasks','checkerAssign.estimatorDesignerListTasks')
+                ->where('created_by', Auth::user()->id)
+                ->get();
+
             $events = [];
-            foreach($jobs as $job){
-                $events[] = [
-                    'title' => $job->projname,
-                    'start' => $job->designerAssign->start_date ?? '',
-                    'end' => $job->designerAssign->end_date ?? '',
-                ];
+
+            foreach ($jobs as $job) {
+                if ($job->designerAssign && $job->checkerAssign) {
+                    $color = self::getRandomColor(); // Generate a random color for each event
+
+                    // Associate the checker with the job
+                    // $job->checkerAssign->start_date = $job->designerAssign->start_date;
+                    // $job->checkerAssign->end_date = $job->designerAssign->end_date;
+                    $designer_details = 'Project Name: ' . $job->projname .' Designer Name : '.$job->designerAssign->user->name;
+                    $checker_details = 'Project Name: ' . $job->projname .' Checker Name : '.$job->designerAssign->user->name;
+                    $events[] = [
+                        'title' => $designer_details,
+                        'start' => $job->designerAssign->start_date ?? '',
+                        'end' => $job->designerAssign->end_date ?? '',
+                        'color' => $color,
+                    ];
+                    
+                    // Use the same color for the checker
+                    $events[] = [
+                        'title' => $checker_details,
+                        'start' => $job->checkerAssign->start_date ?? '',
+                        'end' => $job->checkerAssign->end_date ?? '',
+                        'color' => $color,
+                    ];
+                }
             }
-                
-        return view('dashboard.calendar.index', compact('events'));
+            
+            return view('dashboard.calendar.index', compact('events'));
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError($exception->getMessage());
             return Redirect::back();
         }
+    }
+
+
+    public function getRandomColor() {
+        $letters = '0123456789ABCDEF';
+        $color = '#';
+        for ($i = 0; $i < 6; $i++) {
+            $color .= $letters[rand(0, 15)];
+        }
+        return $color;
     }
     
 

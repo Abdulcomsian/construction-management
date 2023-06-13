@@ -1135,8 +1135,8 @@
                                  @php $email = $item->checkerAssign->email; @endphp
                            @endif
                          
-                              <a href="{{route('designer.uploaddesign',Crypt::encrypt($item->id).'/?mail='.$email)}}"
-                                 target="_blank"><i class="fa fa-plus"></i>
+                              <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&job=1') }}"
+                              target="_blank"><i class="fa fa-plus"></i>
                               </a>
                               <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1" style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; ">
                                  <span style="font-size: 10px; color: #black;" class="fa fa-eye" title="Upload Drawings"></span>

@@ -3,7 +3,7 @@
     <tr>
         <th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th>
         <th style="width:35%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th>
-        <th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">TWC Reply</th>
+        <th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Client's Reply</th>
     </tr>
    </thead>
    <tbody>

@@ -297,7 +297,7 @@ class HomeController extends Controller
 
                 $model=new NominationComment();
                 $model->email=$user->email;
-                $model->comment="User submit the nominatin form to company ".$company->email."";
+                $model->comment="User submit the nominatin form to ".$company->email."";
                 $model->type="Nomination";
                 $model->send_date=date('Y-m-d H:i:s');
                 // $model->read_date=date('Y-m-d');

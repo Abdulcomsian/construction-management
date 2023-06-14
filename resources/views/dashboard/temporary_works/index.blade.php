@@ -400,7 +400,7 @@ $tempWorkClass = "d-none";
         color: #9D9D9D;
         font-weight: 500;
         font-size: 13px;
-        margin-left: 21px;
+        /* margin-left: 21px; */
         font-family: 'Inter', sans-serif;
         white-space: nowrap;
     }
@@ -1283,6 +1283,7 @@ $tempWorkClass = "d-none";
                                                         </div>
                                                     </td>
                                                     <td style="min-width: 220px; max-width: 80px;">
+                                                        <div>
                                                         <div class="d-flex justify-content-between">
                                                             <span class="titleColumn">Issue Date:</span>
                                                             <span
@@ -1290,7 +1291,7 @@ $tempWorkClass = "d-none";
                                                                 $item->design_issued_date ? date('d-m-Y',
                                                                 strtotime($item->design_issued_date)) : '-' }}</span>
                                                         </div>
-                                                        <div class="d-flex justify-content-between my-2">
+                                                        <div class="d-flex justify-content-between my-4">
                                                             <span class="titleColumn">Required by:</span>
                                                             <span
                                                                 class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? '123'}} desc cursor-pointer"
@@ -1317,8 +1318,9 @@ $tempWorkClass = "d-none";
                                                                 </span>
                                                             </div>
                                                         </div>
+                                                        </div>
                                                     </td>
-                                                    <td style="min-width: 254px; max-width: 80px;">
+                                                    <td style="min-width: 234px; max-width: 80px;">
                                                         <div class="d-flex">
                                                             <span class="col-5 titleColumn">Drawings &
                                                                 Designs:</span>
@@ -1388,7 +1390,7 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                         </div>
 
-                                                        <div class="row my-2">
+                                                        <div class="row my-4">
                                                             <span class="col-6 titleColumn">Permit to load:
                                                                 @if(isset($item->rejectedpermits) &&
                                                                 count($item->rejectedpermits)>0)
@@ -1597,7 +1599,7 @@ $tempWorkClass = "d-none";
                                                             </div>
 
                                                         </div>
-                                                        <div class="d-flex" style="position: relative;top: 0px;">
+                                                        <div class="d-flex my-4" style="position: relative;top: 0px;">
                                                             <span class="titleColumn">Design Check CERT:</span>
                                                             <div
                                                                 style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 18px;">
@@ -1624,7 +1626,7 @@ $tempWorkClass = "d-none";
                                                                 @endforeach
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex my-2"
+                                                        <div class="d-flex"
                                                             >
                                                             <span class="titleColumn">Date DCC Returned:</span>
                                                             <div
@@ -1664,7 +1666,7 @@ $tempWorkClass = "d-none";
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex  my-2" style="position:relative; top:3px;">
+                                                        <div class="d-flex  my-4" style="position:relative; top:3px;">
                                                             <span class="titleColumn">RAMS:</span>
                                                             <div
                                                                 style="display: flex; justify-content: space-between; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:2rem">

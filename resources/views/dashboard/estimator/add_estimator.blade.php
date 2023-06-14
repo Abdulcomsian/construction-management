@@ -723,8 +723,8 @@
                                     <!--end::Label-->
                                     <select name="work_status" id=""
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
-                                        <option value="draft">Draft</option>
-                                        <option value="publish">Publish</option>
+                                        <option value="draft">Draft (Pricing Not Approved)</option>
+                                        <option value="publish">Publish (Pricing Approved)</option>
                                     </select>
                                 </div>
                             </div>

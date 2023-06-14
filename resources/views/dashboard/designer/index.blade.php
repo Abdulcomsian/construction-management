@@ -516,44 +516,48 @@
                                 </div>
                             </div>
                         </div>
-                        @php 
-                            $client_email = HelperFunctions::getClientEmailByJobId($id);
-                            $designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'designer');
-                            $checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'checker');  
-                            $admin_designer = HelperFunctions::getJobAdminDesigner($id);  
-                            $designer_option=false;
-                            $checker_option=false;
-                            $user = auth()->user();
-                            if($user->id == $designer->user_id){
-                                $checker_option=true;
-                            }
-                            if($user->id == $checker->user_id){
-                                $designer_option=true;
-                            }
-                        @endphp
+                        @if(isset($_GET['job']))
+
+                            @php 
+                                $client_email = HelperFunctions::getClientEmailByJobId($id);
+                                $designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'designer');
+                                $checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'checker');  
+                                $admin_designer = HelperFunctions::getJobAdminDesigner($id);  
+                                $designer_option=false;
+                                $checker_option=false;
+                                $user = auth()->user();
+                                if($user->id == $designer->user_id){
+                                    $checker_option=true;
+                                }
+                                if($user->id == $checker->user_id){
+                                    $designer_option=true;
+                                }
+                            @endphp
                         
-                        <div class="row" style="background:white;margin: 0 4px;">
-                                <div class="col-md-12">
-                                    <div class=" inputDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Send Email:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        {{-- <select class="form-control"> --}}
-                                        <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" required>
-                                            <option value="{{$client_email}}">Client ({{$client_email}})</option>
-                                            <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
-                                            @if($designer_option)
-                                                <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
-                                            @endif
-                                            @if($checker_option)
-                                            <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
-                                            @endif
-                                        </select>
+                            <div class="row" style="background:white;margin: 0 4px;">
+                                    <div class="col-md-12">
+                                        <div class=" inputDiv d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Send Email:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            {{-- <select class="form-control"> --}}
+                                            <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" required>
+                                                <option value="{{$client_email}}">Client ({{$client_email}})</option>
+                                                <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
+                                                @if($designer_option)
+                                                    <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
+                                                @endif
+                                                @if($checker_option)
+                                                <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
+                                                @endif
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                        </div>
+                            </div>
+                        @endif
+                    
                         <div class="row" style="background:white;margin: 0 4px;">
                             <div class="col">
                                 <button type="submit" class="btn btn-primary float-start">Upload</button>

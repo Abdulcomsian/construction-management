@@ -19,7 +19,7 @@ class TemporaryWorkNotification extends Notification
      *
      * @return void
      */
-    public function __construct($offerData,$id,$email=NULL,$is_check=true)
+    public function __construct($offerData,$id,$email=NULL,$is_check=null)
     {
         $this->offerData = $offerData;
         $this->id=$id;
@@ -51,6 +51,7 @@ class TemporaryWorkNotification extends Notification
         } else{
             $path = public_path('pdf/' . $this->offerData['body']['filename']);
         }
+        
         return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])

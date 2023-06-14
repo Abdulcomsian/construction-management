@@ -478,8 +478,8 @@ class DesignerController extends Controller
                         'body' => [
                             'text' => $text,
                             'company'=>$tempworkdata->company,
-                            'filename' => '29625684.pdf',
-                            // 'filename' => $tempworkdata->ped_url,
+                            // 'filename' => '29625684.pdf',
+                            'filename' => $tempworkdata->ped_url,
                             'links' =>  '',
                             'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                             'ext' => '',
@@ -496,7 +496,7 @@ class DesignerController extends Controller
                         $notify_admins_msg['subject'] = $subject;
                         $notify_admins_msg['body']['text'] = $text;
                         $notify_admins_msg['body']['company'] = $tempworkdata->company;
-                        $notify_admins_msg['body']['filename'] = '29625684.pdf';
+                        $notify_admins_msg['body']['filename'] = $tempworkdata->ped_url;
                         $notify_admins_msg['body']['name'] = $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                         $notify_admins_msg['body']['filetype'] = $file_type;
                     

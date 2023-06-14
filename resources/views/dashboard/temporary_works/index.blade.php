@@ -692,7 +692,7 @@ $tempWorkClass = "d-none";
                                 <div class="col-md-6">
                                     <div class="row align-items-center" style="justify-content: flex-start;">
                                         <div class="col-md-4 my-2 my-md-0" style="flex-grow: 1">
-                                            <form class="form-inline d-flex" method="get"
+                                            <form class="form-inline d-flex m-0" method="get"
                                                 action="{{route('tempwork.proj.search')}}">
                                                 <div class="col-10">
                                                     <select name="projects[]" class="form-select form-select-lg"
@@ -712,7 +712,7 @@ $tempWorkClass = "d-none";
                                             </form>
                                         </div>
                                         <div class="col-md-4 my-2 my-md-0" style="flex-grow: 1">
-                                            <form class="form-inline d-flex" method="get"
+                                            <form class="form-inline d-flex m-0" method="get"
                                                 action="{{route('tempwork.search')}}">
                                                 <div class="col-10">
                                                     <input type="text" style="border-radius:0px;border-color:#e2e2e2;"
@@ -1189,7 +1189,7 @@ $tempWorkClass = "d-none";
                                                     </td>
                                                     <td>
                                                         <div
-                                                            style="min-width:150pxpx;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;">
+                                                            style="min-width:150px;padding-left: 9px !important;padding-right: 10px !important; display: flex; flex-direction: column; justify-content: space-around; text-align: center;">
                                                             @php
                                                             $qrcode=\App\Models\ProjectQrCode::where(['tempid'=>$item->tempid,'project_id'=>$item->project->id
                                                             ?? ''])->first();
@@ -1328,7 +1328,7 @@ $tempWorkClass = "d-none";
                                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                     <p class="uploaddrawing cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
-                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
+                                                                        style="margin-bottom:0px;font-weight: 400;bottom:3px !important; left: 1px">
                                                                         <span style="font-size: 12px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span>
@@ -1359,7 +1359,7 @@ $tempWorkClass = "d-none";
                                                                     style="background: {{$dcolor}};padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                     <p class="uploaddrawinglist cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
-                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; ">
+                                                                        style="margin-bottom:0px;font-weight: 400;bottom:3px !important; ">
                                                                         <span style="font-size: 10px; color: #fff;"
                                                                             class="fa fa-eye"
                                                                             title="Upload Drawings"></span>
@@ -1379,7 +1379,7 @@ $tempWorkClass = "d-none";
                                                                         }
                                                                         @endphp
                                                                         <span
-                                                                            style="font-size: 13px; color:{{$color}};position: relative; bottom: 1px; left:1px"
+                                                                            style="font-size: 13px; color:{{$color}};position: relative; top: 1px; left:1px"
                                                                             class="fa fa-file"
                                                                             title="View Calculation/Risk Assessment"></span>
                                                                     </p>
@@ -1408,7 +1408,7 @@ $tempWorkClass = "d-none";
                                                                         data-id="{{Crypt::encrypt($item->id)}}"
                                                                         data-desc="{{$item->design_requirement_text}}">
                                                                         <span
-                                                                            style="font-size: 12px; color: #07D564; position: relative !important; bottom: 3px"
+                                                                            style="font-size: 12px; color: #07D564;  bottom: 3px"
                                                                             class="fa fa-plus"
                                                                             title="permit to load"></span>
                                                                     </p>
@@ -1522,7 +1522,7 @@ $tempWorkClass = "d-none";
                                                                         @if(count($item->permits) > 0 ||
                                                                         count($item->scaffold) > 0)
                                                                         <p class="permit-to-unload cursor-pointer"
-                                                                            style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
+                                                                            style="font-weight: 400;font-size: 14px;bottom: 4px;"
                                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                                             data-desc="{{$item->design_requirement_text}}">
                                                                             <span
@@ -1625,7 +1625,7 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                         </div>
                                                         <div class="d-flex my-2"
-                                                            style="position: relative;bottom: 2px;">
+                                                            >
                                                             <span class="titleColumn">Date DCC Returned:</span>
                                                             <div
                                                                 style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
@@ -1673,7 +1673,7 @@ $tempWorkClass = "d-none";
                                                                     <p class="uploadfile cursor-pointer"
                                                                         data-id="{{$item->id}}"
                                                                         data-rams="{{$item->rams_no ?? ''}}"
-                                                                        style="position: relative !important;bottom: 2px;left: 1px;margin-bottom:0px;font-weight: 400;font-size: 14px;"
+                                                                        style="bottom: 2px;left: 1px;margin-bottom:0px;font-weight: 400;font-size: 14px;"
                                                                         data-type="3"><span
                                                                             style="font-size: 12px; color: #07D564;"
                                                                             class="fa fa-plus"
@@ -1700,7 +1700,7 @@ $tempWorkClass = "d-none";
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex " style="position:relative;bottom:3px;">
+                                                        <div class="d-flex " style="position:relative;top:6px;">
                                                             <span class="titleColumn" style="">
                                                                 @if(count($item->scancomment)>0)
                                                                 @php

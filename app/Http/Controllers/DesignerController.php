@@ -2355,14 +2355,13 @@ class DesignerController extends Controller
                     $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
                     $checker_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
                     // Associate the checker with the job
-                    $designer_details = 'Project Name: ' . $job->projname .' Designer Name : '.$job->designerAssign->user->name .' Checker Task: '.$designer_task.'%';
-                    $checker_details = 'Project Name: ' . $job->projname .' Checker Name : '.$job->checkerAssign->user->name.' Checker Task: '.$designer_task.'%';
+                    $designer_details = 'Project Name: ' . $job->projname .', Designer Name : '.$job->designerAssign->user->name .', Designer Task Completed: '.$designer_task.'%';
+                    $checker_details = 'Project Name: ' . $job->projname .', Checker Name : '.$job->checkerAssign->user->name.', Checker Task Completed: '.$designer_task.'%';
                     $events[] = [
                         'title' => $designer_details,
                         'start' => $job->designerAssign->start_date ?? '',
                         'end' => $job->designerAssign->end_date ?? '',
                         'color' => $color,
-                        // 'task_completion' => $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? null,
                     ];
                     
                     // Use the same color for the checker
@@ -2371,7 +2370,6 @@ class DesignerController extends Controller
                         'start' => $job->checkerAssign->start_date ?? '',
                         'end' => $job->checkerAssign->end_date ?? '',
                         'color' => $color,
-                        // 'task_completion' => $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? null,
                     ];                    
                     
                 }

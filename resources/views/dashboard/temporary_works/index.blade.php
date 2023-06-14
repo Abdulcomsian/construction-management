@@ -1702,7 +1702,7 @@ $tempWorkClass = "d-none";
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex " style="position:relative;top:6px;">
+                                                        <div class="d-flex " style="position:relative;top:4px;">
                                                             <span class="titleColumn" style="">
                                                                 @if(count($item->scancomment)>0)
                                                                 @php

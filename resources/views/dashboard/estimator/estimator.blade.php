@@ -266,6 +266,7 @@
                                     <td>testing</td>
                                     <td>testing@gmail.com</td>
                                     <td>company name</td>
+                                    <td>Status</td>
                                     <td><a href="{{route('edit_estimation')}}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                             </tbody>
@@ -282,6 +283,7 @@
                                     <th>Company</th>
                                     <th>Email</th>
                                     <th>Comment</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -310,6 +312,7 @@
                                             <div class="circle unblink"></div>
                                         @endif
                                     </td>
+                                    <td style="text-transform: capitalize;">{{ $work->work_status}}</td>
                                     <td><a href="{{route('edit_estimation',$work->id)}}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                                 @endforeach

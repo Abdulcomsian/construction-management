@@ -522,7 +522,7 @@
                                 $client_email = HelperFunctions::getClientEmailByJobId($id);
                                 $designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'designer');
                                 $checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'checker');  
-                                $admin_designer = HelperFunctions::getJobAdminDesigner($id);  
+                                $admin_designer = HelperFunctions::getJobAdminDesignerByJobId($id);  
                                 $designer_option=false;
                                 $checker_option=false;
                                 $user = auth()->user();

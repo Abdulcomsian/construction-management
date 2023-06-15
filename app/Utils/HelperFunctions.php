@@ -301,9 +301,20 @@ class HelperFunctions
     }
 
     //get the admin designer based on id
-    public static function getJobAdminDesigner($temporary_id)
+    public static function getJobAdminDesignerByJobId($temporary_id)
     {
         $designer = TemporaryWork::with('creator')->find($temporary_id);
         return $designer;
+    }
+
+    //get the checkers and designers
+    public static function getChildDesignersByDesignerId($id)
+    {
+       
+    }
+
+    public static function getChildCheckersByDesignerId()
+    {
+
     }
 }

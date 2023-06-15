@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
 use Notification;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\DesignUpload;
 use App\Notifications\PermitNotification;
 use App\Notifications\ShareDrawingNotification;
@@ -2339,13 +2339,32 @@ class DesignerController extends Controller
             }
     }
     
-    public function calendar()
+    public function calendar(Request $request)
     {
         try {
-            $jobs = TemporaryWork::with('checkerAssign', 'designerAssign','checkerAssign.user', 'designerAssign.user',
-                'designerAssign.estimatorDesignerListTasks','checkerAssign.estimatorDesignerListTasks')
-                ->where('created_by', Auth::user()->id)
-                ->get();
+
+            $user=Auth::user();
+            $users = User::where('di_designer_id', $user->id)->get();
+
+            $checkerId = $request->input('checker_id');
+            $designerId = $request->input('designer_id');
+
+            $jobs = TemporaryWork::with('checkerAssign', 'designerAssign', 'checkerAssign.user', 'designerAssign.user', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
+                ->where('created_by', $user->id);
+
+            if ($checkerId) {
+                $jobs->whereHas('checkerAssign', function ($query) use ($checkerId) {
+                    $query->where('user_id', $checkerId);
+                });
+            }
+
+            if ($designerId) {
+                $jobs->whereHas('designerAssign', function ($query) use ($designerId) {
+                    $query->where('user_id', $designerId);
+                });
+            }
+
+            $jobs = $jobs->get();
 
             $events = [];
 
@@ -2353,17 +2372,16 @@ class DesignerController extends Controller
                 if ($job->designerAssign && $job->checkerAssign) {
                     $color = self::getRandomColor(); // Generate a random color for each event
                     $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
-                    $checker_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
+                    $checker_task = $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
                     // Associate the checker with the job
                     $designer_details = 'Project Name: ' . $job->projname .', Designer Name : '.$job->designerAssign->user->name .', Designer Task Completed: '.$designer_task.'%';
-                    $checker_details = 'Project Name: ' . $job->projname .', Checker Name : '.$job->checkerAssign->user->name.', Checker Task Completed: '.$designer_task.'%';
+                    $checker_details = 'Project Name: ' . $job->projname .', Checker Name : '.$job->checkerAssign->user->name.', Checker Task Completed: '.$checker_task.'%';
                     $events[] = [
                         'title' => $designer_details,
                         'start' => $job->designerAssign->start_date ?? '',
                         'end' => $job->designerAssign->end_date ?? '',
                         'color' => $color,
                     ];
-                    
                     // Use the same color for the checker
                     $events[] = [
                         'title' => $checker_details,
@@ -2371,11 +2389,11 @@ class DesignerController extends Controller
                         'end' => $job->checkerAssign->end_date ?? '',
                         'color' => $color,
                     ];                    
-                    
                 }
             }
             
-            return view('dashboard.calendar.index', compact('events'));
+            return view('dashboard.calendar.index', compact('events', 'users'));
+
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError($exception->getMessage());

@@ -24,11 +24,22 @@
         });
     
         function applyFilter() {
-            var checkerId = document.getElementById('checker-filter').value;
-            var designerId = document.getElementById('designer-filter').value;
-            var url = '{{ route("calendar") }}?checker_id=' + checkerId + '&designer_id=' + designerId;
-            window.location.href = url;
+        var checkerId = document.getElementById('checker-filter').value;
+        var designerId = document.getElementById('designer-filter').value;
+        var url = '{{ route("calendar") }}?';
+
+        // Build the URL based on the selected parameters
+        if (checkerId && !designerId) {
+            url += 'checker_id=' + checkerId;
+        } else if (!checkerId && designerId) {
+            url += 'designer_id=' + designerId;
+        } else if (checkerId && designerId) {
+            url += 'checker_id=' + checkerId + '&designer_id=' + designerId;
         }
+
+        window.location.href = url;
+    }
+
     </script>    
 @endsection
 

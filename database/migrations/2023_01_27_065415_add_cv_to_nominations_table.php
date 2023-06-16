@@ -26,7 +26,9 @@ class AddCvToNominationsTable extends Migration
     public function down()
     {
         Schema::table('nominations', function (Blueprint $table) {
-            //
+                if (Schema::hasColumn('nominations', 'cv')){
+                    $table->dropColumn('cv');
+                }
         });
     }
 }

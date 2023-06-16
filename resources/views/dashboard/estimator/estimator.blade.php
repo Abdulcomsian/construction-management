@@ -284,6 +284,7 @@
                                     <th>Email</th>
                                     <th>Comment</th>
                                     <th>Status</th>
+                                    <th>Client Name</th>
                                     <th>Action</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -313,6 +314,7 @@
                                         @endif
                                     </td>
                                     <td style="text-transform: capitalize;">{{ $work->work_status}}</td>
+                                    <td style="text-transform: capitalize;">{{ $work->client_name}}</td>
                                     <td><a href="{{route('edit_estimation',$work->id)}}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                                 @endforeach

@@ -707,6 +707,17 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
+                                        <span>Client Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" name="client_name" class="form-control form-control-slid"
+                                        placeholder="Enter Client Name" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span>Client Email:</span>
                                     </label>
                                     <!--end::Label-->

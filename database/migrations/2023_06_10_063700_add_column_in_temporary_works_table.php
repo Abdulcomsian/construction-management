@@ -26,6 +26,14 @@ class AddColumnInTemporaryWorksTable extends Migration
      */
     public function down()
     {
+        Schema::table('temporary_works', function (Blueprint $table) {
+            if (Schema::hasColumn('temporary_works', 'projaddress')){
+            $table->dropColumn('projaddress');
+        }
+        if (Schema::hasColumn('temporary_works', 'date')){
+            $table->dropColumn('date');
+        }
+        });
 
     }
 }

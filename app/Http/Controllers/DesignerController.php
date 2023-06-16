@@ -2346,80 +2346,138 @@ class DesignerController extends Controller
             }
     }
     
-public function calendar(Request $request)
-{
-    try {
-        $user = Auth::user();
-        $users = User::where('di_designer_id', $user->id)->get();
+    public function calendar(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $users = User::where('di_designer_id', $user->id)->get();
 
-        // Apply filter
-        $selectedUserId = $request->input('user_id');
+            // Apply filter
+            $selectedUserId = $request->input('user_id');
 
-        $jobs = TemporaryWork::with('designerAssign', 'checkerAssign', 'designerAssign.user', 'checkerAssign.user', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
-            ->where('created_by', $user->id);
+            $jobs = TemporaryWork::with('designerAssign', 'checkerAssign', 'designerAssign.user', 'checkerAssign.user', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
+                ->where('created_by', $user->id);
 
-        // Apply user filter
-        if (!empty($selectedUserId)) {
-            if($selectedUserId == 'all')
-            {
-                //skip filter if all is selected
-            }
-            else
-            {
-                $jobs->where(function ($query) use ($selectedUserId) {
-                    $query->whereHas('designerAssign', function ($subQuery) use ($selectedUserId) {
-                        $subQuery->where('user_id', $selectedUserId);
-                    })->orWhereHas('checkerAssign', function ($subQuery) use ($selectedUserId) {
-                        $subQuery->where('user_id', $selectedUserId);
+            // Apply user filter
+            if (!empty($selectedUserId)) {
+                if($selectedUserId == 'all')
+                {
+                    //skip filter if all is selected
+                }
+                else
+                {
+                    $jobs->where(function ($query) use ($selectedUserId) {
+                        $query->whereHas('designerAssign', function ($subQuery) use ($selectedUserId) {
+                            $subQuery->where('user_id', $selectedUserId);
+                        })->orWhereHas('checkerAssign', function ($subQuery) use ($selectedUserId) {
+                            $subQuery->where('user_id', $selectedUserId);
+                        });
                     });
-                });
+                }
             }
+
+            $jobs = $jobs->get();
+            $events = [];
+
+            foreach ($jobs as $job) {
+                $color = self::getRandomColor(); // Generate a random color for each event
+
+                // Check if the selected user is the designer for this job
+                if ($job->designerAssign && ($selectedUserId == 'all' || $selectedUserId == null || $job->designerAssign->user_id == $selectedUserId)) {
+                    $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
+
+                    $details = 'Project Name: ' . $job->projname . ', Designer Name: ' . $job->designerAssign->user->name . ', Designer Task Completed: ' . $designer_task . '%';
+
+                    $events[] = [
+                        'title' => $details,
+                        'start' => $job->designerAssign->start_date ?? '',
+                        'end' => $job->designerAssign->end_date ?? '',
+                        'color' => $color,
+                    ];
+                }
+
+                // Check if the selected user is the checker for this job
+                if ($job->checkerAssign && ($selectedUserId == 'all' || $selectedUserId == null || $job->checkerAssign->user_id == $selectedUserId)) {
+                    $checker_task = $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
+
+                    $details = 'Project Name: ' . $job->projname . ', Checker Name: ' . $job->checkerAssign->user->name . ', Checker Task Completed: ' . $checker_task . '%';
+
+                    $events[] = [
+                        'title' => $details,
+                        'start' => $job->checkerAssign->start_date ?? '',
+                        'end' => $job->checkerAssign->end_date ?? '',
+                        'color' => $color,
+                    ];
+                }
+            }
+
+            return view('dashboard.calendar.index', compact('events', 'users', 'selectedUserId'));
+
+        } catch (\Exception $exception) {
+            // dd($exception->getMessage());
+            toastError($exception->getMessage());
+            return redirect()->back();
         }
-
-        $jobs = $jobs->get();
-        $events = [];
-
-        foreach ($jobs as $job) {
-            $color = self::getRandomColor(); // Generate a random color for each event
-
-            // Check if the selected user is the designer for this job
-            if ($job->designerAssign && ($selectedUserId == 'all' || $selectedUserId == null || $job->designerAssign->user_id == $selectedUserId)) {
-                $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
-
-                $details = 'Project Name: ' . $job->projname . ', Designer Name: ' . $job->designerAssign->user->name . ', Designer Task Completed: ' . $designer_task . '%';
-
-                $events[] = [
-                    'title' => $details,
-                    'start' => $job->designerAssign->start_date ?? '',
-                    'end' => $job->designerAssign->end_date ?? '',
-                    'color' => $color,
-                ];
-            }
-
-            // Check if the selected user is the checker for this job
-            if ($job->checkerAssign && ($selectedUserId == 'all' || $selectedUserId == null || $job->checkerAssign->user_id == $selectedUserId)) {
-                $checker_task = $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
-
-                $details = 'Project Name: ' . $job->projname . ', Checker Name: ' . $job->checkerAssign->user->name . ', Checker Task Completed: ' . $checker_task . '%';
-
-                $events[] = [
-                    'title' => $details,
-                    'start' => $job->checkerAssign->start_date ?? '',
-                    'end' => $job->checkerAssign->end_date ?? '',
-                    'color' => $color,
-                ];
-            }
-        }
-
-        return view('dashboard.calendar.index', compact('events', 'users', 'selectedUserId'));
-
-    } catch (\Exception $exception) {
-        // dd($exception->getMessage());
-        toastError($exception->getMessage());
-        return redirect()->back();
     }
-}
 
+    public function checkerOrDesignerCalendar(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $users = User::where('di_designer_id', $user->id)->get();
+
+            $jobs = TemporaryWork::with(['designerAssign', 'designerAssign.user', 'designerAssign.estimatorDesignerListTasks'])
+                ->whereHas('designerAssign', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->orWhereHas('checkerAssign', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->get();
+
+            $events = [];
+
+            foreach ($jobs as $job) {
+                $color = self::getRandomColor(); // Generate a random color for each event
+
+                // // Check if the selected user is the designer for this job
+                // if ($job->designerAssign && $job->designerAssign->user_id == $user->id) {
+                if ($job->designerAssign) {
+                    $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
+
+                    $details = 'Project Name: ' . $job->projname . ', Designer Name: ' . $job->designerAssign->user->name . ', Designer Task Completed: ' . $designer_task . '%';
+
+                    $events[] = [
+                        'title' => $details,
+                        'start' => $job->designerAssign->start_date ?? '',
+                        'end' => $job->designerAssign->end_date ?? '',
+                        'color' => $color,
+                    ];
+                }
+
+                // Check if the selected user is the checker for this job
+                // if ($job->checkerAssign && $job->checkerAssign->user_id == $user->id) {
+                    $checker_task = $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
+
+                    $details = 'Project Name: ' . $job->projname . ', Checker Name: ' . $job->checkerAssign->user->name . ', Checker Task Completed: ' . $checker_task . '%';
+
+                    $events[] = [
+                        'title' => $details,
+                        'start' => $job->checkerAssign->start_date ?? '',
+                        'end' => $job->checkerAssign->end_date ?? '',
+                        'color' => $color,
+                    ];
+                // }
+            }
+
+            return view('dashboard.calendar.user_calendar', compact('events', 'users'));
+
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError($exception->getMessage());
+            return redirect()->back();
+        }
+    }
 
 
     public function getRandomColor() {

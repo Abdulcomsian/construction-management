@@ -252,6 +252,11 @@
                                 <span class="menu-title">Add Appointment</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('user_calendar')}}">
+                                <span class="menu-title">Calendar</span>
+                            </a>
+                        </div>
                         @endif
                     </div>
                 </div>

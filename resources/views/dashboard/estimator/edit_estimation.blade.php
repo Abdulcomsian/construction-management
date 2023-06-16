@@ -738,7 +738,7 @@
                                     </label>
                                     <!--end::Label-->
                                     
-                                    <input type="checkbox" name="information_required" id="information_required" style="margin-left:10px;opacity: 0.5" class="blackBack" @if($temporary_work->additionalInformation) checked @endif>
+                                    <input type="checkbox" name="information_required" id="information_required" style="margin-left:10px;opacity: 0.5" class="blackBack">
                                     <span style="padding-left:22px;color:#000">Select if additional information is required.</span>
                                 </div>
                             </div>

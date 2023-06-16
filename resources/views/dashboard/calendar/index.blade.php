@@ -18,28 +18,22 @@
         });
     
         document.addEventListener('change', function(event) {
-            if (event.target.matches('#checker-filter, #designer-filter')) {
+            if (event.target.matches('#user-filter')) {
                 applyFilter();
             }
         });
     
         function applyFilter() {
-        var checkerId = document.getElementById('checker-filter').value;
-        var designerId = document.getElementById('designer-filter').value;
-        var url = '{{ route("calendar") }}?';
+            var userId = document.getElementById('user-filter').value;
+            var url = '{{ route("calendar") }}?';
 
-        // Build the URL based on the selected parameters
-        if (checkerId && !designerId) {
-            url += 'checker_id=' + checkerId;
-        } else if (!checkerId && designerId) {
-            url += 'designer_id=' + designerId;
-        } else if (checkerId && designerId) {
-            url += 'checker_id=' + checkerId + '&designer_id=' + designerId;
+            // Build the URL based on the selected parameter
+            if (userId) {
+                url += 'user_id=' + userId;
+            }
+
+            window.location.href = url;
         }
-
-        window.location.href = url;
-    }
-
     </script>    
 @endsection
 
@@ -48,29 +42,15 @@
         <div class="form-control">
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <label for="checker-filter">Filter by Checker:</label>
-                    <select id="checker-filter" name="checker_id">
-                        <option value="">All Checkers</option>
-                        <!-- Loop through checker options -->
+                    <label for="user-filter">Filter by User:</label>
+                    <select id="user-filter" name="user_id">
+                        <option value="all" @if($selectedUserId == 'all') selected @endif>All Users</option>
+                        <!-- Loop through user options -->
                         @foreach ($users as $user)
-                            @if($user->hasAnyRole(['Design Checker', 'Designer and Design Checker']))
-                                <option value="{{ $user->id }}" @if(request('checker_id') == $user->id) selected @endif>{{ $user->name }}</option>
-                            @endif
+                            <option value="{{ $user->id }}" @if($selectedUserId == $user->id) selected @endif>{{ $user->name }}</option>
                         @endforeach
                     </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="designer-filter">Filter by Designer:</label>
-                    <select id="designer-filter" name="designer_id">
-                        <option value="">All Designers</option>
-                        <!-- Loop through designer options -->
-                        @foreach ($users as $user)
-                            @if($user->hasAnyRole(['designer', 'Designer and Design Checker']))
-                                <option value="{{ $user->id }}" @if(request('designer_id') == $user->id) selected @endif>{{ $user->name }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>                
+                </div>              
             </div>
             <div id="calendar"></div>
         </div>

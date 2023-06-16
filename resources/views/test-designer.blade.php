@@ -495,406 +495,12 @@
                   <!--begin::Topbar-->
                </div>
                {{-- new code starts here --}}
-               <div class="card-body indexTempory pt-0">
-
-                  <div class="my-4" style="background: white;padding: 10px 22px;">
-                     <div class="row align-items-center">
-                        <div class="col-lg-9 col-xl-8">
-                           <div class="row align-items-center">
-                              <div class="col-md-4 my-2 my-md-0">
-                                 <form class="form-inline d-flex" method="get"
-                                    action="{{route('tempwork.proj.search')}}">
-                                    <div class="col-10">
-                                       <select name="projects[]" class="form-select form-select-lg" multiple="multiple"
-                                          data-control="select2" data-placeholder="Select a Project" required>
-
-                                          @foreach($projects as $project)
-                                          <option value="{{$project->id}}">{{$project->name}}</option>
-                                          @endforeach
-                                       </select>
-                                    </div>
-                                    <div class="col-2 ">
-                                       <button type="submit" class="btn btn-light-primary mb-2 w-100"
-                                          style="border-radius: 0px;padding: 6px 10px; margin-left:10px;margin-bottom: 0px !important;width: auto !important;    "><span
-                                             class="fa fa-filter"></span></button>
-                                    </div>
-                                 </form>
-                              </div>
-                              <div class="col-md-4 my-2 my-md-0">
-                                 <form class="form-inline d-flex" method="get" action="{{route('tempwork.search')}}">
-                                    <div class="col-10">
-                                       <input type="text" style="border-radius:0px;border-color:#e2e2e2;"
-                                          class="form-control" placeholder="Search..." id="terms" name="terms">
-                                       <span>
-                                          <i class="flaticon2-search-1 text-muted"></i>
-                                       </span>
-                                    </div>
-                                    <div class="col-md-2 text-right" id="search-btn">
-                                       <button type="submit" class="btn btn-light-primary px-6 font-weight-bold"
-                                          style="    padding: 6px 10px !important;margin:0px 0px 0px 7px;"><span
-                                             class="fa fa-search"></span></button>
-                                    </div>
-                                 </form>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-2 my-2  my-md-0">
-                           <!--begin::Dropdown-->
-                           <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
-                              <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
-                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <span class="svg-icon svg-icon-md">
-                                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                       width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                          <rect x="0" y="0" width="24" height="24"></rect>
-                                          <path
-                                             d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
-                                             fill="#000000" opacity="0.3"></path>
-                                          <path
-                                             d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
-                                             fill="#000000"></path>
-                                       </g>
-                                    </svg>
-                                    <!--end::Svg Icon-->
-                                 </span>
-                                 Status
-                              </button>
-                              <!--begin::Dropdown Menu-->
-                              <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right"
-                                 style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);"
-                                 x-placement="top-end">
-                                 <!--begin::Navigation-->
-                                 <ul class="navi flex-column navi-hover py-2">
-                                    <li class="navi-item">
-                                       <a href="{{url('/temporary_works?status=all')}}" class="navi-link ">
-
-                                          <span class="navi-text">All</span>
-                                       </a>
-                                    </li>
-                                    <li class="navi-item">
-                                       <a href="{{url('/temporary_works?status=pending')}}" class="navi-link ">
-
-                                          <span class="navi-text">Pending</span>
-                                       </a>
-                                    </li>
-                                    <li class="navi-item">
-                                       <a href="{{url('/temporary_works?status=completed')}}" class="navi-link">
-
-                                          <span class="navi-text">Completed</span>
-                                       </a>
-                                    </li>
-
-                                 </ul>
-                              </div>
-                              <!--end::Dropdown Menu-->
-                           </div>
-                        </div>
-
-                        <div class="col-md-2 my-2  my-md-0 float-right">
-                           <!--begin::Dropdown-->
-                           <div class="dropdown pull-right dropdown-inline mr-2 mt-0">
-                              <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
-                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <span class="svg-icon svg-icon-md">
-                                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                       width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                          <rect x="0" y="0" width="24" height="24"></rect>
-                                          <path
-                                             d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
-                                             fill="#000000" opacity="0.3"></path>
-                                          <path
-                                             d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
-                                             fill="#000000"></path>
-                                       </g>
-                                    </svg>
-                                    <!--end::Svg Icon-->
-                                 </span>
-                                 View Document
-                              </button>
-                              <!--begin::Dropdown Menu-->
-                              <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right"
-                                 style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-23px, -257px, 0px);"
-                                 x-placement="top-end">
-                                 <!--begin::Navigation-->
-                                 <ul class="navi flex-column navi-hover py-2">
-                                    <li class="navi-item">
-                                       <a href="#" class="navi-link adddocument">
-                                          <span class="navi-icon">
-                                             <i class="la la-print"></i>
-                                          </span>
-                                          <span class="navi-text">Add Document</span>
-                                       </a>
-                                    </li>
-                                    <li class="navi-item">
-                                       <a href="#" class="navi-link viewdocument" data-type="document">
-                                          <span class="navi-icon">
-                                             <i class="la la-copy"></i>
-                                          </span>
-                                          <span class="navi-text">View Document</span>
-                                       </a>
-                                    </li>
-                                    <li class="navi-item">
-                                       <a href="{{ route('Designbrief.export') }}" class="navi-link">
-                                          <span class="navi-icon">
-                                             <i class="la la-file-excel-o"></i>
-                                          </span>
-                                          <span class="navi-text">Export</span>
-                                       </a>
-                                    </li>
-                                    <li class="navi-item">
-                                       <a href="#" class="navi-link viewdocument" data-type="nominations">
-                                          <span class="navi-icon">
-                                             <i class="la la-file-excel-o"></i>
-                                          </span>
-                                          <span class="navi-text">View Nominations</span>
-                                       </a>
-                                    </li>
-                                    <li class="navi-item">
-                                       <a href="#" class="navi-link viewdocument" data-type="appointments">
-                                          <span class="navi-icon">
-                                             <i class="la la-file-excel-o"></i>
-                                          </span>
-                                          <span class="navi-text">View Appointments</span>
-                                       </a>
-                                    </li>
-                                    @if(auth()->user()->hasRole('company'))
-                                    <li class="navi-item">
-                                       <a href="{{asset(auth()->user()->company_policy)}}" class="navi-link"
-                                          target="_blank">
-                                          <span class="navi-icon">
-                                             <i class="la la-file-excel-o"></i>
-                                          </span>
-                                          <span class="navi-text">Company Policy</span>
-                                       </a>
-                                    </li>
-                                    @endif
-                                 </ul>
-                              </div>
-                              <!--end::Dropdown Menu-->
-                           </div>
-                        </div>
-                        <div class="col-md-2 my-2 my-md-0 positionChange">
-                           <!--end::Dropdown-->
-                           <!--begin::Button-->
-                           <a href="{{ route('temporary_works.create') }}"
-                              class="btn pull-right btn-primary font-weight-bolder"
-                              style="color:white !important;border-radius:0px;">
-                              <span class="fa fa-plus"></span> Design Brief</a>
-                           <!--end::Button-->
-                        </div>
-                     </div>
-                  </div>
-
-
-
-               </div>
-
-
                <br>
                <div class="col-md-6 d-flex" style="margin-bottom:10px">
                </div>
                <!--end::Table-->
             </div>
             <!--end::Card body-->
-            <div class="row " style="padding:10px;position:relative;">
-               <div class="col-md-4 my-2 my-md-0 ">
-                  <nav class="tabnave" style="width: 100%;float:left">
-                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                        <span class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                           role="tab" aria-controls="nav-home" aria-selected="true">All</span>
-                        <span class="nav-item nav-link " id="nav-basic-tab" data-toggle="tab" href="#nav-basic"
-                           role="tab" aria-controls="nav-basic" aria-selected="true">Basic</span>
-                        <span class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                           role="tab" aria-controls="nav-profile" aria-selected="false">Advance</span>
-                        <span class="nav-item nav-link" id="nav-priority-tab" data-toggle="tab" href="#nav-priority"
-                           role="tab" aria-controls="nav-profile" aria-selected="false">Priority</span>
-                     </div>
-                  </nav>
-               </div>
-               <div class="col-md-2 my-2 my-md-0 text-center">
-                  <div class="tableInputDiv">
-                     <div class="dropdown mt-0">
-                        <!-- <button onclick="myFunction()"  class="dropbtn btn btn-primary">view</button> -->
-                        <button type="button" onclick="myFunction()"
-                           style="border-bottom: 1px solid #eff2f5 !important;border-radius: 0;background:#fff !important;color:#3699FF !important; padding-bottom: 2px;margin-bottom: 5px;"
-                           class="view_column  dropbtn btn btn-primary font-weight-bolder dropdown-toggle">
-                           <span class="svg-icon svg-icon-md">
-                              <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
-                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                    <path
-                                       d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
-                                       fill="#000000" opacity="0.3"></path>
-                                    <path
-                                       d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
-                                       fill="#000000"></path>
-                                 </g>
-                              </svg>
-                              <!--end::Svg Icon-->
-                           </span>
-                           View/Hide Column
-                        </button>
-                        <div id="myDropdown" class="dropdown-content" style="text-align: left">
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" id="col_1" checked>
-                              <span>DESIGN BRIEF</span>
-                           </div>
-                           @if(\Auth::user()->hasRole('admin'))
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_2">
-                              <span>COMPANY</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_3">
-                              <span>PROJECT NAME</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_4">
-                              <span>DESCRIPTION OF TW</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_5">
-                              <span>CAT CHECK</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_6">
-                              <span>RISK CLASS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_7">
-                              <span>ISSUE DATE</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_8">
-                              <span>REQUIRED DATE</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_9">
-                              <span>COMMENTS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_10">
-                              <span>TW DESIGNER</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_11">
-                              <span>DATE DESIGN</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_12">
-                              <span>DATE DCC</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_13">
-                              <span>DRAWINGS AND DESIGNS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_14">
-                              <span>DESIGN CHECK CERT</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_15">
-                              <span>PERMIT TO LOAD</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_16">
-                              <span>PERMIT TO UNLOAD</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_17">
-                              <span>RAMS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_18">
-                              <span>QR CODE</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_19">
-                              <span>ACTIONS</span>
-                           </div>
-                           @else
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_2">
-                              <span>PROJECT NAME</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_3">
-                              <span>DESCRIPTION OF TW</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_4">
-                              <span>CAT CHECK</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_5">
-                              <span>RISK CLASS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_6">
-                              <span>ISSUE DATE</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_7">
-                              <span>REQUIRED DATE</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_8">
-                              <span>COMMENTS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_9">
-                              <span>TW DESIGNER</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_10">
-                              <span>DATE DESIGN</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_11">
-                              <span>DATE DCC</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_12">
-                              <span>DRAWINGS AND DESIGNS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_13">
-                              <span>DESIGN CHECK CERT</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_14">
-                              <span>PERMIT TO LOAD</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_15">
-                              <span>PERMIT TO UNLOAD</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_16">
-                              <span>RAMS</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_17">
-                              <span>QR CODE</span>
-                           </div>
-                           <div class="inputSpan">
-                              <input type="checkbox" class="hidecol" checked id="col_18">
-                              <span>ACTIONS</span>
-                           </div>
-                           @endif
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-            </div>
-
          </div>
 
          <!--end::Card-->
@@ -902,35 +508,6 @@
       <div class="row">
          <div class="col-12">
             <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive" id="kt_table_users">
-               <!--begin::Table head-->
-               <!-- <thead>
-
-                   <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                      <th data-tabbedTable="Personal info" style="padding: 0px !important;vertical-align: middle;;" class="">TW ID</th>
-                      @if(\Auth::user()->hasRole('admin'))
-                      <th class="">Company</th>
-                      @endif
-                      <th style="min-width: 80px; padding: 0px;" class="">Project Name</th>
-                      <th class="" style="max-width:150px;">DESCRIPTION OF TW</th>
-                      <th style="padding: 0px !important;vertical-align: middle;max-width: 75px;min-width:30px" class="">CAT Check</th>
-                      <th style="min-width: 40px;" class="">Risk Class</th>
-                      <th class="" style="min-width:60px;">Issue Date</th>
-                      <th class="" style="">DESIGN REQUIRED BY</th>
-                      <th class="">Comments</th>
-                      <th class="">TW DESIGNER & COMPANY</th>
-                      <th class="" style="padding: 12px;">Date<br> Design<br> Returned</th>
-                      <th class="" style=" padding: 30px !important;">Date<br> DCC <br>Returned</th>
-                      <th class="">DRAWINGS & DESIGNS</th>
-                      <th class="">Design<br> Check<br> CERT</th>
-                      <th class="">Permit to Load</th>
-                      <th class="">Permit to Unload</th>
-                      <th class="">RAMS</th>
-                      <th class="">QR CODE</th>
-                      <th>Actions</th>
-                   </tr>
-
-                </thead> -->
-               <!--end::Table head-->
                <!--begin::Table body-->
                <tbody class="text-gray-600 fw-bold">
 
@@ -938,7 +515,7 @@
 
                   <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
                      style="height: {{count($AwardedEstimators)==1 ? '100px':''}}">
-                     <td
+                     {{-- <td
                         style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
                         @if(\Auth::user()->hasRole([['company','admin','user']]))
                         @if($item->status==3)
@@ -975,7 +552,7 @@
                            </span>
                         </a>
                         @endif
-                     </td>
+                     </td> --}}
                      @if(\Auth::user()->hasRole('admin'))
                      <td>
                         <p>{{ $item->company ?: '-' }}</p>
@@ -1114,11 +691,15 @@
                               <span class=" titleColumn" style="font-weight: bold; color: black">Designer Progress:</span><i class="icon-edit" data-toggle="modal"
                                  data-target="#DesignCheckCertModal" id="time-estimator"  data-rowid="{{$item->id}}"
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                                 <div class="mt-5">
+                                 <span class=" titleColumn" style="font-weight: bold; color: black">Checker Progress:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
+                                    style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                                 </div>
                            </div>
-                           <div>
+                           {{-- <div>
                               <span class=" titleColumn" style="font-weight: bold; color: black">Checker Progress:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
                                  style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
-                           </div>
+                           </div> --}}
                         </div>
                      </td>
                      <td style="min-width: 154px; max-width: 80px;padding: 15px !important">

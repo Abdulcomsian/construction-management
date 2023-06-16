@@ -614,8 +614,8 @@
                                         <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
                                         <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
                                         <td style="display:flex; flex-direction:column;padding: 10px">
-                                            <!-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button>
-                                                <a class="btn" href="{{route('designer.delete',$uploads->id)}}"><i class="fas fa-trash"></i></a> -->
+                                            {{-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button> --}}
+                                                <a class="btn" href="{{route('designer.delete',$uploads->id)}}"><i class="fas fa-trash"></i></a>
                                             <form method="post" action="{{route('drawing.comment')}}">
                                                 @csrf
                                                 <textarea class="form-control" row="2" required

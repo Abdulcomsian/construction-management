@@ -2362,7 +2362,7 @@ public function calendar(Request $request)
         if (!empty($selectedUserId)) {
             if($selectedUserId == 'all')
             {
-
+                //skip filter if all is selected
             }
             else
             {
@@ -2383,7 +2383,7 @@ public function calendar(Request $request)
             $color = self::getRandomColor(); // Generate a random color for each event
 
             // Check if the selected user is the designer for this job
-            if ($job->designerAssign && ($selectedUserId == 'all' || $job->designerAssign->user_id == $selectedUserId)) {
+            if ($job->designerAssign && ($selectedUserId == 'all' || $selectedUserId == null || $job->designerAssign->user_id == $selectedUserId)) {
                 $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
 
                 $details = 'Project Name: ' . $job->projname . ', Designer Name: ' . $job->designerAssign->user->name . ', Designer Task Completed: ' . $designer_task . '%';
@@ -2397,7 +2397,7 @@ public function calendar(Request $request)
             }
 
             // Check if the selected user is the checker for this job
-            if ($job->checkerAssign && ($selectedUserId == 'all' || $job->checkerAssign->user_id == $selectedUserId)) {
+            if ($job->checkerAssign && ($selectedUserId == 'all' || $selectedUserId == null || $job->checkerAssign->user_id == $selectedUserId)) {
                 $checker_task = $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
 
                 $details = 'Project Name: ' . $job->projname . ', Checker Name: ' . $job->checkerAssign->user->name . ', Checker Task Completed: ' . $checker_task . '%';

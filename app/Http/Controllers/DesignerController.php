@@ -115,7 +115,9 @@ class DesignerController extends Controller
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                    Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email, $is_check = true));
+                $is_check = true;
+                $is_job = 1;
+                    Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email,$is_check,$is_job));
 
                     // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
                 }
@@ -151,8 +153,10 @@ class DesignerController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ];
+                    $is_check = true;
+                    $is_job = 1;
                     // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
-                    Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check = true));
+                    Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check,$is_job));
                 }
             }
             $temporary_work = TemporaryWork::find($id);
@@ -491,6 +495,8 @@ class DesignerController extends Controller
                     ];
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
                 } else{
+                    // dd("Ttt");
+                    $is_check = true;
                     foreach ($selectedEmails as $email) {
                         $notify_admins_msg['greeting'] = 'Designer Upload Document';
                         $notify_admins_msg['subject'] = $subject;
@@ -500,7 +506,7 @@ class DesignerController extends Controller
                         $notify_admins_msg['body']['name'] = $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                         $notify_admins_msg['body']['filetype'] = $file_type;
                     
-                        Notification::route('mail', $email)->notify(new DesignUpload($notify_admins_msg));
+                        Notification::route('mail', $email)->notify(new DesignUpload($notify_admins_msg, null, $is_check));
                     }
                 }
                 

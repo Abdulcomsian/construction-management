@@ -33,8 +33,8 @@
                                                                    </p>
                                                                    @if($details['body']['designer'])
                                                                    <p>
-                                                                       <a href="{{route('designer.uploaddesign',Crypt::encrypt($id).'/?mail='.$email)}}">View and Upload Design</a>
-                                                                   </p>
+                                                                    <a href="{{ route('designer.uploaddesign', [Crypt::encrypt($id), 'mail' => $email, 'job' => $job ?: null]) }}">View and Upload Design</a>
+                                                                    </p>
                                                                    @endif
                                                                    @if($details['body']['pc_twc'])
                                                                    <p>

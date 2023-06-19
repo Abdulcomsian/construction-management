@@ -14,17 +14,19 @@ class TemporaryWorkNotification extends Notification
     public $id;
     public $email;
     public $is_check;
+    public $is_job;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData,$id,$email=NULL,$is_check=null)
+    public function __construct($offerData,$id,$email=NULL,$is_check=NULL,$is_job=NULL)
     {
         $this->offerData = $offerData;
         $this->id=$id;
         $this->email=$email;
         $this->is_check=$is_check;
+        $this->is_job=$is_job;
     }
 
     /**
@@ -55,7 +57,7 @@ class TemporaryWorkNotification extends Notification
         return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
-            ->view('mail.temporaryworkmail', ['details' => $this->offerData,'id'=>$this->id,'email'=>$this->email])
+            ->view('mail.temporaryworkmail', ['details' => $this->offerData,'id'=>$this->id,'email'=>$this->email, 'job' =>$this->is_job])
             ->attach($path, [
                 'as' =>  $this->offerData['body']['name'].'.pdf',
                 'mime' => 'text/pdf',

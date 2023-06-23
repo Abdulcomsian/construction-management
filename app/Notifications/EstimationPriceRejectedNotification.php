@@ -42,11 +42,21 @@ class EstimationPriceRejectedNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('Your pricing is rejected by the client. Plese update the prices.')
-                    ->line($this->text) // Use the specific text
-                    ->action('Link', route('edit_estimation',$this->editRoute->id))
-                    ->line('Thank you for using our application!');
+        // dd($this->editRoute);
+        $mailMessage = new MailMessage;
+
+        if ($this->editRoute->work_status === 'pending') {
+            $mailMessage->subject('Your Pricing Rejected')->line('Your pricing is rejected by the client.Please update the prices.')
+                ->line($this->text)
+                ->action('Link', route('edit_estimation', $this->editRoute->id));
+        } elseif ($this->editRoute->work_status === 'publish') {
+            $mailMessage->subject('Your Pricing Approved')->line('Congratulations! Your pricing is approved by the client.')
+                ->action('Link', route('edit_estimation', $this->editRoute->id));
+        }
+
+        $mailMessage->line('Thank you for using our application!');
+
+        return $mailMessage;
     }
 
     /**

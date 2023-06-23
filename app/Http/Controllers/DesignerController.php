@@ -2044,6 +2044,8 @@ class DesignerController extends Controller
         $note = $request->payment_note;
         if($temporary_work->work_status == 'pending'){
             Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
+        } else{
+            Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
         }
 
         return redirect()->back()->with("success" , "Payment Terms Added Successfully");

@@ -2428,6 +2428,45 @@ class DesignerController extends Controller
         }
     }
 
+    public function applyFilter(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $users = User::where('di_designer_id', $user->id)->get();
+
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+
+            // Perform the query to fetch the filtered records
+            $jobs = TemporaryWork::with('designerAssign', 'checkerAssign', 'designerAssign.user', 'checkerAssign.user', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
+                ->where('created_by', $user->id)
+                ->where(function ($query) use ($startDate, $endDate) {
+                    $query->whereHas('designerAssign', function ($subQuery) use ($startDate, $endDate) {
+                        $subQuery->whereBetween('start_date', [$startDate, $endDate])
+                            ->orWhereBetween('end_date', [$startDate, $endDate]);
+                    })->orWhereHas('checkerAssign', function ($subQuery) use ($startDate, $endDate) {
+                        $subQuery->whereBetween('start_date', [$startDate, $endDate])
+                            ->orWhereBetween('end_date', [$startDate, $endDate]);
+                    });
+                })
+                ->get();
+
+            return view('dashboard.calendar.filter', compact('jobs', 'users', 'startDate', 'endDate'));
+            // return view('dashboard.calendar.filter', compact('jobs', 'users', 'startDate', 'endDate'));
+
+        } catch (\Exception $exception) {
+            // dd($exception->getMessage());
+            toastError($exception->getMessage());
+            return redirect()->back();
+        }
+    }
+
+
+    public function filter(Request $request)
+    {
+        return view('dashboard.calendar.filter');
+    }
+
     public function checkerOrDesignerCalendar(Request $request)
     {
         try {

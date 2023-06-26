@@ -298,6 +298,8 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
     //  Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
      Route::get('test-designer' , [DesignerController::class , 'testDesigner']);
      Route::get('calendar' , [DesignerController::class , 'calendar'])->name('calendar');
+     Route::get('filter' , [DesignerController::class , 'filter'])->name('filter');
+     Route::post('apply-filter' , [DesignerController::class , 'applyFilter'])->name('apply_filter');
      Route::get('user_calendar' , [DesignerController::class , 'checkerOrDesignerCalendar'])->name('user_calendar');
     //  Route::get('estimator' , [DesignerController::class , 'Estimator'])->name('estimator');
     //  Route::get('add-estimator' , [DesignerController::class , 'addEstimator'])->name('add_estimator');

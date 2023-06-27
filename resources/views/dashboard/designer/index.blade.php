@@ -781,6 +781,18 @@
                         <input type="hidden" name="tempworkid" value="{{$id}}">
                         <input type="hidden" name="designermail" value="{{$mail}}">
                         <div class="row" style="background:white;margin: 0 4px;">
+                             <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1" style="margin: 5px">Select Document
+                                            Type:</label><br>
+                                        <select class="form-select form-control" name="type" required>
+                                            <option value="" disabled></option>
+                                            <option value="" selected disabled>Risk Assessment-Calculations</option>
+                                            <option value="5">Risk Assessment</option>
+                                            <option value="6">Calculations (Design Notes)</option>
+                                        </select>
+                                    </div>
+                                </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1" style="margin: 5px;">Select Document:</label><br>
@@ -788,18 +800,7 @@
                                         name="riskassesmentfile" required="required">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1" style="margin: 5px">Select Document
-                                        Type:</label><br>
-                                    <select class="form-control" name="type" required>
-                                        <option value="" disabled></option>
-                                        <option value="" selected disabled>Risk Assessment-Calculations</option>
-                                        <option value="5">Risk Assessment</option>
-                                        <option value="6">Calculations (Design Notes)</option>
-                                    </select>
-                                </div>
-                            </div>
+                           
                         </div>
                         <div class="row" style="background:white;margin: 0 4px;">
                             <div class="col"><button type="submit" class="btn btn-primary mt-2">Upload</button></div>

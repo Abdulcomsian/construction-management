@@ -43,7 +43,8 @@
 
                                                                    </p>
                                                                    @endif
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Review Design Brief If you have any questions about this brief, please refer to {{$details['body']['company']}} Ltd. <br><br>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">You can review the design brief from the link and also communicate with the design brief creator {{$details['body']['company']}}  through the link in the queries section.
+                                                                      <br><br>
                                                                     Regards, The Temporary Works Portal Team <br><br>
                                                                     <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>
                                                                    </p>

@@ -36,7 +36,7 @@
                                                                    </p>
 
                                                                    
-                                                                       <a href="{{route('estimator.designer_client',$id.'/?mail='.$email.'&code='.Crypt::encrypt($code))}}"> 
+                                                                       <a href="{{route('estimator.designer_client',$id.'/?mail='.$email.')}}"> 
                                                                         <p>   
                                                                         @if($information == "on")  
                                                                         View Details

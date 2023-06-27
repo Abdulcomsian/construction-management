@@ -42,6 +42,11 @@ class TemporaryWork extends Model
         return $this->hasMany(TemporaryWorkComment::class)->where('type','scan');
     }
 
+    public function clientComments()
+    {
+        return $this->hasMany(TemporaryWorkComment::class)->where('type','client');
+    }    
+
     public function rejecteddesign()
     {
         return $this->hasMany(TemporaryWorkRejected::class);

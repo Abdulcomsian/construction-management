@@ -848,6 +848,7 @@
            return false;
        }
        $("#temp_work_id").val($(this).attr('data-id'));
+       $("#temp_work_id2").val($(this).attr('data-id'));
        var temporary_work_id = $(this).attr('data-id');
        var userid = {{Auth::user()->id}}
        $("#commenttable").html('');
@@ -861,8 +862,11 @@
            },
            success: function(res) {
                res=JSON.parse(res);
+               // console.log(res.comment)
+               console.log(res.comment)
                $("#commenttable").html(res.comment);
                $("#twccommenttable").html(res.twccomment);
+               $("#twccommenttable2").html(res.twclientcomments);
                $(".comments_form").show();
                $("#comment_modal_id").modal('show');
            }

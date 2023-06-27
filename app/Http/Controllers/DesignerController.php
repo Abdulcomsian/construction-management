@@ -2005,6 +2005,11 @@ class DesignerController extends Controller
         return view('dashboard.modals.pricing', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
    }
 
+   public function showComment(Request $request){
+    $temporary_work = TemporaryWork::with('clientComments')->findOrFail($request->input('id'));
+    return view('dashboard.modals.comment', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
+    }
+
    public function approvePricing(Request $request){
         $temporary_work = TemporaryWork::findorfail($request->temporary_work_id);
         $image_name = '';

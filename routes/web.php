@@ -314,6 +314,7 @@ Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['au
 Route::get('Estimator/estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');
 Route::post('designer/show-pricing' , [DesignerController::class , 'showPricing'])->name('show_pricing');
 Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
+Route::post('designer/show_comment' , [DesignerController::class , 'showComment'])->name('show_comment');
 
 require __DIR__ . '/auth.php';
 

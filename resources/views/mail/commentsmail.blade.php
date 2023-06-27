@@ -46,7 +46,13 @@
                                                                          Please view the comment and provide a reply to it.<br><br>
                                                                          You may use the link above to access the comment or view it directly from the Temporary Works Portal hub by clicking the icon in the permit to load column.
                                                                         @else
-                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply</a><br><br>
+                                                                        @if($type == 'client')
+                                                                            <a href="{{route('estimator.designer_client',$tempid.'/?mail='.$email.'/?code='.Crypt::encrypt($code))}}">Click here to view reply for clients</a>
+                                                                            {{-- <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply for clients</a><br><br> --}}
+                                                                        @else
+                                                                            <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply</a><br><br>
+                                                                        @endif
+                                                                        {{-- <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply</a><br><br> --}}
                                                                         Within the Temporary Works Portal, you will be able to:<br> 
                                                                         1. Send comments or ask a question to the person who provided the reply.<br>
                                                                         2. Upload preliminary and construction issue drawings.<br> 

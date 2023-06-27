@@ -175,17 +175,18 @@ input[type="checkbox"]{
             </div>
 
             <!-- Remember Me -->
-            <div class="col-md-12" style="margin: 26px 0 0">
+            <div class="flex justify-between" style="margin: 26px 0 0">
                 <label for="remember_me" class="inline-flex items-center">
                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 rememberMe">I have read
+                    <span class="ml-2 rememberMe">
+                        <!-- I have read -->
                     <a class="underline text-sm forgotPass" href="{{ url('uploads/terms/terms.pdf') }}">
                     Terms & Conditions</a>
                     <!-- {{ __('Keep me signed in') }} -->
                     </span>
                 </label>
-            </div>
-            <div class="col-md-12" style="margin: 0 0 32px;text-align:right;">  
+            <!-- </div>
+            <div class="col-md-12" style="margin: 0 0 32px;text-align:right;">   -->
                   @if (Route::has('password.request'))
                     <a class="underline text-sm forgotPass" target="_blank" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
@@ -196,7 +197,7 @@ input[type="checkbox"]{
             <div class="flex items-center justify-end mt-4">
               
 
-                <x-button class="ml-3 mt-2" id="login" disabled >
+                <x-button class="ml-3 mt-2" id="login" style="opacity:.8" disabled >
                     {{ __('Log in') }}
                 </x-button>
             </div>

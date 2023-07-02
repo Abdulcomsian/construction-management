@@ -203,6 +203,12 @@
 
 @endsection
 @section('content')
+@php $certificate_active = '' @endphp
+@if(isset($_GET['cert']))
+@php
+    $certificate_active = 'active';
+@endphp
+@endif
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -235,14 +241,14 @@
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
 
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100 active" id="" data-bs-toggle="tab"
+                            <button class="nav-link tab btn btn_outline w-100 {{$certificate_active == 'active' ? '' : 'active'}}" id="" data-bs-toggle="tab"
                                 data-bs-target="#tab2" type="button" role="tab" aria-controls="signup"
-                                aria-selected="true">Drawing Info</button>
+                                aria-selected="{{$certificate_active == 'active' ? 'false' : 'true'}}">Drawing Info</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab"
+                            <button class="nav-link tab btn btn_outline w-100 {{$certificate_active == 'active' ? 'active' : ''}}" id="" data-bs-toggle="tab"
                                 data-bs-target="#tab3" type="button" role="tab" aria-controls="owner"
-                                aria-selected="false" tabindex="-1">Certificate</button>
+                                aria-selected="{{$certificate_active == 'active' ? 'true' : 'false'}}" tabindex="-1">Certificate</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100" id="" data-bs-toggle="tab"
@@ -397,7 +403,7 @@
                     </div>
                 </div>
                 <!-- tab 2 -->
-                <div class="tab-pane active" id="tab2" role="tabpanel">
+                <div class="tab-pane {{$certificate_active == 'active' ? '' : 'active'}}" id="tab2" role="tabpanel">
                     <form id="desingform" action="{{route('designer.store')}}" method="post"
                         enctype="multipart/form-data">
                         @csrf
@@ -705,7 +711,7 @@
 
                 </div>
                 <!-- tab 3 -->
-                <div class="tab-pane" id="tab3" role="tabpanel">
+                <div class="tab-pane {{$certificate_active == 'active' ? 'active' : ''}}" id="tab3" role="tabpanel">
                     <form class="form-inline" action="{{route('designer.store')}}" method="post"
                         enctype="multipart/form-data">
                         @csrf

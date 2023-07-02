@@ -660,6 +660,23 @@
                                  <span class=" titleColumn" style="font-weight: bold; color: black">Checker Progress:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
                                     style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                                  </div>
+                                 @php
+                                 $userEmail = auth()->user()->email;
+                                 $email = '';
+                                 @endphp
+                           
+                                 @if(isset($item->designerAssign) && $userEmail == $item->designerAssign->email)
+                                       @php $email = $item->designerAssign->email; @endphp
+                                 @elseif(isset($item->checkerAssign) && $userEmail == $item->checkerAssign->email)
+                                       @php $email = $item->checkerAssign->email; @endphp
+                                 @endif
+                         
+                                 <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&cert=1') }}" >
+                                    <div class="mt-5">
+                                          <span class=" titleColumn" style="font-weight: bold; color: black">Designer Certificate:</span><i class="icon-edit"  data-rowid="{{$item->id}}"
+                                             style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                                       </div>
+                                    </a>
                            </div>
                            {{-- <div>
                               <span class=" titleColumn" style="font-weight: bold; color: black">Checker Progress:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"

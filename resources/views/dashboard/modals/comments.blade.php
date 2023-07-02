@@ -38,7 +38,7 @@
                 <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
-                                <span class="required">TWC Message to Designers:</span>
+                                <span class="required">Send Message to Client:</span>
                             </label>
                             <!--begin::Label-->
                             <!--begin::Label-->

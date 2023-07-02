@@ -95,7 +95,7 @@ class AdminDesignerController extends Controller
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            $AwardedEstimators=TemporaryWork::with('designer.quotationSum', 'project.company' , 'comments', 'designerAssign','checkerAssign')
+            $AwardedEstimators=TemporaryWork::with('designer.quotationSum','designerQuote','project.company' , 'comments', 'designerAssign','checkerAssign')
             ->whereIn('id',$awarded)
             ->orWhere('created_by', Auth::user()->id)
             ->where('work_status', 'publish')

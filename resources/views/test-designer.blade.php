@@ -515,44 +515,6 @@
 
                   <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
                      style="height: {{count($AwardedEstimators)==1 ? '100px':''}}">
-                     {{-- <td
-                        style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-                        @if(\Auth::user()->hasRole([['company','admin','user']]))
-                        @if($item->status==3)
-                        <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}"
-                           checked>
-                        @else
-                        <input type="checkbox" class="temp_design_complete" value="{{Crypt::encrypt($item->id)}}">
-
-                        @endif
-                        @endif
-                        <span class="fa fa-plus addphoto cursor-pointer" data-id="{{$item->id}}"></span>
-                        <!-- <br> -->
-                        @if(count($item->rejecteddesign)>0)
-                        <span class="rejecteddesign cursor-pointer" style="width: 108px;"
-                           data-id="{{Crypt::encrypt($item->id)}}"><span
-                              class="label label-lg font-weight-bold label-light-success label-inline"><i
-                                 class="fa fa-eye text-white"></i></span>
-                        </span>
-                        <!-- <br>
-                         <br> -->
-                        @endif
-                        <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank"
-                           href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                        </a>
-                        <!-- <br> -->
-                        @if($item->status==2)
-                        <a href="{{route('temporary_works.edit',$item->id)}}">
-                           <span class="rejecteddesign cursor-pointer" style="width: 108px;"
-                              data-id="{{Crypt::encrypt($item->id)}}">
-                              <span
-                                 class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i
-                                    class="fa fa-edit text-white"></i>
-                              </span>
-                           </span>
-                        </a>
-                        @endif
-                     </td> --}}
                      @if(\Auth::user()->hasRole('admin'))
                      <td>
                         <p>{{ $item->company ?: '-' }}</p>
@@ -576,6 +538,9 @@
                         @else
                         <p>{{($item->company)}}</p>
                         @endif
+                        <p style="font-weight:400;font-size:11px !important; font-family: 'Poppins';">Client Name:</p>
+                        <p style="font-weight:500;font-size:11px !important; font-family: 'Poppins';">
+                           {{$item->client_name ?? ''}}</p>
                      </td>
                      <td style="min-width: 216px;padding: 11px !important;">
                         <div class="d-flex justify-content-between align-items-center">
@@ -622,10 +587,10 @@
                            </div>
                         </div>
                         <div style="margin: 12px 0;">
-                           <div class="d-flex justify-content-between"">
+                           <div class="d-flex justify-content-between">
                                   <span class=" titleColumn">Cost:</span>
-                              @if($item->designer)
-                              <span>{{$item->designer->quotationSum ? $item->designer->quotationSum->sum('price') :
+                              @if($item->designerQuote)
+                              <span>${{$item->designerQuote ? $item->designerQuote->sum('price') :
                                  '0'}}</span>
                               @endif
                            </div>

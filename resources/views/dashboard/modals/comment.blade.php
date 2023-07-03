@@ -60,7 +60,7 @@
     <td style=" flex-direction: column;">
 
         {!!$formorreply!!}
-     <form style="" method="post" action="http://127.0.0.1:8000/temporary_works/comments-replay" enctype="multipart/form-data">
+     <form style="" method="post" action="{{route('temporarywork.storecommentreplay')}}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="tempid" value="{{$tempWorks->id}}"/>
         <textarea style="width: 100%" type="text" class="replay" name="replay" placeholder="Add comment here..."></textarea>

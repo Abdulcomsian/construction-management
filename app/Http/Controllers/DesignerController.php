@@ -1814,6 +1814,11 @@ class DesignerController extends Controller
     return view('dashboard.estimator.edit_estimation',['temporary_work' => $temporary_work]);
    }
 
+   public function clientEditEstimation($id){
+    $temporary_work = TemporaryWork::with('designerQuote','additionalInformation')->findorfail($id);
+    return view('dashboard.estimator.client_edit_estimation',['temporary_work' => $temporary_work]);
+   }
+
    public function updateEstimation(Request $request, $id){
         try
         {

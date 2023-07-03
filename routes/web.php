@@ -306,6 +306,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
 
 });
 
+Route::get('client-edit-estimation/{id}' , [DesignerController::class , 'clientEditEstimation'])->name('edit_estimation');
 
 
 

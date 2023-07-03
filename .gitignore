@@ -30,3 +30,4 @@ public/pdf
 public/temporary/signature
 public/uploads/
 public/estimatorPdf
+/storage/debugbar/*

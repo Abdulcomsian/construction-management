@@ -631,9 +631,11 @@
             $.post("{{ route('show_comment') }}", {
                 _token: CSRF_TOKEN,
                 id: id
-            }).done(function(response) {
+            }).done(function(res) {
+                console.log(res)
                 // Add response in Modal body
-                $('#modal3 #table').html(response);
+                // $('#modal3 #table').html(response);
+                document.getElementById("modal3").querySelector("#table").innerHTML = res.html;
                 // Display Modal
                 $('#modal3').modal('show');
                 // $.LoadingOverlay("hide");

@@ -402,6 +402,11 @@
       background: white;
       font-family: 'Inter', sans-serif;
    }
+
+   .commentsTable th{
+        text-align: center!important;
+    }
+
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @include('dashboard.modals.comments2')

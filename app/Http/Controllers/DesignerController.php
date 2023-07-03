@@ -2006,8 +2006,16 @@ class DesignerController extends Controller
    }
 
    public function showComment(Request $request){
-    $temporary_work = TemporaryWork::with('clientComments')->findOrFail($request->input('id'));
-    return view('dashboard.modals.comment', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
+    // return view('dashboard.modals.comment', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
+    try{
+        $tempId = $request->id;
+        $temporary_work = TemporaryWork::with('clientComments')->findOrFail($request->input('id'));
+        // dd($temporary_work);
+        $html = $temporary_work->clientComments ?  view('dashboard.modals.comment' , ['tempWorks' => $temporary_work])->render() : "No Comments Added";
+        return response()->json(['success' => true , 'msg' => 'Comments find successfully' , 'html' => $html]);
+    }catch(\Exception $e){
+        return response()->json([ 'success'=>false , 'msg' => 'Something went wrong' , 'error' => $e->getMessage()]);
+    }
     }
 
    public function approvePricing(Request $request){

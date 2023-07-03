@@ -1268,6 +1268,7 @@ $notify_admins_msg = [
     //get commetns
     public function get_comments(Request $request)
     {
+        // dd($request);
         $table = '';
         $tabletwc='';
         $tabletwcdesigner='';
@@ -1277,9 +1278,9 @@ $notify_admins_msg = [
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
             $twccommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'twc'])->get();
             $twcdesigncommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'twctodesigner'])->get();
-            $twclientcomments = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'client'])->get();
+            // $twclientcomments = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'client'])->get();
         } elseif($request->type == 'client'){ 
-            $twcdesigncommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'client'])->get(); 
+            $twclientcomments = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'client'])->get(); 
         } elseif ($request->type == 'pc') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'pc'])->get();
         } elseif ($request->type == 'permit') {
@@ -1315,7 +1316,7 @@ $notify_admins_msg = [
              $tabletwcdesigner .= '</tbody></table>';
         }
         
-        if (count($commetns) > 0) {
+        if (isset($commetns) && count($commetns) > 0) {
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
                 $table.= '<table class="table" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
@@ -1432,12 +1433,9 @@ $notify_admins_msg = [
             $table .= '</tbody></table>';
             
         } 
-        if (count($twclientcomments) > 0) {
-            if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
-                $client_table.= '<table class="table" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
-            } else {
-                $client_table .= '<table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">TWC Reply</th></tr></thead><tbody>';
-            }
+        if (isset($twclientcomments) && count($twclientcomments) > 0) {
+
+                $client_table .= '<table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Client Reply</th></tr></thead><tbody>';
 
             $i = 1;
             foreach ($twclientcomments as $comment) {
@@ -1445,40 +1443,7 @@ $notify_admins_msg = [
                   $date = '';
                 $colour = 'white';
                 $a = '';
-                $status = '';
                 $input = '';
-                if (isset($request->type) && $request->type == 'scan' || $request->type == 'qscan') {
-                    $input = '<input type="hidden" name="scan" value="scan" />';
-                    if ($comment->status==0) {
-                        $colour = "green";
-                    } elseif($comment->status==1) {
-                        $colour = '#6A5ACD';
-                    }elseif($comment->status==2){
-                        $colour="red";
-                    }
-                    if ($comment->image) {
-                        $n = strrpos($comment->image, '.');
-                        $ext = substr($comment->image, $n + 1);
-                        if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                            $a = '<a target="_blank" href="' . $path . $comment->image . '"><img width="50px" height="50px" src=' . $path . $comment->image . ' ></a>';
-                        } else {
-                            $a = '<a target="_blank" href="' . $path . $comment->image . '">Attach File</a>';
-                        }
-                    }
-                }
-                if (isset($request->type) && $request->type == 'normal') {
-                    $input = '<input type="hidden" name="scan" value="scan" />';
-                    if ($comment->image) {
-                        $n = strrpos($comment->image, '.');
-                        $ext = substr($comment->image, $n + 1);
-                        if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                            $a = '<a target="_blank" href="' . $path . $comment->image . '"><img width="50px" height="50px" src=' . $path . $comment->image . ' ></a>';
-                        } else {
-                              
-                            $a = '<a target="_blank" href="' . $path . $comment->image . '">Download File</a>';
-                        }
-                    }
-                }
                 $list = '';
                 $k = 1;
                 $formorreply='';
@@ -1511,27 +1476,13 @@ $notify_admins_msg = [
                 }
 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
-                if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
-
+                if ($request->type == 'client') {
                     $client_table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
 
                                ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
                                <td style=" flex-direction: column;">
                                '.$formorreply.'
-                                <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
-                                   <input type="hidden" name="_token" value="' . csrf_token() . '"/>
-                                   <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
-                                   <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left" placeholder="Add comment here..."></textarea>
-                                    <div class="submmitBtnDiv">
-                                        <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
-                                        <input type="hidden" name="commentid" value="' . $comment->id . '"/>
-                                        ' . $input . '
-                                        <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
-                                    </div>
-
-                                </form>
-
                                </td>
                            </tr>' . $list . '';
                 } else {

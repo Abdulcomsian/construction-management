@@ -404,7 +404,7 @@
    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
-@include('dashboard.modals.comments')
+@include('dashboard.modals.comments2')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
@@ -840,7 +840,7 @@
            data: {
                id: userid,
                temporary_work_id: temporary_work_id,
-               type: 'normal'
+               type: 'client'
            },
            success: function(res) {
                res=JSON.parse(res);

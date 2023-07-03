@@ -819,6 +819,7 @@
 </div>
 @include('dashboard.modals.drawingdesign')
 @include('dashboard.modals.drawingdesignlist')
+@include('dashboard.modals.description')
 @endsection
 
 @section('scripts')
@@ -855,6 +856,12 @@
        });
    
    });
+   //desc 
+   $(".desc").on('click', function() {
+       var desc = $(this).attr('title');
+       $("#desc").html(desc);
+       $("#desc_modal_id").modal('show');
+   })
 </script>
 <script type="text/javascript">
       $(document).on('click', '#time-estimator', function() {

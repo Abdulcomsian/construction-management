@@ -151,7 +151,7 @@
 
     #modal1 th {
     text-align: center!important;
-}
+    }
     .circle.unblink{
         width: 25px;
         height: 25px;
@@ -257,22 +257,27 @@
                                         <th>Project Name</th>
                                         <th>Designer Name</th>
                                         <th>Designer Task Completed</th>
+                                        <th>Designer Start Date</th>
+                                        <th>Designer End Date</th>
                                         <th>Checker Name</th>
                                         <th>Checker Task Completed</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
+                                        <th>Checker Start Date</th>
+                                        <th>Checker End Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($jobs as $job)
+                                        {{-- @dd($job->designerAssign->estimatorDesignerListTasks->last()->completed) --}}
                                         <tr>
                                             <td>{{ $job->projname }}</td>
                                             <td>{{ $job->designerAssign->user->name }}</td>
                                             <td>{{ $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
-                                            <td>{{ $job->checkerAssign->user->name }}</td>
-                                            <td>{{ $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
                                             <td>{{ $job->designerAssign->start_date }}</td>
                                             <td>{{ $job->designerAssign->end_date }}</td>
+                                            <td>{{ $job->checkerAssign->user->name }}</td>
+                                            <td>{{ $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
+                                            <td>{{ $job->checkerAssign->start_date }}</td>
+                                            <td>{{ $job->checkerAssign->end_date }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

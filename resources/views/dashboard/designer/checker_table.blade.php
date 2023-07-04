@@ -33,6 +33,9 @@
             <input type="number" name="completed"  id="completed" style="border: none; width: 100%">
         </div>
     </div>
+    <div class="col-md-12">
+        <textarea class="form-control" placeholder="Enter Task" name="task"></textarea>
+    </div>
     {{-- <div class="col-md-9">
         <div class="d-flex inputDiv d-block mb-3">
         <!--begin::Label-->

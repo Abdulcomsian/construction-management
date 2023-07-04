@@ -306,9 +306,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $count = 0; @endphp
                                     @foreach($estimatorWork as $row)
+                                    @php $count++ @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
-                                        <td>1</td>
+                                        <td>{{$count++}}</td>
                                         <td>{{$row->projname}}</td>
                                         <td>{{$row->company}}</td>
                                         <td>

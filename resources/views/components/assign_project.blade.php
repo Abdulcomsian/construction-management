@@ -11,7 +11,7 @@
                <span class="required">Select Designer</span>
             </label>
             <!--end::Label-->
-            <select name="designer" class="form-select" aria-label="Default select example"
+            <select name="designer" class="form-select" id="designer-select" aria-label="Default select example"
                style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
                <option disabled selected>Open this select menu</option>
                @isset($users)
@@ -23,6 +23,7 @@
                @endisset
             </select>
          </div>
+         <p id="link-designer"></p>
       </div>
       <div class="col-md-6">
          <label class="fs-6 fw-bold mb-2">
@@ -45,7 +46,7 @@
                <span class="required">Select Checker</span>
             </label>
             <!--end::Label-->
-            <select name="checker" class="form-select" aria-label="Default select example"
+            <select name="checker" class="form-select" id="checker-select" aria-label="Default select example"
                style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
                <option disabled selected>Open this select menu</option>
                @isset($users)
@@ -57,6 +58,27 @@
                @endisset
             </select>
          </div>
+         <p id="link-checker"></p>
+         <script>
+            const dropdown = document.getElementById('designer-select');
+            const linkPlaceholder = document.getElementById('link-designer');
+      
+            dropdown.addEventListener('change', function() {
+               const selectedValue = dropdown.value;
+               const link = window.location.origin + '/designer/calendar?user_id=' + selectedValue;
+               linkPlaceholder.innerHTML = '<a target="_blank" href="' + link + '">' + link + '</a>';
+            });
+         </script>
+         <script>
+            const dropdown2 = document.getElementById('checker-select');
+            const linkPlaceholder2 = document.getElementById('link-checker');
+      
+            dropdown2.addEventListener('change', function() {
+               const selectedValue2 = dropdown2.value;
+               const link2 = window.location.origin + '/designer/calendar?user_id=' + selectedValue2;
+               linkPlaceholder2.innerHTML = '<a target="_blank" href="' + link2 + '">' + link2 + '</a>';
+            });
+         </script>
       </div>
       <div class="col-md-6">
          <label class="fs-6 fw-bold mb-2">

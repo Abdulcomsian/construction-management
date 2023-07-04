@@ -407,6 +407,25 @@
         text-align: center!important;
     }
 
+    @keyframes blink {
+    0% {
+        color: red;
+    }
+    50% {
+        color: red;
+    }
+    100% {
+        color: inherit;
+    }
+   }
+
+   .blink {
+      animation: blink 1s infinite;
+      color: red;
+   }
+
+
+
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @include('dashboard.modals.comments2')
@@ -636,15 +655,16 @@
                         </div>
 
                      </td>
+                        @php $blink = '' @endphp
+                        @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
+                           @php $blink = 'blink' @endphp
+                        @endif
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <span>
-                              <span class=" titleColumn" id="allocationDesignerModalButton"
-                                 style="font-weight: bold;width: 100%; border-radius:5px; color: black; ">Allocated
-                                 Designers:</span><i class="icon-edit" id="allocated-designer" data-rowid="{{ $item->id }}"
-
-                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 11px;"></i>
-                           </span>
+                              <span class="titleColumn" id="allocationDesignerModalButton" style="font-weight: bold; width: 100%; border-radius: 5px; color: black;">Allocated Designers:</span>
+                              <i class="icon-edit {{$blink}}" id="allocated-designer" data-rowid="{{ $item->id }}" style="cursor: pointer; font-size: 16px; vertical-align: bottom; margin-left: 11px;"></i>
+                          </span>                                             
                         </div>
                         <div class="d-flex justify-content-between" style="margin: 12px 0;">
                            <span class=" titleColumn">Designer Name:</span>
@@ -934,7 +954,6 @@
                   $("#drawinganddesignlist").modal('show');
             }
          });
-      
       })
   </script>
 @endsection

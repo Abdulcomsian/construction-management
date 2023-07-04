@@ -308,7 +308,17 @@
                                 <tbody>
                                     @php $count = 0; @endphp
                                     @foreach($estimatorWork as $row)
-                                    @php $count++ @endphp
+                                    @php 
+                                    $count++; 
+                                    // $btn_style = $row->additionalInformation ? 'blink' : ''
+                                    $btn_class = '';
+                                    if($row->additionalInformation){
+                                        if($row->additionalInformation->jobComment->count() == 0){
+                                            $btn_class = 'blink';
+                                        }
+                                    }
+
+                                    @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
                                         <td>{{$count++}}</td>
                                         <td>{{$row->projname}}</td>
@@ -318,7 +328,7 @@
                                         </td>
                                         <td style="width: 40%;">
                                             {{-- data-bs-target="#modal1" --}}
-                                            <button onclick="showAdditionalInformation({{$row->id}})" class="btn {{$row->additionalInformation ? 'blink' : ''}}" style="border: 1px solid #07d564; border-radius: 5px; margin-right: 15px" data-bs-toggle="modal">Additional Information</button>
+                                            <button onclick="showAdditionalInformation({{$row->id}})" class="btn {{$btn_class}}" style="border: 1px solid #07d564; border-radius: 5px; margin-right: 15px" data-bs-toggle="modal">Additional Information</button>
                                             {{-- <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button> --}}
                                             <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
                                             <a target="_blank" href="{{route('client_edit_estimation', $row->id)}}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Edit Job</a>
@@ -362,13 +372,111 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modal2">
+    <div class="modal  fade" id="modal2">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div id="table">
-                            
-                    </div>
+
+                    <form method="post" action="{{route("approve_pricing")}}"  enctype="multipart/form-data">
+                        <div id="table">
+
+                        </div>
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="padding-left: 10px">
+                                    <input type="radio" name="payment" value="approve" checked>
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I accept payment terms</span>
+                                </div>
+                                <div class="form-group" style="padding-left: 10px">
+                                    <input type="radio" name="payment" value="reject">
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I reject payment terms</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-md-3" id="payment_note" style="display:none">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="payment_note" rows="5" placeholder="Enter note"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="signature_div">
+                            <div class="col-md-8">
+                            <div class="d-flex flex-column inputDiv mb-1" style="border: none">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                            <span class="signatureTitle">Signature Type:</span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="d-flex">
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                style="width: 12px;">
+                            <input type="hidden" id="Drawtype" name=""
+                                class="form-control form-control-solid" value="1">
+                            <span
+                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                            </div>
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                            <input type="hidden" id="signtype" name="signtype"
+                                class="form-control form-control-solid" value="2">
+                            <span
+                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                            </div>
+                            &nbsp;
+                            <!--end::Label-->
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                            <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                class="form-control form-control-solid" value="0">
+                            <span
+                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                Upload </span>
+                            </div>
+                            </div>
+                        
+                            </div>
+                            <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                            <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Signature:</span>
+                            </label>
+                            <br/> -->
+                            <canvas id="sig" onblure="draw()"
+                            style="background: lightgray; border-radius:10px"></canvas>
+                            <br />
+                            <textarea id="signature" name="signed" style="display: none"></textarea>
+                            <span id="clear" class="fa fa-undo cursor-pointer"
+                            style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                            </div>
+                            <div class="inputDiv d-none" id="pdfsign">
+                            <label class="fs-6 fw-bold mb-2" style="width: fit-content">
+                            <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
+                            </label>
+                            <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                            </div>
+                        
+                            <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Name Signature:</span>
+                            </label>
+                            <input type="text" name="namesign" class="form-control form-control-solid">
+                            </div>
+                            <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                            Added</span>
+                            </div>
+                            <div class="col-md-4">
+                           
+                            </div>
+                        
+                        </div>
+                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton"
+                        disabled
+                        style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                    
+                    </form>
                 </div>
             </div>
         </div>

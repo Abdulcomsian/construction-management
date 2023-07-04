@@ -34,11 +34,11 @@
                 <div>
                     {{date("d-m-Y H:i:s", strtotime($comments->created_at))}}
                 </div>
-                @if($comments->notified == 0)
+                {{-- @if($comments->notified == 0)
                 <div>
                     <input type="checkbox" value="{{$comments->id}}" class="notified">
                 </div>
-                @endif
+                @endif --}}
             </div>
             <hr>
             @empty

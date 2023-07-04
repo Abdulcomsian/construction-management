@@ -306,7 +306,8 @@
                                                 @if($work->additionalInformation->unreadComment->count() > 0)
                                                     <div class="circle blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
                                                 @else
-                                                    <div class="circle unblink"></div>
+                                                <div class="circle blink" data-additional-id="{{$work->additionalInformation->id}}"></div>
+                                                    {{-- <div class="circle unblink"></div> --}}
                                                 @endif
                                             @endif
                                         @else

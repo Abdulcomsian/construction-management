@@ -1003,7 +1003,7 @@ class EstimatorController extends Controller
             //new email code starts here
             $additionalInformation = AdditionalInformation::with('temporaryWork.creator', 'temporaryWork.project')->where('id' , $request->addId)->first();
             
-            $comment = JobComments::create(['additional_information_id'=> $additional_id , 'comment' => $comment , 'file_destination' => $filePath]);
+            $comment = JobComments::create(['additional_information_id'=> $additional_id , 'comment' => $comment , 'file_destination' => $filePath, 'notified' => 1]);
 
             $creator = $additionalInformation->temporaryWork->creator;
             $designerEmail =  isset($creator) && !is_null($creator) ? $creator->email : null ;

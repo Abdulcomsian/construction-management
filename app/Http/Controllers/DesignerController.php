@@ -2407,8 +2407,15 @@ class DesignerController extends Controller
 
             foreach ($jobs as $job) {
                 $color = self::getRandomColor(); // Generate a random color for each event
-
-                // Check if the selected user is the designer for this job
+                // Check if the job already has a color assigned
+                if (!$job->color) {
+                    // Generate a new color and save it to the job and database
+                    $job->color = $color;
+                    $job->save();
+                } else {
+                    $color = $job->color;
+                }
+                                // Check if the selected user is the designer for this job
                 if ($job->designerAssign && ($selectedUserId == 'all' || $selectedUserId == null || $job->designerAssign->user_id == $selectedUserId)) {
                     $designer_task = $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0';
 

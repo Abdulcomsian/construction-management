@@ -202,6 +202,24 @@
     .commentsTable th{
         text-align: center!important;
     }
+    @keyframes blink {
+        0% {
+        background-color: red;
+        border-color: red;
+        color: white;
+        }
+        50% {
+        background-color: inherit;
+        border-color: inherit;
+        color: inherit;
+        }
+    }
+
+    .blink {
+    animation: blink 1s infinite;
+    }
+
+
 
     /* .circle.nonblink{
         width: 25px;
@@ -298,9 +316,11 @@
                                         </td>
                                         <td style="width: 40%;">
                                             {{-- data-bs-target="#modal1" --}}
-                                            <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button>
+                                            <button onclick="showAdditionalInformation({{$row->id}})" class="btn {{$row->additionalInformation ? 'blink' : ''}}" style="border: 1px solid #07d564; border-radius: 5px; margin-right: 15px" data-bs-toggle="modal">Additional Information</button>
+                                            {{-- <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button> --}}
                                             <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
                                             <a target="_blank" href="{{route('edit_estimation', $row->id)}}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Edit Job</a>
+                                            <a target="_blank" href="{{ asset('estimatorPdf/'.$row->ped_url) }}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Design Brief</a>
                                         </td>
                                     </tr>
                                     @endforeach

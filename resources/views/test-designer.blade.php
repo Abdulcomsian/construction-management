@@ -852,7 +852,7 @@
                res=JSON.parse(res);
                // console.log(res.comment)
                console.log(res.comment)
-               $("#commenttable").html(res.comment);
+               // $("#commenttable").html(res.comment);
                $("#twccommenttable").html(res.twccomment);
                $("#twccommenttable2").html(res.twclientcomments);
                $(".comments_form").show();

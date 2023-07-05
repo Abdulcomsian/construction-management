@@ -532,10 +532,10 @@
                                 $designer_option=false;
                                 $checker_option=false;
                                 $user = auth()->user();
-                                if($user->id == $designer->user_id){
+                                if(isset($designer->user_id) && $user->id == $designer->user_id){
                                     $checker_option=true;
                                 }
-                                if($user->id == $checker->user_id){
+                                if(isset($checker->user_id) && $user->id == $checker->user_id){
                                     $designer_option=true;
                                 }
                             @endphp

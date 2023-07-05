@@ -662,7 +662,8 @@
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <span>
-                              <span class="titleColumn" id="allocationDesignerModalButton" style="font-weight: bold; width: 100%; border-radius: 5px; color: black;">Allocated Designers:</span>
+                              {{-- <span class="titleColumn" id="allocationDesignerModalButton" style="font-weight: bold; width: 100%; border-radius: 5px; color: black;">Allocated Designers:</span> --}}
+                              <span class=" titleColumn">Allocated Designers:</span>
                               <i class="icon-edit {{$blink}}" id="allocated-designer" data-rowid="{{ $item->id }}" style="cursor: pointer; font-size: 16px; vertical-align: bottom; margin-left: 11px;"></i>
                           </span>                                             
                         </div>
@@ -678,12 +679,16 @@
                      <td style="min-width: 220px; max-width: 80px;padding: 15px !important;">
                         <div class="d-flex justify-content-between">
                            <div>
-                              <span class=" titleColumn" style="font-weight: bold; color: black">Designer Progress:</span><i class="icon-edit" data-toggle="modal"
+                              <span class=" titleColumn">Designer Progress:</span>
+                              {{-- <span class=" titleColumn" style="font-weight: bold; color: black">Designer Progress:</span> --}}
+                              <i class="icon-edit" data-toggle="modal"
                                  data-target="#DesignCheckCertModal" id="time-estimator"  data-rowid="{{$item->id}}"
-                                 style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                                 style="cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                                  <div class="mt-5">
-                                 <span class=" titleColumn" style="font-weight: bold; color: black">Checker Progress:</span><i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
-                                    style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                                    <span class=" titleColumn">Checker Progress:</span>
+                                 {{-- <span class=" titleColumn" style="font-weight: bold; color: black">Checker Progress:</span> --}}
+                                 <i class="icon-edit" data-toggle="modal" id="time-estimator-checker"  data-rowid="{{$item->id}}"
+                                    style="cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                                  </div>
                                  @php
                                  $userEmail = auth()->user()->email;
@@ -698,8 +703,10 @@
                          
                                  <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&cert=1') }}" >
                                     <div class="mt-5">
-                                          <span class=" titleColumn" style="font-weight: bold; color: black">Designer Certificate:</span><i class="icon-edit"  data-rowid="{{$item->id}}"
-                                             style="color: #000; cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
+                                          <span class=" titleColumn">Designer Certificate:</span>
+                                          {{-- <span class=" titleColumn" style="font-weight: bold; color: black">Designer Certificate:</span> --}}
+                                          <i class="icon-edit"  data-rowid="{{$item->id}}"
+                                             style="cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>
                                        </div>
                                     </a>
                            </div>

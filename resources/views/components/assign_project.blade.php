@@ -17,7 +17,13 @@
                @isset($users)
                   @foreach($users as $user)
                      @if($user->hasRole('designer') OR $user->hasRole('Designer and Design Checker'))
-                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        @php
+                           $selected = '';
+                           if($estimatorDesigner->designerAssign->user->id == $user->id){
+                              $selected = 'selected';
+                           }
+                        @endphp
+                        <option value="{{$user->id}}" {{$selected}}>{{$user->name}}</option>
                      @endif
                   @endforeach
                @endisset
@@ -29,13 +35,13 @@
          <label class="fs-6 fw-bold mb-2">
             <span class="required">Start Designer Date</span>
          </label>
-         <input type="date" class="form-control" name="designer_start_date" value="{{ $estimatorDesigner->start_date ?? '' }}"/>
+         <input type="date" class="form-control" name="designer_start_date" value="{{ $estimatorDesigner->designerAssign->start_date ?? '' }}"/>
       </div>
       <div class="col-md-6">
          <label class="fs-6 fw-bold mb-2">
             <span class="required">End Designer Date</span>
          </label>
-         <input type="date" class="form-control" name="designer_end_date" value="{{ $estimatorDesigner->end_date ?? '' }}"/>
+         <input type="date" class="form-control" name="designer_end_date" value="{{ $estimatorDesigner->designerAssign->end_date ?? '' }}"/>
       </div>
    </div>
    <div class="row">
@@ -51,8 +57,14 @@
                <option disabled selected>Open this select menu</option>
                @isset($users)
                   @foreach($users as $user)
+                     @php
+                        $selected = '';
+                        if($estimatorDesigner->checkerAssign->user->id == $user->id){
+                           $selected = 'selected';
+                        }
+                     @endphp
                      @if($user->hasRole('Design Checker') OR $user->hasRole('Designer and Design Checker'))
-                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        <option value="{{$user->id}}" {{$selected}}>{{$user->name}}</option>
                      @endif
                   @endforeach
                @endisset
@@ -60,22 +72,22 @@
          </div>
          <p id="link-checker"></p>
          <script>
-            const dropdown = document.getElementById('designer-select');
-            const linkPlaceholder = document.getElementById('link-designer');
+            var dropdown = document.getElementById('designer-select');
+            var linkPlaceholder = document.getElementById('link-designer');
       
             dropdown.addEventListener('change', function() {
-               const selectedValue = dropdown.value;
-               const link = window.location.origin + '/designer/calendar?user_id=' + selectedValue;
+               var selectedValue = dropdown.value;
+               var link = window.location.origin + '/designer/calendar?user_id=' + selectedValue;
                linkPlaceholder.innerHTML = '<a target="_blank" href="' + link + '">' + link + '</a>';
             });
          </script>
          <script>
-            const dropdown2 = document.getElementById('checker-select');
-            const linkPlaceholder2 = document.getElementById('link-checker');
+            var dropdown2 = document.getElementById('checker-select');
+            var linkPlaceholder2 = document.getElementById('link-checker');
       
             dropdown2.addEventListener('change', function() {
-               const selectedValue2 = dropdown2.value;
-               const link2 = window.location.origin + '/designer/calendar?user_id=' + selectedValue2;
+               var selectedValue2 = dropdown2.value;
+               var link2 = window.location.origin + '/designer/calendar?user_id=' + selectedValue2;
                linkPlaceholder2.innerHTML = '<a target="_blank" href="' + link2 + '">' + link2 + '</a>';
             });
          </script>
@@ -84,13 +96,13 @@
          <label class="fs-6 fw-bold mb-2">
             <span class="required">Start Design Checker Date</span>
          </label>
-         <input type="date" class="form-control" name="checker_start_date" value="{{ $estimatorChecker->start_date ?? '' }}"/>
+         <input type="date" class="form-control" name="checker_start_date" value="{{ $estimatorDesigner->checkerAssign->start_date ?? '' }}"/>
       </div>
       <div class="col-md-6">
          <label class="fs-6 fw-bold mb-2">
             <span class="required">End Designer Checker Date</span>
          </label>
-         <input type="date" class="form-control" name="checker_end_date" value="{{ $estimatorChecker->end_date ?? '' }}"/>
+         <input type="date" class="form-control" name="checker_end_date" value="{{ $estimatorDesigner->checkerAssign->start_date ?? '' }}"/>
       </div>
       <div class="col-md-12 mt-4">
          <button class="btn btn-primary w-100" type="submit">Submit</button>

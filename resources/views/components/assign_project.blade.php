@@ -19,7 +19,7 @@
                      @if($user->hasRole('designer') OR $user->hasRole('Designer and Design Checker'))
                         @php
                            $selected = '';
-                           if($estimatorDesigner->designerAssign->user->id == $user->id){
+                           if(isset($estimatorDesigner->designerAssign->user->id) && $estimatorDesigner->designerAssign->user->id == $user->id){
                               $selected = 'selected';
                            }
                         @endphp
@@ -59,7 +59,7 @@
                   @foreach($users as $user)
                      @php
                         $selected = '';
-                        if($estimatorDesigner->checkerAssign->user->id == $user->id){
+                        if(isset($estimatorDesigner->checkerAssign->user->id) && $estimatorDesigner->checkerAssign->user->id == $user->id){
                            $selected = 'selected';
                         }
                      @endphp

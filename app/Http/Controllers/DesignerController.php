@@ -160,8 +160,8 @@ class DesignerController extends Controller
                 }
             }
             $temporary_work = TemporaryWork::find($id);
-            $temporary_work->designer_company_email	= $designer->email;
-            $temporary_work->desinger_email_2	= $checker->email;
+            $temporary_work->designer_company_email	= $designer->email ?? '';
+            $temporary_work->desinger_email_2	= $checker->email ?? '';
             $temporary_work->save();
             DB::commit();
 

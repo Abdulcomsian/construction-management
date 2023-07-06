@@ -235,7 +235,7 @@ input.form-control.form-control-solid.readonly-input {
                             <div class="row">
                                 <div class="col-md-12 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Website Link</label>
-                                    <input type="url" class="form-control form-control-solid" placeholder="Company Website" name="website" required value="{{$editProfile->website}}"/>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Company Website" name="website" required value="{{$editProfile->website}}"/>
                                 </div>
                             </div>
                         </div>

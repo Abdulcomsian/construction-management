@@ -134,10 +134,10 @@ background-color: #07d564 !important;
                                     <label class="required fs-6 fw-bold mb-2">Designer Email</label>
                                     <input type="email" class="form-control form-control-solid" placeholder="Designer Email" name="email" value="{{old('email')}}" />
                                 </div>
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                     <label class="required fs-6 fw-bold mb-2">Designer Company</label>
                                     <input type="text" class="form-control form-control-solid" placeholder="Designer Company" name="designer_company" value="{{old('designer_company')}}" />
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>

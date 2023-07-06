@@ -95,11 +95,38 @@ class AdminDesignerController extends Controller
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            $AwardedEstimators=TemporaryWork::with('designer.quotationSum','designerQuote','project.company' , 'comments', 'designerAssign','checkerAssign')
-            ->whereIn('id',$awarded)
-            ->orWhere('created_by', Auth::user()->id)
+            // $AwardedEstimators=TemporaryWork::with('designer.quotationSum','designerQuote','project.company' , 'comments', 'designerAssign','checkerAssign')
+            // ->whereIn('id',$awarded)
+            // ->orWhere('created_by', Auth::user()->id)
+            // ->where('work_status', 'publish')
+            // ->get();
+
+            // $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+            // ->whereIn('id', $awarded)
+            // ->where('work_status', 'publish')
+            // ->get();
+            $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+            ->whereIn('id', $awarded)
             ->where('work_status', 'publish')
             ->get();
+        
+        if (HelperFunctions::isAdminDesigner(Auth::user())) {
+            $previousAdminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+                ->whereIn('id', $AwardedEstimators->pluck('id'))
+                ->get();
+        
+            $AwardedEstimators = $AwardedEstimators->merge($previousAdminDesignerEstimators);
+        }
+        
+            // // Remove the condition ->orWhere('created_by', Auth::user()->id)
+
+            if (HelperFunctions::isAdminDesigner(Auth::user())) {
+                $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+                    ->where('work_status', 'publish')
+                    ->get();
+
+                $AwardedEstimators = $AwardedEstimators->merge($adminDesignerEstimators);
+            }
             $users = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
             $projectIds = [];
             foreach($AwardedEstimators as $awards)
@@ -122,10 +149,10 @@ class AdminDesignerController extends Controller
 
     public function awardedEstimatorModal(Request $request)
     {
-
         $loggedInUser = Auth::user();
         $designer = false;
-        if ($loggedInUser->di_designer_id !== null) {
+        // if (HelperFunctions::isAdminDesigner($loggedInUser)) {
+        if ($loggedInUser->di_designer_id !== null || $loggedInUser->admin_designer == null) {
             // Child Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->where([
@@ -152,8 +179,9 @@ class AdminDesignerController extends Controller
     {
 
         $loggedInUser = Auth::user();
+        // dd($loggedInUser);
         $checker = false;
-        if ($loggedInUser->di_designer_id !== null) {
+        if (HelperFunctions::isChildDesigner($loggedInUser)){
             // Child Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->where([
@@ -319,14 +347,18 @@ class AdminDesignerController extends Controller
         Validations::updateAdminDesigner($request, $id);
         try {
             $all_inputs = $request->except('_token', '_method');
-
+            if($request->admin_designer){
+                $admin_designer = 1;
+            }
             User::find($id)->update([
                 'name' => $all_inputs['name'],
                 'email' => $all_inputs['email'],
+                'admin_designer' => $admin_designer ?? null,
             ]);
             toastSuccess('Designer Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong');
             return Redirect::back();
         }

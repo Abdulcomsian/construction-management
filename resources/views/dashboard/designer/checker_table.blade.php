@@ -1,7 +1,7 @@
 <span data-dismiss="modal" class="modal-close">&times;</span>
+@if(auth()->user()->di_designer_id != null && $checker)
 <form action="{{route('store_award_estimator_hours', $estimatorDesigner->id)}}" method="post">
 @csrf
-@if(auth()->user()->di_designer_id != null && $checker)
 <div class="row">
     <div class="col-md-4">
         <div class="d-flex inputDiv d-block mb-3">
@@ -72,6 +72,7 @@
             itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
     </div>
 </div> --}}
+@if(isset($estimatorDesigner->estimatorDesignerListTasks) && $estimatorDesigner->estimatorDesignerListTasks)
 <div class="row">
     <div class="col-12">
         <table class="table">
@@ -96,4 +97,10 @@
         </table>
     </div>
 </div>
-{{-- @endif --}}
+@else
+<div class="row">
+    <div class="col-12">
+        <div class="h3">No Records Found</div>
+    </div>
+</div>
+@endif

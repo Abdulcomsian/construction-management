@@ -45,6 +45,7 @@ class User extends Authenticatable
         'di_designer_id',
         'user_notify',
         'company_policy',
+        'admin_designer',
     ];
 
     /**

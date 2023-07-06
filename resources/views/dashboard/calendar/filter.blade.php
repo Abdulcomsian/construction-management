@@ -269,15 +269,23 @@
                                     @foreach ($jobs as $job)
                                         {{-- @dd($job->designerAssign->estimatorDesignerListTasks->last()->completed) --}}
                                         <tr>
-                                            <td>{{ $job->projname }}</td>
-                                            <td>{{ $job->designerAssign->user->name }}</td>
-                                            <td>{{ $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
-                                            <td>{{ $job->designerAssign->start_date }}</td>
-                                            <td>{{ $job->designerAssign->end_date }}</td>
-                                            <td>{{ $job->checkerAssign->user->name }}</td>
+                                            <td>{{ $job->projname ?? '' }}</td>
+                                            <td>{{ $job->designerAssign->user->name ?? '' }}</td>
+                                            @if($job->designerAssign)
+                                                <td>{{ $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
+                                            @else
+                                                <td></td>
+                                            @endif
+                                            <td>{{ $job->designerAssign->start_date ?? '' }}</td>
+                                            <td>{{ $job->designerAssign->end_date ?? '' }}</td>
+                                            <td>{{ $job->checkerAssign->user->name ?? '' }}</td>
+                                            @if($job->checkerAssign)
                                             <td>{{ $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
-                                            <td>{{ $job->checkerAssign->start_date }}</td>
-                                            <td>{{ $job->checkerAssign->end_date }}</td>
+                                            @else
+                                                <td></td>
+                                            @endif
+                                            <td>{{ $job->checkerAssign->start_date ?? '' }}</td>
+                                            <td>{{ $job->checkerAssign->end_date ?? '' }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

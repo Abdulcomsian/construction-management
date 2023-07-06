@@ -99,6 +99,14 @@
 
                             </div>
                         </div>
+                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                            <div class="row">
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="fs-6 fw-bold mb-2">Make this user as admin designer</label>
+                                    <input name="admin_designer" type="checkbox" {{$user->admin_designer ? 'checked' : ''}} />
+                                </div>
+                            </div>
+                        </div>
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Update Designer
                         </button>

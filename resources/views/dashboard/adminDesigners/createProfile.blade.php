@@ -133,23 +133,23 @@ background-color: #07d564 !important;
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th>S.No</th>
-                                    <th>Company Name</th>
-                                    <th>DI Email</th>
-                                    <th>Address</th>
-                                    <th>About</th>
-                                    <th>Year Established</th>
-                                    <th>Phone</th>
-                                    <th>Website</th>
-                                    <th>Logo</th>
-                                    <th>Cv</th>
-                                    <th>Indemnity Insurance</th>
+                                    <th style="width:auto;min-width:100px;">Company Name</th>
+                                    <th style="width:auto;min-width:100px;">DI Email</th>
+                                    <th style="width:auto;min-width:150px;">Address</th>
+                                    <th style="width:auto;min-width:100px;">About</th>
+                                    <th style="width:auto;min-width:100px;">Year Established</th>
+                                    <th style="width:auto;min-width:160px;">Phone</th>
+                                    <th style="width:auto;min-width:100px;">Website</th>
+                                    <th style="width:auto;min-width:100px;">Logo</th>
+                                    <th style="width:auto;min-width:100px;">Cv</th>
+                                    <th style="width:auto;min-width:100px;">Indemnity Insurance</th>
                                     <th>Action</th>
 
                                 </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-bold">
                                 <tr>
-                                    <td>1</td>
+                                    <td style="text-align:center;">1</td>
                                     <td>{{$companyProfile->company_name}}</td>
                                     <td>{{$companyProfile->comapny_email}}</td>
                                     <td>{{$companyProfile->company_address}}</td>
@@ -161,7 +161,7 @@ background-color: #07d564 !important;
     width: max-content;
     display: block;
     max-width: 300px;">{{$companyProfile->company_description}}</td>
-                                    <td>{{$companyProfile->year_established}}</td>
+                                    <td><?php echo  date('d-m-Y', strtotime($companyProfile->year_established)); ?></td>
                                     <td>{{$companyProfile->phone}}</td>
                                     <td>{{$companyProfile->website}}</td>
                                     <td> 
@@ -222,7 +222,7 @@ background-color: #07d564 !important;
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Website Link</label>
-                                    <input type="url" class="form-control form-control-solid" placeholder="Company Website" name="website" required />
+                                    <input type="text" class="form-control form-control-solid" placeholder="Company Website" name="website" required />
                                 </div>
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Company Logo</label>

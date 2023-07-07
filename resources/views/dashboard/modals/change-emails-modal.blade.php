@@ -1,6 +1,6 @@
 <div class="modal fade" id="change_email_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-800px">
+    <div class="modal-dialog modal-dialog-centered mw-900px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -70,12 +70,13 @@
                     <thead>
                         <tr>
                             <th>S-NO</th>
+                            <th>Description</th>
                             <th>Email</th>
                             <th>Type</th>
                             <th>Status</th>
-                             <th>description</th>
-                            <th>Send date</th>
-                            <th>Read date</th>
+                            
+                            <th>Sent Date</th>
+                            <th>Read Date</th>
                         </tr>
                     </thead>
                     <tbody id="change_email_history">

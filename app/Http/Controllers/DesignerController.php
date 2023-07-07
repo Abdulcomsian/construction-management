@@ -605,7 +605,7 @@ class DesignerController extends Controller
                         $list .= '<td>' . $construction . '</td>';
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
+                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                     <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -616,7 +616,7 @@ class DesignerController extends Controller
                                 </td>';
                         } else {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
+                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
                                  &nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -1118,7 +1118,7 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->twc_email;
                     $chm->type ='Design Brief Rejected';
                     $chm->foreign_idd=$request->tempworkid;
-                    $chm->message='Design Breif Rejected by Pc Twc';
+                    $chm->message='Design Breif Rejected by PC TWC';
                     $chm->status=2;
                     $chm->save();
 
@@ -1166,7 +1166,7 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->twc_email;
                     $chm->type ='Design Brief Accepted';
                     $chm->foreign_idd=$request->tempworkid;
-                    $chm->message='Design Breif Approved by Pc Twc';
+                    $chm->message='Design Breif Approved by PC TWC';
                     $chm->status=2;
                     $chm->save();
                 }
@@ -1203,7 +1203,7 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->designer_company_email;
                     $chm->type ='Designer Company';
                     $chm->foreign_idd=$request->tempworkid;
-                    $chm->message='Email send to Designer Company';
+                    $chm->message='Email sent to Designer Company';
                     $chm->save();
                    $notify_admins_msg['body']['designer'] = 'designer1';
                    Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->designer_company_email)); 
@@ -2108,10 +2108,11 @@ class DesignerController extends Controller
         }
         $list.='<tr>';
         $list.='<td style="text-align: center;">'.$i.'</td>';
+        $list.='<td style="text-align: center;">'.$history->message.'</td>';
         $list.='<td style="text-align: center;">'.$history->email.'</td>';
         $list.='<td style="text-align: center;">'.$history->type.'</td>';
         $list.='<td style="text-align: center;">'.$status.'</td>';
-         $list.='<td style="text-align: center;">'.$history->message.'</td>';
+       
         $list.='<td style="text-align: center;">'.$cdate.'</td>
         <td>'.$rdate.'</td></tr>';
         $i++;

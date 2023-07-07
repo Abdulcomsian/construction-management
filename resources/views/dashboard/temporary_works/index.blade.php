@@ -1210,7 +1210,7 @@ $tempWorkClass = "d-none";
 
                                                         </div>
                                                     </td>
-                                                    <td style="max-width: 191px;">
+                                                    <td style="max-width: 191px;min-width: 191px;">
 
                                                         @php
                                                         $value = explode('-', $item->design_requirement_text);
@@ -1270,7 +1270,7 @@ $tempWorkClass = "d-none";
                                                                     style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; @if($tot>0) background: #3A7DFF26; color: #3A7DFF;  @else background: grey; color: #fff; @endif border-radius: 7px; padding: 4px 10px; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;"
                                                                     data-id="{{$item->id}}" data-type="4">
                                                                     <!-- <span class="fa fa-plus"></span> -->
-                                                                    Emails
+                                                                    Emails ({{$tot}})
                                                                 </p>
                                                             </div>
                                                             <span class="desc cursor-pointer"
@@ -1283,18 +1283,18 @@ $tempWorkClass = "d-none";
                                                         </div>
                                                     </td>
                                                     <td style="min-width: 220px; max-width: 80px;">
-                                                        <div class="d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-between" style="min-width:215px;max-width:200px;justify-content:left !important;">
                                                             <span class="titleColumn">Issue Date:</span>
                                                             <span
                                                                 style="width: 125px; text-align:end; margin-right: 21px; font-weight: 500; color: black">{{
                                                                 $item->design_issued_date ? date('d-m-Y',
                                                                 strtotime($item->design_issued_date)) : '-' }}</span>
                                                         </div>
-                                                        <div class="d-flex justify-content-between my-2">
+                                                        <div class="d-flex justify-content-between my-2" style="min-width:215px;max-width:200px;justify-content:left !important;">
                                                             <span class="titleColumn">Required by:</span>
                                                             <span
                                                                 class="{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[1] ?? '123'}} desc cursor-pointer"
-                                                                style="border-radius:2px;margin-right: 18px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"
+                                                                style="border-radius:2px;margin-left: 24px;width: 76px;{{HelperFunctions::check_date($item->design_required_by_date,$item->uploadfile)[0]}}; text-align: center"
                                                                 data-toggle="tooltip" data-placement="top"
                                                                 title="{{ $item->description_temporary_work_required ?: '-' }}"><span
                                                                     class="label  label-inline"
@@ -1302,21 +1302,23 @@ $tempWorkClass = "d-none";
                                                                     strtotime($item->design_required_by_date)) ?: '-'
                                                                     }}</span>
                                                         </div>
-                                                        <div>
-                                                            <div class="d-flex justify-content-between">
+                                                        <!-- <div style="min-width:215px;max-width:200px;"> -->
+                                                            <div class="d-flex" style="justify-content:left;">
                                                                 <span>
                                                                     <span class="titleColumn">CAT Check:</span>
                                                                     <span style="font-weight: 500; color: black">{{
                                                                         $item->tw_category }}</span>
                                                                 </span>
-                                                                <span style="">
-                                                                    <span class="titleColumn">Risk Class:</span>
+                                                                <span style="<?php
+                                                                    if($item->tw_risk_class=="VL"){echo 'position:relative;left:2px;';}else{echo "margin-left:-1px";}
+                                                                ?>">
+                                                                    <span class="titleColumn">Risk Cls:</span>
                                                                     <span
                                                                         style="margin-right: 11px; font-weight: 500; color: black">{{
                                                                         $item->tw_risk_class ?: '-' }} </span>
                                                                 </span>
                                                             </div>
-                                                        </div>
+                                                        <!-- </div> -->
                                                     </td>
                                                     <td style="min-width: 254px; max-width: 80px;">
                                                         <div class="d-flex">
@@ -1561,7 +1563,7 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td style="min-width: 254px; max-width: 80px;">
+                                                    <td style="min-width: 200px; max-width: 80px;">
                                                         <div class="d-flex" style="position: relative;bottom: 4px;">
                                                             <span class="titleColumn">Date Design Returned:</span>
                                                             <div

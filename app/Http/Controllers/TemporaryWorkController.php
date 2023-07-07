@@ -544,9 +544,9 @@ $notify_admins_msg = [
                 $notify_admins_msg['body']['designer'] = 'designer1';
                 $cmh= new ChangeEmailHistory();
                 $cmh->email=$request->desinger_email_2;
-                $cmh->type ='Designer Checker';
+                $cmh->type ='Design Checker';
                 $cmh->foreign_idd=$temporary_work->id;
-                $cmh->message='Email send to Designer Checker';
+                $cmh->message='Email sent to Design Checker';
                 $cmh->save();
                 Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
             } 
@@ -757,7 +757,7 @@ $notify_admins_msg = [
                         $cmh->email=$request->designer_company_email;
                         $cmh->type ='Designer Company';
                         $cmh->foreign_idd=$temporary_work->id;
-                        $cmh->message='Email send to Desinger Company';
+                        $cmh->message='Email sent to Designer Company';
                         $cmh->save();
                         Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->designer_company_email));
                     }
@@ -769,7 +769,7 @@ $notify_admins_msg = [
                         $cmh->email=$request->desinger_email_2;
                         $cmh->type ='Designer Checker';
                         $cmh->foreign_idd=$temporary_work->id;
-                        $cmh->message='Email send to Desinger Checker';
+                        $cmh->message='Email sent to Design Checker';
                         $cmh->save();
                         Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                     }

@@ -72,13 +72,7 @@
             itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
     </div>
 </div> --}}
-@if($estimatorDesigner == null || $estimatorDesigner->estimatorDesignerListTasks == null)
-<div class="row">
-    <div class="col-12">
-        <div class="h3">No Records Found</div>
-    </div>
-</div>
-@else
+@if(isset($estimatorDesigner->estimatorDesignerListTasks) && $estimatorDesigner->estimatorDesignerListTasks != null)
 <div class="row">
     <div class="col-12">
         <table class="table">
@@ -101,6 +95,12 @@
             @endforeach
             </tbody>
         </table>
+    </div>
+</div>
+@else
+<div class="row">
+    <div class="col-12">
+        <div class="h3">No Records Found</div>
     </div>
 </div>
 @endif

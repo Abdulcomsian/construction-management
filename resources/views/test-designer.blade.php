@@ -701,9 +701,9 @@
                                        @php $email = $item->checkerAssign->email; @endphp
                                  @endif
                          
-                                 <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&cert=1') }}" >
+                                 <a target="_blank" href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&cert=1') }}" >
                                     <div class="mt-5">
-                                          <span class=" titleColumn">Designer Certificate:</span>
+                                          <span class="titleColumn">Designer Certificate:</span>
                                           {{-- <span class=" titleColumn" style="font-weight: bold; color: black">Designer Certificate:</span> --}}
                                           <i class="icon-edit"  data-rowid="{{$item->id}}"
                                              style="cursor: pointer; font-size: 16px;vertical-align: bottom;margin-left: 3px;"></i>

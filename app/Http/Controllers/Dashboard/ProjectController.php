@@ -433,11 +433,11 @@ class ProjectController extends Controller
                     $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
 
-           $list='<table class="table table-hover"><thead><th>S-No</th><th>Project Name</th></thead><tbody>';
+           $list='<table class="table table-hover"><thead><th style="text-align:center;">S-No</th><th style="text-align:center;">Project Name</th></thead><tbody>';
             $path = config('app.url');
            foreach($projects as $docs)
            {
-            $list.='<tr><td>'.$docs->id.'</td><td><a target="_blank" href="'.url('project-document',$docs->id).'">'.$docs->name.'</a></td></tr>';
+            $list.='<tr><td style="text-align:center;">'.$docs->id.'</td><td style="text-align:center;><a target="_blank" href="'.url('project-document',$docs->id).'">'.$docs->name.'</a></td></tr>';
            }
            $list.='</tbody></table>';
            echo $list;

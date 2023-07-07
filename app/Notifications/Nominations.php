@@ -46,16 +46,17 @@ class Nominations extends Notification
      */
     public function toMail($notifiable)
     {
-        
           $projectdata=Project::select('name','no')->find($this->user->project);
-          $subject='TWP – Nomination Form Completion Request '.$projectdata->name.' and '.$projectdata->no.'';
+          $project_name = $projectdata->name ?? '';
+          $project_no = $projectdata->no ?? '';
+          $subject='TWP – Nomination Form Completion Request '.$project_name.' and '.$project_no.'';
           if($this->accepte_or_reject==2)
           {
-            $subject='TWP - Nomination Rejected – '.$projectdata->name.' name and '.$projectdata->no.'';
+            $subject='TWP - Nomination Rejected – '.$project_name.' name and '.$project_no.'';
           }
           if($this->accepte_or_reject==1)
           {
-            $subject='TWP - Nomination Form Amendment  - '.$projectdata->name.' name and '.$projectdata->no.'';
+            $subject='TWP - Nomination Form Amendment  - '.$project_name.' name and '.$project_no.'';
           }
          
         

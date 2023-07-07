@@ -31,8 +31,8 @@
                     </div>
                  </div>
             </div>
-                
-                <p style="font-size:12px;width:100%">Provide supporting evidence to {{$user->userDiCompany->name}} of the competence, qualifications, training and experience of the individuals nominated to work as {{$data['nominated_role']}}. This form will enable {{$user->userDiCompany->name}} to assess the competence of the individual to undertake the appropriate role.</p>
+                {{-- @php $company_name = $user->userDiCompany->name ?? '' @endphp --}}
+                <p style="font-size:12px;width:100%">Provide supporting evidence to {{$user->userDiCompany->name ?? ''}} of the competence, qualifications, training and experience of the individuals nominated to work as {{$data['nominated_role']}}. This form will enable {{$user->userDiCompany->name ?? ''}} to assess the competence of the individual to undertake the appropriate role.</p>
             </div>
            
 
@@ -522,7 +522,7 @@
              <div style="background:gray; padding: 12px; margin-top: 10px; color: white;">
                 <h4 style="margin: 0;font-size:14px;">Individual being nominated</h4>
                 <p style="margin: 0;font-size:12px;">I confirm that this is a true record of my experience and qualifications. <br>
-                    I have read and understood the {{$user->userDiCompany->name}} Temporary Works procedure. <br>
+                    I have read and understood the {{$user->userDiCompany->name ?? ''}} Temporary Works procedure. <br>
                     I specifically understand my duties.
                 </p>
             </div>

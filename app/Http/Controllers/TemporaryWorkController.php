@@ -1097,8 +1097,9 @@ $notify_admins_msg = [
     {
         Validations::storeComment($request);
         try {
+            
             //get twc email
-            $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no', 'client_email')->find($request->temp_work_id);
+            $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no', 'designer_company_email', 'client_email')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
@@ -1125,20 +1126,48 @@ $notify_admins_msg = [
             if (isset($request->type) && $request->type == 'twctodesigner') {
                 $model->type = 'twctodesigner';
                 $twc="twctodesigner";
+                //Adding mail history
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$tempdata->twc_email;
+                $cmh->type ='TWC to Designer';
+                $cmh->foreign_idd=$request->temp_work_id;
+                $cmh->message='Comment added for Designer';
+                $cmh->save();
             }
+            // if ($model->save()) {
+            //     $email = $tempdata->twc_email;
+            //     $type = 'question';
+            //     $client_email= '';
+            //     if($model->type == 'client'){
+            //         $email = $tempdata->client_email;
+            //         $client_email = $tempdata->client_email;
+            //         $type= 'client';
+            //     }
+            //     if(!isset($twc))
+            //     {
+            //       Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer'));
+            //     }
+
+            //     toastSuccess('Comment submitted successfully');
+            //     return Redirect::back();
+            // }
+
             if ($model->save()) {
-                $email = $tempdata->twc_email;
-                $type = 'question';
-                $client_email= '';
-                if($model->type == 'client'){
-                    $email = $tempdata->client_email;
-                    $client_email = $tempdata->client_email;
-                    $type= 'client';
-                }
                 if(!isset($twc))
                 {
-                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer'));
-                }
+                    if($request->type=="designertotwc"){
+                        $cmh= new ChangeEmailHistory();
+                        $cmh->email=$tempdata->twc_email;
+                        $cmh->type ='Designer to TWC';
+                        $cmh->foreign_idd=$request->temp_work_id;
+                        $cmh->message='Query from Designer to TWC';
+                        $cmh->save();
+                    }   
+                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id,'',$request->type ?? ''));
+                 }else if($twc=="twctodesigner"){
+                   
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
+                 }
 
                 toastSuccess('Comment submitted successfully');
                 return Redirect::back();

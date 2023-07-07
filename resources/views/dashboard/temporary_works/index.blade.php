@@ -1310,7 +1310,7 @@ $tempWorkClass = "d-none";
                                                                         $item->tw_category }}</span>
                                                                 </span>
                                                                 <span style="<?php
-                                                                    if($item->tw_risk_class=="VL"){echo 'position:relative;left:2px;';}else{echo "margin-left:-1px";}
+                                                                    if($item->tw_risk_class=="VL"){echo 'position:relative;left:0px;';}else{echo "margin-left:-1px";}
                                                                 ?>">
                                                                     <span class="titleColumn">Risk Cls:</span>
                                                                     <span

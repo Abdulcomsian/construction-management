@@ -279,6 +279,7 @@
                                 @csrf
                                 <input type="hidden" name="temp_work_id" value="{{$id}}">
                                 <input type="hidden" name="mail" value="{{$mail}}">
+                                <input type="hidden" name="type" value="designertotwc">
                                 <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span>Ask questions or list further requirements for the TWC.</span>

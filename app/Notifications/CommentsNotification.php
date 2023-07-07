@@ -82,6 +82,10 @@ class CommentsNotification extends Notification
         {
             $subject='TWP– Live T.W. comment on site (QR code) - '.$project_name.'-'.$proj_no;
         }
+        if($this->type=="comment")
+        {
+            $subject='TWP – Designer Comments - '.$project_name.'-'.$proj_no;
+        }
         return (new MailMessage)
             ->greeting('Comments Notification')
             ->subject($subject)

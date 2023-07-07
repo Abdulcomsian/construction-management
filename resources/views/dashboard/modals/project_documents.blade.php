@@ -1,6 +1,9 @@
+<style>
+    .form-select.form-select-solid{color:#000 !important;}
+    </style>
 <div class="modal fade" id="project_document_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered ">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -103,19 +106,19 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-no</th>
-                                <th>User Name</th>
-                                <th>Nomination PDF</th>
+                                <th style="text-align:center;">S-no</th>
+                                <th style="text-align:center;">User Name</th>
+                                <th style="text-align:center;">Nomination PDF</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($nominations as $nom)
                             <tr>
-                                <td>
+                                <td style="text-align:center;">
                                 {{$loop->index+1}}
                                 </td>
-                                <td>{{$nom->user->name ?? ''}}</td>
-                                <td><a href="{{asset('pdf/'.$nom->pdf_url)}}" target="_blank">PDF</a></td>
+                                <td style="text-align:center;">{{$nom->user->name ?? ''}}</td>
+                                <td style="text-align:center;"><a href="{{asset('pdf/'.$nom->pdf_url)}}" target="_blank">PDF</a></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -125,20 +128,20 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>S-no</th>
-                                <th>User Name</th>
-                                <th>Appointment PDF</th>
+                                <th style="text-align:center;">S-no 1</th>
+                                <th style="text-align:center;">User Name</th>
+                                <th style="text-align:center;">Appointment PDF</th>
                             </tr>
                         </thead>
                         <tbody>
                            @foreach($nominations as $nom)
                             @if($nom->appointment_pdf)
                             <tr>
-                                <td>
+                                <td style="text-align:center;">
                                 {{$loop->index+1}}
                                 </td>
-                                <td>{{$nom->user->name ?? ''}}</td>
-                                <td><a href="{{asset('pdf/'.$nom->appointment_pdf)}}" target="_blank">PDF</a></td>
+                                <td style="text-align:center;">{{$nom->user->name ?? ''}}</td>
+                                <td style="text-align:center;"><a href="{{asset('pdf/'.$nom->appointment_pdf)}}" target="_blank">PDF</a></td>
                             </tr>
                             @endif
                             @endforeach

@@ -134,43 +134,13 @@
             <!--begin::Card-->
             <div class="card container" style="margin: 40px auto">
                 <!--begin::Card header-->
-                <div class="card-header border-0 pt-6">
+               
+                <div class="card-header border-0" style="padding-left:0px;">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 style="display: inline-block;">Design Brief for PC TWC to review, to accept, or reject with comments.</h2>
+                        <h2 style="display: inline-block;">Design Brief for PC TWC to review, to accept, or reject with comments:</h2>
                     </div>
                 </div>
-                <table class="table container" style="border-radius: 8px; overflow:hidden;">
-                    <thead style="background: #07D564">
-                        <tr>
-                            <th>No</th>
-                            <th>TWC ID</th>
-                            <th>Design Brief</th>
-                            {{-- <th>Sent By</th> --}}
-                            <th>Comments by Pc Twc</th>
-                        </tr>
-                    </thead>
-                    <tbody class="designBriefAccepted">
-                        @foreach($rejectedcomments as $cmt)
-                        <tr>
-                            <td>{{$loop->index+1}}</td>
-                            <td> {{$tempworkdetail->twc_id_no}}</td>
-                            <td><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a><br><b>Sent
-                                    by:</b> <span style="color: #9D9D9D">{{$cmt->email}}</span><br><b>Sent
-                                    To:</b><span
-                                    style="color: #9D9D9D">{{$tempworkdetail->pc_twc_email}}</span><br>{{$cmt->created_at}}
-                            </td>
-                            {{-- <td><b>{{$cmt->email}}</b><br><br><b>Sent To:
-                                    <br>{{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td> --}}
-                            <td><b>Comment:</b>{{$cmt->comment}}<br>
-                                @if(isset($cmt->comment))
-                                <span style="color:#9D9D9D">{{$cmt->updated_at}}</span>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
                 <div class="card-body pt-0">
                     <form id="desingform" action="{{route('design.store')}}" method="post"
                         enctype="multipart/form-data">
@@ -180,6 +150,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
+                                   
                                     <div class="col-md-6">
                                         <div class="d-block">
                                             <!--begin::Label-->
@@ -195,7 +166,7 @@
                                     <div class="col-md-4 d-flex justify-content-end align-items-center">
                                         <div class="d-flex align-items-baseline requiredDiv">
                                             <label class="fs-6 fw-bold mb-2">
-                                                <span class="required">Accept:</span>
+                                                <span class="required">Select Y For Accepted Or N for Rejected:</span>
 
                                             </label>
                                             <!--begin::Radio group-->
@@ -223,7 +194,7 @@
                         </div>
                     </form>
 
-                    <hr>
+                    <hr  style="height: 2px;" />
                     <!-- <table class="table table-hover">
                         <thead>
                             <tr>
@@ -253,6 +224,51 @@
                         </tbody>
                     </table> -->
                 </div>
+               <div class="row"> 
+                    <div class="col-md-12">
+                        <div class="d-block">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <h2 style="margin-top:20px;" class="">Communication Table:</h2>
+
+                            </label>
+                        </div>
+                    </div>
+               </div>
+                <table class="table container" style="margin-top:0px;border-radius: 8px; overflow:hidden;">
+                    <thead style="background: #07D564">
+                        <tr>
+                            <th style="width:50px;">No</th>
+                            <th style="width:100px;">TWC ID</th>
+                            <th style="width:200px;">Design Brief</th>
+                            {{-- <th>Sent By</th> --}}
+                            <th style="width:400px;">Comments by PC TWC</th>
+                        </tr>
+                    </thead>
+                    <tbody class="designBriefAccepted">
+                        @foreach($rejectedcomments as $cmt)
+                        <tr>
+                            <td  style="width:50px;">{{$loop->index+1}}</td>
+                            <td style="width:100px;"> {{$tempworkdetail->twc_id_no}}</td>
+                            <td style="width:200px;"><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a><br><b>Sent
+                                    by: </b> <span style="color: #9D9D9D">{{$cmt->email}}</span><br><b>Sent
+                                    To: </b><span
+                                    style="color: #9D9D9D">{{$tempworkdetail->pc_twc_email}}</span><br>
+                                    
+                                    <?php echo date('d-m-Y H:m:i', strtotime($cmt->created_at)) ?>
+                            </td>
+                            {{-- <td><b>{{$cmt->email}}</b><br><br><b>Sent To: &nbsp;
+                                    <br> {{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td> --}}
+                            <td style="width:400px;"><b>Comment: </b>{{$cmt->comment}}<br>
+                                @if(isset($cmt->comment))
+                                <span style="color:#9D9D9D">{{$cmt->updated_at}}</span>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+               
                 <!--end::Card body-->
             </div>
             <!--end::Card-->

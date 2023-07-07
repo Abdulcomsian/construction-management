@@ -36,9 +36,12 @@
                                                                         @if(auth()->user()->hasRole('admin'))
                                                                         Please Login and complete Company Profile.
                                                                         @else
-                                                                        <div>Please Login and complete your nomination form.</div>
-                                                                        <div style="margin-top: 15px;"><a href="{{route('login')}}" style="background: #353535; padding: 10px 20px; color: white; text-decoration : none;">Login</a></div>
-
+                                                                        {{-- <div>Please Login and complete your nomination form.</div>
+                                                                        <div style="margin-top: 15px;"><a href="{{route('login')}}" style="background: #353535; padding: 10px 20px; color: white; text-decoration : none;">Login</a></div> --}}
+                                                                        <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                            Please  <a href="{{route('nomination_create',Crypt::encrypt($user->id))}}">Click Here</a> and complete your nomination form. 
+                                                                            <br>   
+                                                                       </p>
                                                                         @endif
                                                                         
                                                                         <br>   

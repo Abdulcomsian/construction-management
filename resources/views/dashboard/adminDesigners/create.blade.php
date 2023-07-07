@@ -171,6 +171,25 @@ background-color: #07d564 !important;
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6 nomination-flow">
+                            <div class="d-flex inputDiv requiredDiv">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" >
+                                    <span>Is Nomination Flow required ?:</span>
+
+                                </label>
+                                <!--begin::Radio group-->
+                                <div class="nav-group nav-group-fluid">
+                                    <label>
+                                        <input type="radio" datacheck1='yes' class="btn-check" name="nomination" value="1" />
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" datacheck1='no' class="btn-check" name="nomination" value="2" id="unchecked" checked/>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Add Designer
                         </button>

@@ -1016,7 +1016,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="submit" id="submit" class="btn submitbtn btn-secondary" disabled>submit</button>
+                        <button type="submit" id="submit" class="btn submitbtn btn-secondary">submit</button>
                     </div>
 
                     <!--end::Card body-->

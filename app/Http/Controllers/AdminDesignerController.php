@@ -14,11 +14,14 @@ use App\Notifications\AdminDesignerNomination;
 use App\Notifications\AdminDesignerAppointmentNotification;
 use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,EstimatorDesignerListTask,ProfileOtherDocuments};
 use Carbon\Carbon;
+use App\Notifications\Nominations;
 use App\Utils\HelperFunctions;
 use DB;
 use Auth;
 use Notification;
 use PDF;
+use App\Notifications\CreateNomination;
+use Crypt;
 
 class AdminDesignerController extends Controller
 {
@@ -259,6 +262,7 @@ class AdminDesignerController extends Controller
      */
     public function store(Request $request)
     {
+        DB::beginTransaction();
         Validations::storeAdminDesigner($request);
         try {
             $userprojectdata=[];
@@ -270,7 +274,16 @@ class AdminDesignerController extends Controller
             {
                 $all_inputs['di_designer_id']=Auth::user()->id;
             }
+            $nomination_status=0;
+            if($request->nomination==1)
+            {
+                $all_inputs['nomination']=1;
+            }
             $user = User::create($all_inputs);
+            // if($request->nomination==1)
+            // {
+            //     Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
+            // }
             $user->assignRole($request->role);
 
             //password reset link send to designer 
@@ -280,15 +293,20 @@ class AdminDesignerController extends Controller
               'token' => $token, 
               'created_at' => Carbon::now()
             ]);
-            Notification::route('mail', $request->email)->notify(new PasswordResetNotification($token,$request->email));
-            if(Auth::user()->hasRole('admin'))
+            // Notification::route('mail', $request->email)->notify(new PasswordResetNotification($token,$request->email));
+            // if(Auth::user()->hasRole('admin'))
+            // {
+            //     //Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNotification($user));
+            // }
+            // else{
+            //     Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNotification($user));
+            // }
+
+            if($request->nomination==1)
             {
-                //Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNotification($user));
-            }
-            else{
                 Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNotification($user));
             }
-            
+            DB::commit();
             toastSuccess('User successfully added!');
             if(Auth::user()->hasRole('admin'))
             {
@@ -299,7 +317,9 @@ class AdminDesignerController extends Controller
                 return redirect()->route('adminDesigner.designerList');
             }
             
-        } catch (\Exception $exception) {
+        } catch(\Exception $exception) {
+            DB::rollback();
+            // dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -385,9 +405,11 @@ class AdminDesignerController extends Controller
     //create nomination form
     public function createNomination($id)
     {
-        $nomination=Nomination::where(['user_id'=>Auth::user()->id])->first();
-
-        return view('dashboard.adminDesigners.createNomination',compact('nomination'));
+        $userid= \Crypt::decrypt($id);
+        $user = User::findorfail($userid);
+        // dd("sss");
+        $nomination=Nomination::where(['user_id'=>$userid])->first();
+        return view('dashboard.adminDesigners.createNomination',compact('nomination','user'));
     }
 
     //save notimation
@@ -395,7 +417,7 @@ class AdminDesignerController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user=User::with('userCompany')->find(Auth::user()->id);
+            $user=User::with('userCompany')->find($id);
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -410,8 +432,8 @@ class AdminDesignerController extends Controller
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
                 $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
+                $image_type_png = $image_type[1] ?? '';
+                $image_base64 = base64_decode($image[1] ?? '');
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
@@ -543,6 +565,7 @@ class AdminDesignerController extends Controller
             }
         } catch (\Exception $exception) {
             DB::rollback();
+            // dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return back();
         }
@@ -975,7 +998,7 @@ class AdminDesignerController extends Controller
                                         
                                     </button>
                                 </form>
-                                <a href="'.url('adminDesigner/designer-details',$data->id).'" class="btn btn-icon '.$class.'"><i class="fa fa-eye"></i></a>
+                                <a href="'.url('adminDesigner/designer-details',Crypt::encrypt($data->id)).'" class="btn btn-icon '.$class.'"><i class="fa fa-eye"></i></a>
                                 </div>
                                 ';
                         }
@@ -994,8 +1017,9 @@ class AdminDesignerController extends Controller
     //designer details by id
     public function designerDetails($id)
     {
-        $userNomination=Nomination::where(['user_id'=>$id])->first();
-        $User=User::find($id);
+        $userid= \Crypt::decrypt($id);
+        $userNomination=Nomination::where(['user_id'=>$userid])->first();
+        $User=User::find($userid);
         $User->user_notify=0;
         $User->save();
         return view('dashboard.adminDesigners.designer-details',compact('userNomination','User'));
@@ -1030,8 +1054,8 @@ class AdminDesignerController extends Controller
                 }
 
                 $all_inputs=[
-                    'print_name1'=>Auth::user()->name,
-                    'job_title1'=>Auth::user()->job_title,
+                    'print_name1'=>Auth::user()->name ?? $user->name,
+                    'job_title1'=>Auth::user()->job_title ?? $user->job_title,
                     'signature1'=>$image_name,
                     'status'=>1,
                     'nomination_approve_reject_date'=>date('Y-m-d H:i:s')

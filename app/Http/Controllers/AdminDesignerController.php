@@ -1092,8 +1092,9 @@ class AdminDesignerController extends Controller
     //create Appointment
     public function createAppointment($id)
     {
-        $nomination=Nomination::where(['user_id'=>Auth::user()->id])->first();
-        $user=User::find($id);
+        $userid= \Crypt::decrypt($id);
+        $nomination=Nomination::where(['user_id'=>$userid])->first();
+        $user=User::find($userid);
         if($nomination && $nomination->status==1)
         {
             return view('dashboard.adminDesigners.createAppointment',compact('user','nomination'));
@@ -1108,8 +1109,8 @@ class AdminDesignerController extends Controller
     public function saveAppointment(Request $request)
     {
        DB::beginTransaction();
-    //    try
-    //    {
+       try
+       {
             $user=User::with('userDiCompany')->find($request->user_id);
             $nomination=Nomination::find($request->nominationId);
             //upload signature here
@@ -1150,11 +1151,11 @@ class AdminDesignerController extends Controller
             DB::commit();
             toastSuccess('Appointment Saved successfully');
             return redirect('adminDesigner/create-nomination/'.$user->id);
-        // } catch (\Exception $exception) {
-        //     DB::rollback();
-        //     toastError('Something went wrong, try again!' );
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            DB::rollback();
+            toastError('Something went wrong, try again!' );
+            return Redirect::back();
+        }
        
     }
 }

@@ -269,7 +269,7 @@
                         </table>
                     </div>
                    @else
-                   <form id="nominationform" action="{{url('adminDesigner/save-nomination',auth()->user()->id)}}" method="post" enctype="multipart/form-data">
+                   <form id="nominationform" action="{{url('adminDesigner/save-nomination',$user->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body pt-0">
                         <h2>Temporary Works Designer Nomination</h2>
@@ -279,11 +279,11 @@
                             <tbody>
                                 <tr>
                                     <td>Nominated person’s (Company)</td>
-                                    <td><input type="text" name="nominated_person_employer" value="{{auth()->user()->userDiCompany->name}}" required></td>
+                                    <td><input type="text" name="nominated_person_employer" value="{{$user->userDiCompany->name}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Nominated person </td>
-                                    <td><input type="text" name="nominated_person"  value="{{auth()->user()->name}}" required></td>
+                                    <td><input type="text" name="nominated_person"  value="{{$user->name}}" required></td>
                                 </tr>
                                  <tr>
                                     <td>Date</td>
@@ -307,9 +307,9 @@
                                    <td>
                                         <select name="Description_limits_authority" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" required>
                                             <option value="">Select Option</option>
-                                            <option value="designer" {{auth()->user()->roles->pluck('name')[0]=='designer' ? 'selected' : ''}}>Designer</option>
-                                            <option value="Design Checker" {{auth()->user()->roles->pluck('name')[0]=='Design Checker' ? 'selected' :''}}>Design checker</option>
-                                            <option value="Designer and Design Checker" {{auth()->user()->roles->pluck('name')[0]=='Designer and Design Checker' ? 'selected' : ''}}>Designer and Design Checker</option>
+                                            <option value="designer" {{$user->roles->pluck('name')[0]=='designer' ? 'selected' : ''}}>Designer</option>
+                                            <option value="Design Checker" {{$user->roles->pluck('name')[0]=='Design Checker' ? 'selected' :''}}>Design checker</option>
+                                            <option value="Designer and Design Checker" {{$user->roles->pluck('name')[0]=='Designer and Design Checker' ? 'selected' : ''}}>Designer and Design Checker</option>
                                         </select>
                                    </td>
                                 </tr>

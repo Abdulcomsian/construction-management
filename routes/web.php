@@ -133,17 +133,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('adminDesigner/edit-profile/{id}',[AdminDesignerController::class,'editProfile']);
             Route::post('adminDesigner/update-profile/{editProfile}',[AdminDesignerController::class,'updateProfile']);
             Route::get('adminDesigner/designer-details/{id}',[AdminDesignerController::class,'designerDetails']);
-            Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'nominationStatus']);
             //delete company other docs
             Route::get('adminDesigner/delete/companydoc',[AdminDesignerController::class,'deleteCompnayDocs'])->name('delete.companydocs');
         });
-        Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination']);
-        Route::post('adminDesigner/save-nomination/{id}',[AdminDesignerController::class,'saveNomination']);
         Route::get('adminDesigner/edit-nomination/{id}',[AdminDesignerController::class,'editNomination']);
         Route::post('adminDesigner/update-nomination/{id}',[AdminDesignerController::class,'updateNomination']);
-
-        Route::get('adminDesigner/create-appointment/{id}',[AdminDesignerController::class,'createAppointment']);
-        Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'saveAppointment']);
     });
 //Estimator routes
 Route::group(['prefix' => 'Estimator'],function(){
@@ -178,10 +172,10 @@ Route::group(['prefix' => 'Estimator'],function(){
 Route::group(['prefix' => 'Nomination'], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::post('/nomination-chagnestatus',[UserController::class,'nomination_status']);
-        Route::get('/nomination-get-commetns',[UserController::class,'nomination_get_comments']);
         //user project nominations
         Route::get('user/project-nomination/{id}',[UserController::class,'User_Project_Nomination'])->name('user.project.nomination');
     });
+    Route::get('/nomination-get-commetns',[UserController::class,'nomination_get_comments']);
     //noimination Form
     Route::get('/nomination-form/{id}',[HomeController::class,'nomination_form'])->name('nomination-form');
     Route::get('/nomination-formm/{id}',[HomeController::class,'nomination_formm'])->name('nomination-formm');
@@ -306,10 +300,15 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
 
 });
 
+Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination'])->name('nomination_create');
+Route::post('adminDesigner/save-nomination/{id}',[AdminDesignerController::class,'saveNomination']);
 Route::get('client-edit-estimation/{id}' , [DesignerController::class , 'clientEditEstimation'])->name('client_edit_estimation');
+Route::get('adminDesigner/designer-details/{id}',[AdminDesignerController::class,'designerDetails'])->name('designer_details');
 
+Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'nominationStatus']);
 
-
+Route::get('adminDesigner/create-appointment/{id}',[AdminDesignerController::class,'createAppointment'])->name('create_appointment');
+Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'saveAppointment']);
 
 Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['auth'])->name('dashboard');
 Route::get('Estimator/estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');

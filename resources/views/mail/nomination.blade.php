@@ -43,7 +43,7 @@
                                                                    </p>
                                                                     @else
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        {{$user->userCompany->name}} designated individual has nominated you as a 
+                                                                        {{$user->userCompany->name ?? ''}} designated individual has nominated you as a 
                                                                         @php
                                                                          if($user->roles->pluck('name')[0]=='user')
                                                                          {

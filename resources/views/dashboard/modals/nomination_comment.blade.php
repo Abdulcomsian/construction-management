@@ -143,7 +143,7 @@
                             </div>
 
                             <br>
-                            <button type="submit" class="btn btn-secondary submitBtn float-end" disabled>Submit</button>
+                            <button type="submit" class="btn btn-secondary submitBtn float-end">Submit</button>
                         </div>
                     </div>
                 </form>

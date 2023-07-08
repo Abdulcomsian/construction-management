@@ -1563,11 +1563,11 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td style="min-width: 200px; max-width: 80px;">
+                                                    <td style="min-width: 254px; max-width: 80px;">
                                                         <div class="d-flex" style="position: relative;bottom: 4px;">
                                                             <span class="titleColumn">Date Design Returned:</span>
                                                             <div
-                                                                style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
+                                                            style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
                                                                 @php
                                                                 $date='';
                                                                 $dcolor='';
@@ -1649,7 +1649,7 @@ $tempWorkClass = "d-none";
                                                     </td>
                                                     <td style="">
                                                         <div class="d-flex " style="position:relative; top:4px;">
-                                                            <span class="titleColumn">Designer:</span>
+                                                            <span class="titleColumn"  style="margin-left:0px;">Designer:</span>
                                                             <div
                                                                 style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
                                                                 <span class="designer-company cursor-pointer"
@@ -1667,7 +1667,7 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                         </div>
                                                         <div class="d-flex  my-2" style="position:relative; top:3px;">
-                                                            <span class="titleColumn">RAMS:</span>
+                                                            <span class="titleColumn" style="margin-left:0px;">RAMS:</span>
                                                             <div
                                                                 style="display: flex; justify-content: space-between; flex-grow: 0.5; max-width:80px; margin-left: 26px; margin-left: 43px;column-gap:2rem">
                                                                 <div data-type="2"
@@ -1703,7 +1703,7 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                         </div>
                                                         <div class="d-flex " style="position:relative;top:6px;">
-                                                            <span class="titleColumn" style="">
+                                                            <span class="titleColumn"  style="margin-left:0px;">
                                                                 @if(count($item->scancomment)>0)
                                                                 @php
                                                                 $n=count($item->scancomment);

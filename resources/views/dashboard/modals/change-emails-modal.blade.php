@@ -1,7 +1,7 @@
 <div class="modal fade" id="change_email_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-900px">
-        <!--begin::Modal content-->
+    <div class="modal-dialog modal-dialog-centered mw-1000px">
+        <!--begin::Modal ------------------------content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">

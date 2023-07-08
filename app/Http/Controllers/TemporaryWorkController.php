@@ -717,7 +717,7 @@ $notify_admins_msg = [
                     $cmh->email=$request->pc_twc_email;
                     $cmh->type ='Design Brief';
                     $cmh->foreign_idd=$temporary_work->id;
-                    $cmh->message='Email sent for approval';
+                    $cmh->message='Design Brief sent for approval';
                     $cmh->save();
                 }
                 //send mail to admin
@@ -971,6 +971,7 @@ $notify_admins_msg = [
                     $cmh= new ChangeEmailHistory();
                     $cmh->email=$request->pc_twc_email;
                     $cmh->type ='Design Brief';
+                    $cmh->message='Design Brief sent for approval';
                     $cmh->foreign_idd=$temporaryWork->id;
                     $cmh->save();
                 }
@@ -1780,6 +1781,7 @@ $notify_admins_msg = [
             $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
+            // dd($request->all());
             $image_name1 = '';
             if ($request->principle_contractor == 1) { 
                 $all_inputs['name1'] = $request->name1;
@@ -1869,10 +1871,17 @@ $notify_admins_msg = [
                     'action_url' => '',
                 ];
                 if (isset($request->approval)) {
-                    $notify_admins_msg['body']['pc_twc'] = '1';
-
+                   
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 } else {
+                    $notify_admins_msg['body']['pc_twc'] = '1';
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load created';
+                    $cmh->save();
                     // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 }
@@ -2290,6 +2299,13 @@ $notify_admins_msg = [
                     Mail::to($request->pc_twc_email)->send(new PermitUnloadMail($request->name1 , $url , $msg ));
                     
                 }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit Unloaded';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit Unloaded';
+                    $cmh->save();
                     Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 }
                 toastSuccess('Permit Unloaded sucessfully!');
@@ -2476,7 +2492,13 @@ $notify_admins_msg = [
                         $q->where('name', 'user');
                     }
                 )->where('company_id', $request->companyid)->first();
-
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$request->twc_email;
+                $cmh->type ='Scafolding Permit';
+                $cmh->status =2;
+                $cmh->foreign_idd=$request->temporary_work_id;
+                $cmh->message='Scafolding Permit Created';
+                $cmh->save();
                 Notification::route('mail', $coordinatoremail->email ?? '')->notify(new PermitNotification($notify_admins_msg));
 
                 Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));

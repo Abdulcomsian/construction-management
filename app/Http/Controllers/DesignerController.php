@@ -467,13 +467,25 @@ class DesignerController extends Controller
             $model->temporary_work_id = $tempworkdata->id;
             if ($model->save()) {
                 //
-                $chm= new ChangeEmailHistory();
-                $chm->email=$tempworkdata->twc_email;
-                $chm->type ='Design Upload';
-                $chm->foreign_idd=$tempworkdata->id;
-                $chm->message='Designer Uploaded Design';
-                $chm->status = 2;
-                $chm->save();
+              //  dd($request->designermail, $tempworkdata->desinger_email_2, $tempworkdata->designer_company_email);
+                if($request->designermail == $tempworkdata->desinger_email_2){
+                    $chm= new ChangeEmailHistory();
+                    $chm->email=$tempworkdata->twc_email;
+                    $chm->type ='Design Upload';
+                    $chm->foreign_idd=$tempworkdata->id;
+                    $chm->message='Design Checker Uploaded Design';
+                    $chm->status = 2;
+                    $chm->save();
+                }else if($request->designermail == $tempworkdata->designer_company_email){
+                    $chm= new ChangeEmailHistory();
+                    $chm->email=$tempworkdata->twc_email;
+                    $chm->type ='Design Upload';
+                    $chm->foreign_idd=$tempworkdata->id;
+                    $chm->message='Designer Uploaded Design';
+                    $chm->status = 2;
+                    $chm->save();
+                }
+                
                 $selectedEmails = $request->input('emails');
                 if(!$selectedEmails){
                     $notify_admins_msg = [
@@ -557,12 +569,12 @@ class DesignerController extends Controller
                
                if($registerupload)
                 {
-                    $list.="<h3>TWC Uploaded ssss</h3>";            
+                    $list.="<h3>TWC Uploaded</h3>";            
                     $list .= '<table class="table " style="border-radius: 8px; overflow: hidden;"><thead style="background: #07D564"><tr>';
                     $list .= '<th style="color: white !important;">No</th>';
                     $list .= '<th style="color: white !important;">Drawing No</th>';
                     $list .= '<th style="color: white !important;">Comments</th>';
-                    $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th>';
+                    $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th><th></th>';
                     $list .= '</tr></thead><tbody>';
                      $i = 1;
                      $background='';
@@ -628,7 +640,8 @@ class DesignerController extends Controller
                                 </form>
                                 </td>';
                         }
-                        $list .= '</tr>';
+                        $delete = route('designer.delete',$uploads->id);
+                        $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                         if(count($uploads->comment)>0)
                         {
                             $j=1;
@@ -692,7 +705,7 @@ class DesignerController extends Controller
                 $list .= '<th style="color: white !important;">No</th>';
                 $list .= '<th style="color: white !important;">Drawing No</th>';
                 $list .= '<th style="color: white !important;">Comments</th>';
-                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th>';
+                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th><th></th>';
                     $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';
@@ -756,7 +769,8 @@ class DesignerController extends Controller
                             </form>
                             </td>';
                     }
-                    $list .= '</tr>';
+                    $delete = route('designer.delete',$uploads->id);
+                        $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                     if(count($uploads->comment)>0)
                     {
                         $k=1;
@@ -788,7 +802,8 @@ class DesignerController extends Controller
                             $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
                             $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
                             $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
-                            $list .='</tr>';
+                        //     $delete = route('designer.delete',$uploads->id);
+                        // $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                             $k++;
 
                         }
@@ -2097,24 +2112,28 @@ class DesignerController extends Controller
              $rdate=$history->updated_at;
         }
 
-        $cdate = date('d-m-Y H:m', strtotime($history->created_at));
-        $rdate = date('d-m-Y H:m', strtotime($rdate));
+        $cdate = date('d-m-Y', strtotime($history->created_at));
+        $cdate_time = date('H:m', strtotime($history->created_at));
+        $rdate = date('d-m-Y', strtotime($rdate));
+        $rdate_time = date('H:m', strtotime($rdate));
 
         if(date('d-m-Y', strtotime($cdate)) == "01-01-1970"){
             $cdate ='';
+            $cdate_time='';
         }
         if(date('d-m-Y', strtotime($rdate)) == "01-01-1970"){
             $rdate ='';
+            $rdate_time='';
         }
         $list.='<tr>';
-        $list.='<td style="text-align: center;">'.$i.'</td>';
-        $list.='<td style="text-align: center;">'.$history->message.'</td>';
-        $list.='<td style="text-align: center;">'.$history->email.'</td>';
-        $list.='<td style="text-align: center;">'.$history->type.'</td>';
-        $list.='<td style="text-align: center;">'.$status.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$i.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->message.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->email.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->type.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
        
-        $list.='<td style="text-align: center;">'.$cdate.'</td>
-        <td>'.$rdate.'</td></tr>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
+        <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate.'</td></tr>';
         $i++;
      }
      echo $list;

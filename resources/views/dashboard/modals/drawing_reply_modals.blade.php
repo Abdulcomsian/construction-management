@@ -32,7 +32,7 @@
 
                     <div class="mb-13 text-center">
                       
-                        <h1 class="mb-3">Add Comment</h1>
+                        <h1 class="mb-3">Send a Comment to the designer</h1>
                        
                     </div>
                    

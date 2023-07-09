@@ -2109,20 +2109,21 @@ class DesignerController extends Controller
         }
         else{
              $status="";
-             $rdate=$history->updated_at;
+            //  $rdate=$history->updated_at;
+            $rdate="";
         }
 
         $cdate = date('d-m-Y', strtotime($history->created_at));
         $cdate_time = date('H:m', strtotime($history->created_at));
-        $rdate = date('d-m-Y', strtotime($rdate));
+        $rdate2 = date('d-m-Y', strtotime($rdate));
         $rdate_time = date('H:m', strtotime($rdate));
 
         if(date('d-m-Y', strtotime($cdate)) == "01-01-1970"){
             $cdate ='';
             $cdate_time='';
         }
-        if(date('d-m-Y', strtotime($rdate)) == "01-01-1970"){
-            $rdate ='';
+        if(date('d-m-Y', strtotime($rdate2)) == "01-01-1970"){
+            $rdate2 ='';
             $rdate_time='';
         }
         $list.='<tr>';
@@ -2133,7 +2134,7 @@ class DesignerController extends Controller
         $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
        
         $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
-        <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate.'</td></tr>';
+        <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate2.'</td></tr>';
         $i++;
      }
      echo $list;

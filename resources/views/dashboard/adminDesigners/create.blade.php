@@ -171,6 +171,18 @@ background-color: #07d564 !important;
                                 </div>
                             </div>
                         </div>
+                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                            <div class="row">
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="fs-6 fw-bold mb-2">Make this user as admin designer</label>
+                                    <input name="admin_designer" type="checkbox" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="fs-6 fw-bold mb-2">Allow to see price</label>
+                                    <input name="view_price" type="checkbox"/>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6 nomination-flow">
                             <div class="d-flex inputDiv requiredDiv">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2" >

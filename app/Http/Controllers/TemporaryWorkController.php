@@ -1870,11 +1870,18 @@ $notify_admins_msg = [
                     'action_url' => '',
                 ];
                 if (isset($request->approval)) {
-                    $notify_admins_msg['body']['pc_twc'] = '1';
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load sent for PC TWC Approval';
+                    $cmh->save();
+                   $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 } else {
                     dd("there");
-                    $notify_admins_msg['body']['pc_twc'] = '1';
+                    // $notify_admins_msg['body']['pc_twc'] = '1';
                     $cmh= new ChangeEmailHistory();
                     $cmh->email=$request->twc_email;
                     $cmh->type ='Permit to Load';

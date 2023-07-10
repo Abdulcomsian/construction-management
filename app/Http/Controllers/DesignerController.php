@@ -461,29 +461,46 @@ class DesignerController extends Controller
                 
                
             }
-            
-            
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
             if ($model->save()) {
                 //
-              //  dd($request->designermail, $tempworkdata->desinger_email_2, $tempworkdata->designer_company_email);
                 if($request->designermail == $tempworkdata->desinger_email_2){
-                    $chm= new ChangeEmailHistory();
-                    $chm->email=$tempworkdata->twc_email;
-                    $chm->type ='Design Upload';
-                    $chm->foreign_idd=$tempworkdata->id;
-                    $chm->message='Design Checker Uploaded Design';
-                    $chm->status = 2;
-                    $chm->save();
+                    if (isset($request->designcheckfile)) { //if designchekfile exist then it means ceriticate is uploaded
+                        $chm= new ChangeEmailHistory();
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Certificate Uploaded';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Design Checker Uploaded Certificate';
+                        $chm->status = 2;
+                        $chm->save();
+                    }else{ //Else means drawign is uploaded
+                        $chm= new ChangeEmailHistory(); 
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Drawing Uploaded';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Design Checker Uploaded Drawing';
+                        $chm->status = 2;
+                        $chm->save();
+                    }
                 }else if($request->designermail == $tempworkdata->designer_company_email){
-                    $chm= new ChangeEmailHistory();
-                    $chm->email=$tempworkdata->twc_email;
-                    $chm->type ='Design Upload';
-                    $chm->foreign_idd=$tempworkdata->id;
-                    $chm->message='Designer Uploaded Design';
-                    $chm->status = 2;
-                    $chm->save();
+                    if (isset($request->designcheckfile)) {
+                        $chm= new ChangeEmailHistory();
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Certificate Uploaded';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Designer Uploaded Certificate';
+                        $chm->status = 2;
+                        $chm->save();
+                    }else{
+                        $chm= new ChangeEmailHistory();
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Design Upload';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Designer Uploaded Drawing';
+                        $chm->status = 2;
+                        $chm->save();
+                    }
                 }
                 
                 $selectedEmails = $request->input('emails');
@@ -1269,7 +1286,7 @@ class DesignerController extends Controller
             //new code starts here
             $otherPermits = PermitLoad::where('permit_no' , $permitdata->permit_no)->where('id' , '!=' ,  $request->permitid)->get()->pluck('id')->toArray();
             //new code ends here
-            
+            $twc_email = TemporaryWork::select('twc_email')->find($permitdata->temporary_work_id);
             $createdby = User::find($permitdata->created_by);
             PermitLoad::find($request->permitid)->update([
                 'status' => $request->status,
@@ -1279,6 +1296,15 @@ class DesignerController extends Controller
                 $model->comment = $request->comments;
                 $model->permit_load_id = $request->permitid;
                 $model->save();
+
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$twc_email->twc_email;
+                $cmh->type ='Permit to Load';
+                $cmh->status =2;
+                $cmh->foreign_idd=$permitdata->temporary_work_id;
+                $cmh->message='Permit to Load Rejected by PC TWC';
+                $cmh->save();
+
                 $subject = 'Permit Load Rejected ';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
@@ -1286,6 +1312,14 @@ class DesignerController extends Controller
                 $subject = 'Permit Load Accepted';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Accepted by PC TWC.';
                 $msg = 'Permit Load Accepted Successfully!';
+
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$twc_email->twc_email;
+                $cmh->type ='Permit to Load';
+                $cmh->status =2;
+                $cmh->foreign_idd=$permitdata->temporary_work_id;
+                $cmh->message='Permit to Load Accepted by PC TWC';
+                $cmh->save();
             }
             $notify_admins_msg = [
                 'greeting' => 'Permit Load Rejected',

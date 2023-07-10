@@ -717,7 +717,7 @@
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="tempworkid" value="{{$id}}">
-
+                        <input type="hidden" name="designermail" value="{{$mail}}">
                         <div class="row" style="background:white;margin: 0 4px;">
                             <!-- <div class="col-md-4">
                                     <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">

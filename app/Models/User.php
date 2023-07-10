@@ -46,6 +46,7 @@ class User extends Authenticatable
         'user_notify',
         'company_policy',
         'admin_designer',
+        'view_price',
     ];
 
     /**

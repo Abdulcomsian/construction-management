@@ -613,7 +613,7 @@
                         <div style="margin: 12px 0;">
                            <div class="d-flex justify-content-between">
                                   <span class=" titleColumn">Cost:</span>
-                              @if($item->designerQuote)
+                              @if($item->designerQuote && auth()->user()->view_price)
                               <span>${{$item->designerQuote ? $item->designerQuote->sum('price') :
                                  '0'}}</span>
                               @endif

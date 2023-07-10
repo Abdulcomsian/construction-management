@@ -279,6 +279,17 @@ class AdminDesignerController extends Controller
             {
                 $all_inputs['nomination']=1;
             }
+            $admin_desginer = null;
+            if($request->admin_designer){
+                $admin_desginer = 1;
+            }
+            $view_price = null;
+            if($request->view_price){
+                $view_price = 1;
+            }
+            $all_inputs['admin_designer'] = $admin_desginer;
+            $all_inputs['view_price'] = $view_price;
+            ;
             $user = User::create($all_inputs);
             // if($request->nomination==1)
             // {
@@ -367,13 +378,18 @@ class AdminDesignerController extends Controller
         Validations::updateAdminDesigner($request, $id);
         try {
             $all_inputs = $request->except('_token', '_method');
+            $admin_designer = null;
             if($request->admin_designer){
                 $admin_designer = 1;
+            }
+            if($request->view_price){
+                $view_price = 1;
             }
             User::find($id)->update([
                 'name' => $all_inputs['name'],
                 'email' => $all_inputs['email'],
                 'admin_designer' => $admin_designer ?? null,
+                'view_price' => $view_price ?? null,
             ]);
             toastSuccess('Designer Updated Successfully');
             return Redirect::back();

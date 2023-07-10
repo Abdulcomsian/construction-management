@@ -1775,7 +1775,6 @@ $notify_admins_msg = [
     //save permit
     public function permit_save(Request $request)
     {
-        
         Validations::storepermitload($request);
         try {
             $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
@@ -1871,9 +1870,10 @@ $notify_admins_msg = [
                     'action_url' => '',
                 ];
                 if (isset($request->approval)) {
-                   
+                    $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 } else {
+                    dd("there");
                     $notify_admins_msg['body']['pc_twc'] = '1';
                     $cmh= new ChangeEmailHistory();
                     $cmh->email=$request->twc_email;

@@ -163,21 +163,23 @@
                                                 required="required"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 d-flex justify-content-end align-items-center">
-                                        <div class="d-flex align-items-baseline requiredDiv">
+                                    <!-- <div class="col-md-5 d-flex justify-content-flex-start align-items-center"> -->
+                                    <div class="col-md-4  justify-content-flex-start align-items-center">
+                                        <!-- <div class="d-flex align-items-baseline requiredDiv"> -->
+                                        <div class="d-block">
                                             <label class="fs-6 fw-bold mb-2">
                                                 <span class="required">Select Y For Accepted Or N for Rejected:</span>
 
                                             </label>
                                             <!--begin::Radio group-->
-                                            <div class="nav-group nav-group-fluid">
-                                                <label>
+                                            <div class="nav-group nav-group-fluid" style="max-width: 150px !important;">
+                                                <label style="padding:0px  !important;">
                                                     <input type="radio" datacheck1='yes' class="btn-check" name="status"
                                                         value="1" checked />
                                                     <span
                                                         class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                                 </label>
-                                                <label>
+                                                <label style="padding:0px !important;">
                                                     <input type="radio" datacheck1='no' class="btn-check" name="status"
                                                         value="2" />
                                                     <span
@@ -185,11 +187,10 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        <button type="submit" class="btn btn-primary float-end" style="border-radius: 0.25rem;">Submit</button>
                                     </div>
+                                   
                                 </div>
-
-                                <br>
-                                <button type="submit" class="btn btn-primary float-end">Submit</button>
                             </div>
                         </div>
                     </form>

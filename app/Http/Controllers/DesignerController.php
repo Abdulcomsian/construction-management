@@ -658,7 +658,7 @@ class DesignerController extends Controller
                                 </td>';
                         }
                         $delete = route('designer.delete',$uploads->id);
-                        $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                        $list .= '<td style="style="text-align: center; vertical-align: middle;""><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                         if(count($uploads->comment)>0)
                         {
                             $j=1;
@@ -787,7 +787,7 @@ class DesignerController extends Controller
                             </td>';
                     }
                     $delete = route('designer.delete',$uploads->id);
-                        $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                        $list .= '<td style="text-align: center; vertical-align: middle;"><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                     if(count($uploads->comment)>0)
                     {
                         $k=1;

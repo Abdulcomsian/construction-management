@@ -60,15 +60,18 @@ class HomeController extends Controller
         $project=$_GET['project'];
        }
        $user=User::find($userid);
-       $model=new NominationComment();
-       $model->email=$user->email;
-       $model->comment="User Read the email";
-       $model->type="Nomination";
-       $model->read_date=date('Y-m-d H:i:s');
-       $model->user_id=$userid;
-       $model->project_id=\Crypt::decrypt($project);
-       $model->save();
 
+       $commentsdata=NominationComment::find(['project_id'=>\Crypt::decrypt($project)]);
+       if(!$commentsdata){
+            $model=new NominationComment();
+            $model->email=$user->email;
+            $model->comment="User Read the email";
+            $model->type="Nomination";
+            $model->read_date=date('Y-m-d H:i:s');
+            $model->user_id=$userid;
+            $model->project_id=\Crypt::decrypt($project);
+            $model->save();
+       }
        $userdata=$id.' '.$project;
        return Redirect::route('nomination-form',$userdata);
        
@@ -330,7 +333,7 @@ class HomeController extends Controller
 
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
-                    $company->notify(new DatabaseNotification($user,'Nomination Form submitted by user'));
+                    // $company->notify(new DatabaseNotification($user,'Nomination Form submitted by user'));
                     DB::commit();
                     toastSuccess('Nomination Form save successfully!');
                     return back();

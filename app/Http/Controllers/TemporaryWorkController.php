@@ -1154,7 +1154,16 @@ $notify_admins_msg = [
             // }
 
             if ($model->save()) {
-                if(!isset($twc))
+                if (isset($request->type) && $request->type == 'client') {
+                    $client_email= '';
+                    if($model->type == 'client'){
+                        $email = $tempdata->client_email;
+                        $client_email = $tempdata->client_email;
+                        $type= 'client';
+                    }
+                  //COde for sendign email to cleint on admin designer module, comment for now
+                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer'));
+                }else if(!isset($twc))
                 {
                     if($request->type=="designertotwc"){
                         $cmh= new ChangeEmailHistory();
@@ -1164,10 +1173,11 @@ $notify_admins_msg = [
                         $cmh->message='Query from Designer to TWC';
                         $cmh->save();
                     }   
-                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id,'',$request->type ?? ''));
+                    
+                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id, $tempdata->twc_email ,$request->type ?? ''));
                  }else if($twc=="twctodesigner"){
                    
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test'));
                  }
 
                 toastSuccess('Comment submitted successfully');
@@ -1229,6 +1239,7 @@ $notify_admins_msg = [
             ]);
             if ($res) {
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
+                // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
             } else {
@@ -1440,14 +1451,14 @@ $notify_admins_msg = [
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
-                                   <textarea style="width: 100%" type="text" class="replay" name="replay" style="float:left" placeholder="Add comment here..."></textarea>
+                                   <textarea type="text" class="replay" name="replay" style="padding-left:5px; padding-top:5px; width: 100%;float:left;     background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;transition: color .2s ease,background-color .2s ease;" placeholder="Add comment here..."></textarea>
                                     <div class="submmitBtnDiv">
-                                        <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile" />
+                                        <input style="width:100%;margin-top:20px;float:left; background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;margin-top:0px !important; transition: color .2s ease,background-color .2s ease;" type="file" name="replyfile" />
                                         <input type="hidden" name="commentid" value="' . $comment->id . '"/>
                                         ' . $input . '
-                                        <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
+                                        
                                     </div>
-
+                                    <button class="btn btn-primary replay-comment" style="font-size:14px;margin-top:10px;float:right;">submit</button>
                                 </form>
 
                                </td>

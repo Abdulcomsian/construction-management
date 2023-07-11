@@ -26,11 +26,12 @@ class CommentsNotification extends Notification
     // private $client_email;
     public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null)
     {
+        
         $this->comment=$comment;
         $this->type=$type;
         $this->tempid=$tempid;
         $this->scan=$scan;
-        if($this->type=="reply" || $this->type=="client")
+        if($this->type=="reply" || $this->type=="client" || $this->type=="comment")
         {
              $this->email=$mail;
              $this->code=$code;

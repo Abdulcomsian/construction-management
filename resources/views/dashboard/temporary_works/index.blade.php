@@ -1,3 +1,8 @@
+<style>
+    #kt_aside{
+        display:none;
+    }
+    </style>
 @php
 $currentRouteUrl = request()->path();
 $tempWorkClass = "d-none";
@@ -9,6 +14,9 @@ $tempWorkClass = "d-none";
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+    #kt_aside{
+        display:none;
+    }
     #kt_content_container .card-header .topRightMenu {
         position: absolute;
         right: 15px;

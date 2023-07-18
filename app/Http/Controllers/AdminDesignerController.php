@@ -377,27 +377,21 @@ class AdminDesignerController extends Controller
     public function update(Request $request, $id)
     {
         Validations::updateAdminDesigner($request, $id);
+
         try {
-            $all_inputs = $request->except('_token', '_method');
-            $admin_designer = null;
-            if($request->admin_designer){
-                $admin_designer = 1;
-            }
-            if($request->view_price){
-                $view_price = 1;
-            }
-            User::find($id)->update([
-                'name' => $all_inputs['name'],
-                'email' => $all_inputs['email'],
-                'admin_designer' => $admin_designer ?? null,
-                'view_price' => $view_price ?? null,
-            ]);
+            $user = User::find($id);
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->admin_designer = $request->has('admin_designer') ? 1 : null;
+            $user->view_price = $request->has('view_price') ? 1 : null;
+            $user->save();
+
             toastSuccess('Designer Updated Successfully');
-            return Redirect::back();
+            return redirect()->back();
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError('Something went wrong');
-            return Redirect::back();
+            return redirect()->back();
         }
     }
 

@@ -719,20 +719,22 @@ hr{
                                     @endphp
                                     <div class="col d-flex justify-content-center"> <div class="description desc cursor-pointer" data-toggle="tooltip"
                                                     data-placement="top">  Description </div> </div>
-                                    <div class="col d-flex justify-content-center"> <div class="comment addcomment cursor-pointer mt-3"> Comment <span class"{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment addcomment cursor-pointer mt-3" data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div> </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="row d-flex flex-column">
                                     <div class="col">
                                         <div class="row d-flex justify-content-between ">
-                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-start ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
+                                                <img class="img"  style="cursor: pointer;" src="{{asset('images/time.png')}}"> 
+                                            </div>
                                             <div class="col d-flex justify-content-end ms-4" id="allocated-designer" data-rowid="{{ $item->id }}"> 
                                                     @php $blink = '' @endphp
                                                         @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
                                                         @php $blink = 'blink' @endphp
                                                     @endif
-                                                <img class="img {{$blink}}"    style="cursor: pointer;" src="../images/box.png" alt=""> 
+                                                <img class="img {{$blink}}"    style="cursor: pointer;" src="{{asset('images/box.png')}}" alt=""> 
                                             </div>
                                         </div>
                                     </div>
@@ -744,12 +746,23 @@ hr{
                                 </div>
                             </td>
                             <td>
+                                @php
+                                    $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
+                                        ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
+                                        : '0';
+
+                                    $checker_task = isset($item->checkerAssign->estimatorDesignerListTasks)
+                                        ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->completed : '0')
+                                        : '0';
+                                @endphp
+
+
                                 <div class="row d-flex flex-column">
                                     <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
                                     <div class="col d-flex justify-content-center">
                                     <div class="progress-bar">
-                                    <div class="progress" style="width: 50%;"></div>
-                                    <span class="progress-text">50%</span>
+                                    <div class="progress" style="width: {{$designer_task}}%;"></div>
+                                    <span class="progress-text">{{$designer_task}}%</span>
                                     </div>
 
                                 </div>
@@ -759,8 +772,8 @@ hr{
                                     <div class="col text-center"> {{$item->checkerAssign->user->name ?? ''}}  </div>
                                     <div class="col d-flex justify-content-center">
                                     <div class="progress-bar">
-                                    <div class="progress-2" style="width: 50%;"></div>
-                                    <span class="progress-text">50%</span>
+                                    <div class="progress-2" style="width: {{$checker_task}}%;"></div>
+                                    <span class="progress-text">{{$checker_task}}%</span>
                                     </div>
                                 </div>
                             </td>
@@ -781,7 +794,7 @@ hr{
                                         @endif
                                         <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&job=1') }}"
                                                     target="_blank">
-                                            <img src="../images/add.png" alt="" srcset=""> 
+                                            <img src="{{asset('images/add.png')}}" alt="" srcset=""> 
                                         <a>
                                     </div>
                                     <div class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1"> <img src="../images/group.png" alt="" srcset=""></div>
@@ -1454,7 +1467,16 @@ hr{
 </div>
 <!--end::Post-->
 </div>
-
+<div class="modal  fade" id="AssignProjectModal" style="width: 100%">
+    <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+          <div class="modal-body">
+             <input type="hidden" name="assigned_task" id="assigned_task" />
+       
+          </div>
+       </div>
+    </div>
+ </div>
 <div class="modal fade" id="allocationDesignerModal">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -1516,6 +1538,7 @@ hr{
                   tempworkid: tempworkid
             },
             success: function(res) {
+                    console.log(res)
                   $("#drawingdesigntable").html(res);
                   $("#drawinganddesignlist").modal('show');
             }
@@ -1533,6 +1556,21 @@ hr{
                   $('#allocationDesignerModal .modal-body').html(response);
                   // Display Modal
                   $('#allocationDesignerModal').modal('show');
+                  // $.LoadingOverlay("hide");
+              });
+      });
+      $(document).on('click', '#time-estimator', function() {
+            var temporary_work_id = $(this).data('rowid');
+              // $.LoadingOverlay("show");
+              var CSRF_TOKEN = '{{ csrf_token() }}';
+              $.post("{{ route('award-estimator-modal') }}", {
+                  _token: CSRF_TOKEN,
+                  temporary_work_id: temporary_work_id
+              }).done(function(response) {
+                  // Add response in Modal body
+                  $('#AssignProjectModal .modal-body').html(response);
+                  // Display Modal
+                  $('#AssignProjectModal').modal('show');
                   // $.LoadingOverlay("hide");
               });
       });

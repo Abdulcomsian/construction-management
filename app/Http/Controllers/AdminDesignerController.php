@@ -1178,13 +1178,15 @@ class AdminDesignerController extends Controller
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
             
-            $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+            $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+            'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
             ->whereIn('id', $awarded)
             ->where('work_status', 'publish')
             ->get();
         
         if (HelperFunctions::isAdminDesigner(Auth::user())) {
-            $previousAdminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+            $previousAdminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 
+            'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
                 ->whereIn('id', $AwardedEstimators->pluck('id'))
                 ->get();
         
@@ -1194,7 +1196,8 @@ class AdminDesignerController extends Controller
             // // Remove the condition ->orWhere('created_by', Auth::user()->id)
 
             if (HelperFunctions::isAdminDesigner(Auth::user())) {
-                $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+                $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+                'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
                     ->where('work_status', 'publish')
                     ->get();
 

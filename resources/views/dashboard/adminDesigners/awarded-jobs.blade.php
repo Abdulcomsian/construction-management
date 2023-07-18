@@ -10,7 +10,7 @@ $tempWorkClass = "d-none";
 @if($currentRouteUrl == 'temporary_works')
 @include('layouts.dashboard.side-bar')
 @endif
-@extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
+@extends('layouts.dashboard.master-index-tempory',['title' => 'Awarded Jobs'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
@@ -638,6 +638,10 @@ hr{
 }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
+@include('dashboard.modals.comments2')
+@include('dashboard.modals.drawingdesign')
+@include('dashboard.modals.drawingdesignlist')
+@include('dashboard.modals.description')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
 @endsection
 @section('content')
@@ -659,531 +663,589 @@ hr{
                         <hr>
                         <div class="tab">
                         <table>
-    <tr>
-      <th>Project</th>
-      <th>Client</th>
-      <th>Job Title / Cost</th>
-      <th>Design Req </th>
-      <th>Description / Comment</th>
-      <th>Timeline</th>
-      <th>Allocated Designer</th>
-      <th>Allocated Designer Checker</th>
-      <th>Status</th>
-      <th>Drawing</th>
-      <th>Invoice</th>
-    </tr>
-    <tr>
-      <td>001 <br> CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br> Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between ">
-                <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                            <tr>
+                            <th>Project</th>
+                            <th>Client</th>
+                            <th>Job Title / Cost</th>
+                            <th>Design Req </th>
+                            <th>Description / Comment</th>
+                            <th>Timeline</th>
+                            <th>Allocated Designer</th>
+                            <th>Allocated Designer Checker</th>
+                            <th>Status</th>
+                            <th>Drawing</th>
+                            <th>Invoice</th>
+                            </tr>
+                            @forelse($AwardedEstimators as $item)
+                        
+                            <tr>
+                            <td>
+                                @if($item->project_id)
+                                {{ $item->project->no ?? '' }} <br> {{ $item->project->name ?? '' }}
+                                @else
+                                    {{ $item->projno ?? '' }} <br> {{ $item->projname ?? '' }}
+                                @endif
+                            </td>
+                            <td>{{$item->client_name ?? ''}}</td>
+                            <td>{{$item->job_title ?? ''}}  
+                                    @if($item->designerQuote && auth()->user()->view_price)
+                                        <span>${{$item->designerQuote ? $item->designerQuote->sum('price') : '0'}}</span>
+                                    @endif
+                                </td>
+                            <td> 
+                                    @php
+                                        $req = explode('-', $item->design_requirement_text);
+                                    
+                                    @endphp
+                                    <span> {{$req[0] ?? ''}} 
+                                        <!-- {{$item->design_requirement_text ?? ''}} -->
+                                    </span> <br> {{$req[1] ?? ''}}</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    @php
+                                        $drawingscount=0;
+                                        $color="green";
+                                        $class='';
+                                        if(count($item->commentlist)>0)
+                                        {
+                                        $color="red";
+                                        $class='redBgBlink';
+                                        if(count($item->reply)== count($item->commentlist))
+                                        {
+                                        $color="blue";
+                                        $class='';
+                                        }
+                                        }
+                                    @endphp
+                                    <div class="col d-flex justify-content-center"> <div class="description desc cursor-pointer" data-toggle="tooltip"
+                                                    data-placement="top">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment addcomment cursor-pointer mt-3"> Comment <span class"{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between ">
+                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4" id="allocated-designer" data-rowid="{{ $item->id }}"> 
+                                                    @php $blink = '' @endphp
+                                                        @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
+                                                        @php $blink = 'blink' @endphp
+                                                    @endif
+                                                <img class="img {{$blink}}"    style="cursor: pointer;" src="../images/box.png" alt=""> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div> -->
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-         </div>
-      </td>
-      <td class="green">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>001  <br> CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br> Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between">
-                <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> {{$item->checkerAssign->user->name ?? ''}}  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="green">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> 
+                                        @php
+                                            $userEmail = auth()->user()->email;
+                                            $email = '';
+                                        @endphp
+                                            
+                                        @if(isset($item->designerAssign) && $userEmail == $item->designerAssign->email)
+                                                @php $email = $item->designerAssign->email; @endphp
+                                        @elseif(isset($item->checkerAssign) && $userEmail == $item->checkerAssign->email)
+                                                @php $email = $item->checkerAssign->email; @endphp
+                                        @endif
+                                        <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&job=1') }}"
+                                                    target="_blank">
+                                            <img src="../images/add.png" alt="" srcset=""> 
+                                        <a>
+                                    </div>
+                                    <div class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                            @empty
+                            @endforelse
+                            <tr>
+                            <td>001  <br> CT Works</td>
+                            <td>John Doe</td>
+                            <td>Lorem Ipsum 50,000</td>
+                            <td> <span>Equipment & Plant:</span> <br> Chute Support</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between">
+                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td class="green">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center "> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>001  <br> CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br>   Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between">
-                <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td class="green">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
+                                    <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center "> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>001  <br> CT Works</td>
+                            <td>John Doe</td>
+                            <td>Lorem Ipsum 50,000</td>
+                            <td> <span>Equipment & Plant:</span> <br>   Chute Support</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between">
+                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td class="yellow">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-1"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>001  <br> CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br>  Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between">
-                <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td class="yellow">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
+                                    <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-1"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>001  <br> CT Works</td>
+                            <td>John Doe</td>
+                            <td>Lorem Ipsum 50,000</td>
+                            <td> <span>Equipment & Plant:</span> <br>  Chute Support</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between">
+                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td class="red">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>001  <br> CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br>   Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between">
-                <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td class="red">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
+                                    <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>001  <br> CT Works</td>
+                            <td>John Doe</td>
+                            <td>Lorem Ipsum 50,000</td>
+                            <td> <span>Equipment & Plant:</span> <br>   Chute Support</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between">
+                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td class="yellow">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>001  <br> CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br>  Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between">
-                <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td class="yellow">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
+                                    <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>001  <br> CT Works</td>
+                            <td>John Doe</td>
+                            <td>Lorem Ipsum 50,000</td>
+                            <td> <span>Equipment & Plant:</span> <br>  Chute Support</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between">
+                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td class="red">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>001  <br>CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br>   Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between">
-                    <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td class="red">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
+                                    <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>001  <br>CT Works</td>
+                            <td>John Doe</td>
+                            <td>Lorem Ipsum 50,000</td>
+                            <td> <span>Equipment & Plant:</span> <br>   Chute Support</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td class="green">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>001 <br> CT Works</td>
-      <td>John Doe</td>
-      <td>Lorem Ipsum 50,000</td>
-      <td> <span>Equipment & Plant:</span> <br>  Chute Support</td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col">
-                <div class="row d-flex justify-content-between">
-                <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
-                    <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center mt-2">
-            <div class="progress-bar">
-            <div class="progress-3" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td class="green">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
+                                    <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>001 <br> CT Works</td>
+                            <td>John Doe</td>
+                            <td>Lorem Ipsum 50,000</td>
+                            <td> <span>Equipment & Plant:</span> <br>  Chute Support</td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description">  Description </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="comment mt-3"> Comment (1) </div> </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-between">
+                                        <div class="col d-flex justify-content-start ms-2"> <img class="img" src="../images/time.png"> </div>
+                                            <div class="col d-flex justify-content-end ms-4"> <img class="img" src="../images/box.png" alt=""> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center mt-2">
+                                    <div class="progress-bar">
+                                    <div class="progress-3" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col text-center"> John Doe  </div>
-            <div class="col d-flex justify-content-center">
-            <div class="progress-bar">
-            <div class="progress-2" style="width: 50%;"></div>
-            <span class="progress-text">50%</span>
-            </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col text-center"> John Doe  </div>
+                                    <div class="col d-flex justify-content-center">
+                                    <div class="progress-bar">
+                                    <div class="progress-2" style="width: 50%;"></div>
+                                    <span class="progress-text">50%</span>
+                                    </div>
 
-         </div>
-      </td>
-      <td class="red">  Done </td>
-      <td>
-        <div class="center ">
-        <div class="image d-flex gap-3">
-            <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
-            <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
-        </div>
-        </div>
-      </td>
-      <td>
-        <div class="row d-flex flex-column">
-            <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-            <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
-        </div>
-      </td>
-    </tr>
-  </table>
+                                </div>
+                            </td>
+                            <td class="red">  Done </td>
+                            <td>
+                                <div class="center ">
+                                <div class="image d-flex gap-3">
+                                    <div class="image-1"> <img src="../images/add.png" alt="" srcset=""> </div>
+                                    <div class="image-2"> <img src="../images/group.png" alt="" srcset=""></div>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row d-flex flex-column">
+                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
+                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                </div>
+                            </td>
+                            </tr>
+                        </table>
                         </div>
                         <!--begin::Topbar-->
                         <div class="d-flex align-items-stretch flex-shrink-0 topRightMenu">
@@ -1392,3 +1454,87 @@ hr{
 </div>
 <!--end::Post-->
 </div>
+
+<div class="modal fade" id="allocationDesignerModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-body">
+           
+         </div>
+      </div>
+   </div>
+</div>
+@section('scripts')
+<script type="text/javascript">
+    let role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
+   $(".addcomment").on('click', function() {
+       if (role == 'supervisor' || role == "scaffolder") {
+           alert("You are not allowed to add comment");
+           return false;
+       }
+       $("#temp_work_id").val($(this).attr('data-id'));
+       $("#temp_work_id2").val($(this).attr('data-id'));
+       var temporary_work_id = $(this).attr('data-id');
+       var userid = {{Auth::user()->id}}
+       $("#commenttable").html('');
+       $.ajax({
+           url: "{{route('temporarywork.get-comments')}}",
+           method: "get",
+           data: {
+               id: userid,
+               temporary_work_id: temporary_work_id,
+               type: 'client'
+           },
+           success: function(res) {
+               res=JSON.parse(res);
+               // console.log(res.comment)
+               console.log(res.comment)
+               // $("#commenttable").html(res.comment);
+               $("#twccommenttable").html(res.twccomment);
+               $("#twccommenttable2").html(res.twclientcomments);
+               $(".comments_form").show();
+               $("#comment_modal_id").modal('show');
+           }
+       });
+   
+   });
+//desc 
+   jQuery(".desc").on('click', function() {
+       var desc = jQuery(this).attr('title');
+       jQuery("#desc").html(desc);
+       jQuery("#desc_modal_id").modal('show');
+   })
+
+   $(".uploaddrawinglist").on('click', function() {
+         var tempworkid = $(this).attr('data-id');
+         console.log("id",tempworkid)
+      
+         $.ajax({
+            url: "{{route('get-designs')}}",
+            method: "get",
+            data: {
+                  tempworkid: tempworkid
+            },
+            success: function(res) {
+                  $("#drawingdesigntable").html(res);
+                  $("#drawinganddesignlist").modal('show');
+            }
+         });
+      })
+      $(document).on('click', '#allocated-designer', function() {
+         var temporary_work_id = $(this).data('rowid');         // Your code here
+
+            var CSRF_TOKEN = '{{ csrf_token() }}';
+              $.post("{{ route('allocated-designer-modal') }}", {
+                  _token: CSRF_TOKEN,
+                  temporary_work_id: temporary_work_id
+              }).done(function(response) {
+                  // Add response in Modal body
+                  $('#allocationDesignerModal .modal-body').html(response);
+                  // Display Modal
+                  $('#allocationDesignerModal').modal('show');
+                  // $.LoadingOverlay("hide");
+              });
+      });
+</script>
+@endsection

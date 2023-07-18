@@ -204,13 +204,6 @@
                 @endif
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                 <div class="menu-item">
-                    <a class="menu-link" href="{{route('estimator_list')}}">
-                        <span class="menu-title">Add Jobs</span>
-                    </a>
-                </div>
-                @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
-                <div class="menu-item">
                     <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
                         <span class="menu-title">Designer List</span>
                     </a>
@@ -218,15 +211,23 @@
                 @endif
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                 <div class="menu-item">
+                    <a class="menu-link" href="{{route('estimator_list')}}">
+                        <span class="menu-title">Manage Jobs</span>
+                    </a>
+                </div>
+                @endif
+               
+                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
+                <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/designer')}}">
-                        <span class="menu-title">Estimator's Bid</span>
+                        <span class="menu-title">Bidding Requests</span>
                     </a>
                 </div>
                 @endif
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
-                        <span class="menu-title">Awarded Estimator</span>
+                        <span class="menu-title">Awarded Jobs</span>
                     </a>
                 </div>
                 @endif

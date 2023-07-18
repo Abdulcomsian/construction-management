@@ -93,6 +93,7 @@ class AdminDesignerController extends Controller
     //awarded estiamtor
     public function awardedEstimator()
     {
+
         try
         {
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
@@ -1173,5 +1174,55 @@ class AdminDesignerController extends Controller
             return Redirect::back();
         }
        
+    }
+
+    public function getAwardedJob()
+    {
+        try
+        {
+            $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
+            
+            $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+            ->whereIn('id', $awarded)
+            ->where('work_status', 'publish')
+            ->get();
+        
+        if (HelperFunctions::isAdminDesigner(Auth::user())) {
+            $previousAdminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+                ->whereIn('id', $AwardedEstimators->pluck('id'))
+                ->get();
+        
+            $AwardedEstimators = $AwardedEstimators->merge($previousAdminDesignerEstimators);
+        }
+        
+            // // Remove the condition ->orWhere('created_by', Auth::user()->id)
+
+            if (HelperFunctions::isAdminDesigner(Auth::user())) {
+                $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 'designerAssign', 'checkerAssign')
+                    ->where('work_status', 'publish')
+                    ->get();
+
+                $AwardedEstimators = $AwardedEstimators->merge($adminDesignerEstimators);
+            }
+            $users = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
+            $projectIds = [];
+            foreach($AwardedEstimators as $awards)
+            {
+                if($awards->project_id !== null){
+                    $projectIds[] = $awards->project->id;
+                }
+            }
+            $projectIds = array_unique($projectIds);
+
+            $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
+            $scantempwork = '';
+             return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+            
+         }catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+         }
     }
 }

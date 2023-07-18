@@ -31,14 +31,14 @@ class Handler extends ExceptionHandler
 
     public function report(Throwable $e)
     {
-        if ($this->shouldReport($e)) {
-            Log::error($e);
+        // if ($this->shouldReport($e)) {
+        //     Log::error($e);
 
-            Mail::raw($e, function($message) {
-                $message->to('basitawan.abdul@gmail.com')
-                        ->subject('Error Occurred in City Works');
-            });
-        }
+        //     Mail::raw($e, function($message) {
+        //         $message->to('basitawan.abdul@gmail.com')
+        //                 ->subject('Error Occurred in City Works');
+        //     });
+        // }
 
         parent::report($e);
     }

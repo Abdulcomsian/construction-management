@@ -1835,6 +1835,7 @@ class DesignerController extends Controller
    }
 
    public function estimator(){
+    
      try
      {
          $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');

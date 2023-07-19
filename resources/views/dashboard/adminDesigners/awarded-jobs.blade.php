@@ -666,6 +666,9 @@ hr{
                             <th  class="th-10">Drawing</th>
                             <th  class="th-11">Invoice</th>
                             </tr>
+                            @php
+                            $i=0;
+                            @endphp
                             @forelse($AwardedEstimators as $item)
                         
                             <tr class="row-2">
@@ -767,9 +770,18 @@ hr{
                                     <span class="progress-text">{{$designer_task}}%</span>
                                     </div>
                                 </div>
+                               
+                                
+                              
+                              
+                                @if($designer_status != NULL)
+                                @if($designer_status != "-" )
                                 <span class="badge badge-success mt-2">
                                     {{$designer_status}}
                                 </span>
+                                @endif
+                                @endif
+                                
                             </td>
                             <td>
                                 <div class="row d-flex flex-column">
@@ -780,9 +792,13 @@ hr{
                                     <span class="progress-text">{{$checker_task}}%</span>
                                     </div>
                                 </div>
+                                @if($designer_status != NULL)
+                                @if($designer_status != "-" )
                                 <span class="badge badge-danger mt-2">
                                     {{$checker_status}}
                                 </span>
+                                @endif
+                                @endif
                             </td>
                             <td class="green">  {{$designer_status}} </td>
                             <td>

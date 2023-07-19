@@ -238,6 +238,7 @@ class AdminDesignerController extends Controller
             $designer_tasks->hours = $request->hours;
             $designer_tasks->completed = $request->completed;
             $designer_tasks->task = $request->task;
+            $designer_tasks->status = $request->status;
             // $designer_tasks->user_id = Auth::user()->id;
             $designer_tasks->save();
             toastSuccess('Designer tasks saved successfully!');

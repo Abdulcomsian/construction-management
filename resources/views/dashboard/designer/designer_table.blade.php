@@ -36,6 +36,18 @@
         <div class="col-md-12">
                 <textarea class="form-control" placeholder="Enter Task" name="task"></textarea>
         </div>
+        <div class="col-md-4">
+             <!--begin::Label-->
+             <label class=" fs-6 fw-bold mb-2">
+                <span class="required">Select Status</span>
+            </label>
+            <select class="form-control" name="status">
+                <option value="working">Working</option>
+                <option value="working">Stuck</option>
+                <option value="working">Completed</option>
+                <option value="hold">Hold</option>
+            </select>
+        </div>
         {{-- <div class="col-md-9">
             <div class="d-flex inputDiv d-block mb-3">
             <!--begin::Label-->
@@ -82,6 +94,7 @@
                 <th scope="col">Hours spent</th>
                 <th scope="col">Task</th>
                 <th scope="col">Completed(%)</th>
+                <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,6 +104,7 @@
                 <td>{{$row->hours ?? ''}}</td>
                 <td>{{$row->task ?? ''}}</td>
                 <td>{{$row->completed ?? ''}}%</td>
+                <td>{{$row->status ?? ''}}</td>
                 </tr>
             @endforeach
             </tbody>

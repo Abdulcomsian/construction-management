@@ -735,8 +735,7 @@ hr{
                                     </div> -->
                                 </div>
                             </td>
-                            <td>
-                                @php
+                            @php
                                     $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
                                         ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
                                         : '0';
@@ -744,9 +743,22 @@ hr{
                                     $checker_task = isset($item->checkerAssign->estimatorDesignerListTasks)
                                         ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->completed : '0')
                                         : '0';
+
+                                    $designer_status = isset($item->designerAssign->estimatorDesignerListTasks)
+                                    ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->status : '-')
+                                    : '-';
+
+                                    $checker_status = isset($item->checkerAssign->estimatorDesignerListTasks)
+                                        ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->status : '-')
+                                        : '-';
+
+                                        $last_status =isset($item->design->estimatorDesignerListTasks)
+                                        ? ($item->design->estimatorDesignerListTasks->last() ? $item->design->estimatorDesignerListTasks->last()->status : '-')
+                                        : '-';
+
+                                    // @dd($designer_status)
                                 @endphp
-
-
+                            <td>
                                 <div class="row d-flex flex-column">
                                     <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
                                     <div class="col d-flex justify-content-center">
@@ -754,8 +766,10 @@ hr{
                                     <div class="progress" style="width: {{$designer_task}}%;"></div>
                                     <span class="progress-text">{{$designer_task}}%</span>
                                     </div>
-
                                 </div>
+                                <span class="badge badge-success mt-2">
+                                    {{$designer_status}}
+                                </span>
                             </td>
                             <td>
                                 <div class="row d-flex flex-column">
@@ -766,8 +780,11 @@ hr{
                                     <span class="progress-text">{{$checker_task}}%</span>
                                     </div>
                                 </div>
+                                <span class="badge badge-danger mt-2">
+                                    {{$checker_status}}
+                                </span>
                             </td>
-                            <td class="green">  Done </td>
+                            <td class="green">  {{$designer_status}} </td>
                             <td>
                                 <div class="center ">
                                 <div class="image d-flex gap-3">

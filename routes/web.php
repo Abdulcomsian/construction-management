@@ -299,7 +299,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
     //  Route::get('add-estimator' , [DesignerController::class , 'addEstimator'])->name('add_estimator');
 
     //new route
-    Route::get('awarded-jobs' , [AdminDesignerController::class , 'getAwardedJob']);
+    Route::get('awarded-jobs' , [AdminDesignerController::class , 'getAwardedJob'])->name('awarded_jobs');
 
 });
 

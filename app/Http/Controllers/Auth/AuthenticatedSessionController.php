@@ -37,7 +37,8 @@ class AuthenticatedSessionController extends Controller
         }
         elseif(Auth::user()->hasRole('designer') && Auth::user()->di_designer_id != NULL)
         {
-            return redirect('adminDesigner/create-nomination/'.Auth::user()->id);
+        return redirect(route('awarded_jobs'));
+            // return redirect('adminDesigner/create-nomination/'.Auth::user()->id);
         }
         else{
            return redirect()->intended(RouteServiceProvider::HOME);

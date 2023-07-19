@@ -101,10 +101,13 @@
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
+                                @php $admin = auth()->user()->hasRole('admin') @endphp
+                                @if(!$admin)
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="fs-6 fw-bold mb-2">Make this user as admin designer</label>
                                     <input name="admin_designer" type="checkbox" {{$user->admin_designer ? 'checked' : ''}} />
                                 </div>
+                                @endif
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="fs-6 fw-bold mb-2">Allow to see price</label>
                                     <input name="view_price" type="checkbox" {{$user->view_price ? 'checked' : ''}} />

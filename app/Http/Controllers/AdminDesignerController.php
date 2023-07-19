@@ -266,77 +266,51 @@ class AdminDesignerController extends Controller
     {
         DB::beginTransaction();
         Validations::storeAdminDesigner($request);
+        
         try {
-            $userprojectdata=[];
             $all_inputs = $request->except('_token', 'role');
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
-            $all_inputs['added_by']=Auth::user()->id;
-            if(Auth::user()->hasRole(['designer','Design Checker','Designer and Design Checker']))
-            {
-                $all_inputs['di_designer_id']=Auth::user()->id;
+            $all_inputs['added_by'] = Auth::user()->id;
+
+            if (Auth::user()->hasRole(['designer', 'Design Checker', 'Designer and Design Checker'])) {
+                $all_inputs['admin_designer'] = $request->has('admin_designer') ? 1 : null;
+                $all_inputs['di_designer_id'] = Auth::user()->id;
             }
-            $nomination_status=0;
-            if($request->nomination==1)
-            {
-                $all_inputs['nomination']=1;
-            }
-            $admin_desginer = null;
-            if($request->admin_designer){
-                $admin_desginer = 1;
-            }
-            $view_price = null;
-            if($request->view_price){
-                $view_price = 1;
-            }
-            $all_inputs['admin_designer'] = $admin_desginer;
-            $all_inputs['view_price'] = $view_price;
-            ;
+
+            $all_inputs['nomination'] = $request->nomination == 1 ? 1 : 0;
+            $all_inputs['view_price'] = $request->has('view_price') ? 1 : null;
+
             $user = User::create($all_inputs);
-            // if($request->nomination==1)
-            // {
-            //     Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));
-            // }
             $user->assignRole($request->role);
 
-            //password reset link send to designer 
+            // Password reset link send to designer
             $token = app(\Illuminate\Auth\Passwords\PasswordBroker::class)->createToken($user);
             DB::table('password_resets')->insert([
-              'email' => $request->email, 
-              'token' => $token, 
-              'created_at' => Carbon::now()
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => Carbon::now()
             ]);
-            // Notification::route('mail', $request->email)->notify(new PasswordResetNotification($token,$request->email));
-            // if(Auth::user()->hasRole('admin'))
-            // {
-            //     //Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNotification($user));
-            // }
-            // else{
-            //     Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNotification($user));
-            // }
 
-            if($request->nomination==1)
-            {
-                Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNotification($user));
+            if ($request->nomination == 1) {
+                Notification::route('mail', $user->email ?? '')->notify(new AdminDesignerNotification($user));
             }
+
             DB::commit();
             toastSuccess('User successfully added!');
-            if(Auth::user()->hasRole('admin'))
-            {
+
+            if (Auth::user()->hasRole('admin')) {
                 return redirect()->route('adminDesigner.index');
-            }
-            else
-            {
+            } else {
                 return redirect()->route('adminDesigner.designerList');
             }
-            
-        } catch(\Exception $exception) {
+        } catch (\Exception $exception) {
             DB::rollback();
-            // dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
     }
+
 
     /**
      * Display the specified resource.

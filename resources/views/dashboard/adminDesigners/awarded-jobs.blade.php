@@ -594,36 +594,26 @@ table tbody td {
     padding: 5px !important;
 }
 
-
-th:nth-child(2),
-td:nth-child(2) {
-  width: 7%;
+.th-2{
+    width:7%;
 }
-
-th:nth-child(7),
-td:nth-child(7) {
-  width: 10%;
+.th-5{
+    width:11%;
 }
-th:nth-child(6),
-td:nth-child(6) {
-  width: 10%;
+.th-6{
+    width:10%;
 }
-th:nth-child(8),
-td:nth-child(8) {
-  width: 10%;
+.th-7{
+    width:10%;
 }
-th:nth-child(9),
-td:nth-child(9) {
-  width: 7%;
+.th-8{
+    width:10%;
 }
-th:nth-child(5),
-td:nth-child(5) {
-  width: 11%;
+.th-9{
+    width:7%;
 }
-
-th:nth-child(11),
-td:nth-child(11) {
-  width: 8%;
+.th-11{
+    width:8%;
 }
 .center{
     display:grid;
@@ -663,22 +653,22 @@ hr{
                         <hr>
                         <div class="tab">
                         <table>
-                            <tr>
-                            <th>Project</th>
-                            <th>Client</th>
-                            <th>Job Title / Cost</th>
-                            <th>Design Req </th>
-                            <th>Description / Comment</th>
-                            <th>Timeline</th>
-                            <th>Allocated Designer</th>
-                            <th>Allocated Designer Checker</th>
-                            <th>Status</th>
-                            <th>Drawing</th>
-                            <th>Invoice</th>
+                            <tr class="row-1">
+                            <th class="th-1" >Project</th>
+                            <th class="th-2">Client</th>
+                            <th  class="th-3">Job Title / Cost</th>
+                            <th  class="th-4">Design Req </th>
+                            <th  class="th-5">Description / Comment</th>
+                            <th  class="th-6">Timeline</th>
+                            <th  class="th-7">Allocated Designer</th>
+                            <th  class="th-8">Allocated Designer Checker</th>
+                            <th  class="th-9">Status</th>
+                            <th  class="th-10">Drawing</th>
+                            <th  class="th-11">Invoice</th>
                             </tr>
                             @forelse($AwardedEstimators as $item)
                         
-                            <tr>
+                            <tr class="row-2">
                             <td>
                                 @if($item->project_id)
                                 {{ $item->project->no ?? '' }} <br> {{ $item->project->name ?? '' }}
@@ -810,7 +800,7 @@ hr{
                             </tr>
                             @empty
                             @endforelse
-                            <tr>
+                            <tr class="row-3">
                             <td>001  <br> CT Works</td>
                             <td>John Doe</td>
                             <td>Lorem Ipsum 50,000</td>
@@ -874,7 +864,7 @@ hr{
                                 </div>
                             </td>
                             </tr>
-                            <tr>
+                            <tr class="row-4">
                             <td>001  <br> CT Works</td>
                             <td>John Doe</td>
                             <td>Lorem Ipsum 50,000</td>
@@ -938,7 +928,7 @@ hr{
                                 </div>
                             </td>
                             </tr>
-                            <tr>
+                            <tr class="row-5">
                             <td>001  <br> CT Works</td>
                             <td>John Doe</td>
                             <td>Lorem Ipsum 50,000</td>
@@ -1002,7 +992,7 @@ hr{
                                 </div>
                             </td>
                             </tr>
-                            <tr>
+                            <tr class="row-6">
                             <td>001  <br> CT Works</td>
                             <td>John Doe</td>
                             <td>Lorem Ipsum 50,000</td>
@@ -1066,7 +1056,7 @@ hr{
                                 </div>
                             </td>
                             </tr>
-                            <tr>
+                            <tr class="row-7">
                             <td>001  <br> CT Works</td>
                             <td>John Doe</td>
                             <td>Lorem Ipsum 50,000</td>
@@ -1130,7 +1120,7 @@ hr{
                                 </div>
                             </td>
                             </tr>
-                            <tr>
+                            <tr class="row-8">
                             <td>001  <br>CT Works</td>
                             <td>John Doe</td>
                             <td>Lorem Ipsum 50,000</td>
@@ -1195,7 +1185,7 @@ hr{
                             </td>
                             </tr>
                             <tr>
-                            <td>001 <br> CT Works</td>
+                            <td class="row-9">001 <br> CT Works</td>
                             <td>John Doe</td>
                             <td>Lorem Ipsum 50,000</td>
                             <td> <span>Equipment & Plant:</span> <br>  Chute Support</td>

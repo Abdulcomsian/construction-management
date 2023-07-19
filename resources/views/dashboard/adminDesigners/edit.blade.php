@@ -72,15 +72,23 @@
 
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="required fs-6 fw-bold mb-2">Designer Name</label>
                                     <input type="text" class="form-control form-control-solid" placeholder="User Name" name="name" value="{{old('name') ?: $user->name}}" />
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="required fs-6 fw-bold mb-2">Designer Email</label>
                                     <input type="email" class="form-control form-control-solid" placeholder="User Email" name="email" value="{{old('email')  ?: $user->email}}" />
                                 </div>
-
+                                @php
+                                $admin = auth()->user()->hasRole('admin');
+                                @endphp
+                                @if($admin)
+                                <div class="col-md-4">
+                                    <label class="required fs-6 fw-bold mb-2">Designer Company</label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Designer Company" name="designer_company" value="{{old('designer_company')}}" />
+                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
@@ -99,21 +107,20 @@
 
                             </div>
                         </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                            <div class="row">
-                                @php $admin = auth()->user()->hasRole('admin') @endphp
-                                @if(!$admin)
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="fs-6 fw-bold mb-2">Make this user as admin designer</label>
-                                    <input name="admin_designer" type="checkbox" {{$user->admin_designer ? 'checked' : ''}} />
-                                </div>
-                                @endif
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="fs-6 fw-bold mb-2">Allow to see price</label>
-                                    <input name="view_price" type="checkbox" {{$user->view_price ? 'checked' : ''}} />
+                        @if(!$admin)
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                                <div class="row">
+                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                        <label class="fs-6 fw-bold mb-2">Make this user as admin designer</label>
+                                        <input name="admin_designer" type="checkbox" {{$user->admin_designer ? 'checked' : ''}} />
+                                    </div>
+                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                        <label class="fs-6 fw-bold mb-2">Allow to see price</label>
+                                        <input name="view_price" type="checkbox" {{$user->view_price ? 'checked' : ''}} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            @endif
                         <button class="addBtn btn btn-primary er fs-6 px-8 py-4">
                             Update Designer
                         </button>

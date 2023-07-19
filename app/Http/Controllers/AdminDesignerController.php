@@ -1149,35 +1149,58 @@ class AdminDesignerController extends Controller
     {
         try
         {
-            $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>0])->pluck('temporary_work_id');
-            $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>Auth::user()->id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            if(auth()->user()->admin_designer == null)
+            {
+                $parent_id = auth()->user()->id;
+            } else{
+                $parent_id = auth()->user()->di_designer_id;
+            }
+            $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            
+            // dd($estimatorWork);
             $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
             'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
             ->whereIn('id', $awarded)
             ->where('work_status', 'publish')
             ->get();
+
+            // dd($AwardedEstimators);
+
         
-        if (HelperFunctions::isAdminDesigner(Auth::user())) {
-            $previousAdminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 
-            'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
-                ->whereIn('id', $AwardedEstimators->pluck('id'))
-                ->get();
-        
-            $AwardedEstimators = $AwardedEstimators->merge($previousAdminDesignerEstimators);
-        }
+            // if (HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
+            //     $previousAdminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments', 
+            //     'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
+            //         ->whereIn('id', $AwardedEstimators->pluck('id'))
+            //         ->get();
+            
+            //     $AwardedEstimators = $AwardedEstimators->merge($previousAdminDesignerEstimators);
+            // }
         
             // // Remove the condition ->orWhere('created_by', Auth::user()->id)
-
-            if (HelperFunctions::isAdminDesigner(Auth::user())) {
+            if(auth()->user()->admin_designer == null)
+            {
+                $parent_id = auth()->user()->id;
+            } else{
+                $parent_id = auth()->user()->di_designer_id;
+            }
+            $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id');
+            // dd($all_admin);
+            if (HelperFunctions::isAdminDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
                 $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
                 'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
                     ->where('work_status', 'publish')
+                    ->whereIn('created_by', $all_admin)
+                    ->orWhere('created_by',$parent_id)
+                    // ->where('created_by', Auth::user()->id)
                     ->get();
+
+                // dd($adminDesignerEstimators);
 
                 $AwardedEstimators = $AwardedEstimators->merge($adminDesignerEstimators);
             }
+            // dd($AwardedEstimators);
+
             $users = User::role(['designer', 'Design Checker', 'Designer and Design Checker'])->where('di_designer_id', auth()->user()->id)->get();
             $projectIds = [];
             foreach($AwardedEstimators as $awards)
@@ -1187,7 +1210,6 @@ class AdminDesignerController extends Controller
                 }
             }
             $projectIds = array_unique($projectIds);
-
             $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
             $scantempwork = '';
              return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));

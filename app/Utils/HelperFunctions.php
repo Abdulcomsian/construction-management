@@ -320,8 +320,14 @@ class HelperFunctions
 
     public static function isAdminDesigner($user)
     {
-        return $user->di_designer_id === null || $user->admin_designer == 1;
+        return $user->di_designer_id == null;
     }
+
+    public static function isPromotedAdminDesigner($user)
+    {
+        return $user->di_designer_id !== null && $user->admin_designer == 1;
+    }
+
 
     public static function isChildDesigner($user)
     {

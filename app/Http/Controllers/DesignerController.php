@@ -718,7 +718,7 @@ class DesignerController extends Controller
                 }
                 
                 $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564 !important">';
                 $list .= '<th style="color: white !important;">No</th>';
                 $list .= '<th style="color: white !important;">Drawing No</th>';
                 $list .= '<th style="color: white !important;">Comments</th>';

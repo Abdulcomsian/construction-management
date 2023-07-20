@@ -811,11 +811,11 @@ hr{
                                         @endphp
                                             
                                         @if(isset($item->designerAssign) && $userEmail == $item->designerAssign->email)
-                                                @php $email = $item->designerAssign->email; @endphp
+                                                @php $userEmail = $item->designerAssign->email; @endphp
                                         @elseif(isset($item->checkerAssign) && $userEmail == $item->checkerAssign->email)
-                                                @php $email = $item->checkerAssign->email; @endphp
+                                                @php $userEmail = $item->checkerAssign->email; @endphp
                                         @endif
-                                        <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$email.'&job=1') }}"
+                                        <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$userEmail.'&job=1') }}"
                                                     target="_blank">
                                             <img src="{{asset('images/add.png')}}" alt="" srcset=""> 
                                         <a>

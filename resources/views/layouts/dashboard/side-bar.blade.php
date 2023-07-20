@@ -216,7 +216,7 @@
                     </a>
                 </div>
                 @endif
-               
+
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/designer')}}">
@@ -226,7 +226,7 @@
                 @endif
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                 <div class="menu-item">
-                    <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
+                    <a class="menu-link" href="{{route('awarded_jobs')}}">
                         <span class="menu-title">Awarded Jobs</span>
                     </a>
                 </div>

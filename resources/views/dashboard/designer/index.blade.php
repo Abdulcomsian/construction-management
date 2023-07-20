@@ -527,8 +527,9 @@
 
                             @php 
                                 $client_email = HelperFunctions::getClientEmailByJobId($id);
-                                $designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'designer');
+                                $designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'designers');
                                 $checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'checker');  
+                            
                                 $admin_designer = HelperFunctions::getJobAdminDesignerByJobId($id);  
                                 $designer_option=false;
                                 $checker_option=false;
@@ -540,7 +541,6 @@
                                     $designer_option=true;
                                 }
                             @endphp
-                        
                             <div class="row" style="background:white;margin: 0 4px;">
                                     <div class="col-md-12">
                                         <div class=" inputDiv d-block">
@@ -550,14 +550,17 @@
                                             </label>
                                             <!--end::Label-->
                                             {{-- <select class="form-control"> --}}
-                                            <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" required>
+                                            <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" >
+                                                <option value="" selected>Select Email</option>
                                                 <option value="{{$client_email}}">Client ({{$client_email}})</option>
-                                                <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
-                                                @if($designer_option)
-                                                    <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
-                                                @endif
-                                                @if($checker_option)
-                                                <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
+                                                @if($user->di_designer_id != null)
+                                                    <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
+                                                    @if($designer_option)
+                                                        <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
+                                                    @endif
+                                                    @if($checker_option)
+                                                    <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
+                                                    @endif
                                                 @endif
                                             </select>
                                         </div>

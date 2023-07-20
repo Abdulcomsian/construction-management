@@ -384,8 +384,10 @@
    }
 
    .active {
-      background: #3699FF !important;
-      color: white !important;
+      /* background: #3699FF !important; */
+      background: white !important;
+      /* color: white !important; */
+      color:black;
    }
 
    .rowcolor {
@@ -560,12 +562,12 @@
                            <!-- aLL TAB -->
                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                               aria-labelledby="nav-home-tab">
-                              <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive"
-                                 id="kt_table_users">
+                              <table class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive " style="margin-top:250px !important"
+                                 id="kt_table_users" >
                                  <!--begin::Table head-->
                                  {{-- <thead>
                                     <!--begin::Table row-->
-                                    <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                    <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" >
                                        <th>Serial No</th>
                                        <th style="min-width: 80px; padding: 0px;" class="">Project Name
                                        </th>
@@ -591,9 +593,10 @@
                                  </thead> --}}
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
-                                 <tbody class="text-gray-600 fw-bold">
+                                 <!-- gap  -->
+                                 <tbody class="text-gray-600 fw-bold d-flex flex-column gap-5" >
                                     @forelse($estimator_works as $item)
-                                    <tr class="" style="height: {{count($estimator_works)==1 ? '370px':''}}">
+                                    <tr class="" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
                                        {{-- <td
                                           style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           {{$item->estimator_serial_no}}
@@ -624,7 +627,7 @@
                                              {{ $item->project->name ?? '' }}
                                           </div>
                                        </td>
-                                       <td style="width:170px">
+                                       <td style="width:150px">
                                           <div class="d-flex">
                                              <p style="font-weight:400;font-size:14px;">
                                                 {{$item->design_requirement_text ?? ''}}</p>
@@ -632,7 +635,7 @@
                                        </td>
                                        <td style="">
                                           <div
-                                             style="max-height:100%; display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:15px;">
+                                             style="max-height:100%; display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:5px;">
                                              <div class="commentSection" style="">
                                                 @php
                                                 $drawingscount=0;
@@ -672,7 +675,7 @@
                                           </div>
                                        </td>
 
-                                       <td style="">
+                                       <td style="width:250px;">
                                           <div class="d-flex justify-content-between">
                                              <span class="titleColumn">Issue Date:</span>
                                              <span
@@ -713,7 +716,8 @@
                                              </div>
                                           </div>
                                        </td>
-                                       <td style="min-width: 254px; max-width: 80px;">
+                                       <td style="width:20px"></td>
+                                       <td style="width:250px">
                                           <div class="d-flex" style="position: relative;bottom: 4px;">
                                              <span class="titleColumn">Date Design Returned:</span>
                                              <div
@@ -782,15 +786,15 @@
                                              </div>
                                           </div>
                                        </td>
-                                       <td style="">
+                                       <td style="width:250px">
                                           <div class="d-flex justify-content-between">
                                              <span class="titleColumn">Designer:</span>
                                              <div
-                                                style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px; margin-left: 26px;">
-                                                <span class="designer-company cursor-pointer" style="width: 108px;"
+                                                style="display: flex; justify-content:center; flex-grow: 1;  margin-left: 100px;">
+                                                <span class="designer-company cursor-pointer" 
                                                    data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}"
                                                    data-tw="{{$item->tw_name ?? ''}}"><span
-                                                      class="label label-lg font-weight-bold label-light-success label-inline">View</span>
+                                                      class="label label-lg font-weight-bold label-light-success label-inline px-5">View</span>
                                                 </span>
                                                 <!-- {{$item->tw_name ?: '-'}} -->
                                                 @if(!$item->tw_name)
@@ -801,7 +805,7 @@
                                           <div class="d-flex justify-content-between">
                                              <span class="col-5 titleColumn">Drawings & Designs:</span>
                                              <div class="d-flex col-6"
-                                                style="display: flex; justify-content: space-evenly; align-items: center; flex-grow: 1; max-width:80px; margin-left: 26px;">
+                                                style="display: flex; justify-content: space-evenly; align-items: center; flex-grow: 1;  margin-left: 26px;">
                                                 <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}"
                                                    data-type="1"
                                                    style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
@@ -829,10 +833,10 @@
                                           <div class="d-flex">
                                              <span class="col-5 titleColumn text-start">Action</span>
                                              <div class="d-flex col-6 action"
-                                                style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; max-width:80px; margin-left: 26px;">
+                                                style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; margin-left: 40px !important;">
                                                 @if(auth()->user()->hasRole('estimator'))
                                                 <a href="{{route('estimator.edit',$item->id)}}"><i
-                                                      class="fa fa-edit"></i></a>
+                                                      class="fa fa-edit" style="margin-left:10px"></i></a>
                                                 @endif
                                                 @if(auth()->user()->hasRole('user'))
                                                 @if($item->estimatorApprove)
@@ -842,7 +846,7 @@
                                                 @endif
                                                 <a href="{{route('estimator.show',$item->id)}}"
                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
-                                                   <i class="fa fa-eye"></i>
+                                                   <i class="fa fa-eye" style="margin-left:15px"></i>
                                                 </a>
                                              </div>
 

@@ -535,10 +535,10 @@
                                 $checker_option=false;
                                 $user = auth()->user();
                                 if(isset($designer->user_id) && $user->id == $designer->user_id){
-                                    $checker_option=true;
+                                    $designer_option=true;
                                 }
                                 if(isset($checker->user_id) && $user->id == $checker->user_id){
-                                    $designer_option=true;
+                                    $checker_option=true;
                                 }
                             @endphp
                             <div class="row" style="background:white;margin: 0 4px;">

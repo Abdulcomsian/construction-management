@@ -155,17 +155,18 @@ class AdminDesignerController extends Controller
     {
         $loggedInUser = Auth::user();
         $designer = false;
-        // if (HelperFunctions::isAdminDesigner($loggedInUser)) {
-        if ($loggedInUser->di_designer_id !== null || $loggedInUser->admin_designer == null) {
+        if (HelperFunctions::isChildDesigner($loggedInUser)) {
+        // if ($loggedInUser->di_designer_id !== null || $loggedInUser->admin_designer == null) {
             // Child Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
                 ->where([
                     'temporary_work_id' => $request->temporary_work_id,
-                    'type' => 'designer',
+                    'type' => 'designers',
                     // 'user_id' => $loggedInUser->id
                 ])
                 ->first();
-            $designer = ($estimatorDesigner->user_id == $loggedInUser->id) ? true : false;    
+            $designer = ($estimatorDesigner->user_id === $loggedInUser->id) ? true : false;  
+            // dd($designer);  
         } else {
             // Admin Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')

@@ -132,7 +132,7 @@ class TemporaryWork extends Model
 
     public function designerAssign()
     {
-        return $this->hasOne(EstimatorDesignerList::class , 'temporary_work_id')->where('type', 'designer')->orderBy('id','desc');
+        return $this->hasOne(EstimatorDesignerList::class , 'temporary_work_id')->where('type', 'designers')->orderBy('id','desc');
     }
 
     public function checkerAssign()

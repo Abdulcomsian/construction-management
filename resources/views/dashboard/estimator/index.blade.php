@@ -402,6 +402,10 @@
       font-family: 'Inter', sans-serif;
       white-space: nowrap;
    }
+   .bg{
+      width:100%;
+      /* background-color:orange !important; */
+   }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -596,7 +600,7 @@
                                  <!-- gap  -->
                                  <tbody class="text-gray-600 fw-bold d-flex flex-column gap-3" >
                                     @forelse($estimator_works as $item)
-                                    <tr class="p-5" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
+                                    <tr class="p-5 bg" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
                                        {{-- <td
                                           style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           {{$item->estimator_serial_no}}
@@ -615,7 +619,7 @@
                                           </span> --}}
                                           {{--
                                        </td> --}}
-                                       <td style="width:150px ">
+                                       <td style="width:17%">
                                           <div class="">
                                              {{-- <span class="col-5 titleColumn text-start">Serial
                                                 No.</span> --}}
@@ -627,13 +631,13 @@
                                              {{ $item->project->name ?? '' }}
                                           </div>
                                        </td>
-                                       <td style="width:150px">
+                                       <td style="width:10% ">
                                           <div class="d-flex">
                                              <p style="font-weight:400;font-size:14px;">
                                                 {{$item->design_requirement_text ?? ''}}</p>
                                           </div>
                                        </td>
-                                       <td style="">
+                                       <td style="width:20%">
                                           <div
                                              style="max-height:100%; display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:5px;">
                                              <div class="commentSection" style="">
@@ -675,7 +679,7 @@
                                           </div>
                                        </td>
 
-                                       <td style="width:250px;">
+                                       <td style="width:15%;">
                                           <div class="d-flex justify-content-between">
                                              <span class="titleColumn">Issue Date:</span>
                                              <span
@@ -716,8 +720,8 @@
                                              </div>
                                           </div>
                                        </td>
-                                       <td style="width:20px"></td>
-                                       <td style="width:250px">
+                                       <!-- <td style="width:15%"></td> -->
+                                       <td style="width:15%">
                                           <div class="d-flex" style="position: relative;bottom: 4px;">
                                              <span class="titleColumn">Date Design Returned:</span>
                                              <div
@@ -786,7 +790,7 @@
                                              </div>
                                           </div>
                                        </td>
-                                       <td style="width:250px">
+                                       <td style="width:10%">
                                           <div class="d-flex justify-content-between">
                                              <span class="titleColumn">Designer:</span>
                                              <div
@@ -853,7 +857,7 @@
                                           </div>
 
                                        </td>
-                                       <td style="width:200px">
+                                       <td style="width:15%">
                                           <div class="d-flex">
                                              <span class="col-5 titleColumn">Status</span>
                                              <div class="d-flex col-6" style="column-gap:1rem;">

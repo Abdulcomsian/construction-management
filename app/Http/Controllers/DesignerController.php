@@ -90,7 +90,7 @@ class DesignerController extends Controller
                 $job_assign = new EstimatorDesignerList();
                 $job_assign->temporary_work_id = $id;
                 $job_assign->user_id = $designer->id;
-                $job_assign->type = 'designer';
+                $job_assign->type = 'designers';
                 $job_assign->start_date = $request->designer_start_date;
                 $job_assign->end_date = $request->designer_end_date;
                 $job_assign->email = $designer->email;

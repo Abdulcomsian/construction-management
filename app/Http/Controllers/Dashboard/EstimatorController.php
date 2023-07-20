@@ -843,8 +843,9 @@ class EstimatorController extends Controller
                 $model->temporary_work_id=$request->estimatorId;
                 $model->save();
             }
+            $temporary_work = TemporaryWork::find($request->estimatorId);
             //send email to estimator about quotaiton 
-            $estimatorUser=User::find($request->estimatorId);
+            $estimatorUser=User::find($temporary_work->created_by);
             Notification::route('mail', $estimatorUser->email)->notify(new QuotationSend($request->email));
             toastSuccess('Quotaion successfully Sent!');
             return redirect()->back();

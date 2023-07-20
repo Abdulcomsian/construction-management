@@ -421,7 +421,7 @@
                <!--begin::Card header-->
                <div class="card-header border-0">
                   <div class="card-title">
-                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Estimator
+                     <h3 class="card-label pt-5" style="font-size:1.6rem;">Design Brief for Estimations
                         <span class="d-block text-muted pt-25 font-size-sm"></span>
                      </h3>
                   </div>

@@ -333,4 +333,27 @@ class HelperFunctions
     {
         return $user->di_designer_id !== null && $user->admin_designer != 1;
     }
+
+    public static function getDesignerStatusBadge($designer_status) {
+        switch ($designer_status) {
+            case 'working':
+                $badge_class = 'badge-success';
+                break;
+            case 'stuck':
+                $badge_class = 'badge-danger';
+                break;
+            case 'completed':
+                $badge_class = 'badge-primary';
+                break;
+            case 'hold':
+                $badge_class = 'badge-danger';
+                break;
+            default:
+                $badge_class = 'badge-success';
+                break;
+        }
+    
+        $html = '<span class="badge ' . $badge_class . ' mt-2">' . $designer_status . '</span>';
+        return $html;
+    }    
 }

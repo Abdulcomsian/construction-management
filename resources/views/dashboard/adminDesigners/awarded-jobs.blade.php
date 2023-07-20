@@ -758,8 +758,8 @@ hr{
                                         $last_status =isset($item->design->estimatorDesignerListTasks)
                                         ? ($item->design->estimatorDesignerListTasks->last() ? $item->design->estimatorDesignerListTasks->last()->status : '-')
                                         : '-';
+                                    $status_badge = HelperFunctions::getDesignerStatusBadge($designer_status);
 
-                                    // @dd($designer_status)
                                 @endphp
                             <td>
                                 <div class="row d-flex flex-column">
@@ -769,19 +769,16 @@ hr{
                                     <div class="progress" style="width: {{$designer_task}}%;"></div>
                                     <span class="progress-text">{{$designer_task}}%</span>
                                     </div>
-                                </div>
-                               
-                                
+                                </div>            
                               
-                              
-                                @if($designer_status != NULL)
-                                @if($designer_status != "-" )
-                                <span class="badge badge-success mt-2">
+                                {{-- @if($designer_status != NULL)
+                                @if($designer_status != "-" ) --}}
+                                <span class="badge {{$status_badge}} mt-2">
                                     {{$designer_status}}
                                 </span>
+                                {{-- @endif
                                 @endif
-                                @endif
-                                
+                                 --}}
                             </td>
                             <td>
                                 <div class="row d-flex flex-column">
@@ -792,13 +789,13 @@ hr{
                                     <span class="progress-text">{{$checker_task}}%</span>
                                     </div>
                                 </div>
-                                @if($designer_status != NULL)
-                                @if($designer_status != "-" )
-                                <span class="badge badge-danger mt-2">
+                                {{-- @if($designer_status != NULL) --}}
+                                {{-- @if($designer_status != "-" ) --}}
+                                <span class="badge {{$status_badge}} mt-2">
                                     {{$checker_status}}
                                 </span>
-                                @endif
-                                @endif
+                                {{-- @endif --}}
+                                {{-- @endif --}}
                             </td>
                             <td class="green">  {{$designer_status}} </td>
                             <td>

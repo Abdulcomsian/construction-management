@@ -594,16 +594,16 @@
                                  <!--end::Table head-->
                                  <!--begin::Table body-->
                                  <!-- gap  -->
-                                 <tbody class="text-gray-600 fw-bold d-flex flex-column gap-5" >
+                                 <tbody class="text-gray-600 fw-bold d-flex flex-column gap-3" >
                                     @forelse($estimator_works as $item)
-                                    <tr class="" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
+                                    <tr class="p-5" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
                                        {{-- <td
                                           style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           {{$item->estimator_serial_no}}
                                        </td> --}}
                                        {{-- <td>{{ $item->project->name ?? '' }}</td> --}}
                                        {{-- <td
-                                          style="min-width:150pxpx;padding-left: 10px !important;padding-right: 10px !important;">
+                                          style="min-width:150px;padding-left: 10px !important;padding-right: 10px !important;">
                                           <p style="font-weight:400;font-size:14px;">
                                              {{$item->design_requirement_text ?? ''}}</p> --}}
                                           {{--
@@ -615,7 +615,7 @@
                                           </span> --}}
                                           {{--
                                        </td> --}}
-                                       <td style="">
+                                       <td style="width:150px ">
                                           <div class="">
                                              {{-- <span class="col-5 titleColumn text-start">Serial
                                                 No.</span> --}}

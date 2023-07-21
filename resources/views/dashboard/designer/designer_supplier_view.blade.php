@@ -296,7 +296,7 @@
     /* Apply the animation to the Font Awesome icon */
     .blinking-icon {
       animation: blink 1s infinite;
-      color: #07D564;
+      color: red;
     }
 </style>
 @include('layouts.sweetalert.sweetalert_css')

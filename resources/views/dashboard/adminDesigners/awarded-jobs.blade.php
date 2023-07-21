@@ -762,6 +762,7 @@ hr{
                                     // @dd($designer_status)
                                 @endphp
                             <td>
+                                @if(isset($item->designerAssign->user->name))
                                 <div class="row d-flex flex-column">
                                     <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
                                     <div class="col d-flex justify-content-center">
@@ -770,7 +771,8 @@ hr{
                                     <span class="progress-text">{{$designer_task}}%</span>
                                     </div>
                                 </div>
-                               
+                             
+                               @endif
                                 
                               
                               
@@ -784,6 +786,7 @@ hr{
                                 
                             </td>
                             <td>
+                                @if(isset($item->checkerAssign->user->name))
                                 <div class="row d-flex flex-column">
                                     <div class="col text-center"> {{$item->checkerAssign->user->name ?? ''}}  </div>
                                     <div class="col d-flex justify-content-center">
@@ -792,8 +795,9 @@ hr{
                                     <span class="progress-text">{{$checker_task}}%</span>
                                     </div>
                                 </div>
-                                @if($designer_status != NULL)
-                                @if($designer_status != "-" )
+                                @endif
+                                @if($checker_status != NULL)
+                                @if($checker_status != "-" )
                                 <span class="badge badge-danger mt-2">
                                     {{$checker_status}}
                                 </span>

@@ -285,6 +285,19 @@
    .tab-content>.active {
     background: none !important;
    }
+
+    /* Define the blinking animation */
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Apply the animation to the Font Awesome icon */
+    .blinking-icon {
+      animation: blink 1s infinite;
+      color: #07D564;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -401,7 +414,7 @@
                                 <td>{{$work->project->company->name}}</td>
                                 <td>{{Auth::user()->email}}</td>
                                 <td>
-                                    <a href="{{route('estimator.designer',$work->id.'/?mail='.auth()->user()->email.'&code='.Crypt::encrypt($work->designer->code))}}" target="_blank"><i class="fa fa-eye"></i>
+                                    <a href="{{route('estimator.designer',$work->id.'/?mail='.auth()->user()->email.'&code='.Crypt::encrypt($work->designer->code))}}" target="_blank"><i class="fa fa-eye @if(!$work->thisDesignerQuote) blinking-icon @endif"></i>
                                     </a>
                                 </td>
                               </tr>

@@ -48,7 +48,7 @@ class EstimatorController extends Controller
         }
 
         
-        $estimator_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits','rejecteddesign','checkQuestion')->whereHas('project', function ($q) use ($ids) {
+        $estimator_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits','rejecteddesign','checkQuestion','designerQuote')->whereHas('project', function ($q) use ($ids) {
             $q->whereIn('project_id', $ids);
         })->where(['estimator'=>1])->latest()->paginate(20);
         // dd($estimator_works);

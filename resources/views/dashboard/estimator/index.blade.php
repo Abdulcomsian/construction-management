@@ -406,6 +406,20 @@
       width:100%;
       /* background-color:orange !important; */
    }
+
+   @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Apply the animation to the Font Awesome icon */
+    .blinking-icon {
+      animation: blink 1s infinite;
+      color: #07D564;
+    }
+
+
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -850,7 +864,7 @@
                                                 @endif
                                                 <a href="{{route('estimator.show',$item->id)}}"
                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
-                                                   <i class="fa fa-eye" style="margin-left:15px"></i>
+                                                   <i class="fa fa-eye @if(!$item->designerQuote->isEmpty()) blinking-icon @endif" style="margin-left:15px"></i>
                                                 </a>
                                              </div>
 

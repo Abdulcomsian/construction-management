@@ -771,15 +771,9 @@ hr{
                                     <span class="progress-text">{{$designer_task}}%</span>
                                     </div>
                                 </div>            
-                              
-                                {{-- @if($designer_status != NULL)
-                                @if($designer_status != "-" ) --}}
-                                <span class="badge {{$status_badge}} mt-2">
-                                    {{$designer_status}}
-                                </span>
-                                {{-- @endif
-                                @endif
-                                 --}}
+                              @endif
+                          
+                                 
                             </td>
                             <td>
                                 @if(isset($item->checkerAssign->user->name))
@@ -791,13 +785,14 @@ hr{
                                     <span class="progress-text">{{$checker_task}}%</span>
                                     </div>
                                 </div>
-                                {{-- @if($designer_status != NULL) --}}
-                                {{-- @if($designer_status != "-" ) --}}
+                                @endif
+                                 @if($designer_status != NULL)
+                                 @if($designer_status != "-" )
                                 <span class="badge {{$status_badge}} mt-2">
                                     {{$checker_status}}
                                 </span>
-                                {{-- @endif --}}
-                                {{-- @endif --}}
+                                @endif 
+                               @endif
                             </td>
                             <td class="green">  {{$designer_status}} </td>
                             <td>

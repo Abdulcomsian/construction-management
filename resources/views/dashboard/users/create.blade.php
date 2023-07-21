@@ -199,8 +199,9 @@ background-color: #07d564 !important;
                                 <!--begin::Col-->
 
                                 <div class="col-md-12 my-2 check-estimator d-none">
-                                    <label class="fs-6 fw-bold mb-2">Temporary works co-ordinator also allowed as estimator</label>
-                                    <input type="checkbox" name="allow_estimator">
+                                <input type="checkbox" name="allow_estimator">
+                                    <label class="fs-6 fw-bold mb-2">Allow this TWC to have role of Estimator as well ?</label>
+                                    
                                 </div>
 
                                 @php 

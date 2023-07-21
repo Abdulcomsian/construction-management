@@ -416,7 +416,7 @@
     /* Apply the animation to the Font Awesome icon */
     .blinking-icon {
       animation: blink 1s infinite;
-      color: #07D564;
+      color: red;
     }
 
 
@@ -864,7 +864,7 @@
                                                 @endif
                                                 <a href="{{route('estimator.show',$item->id)}}"
                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
-                                                   <i class="fa fa-eye @if(!$item->designerQuote->isEmpty()) blinking-icon @endif" style="margin-left:15px"></i>
+                                                   <i class="fa fa-eye @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif" style="margin-left:15px"></i>
                                                 </a>
                                              </div>
 

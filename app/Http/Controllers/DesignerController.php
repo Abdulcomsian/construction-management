@@ -2617,4 +2617,19 @@ class DesignerController extends Controller
         return $color;
     }
 
+    public function generatePdf(){
+        //pdf wok
+        $pdf = PDF::loadView('pdf');
+        $path = public_path('certificate');
+        $filename =rand().'pdf.pdf';
+        $pdf->save($path . '/' . $filename);
+
+         // Set headers and return the file as a download response
+        $headers = [
+            'Content-Type' => 'application/pdf',
+        ];
+
+        return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
+        }
+
 }

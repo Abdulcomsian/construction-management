@@ -1349,6 +1349,7 @@ $notify_admins_msg = [
              $tabletwc .= '</tbody></table>';
         }
         if (isset($twcdesigncommetns) && count($twcdesigncommetns) > 0) {
+            
             $tabletwcdesigner.= '<table class="table"  style="border-radius: 8px; overflow: hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">No</th><th style="color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Twc Messages to Designer</th><th style="width:120px;color: white !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">Date</th><th></th></tr></thead><tbody>';
             $i = 1;
             foreach ($twcdesigncommetns as $comment) { 

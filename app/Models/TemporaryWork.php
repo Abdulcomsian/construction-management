@@ -115,9 +115,15 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(EstimatorDesignerList::class)->where(['public_message'=>1]);
     }
+
     public function designerQuote()
     {
         return $this->hasMany(DesignerQuotation::class);
+    }
+
+    public function thisDesignerQuote()
+    {
+        return $this->hasOne(DesignerQuotation::class , 'temporary_work_id' , 'id')->where('email' , auth()->user()->email); 
     }
 
     public function additionalInformation()

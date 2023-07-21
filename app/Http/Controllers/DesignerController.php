@@ -2682,12 +2682,19 @@ class DesignerController extends Controller
                 //     'checker_signature' => $image_name,
                 //     'temporary_work_id' => $request->tempworkid,
                 // ]);
-                // dd($request->tempworkid);
-                // Attach the selected tags to the DesignerCertificate
-                // Validate and get the array of selected tags
                     $selectedTags = $request->selected_tags;
                     // Sync the selected tags with the designerCertificate
                     $designerCertificate->tags()->sync($selectedTags);
+                    $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
+                    $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work]);
+                    $path = public_path('certificate');
+                    $filename =rand().'pdf.pdf';
+                    $pdf->save($path . '/' . $filename);
+                    $headers = [
+                        'Content-Type' => 'application/pdf',
+                    ];
+            
+                    return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
                     // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
                     toastSuccess('Designer Uploaded Successfully!');
                     return Redirect::back();

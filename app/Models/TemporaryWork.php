@@ -145,4 +145,8 @@ class TemporaryWork extends Model
     {
         return $this->hasOne(EstimatorDesignerList::class , 'temporary_work_id')->where('type', 'checker')->orderBy('id','desc');
     }
+    public function designerCertificates()
+    {
+        return $this->hasMany(DesignerCertificate::class,'temporary_work_id');
+    }
 }

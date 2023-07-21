@@ -18,6 +18,6 @@ class DesignerCertificate extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'certificate_tag');
+        return $this->belongsToMany(Tag::class, 'certificate_tag', 'designer_certificate_id', 'tag_id');
     }
 }

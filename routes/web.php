@@ -18,10 +18,10 @@ use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 
 
-Route::get('/',function(){
-    return redirect(route("login"));
-    // return view('auth.login');
-});
+// Route::get('/',function(){
+//     // return redirect(route("login"));
+//     // return view('auth.login');
+// });
 
 
 

@@ -114,6 +114,7 @@
                         </a>
                     </div>
                     @endif
+                  
                     @if(\Auth::user()->hasRole(['admin','company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('designer.list')}}">
@@ -135,7 +136,7 @@
                         </a>
                     </div>
                     @endif
-                    @if(\Auth::user()->hasAnyRole(['estimator','user']))
+                    @if(\Auth::user()->hasAnyRole(['estimator','user']) || auth()->user()->hasPermissionTo('twc-estimator'))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('estimator.index') }}">
                             <span class="menu-title">Estimator Register</span>

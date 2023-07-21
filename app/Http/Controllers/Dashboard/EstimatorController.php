@@ -24,7 +24,7 @@ class EstimatorController extends Controller
     public function index()
     {
         $user=Auth::user();
-        if($user->hasRole('estimator'))
+        if($user->hasRole('estimator') || $user->hasPermissionTo('twc-estimator'))
         {
             $user = User::with('userCompany')->find(Auth::user()->id);
             $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
@@ -59,7 +59,7 @@ class EstimatorController extends Controller
     public function testIndex()
     {
         $user=Auth::user();
-        if($user->hasRole('estimator'))
+        if($user->hasRole('estimator') || $user->hasPermissionTo('twc-estimator'))
         {
             $user = User::with('userCompany')->find(Auth::user()->id);
             $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
@@ -99,7 +99,7 @@ class EstimatorController extends Controller
     {
         $user=Auth::user();
         try {
-            if($user->hasRole('estimator'))
+            if($user->hasRole('estimator') || $user->hasPermissionTo('twc-estimator'))
             {
                 $user = User::with('userCompany')->find(Auth::user()->id);
                 $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
@@ -134,7 +134,7 @@ class EstimatorController extends Controller
     {
         $user=Auth::user();
         try {
-            if($user->hasRole('estimator'))
+            if($user->hasRole('estimator') || $user->hasPermissionTo('twc-estimator'))
             {
                 $user = User::with('userCompany')->find(Auth::user()->id);
                  $project_idds = DB::table('projects')->where('company_id', $user->userCompany->id)->get();
@@ -165,7 +165,7 @@ class EstimatorController extends Controller
     //estimator form
     public function create()
     {
-        if (!auth()->user()->hasRole([['estimator','admin']])) {
+        if (!auth()->user()->hasRole([['estimator','admin']]) && !auth()->user()->hasPermissionTo('twc-estimator')) {
             toastError('the Estimator is the only appointed person who can create a Estimate design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }

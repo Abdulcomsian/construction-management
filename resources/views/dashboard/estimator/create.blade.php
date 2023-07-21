@@ -461,7 +461,7 @@
                                         style=" cursor: pointer;color:#a9abb7 !important;" type="date"
                                         class="customDate blackBack form-control form-control-solid"
                                         placeholder="Design Required by Date" id="design_required_by_date"
-                                        name="design_required_by_date" value="{{old('design_required_by_date')}}">
+                                        name="design_required_by_date" value="{{date("Y-m-d")}}">
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -43,8 +43,8 @@
             </label>
             <select class="form-control" name="status">
                 <option value="working">Working</option>
-                <option value="working">Stuck</option>
-                <option value="working">Completed</option>
+                <option value="stuck">Stuck</option>
+                <option value="completed">Completed</option>
                 <option value="hold">Hold</option>
             </select>
         </div>

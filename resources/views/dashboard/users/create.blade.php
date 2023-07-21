@@ -158,7 +158,7 @@ background-color: #07d564 !important;
                                 </div>
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Select Role</label>
-                                    <select name="role" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                    <select name="role" class="form-select form-select-lg form-select-solid role-dropdown" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                         <option value="">Select Role</option>
                                         <option value="user">Temporary works co-ordinator</option>
                                         <option value="supervisor">Temporary works supervisor</option>
@@ -197,6 +197,12 @@ background-color: #07d564 !important;
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--begin::Col-->
+
+                                <div class="col-md-12 my-2 check-estimator d-none">
+                                    <label class="fs-6 fw-bold mb-2">Temporary works co-ordinator also allowed as estimator</label>
+                                    <input type="checkbox" name="allow_estimator">
+                                </div>
+
                                 @php 
                                 $hide="";
                                 if(Auth::user()->hasRole('company') && Auth::user()->nomination==0)
@@ -327,5 +333,20 @@ background-color: #07d564 !important;
         })
 
     });
+
+
+    // userRole = document.querySelector(".role-dropdown");
+
+    // userRole.addEventListener("change" , function(e){
+    //     alert("user role");
+    // })
+    $(document).on("change" , ".role-dropdown" , function(e){
+        let role = e.target.value;
+        if(role == "user"){
+            document.querySelector(".check-estimator").classList.remove("d-none");
+        }else{
+            document.querySelector(".check-estimator").classList.add("d-none");
+        }
+    })
 </script>
 @endsection

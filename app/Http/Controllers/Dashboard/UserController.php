@@ -29,6 +29,7 @@ use Carbon\Carbon;
 use App\Notifications\PasswordResetNotification;
 use Crypt;
 use App\Notifications\CreateNomination;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -162,6 +163,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         Validations::storeUser($request);
       //  try {
             $userprojectdata=[];
@@ -180,6 +182,14 @@ class UserController extends Controller
             $all_inputs['password'] = Hash::make($request->password);
             $all_inputs['email_verified_at'] = now();
             $user = User::create($all_inputs);
+
+        if($request->role == "user"){
+            if($request->allow_estimator == "on")
+            {
+                $permission = Permission::where("name", "twc-estimator")->first();
+                $user->givePermissionTo($permission);
+            }
+        }
             
             if($user->userCompany->nomination==1 && $request->nomination==1)
             {

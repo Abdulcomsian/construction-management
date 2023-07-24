@@ -155,6 +155,7 @@ Route::group(['prefix' => 'Estimator'],function(){
         Route::get('/estimator-search', [EstimatorController::class, 'estimator_search'])->name('estimator.search');
 
         Route::post('/review/save',[EstimatorController::class,'estimatorReview'])->name('estimator.review');
+        Route::get('/invoice',[EstimatorController::class,'saveinvoice'])->name('estimator.invoice');
     });
     //Designer routes where he can price up and comment on brief
     Route::get('estimator-designer/design/{id}',[EstimatorController::class,'estimatorDesigner'])->name('estimator.designer');

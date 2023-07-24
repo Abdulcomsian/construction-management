@@ -1040,15 +1040,4 @@ class EstimatorController extends Controller
             return response()->json(["success" => false ,"msg"=> "Something Went Wrong" , 'error' => $e->getMessage()]);
         }
    }
-   public function saveinvoice(Request $request)
-   {
-        try{
-            $pdf = PDF::loadView('layouts.pdf.invoice');
-            $path = public_path('invoice');
-            $filename = rand() . '.pdf';
-            $pdf->save($path . '/' . $filename);
-        }catch(\Exception $e){
-            return response()->json(["success" => false ,"msg"=> "Something Went Wrong" , 'error' => $e->getMessage()]);
-        }
-    }
 }

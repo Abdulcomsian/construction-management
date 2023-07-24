@@ -17,7 +17,7 @@ use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
-use App\Models\{Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, JobAssign};
+use App\Models\{Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag};
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
@@ -39,6 +39,7 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\{DesignerAwarded,TemporaryWorkNotification};
 use Illuminate\Support\Str;
 use PDF;
+use Illuminate\Support\Facades\View;
 
 
 class DesignerController extends Controller
@@ -382,7 +383,8 @@ class DesignerController extends Controller
         $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
         $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id])->whereIn('type', ['normal', 'twctodesigner'])->get();
-        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata'));
+        $tags=Tag::get();
+        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata','tags'));
         
     }
     public function store(Request $request)
@@ -2617,7 +2619,8 @@ class DesignerController extends Controller
         return $color;
     }
 
-    public function generatePdf(){
+    public function generatePdf()
+    {
         //pdf wok
         $pdf = PDF::loadView('pdf');
         $path = public_path('certificate');
@@ -2630,6 +2633,95 @@ class DesignerController extends Controller
         ];
 
         return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
+    }
+
+    public function generateDoc()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+        $section = $phpWord->addSection();
+
+        $html = View::make('word')->render();
+        // Save file
+        $fileName = "download.docx";
+        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+        $objWriter->save($fileName);
+        return response()->download(public_path('download.docx'));
+    }
+
+
+        public function certificateStore(Request $request)
+        {
+            try {
+                // dd($request);
+                // $validatedData = $request->validate([
+                //     'certificate_element' => 'required|string',
+                //     'design_document' => 'required|string',
+                //     'designermail”' => 'required|string',
+                //     'selected_tags' => 'required|array', // Assuming the selected_tags field contains an array of tag IDs
+                // ]);
+                $image_name = '';
+                if ($request->signtype == 1) {
+                    $image_name = $request->namesign;
+                } elseif ($request->pdfsigntype == 1) {
+                    $folderPath = public_path('temporary/signature/');
+                    $file = $request->file('pdfphoto');
+                    $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                    $file->move($folderPath, $filename);
+                    $image_name = $filename;
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name;
+                    file_put_contents($file, $image_base64);
+                }
+                $temporary_work_id = $request->tempworkid;
+                // Define the attributes for the record
+                $attributes = [
+                    'certificate_element' => $request->certificate_element,
+                    'design_document' => $request->design_document,
+                    'created_by' => $request->designermail,
+                    'designer_signature' => $image_name,
+                    'checker_signature' => $image_name,
+                ];
+                // Update the record if it exists or create a new record if it doesn't exist
+                $designerCertificate =DesignerCertificate::updateOrCreate(['temporary_work_id' => $temporary_work_id], $attributes);
+                // Create a new DesignerCertificate instance
+                // $designerCertificate = DesignerCertificate::create([
+                //     'certificate_element' => $request->certificate_element,
+                //     'design_document' => $request->design_document,
+                //     'created_by' => $request->designermail,
+                //     'designer_signature' => $image_name,
+                //     'checker_signature' => $image_name,
+                //     'temporary_work_id' => $request->tempworkid,
+                // ]);
+                    $selectedTags = $request->selected_tags;
+                    // Sync the selected tags with the designerCertificate
+                    $designerCertificate->tags()->sync($selectedTags);
+                    $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
+                    $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work]);
+                    $path = public_path('certificate');
+                    $filename =rand().'pdf.pdf';
+                    $pdf->save($path . '/' . $filename);
+                    $headers = [
+                        'Content-Type' => 'application/pdf',
+                    ];
+            
+                    return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
+                    // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                    toastSuccess('Designer Uploaded Successfully!');
+                    return Redirect::back();
+            } catch (\Exception $exception) {
+                dd($exception->getMessage());
+                toastError('Something went wrong, try again!');
+                return Redirect::back();
+            }
         }
 
 }

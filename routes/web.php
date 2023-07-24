@@ -18,10 +18,10 @@ use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 
 
-// Route::get('/',function(){
-//     // return redirect(route("login"));
-//     // return view('auth.login');
-// });
+Route::get('/',function(){
+    return redirect(route("login"));
+    // return view('auth.login');
+});
 
 
 
@@ -321,7 +321,8 @@ Route::post('designer/show-pricing' , [DesignerController::class , 'showPricing'
 Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
 Route::post('designer/show_comment' , [DesignerController::class , 'showComment'])->name('show_comment');
 Route::get('generate-pdf' , [DesignerController::class , 'generatePdf'])->name('generate_pdf');
-
+Route::get('generate-doc' , [DesignerController::class , 'generateDoc'])->name('generate_doc');
+Route::post('designer/certificate/store',[DesignerController::class,'certificateStore'])->name('designer.certificate.store');
 
 require __DIR__ . '/auth.php';
 

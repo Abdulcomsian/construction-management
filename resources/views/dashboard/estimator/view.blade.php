@@ -184,7 +184,7 @@
                                     <th class="min-w-50px">Designer Email</th>
                                     <th class="min-w-50px">Actions</th>
                                     <th class="min-w-50px">Total Price</th>
-                                    <th class="min-w-50px">Mileston Date</th>
+                                    <th class="min-w-50px">Milestone Date</th>
                                     <th class="min-w-50px">Status</th>
                                     <th class="min-w-50px">Escrow</th>
 
@@ -206,7 +206,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @if(auth()->user()->hasRole('estimator')) 
+                                        @if(auth()->user()->hasRole('estimator') || auth()->user()->hasPermissionTo('twc-estimator') ) 
                                         <span>Total ${{$designer->quotationSum->sum('price') ?? 0}} </span>
                                         <br>
                                         @if(count($designer->quotationSum)>0)

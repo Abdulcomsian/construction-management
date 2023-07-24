@@ -679,7 +679,7 @@ hr{
                                     {{ $item->projno ?? '' }} <br> {{ $item->projname ?? '' }}
                                 @endif
                             </td>
-                            <td>{{$item->client_name ?? ''}}</td>
+                            <td>{{$item->client_name ?? $item->creator->userCompany->name}}</td>
                             <td>{{$item->job_title ?? ''}}  
                                     @if($item->designerQuote && auth()->user()->view_price)
                                         <span>{{$item->designerQuote ? $item->designerQuote->sum('price') : '0'}}</span>
@@ -1079,8 +1079,8 @@ hr{
            success: function(res) {
                res=JSON.parse(res);
                // console.log(res.comment)
-               console.log(res.comment)
-               // $("#commenttable").html(res.comment);
+            //    console.log(res.comment)
+               $("#commenttable").html(res.comment);
                $("#twccommenttable").html(res.twccomment);
                $("#twccommenttable2").html(res.twclientcomments);
                $(".comments_form").show();

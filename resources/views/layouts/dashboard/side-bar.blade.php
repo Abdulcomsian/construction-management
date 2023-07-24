@@ -247,6 +247,13 @@
                     </a>
                 </div>
                 @endif
+                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
+                <div class="menu-item">
+                    <a class="menu-link" href="{{route('manage_invoice')}}">
+                        <span class="menu-title">Manage Invoice</span>
+                    </a>
+                </div>
+                @endif
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && \Auth::user()->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/designer')}}">

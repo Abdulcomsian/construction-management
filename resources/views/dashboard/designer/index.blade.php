@@ -1,6 +1,5 @@
 @extends('layouts.dashboard.master_user',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
-
 @section('styles')
 <style>
     :root {
@@ -546,22 +545,25 @@
                             </div>
                         </div>
                         @if(isset($_GET['job']))
-
                             @php 
                                 $client_email = HelperFunctions::getClientEmailByJobId($id);
                                 $designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'designers');
                                 $checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($id, 'checker');  
                             
                                 $admin_designer = HelperFunctions::getJobAdminDesignerByJobId($id);  
+                                $estimator = HelperFunctions::getJobEstimatorByJobId($id);  
+                                $admin_designer_option=false;
+                                $estimator_option=false;
                                 $designer_option=false;
                                 $checker_option=false;
-                                $user = auth()->user();
+                                $user = App\Models\User::where('email',$_GET['mail'])->first();
                                 if(isset($designer->user_id) && $user->id == $designer->user_id){
                                     $designer_option=true;
                                 }
                                 if(isset($checker->user_id) && $user->id == $checker->user_id){
                                     $checker_option=true;
                                 }
+                                // dd($checker_option);
                             @endphp
                             <div class="row" style="background:white;margin: 0 4px;">
                                     <div class="col-md-12">
@@ -575,15 +577,21 @@
                                             <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" >
                                                 <option value="" selected>Select Email</option>
                                                 <option value="{{$client_email}}">Client ({{$client_email}})</option>
-                                                @if($user->di_designer_id != null)
+                                                {{-- @if($user->di_designer_id != null) --}}
+                                                    @if($admin_designer_option)
+                                                    <option value="{{$estimator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
+                                                    @endif
+                                                    @if($estimator_option)
+                                                    <option value="{{$admin_designer->creator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
+                                                    @endif
                                                     <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
-                                                    @if($designer_option)
+                                                    @if($checker_option)
                                                         <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
                                                     @endif
-                                                    @if($checker_option)
+                                                    @if($designer_option)
                                                     <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
                                                     @endif
-                                                @endif
+                                                {{-- @endif --}}
                                             </select>
                                         </div>
                                     </div>
@@ -744,13 +752,17 @@
                             <input type="hidden" name="tempworkid" value="{{$id}}">
                             <input type="hidden" name="designermail" value="{{$mail}}">
                             <div class="row" style="background:white;margin: 0 4px;">
+                            {{-- @if($designer_certificate)
+                            <div class="col-md-6">
+                            </div>
+                            @else --}}
                             <div class="col-md-6">
                                 <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Certificate Element:</span>
                                     </label>
                                     <div class="d-flex">
-                                        <input type="text" placeholder="Certificate Element" class="form-control" name="certificate_element" value="">
+                                        <input type="text" placeholder="Certificate Element" class="form-control" name="certificate_element" value="{{$designer_certificate->certificate_element ?? ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -760,11 +772,11 @@
                                         <span class="required">Design Document:</span>
                                     </label>
                                     <div class="d-flex">
-                                        <input type="text" placeholder="Design Document" class="form-control" name="design_document" value="">
+                                        <input type="text" placeholder="Design Document" class="form-control" name="design_document" value="{{$designer_certificate->design_document ?? ''}}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Tags:</span>
@@ -772,18 +784,40 @@
                                     <div class="d-flex">
                                         <div class="tag-container">
                                             @foreach($tags as $tag)
-                                                {{-- <div class="col-md-2"> --}}
                                                     <label class="tag">
-                                                        <input type="checkbox" name="selected_tags[]" value="<?= $tag->id ?>"> <!-- Assuming the value is the tag name or ID -->
+                                                        <input type="checkbox" name="selected_tags[]" value="<?= $tag->id ?>">
                                                         <?= $tag->title ?>
                                                     </label>
-                                                {{-- </div> --}}
                                             @endforeach
                                         </div>
-                                        {{-- <input type="text" placeholder="Certificate Element" class="form-control" name="certificate_element" value=""> --}}
+                                    </div>
+                                </div>
+                            </div> --}}
+                            <div class="col-md-12">
+                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Tags:</span>
+                                    </label>
+                                    <div class="d-flex">
+                                        <div class="tag-container">
+                                            @isset($tags)
+                                                @foreach($tags as $tag)
+                                                    <label class="tag">
+                                                        <input type="checkbox" name="selected_tags[]" value="{{ $tag->id }}" 
+                                                        @if($designer_certificate && in_array($tag->id, $designer_certificate->tags->pluck('id')->toArray())) 
+                                                            checked 
+                                                        @endif
+                                                        >
+                                                        {{ $tag->title }}
+                                                    </label>
+                                                @endforeach
+                                            @endisset
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            
                             <div class="row" id="signature_div">
                                 <div class="col-md-8">
                                 <div class="d-flex flex-column inputDiv mb-1" style="border: none">
@@ -855,6 +889,8 @@
                                 </div>
                             
                             </div>
+                            {{-- @endif --}}
+                            
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled

@@ -313,6 +313,7 @@ Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'n
 
 Route::get('adminDesigner/create-appointment/{id}',[AdminDesignerController::class,'createAppointment'])->name('create_appointment');
 Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'saveAppointment']);
+Route::get('designer/manage-invoice',[AdminDesignerController::class,'manageInvoice'])->name('manage_invoice');
 
 Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['auth'])->name('dashboard');
 Route::get('Estimator/estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');

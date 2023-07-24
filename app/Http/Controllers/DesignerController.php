@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Notifications\PasswordResetNotification;
 use Illuminate\Support\Facades\DB;
-use App\Notifications\{DesignerAwarded,TemporaryWorkNotification};
+use App\Notifications\{DesignerAwarded,TemporaryWorkNotification,DesignerCertificateNotification};
 use Illuminate\Support\Str;
 use PDF;
 use Illuminate\Support\Facades\View;
@@ -368,6 +368,7 @@ class DesignerController extends Controller
         $mail=$_GET['mail'];
         
         $id = \Crypt::decrypt($id);
+        $designer_certificate=DesignerCertificate::where('temporary_work_id',$id)->first();
         $tempdata=TemporaryWork::select('designer_company_name', 'designer_company_email', 'desinger_company_name2', 'desinger_email_2')->find($id);
         if($mail==$tempdata->designer_company_email)
         {
@@ -377,14 +378,14 @@ class DesignerController extends Controller
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Checker'])->orderBy('id','desc')->update(['status'=>1]);
         }
-        
+
         $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->orderBy('id','desc')->get();
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
         $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id])->whereIn('type', ['normal', 'twctodesigner'])->get();
         $tags=Tag::get();
-        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata','tags'));
+        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata','tags','designer_certificate'));
         
     }
     public function store(Request $request)
@@ -2652,16 +2653,9 @@ class DesignerController extends Controller
     }
 
 
-        public function certificateStore(Request $request)
-        {
-            try {
-                // dd($request);
-                // $validatedData = $request->validate([
-                //     'certificate_element' => 'required|string',
-                //     'design_document' => 'required|string',
-                //     'designermail”' => 'required|string',
-                //     'selected_tags' => 'required|array', // Assuming the selected_tags field contains an array of tag IDs
-                // ]);
+    public function certificateStore(Request $request)
+    {
+        try {
                 $image_name = '';
                 if ($request->signtype == 1) {
                     $image_name = $request->namesign;
@@ -2682,46 +2676,59 @@ class DesignerController extends Controller
                     file_put_contents($file, $image_base64);
                 }
                 $temporary_work_id = $request->tempworkid;
+                $user = Auth::user();
+                $temporary_work = TemporaryWork::findorfail($request->tempworkid);
+                if($user->id == $temporary_work->designerAssign)
+                {
+                    $designer = $user;
+                    $designer_image_name = $image_name;
+                } else{
+                    $checker = $user;
+                    $checker_image_name = $image_name;
+                }
                 // Define the attributes for the record
                 $attributes = [
                     'certificate_element' => $request->certificate_element,
                     'design_document' => $request->design_document,
                     'created_by' => $request->designermail,
-                    'designer_signature' => $image_name,
-                    'checker_signature' => $image_name,
+                    'designer_signature' => $designer_image_name ?? '',
+                    'checker_signature' => $checker_image_name ?? '',
                 ];
                 // Update the record if it exists or create a new record if it doesn't exist
                 $designerCertificate =DesignerCertificate::updateOrCreate(['temporary_work_id' => $temporary_work_id], $attributes);
-                // Create a new DesignerCertificate instance
-                // $designerCertificate = DesignerCertificate::create([
-                //     'certificate_element' => $request->certificate_element,
-                //     'design_document' => $request->design_document,
-                //     'created_by' => $request->designermail,
-                //     'designer_signature' => $image_name,
-                //     'checker_signature' => $image_name,
-                //     'temporary_work_id' => $request->tempworkid,
-                // ]);
-                    $selectedTags = $request->selected_tags;
-                    // Sync the selected tags with the designerCertificate
-                    $designerCertificate->tags()->sync($selectedTags);
-                    $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
-                    $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work]);
-                    $path = public_path('certificate');
-                    $filename =rand().'pdf.pdf';
-                    $pdf->save($path . '/' . $filename);
-                    $headers = [
-                        'Content-Type' => 'application/pdf',
-                    ];
-            
-                    return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
-                    // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
-                    toastSuccess('Designer Uploaded Successfully!');
-                    return Redirect::back();
-            } catch (\Exception $exception) {
-                dd($exception->getMessage());
-                toastError('Something went wrong, try again!');
+
+                $selectedTags = $request->selected_tags;
+                // Sync the selected tags with the designerCertificate
+                $designerCertificate->tags()->sync($selectedTags);
+                 // Send email notification
+                
+
+                $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
+                $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work]);
+                $path = public_path('certificate');
+                $filename =rand().'pdf.pdf';
+                $pdf->save($path . '/' . $filename);
+                $headers = [
+                    'Content-Type' => 'application/pdf',
+                ];
+                $pdfLink = url('certificate/' . $filename);
+
+                if ($designer && isset($designer_image_name)) {
+                    $designer->notify(new DesignerCertificateNotification($temporary_work, $pdfLink));
+                }
+
+                if ($checker && isset($checker_image_name)) {
+                    $checker->notify(new DesignerCertificateNotification($temporary_work, $pdfLink));
+                }
+                return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
+                // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();
-            }
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
         }
+    }
 
 }

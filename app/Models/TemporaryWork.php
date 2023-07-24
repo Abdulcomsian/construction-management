@@ -147,6 +147,6 @@ class TemporaryWork extends Model
     }
     public function designerCertificates()
     {
-        return $this->hasMany(DesignerCertificate::class,'temporary_work_id');
+        return $this->hasOne(DesignerCertificate::class,'temporary_work_id');
     }
 }

@@ -1220,4 +1220,8 @@ class AdminDesignerController extends Controller
             return Redirect::back();
          }
     }
+
+    public function manageInvoice(){
+            return view('dashboard.adminDesigners.manage_invoice');
+    }    
 }

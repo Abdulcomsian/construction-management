@@ -307,6 +307,13 @@ class HelperFunctions
         return $designer;
     }
 
+    //get the estimator
+    public static function getJobEstimatorByJobId($temporary_id)
+    {
+        $designer = EstimatorDesignerList::where([['temporary_work_id',$temporary_id],['type','Designer']])->first();
+        return $designer;
+    }
+
     //get the checkers and designers
     public static function getChildDesignersByDesignerId($id)
     {

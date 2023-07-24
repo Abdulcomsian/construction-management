@@ -31,7 +31,7 @@
     .row{
         display:flex !important;
     }
-    </style>
+</style>
     
     <page pageset="old">
     
@@ -78,24 +78,8 @@
             </td>
             <td style="border-left:1px solid white !important;">
                 <label for="cat1">CAT {{$temporary_work->tw_category }} </label>
-                {{-- <input type="checkbox" id="vehicle1" /> --}}
                 <p></p>
-                </td>
-            {{-- <td style="border-left:1px solid white !important;">
-            <label for="cat1">CAT I </label>
-            <input type="checkbox" id="vehicle1" {{$temporary_work->tw_category == 1 ? 'checked' : ''}} />
-            <p></p>
             </td>
-            <td>
-            <label for="cat1">CAT II  </label>
-            <input type="checkbox" id="vehicle1" {{$temporary_work->tw_category == 2 ? 'checked' : ''}}/>
-            <p></p>
-            </td>
-            <td>
-            <label for="cat1">CAT III  </label>
-            <input type="checkbox" id="vehicle1" checked/>
-            <p></p>
-            </td> --}}
         </tr>
     
        
@@ -106,16 +90,12 @@
     </div>
     <div class="options" style="margin-left:5%">
             <p>(a) The following element of temporary works:</p> <br>
-            <p></p>
+            <p>{{$temporary_work->description_temporary_work_required}}</p>
             <p>(b) Described in design brief:</p> <br>
-            <p></p>
+            <p>{{$temporary_work->design_requirement_text}}</p>
             <p> (c) Has been designed in accordance with the following standards and reference</p> <br>
             <table style="width:100%">
             @foreach($temporary_work->designerCertificates as $certificate)
-                {{-- <h2>Certificate Element: {{ $certificate->certificate_element }}</h2>
-                <h3>Design Document: {{ $certificate->design_document }}</h3>
-                <p>Tags:</p>
-                <ul> --}}
                     @foreach($certificate->tags as $tag)
                     <tr>
                         <td style="width:30%">{{$tag->title}} </td>
@@ -135,29 +115,39 @@
     
     
     
-    
+    @php
+     use App\Utils\HelperFunctions; 
+     use App\Models\User; 
+    @endphp
     <div class="options" style="margin-left:5%">
     <div class="three-points">
     <p>I certify that the design of (a) as described in (d) complies with the standards listed in (c) and brief 
     (d)</p>
     </div>
+    @if
+    @php $user = User::where('email',$email); @endphp
+    @if($user->id == $temporary_work->designerAssign->user_id)
+        @php 
+        $designer = $user
+        @endphp
+    @endif
     <table style="width:100%;">
         <tr>
             <td style="width:20%" >Name:</td>
-            <td></td>
+            <td>{{$designer->name}}</td>
     
         </tr>
         <tr >
             <td > Date:</td>
-            <td></td>
+            <td>{{$temporary_work->designerCertificates->created_at}}</td>
         </tr>
         <tr >
             <td > Organisation:</td>
-            <td></td>
+            <td>{{$temporary_work->designer_company_name}}</td>
         </tr>
         <tr >
             <td > Position:</td>
-            <td></td>
+            <td>designer</td>
         </tr>
         <tr >
             <td > sign:</td>
@@ -174,24 +164,29 @@
     brief and standards referenced.
             </p>
         </div>
-    
+        @php $user = Auth::user(); @endphp
+        @if($user->id == $temporary_work->checkerAssign->user_id)
+            @php 
+            $checker = $user
+            @endphp
+        @endif
         <table style="width:100%;">
         <tr>
             <td style="width:20%" >Name:</td>
-            <td></td>
+            <td>{{$checker->name}}</td>
     
         </tr>
         <tr >
             <td > Date:</td>
-            <td></td>
+            <td>{{$checker->designerCertificates->created_at}}</td>
         </tr>
         <tr >
-            <td > Organisation:</td>
-            <td></td>
+            <td> Organisation:</td>
+            <td>{{$temporary_work->designer_company_name}}</td>
         </tr>
         <tr >
-            <td > Position:</td>
-            <td></td>
+            <td> Position:</td>
+            <td>checker</td>
         </tr>
         <tr >
             <td> sign:</td>
@@ -199,16 +194,6 @@
         </tr>
     
     </table>
-    
-    
-    
-    
     </div>
-    
-    
-    
-    
-    
-    
-    </page>
+</page>
     

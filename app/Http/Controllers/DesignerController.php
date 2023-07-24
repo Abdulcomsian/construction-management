@@ -39,6 +39,7 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\{DesignerAwarded,TemporaryWorkNotification};
 use Illuminate\Support\Str;
 use PDF;
+use Illuminate\Support\Facades\View;
 
 
 class DesignerController extends Controller
@@ -2618,7 +2619,8 @@ class DesignerController extends Controller
         return $color;
     }
 
-    public function generatePdf(){
+    public function generatePdf()
+    {
         //pdf wok
         $pdf = PDF::loadView('pdf');
         $path = public_path('certificate');
@@ -2631,7 +2633,24 @@ class DesignerController extends Controller
         ];
 
         return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
-        }
+    }
+
+    public function generateDoc()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+        $section = $phpWord->addSection();
+
+        $html = View::make('word')->render();
+        // Save file
+        $fileName = "download.docx";
+        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+        $objWriter->save($fileName);
+        return response()->download(public_path('download.docx'));
+    }
+
 
         public function certificateStore(Request $request)
         {

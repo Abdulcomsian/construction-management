@@ -2452,7 +2452,7 @@ $tempWorkClass = "d-none";
                                                                     width="70px" height="70px">
                                                             </a>
                                                             @endif
-                                                            <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; white-space: nowrap"
+                                                            <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
                                                                 target="_blank"
                                                                 href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                                             </a>

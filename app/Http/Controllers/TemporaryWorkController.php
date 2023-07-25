@@ -2631,7 +2631,7 @@ $notify_admins_msg = [
     {
         $user = auth()->user();
         try {
-            $assignedBlocks = '';
+            $assignedBlocks = [];
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
                 foreach ($temporary_works as $temporary_work) {

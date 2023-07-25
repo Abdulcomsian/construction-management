@@ -614,7 +614,7 @@
                                  <!-- gap  -->
                                  <tbody class="text-gray-600 fw-bold d-flex flex-column gap-3" >
                                     @forelse($estimator_works as $item)
-                                    <tr class="p-3 bg" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
+                                    <tr class="p-3 bg" style="height: {{count($estimator_works)==1 ? '155px':''}} ">
                                        {{-- <td
                                           style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           {{$item->estimator_serial_no}}

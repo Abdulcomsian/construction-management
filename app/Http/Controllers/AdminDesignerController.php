@@ -281,8 +281,12 @@ class AdminDesignerController extends Controller
             }
 
             $all_inputs['nomination'] = $request->nomination == 1 ? 1 : 0;
-            $all_inputs['view_price'] = $request->has('view_price') ? 1 : null;
 
+            $all_inputs['view_price'] = $request->has('view_price') ? 1 : null;
+            $admin = Auth::user()->hasRole('admin');
+            if($admin){ //if super admin is creating this user, this means it is admin designer so view price must be 1 for admin user;
+                $all_inputs['view_price'] =1;
+            }
             $user = User::create($all_inputs);
             $user->assignRole($request->role);
 
@@ -362,7 +366,8 @@ class AdminDesignerController extends Controller
             $user->admin_designer = $request->has('admin_designer') ? 1 : null;
             $user->view_price = $request->has('view_price') ? 1 : null;
             $user->save();
-
+            // dd($request->role);
+            $user->syncRoles($request->role);
             toastSuccess('Designer Updated Successfully');
             return redirect()->back();
         } catch (\Exception $exception) {

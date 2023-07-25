@@ -2678,8 +2678,8 @@ class DesignerController extends Controller
                 $temporary_work_id = $request->tempworkid;
                 $user = User::where('email',$request->designermail)->first();
                 $temporary_work = TemporaryWork::with('designerCertificates')->findorfail($request->tempworkid);
-                $checker_image_name = $temporary_work->designerCertificates->checker_signature;
-                $designer_image_name = $temporary_work->designerCertificates->designer_signature;
+                $checker_image_name = $temporary_work->designerCertificates->checker_signature ?? '';
+                $designer_image_name = $temporary_work->designerCertificates->designer_signature ?? '';
                 if($user->id == $temporary_work->designerAssign->user_id)
                 {
                     // dd("sss");

@@ -46,7 +46,7 @@ Route::post('temporary_works/comments-replay', [TemporaryWorkController::class, 
 //design page for designer 
 Route::get('designer/upload-design/{id}',[DesignerController::class,'index'])->name('designer.uploaddesign');
 Route::post('designer/store',[DesignerController::class,'store'])->name('designer.store');
-Route::get('designer/delte/{id}',[DesignerController::class,'Designdelte'])->name('designer.delete');
+Route::post('designer/delte/',[DesignerController::class,'Designdelte'])->name('designer.delete');
 
 //pc twc approval routes
 Route::get('design/approve/{id}',[DesignerController::class,'pc_index'])->name('pc.approved');
@@ -314,6 +314,7 @@ Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'n
 Route::get('adminDesigner/create-appointment/{id}',[AdminDesignerController::class,'createAppointment'])->name('create_appointment');
 Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'saveAppointment']);
 Route::get('designer/manage-invoice',[AdminDesignerController::class,'manageInvoice'])->name('manage_invoice');
+Route::post('designer/generate-invoice',[AdminDesignerController::class,'generateInvoice'])->name('generate_invoice');
 
 Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['auth'])->name('dashboard');
 Route::get('Estimator/estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');

@@ -402,10 +402,13 @@
                                         <span class="">Design Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" readonly type="date" value=""
+                                    @php
+                                    $cur_date = date('d/m/Y');
+                                    @endphp
+                                    <input data-date-inline-picker="true" readonly type="date" 
                                         class="blackBack form-control form-control-solid" placeholder="Date"
                                         name="design_issued_date" id="design_issued_date"
-                                        value="{{old('design_issued_date')}}">
+                                        value="<?php echo date('Y-m-d');?>">
                                 </div>
                             </div>
                             <div class="col-md-6">

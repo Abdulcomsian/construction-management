@@ -457,6 +457,7 @@ class DesignerController extends Controller
                     }
                 }
                 else{
+                    $model->drawing_number = $request->drawing_number.$request->drawing_postfix_no;
                     $model->preliminary_approval = $request->preliminary_approval;
                     $model->construction = $request->construction;
                 }
@@ -628,15 +629,15 @@ class DesignerController extends Controller
                         }
 
                         $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
-                        $list .= '<td>' . $i . '</td>';
-                        $list .= '<td>' . $uploads->drawing_number . '</td>';
-                        $list .= '<td>' . $uploads->comments . '</td>';
-                        $list .= '<td>' . $uploads->twd_name . '</td>';
-                        $list .= '<td>' . $uploads->drawing_title . '</td>';
-                        $list .= '<td>' . $papproval . '</td>';
-                        $list .= '<td>' . $construction . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $i . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->drawing_number . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->comments . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->twd_name . '</td>';
+                        $list .= '<td  style="text-align:Center; !important;">' . $uploads->drawing_title . '</td>';
+                        $list .= '<td  style="text-align:Center; !important;">' . $papproval . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $construction . '</td>';
                         if ($construction == 'Yes') {
-                            $list .= '<td style="display:flex">
+                            $list .= '<td style="display:flex; height:40px;">
                                  <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -660,8 +661,10 @@ class DesignerController extends Controller
                                 </form>
                                 </td>';
                         }
-                        $delete = route('designer.delete',$uploads->id);
-                        $list .= '<td style="style="text-align: center; vertical-align: middle;""><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                        // $delete = route('designer.delete',$uploads->id);
+                        $list .= '<td style="style="text-align: center; vertical-align: middle;"">
+                        <button class="btn btn-danger btn-small deletedrawing" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-trash"></i></button>';
+                        // <a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                         if(count($uploads->comment)>0)
                         {
                             $j=1;
@@ -2179,11 +2182,11 @@ class DesignerController extends Controller
    }
 
 
-   public function Designdelte($id)
+   public function Designdelte(Request $request)
    {
         try{
-        DrawingComment::where('temp_work_upload_files_id',$id)->delete();
-        TempWorkUploadFiles::find($id)->delete();
+        DrawingComment::where('temp_work_upload_files_id',$request->delete_drawingid)->delete();
+        TempWorkUploadFiles::find($request->delete_drawingid)->delete();
         toastSuccess('Designer Deleted Successfully');
         return Redirect::back();
         } catch (\Exception $exception) {
@@ -2676,23 +2679,27 @@ class DesignerController extends Controller
                     file_put_contents($file, $image_base64);
                 }
                 $temporary_work_id = $request->tempworkid;
-                $user = Auth::user();
-                $temporary_work = TemporaryWork::findorfail($request->tempworkid);
-                if($user->id == $temporary_work->designerAssign)
+                $user = User::where('email',$request->designermail)->first();
+                $temporary_work = TemporaryWork::with('designerCertificates')->findorfail($request->tempworkid);
+                $checker_image_name = $temporary_work->designerCertificates->checker_signature ?? '';
+                $designer_image_name = $temporary_work->designerCertificates->designer_signature ?? '';
+                if($user->id == $temporary_work->designerAssign->user_id)
                 {
+                    // dd("sss");
                     $designer = $user;
                     $designer_image_name = $image_name;
                 } else{
                     $checker = $user;
                     $checker_image_name = $image_name;
                 }
+                // dd($temporary_work->id, $user->id, $temporary_work->designerAssign->user_id,$image_name, $designer_image_name, $checker_image_name);
                 // Define the attributes for the record
                 $attributes = [
                     'certificate_element' => $request->certificate_element,
                     'design_document' => $request->design_document,
                     'created_by' => $request->designermail,
-                    'designer_signature' => $designer_image_name ?? '',
-                    'checker_signature' => $checker_image_name ?? '',
+                    'designer_signature' => $designer_image_name,
+                    'checker_signature' => $checker_image_name,
                 ];
                 // Update the record if it exists or create a new record if it doesn't exist
                 $designerCertificate =DesignerCertificate::updateOrCreate(['temporary_work_id' => $temporary_work_id], $attributes);
@@ -2704,28 +2711,49 @@ class DesignerController extends Controller
                 
 
                 $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
-                $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work]);
+                $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work, 'user' => $user]);
                 $path = public_path('certificate');
                 $filename =rand().'pdf.pdf';
                 $pdf->save($path . '/' . $filename);
-                $headers = [
-                    'Content-Type' => 'application/pdf',
-                ];
-                $pdfLink = url('certificate/' . $filename);
-
-                if ($designer && isset($designer_image_name)) {
-                    $designer->notify(new DesignerCertificateNotification($temporary_work, $pdfLink));
+                $pdfLink = public_path('certificate/' . $filename);
+                $recipient_email = '';
+                $login_url = route('login');
+                if (isset($designer) && isset($designer_image_name)) {
+                $recipient_email = $temporary_work->checkerAssign->email;
                 }
-
-                if ($checker && isset($checker_image_name)) {
-                    $checker->notify(new DesignerCertificateNotification($temporary_work, $pdfLink));
+                if (isset($checker) && isset($checker_image_name)) {
+                    $recipient_email = $temporary_work->designerAssign->email;
                 }
-                return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
+                if($temporary_work->designerCertificates->designer_signature && $temporary_work->designerCertificates->checker_signature){
+                    if($temporary_work->client_email){
+                        $recipient_email = $temporary_work->client_email; 
+                    } else{
+                        $estimator = HelperFunctions::getJobEstimatorByJobId($temporary_work->id);
+                        $recipient_email = $estimator->email;
+                    }
+                    $login_url = $pdfLink;
+                }
+                // dd($login);
+                // dd($temporary_work->checkerAssign->email);
+                Notification::route('mail', $recipient_email)->notify(new DesignerCertificateNotification($temporary_work, $pdfLink, $login_url));
+
+                // if (isset($designer) && isset($designer_image_name)) {
+                    
+                //     Notification::route('mail', $temporary_work->checkerAssign->email)->notify(new DesignerCertificateNotification($temporary_work, $pdfLink));
+                // }
+
+                // if (isset($checker) && isset($checker_image_name)) {
+                //     dd("sss");
+                //     Notification::route('mail', $temporary_work->designerAssign->email)->notify(new DesignerCertificateNotification($temporary_work, $pdfLink));
+                // }
+                // return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
                 // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                return redirect()->back();
                 toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            // dd($exception->getFile());
+            dd($exception->getMessage(),$exception->getFile(),$exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

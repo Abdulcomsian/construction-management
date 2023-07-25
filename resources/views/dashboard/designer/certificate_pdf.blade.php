@@ -96,15 +96,15 @@
             <p> (c) Has been designed in accordance with the following standards and reference</p> <br>
             <table style="width:100%">
             @foreach($temporary_work->designerCertificates as $certificate)
-                    @foreach($certificate->tags as $tag)
+                @foreach(optional($certificate)->tags ?? [] as $tag)
                     <tr>
                         <td style="width:30%">{{$tag->title}} </td>
                         <td> {{$tag->description}}</td>
                     </tr>
-                    @endforeach
-                </ul>
+                @endforeach
                 <hr>
-            @endforeach     
+            @endforeach
+            
     </table>
     <p>(d) The design is described in the following documents:</p> <br>
             <input type="text" id="" class="set"/>  <br>
@@ -124,9 +124,9 @@
     <p>I certify that the design of (a) as described in (d) complies with the standards listed in (c) and brief 
     (d)</p>
     </div>
-    @if
-    @php $user = User::where('email',$email); @endphp
-    @if($user->id == $temporary_work->designerAssign->user_id)
+    {{-- @if --}}
+    {{-- @php $user = User::where('email',$email)->first(); @endphp --}}
+    @if($temporary_work->designerCertificates->designer_signature)
         @php 
         $designer = $user
         @endphp
@@ -134,16 +134,16 @@
     <table style="width:100%;">
         <tr>
             <td style="width:20%" >Name:</td>
-            <td>{{$designer->name}}</td>
+            <td>{{$designer->name ?? ''}}</td>
     
         </tr>
         <tr >
             <td > Date:</td>
-            <td>{{$temporary_work->designerCertificates->created_at}}</td>
+            <td>{{$temporary_work->designerCertificates->created_at ?? ''}}</td>
         </tr>
         <tr >
             <td > Organisation:</td>
-            <td>{{$temporary_work->designer_company_name}}</td>
+            <td>{{$temporary_work->designer_company_name ?? '' }}</td>
         </tr>
         <tr >
             <td > Position:</td>
@@ -164,25 +164,25 @@
     brief and standards referenced.
             </p>
         </div>
-        @php $user = Auth::user(); @endphp
-        @if($user->id == $temporary_work->checkerAssign->user_id)
-            @php 
+        {{-- @php $user = Auth::user(); @endphp --}}
+        @if($temporary_work->designerCertificates->checker_signature)
+        @php 
             $checker = $user
             @endphp
         @endif
         <table style="width:100%;">
         <tr>
             <td style="width:20%" >Name:</td>
-            <td>{{$checker->name}}</td>
+            <td>{{$checker->name ?? ''}}</td>
     
         </tr>
         <tr >
             <td > Date:</td>
-            <td>{{$checker->designerCertificates->created_at}}</td>
+            <td>{{$checker->designerCertificates->created_at ?? ''}}</td>
         </tr>
         <tr >
             <td> Organisation:</td>
-            <td>{{$temporary_work->designer_company_name}}</td>
+            <td>{{$temporary_work->designer_company_name ?? ''}}</td>
         </tr>
         <tr >
             <td> Position:</td>

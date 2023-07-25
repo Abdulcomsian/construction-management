@@ -16,30 +16,23 @@
         <td style="width:50%;">
             <div class="heading" style="font-weight:bold; font-size:17pt;">TAX INVOICE</div>
             <p>
-CITY TEMPORARY WORKS LTD <br/>
-London <br/>
-EC1V 2NX <br/>
-UK
+              {{$data['tax_invoice'] ?? ''}}
             </p>
         </td>
         <td style="width:20%;">
             <div class="heading-2" style="font-weight:bold;">Invoice Date</div>
-            21 Jul 2023
+            {{$data['date'] ?? ''}}
             <div class="heading-2" style="font-weight:bold;"> Invoice Number</div>
-            CT015
+            {{$data['number'] ?? ''}}
             <div class="heading-2" style="font-weight:bold;"> Reference</div>
-            S2023.07
+            {{$data['reference'] ?? ''}}
         </td>
 
 <td style="width:3%;"></td>
 
         <td style="width:27%;">
             <p>
-STRUCTEMP LLP <br/>
-106 Weston Street <br/>
-London SE1 3QB <br/>
-UNITED KINGDOM <br/>
-VAT Number: 282 1901 12
+                {{$user->companyProfile->company_address ?? ''}}
             </p>
 
         </td>
@@ -56,29 +49,29 @@ VAT Number: 282 1901 12
         <th style="width:10%; font-weight:bold;">Item</th>
         <th style="width:30%; font-weight:bold;">Description</th>
         <th style="width:5%; font-weight:bold;"></th>
-        <th style="width:15%; font-weight:bold;">Quantity</th>
-        <th style="width:15%; font-weight:bold;">Unit Price</th>
-        <th style="width:10%; font-weight:bold;">VAT</th>
+        <th style="width:15%; font-weight:bold;">Hours</th>
+        <th style="width:15%; font-weight:bold;">No of Hours</th>
+        {{-- <th style="width:10%; font-weight:bold;">VAT</th> --}}
         <th style="width:15%; font-weight:bold;">Amount GBP</th>
     </tr>
+    @foreach($tableData as $key=>$value)
+        <tr>
+            
+            <td>{{$value['item'] ?? ''}}</td>
+            <td >
+                <p>
+                    {{$value['description'] ?? ''}}
+                </p>
 
-    <tr>
-        
-        <td >  </td>
-        <td >
-            <p>
-EDB for MCWP locations 8 and 9 - Each foundation  <br/>
-Pads Design for Mast Climber
-            </p>
-
-        </td>
-        <td></td>
-        <td> <p>1.00</p> </td>
-        <td> <p>350.00</p> </td>
-        <td> <p>20%</p> </td>
-        <td> <p>350.00</p> </td>
-    </tr>
-
+            </td>
+            <td></td>
+            <td> <p>{{$value['quantity'] ?? ''}}</p> </td>
+            <td> <p>{{$value['unitPrice'] ?? ''}}</p> </td>
+            <td> <p>{{$value['amountGBP'] ?? ''}}</p> </td>
+            {{-- <td> <p>%</p> </td> --}}
+        </tr>
+    @endforeach
+    {{-- @dd($tableData) --}}
 
 </table>
 
@@ -92,8 +85,8 @@ Pads Design for Mast Climber
         </td>
         <td style="width:5%;"></td>
         <td style="width:10%; margin-left:10pt;">
-            <p>350.00</p>
-            <p>350.00</p>
+            <p>{{$data['subtotal']}}</p>
+            <p>{{$data['totalvat']}}</p>
         </td>
     </tr>
 </table>
@@ -106,7 +99,7 @@ Pads Design for Mast Climber
         </td>
         <td style="width:9%;"></td>
         <td style="width:11%; font-weight:bold">
-            <p>420.00</p>
+            <p>{{$data['total_gbp'] ?? ''}}</p>
         </td>
     </tr>
 </table>
@@ -114,14 +107,14 @@ Pads Design for Mast Climber
 <br/>
 <br/>
 <div class="payment">
-    <span style="font-weight:bold; font-size:12pt;">Due Date: 28 Jul 2023</span>
+    <span style="font-weight:bold; font-size:12pt;">Due Date: {{$data['date'] ?? ''}}</span>
     <p>
 Payment Details <br/>
-Barclays Bank PLC <br/>
-Sort Code: 20-89-56 <br/>
-A/c Number: 23607925 <br/>
-SWIFTBIC BUKBGB22 <br/>
-IBAN GB11 BUKB 2089 5623 6079 25
+{{$user->paymentDetail->bank ?? ''}} <br/>
+Sort Code:  {{$user->paymentDetail->sort_code ?? ''}} <br/>
+A/c Number:  {{$user->paymentDetail->account_number ?? ''}} <br/>
+SWIFTBIC:  {{$user->paymentDetail->swiftbic ?? ''}} <br/>
+IBAN: {{$user->paymentDetail->iban ?? ''}}
 
             </p>
 
@@ -130,10 +123,10 @@ IBAN GB11 BUKB 2089 5623 6079 25
 <div class="contact">
     <p>
 Contact information <br/>
-Shiraz Dudhia <br/>
-Email: shiraz.dudhia@structemp.co.uk <br/>
-Phone: 07960 307039 <br/>
-www.structemp.co.u
+Name: {{$user->companyProfile->company_name ?? ''}} <br/>
+Email: {{$user->companyProfile->company_email ?? ''}} <br/>
+Phone: {{$user->companyProfile->phone ?? ''}} <br/>
+{{$user->companyProfile->website ?? ''}}
     </p>
 </div>
 

@@ -168,7 +168,7 @@ background-color: #07d564 !important;
                     </div>
                     <!--begin::Card toolbar-->
                      @if(\Auth::user()->hasRole(['designer','Design Checker','Designer and Design Checker']))
-                      <a href="{{ route('adminDesigner.create') }}" value="add" class="newDesignBtn btn">Add Desinger</a>
+                      <a href="{{ route('adminDesigner.create') }}" value="add" class="newDesignBtn btn">Add Designer</a>
                      @endif
                     <!--end::Card toolbar-->
                 </div>

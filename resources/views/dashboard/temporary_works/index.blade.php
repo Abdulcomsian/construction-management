@@ -4473,6 +4473,7 @@ $tempWorkClass = "d-none";
 @include('dashboard.modals.rejected-temporarywork-modals')
 @include('dashboard.modals.share_drawing_modal')
 @include('dashboard.modals.drawing_reply_modals')
+@include('dashboard.modals.drawing_delete_modals')
 @include('dashboard.modals.risk_assessment')
 @include('dashboard.modals.change-emails-modal')
 @include('dashboard.modals.upload-photo')
@@ -5277,6 +5278,16 @@ $(document).on('click','.drawingshare',function(e){
            }
        });
       
+   })
+
+   $(document).on('click','.deletedrawing',function(e){
+       e.stopPropagation();
+        id =$(this).attr('data-id');
+        $("#drwingdelete_drawingidid").val($(this).attr('data-id'));
+
+               $("#delete_drawing_modal_id").modal('show'); 
+           
+        
    })
 //    const mainMenuLink = document.querySelector('.mainMenu-link');
 //    mainMenuLink.addEventListener('click', function(e){

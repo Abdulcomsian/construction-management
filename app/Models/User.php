@@ -98,6 +98,11 @@ class User extends Authenticatable
         return $this->hasOne(CompanyProfile::class , 'user_id' , 'id');
     }
 
+    public function paymentDetail()
+    {
+        return $this->hasOne(paymentDetail::class);
+    }
+
     public function jobs()
     {
         return $this->hasMany(TemporaryWork::class , 'created_by');

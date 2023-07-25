@@ -16,30 +16,23 @@
         <td style="width:50%;">
             <div class="heading" style="font-weight:bold; font-size:17pt;">TAX INVOICE</div>
             <p>
-CITY TEMPORARY WORKS LTD <br/>
-London <br/>
-EC1V 2NX <br/>
-UK
+              {{$data['tax_invoice'] ?? ''}}
             </p>
         </td>
         <td style="width:20%;">
             <div class="heading-2" style="font-weight:bold;">Invoice Date</div>
-            {{$data['date']}}
+            {{$data['date'] ?? ''}}
             <div class="heading-2" style="font-weight:bold;"> Invoice Number</div>
-            {{$data['number']}}
+            {{$data['number'] ?? ''}}
             <div class="heading-2" style="font-weight:bold;"> Reference</div>
-            {{$data['reference']}}
+            {{$data['reference'] ?? ''}}
         </td>
 
 <td style="width:3%;"></td>
 
         <td style="width:27%;">
             <p>
-STRUCTEMP LLP <br/>
-106 Weston Street <br/>
-London SE1 3QB <br/>
-UNITED KINGDOM <br/>
-VAT Number: 282 1901 12
+                {{$user->companyProfile->company_address ?? ''}}
             </p>
 
         </td>
@@ -72,9 +65,9 @@ VAT Number: 282 1901 12
 
             </td>
             <td></td>
-            <td> <p>{{$value['quantity']}}</p> </td>
-            <td> <p>{{$value['unitPrice']}}</p> </td>
-            <td> <p>{{$value['amountGBP']}}</p> </td>
+            <td> <p>{{$value['quantity'] ?? ''}}</p> </td>
+            <td> <p>{{$value['unitPrice'] ?? ''}}</p> </td>
+            <td> <p>{{$value['amountGBP'] ?? ''}}</p> </td>
             {{-- <td> <p>%</p> </td> --}}
         </tr>
     @endforeach
@@ -106,7 +99,7 @@ VAT Number: 282 1901 12
         </td>
         <td style="width:9%;"></td>
         <td style="width:11%; font-weight:bold">
-            <p>{{$data['total_gbp']}}</p>
+            <p>{{$data['total_gbp'] ?? ''}}</p>
         </td>
     </tr>
 </table>
@@ -114,14 +107,14 @@ VAT Number: 282 1901 12
 <br/>
 <br/>
 <div class="payment">
-    <span style="font-weight:bold; font-size:12pt;">Due Date: {{$data['date']}}</span>
+    <span style="font-weight:bold; font-size:12pt;">Due Date: {{$data['date'] ?? ''}}</span>
     <p>
 Payment Details <br/>
-{{$data['bank']}} <br/>
-Sort Code: {{$data['sort_code']}} <br/>
-A/c Number: {{$data['account_no']}} <br/>
-{{$data['swiftbic']}} <br/>
-IBAN {{$data['iban']}}
+{{$user->paymentDetail->bank ?? ''}} <br/>
+Sort Code:  {{$user->paymentDetail->sort_code ?? ''}} <br/>
+A/c Number:  {{$user->paymentDetail->account_number ?? ''}} <br/>
+SWIFTBIC:  {{$user->paymentDetail->swiftbic ?? ''}} <br/>
+IBAN: {{$user->paymentDetail->iban ?? ''}}
 
             </p>
 
@@ -130,10 +123,10 @@ IBAN {{$data['iban']}}
 <div class="contact">
     <p>
 Contact information <br/>
-Shiraz Dudhia <br/>
-Email: shiraz.dudhia@structemp.co.uk <br/>
-Phone: 07960 307039 <br/>
-www.structemp.co.u
+Name: {{$user->companyProfile->company_name ?? ''}} <br/>
+Email: {{$user->companyProfile->company_email ?? ''}} <br/>
+Phone: {{$user->companyProfile->phone ?? ''}} <br/>
+{{$user->companyProfile->website ?? ''}}
     </p>
 </div>
 

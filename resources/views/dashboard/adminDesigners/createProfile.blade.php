@@ -8,10 +8,10 @@
     .btn.btn-active-color-primary:hover:not(.btn-active),
     .btn.btn-active-color-primary:hover:not(.btn-active) i{
     color: #07d564;
-}
-.modal .btn.btn-primary{
-        border-color: #07d564 !important;
-background-color: #07d564 !important;
+    }
+    .modal .btn.btn-primary{
+            border-color: #07d564 !important;
+    background-color: #07d564 !important;
     }
     .card>.card-header {
         align-items: center;
@@ -154,13 +154,13 @@ background-color: #07d564 !important;
                                     <td>{{$companyProfile->comapny_email}}</td>
                                     <td>{{$companyProfile->company_address}}</td>
                                     <td style="max-height: 200px;
-    min-height: 200px;
-    height: 200px;
-    /* overflow: scroll; */
-    text-overflow: ellipsis;
-    width: max-content;
-    display: block;
-    max-width: 300px;">{{$companyProfile->company_description}}</td>
+                                        min-height: 200px;
+                                        height: 200px;
+                                        /* overflow: scroll; */
+                                        text-overflow: ellipsis;
+                                        width: max-content;
+                                        display: block;
+                                        max-width: 300px;">{{$companyProfile->company_description}}</td>
                                     <td><?php echo  date('d-m-Y', strtotime($companyProfile->year_established)); ?></td>
                                     <td>{{$companyProfile->phone}}</td>
                                     <td>{{$companyProfile->website}}</td>
@@ -244,6 +244,31 @@ background-color: #07d564 !important;
                                 
                             </div>
                         </div>
+                        <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
+                            <h4>Payment Details</h4>
+                            <div class="row">
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Bank</label>
+                                    <input type="text" class="form-control" placeholder="Enter Bank"  name="bank" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Sort Code</label>
+                                    <input type="text" class="form-control" placeholder="Enter Sort Code"  name="sort_code" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">A/c Number</label>
+                                    <input type="text" class="form-control" placeholder="Enter A/c Number"  name="account_number" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">SWIFTBIC</label>
+                                    <input type="text" class="form-control" placeholder="Enter Swiftbic"  name="swiftbic" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">IBAN</label>
+                                    <input type="text" class="form-control" placeholder="Enter IBAN"  name="iban" />
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" name="nomination_link_check" id="flexCheckDefault">
                           <label class="form-check-label" for="flexCheckDefault">
@@ -251,7 +276,7 @@ background-color: #07d564 !important;
                           </label>
                         </div>
                          <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
-                            <h4>Upload  Other Documents</h4>
+                            <h4>Upload Other Documents</h4>
                             <div class="row appenddoc">
                                 <div class="col-md-4 fv-row fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2">Name</label>

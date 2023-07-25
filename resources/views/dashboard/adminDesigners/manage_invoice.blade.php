@@ -39,10 +39,9 @@
                             <div class="row d-flex justify-content-between">
                                 <div class="col-md-5 company">
                                    <h1> TAX INVOICE</h1>
-                                   <p>CITY TEMPORARY WORKS LTD <br>
-                                        London <br>
-                                        EC1V 2NX <br>
-                                        UK</p>
+                                   <p>
+                                    <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>
+                                   </p>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="required fs-6 fw-bold mb-2">  Invoice Date</label>

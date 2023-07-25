@@ -12,7 +12,7 @@ use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
 use App\Notifications\AdminDesignerNomination;
 use App\Notifications\AdminDesignerAppointmentNotification;
-use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,EstimatorDesignerListTask,ProfileOtherDocuments};
+use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments};
 use Carbon\Carbon;
 use App\Notifications\Nominations;
 use App\Utils\HelperFunctions;
@@ -765,7 +765,7 @@ class AdminDesignerController extends Controller
     public function saveProfile(Request $request)
     {
         try {
-            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','other_doucuments_name','other_doucuments_document');
+            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','other_doucuments_name','other_doucuments_document','bank','sort_code','account_number','swiftbic','iban');
             if ($request->file('logo')) {
                 $filePath  = 'uploads/designercompany/logo/';
                 $file = $request->file('logo');
@@ -786,18 +786,6 @@ class AdminDesignerController extends Controller
                 $all_inputs['nomination_link_check']=1;
             }
 
-            
-            //work for upload images here
-            // $image_links = [];
-            // if ($request->file('images')) {
-            //     $filePath  = 'uploads/designercompany/others/';
-            //     $files = $request->file('images');
-            //     foreach ($files  as $key => $file) {
-            //         $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-            //         $image_links[] = $imagename;
-            //     }
-            //     $all_inputs['other_files']=json_encode($image_links);
-            // }
             $all_inputs['user_id']=Auth::user()->id;
             $companyProfile=CompanyProfile::create($all_inputs);
             //mew work for documents upload
@@ -826,11 +814,21 @@ class AdminDesignerController extends Controller
                     
                 }
             }
+
+            $payment_detail = new PaymentDetail();
+            $payment_detail->user_id = Auth::user()->id;
+            $payment_detail->bank = $request->bank;
+            $payment_detail->sort_code = $request->sort_code;
+            $payment_detail->account_number = $request->account_number;
+            $payment_detail->swiftbic = $request->swiftbic;
+            $payment_detail->iban = $request->iban;
+            $payment_detail->save();
             toastSuccess('Company Profile Created successfully');
             return redirect()->back();
             
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again');
+            dd($exception->getMessage(),$exception->getFile(),$exception->getLine());
             return Redirect::back();
         }
     }
@@ -1237,7 +1235,8 @@ class AdminDesignerController extends Controller
         $section = $phpWord->addSection();
 
         $tableData = [];
-
+        $user = Auth::user();
+        // dd($user->companyProfile);
         for($i=0; $i<count($request->item); $i++){
             $tableData[] = [
                 'item' => $request->item[$i],
@@ -1249,6 +1248,7 @@ class AdminDesignerController extends Controller
         }
 
         $data =[
+            'tax_invoice' => $request->tax_invoice,
             'date' => $request->date,
             'number' => $request->number,
             'reference' => $request->reference,
@@ -1265,7 +1265,7 @@ class AdminDesignerController extends Controller
         
 
         // Pass the table data to the Word blade file
-        $html = View::make('word', compact('tableData','data'))->render();
+        $html = View::make('word', compact('tableData','data','user'))->render();
 
         // $html = View::make('word')->render();
         // Save file

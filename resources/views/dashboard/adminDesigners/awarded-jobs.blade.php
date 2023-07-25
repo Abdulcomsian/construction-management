@@ -682,6 +682,7 @@ hr{
                             <td>{{$item->client_name ?? $item->creator->userCompany->name}}</td>
                             <td>{{$item->job_title ?? ''}}  
                                     @if($item->designerQuote && auth()->user()->view_price)
+                                    <br>
                                         <span>{{$item->designerQuote ? $item->designerQuote->sum('price') : '0'}}</span>
                                     @endif
                                 </td>

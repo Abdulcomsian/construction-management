@@ -629,15 +629,15 @@ class DesignerController extends Controller
                         }
 
                         $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
-                        $list .= '<td>' . $i . '</td>';
-                        $list .= '<td>' . $uploads->drawing_number . '</td>';
-                        $list .= '<td>' . $uploads->comments . '</td>';
-                        $list .= '<td>' . $uploads->twd_name . '</td>';
-                        $list .= '<td>' . $uploads->drawing_title . '</td>';
-                        $list .= '<td>' . $papproval . '</td>';
-                        $list .= '<td>' . $construction . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $i . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->drawing_number . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->comments . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->twd_name . '</td>';
+                        $list .= '<td  style="text-align:Center; !important;">' . $uploads->drawing_title . '</td>';
+                        $list .= '<td  style="text-align:Center; !important;">' . $papproval . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $construction . '</td>';
                         if ($construction == 'Yes') {
-                            $list .= '<td style="display:flex">
+                            $list .= '<td style="display:flex; height:40px;">
                                  <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                  <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -661,8 +661,10 @@ class DesignerController extends Controller
                                 </form>
                                 </td>';
                         }
-                        $delete = route('designer.delete',$uploads->id);
-                        $list .= '<td style="style="text-align: center; vertical-align: middle;""><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                        // $delete = route('designer.delete',$uploads->id);
+                        $list .= '<td style="style="text-align: center; vertical-align: middle;"">
+                        <button class="btn btn-danger btn-small deletedrawing" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-trash"></i></button>';
+                        // <a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                         if(count($uploads->comment)>0)
                         {
                             $j=1;
@@ -2180,11 +2182,11 @@ class DesignerController extends Controller
    }
 
 
-   public function Designdelte($id)
+   public function Designdelte(Request $request)
    {
         try{
-        DrawingComment::where('temp_work_upload_files_id',$id)->delete();
-        TempWorkUploadFiles::find($id)->delete();
+        DrawingComment::where('temp_work_upload_files_id',$request->delete_drawingid)->delete();
+        TempWorkUploadFiles::find($request->delete_drawingid)->delete();
         toastSuccess('Designer Deleted Successfully');
         return Redirect::back();
         } catch (\Exception $exception) {

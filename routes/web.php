@@ -46,7 +46,7 @@ Route::post('temporary_works/comments-replay', [TemporaryWorkController::class, 
 //design page for designer 
 Route::get('designer/upload-design/{id}',[DesignerController::class,'index'])->name('designer.uploaddesign');
 Route::post('designer/store',[DesignerController::class,'store'])->name('designer.store');
-Route::get('designer/delte/{id}',[DesignerController::class,'Designdelte'])->name('designer.delete');
+Route::post('designer/delte/',[DesignerController::class,'Designdelte'])->name('designer.delete');
 
 //pc twc approval routes
 Route::get('design/approve/{id}',[DesignerController::class,'pc_index'])->name('pc.approved');

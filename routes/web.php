@@ -340,3 +340,8 @@ if (env('Enable_Migration_Optimize_Clear_Routes') == true) {
 }
 
 
+Route::get("/test" , function(){
+    return view('doc-test');
+});
+
+

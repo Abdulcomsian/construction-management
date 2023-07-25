@@ -56,29 +56,29 @@ VAT Number: 282 1901 12
         <th style="width:10%; font-weight:bold;">Item</th>
         <th style="width:30%; font-weight:bold;">Description</th>
         <th style="width:5%; font-weight:bold;"></th>
-        <th style="width:15%; font-weight:bold;">Quantity</th>
-        <th style="width:15%; font-weight:bold;">Unit Price</th>
-        <th style="width:10%; font-weight:bold;">VAT</th>
+        <th style="width:15%; font-weight:bold;">Hours</th>
+        <th style="width:15%; font-weight:bold;">No of Hours</th>
+        {{-- <th style="width:10%; font-weight:bold;">VAT</th> --}}
         <th style="width:15%; font-weight:bold;">Amount GBP</th>
     </tr>
+    @foreach($tableData as $key=>$value)
+        <tr>
+            
+            <td>{{$value['item']}}</td>
+            <td >
+                <p>
+                    {{$value['description']}}
+                </p>
 
-    <tr>
-        
-        <td >  </td>
-        <td >
-            <p>
-EDB for MCWP locations 8 and 9 - Each foundation  <br/>
-Pads Design for Mast Climber
-            </p>
-
-        </td>
-        <td></td>
-        <td> <p>1.00</p> </td>
-        <td> <p>350.00</p> </td>
-        <td> <p>20%</p> </td>
-        <td> <p>350.00</p> </td>
-    </tr>
-
+            </td>
+            <td></td>
+            <td> <p>{{$value['quantity']}}</p> </td>
+            <td> <p>{{$value['unitPrice']}}</p> </td>
+            <td> <p>{{$value['amountGBP']}}</p> </td>
+            {{-- <td> <p>%</p> </td> --}}
+        </tr>
+    @endforeach
+    {{-- @dd($tableData) --}}
 
 </table>
 

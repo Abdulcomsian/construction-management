@@ -22,6 +22,7 @@ use Notification;
 use PDF;
 use App\Notifications\CreateNomination;
 use Crypt;
+use Illuminate\Support\Facades\View;
 
 class AdminDesignerController extends Controller
 {
@@ -1228,5 +1229,36 @@ class AdminDesignerController extends Controller
 
     public function manageInvoice(){
             return view('dashboard.adminDesigners.manage_invoice');
-    }    
+    }   
+    
+    public function generateInvoice(Request $request){
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+        $section = $phpWord->addSection();
+
+        $tableData = [];
+
+        for($i=0; $i<count($request->item); $i++){
+            $tableData[] = [
+                'item' => $request->item[$i],
+                'description' => $request->description[$i],
+                'quantity' => $request->quantity[$i],
+                'unitPrice' => $request->price[$i],
+                'amountGBP' => $request->amount[$i],
+            ];
+        }
+        
+
+        // Pass the table data to the Word blade file
+        $html = View::make('word', compact('tableData'))->render();
+
+        // $html = View::make('word')->render();
+        // Save file
+        $fileName = "download.docx";
+        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+        $objWriter->save($fileName);
+        return response()->download(public_path('download.docx'));
+    }
 }

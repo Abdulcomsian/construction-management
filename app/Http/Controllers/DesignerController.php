@@ -649,9 +649,14 @@ class DesignerController extends Controller
                                 </td>';
                         } else {
                             $list .= '<td style="display:flex">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
+                            
+                           
+                                <a class="btn" style="font-weight:bold;color:#9C9C9C " title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>
+                            
+                               
+                                 &nbsp;<button class="btn drawingshare" title="Share Drawing"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
                                  &nbsp;
-                                 <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
+                                 <button class="btn  drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:2px;" class="fa fa-reply"></i></button>
                                  <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                     <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
                                     <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
@@ -663,7 +668,7 @@ class DesignerController extends Controller
                         }
                         // $delete = route('designer.delete',$uploads->id);
                         $list .= '<td style="style="text-align: center; vertical-align: middle;"">
-                        <button class="btn btn-danger btn-small deletedrawing" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-trash"></i></button>';
+                        <button class="mt-2 deletedrawing" style="border-radius:4px; border:none;background: transparent; padding:5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-trash"></i></button>';
                         // <a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                         if(count($uploads->comment)>0)
                         {

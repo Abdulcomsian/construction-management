@@ -64,10 +64,10 @@ VAT Number: 282 1901 12
     @foreach($tableData as $key=>$value)
         <tr>
             
-            <td>{{$value['item']}}</td>
+            <td>{{$value['item'] ?? ''}}</td>
             <td >
                 <p>
-                    {{$value['description']}}
+                    {{$value['description'] ?? ''}}
                 </p>
 
             </td>
@@ -92,8 +92,8 @@ VAT Number: 282 1901 12
         </td>
         <td style="width:5%;"></td>
         <td style="width:10%; margin-left:10pt;">
-            <p>350.00</p>
-            <p>350.00</p>
+            <p>{{$data['subtotal']}}</p>
+            <p>{{$data['totalvat']}}</p>
         </td>
     </tr>
 </table>
@@ -106,7 +106,7 @@ VAT Number: 282 1901 12
         </td>
         <td style="width:9%;"></td>
         <td style="width:11%; font-weight:bold">
-            <p>420.00</p>
+            <p>{{$data['total_gbp']}}</p>
         </td>
     </tr>
 </table>

@@ -69,8 +69,8 @@
             <tr class="d-flex justify-content-between">
                 <th style="width:10%"> Item </th>
                 <th style="width:25%">Description</th>
-                <th style="width:15%"> Quantity</th>
-                <th style="width:10%">Unit Price </th>
+                <th style="width:15%"> Hours</th>
+                <th style="width:10%">No of Hours </th>
                 <th style="width:10%"> Amount GBP</th>
                 <th style="width:10%" > <button id="add-more-btn"> Add More </button> </th>
             </tr>

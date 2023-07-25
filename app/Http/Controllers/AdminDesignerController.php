@@ -1242,10 +1242,16 @@ class AdminDesignerController extends Controller
                 'amountGBP' => $request->amount[$i],
             ];
         }
+
+        $data =[
+            'subtotal' => $request->subtotal,
+            'totalvat' => $request->totalvat,
+            'total_gbp' => $request->total_gbp,
+        ];
         
 
         // Pass the table data to the Word blade file
-        $html = View::make('word', compact('tableData'))->render();
+        $html = View::make('word', compact('tableData','data'))->render();
 
         // $html = View::make('word')->render();
         // Save file

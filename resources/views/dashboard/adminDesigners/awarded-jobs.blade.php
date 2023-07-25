@@ -678,6 +678,8 @@ hr{
                                 @else
                                     {{ $item->projno ?? '' }} <br> {{ $item->projname ?? '' }}
                                 @endif
+                               <br>
+                               <a target="_blank" href="estimatorPdf/{{$item->ped_url ?? ''}}">Job PDF</a>
                             </td>
                             <td>{{$item->client_name ?? $item->creator->userCompany->name}}</td>
                             <td>{{$item->job_title ?? ''}}  

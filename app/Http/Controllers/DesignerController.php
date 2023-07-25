@@ -457,6 +457,7 @@ class DesignerController extends Controller
                     }
                 }
                 else{
+                    $model->drawing_number = $request->drawing_number.$request->drawing_postfix_no;
                     $model->preliminary_approval = $request->preliminary_approval;
                     $model->construction = $request->construction;
                 }

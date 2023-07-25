@@ -614,7 +614,7 @@
                                  <!-- gap  -->
                                  <tbody class="text-gray-600 fw-bold d-flex flex-column gap-3" >
                                     @forelse($estimator_works as $item)
-                                    <tr class="p-5 bg" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
+                                    <tr class="p-3 bg" style="height: {{count($estimator_works)==1 ? '370px':''}} ">
                                        {{-- <td
                                           style="padding: 0px !important;vertical-align: middle;min-width: 90px;font-size: 12px;">
                                           {{$item->estimator_serial_no}}
@@ -633,7 +633,7 @@
                                           </span> --}}
                                           {{--
                                        </td> --}}
-                                       <td style="width:17%">
+                                       <td style="width:12%">
                                           <div class="">
                                              {{-- <span class="col-5 titleColumn text-start">Serial
                                                 No.</span> --}}
@@ -645,13 +645,13 @@
                                              {{ $item->project->name ?? '' }}
                                           </div>
                                        </td>
-                                       <td style="width:10% ">
+                                       <td style="width:12% ">
                                           <div class="d-flex">
                                              <p style="font-weight:400;font-size:14px;">
                                                 {{$item->design_requirement_text ?? ''}}</p>
                                           </div>
                                        </td>
-                                       <td style="width:20%">
+                                       <td style="width:10%">
                                           <div
                                              style="max-height:100%; display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:5px;">
                                              <div class="commentSection" style="">
@@ -735,8 +735,8 @@
                                           </div>
                                        </td>
                                        <!-- <td style="width:15%"></td> -->
-                                       <td style="width:15%">
-                                          <div class="d-flex" style="position: relative;bottom: 4px;">
+                                       <td style="width:21%">
+                                          <div class="d-flex" style="position: relative;">
                                              <span class="titleColumn">Date Design Returned:</span>
                                              <div
                                                 style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
@@ -773,7 +773,7 @@
                                              </div>
 
                                           </div>
-                                          <div class="d-flex" style="position: relative;top: 0px;">
+                                          <div class="d-flex mt-2" style="position: relative;top: 0px;">
                                              <span class="titleColumn">Design Check CERT:</span>
                                              <div
                                                 style="display: flex;justify-content: flex-start;flex-grow: 1;max-width:80px;margin-left: 18px;">
@@ -787,7 +787,7 @@
                                                 @endforeach
                                              </div>
                                           </div>
-                                          <div class="d-flex my-2" style="position: relative;bottom: 2px;">
+                                          <div class="d-flex mt-2" style="position: relative;">
                                              <span class="titleColumn">Date DCC Returned:</span>
                                              <div
                                                 style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
@@ -806,7 +806,7 @@
                                        </td>
                                        <td style="width:10%">
                                           <div class="d-flex justify-content-between">
-                                             <span class="titleColumn">Designer:</span>
+                                             <span class="titleColumn mb-2">Designer:</span>
                                              <div
                                                 style="display: flex; justify-content:center; flex-grow: 1;  margin-left: 100px;">
                                                 <span class="designer-company cursor-pointer" 
@@ -871,14 +871,14 @@
                                           </div>
 
                                        </td>
-                                       <td style="width:15%">
-                                          <div class="d-flex">
-                                             <span class="col-5 titleColumn">Status</span>
-                                             <div class="d-flex col-6" style="column-gap:1rem;">
+                                       <td style="width:8%">
+                                          <div class="flex">
+                                             <span class="col-5 titleColumn" style="padding-left:2px;">Status</span>
+                                             <div class="col-6 text-center">
                                                 @if($item->estimatorApprove)
-                                                <span class="text-success" style="white-space: nowrap">Awarded</span>
+                                                <span class="text-success" style="white-space: nowrap; padding-left:50%;">Awarded</span>
                                                 @else
-                                                <span class="text-danger" style="white-space: nowrap">Not Awarded</span>
+                                                <span class="text-danger" style="white-space: nowrap; padding-left:50%;">Not Awarded</span>
                                                 @endif
                                              </div>
 

@@ -24,11 +24,11 @@ UK
         </td>
         <td style="width:20%;">
             <div class="heading-2" style="font-weight:bold;">Invoice Date</div>
-            21 Jul 2023
+            {{$data['date']}}
             <div class="heading-2" style="font-weight:bold;"> Invoice Number</div>
-            CT015
+            {{$data['number']}}
             <div class="heading-2" style="font-weight:bold;"> Reference</div>
-            S2023.07
+            {{$data['reference']}}
         </td>
 
 <td style="width:3%;"></td>
@@ -114,14 +114,14 @@ VAT Number: 282 1901 12
 <br/>
 <br/>
 <div class="payment">
-    <span style="font-weight:bold; font-size:12pt;">Due Date: 28 Jul 2023</span>
+    <span style="font-weight:bold; font-size:12pt;">Due Date: {{$data['date']}}</span>
     <p>
 Payment Details <br/>
-Barclays Bank PLC <br/>
-Sort Code: 20-89-56 <br/>
-A/c Number: 23607925 <br/>
-SWIFTBIC BUKBGB22 <br/>
-IBAN GB11 BUKB 2089 5623 6079 25
+{{$data['bank']}} <br/>
+Sort Code: {{$data['sort_code']}} <br/>
+A/c Number: {{$data['account_no']}} <br/>
+{{$data['swiftbic']}} <br/>
+IBAN {{$data['iban']}}
 
             </p>
 

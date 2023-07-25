@@ -137,19 +137,19 @@
     </div>
     <div class="row mt-2">
         <div class="col"><label class="required fs-6 fw-bold mb-2">  Sort Code:</label></div>
-        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="Sort code" name="sort code" /></div>
+        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="Sort code" name="sort_code" /></div>
     </div>
     <div class="row mt-2">
         <div class="col"><label class="required fs-6 fw-bold mb-2"> A/c Number:</label></div>
-        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="A/c No" name="A/c No" /></div>
+        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="A/c No" name="account_no" /></div>
     </div>
     <div class="row mt-2">
         <div class="col"><label class="required fs-6 fw-bold mb-2"> SWIFTBIC</label></div>
-        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="" name="" /></div>
+        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="" name="swiftbic" /></div>
     </div>
     <div class="row mt-2">
         <div class="col"><label class="required fs-6 fw-bold mb-2">IBAN</label></div>
-        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="IBAN" name="bank" /></div>
+        <div class="col"> <input type="text" class="form-control form-control-solid" placeholder="IBAN" name="iban" /></div>
     </div>
 
 

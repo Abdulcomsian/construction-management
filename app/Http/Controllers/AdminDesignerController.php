@@ -1249,6 +1249,15 @@ class AdminDesignerController extends Controller
         }
 
         $data =[
+            'date' => $request->date,
+            'number' => $request->number,
+            'reference' => $request->reference,
+            'date' => $request->date,
+            'bank' => $request->bank,
+            'sort_code' => $request->sort_code,
+            'account_no' => $request->account_no,
+            'swiftbic' => $request->swiftbic,
+            'iban' => $request->iban,
             'subtotal' => $request->subtotal,
             'totalvat' => $request->totalvat,
             'total_gbp' => $request->total_gbp,

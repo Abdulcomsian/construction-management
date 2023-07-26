@@ -2795,4 +2795,26 @@ class DesignerController extends Controller
         }
     }
 
+    public function saveTag(Request $request)
+    {
+        $tagTitle = $request->input('title');
+        $tagDescription = $request->input('description');
+
+        // Check if the tag already exists
+        $tag = Tag::where('title', $tagTitle)->first();
+
+        if (!$tag) {
+            // If the tag doesn't exist, create a new one
+            $tag = Tag::create([
+                'title' => $tagTitle,
+                'description' => $tagDescription,
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'tag' => $tag,
+        ]);
+    }
+
 }

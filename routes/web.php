@@ -324,7 +324,7 @@ Route::post('designer/show_comment' , [DesignerController::class , 'showComment'
 Route::get('generate-pdf' , [DesignerController::class , 'generatePdf'])->name('generate_pdf');
 Route::get('generate-doc' , [DesignerController::class , 'generateDoc'])->name('generate_doc');
 Route::post('designer/certificate/store',[DesignerController::class,'certificateStore'])->name('designer.certificate.store');
-
+Route::post('designer/save/tag',[DesignerController::class,'saveTag'])->name('designer.save.tag');
 require __DIR__ . '/auth.php';
 
 //For local, not for production

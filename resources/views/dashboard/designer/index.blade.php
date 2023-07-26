@@ -816,7 +816,21 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            {{-- <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" id="custom_tag_input" placeholder="Enter custom tag" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <textarea type="text" id="custom_tag_description" placeholder="Enter custom tag description" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <button class="btn btn-sm btn-success" id="save_custom_tag_btn">Save Custom Tag</button>
+                                </div>
+                            </div> --}}
                             
                             <div class="row" id="signature_div">
                                 <div class="col-md-8">
@@ -1136,6 +1150,8 @@
                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
         });
 
+        const customTagInput = document.getElementById('custom_tag_input');
+        const customTagDescriptionInput = document.getElementById('custom_tag_description');
 
         // JavaScript to handle tag selection
         const tags = document.querySelectorAll('.tag');
@@ -1148,22 +1164,6 @@
             });
         });
 
-    // $("#designcheck").on('change',function(){
-    //     if($(this).is(":checked"))
-    //     {
-    //         $(".designcheck").show();
-    //         $(".construction").hide();
-    //         $("#designcheckfile").attr('required','required');
-    //         $("#file").removeAttr('required');
-    //     }
-    //     else{
-    //         $(".designcheck").hide();
-    //         $(".construction").show();
-    //         $("#designcheckfile").removeAttr('required');
-    //         $("#file").attr('required','required');
-    //     }
-    // })
-
     $("#DrawCheck").change(function(){
         if($(this).is(':checked'))
         {
@@ -1172,12 +1172,6 @@
             $("#signtype").val(0);
              $("#pdfsign").val(0);
              $("#Drawtype").val(1);
-            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
-            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
-            // $(".customSubmitButton").removeClass("hideBtn");
-            // $(".customSubmitButton").addClass("showBtn");
-            //  $("input[name='pdfsign']").removeAttr('required');
-            // $("input[name='namesign']").attr('required','required');
             $("#clear").show();
             $("div#pdfsign").removeClass('d-flex').addClass("d-none");
             $("div#namesign").removeClass('d-flex').addClass("d-none");
@@ -1185,15 +1179,7 @@
             $('#sigimage').removeClass('d-none')
            
         }
-        // else{
-        //     $("#signtype").val(2);
-        //     $("#sign").addClass('d-flex').show();
-        //     $("#namesign").removeClass('d-flex').hide();
-        //     $("input[name='namesign']").removeAttr('required');
-        //     $("#clear").show();
-        //     $(".customSubmitButton").addClass("hideBtn");
-        //     $(".customSubmitButton").removeClass("showBtn");
-        // }
+
     })
     $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
@@ -1254,5 +1240,60 @@
              
         }
     })
+
+    // Event listener for save custom tag button
+    const saveCustomTagBtn = document.getElementById('save_custom_tag_btn');
+    saveCustomTagBtn.addEventListener('click', saveCustomTag);
+
+    function saveCustomTag() {
+        const customTagTitleInput = document.getElementById('custom_tag_input');
+        const customTagDescriptionInput = document.getElementById('custom_tag_description');
+        const newTagTitle = customTagTitleInput.value.trim();
+        const newTagDescription = customTagDescriptionInput.value.trim();
+
+        // Check if both fields are filled
+        if (newTagTitle === '' || newTagDescription === '') {
+            alert('Both fields must be filled to save the custom tag.');
+            return;
+        }
+
+        // Send AJAX request to save the custom tag
+        addCustomTag(newTagTitle, newTagDescription);
+        customTagTitleInput.value = '';
+        customTagDescriptionInput.value = '';
+    }
+
+    // Function to add a new tag via AJAX
+    function addCustomTag(title, description) {
+        fetch('{{ route("designer.save.tag") }}', { // Use the route name here
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({ title: title, description: description }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Add the new tag to the selection options
+                const tagContainer = document.querySelector('.tag-container');
+                const label = document.createElement('label');
+                label.classList.add('tag');
+                label.innerHTML = `sss
+                    <input type="checkbox" name="selected_tags[]" value="${data.tag.id}" checked>
+                    ${data.tag.title}
+                `;
+                tagContainer.appendChild(label);
+            } else {
+                alert('Failed to add custom tag. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    }
+
 </script>
 @endsection

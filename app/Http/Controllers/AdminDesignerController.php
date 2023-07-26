@@ -1226,7 +1226,8 @@ class AdminDesignerController extends Controller
     }
 
     public function manageInvoice(){
-            return view('dashboard.adminDesigners.manage_invoice');
+            $user = Auth::user();
+            return view('dashboard.adminDesigners.manage_invoice',['user'=>$user]);
     }   
     
     public function generateInvoice(Request $request){

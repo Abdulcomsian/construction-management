@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\TemporaryWork;
 use App\Models\Tempworkshare;
 use App\Models\User;
+use App\Models\ChangeEmailHistory;
 use App\Models\EstimatorDesignerList;
 use App\Notifications\TempworkshareNotify;
 use Notification;
@@ -363,4 +364,15 @@ class HelperFunctions
         $html = '<span class="badge ' . $badge_class . ' mt-2">' . $designer_status . '</span>';
         return $html;
     }    
+
+    public static function EmailHistory($email, $type, $foreignId, $message, $userType = null)
+    {
+        $chm = new ChangeEmailHistory();
+        $chm->email = $email;
+        $chm->type = $type;
+        $chm->foreign_id = $foreignId;
+        $chm->message = $message;
+        $chm->user_type = $userType;
+        $chm->save();
+    }
 }

@@ -541,12 +541,18 @@ $notify_admins_msg = [
 
             if ($request->desinger_email_2) {
                 $notify_admins_msg['body']['designer'] = 'designer1';
-                $cmh= new ChangeEmailHistory();
-                $cmh->email=$request->desinger_email_2;
-                $cmh->type ='Design Checker';
-                $cmh->foreign_idd=$temporary_work->id;
-                $cmh->message='Email sent to Design Checker';
-                $cmh->save();
+                // $cmh= new ChangeEmailHistory();
+                // $cmh->email=$request->desinger_email_2;
+                // $cmh->type ='Design Checker';
+                // $cmh->foreign_idd=$temporary_work->id;
+                // $cmh->message='Email sent to Design Checker';
+                // $cmh->save();
+                HelperFunctions::EmailHistory(
+                    $request->desinger_email_2,
+                    'Design Checker',
+                    $temporary_work->id,
+                    'Email sent to Design Checker'
+                );
                 Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
             } 
 

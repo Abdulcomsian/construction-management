@@ -4,7 +4,7 @@
 <table>
     <tr>
         <td style="width:90%;"></td>
-        <td class="img" ><img  src="{{asset($user->companyProfile->logo)}}" alt=""/></td>
+        <td class="img" ><img  src="{{asset($user->companyProfile->logo)}}" style="width:200px;" alt=""/></td>
     </tr>
 </table>
  

@@ -722,7 +722,7 @@ class DesignerController extends Controller
             {
                 if($j==0)
                 {
-                    $list.="<h3>Designer Company</h3>";
+                    $list.="<h3>Designer Company </h3>";
                 }
                 else{
                      $list.="<h3>Designer checker Company</h3>";
@@ -839,10 +839,44 @@ class DesignerController extends Controller
                     }
                     $i++;
                 }
+                      
                 $list .= '</tbody></table>';
             }
         }
-        
+  
+
+        $calc = route('riskassesment.store');
+        $list.=' <h3 style="margin-top:50px;">Upload Documents </h3>
+        <form class="form-group" action="'.$calc.'" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto 0;">
+        <input type="hidden" name="_token" value="' . csrf_token() . '"/>
+        <input type="hidden" name="tempworkid" value="{{$id}}">
+        <input type="hidden" name="designermail" value="{{$mail}}">
+        <div class="row" style="background:white;margin: 0 4px;">
+             <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" style="margin: 0px; font-weight:bold">Select Document
+                            Type:</label><br>
+                        <select class="form-select form-control" name="type" required>
+                            <option value="" disabled></option>
+                            <option value="" selected disabled>Risk Assessment-Calculations</option>
+                            <option value="5">Risk Assessment</option>
+                            <option value="6">Calculations (Design Notes)</option>
+                        </select>
+                    </div>
+                </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" style="margin: 0px; font-weight:bold">Select Document:</label><br>
+                    <input type="file" class="form-control" id="riskassesmentfile"
+                        name="riskassesmentfile" required="required">
+                </div>
+            </div>
+            <div class="col-md-2 " style="margin-top: 1.3rem !important;" >
+            <button type="submit" class="btn btn-primary " style="padding:7px 15px">Upload</button>
+             </div>
+        </div>
+
+    </form>';
         echo $list;
     }
 

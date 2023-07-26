@@ -776,7 +776,12 @@ hr{
                                 </div>            
                               @endif
                           
-                                 
+                              <span class="btn p-2 m-1 designerchangeemail"
+                                style="border-radius: 21%;" title="Change Email"
+                                data-id={{Crypt::encrypt($item->id)}} >
+                                <i style="padding:3px;"
+                                    class="fa fa-exchange-alt"></i>
+                                </span>
                             </td>
                             <td>
                                 @if(isset($item->checkerAssign->user->name))
@@ -796,6 +801,16 @@ hr{
                                 </span>
                                 @endif 
                                @endif
+                               {{-- <ul>
+                                    <li class="navi-item"> --}}
+                                        <span class="btn p-2 m-1 checkerchangeemail"
+                                            style="border-radius: 21%;" title="Change Email"
+                                            data-id={{Crypt::encrypt($item->id)}} >
+                                            <i style="padding:3px;"
+                                                class="fa fa-exchange-alt"></i>
+                                        </span>
+                                    {{-- </li>
+                               </ul> --}}
                             </td>
                             <td class="green">  {{$designer_status}} </td>
                             <td>
@@ -1058,6 +1073,7 @@ hr{
       </div>
    </div>
 </div>
+@include('dashboard.modals.change-emails-modal')
 @section('scripts')
 <script type="text/javascript">
     let role = "{{ \Auth::user()->roles->pluck('name')[0] }}";

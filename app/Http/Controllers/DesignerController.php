@@ -849,8 +849,8 @@ class DesignerController extends Controller
         $list.=' <h3 style="margin-top:50px;">Upload Documents </h3>
         <form class="form-group" action="'.$calc.'" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto 0;">
         <input type="hidden" name="_token" value="' . csrf_token() . '"/>
-        <input type="hidden" name="tempworkid" value="{{$id}}">
-        <input type="hidden" name="designermail" value="{{$mail}}">
+        <input type="hidden" name="tempworkid" value="'.$tempworkid.'"">
+        <input type="hidden" name="designermail" value="">
         <div class="row" style="background:white;margin: 0 4px;">
              <div class="col-md-4">
                     <div class="form-group">

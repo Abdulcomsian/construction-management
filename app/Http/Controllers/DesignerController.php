@@ -849,8 +849,8 @@ class DesignerController extends Controller
         $list.=' <h3 style="margin-top:50px;">Upload Documents </h3>
         <form class="form-group" action="'.$calc.'" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto 0;">
         <input type="hidden" name="_token" value="' . csrf_token() . '"/>
-        <input type="hidden" name="tempworkid" value="{{$id}}">
-        <input type="hidden" name="designermail" value="{{$mail}}">
+        <input type="hidden" name="tempworkid" value="'.$tempworkid.'"">
+        <input type="hidden" name="designermail" value="">
         <div class="row" style="background:white;">
              <div class="col-md-4">
                     <div class="form-group">
@@ -1703,7 +1703,7 @@ class DesignerController extends Controller
         {
             $type='Calculations';
         }
-        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y H:i:s',strtotime($risk->created_at)).'</td></tr>';
+        $list.='<tr style="text-align:center;"><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y H:i:s',strtotime($risk->created_at)).'</td></tr>';
         $i++;
      }
      return $list;

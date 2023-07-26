@@ -2559,25 +2559,20 @@ class DesignerController extends Controller
         try {
             $user = Auth::user();
             $users = User::where('di_designer_id', $user->id)->get();
-
             $startDate = $request->input('start_date');
             $endDate = $request->input('end_date');
+            $user = $request->input('user');
 
-            // Perform the query to fetch the filtered records
-            $jobs = TemporaryWork::with('designerAssign', 'checkerAssign', 'designerAssign.user', 'checkerAssign.user', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
-                ->where('created_by', $user->id)
-                ->where(function ($query) use ($startDate, $endDate) {
-                    $query->whereHas('designerAssign', function ($subQuery) use ($startDate, $endDate) {
-                        $subQuery->whereBetween('start_date', [$startDate, $endDate])
-                            ->orWhereBetween('end_date', [$startDate, $endDate]);
-                    })->orWhereHas('checkerAssign', function ($subQuery) use ($startDate, $endDate) {
-                        $subQuery->whereBetween('start_date', [$startDate, $endDate])
-                            ->orWhereBetween('end_date', [$startDate, $endDate]);
-                    });
-                })
-                ->get();
-
-            return view('dashboard.calendar.filter', compact('jobs', 'users', 'startDate', 'endDate'));
+            // Convert the start and end dates to Carbon instances for easy comparison
+            $startDate = Carbon::parse($startDate);
+            $endDate = Carbon::parse($endDate);
+            $tasks = EstimatorDesignerList::with(['Estimator', 'estimatorDesignerListTasks' => function ($query) use ($startDate, $endDate) {
+                // Filter the tasks based on the date column within the provided start and end dates
+                $query->whereBetween('date', [$startDate, $endDate]);
+                // Order the tasks by id in descending order to get the latest records first
+                $query->orderBy('id', 'desc');
+            }])->where('user_id', $user)->get();
+            return view('dashboard.calendar.filter', compact('users', 'startDate', 'endDate','tasks'));
             // return view('dashboard.calendar.filter', compact('jobs', 'users', 'startDate', 'endDate'));
 
         } catch (\Exception $exception) {
@@ -2590,7 +2585,9 @@ class DesignerController extends Controller
 
     public function filter(Request $request)
     {
-        return view('dashboard.calendar.filter');
+        $user = Auth::user();
+        $users = User::where('di_designer_id', $user->id)->get();
+        return view('dashboard.calendar.filter',['users' => $users]);
     }
 
     public function checkerOrDesignerCalendar(Request $request)

@@ -227,20 +227,27 @@
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
-
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     {{-- <h2>Jobs</h2> --}}
                     <form method="post" action={{route('apply_filter')}}>
                         <div class="row mb-4">
                                     @csrf
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <label for="start-date">Start Date:</label>
                                         <input type="date" class="form-control" id="start-date" name="start_date" value="{{ $startDate ?? '' }}" required>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <label for="end-date">End Date:</label>
                                         <input type="date" class="form-control" id="end-date" name="end_date" value="{{ $endDate ?? '' }}" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="user">Select User</label>
+                                        <select class="form-control" id="user" name="user">
+                                            @foreach($users as $user)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-2">
                                         <button class="btn btn-sm btn-primary btn-block mt-md-5" type="submit">Filter</button>
@@ -249,44 +256,31 @@
                         </div>
                     </form>    
                     <!--begin::Table-->
-                    @isset($jobs)
+                    @isset($tasks)
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Project Name</th>
-                                        <th>Designer Name</th>
-                                        <th>Designer Task Completed</th>
-                                        <th>Designer Start Date</th>
-                                        <th>Designer End Date</th>
-                                        <th>Checker Name</th>
-                                        <th>Checker Task Completed</th>
-                                        <th>Checker Start Date</th>
-                                        <th>Checker End Date</th>
+                                        <th>Date</th>
+                                        <th>Hours</th>
+                                        <th>Percentage</th>
+                                        <th>Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($jobs as $job)
-                                        {{-- @dd($job->designerAssign->estimatorDesignerListTasks->last()->completed) --}}
-                                        <tr>
-                                            <td>{{ $job->projname ?? '' }}</td>
-                                            <td>{{ $job->designerAssign->user->name ?? '' }}</td>
-                                            @if($job->designerAssign)
-                                                <td>{{ $job->designerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
-                                            @else
-                                                <td></td>
-                                            @endif
-                                            <td>{{ $job->designerAssign->start_date ?? '' }}</td>
-                                            <td>{{ $job->designerAssign->end_date ?? '' }}</td>
-                                            <td>{{ $job->checkerAssign->user->name ?? '' }}</td>
-                                            @if($job->checkerAssign)
-                                            <td>{{ $job->checkerAssign->estimatorDesignerListTasks->last()->completed ?? '0' }}%</td>
-                                            @else
-                                                <td></td>
-                                            @endif
-                                            <td>{{ $job->checkerAssign->start_date ?? '' }}</td>
-                                            <td>{{ $job->checkerAssign->end_date ?? '' }}</td>
-                                        </tr>
+                                    @foreach($tasks as $task)
+                                        @foreach ($task->estimatorDesignerListTasks as $row)
+                                        {{-- @foreach($task as $row) --}}
+                                            {{-- @dd($job->designerAssign->estimatorDesignerListTasks->last()->completed) --}}
+                                            <tr>
+                                                <td>{{$task->Estimator->projname ?? ''}}</td>
+                                                <td>{{ $row->date ?? '' }}</td>
+                                                <td>{{ $row->hours ?? '' }}</td>
+                                                <td>{{ $row->completed ??'' }}%</td>
+                                                <td>{{ $row->task ?? '' }}</td>
+                                            </tr>
+                                        @endforeach
                                     @endforeach
                                 </tbody>
                             </table>

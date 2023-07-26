@@ -71,7 +71,7 @@
                 <th style="width:15%"> Hours</th>
                 <th style="width:10%">No of Hours </th>
                 <th style="width:10%"> Amount GBP</th>
-                <th style="width:10%" > <button id="add-more-btn"> Add More </button> </th>
+                <th style="width:10%" > <button class="btn btn-sm btn-success" id="add-more-btn"> Add More </button> </th>
             </tr>
             <tr>
                 <td style="width:100%;"> <hr style="height:5px;color:black; background-color:black;"> </td>

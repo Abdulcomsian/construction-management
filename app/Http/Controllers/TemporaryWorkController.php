@@ -718,12 +718,18 @@ $notify_admins_msg = [
                     ]);
 
                     //changing email history
-                    $cmh= new ChangeEmailHistory();
-                    $cmh->email=$request->pc_twc_email;
-                    $cmh->type ='Design Brief';
-                    $cmh->foreign_idd=$temporary_work->id;
-                    $cmh->message='Design Brief sent for approval';
-                    $cmh->save();
+                    // $cmh= new ChangeEmailHistory();
+                    // $cmh->email=$request->pc_twc_email;
+                    // $cmh->type ='Design Brief';
+                    // $cmh->foreign_idd=$temporary_work->id;
+                    // $cmh->message='Design Brief sent for approval';
+                    // $cmh->save();
+                    HelperFunctions::EmailHistory(
+                        $request->pc_twc_email,
+                        'Design Brief',
+                        $temporary_work->id,
+                        'Design Brief sent for approval'
+                    );
                 }
                 //send mail to admin
                 $notify_admins_msg = [
@@ -758,24 +764,36 @@ $notify_admins_msg = [
                     if ($request->designer_company_email) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
                          //changing email history
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->designer_company_email;
-                        $cmh->type ='Designer Company';
-                        $cmh->foreign_idd=$temporary_work->id;
-                        $cmh->message='Email sent to Designer Company';
-                        $cmh->save();
+                        // $cmh= new ChangeEmailHistory();
+                        // $cmh->email=$request->designer_company_email;
+                        // $cmh->type ='Designer Company';
+                        // $cmh->foreign_idd=$temporary_work->id;
+                        // $cmh->message='Email sent to Designer Company';
+                        // $cmh->save();
+                        HelperFunctions::EmailHistory(
+                            $request->designer_company_email,
+                            'Design Company',
+                            $temporary_work->id,
+                            'Email sent to Designer Company'
+                        );
                         Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->designer_company_email));
                     }
 
                     //designer email second
                     if ($request->desinger_email_2) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->desinger_email_2;
-                        $cmh->type ='Designer Checker';
-                        $cmh->foreign_idd=$temporary_work->id;
-                        $cmh->message='Email sent to Design Checker';
-                        $cmh->save();
+                        // $cmh= new ChangeEmailHistory();
+                        // $cmh->email=$request->desinger_email_2;
+                        // $cmh->type ='Designer Checker';
+                        // $cmh->foreign_idd=$temporary_work->id;
+                        // $cmh->message='Email sent to Design Checker';
+                        // $cmh->save();
+                        HelperFunctions::EmailHistory(
+                            $request->desinger_email_2,
+                            'Design Checker',
+                            $temporary_work->id,
+                            'Email sent to Designer Checker'
+                        );
                         Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                     }
                 }
@@ -973,12 +991,18 @@ $notify_admins_msg = [
                     ]);
 
                      //changing email history
-                    $cmh= new ChangeEmailHistory();
-                    $cmh->email=$request->pc_twc_email;
-                    $cmh->type ='Design Brief';
-                    $cmh->message='Design Brief sent for approval';
-                    $cmh->foreign_idd=$temporaryWork->id;
-                    $cmh->save();
+                    // $cmh= new ChangeEmailHistory();
+                    // $cmh->email=$request->pc_twc_email;
+                    // $cmh->type ='Design Brief';
+                    // $cmh->message='Design Brief sent for approval';
+                    // $cmh->foreign_idd=$temporaryWork->id;
+                    // $cmh->save();
+                    HelperFunctions::EmailHistory(
+                        $request->pc_twc_email,
+                        'Design Brief',
+                        $temporary_work->id,
+                        'Design Brief sent for approval',
+                    );
                 }
                 //send mail to admin
                 $notify_admins_msg = [

@@ -822,6 +822,7 @@ class AdminDesignerController extends Controller
             $payment_detail->account_number = $request->account_number;
             $payment_detail->swiftbic = $request->swiftbic;
             $payment_detail->iban = $request->iban;
+            $payment_detail->company_profile_id = $companyProfile->id;
             $payment_detail->save();
             toastSuccess('Company Profile Created successfully');
             return redirect()->back();
@@ -857,7 +858,7 @@ class AdminDesignerController extends Controller
     //edit profile
     public function editProfile($id)
     {
-        $editProfile=CompanyProfile::with('otherdocs')->find($id);
+        $editProfile=CompanyProfile::with('otherdocs','payment_detail')->find($id);
         return view('dashboard.adminDesigners.editProfile',compact('editProfile'));
     }
 
@@ -866,7 +867,7 @@ class AdminDesignerController extends Controller
     {
         $editProfile=companyProfile::find($editProfile);
         try {
-            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','preloaded','other_doucuments_name','other_doucuments_document');
+            $all_inputs = $request->except('_token','logo','company_cv','indemnity_insurance','images','preloaded','other_doucuments_name','other_doucuments_document','bank','sort_code','account_number','swiftbic','iban');
             if ($request->file('logo')) {
                 $filePath  = 'uploads/designercompany/logo/';
                 $file = $request->file('logo');
@@ -934,11 +935,18 @@ class AdminDesignerController extends Controller
                     
                 }
             }
-
+            $payment_detail = PaymentDetail::where('company_profile_id',$editProfile->id)->first();
+            $payment_detail->bank = $request->bank;
+            $payment_detail->sort_code = $request->sort_code;
+            $payment_detail->account_number = $request->account_number;
+            $payment_detail->swiftbic = $request->swiftbic;
+            $payment_detail->iban = $request->iban;
+            $payment_detail->save();
             toastSuccess('Company Profile Updated successfully');
             return redirect()->back();
             
         } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }

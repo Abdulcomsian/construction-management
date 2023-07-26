@@ -261,6 +261,31 @@ input.form-control.form-control-solid.readonly-input {
                           </label>
                         </div>
                         <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
+                            <h4>Payment Details</h4>
+                            <div class="row">
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Bank</label>
+                                    <input type="text" class="form-control" placeholder="Enter Bank" value="{{$editProfile->payment_detail->bank ?? ''}}"  name="bank" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">Sort Code</label>
+                                    <input type="text" class="form-control" placeholder="Enter Sort Code" value="{{$editProfile->payment_detail->sort_code ?? ''}}"  name="sort_code" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">A/c Number</label>
+                                    <input type="text" class="form-control" placeholder="Enter A/c Number" value="{{$editProfile->payment_detail->account_number ?? ''}}" name="account_number" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">SWIFTBIC</label>
+                                    <input type="text" class="form-control" placeholder="Enter Swiftbic" value="{{$editProfile->payment_detail->swiftbic ?? ''}}"  name="swiftbic" />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2">IBAN</label>
+                                    <input type="text" class="form-control" placeholder="Enter IBAN" value="{{$editProfile->payment_detail->iban ?? ''}}"  name="iban" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
                             <h4>Upload  Other Documents</h4>
                             @if(count($editProfile->otherdocs)>0)
                             <table class="table table-hover">

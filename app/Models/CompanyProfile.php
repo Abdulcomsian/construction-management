@@ -14,4 +14,8 @@ class CompanyProfile extends Model
     {
         return $this->hasMany(ProfileOtherDocuments::class);
     }
+    public function payment_detail()
+    {
+        return $this->hasOne(PaymentDetail::class,'company_profile_id');
+    }
 }

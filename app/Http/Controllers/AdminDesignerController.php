@@ -936,6 +936,9 @@ class AdminDesignerController extends Controller
                 }
             }
             $payment_detail = PaymentDetail::where('company_profile_id',$editProfile->id)->first();
+            $payment_detail = new PaymentDetail();
+            $payment_detail->user_id = Auth::user()->id;;
+            $payment_detail->company_profile_id = $editProfile->id;
             $payment_detail->bank = $request->bank;
             $payment_detail->sort_code = $request->sort_code;
             $payment_detail->account_number = $request->account_number;

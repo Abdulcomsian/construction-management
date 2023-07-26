@@ -2,6 +2,8 @@
     #kt_aside{
         display:none;
     }
+
+
     </style>
 @php
 $currentRouteUrl = request()->path();
@@ -626,6 +628,9 @@ hr{
     box-shadow: 0px 3px 10px 0px #0000000F;
     color:#0000000F;
 }
+#check{
+        background:#07D564 !important;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @include('dashboard.modals.comments2')
@@ -646,7 +651,7 @@ hr{
                     <div class="card-header border-0">
                         <div class="card-title">
                             <a href="" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px">Menu</a>
-                            <h3 class="card-label pt-5" style="font-size:1.6rem;">AWARDED JOBS
+                            <h3 class="card-label pt-5" style="font-size:1.6rem;">AWARDED JOBS 
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
                         </div>

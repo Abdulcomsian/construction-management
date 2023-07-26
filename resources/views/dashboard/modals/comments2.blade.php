@@ -31,7 +31,7 @@
                 <div class="mb-13 text-center">
                     <!--begin::Title-->
                     <h1 class="mb-3" style="text-align: left; font-weight: 700; font-size: 26px;font-family: 'Inter';">
-                        Comments</h1>
+                        Comments </h1>
                     <!--end::Title-->
                 </div>
 

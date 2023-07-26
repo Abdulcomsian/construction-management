@@ -100,7 +100,7 @@ class User extends Authenticatable
 
     public function paymentDetail()
     {
-        return $this->hasOne(paymentDetail::class);
+        return $this->hasOne(PaymentDetail::class);
     }
 
     public function jobs()

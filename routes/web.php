@@ -276,6 +276,9 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      //change emails
      Route::post('change-emails',[DesignerController::class,'change_email'])->name('change-email');
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
+     Route::get('get-designer-changed-emails-history',[DesignerController::class,'designer_change_email_history'])->name('designer-change-email-history');
+     Route::get('get-checker-changed-emails-history',[DesignerController::class,'checker_change_email_history'])->name('checker-change-email-history');
+
      //
      Route::get('/awarded-estimator',[AdminDesignerController::class,'awardedEstimator']);
      Route::post('/awarded-estimator-modal',[AdminDesignerController::class,'awardedEstimatorModal'])->name('award-estimator-modal');

@@ -2220,6 +2220,109 @@ class DesignerController extends Controller
      echo $list;
    }
 
+   public function designer_change_email_history(Request $request)
+   {
+     $id=\Crypt::decrypt($request->id);
+     $changedemailhistory=ChangeEmailHistory::where('foreign_idd',$id)->where('user_type','designer')->get();
+     $list='';
+     $i=1;
+     foreach($changedemailhistory as $history)
+     {
+        if($history->status==1)
+        {
+            $status="Read";
+            $rdate=$history->updated_at;
+        }
+        elseif($history->status==0)
+        {
+             $status="Unread";
+             $rdate='';
+        }
+        else{
+             $status="";
+            //  $rdate=$history->updated_at;
+            $rdate="";
+        }
+
+        $cdate = date('d-m-Y', strtotime($history->created_at));
+        $cdate_time = date('H:m', strtotime($history->created_at));
+        $rdate2 = date('d-m-Y', strtotime($rdate));
+        $rdate_time = date('H:m', strtotime($rdate));
+
+        if(date('d-m-Y', strtotime($cdate)) == "01-01-1970"){
+            $cdate ='';
+            $cdate_time='';
+        }
+        if(date('d-m-Y', strtotime($rdate2)) == "01-01-1970"){
+            $rdate2 ='';
+            $rdate_time='';
+        }
+        $list.='<tr>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$i.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->message.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->email.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->type.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
+        
+       
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
+        <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate2.'</td></tr>';
+        $i++;
+     }
+     echo $list;
+   }
+
+   public function checker_change_email_history(Request $request)
+   {
+     $id=\Crypt::decrypt($request->id);
+     $changedemailhistory=ChangeEmailHistory::where('foreign_idd',$id)->where('user_type','checker')->get();
+     $list='';
+     $i=1;
+     foreach($changedemailhistory as $history)
+     {
+        if($history->status==1)
+        {
+            $status="Read";
+            $rdate=$history->updated_at;
+        }
+        elseif($history->status==0)
+        {
+             $status="Unread";
+             $rdate='';
+        }
+        else{
+             $status="";
+            //  $rdate=$history->updated_at;
+            $rdate="";
+        }
+
+        $cdate = date('d-m-Y', strtotime($history->created_at));
+        $cdate_time = date('H:m', strtotime($history->created_at));
+        $rdate2 = date('d-m-Y', strtotime($rdate));
+        $rdate_time = date('H:m', strtotime($rdate));
+
+        if(date('d-m-Y', strtotime($cdate)) == "01-01-1970"){
+            $cdate ='';
+            $cdate_time='';
+        }
+        if(date('d-m-Y', strtotime($rdate2)) == "01-01-1970"){
+            $rdate2 ='';
+            $rdate_time='';
+        }
+        $list.='<tr>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$i.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->message.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->email.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$history->type.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
+       
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
+        <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate2.'</td></tr>';
+        $i++;
+     }
+     echo $list;
+   }
+
 
    public function Designdelte(Request $request)
    {

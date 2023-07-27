@@ -777,7 +777,7 @@ hr{
                               @endif
                           
                               <span class="btn p-2 m-1 designerchangeemail"
-                                style="border-radius: 21%;" title="Change Email"
+                                style="border-radius: 21%;" title="Designer Change Email"
                                 data-id={{Crypt::encrypt($item->id)}} >
                                 <i style="padding:3px;"
                                     class="fa fa-exchange-alt"></i>
@@ -801,16 +801,16 @@ hr{
                                 </span>
                                 @endif 
                                @endif
-                               {{-- <ul>
-                                    <li class="navi-item"> --}}
-                                        <span class="btn p-2 m-1 checkerchangeemail"
-                                            style="border-radius: 21%;" title="Change Email"
+                               <ul>
+                                    <li class="navi-item">
+                                        <button class="btn p-2 m-1 checkerchangeemail"
+                                            style="border-radius: 21%; z-index:1060" title="Change Email"
                                             data-id={{Crypt::encrypt($item->id)}} >
                                             <i style="padding:3px;"
                                                 class="fa fa-exchange-alt"></i>
-                                        </span>
-                                    {{-- </li>
-                               </ul> --}}
+                                    </button>
+                                    </li>
+                               </ul>
                             </td>
                             <td class="green">  {{$designer_status}} </td>
                             <td>
@@ -1064,6 +1064,58 @@ hr{
        </div>
     </div>
  </div>
+ <div class="modal  fade" id="designer_change_email_modal_id" style="width: 100%">
+    <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+          <div class="modal-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>S-NO</th>
+                        <th>Description</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        
+                        <th>Sent Date</th>
+                        <th>Read Date</th>
+                    </tr>
+                </thead>
+                <tbody id="designer_change_email_history">
+                    
+                </tbody>
+                
+            </table>
+          </div>
+       </div>
+    </div>
+ </div>
+ <div class="modal  fade" id="checker_change_email_modal_id" style="width: 100%">
+    <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+          <div class="modal-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>S-NO</th>
+                        <th>Description</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        
+                        <th>Sent Date</th>
+                        <th>Read Date</th>
+                    </tr>
+                </thead>
+                <tbody id="checker_change_email_history">
+                    
+                </tbody>
+                
+            </table>
+          </div>
+       </div>
+    </div>
+ </div>
 <div class="modal fade" id="allocationDesignerModal">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -1163,6 +1215,45 @@ hr{
               });
       });
 
+              //change email click event
+    $(document).on('click', '.designerchangeemail', function(e) {
+    // $(".designerchangeemail").on('click',function(){
+        var id=$(this).attr('data-id');
+        $.ajax({
+            url: "{{route('designer-change-email-history')}}",
+            method: "get",
+            data: {
+                id
+            },
+            success: function(res) {
+                $("#design_brief_id").val(id);
+                $("#designer_change_email_history").html(res);
+                $("#designer_change_email_modal_id").modal('show');
+            }
+        });
+        
+        
+    })
+
+      $(document).on('click', '.checkerchangeemail', function(e) {
+        e.preventDefault()
+        // $(".checkerchangeemail").on('click',function(){
+        var id=$(this).attr('data-id');
+        $.ajax({
+            url: "{{route('checker-change-email-history')}}",
+            method: "get",
+            data: {
+                id
+            },
+            success: function(res) {
+                $("#design_brief_id").val(id);
+                $("#checker_change_email_history").html(res);
+                $("#checker_change_email_modal_id").modal('show');
+            }
+        });
+    });
+    // });
+
         const asideContainer = document.querySelector('.aside-fixed .aside');
         const overlay = document.querySelector('.overlay');
         document.querySelector('.mainMenu-link').addEventListener('click', function(e){
@@ -1175,5 +1266,6 @@ hr{
             asideContainer.style.display = 'none';
             overlay.classList.add('d-none');
         })
+
 </script>
 @endsection

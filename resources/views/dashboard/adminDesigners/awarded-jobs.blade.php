@@ -766,23 +766,34 @@ hr{
                                 @endphp
                             <td>
                                 @if(isset($item->designerAssign->user->name))
-                                <div class="row d-flex flex-column">
-                                    <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
-                                    <div class="col d-flex justify-content-center">
-                                    <div class="progress-bar">
-                                    <div class="progress" style="width: {{$designer_task}}%;"></div>
-                                    <span class="progress-text">{{$designer_task}}%</span>
-                                    </div>
-                                </div>            
-                              @endif
-                          
-                              <span class="btn p-2 m-1 designerchangeemail"
-                                style="border-radius: 21%;" title="Designer Change Email"
-                                data-id={{Crypt::encrypt($item->id)}} >
-                                <i style="padding:3px;"
-                                    class="fa fa-exchange-alt"></i>
-                                </span>
-                            </td>
+                                    <div class="row d-flex flex-column">
+                                        <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
+                                        <div class="col d-flex justify-content-center">
+                                        <div class="progress-bar">
+                                        <div class="progress" style="width: {{$designer_task}}%;"></div>
+                                        <span class="progress-text">{{$designer_task}}%</span>
+                                        </div>
+                                    </div>            
+                                @endif
+                                @php
+                                    $user = Auth::user();
+                                    // dd($user);
+                                    $is_admin = HelperFunctions::isAdminDesigner($user);
+                                    $is_promoted_admin = HelperFunctions::isPromotedAdminDesigner($user);
+                                    $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
+                                    $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
+                                    // dd($is_designer);
+                                    
+                                @endphp
+                                @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id))
+                                    <span class="btn p-2 m-1 designerchangeemail"
+                                        style="border-radius: 21%;" title="Designer Change Email"
+                                        data-id={{Crypt::encrypt($item->id)}} >
+                                        <i style="padding:3px;"
+                                            class="fa fa-exchange-alt"></i>
+                                        </span>
+                                    </td>
+                                @endif
                             <td>
                                 @if(isset($item->checkerAssign->user->name))
                                 <div class="row d-flex flex-column">
@@ -801,16 +812,14 @@ hr{
                                 </span>
                                 @endif 
                                @endif
-                               <ul>
-                                    <li class="navi-item">
-                                        <button class="btn p-2 m-1 checkerchangeemail"
+                                @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id))
+                                        <span class="btn p-2 m-1 checkerchangeemail"
                                             style="border-radius: 21%; z-index:1060" title="Change Email"
                                             data-id={{Crypt::encrypt($item->id)}} >
                                             <i style="padding:3px;"
                                                 class="fa fa-exchange-alt"></i>
-                                    </button>
-                                    </li>
-                               </ul>
+                                    </span>
+                                @endif
                             </td>
                             <td class="green">  {{$designer_status}} </td>
                             <td>

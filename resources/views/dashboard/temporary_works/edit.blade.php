@@ -780,6 +780,17 @@
                         </div>
 
                         <div class="row">
+                        <div class="col-12">
+                                <div class="d-flex inputDiv d-block my-0" id="photoDesign">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span>Photo or Document:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="file" class="form-control" id="photo" name="photo"
+                                        value="{{old('photo')}}" accept="image/*;capture=camera">
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-1" style="border: none">
                                     <!--begin::Label-->
@@ -843,13 +854,13 @@
                                     <input type="text" name="namesign" class="form-control form-control-solid">
                                 </div>
                             </div>
-                            <div class="col-md-6 d-flex justify-content-end align-items-end">
+                            <div class="col-md-4 d-flex justify-content-end align-items-end" style="bottom: 20px;">
                                 {{-- <div class="d-flex inputDiv" style="align-items: right;text-align:right;"> --}}
                                     {{-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
 
                                     </label> --}}
                                     {{-- <br /> --}}
-                                    <button type="submit" id="updateBtn" disabled
+                                    <button type="submit" style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;" id="updateBtn" disabled
                                         class="updateBtn btn btn-secondary">Update</button>
                                     <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->
                                     {{--

@@ -996,18 +996,18 @@
                                         <td>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input mx-0 position-relative" type="checkbox"
-                                                    id="flexCheckChecked">
+                                                    id="flexCheckChecked" style="margin-top:09px !important;">
                                                 <input type="hidden" id="signtype" name="signtype"
                                                     class="form-control form-control-solid" value="2">
-                                                <label class="form-check-label" for="inlineCheckbox1">name
+                                                <label class="form-check-label" for="inlineCheckbox1" style="margin-top: 9px;">Name
                                                     signature?</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input mx-0 position-relative" type="checkbox"
-                                                    id="pdfChecked">
+                                                    id="pdfChecked"  style="margin-top:09px !important;">
                                                 <input type="hidden" id="pdfsignn" name="pdfsigntype"
                                                     class="form-control form-control-solid" value="0">
-                                                <label class="form-check-label" for="inlineCheckbox2">Image
+                                                <label class="form-check-label" for="inlineCheckbox2" style="margin-top: 9px;">Image
                                                     signature?</label>
                                             </div>
 

@@ -200,14 +200,17 @@ class ProjectController extends Controller
                     ProjectBlock::where('project_id', $projectId)->delete();
             
                     // Insert new project blocks
+                    
                     if ($request->has('blocks')) {
-                        $blocks = $request->input('blocks');
-            
-                        foreach ($blocks as $block) {
-                            $projectBlock = new ProjectBlock();
-                            $projectBlock->project_id = $projectId;
-                            $projectBlock->title = $block;
-                            $projectBlock->save();
+                        if($request->blocks[0]!=NULL){
+                            $blocks = $request->input('blocks');
+                
+                            foreach ($blocks as $block) {
+                                $projectBlock = new ProjectBlock();
+                                $projectBlock->project_id = $projectId;
+                                $projectBlock->title = $block;
+                                $projectBlock->save();
+                            }
                         }
                     }
             

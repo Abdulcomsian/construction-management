@@ -1019,7 +1019,7 @@
                                         <input type="text" name="namesign" class="form-control form-control-solid">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
 
 
                                     <!-- <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
@@ -1032,7 +1032,7 @@
                                     @include('dashboard.modals.design-relief-modals')
                                     <button id="submitbutton" type="submit"
                                         class="btn btn-secondary float-end submitbutton" disabled
-                                        style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                                        style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
 
                                 </div>
 

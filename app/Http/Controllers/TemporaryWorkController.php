@@ -894,7 +894,13 @@ $notify_admins_msg = [
                     unset($request[$key]);
                 }
             }
-
+            //photo work here
+            if ($request->photo) {
+                $filePath = HelperFunctions::designbriefphotopath();
+                $file = $request->file('photo');
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $all_inputs['photo'] = $imagename;
+            }
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval');
@@ -971,7 +977,7 @@ $notify_admins_msg = [
                         $image_links[] = $img;
                     }
                 }
-
+                
                 //work for pdf
 
                 $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $request->twc_id_no, 'comments' => $attachcomments]);
@@ -1000,10 +1006,10 @@ $notify_admins_msg = [
                     HelperFunctions::EmailHistory(
                         $request->pc_twc_email,
                         'Design Brief',
-                        $temporary_work->id,
+                        $temporaryWork->id,
                         'Design Brief sent for approval',
                     );
-                }
+                } 
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
@@ -1044,6 +1050,7 @@ $notify_admins_msg = [
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -1933,7 +1940,6 @@ $notify_admins_msg = [
                    $notify_admins_msg['body']['pc_twc'] = '1';
                     Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 } else {
-                    dd("there");
                     // $notify_admins_msg['body']['pc_twc'] = '1';
                     $cmh= new ChangeEmailHistory();
                     $cmh->email=$request->twc_email;

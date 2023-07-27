@@ -515,13 +515,13 @@ $tempWorkClass = "d-none";
                                     @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item dropdown notification-ui me-2" style="margin-top: 6px">
-                                            <a class="nav-link dropdown-toggle notification-ui_icon" href="#"
+                                            <!-- <a class="nav-link dropdown-toggle notification-ui_icon" href="#"
                                                 id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-bell {{count($notifications) > 0 ? 'redBgBlink' :'' }}"
                                                     style="font-size:21px"></i>
                                                 <span class="badge unread-notification">{{count($notifications)}}</span>
-                                            </a>
+                                            </a> -->
                                             <div class="dropdown-menu notification-ui_dd"
                                                 aria-labelledby="navbarDropdown">
                                                 <div class="notification-ui_dd-header">
@@ -569,13 +569,13 @@ $tempWorkClass = "d-none";
                                     @php $notifications=App\Utils\HelperFunctions::getNotificaions();@endphp
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item dropdown notification-ui me-2">
-                                            <a class="nav-link dropdown-toggle notification-ui_icon" href="#"
+                                            <!-- <a class="nav-link dropdown-toggle notification-ui_icon" href="#"
                                                 id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
                                                 <i
                                                     class="fa fa-bell {{count($notifications) > 0 ? 'redBgBlink' :'' }}"></i>
                                                 <span class="badge unread-notification">{{count($notifications)}}</span>
-                                            </a>
+                                            </a> -->
                                             <div class="dropdown-menu notification-ui_dd"
                                                 aria-labelledby="navbarDropdown">
                                                 <div class="notification-ui_dd-header">

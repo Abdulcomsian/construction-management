@@ -221,6 +221,7 @@
             /* display: none; */
         }
 </style>
+@include('dashboard.modals.drawing_delete_modals')
 
 @endsection
 @section('content')
@@ -655,7 +656,9 @@
                                         <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
                                         <td style="display:flex; flex-direction:column;padding: 10px">
                                             {{-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button> --}}
-                                                <a class="btn" href="{{route('designer.delete',$uploads->id)}}"><i class="fas fa-trash"></i></a>
+                                            
+                                            <button class="mt-2 deletedrawing" style="border-radius:4px; border:none;background: transparent; padding:5px;" title="Reply To Designer" data-id="{{$uploads->id}}"><i style="padding:3px;" class="fa fa-trash"></i></button>
+                                                <!-- <a class="btn" href="{{route('designer.delete',$uploads->id)}}"><i class="fas fa-trash"></i></a> -->
                                             <form method="post" action="{{route('drawing.comment')}}">
                                                 @csrf
                                                 <textarea class="form-control" row="2" required
@@ -1072,6 +1075,18 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
+    $('.deletedrawing').on('click', function(e) {
+    // $(document).on('click','.deletedrawing',function(e){
+        e.stopPropagation();
+        id =$(this).attr('data-id');
+        $("#drwingdelete_drawingidid").val($(this).attr('data-id'));
+
+               $("#delete_drawing_modal_id").modal('show'); 
+       
+           
+        
+   })
+
     $('input[name="preliminary_approval"]').on('click', function() {
         var val = $(this).val();
         if (val == 1) {
@@ -1294,6 +1309,7 @@
             alert('An error occurred. Please try again.');
         });
     }
+    
 
 </script>
 @endsection

@@ -118,6 +118,13 @@ class DesignerController extends Controller
                 ];
                 $is_check = true;
                 $is_job = 1;
+                HelperFunctions::EmailHistory(
+                    $designer->email,
+                    'Designer',
+                    $temporary_work->id,
+                    'Job Assigned to Designer',
+                    'designer'
+                );
                     Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email,$is_check,$is_job));
 
                     // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
@@ -156,6 +163,13 @@ class DesignerController extends Controller
                     ];
                     $is_check = true;
                     $is_job = 1;
+                    HelperFunctions::EmailHistory(
+                        $checker->email,
+                        'Designer Checker',
+                        $temporary_work->id,
+                        'Job Assigned to Design Checker',
+                        'checker'
+                    );
                     // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
                     Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check,$is_job));
                 }
@@ -477,6 +491,7 @@ class DesignerController extends Controller
                         $chm->foreign_idd=$tempworkdata->id;
                         $chm->message='Design Checker Uploaded Certificate';
                         $chm->status = 2;
+                        $chm->user_type = 'checker';
                         $chm->save();
                     }else{ //Else means drawign is uploaded
                         $chm= new ChangeEmailHistory(); 
@@ -485,6 +500,7 @@ class DesignerController extends Controller
                         $chm->foreign_idd=$tempworkdata->id;
                         $chm->message='Design Checker Uploaded Drawing';
                         $chm->status = 2;
+                        $chm->user_type = 'checker';
                         $chm->save();
                     }
                 }else if($request->designermail == $tempworkdata->designer_company_email){
@@ -494,6 +510,7 @@ class DesignerController extends Controller
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
                         $chm->message='Designer Uploaded Certificate';
+                        $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
                     }else{
@@ -503,6 +520,7 @@ class DesignerController extends Controller
                         $chm->foreign_idd=$tempworkdata->id;
                         $chm->message='Designer Uploaded Drawing';
                         $chm->status = 2;
+                        $chm->user_type = 'designer';
                         $chm->save();
                     }
                 }
@@ -2871,6 +2889,23 @@ class DesignerController extends Controller
                         $recipient_email = $estimator->email;
                     }
                     $login_url = $pdfLink;
+                }
+                if (isset($designer) && isset($designer_image_name)) {
+                    HelperFunctions::EmailHistory(
+                        $temporary_work->designerAssign->email,
+                        'Certificate Uploaded',
+                        $temporary_work->id,
+                        'Designer added Certificate',
+                        'designer'
+                    );
+                }else if (isset($checker) && isset($checker_image_name)) {
+                    HelperFunctions::EmailHistory(
+                        $temporary_work->checkerAssign->email,
+                        'Certificate Uploaded',
+                        $temporary_work->id,
+                        'Checker added Certificate1',
+                        'checker'
+                    );
                 }
                 // dd($login);
                 // dd($temporary_work->checkerAssign->email);

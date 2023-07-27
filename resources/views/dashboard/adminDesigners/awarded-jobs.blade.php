@@ -1074,7 +1074,7 @@ hr{
     </div>
  </div>
  <div class="modal  fade" id="designer_change_email_modal_id" style="width: 100%">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered mw-1000px">
        <div class="modal-content">
           <div class="modal-body">
             <table class="table table-hover">
@@ -1100,7 +1100,7 @@ hr{
     </div>
  </div>
  <div class="modal  fade" id="checker_change_email_modal_id" style="width: 100%">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered mw-1000px">
        <div class="modal-content">
           <div class="modal-body">
             <table class="table table-hover">

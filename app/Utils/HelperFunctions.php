@@ -370,7 +370,7 @@ class HelperFunctions
         $chm = new ChangeEmailHistory();
         $chm->email = $email;
         $chm->type = $type;
-        $chm->foreign_id = $foreignId;
+        $chm->foreign_idd = $foreignId;
         $chm->message = $message;
         $chm->user_type = $userType;
         $chm->save();

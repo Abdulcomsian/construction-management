@@ -1162,6 +1162,7 @@ $notify_admins_msg = [
                 $cmh->type ='TWC to Designer';
                 $cmh->foreign_idd=$request->temp_work_id;
                 $cmh->message='Comment added for Designer';
+                $chm->user_type = 'designer';
                 $cmh->save();
             }
             // if ($model->save()) {
@@ -1199,7 +1200,8 @@ $notify_admins_msg = [
                         $cmh->email=$tempdata->twc_email;
                         $cmh->type ='Designer to TWC';
                         $cmh->foreign_idd=$request->temp_work_id;
-                        $cmh->message='Query from Designer to TWC';
+                        $cmh->message='Query Posted by Designer';
+                        $cmh->user_type = 'designer';
                         $cmh->save();
                     }   
                     
@@ -1266,6 +1268,16 @@ $notify_admins_msg = [
                 'reply_date' => $reply_date,
                 'reply_email' => Auth::user()->email,
             ]);
+
+     
+                // $cmh= new ChangeEmailHistory();
+                // $cmh->email=$tempdata->sender_email;
+                // $cmh->type ='Reply';
+                // $cmh->foreign_idd=$tempid;
+                // $cmh->message='Reply Message added';
+                // $cmh->user_type = 'designer';
+                // $cmh->save();
+           
             if ($res) {
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
                 // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));

@@ -869,10 +869,10 @@ class DesignerController extends Controller
         <input type="hidden" name="_token" value="' . csrf_token() . '"/>
         <input type="hidden" name="tempworkid" value="'.$tempworkid.'"">
         <input type="hidden" name="designermail" value="">
-        <div class="row" style="background:white;margin: 0 4px;">
+        <div class="row" style="background:white;">
              <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1" style="margin: 0px; font-weight:bold">Select Document
+                        <label for="exampleInputPassword1" style="margin: 0px; font-weight:bold; padding:0px !important;">Select Document
                             Type:</label><br>
                         <select class="form-select form-control" name="type" required>
                             <option value="" disabled></option>
@@ -884,7 +884,7 @@ class DesignerController extends Controller
                 </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="exampleInputEmail1" style="margin: 0px; font-weight:bold">Select Document:</label><br>
+                    <label for="exampleInputEmail1" style="margin: 0px; font-weight:bold; padding:0px !important;">Select Document:</label><br>
                     <input type="file" class="form-control" id="riskassesmentfile"
                         name="riskassesmentfile" required="required">
                 </div>
@@ -1721,7 +1721,7 @@ class DesignerController extends Controller
         {
             $type='Calculations';
         }
-        $list.='<tr><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y H:i:s',strtotime($risk->created_at)).'</td></tr>';
+        $list.='<tr style="text-align:center;"><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y H:i:s',strtotime($risk->created_at)).'</td></tr>';
         $i++;
      }
      return $list;

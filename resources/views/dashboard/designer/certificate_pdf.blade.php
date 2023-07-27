@@ -54,45 +54,9 @@
     
     <page pageset="old">
     
-    <!-- <table style="width:100%">
-      <tr >
-        <td style="border-right:1px solid black" > 
-           <div class="company-name"> </div>
-           <div class="address"> 85 Great Portland Street <br> London, United Kingdom, W1W 7LT</div>
-           <div class="email"> <span>Email:</span>  <p style="color:green;"> </p> </div>
-           <p></p>
-        </td>
-        <td style="width:50%;">
-        <div class="form-group">
-        <label for="title">Title:</label>
-        <p></p>
-        </div>
-        <hr>
-        <div class="form-group">
-        <label for="project">Project: {{$temporary_work->project->name ?? $temporary_work->projname}}</label>
-        <p></p>
-        </div>
-        <hr>
-        
-        <div class="form-group">
-        <label for="designer">Designer: {{$temporary_work->client_email == null ? $temporary_work->designer->user->name : $temporary_work->creator->name }}</label>
-        <p></p>
-        </div>
-        <hr>
-        <div class="form-group">
-        <label for="date">Date: {{$temporary_work->design_issued_date}}</label>
-    
-        <p></p>
-        </div>
-    
-        </td>
-    
-      </tr>
-    
-    
-    </table > -->
 
-    <table style="width:100%">
+
+    <!-- <table style="width:100%">
     <tr>
         <td style="border-right:1px solid black; padding:0px 15px;"> 
       
@@ -104,7 +68,7 @@
             </div>
             <p></p>
         </td>
-        <td style="width:50%; padding: 10px;">
+        <td style="width:50%; ">
 
             <div class="form-group font p" >
                 <label for="title">Title:</label>
@@ -138,14 +102,65 @@
      </td>
     </tr>
 
+
+</table> -->
+
+
+
+<table style="width:100%">
+    <tr>
+        <td style="border-right:1px solid black; padding:0px 15px;" rowspan="3"> 
+            <div class="company-name font-3">Consulting Temporary Works Engineers</div>
+            <div class="address font-2">85 Great Portland Street <br> London, United Kingdom, W1W 7LT</div>
+            <div class="email">
+                <span class="font">Email:</span>
+            </div>
+            <p></p>
+        </td>
+        <td style="width:50%; height: 40px;">
+                        <table style="width: 100%; border:none !important; height: 100%;">
+                <tr>
+                    <td class="font" style="border:none; vertical-align: middle;">
+                         <label  for="title">Title:</label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="height: 40px;">
+            <table style="width: 100%; border:none !important; height: 100%;">
+                <tr>
+                    <td class="font" style="border:none; vertical-align: middle;">
+                        <label  for="project">Project: {{$temporary_work->project->name ?? $temporary_work->projname}}</label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="height: 40px;">
+            <table style="width: 100%; border:none !important; height: 100%;">
+                <tr>
+                    <td class="font" style="border:none; vertical-align: middle;">
+                        <label for="designer">Designer:</label>
+                        {{$temporary_work->client_email == null ? $temporary_work->designer->user->name : $temporary_work->creator->name }}
+                    </td>
+                    <td class="font" style="border:none !important; text-align: right; vertical-align: middle;">
+                        <label for="date">Date:</label>
+                        {{$temporary_work->design_issued_date}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
     <!-- <tr>
-             <td style="border-right:none !important">
-                <span>Design check Category:</span>
-            </td>
-            <td style="border-left:none !important; text-align: left;">
-                <label for="cat1">CAT {{$temporary_work->tw_category }} </label>
-                <p></p>
-            </td>
+         <td style="height:30px; border-right:none !important">
+
+        </td>
+        <td style="border-left:none !important">
+
+        </td>
     </tr> -->
 </table>
 
@@ -154,8 +169,15 @@
 
 
 
+    <table style="width:100%; height:40px" class="font">
+    <tr>
+         <td style="height:30px; border-right:none !important">
 
-    <table style="width:100%;" class="font">
+        </td>
+        <td style="border-left:none !important">
+
+        </td>
+    </tr>
         <tr>
             <td style="width:30%; border-right:none !important;padding:0px 15px;">
                 <span>Design check Category:</span>

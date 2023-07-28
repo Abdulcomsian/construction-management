@@ -756,7 +756,12 @@ $notify_admins_msg = [
                 } else {
                     //send email to admin
                     // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
-
+                    // HelperFunctions::EmailHistory(
+                    //     $request->twc_email,
+                    //     'Design Brief',
+                    //     $temporary_work->id,
+                    //     'Design Brief Sent to TWC'
+                    // );
                     //send to twc email
                     Notification::route('mail', $request->twc_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id));
 
@@ -1277,13 +1282,7 @@ $notify_admins_msg = [
             ]);
 
      
-                // $cmh= new ChangeEmailHistory();
-                // $cmh->email=$tempdata->sender_email;
-                // $cmh->type ='Reply';
-                // $cmh->foreign_idd=$tempid;
-                // $cmh->message='Reply Message added';
-                // $cmh->user_type = 'designer';
-                // $cmh->save();
+               
            
             if ($res) {
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
@@ -1931,7 +1930,7 @@ $notify_admins_msg = [
                 ];
                 if (isset($request->approval)) {
                     $cmh= new ChangeEmailHistory();
-                    $cmh->email=$request->twc_email;
+                    $cmh->email=$request->pc_twc_email;
                     $cmh->type ='Permit to Load';
                     $cmh->status =2;
                     $cmh->foreign_idd=$request->temporary_work_id;

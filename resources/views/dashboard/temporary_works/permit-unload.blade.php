@@ -547,27 +547,10 @@
                                 <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
                                     approval is required.</span>
                             </div>
-                            <div class="d-flex inputDiv">
-                                <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
-                                    <span class="required">Principle Contractor approval required?</span>
-                                </label>
-                                <div class=" justify-content-end"
-                                    style="position: relative; left:82%;background: white">
-                                    <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" name="approval_PC" value="1" /> 
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                    </label>
-                                    <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" checked name="approval_PC" value="2" />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                    </label>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="col-md-6 my-4" id="twc-email-box" class="twc-email-box">
-                            <div class="inputDiv pc-twc mb-0 mt-6 d-flex">
+                            <div class="inputDiv pc-twc mb-0 mt-6 d-flex" style="margin-top:10px !important;">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2"
                                     style="width:fit-content% !important">
@@ -601,7 +584,28 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div class="d-flex inputDiv">
+                                <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
+                                    <span class="required">Principle Contractor approval required?</span>
+                                </label>
+                                <div class=" justify-content-end"
+                                    style="position: relative; left:70%;background: white">
+                                    <label style="position: initial; flex-grow: 0; background: white">
+                                        <input type="radio" class="btn-check" name="approval_PC" value="1" /> 
+                                        <span
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                    </label>
+                                    <label style="position: initial; flex-grow: 0; background: white">
+                                        <input type="radio" class="btn-check" checked name="approval_PC" value="2" />
+                                        <span
+                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
                             <div class="d-flex inputDiv">

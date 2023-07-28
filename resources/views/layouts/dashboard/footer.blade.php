@@ -23,3 +23,30 @@
     <!-- </div> -->
     <!--end::Container-->
 </div>
+<style>
+.whats-app {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: right;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+    right: 15px;
+}
+
+.my-float {
+    text-align:center;
+    z-index:9999999;
+    color:#fff;
+    font-size:40px;
+}
+</style>
+
+<a  class="whats-app my-float" href="#" target="_blank">
+    <i class="fa fa-qrcode my-float"></i>
+</a>

@@ -815,8 +815,10 @@ class DesignerController extends Controller
                             </form>
                             </td>';
                     }
-                    $delete = route('designer.delete',$uploads->id);
-                        $list .= '<td style="text-align: center; vertical-align: middle;"><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                    // $delete = route('designer.delete',$uploads->id);
+                        $list .= '<td style="text-align: center; vertical-align: middle;">
+                        <button class="mt-2 deletedrawing" style="border-radius:4px; border:none;background: transparent; padding:5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-trash"></i></button>
+                        </td></tr>';
                     if(count($uploads->comment)>0)
                     {
                         $k=1;

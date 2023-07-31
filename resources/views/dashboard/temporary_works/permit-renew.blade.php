@@ -216,9 +216,15 @@
     }
 
     @media only screen and (max-width:768px) {
+        .otherApprovals {
+            left: 67% !important;
+        }
         #first_member .upload_signature_div {
             display: none !important;
         }
+    }
+    .otherApproval {
+        width: 48%;
     }
 </style>
 </style>
@@ -783,20 +789,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <div class="d-flex justify-content-between align-items-center">
+                        <div class="col-md-6 inputDiv requiredDiv mt-0 otherApproval" style="margin-left:7px; ">
+                            <!-- <div class="d-flex justify-content-between align-items-center"> -->
                                 <!--begin::Label-->
                                 <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Other approval required?</span>
 
                                 </label>
                                 <!--begin::Radio group-->
-                                <div class="nav-group nav-group-fluid">
+                                <div class=" justify-content-end otherApprovals"
+                                        style="    top: 30px;position:relative; left:64%; background: white; height: 32px; padding:0;width : fit-content">
                                     <!--begin::Option-->
 
                                     <!--end::Option-->
                                     <!--begin::Option-->
-                                    <label>
+                                    <label >
                                         <input type="radio" class="btn-check" name="principle_contractor" value="1"
                                             @if(isset($permitdata) &&
                                             $permitdata->principle_contractor==1){{'checked'}}@endif />
@@ -805,7 +812,7 @@
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
-                                    <label>
+                                    <label style="margin-left: 60px;">
                                         <input type="radio" class="btn-check" name="principle_contractor" value="2"
                                             @if(isset($permitdata) &&
                                             $permitdata->principle_contractor==2){{'checked'}}@endif/>
@@ -818,7 +825,7 @@
                                     <!--end::Option-->
                                 </div>
                                 <!--end::Radio group-->
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -1225,8 +1232,15 @@
     <script>
         $("#flexCheckChecked1").change(function () {
                 if ($(this).is(':checked')) {
-                    $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-            $("#sigimage").hide();
+                    $("#DrawCheck1").prop('checked', false);
+            if($("#DrawCheck").is(':checked')==true){ 
+                        $("#sigimage1").hide();
+                        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").removeAttr("disabled");
+                    }else{
+                        $("#sigimage").hide();
+                        $("#sigimage1").hide();
+                        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                    }
                     $("#DrawCheck1").prop('checked',false);
                     $("#signtype1").val(1);
                     $("#namesign1").addClass('d-flex').show();
@@ -1267,6 +1281,14 @@
 
             $("#flexCheckChecked").change(function () {
                 if ($(this).is(':checked')) {
+                    if($("#DrawCheck1").is(':checked')==true){
+                        $("#sigimage").hide();
+                    }else{
+                        $("#sigimage").hide();
+                        $("#sigimage1").hide();
+                        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                    }
+
                     $("#pdfChecked").prop('checked', false);
                     $("#DrawCheck").prop('checked', false);
                     $("#signtype").val(1);

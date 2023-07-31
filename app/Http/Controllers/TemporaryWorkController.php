@@ -194,6 +194,7 @@ class TemporaryWorkController extends Controller
             } else {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
                 $ids = [];
+                $tot_emails = [];
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
                 }
@@ -207,6 +208,7 @@ class TemporaryWorkController extends Controller
 
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                    $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
@@ -221,9 +223,10 @@ class TemporaryWorkController extends Controller
                     }
                      $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                 }
+                // dd($tot_emails);
             }
            
-               
+            //    dd($tot_emails);
             //work for datatable
             $scantempwork = '';
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','assignedBlocks', 'scantempwork','nominations','users','block', 'tot_emails'));

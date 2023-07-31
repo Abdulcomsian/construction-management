@@ -1483,11 +1483,23 @@
        
     })
     $("#flexCheckChecked1").change(function(){
+        
         if($(this).is(':checked'))
-        {
-             $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-            $("#sigimage1").hide();
-        }
+        { 
+            $("#DrawCheck1").prop('checked', false);
+            if($("#DrawCheck").is(':checked')==true){ 
+                        $("#sigimage1").hide();
+                        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").removeAttr("disabled");
+                    }else{
+                        $("#sigimage").hide();
+                        $("#sigimage1").hide();
+                        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                    }
+
+            //  $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            // $("#sigimage1").hide();
+                }
+
     })
     
         </script>

@@ -1017,6 +1017,8 @@
 
     $("#flexCheckChecked1").change(function () {
         if ($(this).is(':checked')) {
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
             $("#DrawCheck1").prop('checked',false);
             $("#pdfChecked1").prop('checked',false);
             $("#signtype1").val(1);
@@ -1087,6 +1089,13 @@
         // // pdfsign
         // alert();
         if ($(this).is(':checked')) {
+            if($("#DrawCheck1").is(':checked')==true){
+                $("#sigimage").hide();
+            }else{
+                $("#sigimage").hide();
+                $("#sigimage1").hide();
+                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            }
             $("#pdfChecked").prop('checked', false);
             $("#DrawCheck").prop('checked', false);
             $("#signtype").val(1);

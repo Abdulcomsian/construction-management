@@ -18,7 +18,6 @@ $tempWorkClass = "d-none";
         height:65px !important;
         max-height:65px !important;
         overflow:hidden !important;
-        ]
     }
 
     #kt_aside{

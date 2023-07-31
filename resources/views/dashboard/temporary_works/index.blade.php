@@ -14,6 +14,13 @@ $tempWorkClass = "d-none";
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+    .indexTempory .test{
+        height:65px !important;
+        max-height:65px !important;
+        overflow:hidden !important;
+        ]
+    }
+
     #kt_aside{
         display:none;
     }
@@ -90,6 +97,7 @@ $tempWorkClass = "d-none";
     .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg {
         padding: 0px 10px;
     }
+    .select2-selection { height: auto !important;}
 
     .aside-enabled.aside-fixed .wrapper {
         padding-left: 30px;
@@ -695,7 +703,7 @@ $tempWorkClass = "d-none";
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">
-                        <div class="my-4" style="background: white;padding: 10px 22px;">
+                        <div class="my-4 test"  style="background: white;padding: 10px 22px;">
                             <div class="row align-items-center" style="justify-content: flex-start;">
                                 <div class="col-md-6">
                                     <div class="row align-items-center" style="justify-content: flex-start;">
@@ -703,8 +711,8 @@ $tempWorkClass = "d-none";
                                             <form class="form-inline d-flex m-0" method="get"
                                                 action="{{route('tempwork.proj.search')}}">
                                                 <div class="col-10">
-                                                    <select name="projects[]" class="form-select form-select-lg"
-                                                        multiple="multiple" data-control="select2"
+                                                    <select name="projects[]" multiple="multiple" class="form-select form-select-lg"
+                                                         data-control="select2"
                                                         data-placeholder="Select a Project" required>
                                                         @foreach($projects as $proj)
                                                         <option value="{{$proj->id}}">{{$proj->name}}</option>

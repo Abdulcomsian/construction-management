@@ -1,3 +1,13 @@
+<style>
+    .check svg {
+  transform: scaleX(1);
+}
+
+
+</style>
+
+
+<div id="check2">
 <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside"
     data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
     data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start"
@@ -11,11 +21,11 @@
         </a>
         <!--end::Logo-->
         <!--begin::Aside toggler-->
-        <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"
+        <div  class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"
             data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
             data-kt-toggle-name="aside-minimize">
             <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-double-left.svg-->
-            <span class="svg-icon svg-icon-1 rotate-180">
+            <span class="svg-icon svg-icon-1 check"  onclick="hideCheck2()">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                     height="24px" viewBox="0 0 24 24" version="1.1">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -283,3 +293,15 @@
     <!--end::Aside menu-->
     <!--end::Footer-->
 </div>
+</div>
+
+
+<script>
+function hideCheck2() {
+    if (window.location.href === "http://127.0.0.1:8000/temporary_works") {
+        document.getElementById("check2").style.display = "none";
+    }else if(window.location.href === "http://127.0.0.1:8000/temporary_works_shared"){
+        document.getElementById("check2").style.display = "none";
+    }
+}
+</script>

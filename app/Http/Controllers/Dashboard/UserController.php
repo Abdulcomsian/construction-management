@@ -510,7 +510,7 @@ class UserController extends Controller
     public function User_Project_Nomination($id)
     {
         $project_wise_nominations=Nomination::with('user.userCompany','projectt')->where('user_id',$id)->get();
-        //User::find($id)->update(['user_notify'=>0]);
+        // $user = User::find($id)->update(['user_notify'=>0]);
         return view('dashboard.users.details',compact('project_wise_nominations'));
     }
 

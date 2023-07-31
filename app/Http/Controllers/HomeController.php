@@ -28,14 +28,31 @@ class HomeController extends Controller
     {
         try 
         {
+           
+
             $userdata=explode(' ',$id);
             $userid= \Crypt::decrypt($userdata[0]);
             $projectid=\Crypt::decrypt($userdata[1]);
             $user=User::with('userCompany')->find($userid);
             //check if already nomination is submited
             $nomination=Nomination::with('projectt')->where(['user_id'=>$userid,'project'=>$projectid])->first();
+// dd($nomination->id);
+            // dd($user);
+          
+
             if($nomination)
             {
+                $model=new NominationComment();
+                $model->email=$user->email;
+                $model->comment="User has Clicked on Nomination from email";
+                $model->type="Nomination Read";
+                // $model->send_date=date('Y-m-d H:i:s');
+                $model->read_date=date('Y-m-d  H:i:s');
+                $model->user_id=$user->id;
+                $model->project_id=$projectid;
+                $model->nomination_id=$nomination->id;
+                $model->save();
+
                  return view('nomination',compact('nomination','user'));
             }
             else{
@@ -45,6 +62,8 @@ class HomeController extends Controller
                 return view('nomination',compact('user','projects','project_data'));
              }
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
+
             toastError('Something went wrong, try again!');
             return back();
         }
@@ -300,7 +319,7 @@ class HomeController extends Controller
 
                 $model=new NominationComment();
                 $model->email=$user->email;
-                $model->comment="User submit the nominatin form to company ".$company->email."";
+                $model->comment="User has submitted Nominatin form"; //to company ".$company->email."
                 $model->type="Nomination";
                 $model->send_date=date('Y-m-d H:i:s');
                 // $model->read_date=date('Y-m-d');
@@ -663,7 +682,7 @@ class HomeController extends Controller
 
                 $model=new NominationComment();
                 $model->email=$user->email;
-                $model->comment="User Update the nominatin form to company ".$company->email."";
+                $model->comment="User has Updated the nomination form";  //to company ".$company->email."
                 $model->type="Nomination";
                 $model->send_date=date('Y-m-d H:i:s');
                 // $model->read_date=date('Y-m-d');
@@ -702,6 +721,18 @@ class HomeController extends Controller
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
                     DB::commit();
+                    
+                    // $model=new NominationComment();
+                    // $model->email=$user->email;
+                    // $model->comment="User has Updated Nomination form";
+                    // $model->type="Nomination Updated";
+                    // // $model->send_date=date('Y-m-d H:i:s');
+                    // $model->read_date=date('Y-m-d  H:i:s');
+                    // $model->user_id=$user->id;
+                    // $model->project_id=$request->project;
+                    // $model->nomination_id=$nomination->id;
+                    // $model->save();
+
                     toastSuccess('Nomination Form updated successfully!');
                     $id=\Crypt::encrypt($user->id);
                     return view('nomination',compact('nomination','id','user'));

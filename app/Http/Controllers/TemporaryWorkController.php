@@ -3084,15 +3084,15 @@ $notify_admins_msg = [
         
         $path = config('app.url');
         $data=TemporayWorkImage::where('temporary_work_id',$request->id)->get();
-        //echo"<pre>";print_r($data);exit;
+        // echo"<pre>";print_r($data);exit;
         $list='';
         if(count($data)>0)
         {
-            $list.='<table class="table"><thead><tr><th>#NO</th><th>File</th></tr></thead><tbody>';
+            $list.='<table class="table"><thead><tr><th>#NO</th><th>File</th><th>Date</th></tr></thead><tbody>';
             foreach($data as $key => $dt)
             {
                 $key++;
-                $list.='<tr><td>'.$key.'</td><td><a href='. $path . $dt->image .' target="_blank">'.$dt->image.'</a></td></tr>';
+                $list.='<tr><td style="text-align:center;">'.$key.'</td><td style="text-align:center"><a href='. $path . $dt->image .' target="_blank">'.$dt->image.'</a></td><td style="text-align:center"> ' . $dt->created_at .'</td></tr>';
             }
             $list.='</tbody></table>';
             

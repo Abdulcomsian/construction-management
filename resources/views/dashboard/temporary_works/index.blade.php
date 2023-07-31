@@ -1439,7 +1439,7 @@ $tempWorkClass = "d-none";
                                                                 <div
                                                                     style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
                                                                     @if($drawingscount)
-                                                                    <!-- <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p> -->
+                                                                    <!-- <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p> //-->
                                                                     @endif
 
                                                                     @if(isset($item->permits[0]->id) ||

@@ -1225,6 +1225,8 @@
     <script>
         $("#flexCheckChecked1").change(function () {
                 if ($(this).is(':checked')) {
+                    $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
                     $("#DrawCheck1").prop('checked',false);
                     $("#signtype1").val(1);
                     $("#namesign1").addClass('d-flex').show();
@@ -1294,6 +1296,10 @@
             $("#DrawCheck").change(function(){
                 if($(this).is(':checked'))
                 {
+                    $("#sigimage").show();
+                    $('#submitbutton').prop('disabled', true);
+                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+                    $("#sig").show();
                     $("#pdfChecked").prop('checked',false);
                     $("#flexCheckChecked").prop('checked',false);
                     $("#signtype").val(0);
@@ -1336,6 +1342,8 @@
             $("#DrawCheck1").change(function(){
                 if($(this).is(':checked'))
                 {
+                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").removeAttr("disabled");
+                    $("#sigimage1").show();
                     $("#pdfChecked1").prop('checked',false);
                     $("#flexCheckChecked1").prop('checked',false);
                     $("#signtype").val(0);
@@ -1368,6 +1376,9 @@
             $("#pdfChecked").change(function () {
 
                 if ($(this).is(':checked')) {
+                    $("#DrawCheck").prop('checked', false);
+
+                    $("#sig").hide();
                     $("#flexCheckChecked").prop('checked', false);
                     $("#pdfsign").val(1);
                     $("#signtype").val(0);

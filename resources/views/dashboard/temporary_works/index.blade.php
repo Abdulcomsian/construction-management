@@ -1151,8 +1151,9 @@ $tempWorkClass = "d-none";
                                             id="kt_table_users">
 
                                             <tbody class="text-gray-600 fw-bold taable">
-
+@php $count =-1; @endphp
                                                 @forelse($temporary_works as $item)
+                                                @php $count++; @endphp
                                                 <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
                                                     style="height: {{count($temporary_works)==1 ? '100px':''}}">
                                                     <td
@@ -1274,6 +1275,7 @@ $tempWorkClass = "d-none";
                                                             </div>
                                                             <div>
                                                                 @php $i=0;
+                                                                
                                                                 $tot = count($item->uploadfile ); @endphp
                                                                 <!-- @foreach($item->uploadfile as $file)
                                                         @if($file->file_type==4)
@@ -1285,7 +1287,9 @@ $tempWorkClass = "d-none";
                                                                     style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; @if($tot>0) background: #3A7DFF26; color: #3A7DFF;  @else background: grey; color: #fff; @endif border-radius: 7px; padding: 4px 10px; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;"
                                                                     data-id="{{$item->id}}" data-type="4">
                                                                     <!-- <span class="fa fa-plus"></span> -->
-                                                                    Emails ({{$tot}})
+                                                                    Emails 
+                                                                    <!-- ({{$tot}}) -->
+                                                                    ({{$tot_emails[$count]}})
                                                                 </p>
                                                             </div>
                                                             <span class="desc cursor-pointer"
@@ -3517,8 +3521,10 @@ $tempWorkClass = "d-none";
                                             $selectedBlock = request('block');
                                             $count =0;
                                             @endphp
+                                            @php $count=-1; @endphp
                                             @forelse($temporary_works as $item)
                                             @php
+                                            $count++;
                                             $hasMatchingBlock = false;
                                             if(!$selectedBlock){
                                             $hasMatchingBlock = true;
@@ -3672,7 +3678,7 @@ $tempWorkClass = "d-none";
                                                                 style="margin-bottom:2px;font-weight: 400;font-size: 11px !important; display: inline-block; @if($tot>0) background: #3A7DFF26; color: #3A7DFF;  @else background: grey; color: #fff; @endif border-radius: 7px; padding: 4px 10px; padding: 4px 10px !important;word-break: keep-all;width:112px;text-align:center;"
                                                                 data-id="{{$item->id}}" data-type="4">
                                                                 <!-- <span class="fa fa-plus"></span> -->
-                                                                Emails
+                                                                Emails ({{$tot_emails[$count]}})
                                                             </p>
                                                         </div>
                                                         <span class="desc cursor-pointer"
@@ -4565,6 +4571,7 @@ $tempWorkClass = "d-none";
            },
            success: function(res) {
                res=JSON.parse(res);
+               console.log(res);
                $("#commenttable").html(res.comment);
                $("#twccommenttable").html(res.twccomment);
                $("#twccommenttable2").html(res.twcdesigner);

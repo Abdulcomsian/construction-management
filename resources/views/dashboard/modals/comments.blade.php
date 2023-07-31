@@ -30,13 +30,16 @@
                 <!--begin:Form-->
                 <div class="mb-13 text-center">
                     <!--begin::Title-->
-                    <h1 class="mb-3" style="text-align: left; font-weight: 700; font-size: 26px;font-family: 'Inter';">
-                        Comments</h1>
+                    <h1 class="mb-3" style="text-align: center; font-weight: 700; font-size: 26px;font-family: 'Inter';">
+                        Comments / Communication</h1>
                     <!--end::Title-->
                 </div>
 
                 <div class="col-md-12">
                             <!--begin::Label-->
+                            <div id="commenttable">
+
+                            </div><br>
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
                                 <span class="required">TWC Message to Designers:</span>
                             </label>
@@ -67,9 +70,7 @@
                             <!--begin::Label-->
                         </div>
 
-                <div id="commenttable">
-
-                </div>
+                
                 <br>
                 @if(isset($scantempwork) || $scantempwork=='sharedview')
                 <form id="kt_modal_new_target_form" class="form comments_details_form comments_form"

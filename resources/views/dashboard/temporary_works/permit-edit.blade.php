@@ -1137,6 +1137,13 @@
             $("#flexCheckChecked").change(function(){
                 if($(this).is(':checked'))
                 {
+                    if($("#DrawCheck1").is(':checked')==true){
+                        $("#sigimage").hide();
+                    }else{
+                        $("#sigimage").hide();
+                        $("#sigimage1").hide();
+                        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                    }
                     $("#pdfChecked").prop('checked',false);
                     $("#DrawCheck").prop('checked',false);
                     $("#signtype").val(1);
@@ -1344,6 +1351,9 @@
     $("#DrawCheck").change(function(){
         if($(this).is(':checked'))
         {
+            $("#sigimage").show();
+            $('#submitbutton').prop('disabled', true);
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
             $("#pdfChecked").prop('checked',false);
             $("#flexCheckChecked").prop('checked',false);
             $("#signtype").val(0);
@@ -1378,6 +1388,16 @@
 
         if($(this).is(':checked'))
         {
+            if($("#DrawCheck1").is(':checked')==true){
+                        $("#sigimage").hide();
+                    }else{
+                        $("#sigimage").hide();
+                        $("#sigimage1").hide();
+                        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                    }
+
+            // $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            // $("#sigimage").hide();
             $("#flexCheckChecked").prop('checked',false);
             $("#DrawCheck").prop('checked',false);
             $("#pdfsign").val(1);
@@ -1407,7 +1427,8 @@
 
     $("#flexCheckChecked1").change(function () {
         if ($(this).is(':checked')) {
-
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
             $("#DrawCheck1").prop('checked',false);
             $("#signtype1").val(1);
             $("#namesign1").addClass('d-flex').show();
@@ -1429,8 +1450,10 @@
     $("#DrawCheck1").change(function(){
         if($(this).is(':checked'))
         {
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").removeAttr("disabled");
+            $("#sigimage1").show();
             $("#pdfChecked1").prop('checked',false);
-            $("#flexCheckChecked1").prop('checked',false);
+            $("#flexCheckChecked1").prop('checked',false); 
             $("#signtype").val(0);
              $("#pdfsign").val(0);
              $("#Drawtype").val(1);
@@ -1446,15 +1469,25 @@
             $("#sign1").removeClass('d-none');
            
         }
-        // else{
-        //     $("#signtype").val(2);
-        //     $("#sign").addClass('d-flex').show();
-        //     $("#namesign").removeClass('d-flex').hide();
-        //     $("input[name='namesign']").removeAttr('required');
-        //     $("#clear").show();
-        //     $(".customSubmitButton").addClass("hideBtn");
-        //     $(".customSubmitButton").removeClass("showBtn");
-        // }
+        else{
+            // $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            // $("#sigimage1").hide();
+            // $("#signtype").val(2);
+            // $("#sign").addClass('d-flex').show();
+            // $("#namesign").removeClass('d-flex').hide();
+            // $("input[name='namesign']").removeAttr('required');
+            // $("#clear").show();
+            // $(".customSubmitButton").addClass("hideBtn");
+            // $(".customSubmitButton").removeClass("showBtn");
+        }
+       
+    })
+    $("#flexCheckChecked1").change(function(){
+        if($(this).is(':checked'))
+        {
+             $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage1").hide();
+        }
     })
     
         </script>

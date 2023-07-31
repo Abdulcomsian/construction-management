@@ -153,9 +153,12 @@ class TemporaryWorkController extends Controller
         try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+               
+                
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
+                $tot_emails = [];
                 foreach ($temporary_works as $temporary_work) {
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')
@@ -163,10 +166,13 @@ class TemporaryWorkController extends Controller
 
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+
+                    $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
             } elseif ($user->hasRole('company')) {
                 $users = User::select(['id','name'])->where('company_id', $user->id)->get();
                 $ids = [];
+                $tot_emails = [];
                 foreach ($users as $u) {
                     $ids[] = $u->id;
                 }
@@ -179,6 +185,8 @@ class TemporaryWorkController extends Controller
 
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+
+                    $tot_emails = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
@@ -200,6 +208,7 @@ class TemporaryWorkController extends Controller
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
                 }
+                
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
                 $users=[];
@@ -213,10 +222,13 @@ class TemporaryWorkController extends Controller
                      $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                 }
             }
+           
+               
             //work for datatable
             $scantempwork = '';
-            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','assignedBlocks', 'scantempwork','nominations','users','block'));
+            return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','assignedBlocks', 'scantempwork','nominations','users','block', 'tot_emails'));
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -1174,7 +1186,7 @@ $notify_admins_msg = [
                 $cmh->type ='TWC to Designer';
                 $cmh->foreign_idd=$request->temp_work_id;
                 $cmh->message='Comment added for Designer';
-                $chm->user_type = 'designer';
+                // $chm->user_type = 'designer';
                 $cmh->save();
             }
             // if ($model->save()) {

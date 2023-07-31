@@ -1125,6 +1125,9 @@
     $("#DrawCheck").change(function(){
         if($(this).is(':checked'))
         {
+            $('#submitbutton').prop('disabled', true);
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+            $("#sigimage").show();
             $("#pdfChecked").prop('checked',false);
             $("#flexCheckChecked").prop('checked',false);
             $("#signtype").val(0);
@@ -1155,6 +1158,8 @@
     $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
         {
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
             $("#pdfChecked").prop('checked',false);
             $("#DrawCheck").prop('checked',false);
             $("#signtype").val(1);
@@ -1184,6 +1189,9 @@
     $("#pdfChecked").change(function(){
         if($(this).is(':checked'))
         {
+            $("#sigimage").hide();
+            $("#submitbutton").css("cursor", "pointer");
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
             $("#flexCheckChecked").prop('checked',false);
             $("#DrawCheck").prop('checked',false);
             $("#pdfsign").val(1);
@@ -1277,7 +1285,9 @@ $('#clear').click(function(e) {
        signaturePad.clear();
        $("#signature").val('');
         $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
-        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
+        $('#submitbutton').prop('disabled', true);
+
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
    });
 // $("#submitbutton").on('click',function(e){
 // if ( $("#desingform-form").valid() ) {
@@ -1298,7 +1308,8 @@ $("#submitbutton").on('click', function () {
     // if (signaturePad1) {
     //     $("#signature1").val(signaturePad1.toDataURL('image/png'));
     // }
-    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+    $('#submitbutton').prop('disabled', true);
+    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.prop("disabled", true);
     $("#desingform").submit();
 });
 

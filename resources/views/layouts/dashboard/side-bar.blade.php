@@ -297,11 +297,35 @@
 
 
 <script>
-function hideCheck2() {
-    if (window.location.href === "http://127.0.0.1:8000/temporary_works") {
+// function hideCheck2(event) {
+//     if (window.location.href === "http://127.0.0.1:8000/temporary_works" || window.location.href === "http://127.0.0.1:8000/temporary_works_shared") {
+//         document.getElementById("check2").style.display = "none";
+//         event.preventDefault();
+//     }
+// }
+
+
+
+
+function hideCheck2(event) {
+    var url = window.location.href;
+    if (url.endsWith("/temporary_works") || url.endsWith("/temporary_works_shared")) {
         document.getElementById("check2").style.display = "none";
-    }else if(window.location.href === "http://127.0.0.1:8000/temporary_works_shared"){
-        document.getElementById("check2").style.display = "none";
+        event.preventDefault();
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>

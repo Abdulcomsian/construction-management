@@ -4464,6 +4464,7 @@ $tempWorkClass = "d-none";
     <!--end::Container-->
 </div>
 <!--end::Post-->
+<div id="mini"></div>
 </div>
 @include('dashboard.modals.drawingdesign')
 @include('dashboard.modals.upload-file')
@@ -5320,6 +5321,12 @@ overlay.addEventListener('click', () => {
 <script>
             function hideCheck1() {
             document.getElementById("check2").style.display = "block";
+            if (event) {
+        event.preventDefault();
+    }
         }
 </script>
+
+
+
 @endsection

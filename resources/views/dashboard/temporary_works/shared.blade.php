@@ -490,7 +490,7 @@ $tempWorkClass = "d-none";
             <div class="card">
                 <div class="card-header border-0">
                         <div class="card-title">
-                            <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px">Menu</a>
+                            <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hide1()">Menu</a>
                             <h3 class="card-label pt-5" style="font-size:1.6rem;">Shared Temporary Works
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
@@ -1844,5 +1844,10 @@ overlay.addEventListener('click', () => {
     asideContainer.style.display = 'none';
     overlay.classList.add('d-none');
 })
+</script>
+<script>
+                function hide1() {
+            document.getElementById("check2").style.display = "block";
+        }
 </script>
 @endsection

@@ -1846,8 +1846,12 @@ overlay.addEventListener('click', () => {
 })
 </script>
 <script>
-                function hide1() {
-            document.getElementById("check2").style.display = "block";
-        }
+function hide1(event) {
+    document.getElementById("check2").style.display = "block";
+    if (event) {
+        event.preventDefault();
+    }
+}
+
 </script>
 @endsection

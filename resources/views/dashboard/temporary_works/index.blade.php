@@ -14,11 +14,11 @@ $tempWorkClass = "d-none";
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
-    .indexTempory .test{
+    /* .indexTempory .test{
         height:65px !important;
         max-height:65px !important;
         overflow:hidden !important;
-    }
+    } */
 
     #kt_aside{
         display:none;

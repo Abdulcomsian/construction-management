@@ -277,7 +277,7 @@
                         </div>
                          <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
                             <h4>Upload Other Documents</h4>
-                            <div class="row appenddoc">
+                            <div class="row ">
                                 <div class="col-md-4 fv-row fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2">Name</label>
                                     <input type="text" class="form-control form-control-solid"  name="other_doucuments_name[]" />
@@ -290,6 +290,7 @@
                                     <button type="button" class="btn btn-primary addmoredoucument"><i class="fa fa-plus"></i> Add More</button>
                                 </div>
                             </div>
+                            <div class="appenddoc"></div>
                         </div>
                         <!-- <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
@@ -320,7 +321,10 @@
 @section('scripts')
 <script>
     $(".addmoredoucument").on('click',function(){
-        $(".appenddoc").after(`<div class="row">
+        $(".appenddoc").append(
+
+        // $(".appenddoc").after(
+            `<div class="row ">
                                 <div class="col-md-4 fv-row fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2">Name</label>
                                     <input type="text" class="form-control form-control-solid"  name="other_doucuments_name[]"/>

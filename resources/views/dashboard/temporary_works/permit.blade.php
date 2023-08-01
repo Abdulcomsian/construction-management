@@ -1208,7 +1208,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button id="submitbutton" type="button" class="btn btn-secondary " disabled>Submit</button>
+                            <button id="submitbutton" type="button" disabled class="btn btn-secondary " disabled>Submit</button>
                             <!-- <div class="d-flex inputDiv principleno" style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                             </div> -->

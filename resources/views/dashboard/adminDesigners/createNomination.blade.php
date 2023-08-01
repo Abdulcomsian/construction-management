@@ -279,7 +279,7 @@
                             <tbody>
                                 <tr>
                                     <td>Nominated person’s (Company)</td>
-                                    <td><input type="text" name="nominated_person_employer" value="{{$user->userDiCompany->name}}" required></td>
+                                    <td><input type="text" name="nominated_person_employer" value="{{$user->userDiCompany->designer_company}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Nominated person </td>

@@ -150,7 +150,7 @@
                             <tbody class="text-gray-600 fw-bold">
                                 <tr>
                                     <td style="text-align:center;">1</td>
-                                    <td>{{$companyProfile->designer_company}}</td>
+                                    <td>{{$companyProfile->company_name}}</td>
                                     <td>{{$companyProfile->comapny_email}}</td>
                                     <td>{{$companyProfile->company_address}}</td>
                                     <td style="max-height: 200px;

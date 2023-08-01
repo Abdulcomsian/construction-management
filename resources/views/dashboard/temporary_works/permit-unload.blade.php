@@ -797,7 +797,7 @@
                                         </div>
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="signtype"
+                                            <input type="hidden" id="signtype1" name="signtype"
                                                 class="form-control form-control-solid" value="2">
                                             <span
                                                 style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
@@ -926,13 +926,16 @@ signaturePad.addEventListener('endStroke', function(){
         pc_approval = document.querySelector('input[name="approval_PC"]:checked').value;
         $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
         if(pc_approval==2){
+            console.log("here");
             if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
                 $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
             }else{
+                
                 $('#submitbutton').prop('disabled', true);
                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");;//.removeAttr("disabled");
             }
         }else{
+            console.log("there");
             var signtype1 = $("#signtype1").val();
             if(signtype1==1){
                 if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
@@ -1095,7 +1098,7 @@ signaturePad.addEventListener('endStroke', function(){
             // $(".customSubmitButton").addClass("showBtn");
             //  $("input[name='pdfsign']").removeAttr('required');
             // $("input[name='namesign']").attr('required','required');
-            $("#clear").show();
+            // $("#clear").show();
             $("div#pdfsign1").removeClass('d-flex').addClass("d-none");
             $("div#namesign1").removeClass('d-flex').addClass("d-none");
             $("#sign1").css('display','block');
@@ -1116,17 +1119,55 @@ signaturePad.addEventListener('endStroke', function(){
 
     $("#flexCheckChecked1").change(function () {
         if ($(this).is(':checked')) {
-            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#signtype1").val(1);
+            var signtype = $("#signtype").val();
+            var signtype1 = $("#signtype1").val();
+            var pdfsigntype = $("#pdfsign").val();
+           
+            var pc_approval = document.querySelector('input[name="approval_PC"]:checked').value;
+            console.log(signtype,pdfsigntype, signtype1, pc_approval);
+            if(pc_approval==2){
+                if(signtype==1 || pdfsigntype==1){
+                    $("#submitbutton").css("cursor", "pointer");
+                    $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                }else{
+                    $('#submitbutton').prop('disabled', true);
+                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
+                }
+                
+            }else{
+                if((signtype==1 || pdfsigntype==1) && signtype1==1){
+                    $("#submitbutton").css("cursor", "pointer");
+                    $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                }else{
+                    console.log(signaturePad.toDataURL('image/png'));
+                    if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
+
+                        console.log("here");
+                        $('#submitbutton').prop('disabled', true);
+                        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary");
+                    }else{
+                        console.log("there");
+                        $('#submitbutton').prop('disabled', true);
+                        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
+                    }
+                    
+                }
+            }
+
+            $("#sigimage1").hide();
+            $("#DrawCheck1").prop('checked',false);
+
+            // $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
             $("#sigimage").hide();
             $("#DrawCheck1").prop('checked',false);
             $("#pdfChecked1").prop('checked',false);
-            $("#signtype1").val(1);
             $("#namesign1").removeClass('d-none');
             $("#namesign1").addClass('d-flex');
             $("div#pdfsign1").addClass('d-none'); 
             $("input[name='namesign1']").attr('required', 'required');
             $("#signature1").removeAttr('required', 'required');
-            $("#clear1").hide();
+            // $("#clear1").hide();
             $("#sign1").removeClass('d-flex').hide();
 
         } else {
@@ -1230,6 +1271,8 @@ signaturePad.addEventListener('endStroke', function(){
             $("#pdfsign").val(1);
             $("#signtype").val(0);
             $('#Drawtype').val(0);
+            $("#sigimage1").hide();
+            $("#DrawCheck").prop('checked',false);
             $("input[name='pdfsign']").attr('required', 'required');
             $("div#sign").removeClass('d-flex').addClass('d-none');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');

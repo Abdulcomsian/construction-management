@@ -150,7 +150,7 @@
                             <tbody class="text-gray-600 fw-bold">
                                 <tr>
                                     <td style="text-align:center;">1</td>
-                                    <td>{{$companyProfile->company_name}}</td>
+                                    <td>{{$companyProfile->designer_company}}</td>
                                     <td>{{$companyProfile->comapny_email}}</td>
                                     <td>{{$companyProfile->company_address}}</td>
                                     <td style="max-height: 200px;
@@ -185,7 +185,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Name OF Company</label>
-                                    <input type="text" class="form-control form-control-solid readonly-input" placeholder="Designer Name" name="company_name" value="{{auth()->user()->name}}" readonly required />
+                                    <input type="text" class="form-control form-control-solid readonly-input" placeholder="Designer Name" name="company_name" value="{{auth()->user()->designer_company}}" readonly required />
                                 </div>
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Company Email</label>

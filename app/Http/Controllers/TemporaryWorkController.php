@@ -1854,7 +1854,7 @@ $notify_admins_msg = [
             $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
             $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
-            // dd($request->all());
+           
             $image_name1 = '';
             if ($request->principle_contractor == 1) { 
                 $all_inputs['name1'] = $request->name1;
@@ -1875,7 +1875,7 @@ $notify_admins_msg = [
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1; 
                 }
-            } 
+            }  
             //second person signature and name
             $image_name = '';
             if ($request->signtype == 1) {
@@ -1902,7 +1902,7 @@ $notify_admins_msg = [
             if (isset($request->approval)) {
                 $all_inputs['status'] = 2;
             }
-            $permitload = PermitLoad::create($all_inputs);
+            $permitload = PermitLoad::create($all_inputs);  
             if ($permitload) {
                 //make status 0 if permit is 
                 $msg= Auth::user()->name .' has uploaded a permit to load to the Temporary Works Portal.';
@@ -1916,10 +1916,10 @@ $notify_admins_msg = [
                     $message = "Renew";
                     $actiontext="View Permit Renewal";
                 }
-
+                
                 //save permit image
                 $pojectdata=Project::select('name','no')->find($request->project_id);
-                $image_links = $this->permitfiles($request, $permitload->id);
+                $image_links = $this->permitfiles($request, $permitload->id); 
                 $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'company1' => $request->company1, 'date1'=>$request->date1]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';

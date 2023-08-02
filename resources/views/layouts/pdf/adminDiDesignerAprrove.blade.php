@@ -506,7 +506,7 @@
              <div style="background:gray; padding: 12px; margin-top: 5px; color: white;">
                 <h4 style="margin: 0;font-size:13px">Individual being nominated</h4>
                 <p style="margin: 0;font-size: 10px;">I confirm that this is a true record of my experience and qualifications. <br>
-                    I have read and understood the xxxx Temporary Works procedure. <br>
+                    I have read and understood the {{$user->userDiCompany->name}} Temporary Works procedure. <br>
                     I specifically understand my duties.
                 </p>
             </div>

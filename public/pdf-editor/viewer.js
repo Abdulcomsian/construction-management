@@ -230,7 +230,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function openModalOnDropdownChange() {
         const dropdown = document.getElementById("myDropdown");
-        modal = new bootstrap.Modal(document.getElementById("exampleModal"));
 
         localStorage.clear();
         // Your code here to handle the change event
@@ -248,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "Modal title for " + (savedSelectedOption || "Default");
 
         // Open the modal programmatically
-        modal.show();
+        $("#exampleModal").modal("show");
         webViewerLoad();
     }
 

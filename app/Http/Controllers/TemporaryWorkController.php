@@ -186,7 +186,7 @@ class TemporaryWorkController extends Controller
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
 
-                    $tot_emails = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
+                    $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();

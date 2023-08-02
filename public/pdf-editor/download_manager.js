@@ -40,6 +40,8 @@ function download(blobUrl, filename) {
   // otherwise .click() is ignored.
   (document.body || document.documentElement).append(a);
   a.click();
+
+  console.log("download file ends here");
   a.remove();
 }
 

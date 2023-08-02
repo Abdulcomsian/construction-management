@@ -250,7 +250,6 @@
         }
     }
 </style>
-</style>
 @include('layouts.sweetalert.sweetalert_css')
 @include('layouts.datatables.datatables_css')
 @endsection
@@ -371,10 +370,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<<<<<<< HEAD
-=======
-
->>>>>>> 764b3c9bb24e0113c1e75d8210e59ac284965566
                             @php   
                              $app_url = env('APP_URL');
                             @endphp
@@ -388,10 +383,6 @@
                                                 name="qualification_date[]" value="{{$qf->date}}" required></td>
                                         <td class="tdhight" style="width:35%">
                                             <a target="_blank" href="{{$app_url.$qf->qualification_certificate}}"> Use Uploaded
-<<<<<<< HEAD
-=======
-
->>>>>>> 764b3c9bb24e0113c1e75d8210e59ac284965566
                                                 File</a>
                                             <span>Or</span>
                                             <input type="file" style="display:inline-block;width:200px;"
@@ -1106,7 +1097,7 @@
                                 <h4>Individual being nominated</h4>
                                 <p class="mb-0">
                                     I confirm that this is a true record of my experience and qualifications. <br>
-                                    I have read and understood the xxxx Temporary Works procedure. <br>
+                                    I have read and understood the {{$user->userCompany->name}} Temporary Works procedure. <br>
                                     I specifically understand my duties.
                                 </p>
                             </div>

@@ -137,9 +137,11 @@ Route::group(['middleware' => ['auth']], function () {
             //delete company other docs
             Route::get('adminDesigner/delete/companydoc',[AdminDesignerController::class,'deleteCompnayDocs'])->name('delete.companydocs');
         });
-        Route::get('adminDesigner/edit-nomination/{id}',[AdminDesignerController::class,'editNomination']);
-        Route::post('adminDesigner/update-nomination/{id}',[AdminDesignerController::class,'updateNomination']);
+        // Route::get('adminDesigner/edit-nomination/{id}',[AdminDesignerController::class,'editNomination']);
+        // Route::post('adminDesigner/update-nomination/{id}',[AdminDesignerController::class,'updateNomination']);
     });
+    Route::get('adminDesigner/edit-nomination/{id}',[AdminDesignerController::class,'editNomination'])->name('child_nomination_edit');
+    Route::post('adminDesigner/update-nomination/{id}',[AdminDesignerController::class,'updateNomination'])->name('child_nomination_update');
 //Estimator routes
 Route::group(['prefix' => 'Estimator'],function(){
     Route::group(['middleware' => ['auth']], function () {
@@ -304,13 +306,13 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
 
     //new route
     Route::get('awarded-jobs' , [AdminDesignerController::class , 'getAwardedJob'])->name('awarded_jobs');
+    Route::get('adminDesigner/designer-details/{id}',[AdminDesignerController::class,'designerDetails'])->name('designer_details');
 
 });
 
 Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination'])->name('nomination_create');
 Route::post('adminDesigner/save-nomination/{id}',[AdminDesignerController::class,'saveNomination']);
 Route::get('client-edit-estimation/{id}' , [DesignerController::class , 'clientEditEstimation'])->name('client_edit_estimation');
-Route::get('adminDesigner/designer-details/{id}',[AdminDesignerController::class,'designerDetails'])->name('designer_details');
 
 Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'nominationStatus']);
 

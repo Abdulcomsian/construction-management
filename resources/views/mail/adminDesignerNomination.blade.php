@@ -32,15 +32,22 @@
                                                                     </h1> 
                                                                     <br>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                         @if($status=="Approved" || $status=="Rejected") 
+                                                                         {{-- @if($status=="Approved" || $status=="Rejected")  --}}
+                                                                         @if($status=="Approved")
                                                                           {{$user->userDiCompany->name}} has {{$status}} your nomination please login and view.
                                                                           <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                             Please  <a href="{{route('create_appointment',Crypt::encrypt($user->id))}}">Click Here</a> to complete your appointment letter. 
                                                                             <br>   
                                                                        </p>
                                                                           {{-- <div style="margin-top: 15px;"><a href="{{route('login')}}" style="background: #353535; padding: 10px 20px; color: white; text-decoration : none;">Login</a></div> --}}
-                                                                         @else
-                                                                            {{$user->name }} has Uploaded nomination form please and view nomination.
+                                                                         @elseif($status=="Rejected")
+                                                                         <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                         The designated individual has rejected your nomination form, therefore you will not be appointed as Designer.
+                                                                         <br> 
+                                                                         Please <a href="{{route('child_nomination_edit',Crypt::encrypt($nomination->id))}}">Click Here</a> to edit your nomination form and provide any additional information requested.
+                                                                         </p>
+                                                                           @else
+                                                                           {{$user->name }} has Uploaded nomination form please and view nomination.
                                                                             <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                                 Please  <a href="{{route('designer_details',Crypt::encrypt($user->id))}}">Click Here</a> and view nomination table. 
                                                                                 <br>   

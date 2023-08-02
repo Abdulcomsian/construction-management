@@ -399,7 +399,8 @@ class DesignerController extends Controller
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
         $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id])->whereIn('type', ['normal', 'twctodesigner'])->get();
         $tags=Tag::get();
-        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata','tags','designer_certificate'));
+        $user = User::where('email',$mail)->first();
+        return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata','tags','designer_certificate','user'));
         
     }
     public function store(Request $request)

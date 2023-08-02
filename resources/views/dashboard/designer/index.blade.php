@@ -557,7 +557,7 @@
                                 $estimator_option=false;
                                 $designer_option=false;
                                 $checker_option=false;
-                                $user = App\Models\User::where('email',$_GET['mail'])->first();
+                                // $user = App\Models\User::where('email',$_GET['mail'])->first();
                                 if(isset($designer->user_id) && $user->id == $designer->user_id){
                                     $designer_option=true;
                                 }
@@ -749,179 +749,192 @@
                 </div>
                 <!-- tab 3 -->
                 <div class="tab-pane {{$certificate_active == 'active' ? 'active' : ''}}" id="tab3" role="tabpanel">
-                    <form class="form-inline" action="{{route('designer.certificate.store')}}" method="post"
-                        enctype="multipart/form-data">
-                        @csrf
-                            <input type="hidden" name="tempworkid" value="{{$id}}">
-                            <input type="hidden" name="designermail" value="{{$mail}}">
-                            <div class="row" style="background:white;margin: 0 4px;">
-                            {{-- @if($designer_certificate)
-                            <div class="col-md-6">
-                            </div>
-                            @else --}}
-                            <div class="col-md-6">
-                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Certificate Element:</span>
-                                    </label>
-                                    <div class="d-flex">
-                                        <input type="text" placeholder="Certificate Element" class="form-control" name="certificate_element" value="{{$designer_certificate->certificate_element ?? ''}}">
-                                    </div>
+                    @php 
+                    $display_certificate = false;
+                    $admin_designer = HelperFunctions::getJobAdminDesignerByJobId($id);
+                    @endphp
+                    
+                    {{-- @if($admin_designer->creator->id && ($admin_designer->creator->id == $user->id || $admin_designer->creator->id == $user->di_designer_id)) --}}
+                    @if(isset($user) && ($admin_designer->creator->id == $user->id || $admin_designer->creator->id == $user->di_designer_id))
+                        @php
+                        $display_certificate = true
+                        @endphp
+                    @endif
+                    @if($display_certificate)
+                        <form class="form-inline" action="{{route('designer.certificate.store')}}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                                <input type="hidden" name="tempworkid" value="{{$id}}">
+                                <input type="hidden" name="designermail" value="{{$mail}}">
+                                <div class="row" style="background:white;margin: 0 4px;">
+                                {{-- @if($designer_certificate)
+                                <div class="col-md-6">
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Design Document:</span>
-                                    </label>
-                                    <div class="d-flex">
-                                        <input type="text" placeholder="Design Document" class="form-control" name="design_document" value="{{$designer_certificate->design_document ?? ''}}">
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- <div class="col-md-12">
-                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Tags:</span>
-                                    </label>
-                                    <div class="d-flex">
-                                        <div class="tag-container">
-                                            @foreach($tags as $tag)
-                                                    <label class="tag">
-                                                        <input type="checkbox" name="selected_tags[]" value="<?= $tag->id ?>">
-                                                        <?= $tag->title ?>
-                                                    </label>
-                                            @endforeach
+                                @else --}}
+                                <div class="col-md-6">
+                                    <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Certificate Element:</span>
+                                        </label>
+                                        <div class="d-flex">
+                                            <input type="text" placeholder="Certificate Element" class="form-control" name="certificate_element" value="{{$designer_certificate->certificate_element ?? ''}}">
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
-                            <div class="col-md-12">
-                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Tags:</span>
-                                    </label>
-                                    <div class="d-flex">
-                                        <div class="tag-container">
-                                            @isset($tags)
+                                <div class="col-md-6">
+                                    <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Design Document:</span>
+                                        </label>
+                                        <div class="d-flex">
+                                            <input type="text" placeholder="Design Document" class="form-control" name="design_document" value="{{$designer_certificate->design_document ?? ''}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-md-12">
+                                    <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Tags:</span>
+                                        </label>
+                                        <div class="d-flex">
+                                            <div class="tag-container">
                                                 @foreach($tags as $tag)
-                                                    <label class="tag">
-                                                        <input type="checkbox" name="selected_tags[]" value="{{ $tag->id }}" 
-                                                        @if($designer_certificate && in_array($tag->id, $designer_certificate->tags->pluck('id')->toArray())) 
-                                                            checked 
-                                                        @endif
-                                                        >
-                                                        {{ $tag->title }}
-                                                    </label>
+                                                        <label class="tag">
+                                                            <input type="checkbox" name="selected_tags[]" value="<?= $tag->id ?>">
+                                                            <?= $tag->title ?>
+                                                        </label>
                                                 @endforeach
-                                            @endisset
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Tags:</span>
+                                        </label>
+                                        <div class="d-flex">
+                                            <div class="tag-container">
+                                                @isset($tags)
+                                                    @foreach($tags as $tag)
+                                                        <label class="tag">
+                                                            <input type="checkbox" name="selected_tags[]" value="{{ $tag->id }}" 
+                                                            @if($designer_certificate && in_array($tag->id, $designer_certificate->tags->pluck('id')->toArray())) 
+                                                                checked 
+                                                            @endif
+                                                            >
+                                                            {{ $tag->title }}
+                                                        </label>
+                                                    @endforeach
+                                                @endisset
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            {{-- <div class="col-md-3">
-                                <div class="form-group">
-                                    <input type="text" id="custom_tag_input" placeholder="Enter custom tag" class="form-control">
+                                {{-- <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" id="custom_tag_input" placeholder="Enter custom tag" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <textarea type="text" id="custom_tag_description" placeholder="Enter custom tag description" class="form-control"></textarea>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <textarea type="text" id="custom_tag_description" placeholder="Enter custom tag description" class="form-control"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <button class="btn btn-sm btn-success" id="save_custom_tag_btn">Save Custom Tag</button>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-success" id="save_custom_tag_btn">Save Custom Tag</button>
+                                    </div>
+                                </div> --}}
+                                
+                                <div class="row" id="signature_div">
+                                    <div class="col-md-8">
+                                    <div class="d-flex flex-column inputDiv mb-1" style="border: none">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                    style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                    <span class="signatureTitle">Signature Type:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <div class="d-flex">
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                        style="width: 12px;">
+                                    <input type="hidden" id="Drawtype" name=""
+                                        class="form-control form-control-solid" value="1">
+                                    <span
+                                        style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                    </div>
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                    <input type="hidden" id="signtype" name="signtype"
+                                        class="form-control form-control-solid" value="2">
+                                    <span
+                                        style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                    </div>
+                                    &nbsp;
+                                    <!--end::Label-->
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                    <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                        class="form-control form-control-solid" value="0">
+                                    <span
+                                        style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                        Upload </span>
+                                    </div>
+                                    </div>
+                                
+                                    </div>
+                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                    <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Signature:</span>
+                                    </label>
+                                    <br/> -->
+                                    <canvas id="sig" onblure="draw()"
+                                    style="background: lightgray; border-radius:10px"></canvas>
+                                    <br />
+                                    <textarea id="signature" name="signed" style="display: none"></textarea>
+                                    <span id="clear" class="fa fa-undo cursor-pointer"
+                                    style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                    <label class="fs-6 fw-bold mb-2" style="width: fit-content">
+                                    <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
+                                    </label>
+                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                    </div>
+                                
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign" class="form-control form-control-solid">
+                                    </div>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                    Added</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                
+                                    </div>
+                                
                                 </div>
-                            </div> --}}
-                            
-                            <div class="row" id="signature_div">
-                                <div class="col-md-8">
-                                <div class="d-flex flex-column inputDiv mb-1" style="border: none">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
-                                <span class="signatureTitle">Signature Type:</span>
-                                </label>
-                                <!--end::Label-->
-                                <div class="d-flex">
-                                <div style="display:flex; align-items: center; padding-left:10px">
-                                <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
-                                    style="width: 12px;">
-                                <input type="hidden" id="Drawtype" name=""
-                                    class="form-control form-control-solid" value="1">
-                                <span
-                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
-                                </div>
-                                <div style="display:flex; align-items: center; padding-left:10px">
-                                <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
-                                <input type="hidden" id="signtype" name="signtype"
-                                    class="form-control form-control-solid" value="2">
-                                <span
-                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
-                                </div>
-                                &nbsp;
-                                <!--end::Label-->
-                                <div style="display:flex; align-items: center; padding-left:10px">
-                                <input type="radio" class="" id="pdfChecked" style="width: 12px;">
-                                <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                    class="form-control form-control-solid" value="0">
-                                <span
-                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
-                                    Upload </span>
-                                </div>
-                                </div>
-                            
-                                </div>
-                                <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
-                                <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span class="required">Signature:</span>
-                                </label>
-                                <br/> -->
-                                <canvas id="sig" onblure="draw()"
-                                style="background: lightgray; border-radius:10px"></canvas>
-                                <br />
-                                <textarea id="signature" name="signed" style="display: none"></textarea>
-                                <span id="clear" class="fa fa-undo cursor-pointer"
-                                style="line-height: 6; position:relative; top:51px; right:26px"></span>
-                                </div>
-                                <div class="inputDiv d-none" id="pdfsign">
-                                <label class="fs-6 fw-bold mb-2" style="width: fit-content">
-                                <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
-                                </label>
-                                <input type="file" name="pdfphoto" class="form-control" accept="image/*">
-                                </div>
-                            
-                                <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span class="required">Name Signature:</span>
-                                </label>
-                                <input type="text" name="namesign" class="form-control form-control-solid">
-                                </div>
-                                <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
-                                Added</span>
-                                </div>
+                                {{-- @endif --}}
+                                
                                 <div class="col-md-4">
-                               
+                                    <div class="form-group">
+                                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled
+                                        style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                                    </div>
                                 </div>
-                            
+                                {{-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary mb-2">
+                                        Upload</button>
+                                    </div>
+                                </div> --}}
                             </div>
-                            {{-- @endif --}}
-                            
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled
-                                    style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
-                                </div>
-                            </div>
-                            {{-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary mb-2">
-                                    Upload</button>
-                                </div>
-                            </div> --}}
-                        </div>
-                    </form>
+                        </form>
+                    @endif
                     <hr>
                     <form class="form-inline" action="{{route('designer.store')}}" method="post"
                         enctype="multipart/form-data">

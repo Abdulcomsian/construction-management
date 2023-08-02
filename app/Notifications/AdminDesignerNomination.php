@@ -13,10 +13,12 @@ class AdminDesignerNomination extends Notification
 
     public $user;
     public $status;
-    public function __construct($user,$status=null)
+    public $nomination;
+    public function __construct($user,$status=null,$nomination=null)
     {
         $this->user=$user;
         $this->status=$status;
+        $this->nomination=$nomination;
     }
 
     /**
@@ -41,7 +43,7 @@ class AdminDesignerNomination extends Notification
          return (new MailMessage)
             ->greeting('Nomination')
             ->subject("Nomination")
-            ->view('mail.adminDesignerNomination',['user'=>$this->user,'status'=>$this->status]);
+            ->view('mail.adminDesignerNomination',['user'=>$this->user,'status'=>$this->status,'nomination' => $this->nomination]);
     }
 
     /**

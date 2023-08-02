@@ -105,8 +105,8 @@ See https://github.com/adobe-type-tools/cmap-resources
             "web-toolbar": "{{ asset('pdf-editor/toolbar.js') }}"
           }
         }
-      </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     {{-- <!-- pdfjs -->
     <script src="{{ asset('pdf-editor/src/pdf.js') }}"></script>
@@ -124,10 +124,12 @@ See https://github.com/adobe-type-tools/cmap-resources
     <script src="{{ asset('pdf-editor/src/secondary_toolbar.js') }}"></script>
     <script src="{{ asset('pdf-editor/src/toolbar.js') }}"></script> --}}
     <script src="{{ asset('pdf-editor/viewer.js') }}" type="module-shim"></script>
-    <script>
+    <!-- <script>
+
+      let modal;
       function openModalOnDropdownChange() {
         const dropdown = document.getElementById("myDropdown");
-        const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        modal = new bootstrap.Modal(document.getElementById("exampleModal"));
     
         // Your code here to handle the change event
         const selectedOption = dropdown.value;
@@ -145,8 +147,14 @@ See https://github.com/adobe-type-tools/cmap-resources
     
         // Open the modal programmatically
         modal.show();
+        webViewerLoad()
       }
-    </script>
+
+      function close() {
+        console.log("here");
+        modal.close()
+      }
+    </script> -->
     <style>
       .modal-content {
         height: 90vh;
@@ -160,10 +168,11 @@ See https://github.com/adobe-type-tools/cmap-resources
 
   <body tabindex="1">
     <!-- Button trigger modal -->
-    <select id="myDropdown" onchange="openModalOnDropdownChange()">
+    <select id="myDropdown"  >
       <option value="">Select PDF</option>
       <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
       <option value="http://127.0.0.1:8000/pdf/test2.pdf">Test PDF 2</option>
+      <option value="http://127.0.0.1:8000/pdf/test3.pdf">Test PDF 2</option>
       <!-- Add more options as needed -->
   </select>
 
@@ -193,6 +202,7 @@ See https://github.com/adobe-type-tools/cmap-resources
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+              onclick="close()"
             ></button>
           </div>
           <div class="modal-body">

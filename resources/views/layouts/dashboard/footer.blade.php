@@ -47,6 +47,6 @@
 }
 </style>
 
-<a  class="whats-app my-float" href="https://wa.me/00447888119977" target="_blank">
+<a  class="whats-app my-float" href="https://wa.me/447888119977" target="_blank">
     <i class="fa fa-qrcode my-float"></i>
 </a>

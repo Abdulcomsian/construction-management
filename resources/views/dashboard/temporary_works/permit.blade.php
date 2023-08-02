@@ -842,7 +842,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="d-none inputDiv pc-twc mb-0 mt-6">
+                                    <div class="d-none inputDiv pc-twc mb-0 mt-6" style="margin-top:10px !important;">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2"
                                             style="width:fit-content% !important">
@@ -854,7 +854,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="margin-top:30px;">
                                 <div class="col-md-6">
                                     <div class=" inputDiv upload_signature_div mt-0">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2"

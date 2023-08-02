@@ -43,7 +43,7 @@
     text-align:center;
     z-index:9999999;
     color:#fff;
-    font-size:40px;
+    font-size:40px; 
 }
 </style>
 

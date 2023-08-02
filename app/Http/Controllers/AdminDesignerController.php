@@ -589,9 +589,11 @@ class AdminDesignerController extends Controller
     //
     public function updateNomination(Request $request,$id)
     {
+        // dd(Auth::user()->id);
          DB::beginTransaction();
         try {
-            $user=User::find(Auth::user()->id);
+            $nomination = Nomination::find($id);
+            $user=User::find($nomination->user_id);
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -733,11 +735,9 @@ class AdminDesignerController extends Controller
                 $model->nomination_id =$nomination->id;
                 $model->save();
 
-                $user=User::find(Auth::user()->id);
                 $user->nomination_status=0;
                 $user->user_notify=1;
                 $user->save();
-            
                $pdf = PDF::loadView('layouts.pdf.adminDiDesignerNomination',['data'=>$request->all(),'signature'=>$image_name,'user'=>$user,'cv'=>$cv]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
@@ -746,14 +746,16 @@ class AdminDesignerController extends Controller
                      
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$user->userDiCompany->email ?? '')->notify(new AdminDesignerNomination($user));
+                    // dd("rrrr");
                     DB::commit();
                     toastSuccess('Nomination Form updated successfully!');
-                    return redirect()->to('adminDesigner/create-nomination/'.$user->id); 
+                    return redirect()->to('adminDesigner/create-nomination/'.Crypt::encrypt($user->id)); 
 
             }
 
         } catch (\Exception $exception) {
                 DB::rollback();
+                dd($exception->getMessage(),$exception->getLine());
                 toastError($exception->getMessage());
                 return back();
             
@@ -1080,13 +1082,13 @@ class AdminDesignerController extends Controller
                 @unlink($nomination->pdf_url);
                 Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                 $status='Approved';
-                Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNomination($user,$status));  
+                Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNomination($user,$status,$nomination));  
             }
             else{
                  Nomination::find($request->nominationid)->update(['status'=>2,'nomination_approve_reject_date'=>date('Y-m-d H:i:s')]);
                  $nomination=Nomination::find($request->nominationid);
                  $status='Rejected';
-                Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNomination($user,$status)); 
+                Notification::route('mail',$user->email ?? '')->notify(new AdminDesignerNomination($user,$status,$nomination)); 
             }
             DB::commit();
             toastSuccess('status changed successfully');
@@ -1158,7 +1160,7 @@ class AdminDesignerController extends Controller
             Notification::route('mail',$user->userDiCompany->email ?? '')->notify(new AdminDesignerAppointmentNotification($user));
             DB::commit();
             toastSuccess('Appointment Saved successfully');
-            return redirect('adminDesigner/create-nomination/'.$user->id);
+            return redirect('adminDesigner/create-nomination/'.Crypt::encrypt($user->id));
         } catch (\Exception $exception) {
             DB::rollback();
             toastError('Something went wrong, try again!' );

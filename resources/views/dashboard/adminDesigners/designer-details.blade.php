@@ -194,7 +194,11 @@ background-color: #07d564 !important;
                                         <td>{{$User->name}}</td>
                                         <td>{{$User->email}}</td>
                                         <td><a href="{{asset('pdf').'/'.$userNomination->pdf_url}}">PDF</a></td>
-                                        <td><a href="{{asset('pdf').'/'.$userNomination->appointment_pdf}}">PDF</a></td>
+                                        <td>
+                                            @if($userNomination->appointment_pdf)
+                                            <a href="{{asset('pdf').'/'.$userNomination->appointment_pdf}}">PDF</a>
+                                            @endif
+                                        </td>
                                         <td>
                                             @php 
                                                 $class='';

@@ -1350,7 +1350,7 @@ $tempWorkClass = "d-none";
                                                                     <p class="uploaddrawing cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
                                                                         style="margin-bottom:0px;font-weight: 400;bottom:3px !important; left: 1px">
-                                                                        <span style="font-size: 12px; color: #07D564;"
+                                                                        <span style="font-size: 14px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span>
                                                                     </p>
@@ -1429,7 +1429,7 @@ $tempWorkClass = "d-none";
                                                                         data-id="{{Crypt::encrypt($item->id)}}"
                                                                         data-desc="{{$item->design_requirement_text}}">
                                                                         <span
-                                                                            style="font-size: 12px; color: #07D564;  bottom: 3px"
+                                                                            style="font-size: 14px; color: #07D564;  bottom: 3px"
                                                                             class="fa fa-plus"
                                                                             title="permit to load"></span>
                                                                     </p>
@@ -1547,7 +1547,7 @@ $tempWorkClass = "d-none";
                                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                                             data-desc="{{$item->design_requirement_text}}">
                                                                             <span
-                                                                                style="font-size: 12px; color: #07D564;"
+                                                                                style="font-size: 14px; color: #07D564;"
                                                                                 class="fa fa-plus"
                                                                                 title="Upload Drawings"></span>
                                                                         </p>
@@ -1632,7 +1632,7 @@ $tempWorkClass = "d-none";
                                                                     data-id="{{$item->id}}"
                                                                     style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;"
                                                                     data-type="2"><span
-                                                                        style="font-size: 12px; color: #07D564;"
+                                                                        style="font-size: 14px; color: #07D564;"
                                                                         class="fa fa-plus"
                                                                         title="Upload Drawings"></span></p>
                                                                 @php $i=0;@endphp
@@ -1696,7 +1696,7 @@ $tempWorkClass = "d-none";
                                                                         data-rams="{{$item->rams_no ?? ''}}"
                                                                         style="bottom: 2px;left: 1px;margin-bottom:0px;font-weight: 400;font-size: 14px;"
                                                                         data-type="3"><span
-                                                                            style="font-size: 12px; color: #07D564;"
+                                                                            style="font-size: 14px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span></p>
 
@@ -2139,7 +2139,7 @@ $tempWorkClass = "d-none";
                                                                     <p class="uploaddrawing cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
                                                                         style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
-                                                                        <span style="font-size: 12px; color: #07D564;"
+                                                                        <span style="font-size: 14px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span>
                                                                     </p>
@@ -2211,7 +2211,7 @@ $tempWorkClass = "d-none";
                                                                         data-id="{{Crypt::encrypt($item->id)}}"
                                                                         data-desc="{{$item->design_requirement_text}}">
                                                                         <span
-                                                                            style="font-size: 12px; color: #07D564; position: relative !important; bottom: 3px"
+                                                                            style="font-size: 14px; color: #07D564; position: relative !important; bottom: 3px"
                                                                             class="fa fa-plus"
                                                                             title="permit to load"></span>
                                                                     </p>
@@ -2334,7 +2334,7 @@ $tempWorkClass = "d-none";
                                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                                             data-desc="{{$item->design_requirement_text}}">
                                                                             <span
-                                                                                style="font-size: 12px; color: #07D564;"
+                                                                                style="font-size: 14px; color: #07D564;"
                                                                                 class="fa fa-plus"
                                                                                 title="Upload Drawings"></span>
                                                                         </p>
@@ -2509,7 +2509,7 @@ $tempWorkClass = "d-none";
                                                     <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}"
                                                         data-type="1"
                                                         style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
-                                                        <span style="font-size: 12px; color: #07D564;"
+                                                        <span style="font-size: 14px; color: #07D564;"
                                                             class="fa fa-plus" title="Upload Drawings"></span>
                                                     </p>
                                                 </div>
@@ -2577,7 +2577,7 @@ $tempWorkClass = "d-none";
                                                         style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
                                                         data-type="add" data-id="{{Crypt::encrypt($item->id)}}"
                                                         data-desc="{{$item->design_requirement_text}}"><span
-                                                            style="font-size: 12px; color: #07D564; position: relative !important; bottom: 3px"
+                                                            style="font-size: 14px; color: #07D564; position: relative !important; bottom: 3px"
                                                             class="fa fa-plus" title="permit to load"></span></p>
                                                 </div>
 
@@ -2688,7 +2688,7 @@ $tempWorkClass = "d-none";
                                                             style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                             data-desc="{{$item->design_requirement_text}}"><span
-                                                                style="font-size: 12px; color: #07D564;"
+                                                                style="font-size: 14px; color: #07D564;"
                                                                 class="fa fa-plus" title="Upload Drawings"></span></p>
                                                     </div>
 
@@ -2760,7 +2760,7 @@ $tempWorkClass = "d-none";
                                                 @endforeach
                                                 <p class="uploadfile  cursor-pointer" data-id="{{$item->id}}"
                                                     style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;"
-                                                    data-type="2"><span style="font-size: 12px; color: #07D564;"
+                                                    data-type="2"><span style="font-size: 14px; color: #07D564;"
                                                         class="fa fa-plus" title="Upload Drawings"></span></p>
                                                 @php $i=0;@endphp
                                                 @foreach($item->uploadfile as $file)
@@ -3039,7 +3039,7 @@ $tempWorkClass = "d-none";
                                                                             data-id="{{$item->id}}" data-type="1"
                                                                             style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
                                                                             <span
-                                                                                style="font-size: 12px; color: #07D564;"
+                                                                                style="font-size: 14px; color: #07D564;"
                                                                                 class="fa fa-plus"
                                                                                 title="Upload Drawings"></span>
                                                                         </p>
@@ -3113,7 +3113,7 @@ $tempWorkClass = "d-none";
                                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                                             data-desc="{{$item->design_requirement_text}}">
                                                                             <span
-                                                                                style="font-size: 12px; color: #07D564; position: relative !important; bottom: 3px"
+                                                                                style="font-size: 14px; color: #07D564; position: relative !important; bottom: 3px"
                                                                                 class="fa fa-plus"
                                                                                 title="permit to load"></span>
                                                                         </p>
@@ -3237,7 +3237,7 @@ $tempWorkClass = "d-none";
                                                                                 data-id="{{Crypt::encrypt($item->id)}}"
                                                                                 data-desc="{{$item->design_requirement_text}}">
                                                                                 <span
-                                                                                    style="font-size: 12px; color: #07D564;"
+                                                                                    style="font-size: 14px; color: #07D564;"
                                                                                     class="fa fa-plus"
                                                                                     title="Upload Drawings"></span>
                                                                             </p>
@@ -3315,7 +3315,7 @@ $tempWorkClass = "d-none";
                                                                         data-id="{{$item->id}}"
                                                                         style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;"
                                                                         data-type="2"><span
-                                                                            style="font-size: 12px; color: #07D564;"
+                                                                            style="font-size: 14px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span></p>
                                                                     @php $i=0;@endphp
@@ -3381,7 +3381,7 @@ $tempWorkClass = "d-none";
                                                                             data-rams="{{$item->rams_no ?? ''}}"
                                                                             style="position: relative !important;bottom: 2px;left: 1px;margin-bottom:0px;font-weight: 400;font-size: 14px;"
                                                                             data-type="3"><span
-                                                                                style="font-size: 12px; color: #07D564;"
+                                                                                style="font-size: 14px; color: #07D564;"
                                                                                 class="fa fa-plus"
                                                                                 title="Upload Drawings"></span></p>
                                                                         {{-- @php $i=0;@endphp
@@ -3738,7 +3738,7 @@ $tempWorkClass = "d-none";
                                                                 <p class="uploaddrawing cursor-pointer"
                                                                     data-id="{{$item->id}}" data-type="1"
                                                                     style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
-                                                                    <span style="font-size: 12px; color: #07D564;"
+                                                                    <span style="font-size: 14px; color: #07D564;"
                                                                         class="fa fa-plus"
                                                                         title="Upload Drawings"></span>
                                                                 </p>
@@ -3815,7 +3815,7 @@ $tempWorkClass = "d-none";
                                                                     data-id="{{Crypt::encrypt($item->id)}}"
                                                                     data-desc="{{$item->design_requirement_text}}">
                                                                     <span
-                                                                        style="font-size: 12px; color: #07D564; position: relative !important; bottom: 3px"
+                                                                        style="font-size: 14px; color: #07D564; position: relative !important; bottom: 3px"
                                                                         class="fa fa-plus"
                                                                         title="permit to load"></span>
                                                                 </p>
@@ -3932,7 +3932,7 @@ $tempWorkClass = "d-none";
                                                                         style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
                                                                         data-id="{{Crypt::encrypt($item->id)}}"
                                                                         data-desc="{{$item->design_requirement_text}}">
-                                                                        <span style="font-size: 12px; color: #07D564;"
+                                                                        <span style="font-size: 14px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span>
                                                                     </p>
@@ -4017,7 +4017,7 @@ $tempWorkClass = "d-none";
                                                                 data-id="{{$item->id}}"
                                                                 style="{{$dccstyle}};margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative;top: -23px;"
                                                                 data-type="2"><span
-                                                                    style="font-size: 12px; color: #07D564;"
+                                                                    style="font-size: 14px; color: #07D564;"
                                                                     class="fa fa-plus" title="Upload Drawings"></span>
                                                             </p>
                                                             @php $i=0;@endphp
@@ -4080,7 +4080,7 @@ $tempWorkClass = "d-none";
                                                                     data-rams="{{$item->rams_no ?? ''}}"
                                                                     style="position: relative !important;bottom: 2px;left: 1px;margin-bottom:0px;font-weight: 400;font-size: 14px;"
                                                                     data-type="3"><span
-                                                                        style="font-size: 12px; color: #07D564;"
+                                                                        style="font-size: 14px; color: #07D564;"
                                                                         class="fa fa-plus"
                                                                         title="Upload Drawings"></span></p>
 

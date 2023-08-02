@@ -753,7 +753,9 @@
                     $display_certificate = false;
                     $admin_designer = HelperFunctions::getJobAdminDesignerByJobId($id);
                     @endphp
-                    @if($admin_designer->creator->id == $user->id || $admin_designer->creator->id == $user->di_designer_id)
+                    
+                    {{-- @if($admin_designer->creator->id && ($admin_designer->creator->id == $user->id || $admin_designer->creator->id == $user->di_designer_id)) --}}
+                    @if(isset($user) && ($admin_designer->creator->id == $user->id || $admin_designer->creator->id == $user->di_designer_id))
                         @php
                         $display_certificate = true
                         @endphp

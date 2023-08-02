@@ -1560,7 +1560,8 @@ $tempWorkClass = "d-none";
                                                                         <span style="width: 108px;">
                                                                             @if(count($item->unloadpermits)>0)
                                                                             <span
-                                                                                class="label label-lg font-weight-bold label-inline"
+                                                                                class="permit-to-unload label label-lg font-weight-bold label-inline"  data-id="{{Crypt::encrypt($item->id)}}"
+                                                                            data-desc="{{$item->design_requirement_text}}"
                                                                                 style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
                                                                             @else
                                                                             <span

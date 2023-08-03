@@ -2249,13 +2249,7 @@ $tempWorkClass = "d-none";
                                                                             $class="redBgBlink";
                                                                             }
                                                                             @endphp
-                                                                            @if(isset($item->rejectedpermits) &&
-                                                                            count($item->rejectedpermits)>0)
-                                                                            <br>
-                                                                            <span class="text-danger redBgBlink"
-                                                                                style="">DNL</span><br>
-
-                                                                            @endif
+                                                                            
                                                                             <!-- <br> -->
                                                                             @if(count($item->unloadpermits)==0 &&
                                                                             count($item->closedpermits)==0)

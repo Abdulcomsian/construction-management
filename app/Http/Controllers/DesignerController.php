@@ -795,7 +795,8 @@ class DesignerController extends Controller
                             $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
                         
                         }else{
-                            $background = "";
+                            // $background = ""; comment for testing
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
                         }
                         if ($uploads->preliminary_approval == 1) {
                             

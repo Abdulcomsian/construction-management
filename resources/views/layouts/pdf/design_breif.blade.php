@@ -407,7 +407,7 @@
                             <tr>
                                 <td style="width: 100%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4; font-size:12px;">
                                     @foreach($imagelinks as $links)
-                                    <a href="{{asset($links)}}">{{asset($links)}}</a><br>
+                                    <a target="_blank" href="{{asset($links)}}">{{asset($links)}}</a><br>
                                     @endforeach
                                     <br>
                                     {{-- @foreach($folderattac as $key => $folder)

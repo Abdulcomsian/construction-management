@@ -700,9 +700,11 @@ $notify_admins_msg = [
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
                 
-
                 //work for upload images here
                 $image_links = [];
+                if($imagename){
+                    $image_links[]=$imagename;
+                }
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -724,6 +726,7 @@ $notify_admins_msg = [
                 $model = TemporaryWork::find($temporary_work->id);
                 $model->ped_url = $filename;
                 $model->save();
+                dd("ddd");
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporary_work->id,

@@ -28,7 +28,6 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                @if($scantempwork!='scantempwork')
                 <div class="mb-13 text-center">
                     <!--begin::Title-->
                     <h1 class="mb-3" style="text-align: center; font-weight: 700; font-size: 26px;font-family: 'Inter';">
@@ -90,7 +89,6 @@
                     <div id="twccommenttable">
 
                     </div>
-                    @endif
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         @if(isset($scantempwork) && $scantempwork=='scantempwork')

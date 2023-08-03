@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let modal;
 
     function openModalOnDropdownChange() {
-        const dropdown = document.getElementById("myDropdown");
+        const dropdown = document.getElementById("drawingDropDown");
 
         localStorage.clear();
         // Your code here to handle the change event
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
         webViewerLoad();
     }
 
-    const dropdown = document.getElementById("myDropdown");
+    const dropdown = document.getElementById("drawingDropDown");
     dropdown.addEventListener("change", openModalOnDropdownChange);
 });
 

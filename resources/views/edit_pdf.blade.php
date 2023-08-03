@@ -173,7 +173,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
   <body tabindex="1">
     <!-- Button trigger modal -->
-    <select id="myDropdown"  >
+    <select id="drawingDropDown"  >
       <option value="">Select PDF</option>
       <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
       <option value="http://127.0.0.1:8000/pdf/test2.pdf">Test PDF 2</option>

@@ -40,6 +40,7 @@
                             <div id="commenttable">
 
                             </div><br>
+                            @if($scantempwork!='sharedview')
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
                                 <span class="required">TWC Message to Designers:</span>
                             </label>
@@ -67,6 +68,7 @@
                                 </div>
                             </form>
                             <div id="twccommenttable2"></div>
+                            @endif
                             <!--begin::Label-->
                         </div>
 

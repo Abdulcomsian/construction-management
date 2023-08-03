@@ -2979,4 +2979,10 @@ class DesignerController extends Controller
         return view('pdf_dropdown');
     }
 
+    public function saveUpdatedPdf(Request $request)
+    {
+        $uploadedFile = $request->file('pdfFile');
+        dd($updatedFile);
+    }
+
 }

@@ -20,6 +20,7 @@ Adobe CMap resources are covered by their own copyright but the same license:
 
 See https://github.com/adobe-type-tools/cmap-resources
 -->
+
 <html dir="ltr" mozdisallowselectionprint>
   <head>
     <meta charset="utf-8" />
@@ -53,6 +54,10 @@ See https://github.com/adobe-type-tools/cmap-resources
     <!--#elif !MINIFIED-->
     <!--<script src="viewer.js"></script>-->
     <!--#elif /* Development mode. */-->
+    <script>
+      var baseUrl = "{{ env('APP_URL') }}";
+      var CSRF_TOKEN = '{{ csrf_token() }}';
+    </script>
     <link
       rel="resource"
       type="application/l10n"

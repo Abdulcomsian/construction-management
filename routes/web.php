@@ -331,6 +331,7 @@ Route::get('generate-doc' , [DesignerController::class , 'generateDoc'])->name('
 Route::post('designer/certificate/store',[DesignerController::class,'certificateStore'])->name('designer.certificate.store');
 Route::post('designer/save/tag',[DesignerController::class,'saveTag'])->name('designer.save.tag');
 Route::get('edit-pdf',[DesignerController::class,'editPdf'])->name('edit.pdf');
+Route::post('save-updated-pdf',[DesignerController::class,'saveUpdatedPdf'])->name('save.updated.pdf');
 Route::get('/get-edit-pdf',[DesignerController::class,'getEditPdfModal'])->name('get_edit_pdf');
 Route::get('/pdf-dropdown',[DesignerController::class,'getPdfDropdown'])->name('get_pdf_dropdown');
 Route::get('/get-pdf-code',[DesignerController::class,'getPdfCode'])->name('get_pdf_code');

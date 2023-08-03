@@ -41,8 +41,42 @@ function download(blobUrl, filename) {
     (document.body || document.documentElement).append(a);
     $("#exampleModal").modal("hide");
     console.log("download file ends here");
+    // Wait for the download to finish before making the AJAX request
+    a.addEventListener("click", function() {
+        savePdfToDatabase(blobUrl, filename);
+    });
     a.click();
     a.remove();
+}
+
+function savePdfToDatabase(blobUrl, filename) {
+
+    console.log("baseurl",baseUrl)
+
+    // Convert the Blob URL to a Blob object
+    fetch(blobUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const formData = new FormData();
+            formData.append("pdfFile", blob, filename);
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "save-updated-pdf", true);
+            xhr.setRequestHeader('X-CSRF-TOKEN', CSRF_TOKEN);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log("PDF saved in database successfully.");
+                    } else {
+                        console.error("Error saving PDF in database:", xhr.statusText);
+                    }
+                }
+            };
+            xhr.send(formData);
+        })
+        .catch(error => {
+            console.error("Error fetching Blob:", error);
+        });
 }
 
 /**

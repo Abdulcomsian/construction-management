@@ -621,7 +621,17 @@ class DesignerController extends Controller
                      $userList = []; 
                             
                      $checksamenodesign='';
+                     $drawing_number = '';
                     foreach ($registerupload as $uploads) {
+                        $is_permit = 1;
+                        $parts = explode('-', $uploads->drawing_number);
+                        $originalNumber = $parts[0];
+                        if($drawing_number == $originalNumber)
+                        {
+                            // dd($drawing_number,$uploads->drawing_number);
+                            $is_permit=0;
+                        }
+                        $drawing_number = $originalNumber;
                         $papproval = 'No';
                         $construction = 'No';
                         $dno=explode('-',$uploads->drawing_number);
@@ -658,14 +668,16 @@ class DesignerController extends Controller
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex; height:40px;">
                                  <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
-                                 <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
-                                 <form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                                 <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
+                                if($is_permit){
+                                    $list .= '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                     <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                                     <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
-                                     <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
+                                    <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
                                     <button style="font-size:8px" type="button" class="btn btn-primary btn-small openpermitform" id="' . $uploads->id . '">Open Permit</button>
-                                </form>
-                                </td>';
+                                    </form>';
+                                }                                
+                            $list .= '</td>';
                         } else {
                             $list .= '<td style="display:flex">
                             

@@ -67,6 +67,10 @@ function savePdfToDatabase(blobUrl, filename) {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         console.log("PDF saved in database successfully.");
+                        const designUploadElement = document.getElementById("design_upload");
+                        const responseJSON = JSON.parse(xhr.responseText);
+                        const cleanedFileName = responseJSON.file_name.trim(); // Clean up file name
+                        designUploadElement.value = cleanedFileName; // Set the cleaned file name
                     } else {
                         console.error("Error saving PDF in database:", xhr.statusText);
                     }

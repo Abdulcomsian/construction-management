@@ -2982,7 +2982,12 @@ class DesignerController extends Controller
     public function saveUpdatedPdf(Request $request)
     {
         $uploadedFile = $request->file('pdfFile');
-        dd($updatedFile);
+        if ($uploadedFile) {
+            $filePath  = 'design_uploads/';
+            $file = $uploadedFile;
+            $file_name = HelperFunctions::saveFile(null, $file, $filePath);            
+        }
+        return response()->json(['file_name' => $file_name]);
     }
 
 }

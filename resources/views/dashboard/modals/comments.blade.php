@@ -82,16 +82,22 @@
                     <input type="hidden" name="temp_work_id" id="temp_work_id" />
                     <input type="hidden" name="type" value="twc" />
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                    @if($scantempwork!='sharedview')
+                        <div class="mb-13 text-center">
+                            <!--begin::Title-->
+                            <h1 class="mb-3">TWC Notes</h1>
+                            <!--end::Title-->
+                        </div>
+                        <div id="twccommenttable">
 
-                    <div class="mb-13 text-center">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">TWC Notes</h1>
-                        <!--end::Title-->
-                    </div>
-                    <div id="twccommenttable">
-
-                    </div>
+                        </div>
+                    @endif
                     <div class="row g-9 mb-8">
+                    <div class="mb-13 text-center">
+                            <!--begin::Title-->
+                            <h1 class="mb-3">Send your  comments / observation for the TWC</h1>
+                            <!--end::Title-->
+                        </div>
                         <!--begin::Col-->
                         @if(isset($scantempwork) && $scantempwork=='scantempwork')
                         <div class="col-md-12">

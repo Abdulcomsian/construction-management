@@ -95,7 +95,7 @@
                     <div class="row g-9 mb-8">
                     <div class="mb-13 text-center">
                             <!--begin::Title-->
-                            <h1 class="mb-3">Send your  comments / observation for the TWC . $scantempwor</h1>
+                            <h1 class="mb-3">Send your  comments / observation for the TWC . {{$scantempwork}}</h1>
                             <!--end::Title-->
                         </div>
                         <!--begin::Col-->

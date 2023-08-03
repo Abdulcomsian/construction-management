@@ -1422,7 +1422,7 @@ $tempWorkClass = "d-none";
                                                                 @if(count($item->unloadpermits)>0 ||
                                                                 count($item->closedpermits)>0 || $drawingscount)
                                                                 <div
-                                                                    style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
+                                                                    style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;margin-left:2px;">
                                                                     <p class="cursor-pointer permit-to-load-btn"
                                                                         style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
                                                                         data-type="add"

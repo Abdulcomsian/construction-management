@@ -4818,7 +4818,7 @@ $tempWorkClass = "d-none";
            var time = dt.getTime();
            return time + file.name;
        },
-       acceptedFiles: ".jpeg,.jpg,.png,.gif",
+       acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp3",
        addRemoveLinks: true,
        timeout: 500000,
        removedfile: function(file) {

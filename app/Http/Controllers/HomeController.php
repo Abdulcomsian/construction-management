@@ -745,6 +745,7 @@ class HomeController extends Controller
                  $pdf->save($path . '/' . $filename);
                   Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
+                    DB::commit();
                       toastSuccess('Nomination Form save successfully!');
                     return back();
 

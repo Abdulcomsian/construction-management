@@ -1855,8 +1855,13 @@ $notify_admins_msg = [
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing');
-            $all_inputs['created_by'] = auth()->user()->id;
+            if($request->drawing_option == 'drawing')
+            {
+                $exc = 'custom_drawing';
+            } else{
+                $exc = 'drawing';
+            }
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option',$exc);            $all_inputs['created_by'] = auth()->user()->id;
             //first person signature and name
            
             $image_name1 = '';

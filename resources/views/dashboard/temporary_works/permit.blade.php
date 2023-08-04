@@ -497,28 +497,6 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="d-flex inputDiv mb-0">
-                <div class="modalDiv d-block ">
-                  <!--begin::Label-->
-                  <label class="fs-6 fw-bold mb-2">
-                    <span class="required">Select Drawing :</span>
-                  </label>
-                  <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
-                    <option value="">Select PDF</option>
-                    {{-- @foreach($temporary_work_files as $files) --}}
-                    {{-- <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
-                    <option value="http://127.0.0.1:8000/pdf/test2.pdf">Test PDF 2</option>
-                    <option value="http://127.0.0.1:8000/pdf/test3.pdf">Test PDF 2</option> --}}
-                    @foreach($temporary_work_files as $upload)
-                    <option value="{{env('APP_URL').'/'.$upload->file_name}}">{{$upload->drawing_number}}
-                    <option>
-                      @endforeach
-                  </select>
-                  <input type="hidden" value="" id='design_upload' name="design_upload" />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
               <div class="d-flex inputDiv d-block mb-0">
                 <div class="modalDiv d-block">
                   <!--begin::Label-->
@@ -529,6 +507,64 @@
                   <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class=" form-group mt-md-5">
+                <label>Drawings
+                  <input name="drawing_option" id="drawing_field" type="radio" value="drawing" checked />
+                </label>
+                <label>Custom File
+                  <input name="drawing_option" id="custom_field" type="radio" value="custom_file" />
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6" id="drawingFieldDiv">
+                {{-- <div class=" inputDiv d-block mb-0s">
+                  <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
+                    <span class="required">Select Drawing:</span>
+                  </label>
+                  <select name="drawing" id="drawingDropDown" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
+                    <option value="">Select PDF</option>
+                      @foreach($temporary_work_files as $upload)
+                              <option value="{{ env('APP_URL').'/'.$upload->file_name }}">{{ $upload->drawing_number }}</option>
+                      @endforeach
+                  </select>
+                </div> --}}
+                {{-- <div class="d-flex inputDiv mb-0"> --}}
+                    <div class="modalDiv d-block mt-md-5">
+                        <label class="fs-6 fw-bold mb-2">
+                            <span class="required">Select Drawing :</span>
+                        </label>
+                        <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
+                            <option value="">Select PDF</option>
+                            @foreach($temporary_work_files as $upload)
+                            <option value="{{ env('APP_URL').'/'.$upload->file_name }}">{{ $upload->drawing_number }}</option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" value="" id="design_upload" name="design_upload" />
+                    </div>
+                {{-- </div> --}}
+            </div>
+            
+            <div class="col-md-6" id="customFieldDiv" style="display: none;">
+              <div class="d-flex inputDiv d-block my-0 mt-md-5" id="photoDesign">
+                <!--begin::Label-->
+                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                    <span>Photo or Document:</span>
+                </label>
+                <!--end::Label-->
+                <input type="file" class="form-control" id="custom_drawing" name="custom_drawing" value="" accept="image/*;capture=camera">
+              </div>
+              {{-- <div class="d-flex inputDiv mb-0"> --}}
+                    {{-- <div class="modalDiv d-block">
+                        <label class="fs-6 fw-bold mb-2">
+                            <span class="required">Upload Custom Drawing:</span>
+                        </label>
+                        <input type="file" class="form-control" name="custom_drawing" id="custom_drawing" />
+                    </div>
+                </div> --}}
             </div>
           </div>
           <div class="row">
@@ -2268,5 +2304,44 @@
     alert("here");
   })
 </script>
+<script>
+  const drawingField = document.getElementById('drawing_field');
+  const customField = document.getElementById('custom_field');
+  const drawingFieldDiv = document.getElementById('drawingFieldDiv');
+  const customFieldDiv = document.getElementById('customFieldDiv');
 
+  drawingField.addEventListener('change', function () {
+      if (this.checked) {
+          drawingFieldDiv.style.display = 'block';
+          customFieldDiv.style.display = 'none';
+      }
+  });
+
+  customField.addEventListener('change', function () {
+      if (this.checked) {
+          drawingFieldDiv.style.display = 'none';
+          customFieldDiv.style.display = 'block';
+      }
+  });
+</script>
+<script>
+  const drawingField = document.getElementById('drawing_field');
+  const customField = document.getElementById('custom_field');
+  const drawingFieldDiv = document.getElementById('drawingFieldDiv');
+  const customFieldDiv = document.getElementById('customFieldDiv');
+
+  drawingField.addEventListener('change', function () {
+      if (this.checked) {
+          drawingFieldDiv.style.display = 'block';
+          customFieldDiv.style.display = 'none';
+      }
+  });
+
+  customField.addEventListener('change', function () {
+      if (this.checked) {
+          drawingFieldDiv.style.display = 'none';
+          customFieldDiv.style.display = 'block';
+      }
+  });
+</script>
 @endsection

@@ -506,7 +506,8 @@ class HomeController extends Controller
                         else{
                             $model= new NominationQualification();
                         }
-                        if ($request->file('qualification_file')) {
+                        if($_FILES['qualification_file']['name'][$i]!=""){
+                        // if ($request->file('qualification_file')) {
                             $filePath = HelperFunctions::nominationqualificationpath();
                             $file = $request->file('qualification_file');
                             if(isset($file[$i]))
@@ -545,8 +546,8 @@ class HomeController extends Controller
                         else{
                             $model= new NominationCourses();
                         }
-                        
-                        if ($request->file('course_file')) {
+                        if($_FILES['course_file']['name'][$i]!=""){
+                        // if ($request->file('course_file')) {
                             $filePath = HelperFunctions::nominationcoursepath();
                             $file = $request->file('course_file');
                             if(isset($file[$i]))

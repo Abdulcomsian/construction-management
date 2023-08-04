@@ -43,10 +43,10 @@
     text-align:center;
     z-index:9999999;
     color:#fff;
-    font-size:40px;
+    font-size:40px; 
 }
 </style>
 
-<a  class="whats-app my-float" href="#" target="_blank">
-    <i class="fa fa-qrcode my-float"></i>
+<a  class="whats-app my-float" href="https://wa.me/447888119977" target="_blank">
+    <img src="{{asset('uploads/support/whatsapp.png')}}" width="60" alt="support"/>
 </a>

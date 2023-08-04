@@ -755,7 +755,7 @@
                                 <h4>Individual being nominated</h4>
                                 <p class="mb-0">
                                     I confirm that this is a true record of my experience and qualifications.   <br> 
-                                    I have read and understood the xxxx Temporary Works procedure. <br>
+                                    I have read and understood the {{$user->userDiCompany->name}} Temporary Works procedure. <br>
                                     I specifically understand my duties.
                                 </p>
                                </div>

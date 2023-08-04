@@ -186,7 +186,7 @@ class TemporaryWorkController extends Controller
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
 
-                    $tot_emails = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
+                    $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 $projects = Project::with('company')->where('company_id', $user->id)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
@@ -703,6 +703,9 @@ $notify_admins_msg = [
 
                 //work for upload images here
                 $image_links = [];
+                // if($imagename){
+                //     $image_links[]=$imagename;
+                // }
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -2004,6 +2007,7 @@ $notify_admins_msg = [
                     $color = '';
                     $status = '';
                     $button = '';
+                    $dnl_status = '';
                     $days = (7 - $diff_in_days);
                     if ($permit->status == 1) {
                         $status = "Open";
@@ -2036,12 +2040,17 @@ $notify_admins_msg = [
                     } elseif ($permit->status == 2) {
                         $status = "Pending";
                     } elseif ($permit->status == 5) {
-                        $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span> &nbsp; <a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='font-size:20px;' class='fa fa-edit'></i></a>";
+                        $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
                     }elseif ($permit->status == 6) {
                         $status = "Pending";
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
                     }
+
+                    if ($permit->status == 5) {
+                        $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
+                    }
+
                     $path = config('app.url');
                     if (isset($request->scanuser)) {
                         $button = '';
@@ -2052,7 +2061,7 @@ $notify_admins_msg = [
                     if (auth()->user()->hasRole('scaffolder')) {
                         $button = '';
                     }
-                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;">' . $button . '</td></tr>';
+                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . '</td></tr>';
                 }
             $list .= '<hr>';
         }

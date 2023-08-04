@@ -40,6 +40,7 @@
                             <div id="commenttable">
 
                             </div><br>
+                            @if($scantempwork!='scantempwork')
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
                                 <span class="required">TWC Message to Designers:</span>
                             </label>
@@ -67,6 +68,7 @@
                                 </div>
                             </form>
                             <div id="twccommenttable2"></div>
+                            @endif
                             <!--begin::Label-->
                         </div>
 
@@ -80,16 +82,22 @@
                     <input type="hidden" name="temp_work_id" id="temp_work_id" />
                     <input type="hidden" name="type" value="twc" />
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                    @if($scantempwork!='scantempwork')
+                        <div class="mb-13 text-center">
+                            <!--begin::Title-->
+                            <h1 class="mb-3">TWC Notes</h1>
+                            <!--end::Title-->
+                        </div>
+                        <div id="twccommenttable">
 
-                    <div class="mb-13 text-center">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">TWC Notes</h1>
-                        <!--end::Title-->
-                    </div>
-                    <div id="twccommenttable">
-
-                    </div>
+                        </div>
+                    @endif
                     <div class="row g-9 mb-8">
+                    <div class="mb-13 text-center">
+                            <!--begin::Title-->
+                            <h1 class="mb-3">Send your  comments / observation for the TWC.</h1>
+                            <!--end::Title-->
+                        </div>
                         <!--begin::Col-->
                         @if(isset($scantempwork) && $scantempwork=='scantempwork')
                         <div class="col-md-12">
@@ -131,15 +139,15 @@
                         @if(isset($scantempwork) && $scantempwork=='scantempwork')
                         <style>
                             select option[value="0"] {
-                                background: green;
+                                background: #52863860;
                             }
 
                             select option[value="1"] {
-                                background: orange;
+                                background: #FAFF0099;
                             }
 
                             select option[value="2"] {
-                                background: red;
+                                background: #FF0A0B40;
                             }
                         </style>
                         <input type="hidden" name="type" value="scan" />

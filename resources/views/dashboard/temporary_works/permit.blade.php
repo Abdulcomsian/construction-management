@@ -832,6 +832,7 @@
 
               <!--end::Option-->
 
+<<<<<<< HEAD
               <div class="row ">
                 <div class="col-md-6">
                   <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
@@ -922,6 +923,109 @@
                   </div>
                 </div>
               </div>
+=======
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2" style="width:fit-content; bottom: 25px">
+                                            <span>Approval via Email Required by the PCTWC</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="checkbox" name="approval" id="approval"
+                                            style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
+                                            approval is required.</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-none inputDiv pc-twc mb-0 mt-6" style="margin-top:10px !important;">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                            style="width:fit-content% !important">
+                                            <span>PC TWC Email:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="email" class="form-control form-control-solid" name="pc_twc_email"
+                                            id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px;">
+                                <div class="col-md-6">
+                                    <div class=" inputDiv upload_signature_div mt-0">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                            style="width: fit-content; bottom:124px;">
+                                            Photo Upload
+                                        </label>
+                                        <!-- <div class="principleno"  style=""> -->
+                                        <div class="" style="">
+                                            <!-- <div class="uploadingDiv"> -->
+                                            <div class="">
+                                                <!-- <div class="uploadDiv"> -->
+                                                <div class="">
+                                                    <!-- <div class="input-images"></div> -->
+                                                    <div class="input-images"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 inputDiv requiredDiv mt-0 otherApproval" style="margin-left:7px; ">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
+                                        <span class="required">Other approval required?</span>
+                                    </label>
+                                    <!--begin::Radio group-->
+                                    <div class=" justify-content-end otherApprovals"
+                                        style="position:relative; left:64%; background: white; height: 32px; padding:0;width : fit-content">
+                                        <!--begin::Option-->
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <label style="position: initial; flex-grow: 0; background: white">
+                                            @if(isset($old))
+                                            <input type="radio" class="btn-check" name="principle_contractor" value="1"
+                                                {{ old('principle_contractor')=='1' ? 'checked' : '' }} />
+                                            @else
+                                            <input type="radio" class="btn-check" name="principle_contractor"
+                                                value="1" />
+                                            @endif
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                        </label>
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <label style="position: initial; flex-grow: 0; background: white">
+                                            @if(isset($old))
+                                            <input type="radio" class="btn-check" name="principle_contractor" value="2"
+                                                {{ old('principle_contractor')=='2' ? 'checked' : '' }} />
+                                            @else
+                                            <input type="radio" class="btn-check" name="principle_contractor" value="2"
+                                                checked />
+                                            @endif
+                                            <span
+                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                        </label>
+                                        <!--end::Option-->
+                                        <!--begin::Option-->
+                                        <!--end::Option-->
+                                    </div>
+                                    <!--end::Radio group-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6   mt-0">
+                                    <div class="d-flex inputDiv mt-0">
+                                        <label class="fs-6 fw-bold mb-2" style="">
+                                            <span>Comments:</span>
+                                        </label>
+                                        <textarea name="comments" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+>>>>>>> 196039777c71ce6ba0a5260a85cc8796d7b60a9a
 
 
 

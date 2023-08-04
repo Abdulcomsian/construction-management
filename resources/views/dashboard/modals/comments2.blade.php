@@ -34,7 +34,7 @@
                         Comments </h1>
                     <!--end::Title-->
                 </div>
-
+                @if($scantempwork!='scantempwork')
                 <div class="col-md-12">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
@@ -70,6 +70,7 @@
                 <div id="commenttable">
 
                 </div>
+                @endif
                 <br>
                 @if(isset($scantempwork) || $scantempwork=='sharedview')
                 <form id="kt_modal_new_target_form" class="form comments_details_form comments_form"

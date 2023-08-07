@@ -383,7 +383,7 @@ class DesignerController extends Controller
         
         $id = \Crypt::decrypt($id);
         $designer_certificate=DesignerCertificate::where('temporary_work_id',$id)->first();
-        $tempdata=TemporaryWork::select('designer_company_name', 'designer_company_email', 'desinger_company_name2', 'desinger_email_2')->find($id);
+        $tempdata=TemporaryWork::select('designer_company_name', 'designer_company_email', 'desinger_company_name2', 'desinger_email_2', 'design_requirement_text', 'ped_url')->find($id);
         if($mail==$tempdata->designer_company_email)
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Company'])->orderBy('id','desc')->update(['status'=>1]);

@@ -1216,7 +1216,7 @@ class DesignerController extends Controller
     public function pc_store(Request $request)
     {
         try {
-            $tempworkdata = TemporaryWork::with('project')->find($request->tempworkid);
+            $tempworkdata = TemporaryWork::with('designerCompanyEmails','project')->find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
             TemporaryWork::find($request->tempworkid)->update([
                 'status' => $request->status,
@@ -1321,6 +1321,7 @@ class DesignerController extends Controller
 
                 if($tempworkdata->designer_company_email)
                 {
+                    
                     $chm= new ChangeEmailHistory();
                     $chm->email=$tempworkdata->designer_company_email;
                     $chm->type ='Designer Company';
@@ -1329,6 +1330,18 @@ class DesignerController extends Controller
                     $chm->save();
                    $notify_admins_msg['body']['designer'] = 'designer1';
                    Notification::route('mail',  $tempworkdata->designer_company_email ?? '')->notify(new DesignUpload($notify_admins_msg,$tempworkdata->designer_company_email)); 
+                    if(count($tempworkdata->designerCompanyEmails)>0){
+                        foreach($tempworkdata->designerCompanyEmails as $email){
+                            $chm= new ChangeEmailHistory();
+                            $chm->email=$email->email;
+                            $chm->type ='Designer Company';
+                            $chm->foreign_idd=$request->tempworkid;
+                            $chm->message='Email sent to Designer Company';
+                            $chm->save();
+                           $notify_admins_msg['body']['designer'] = 'designer1';
+                           Notification::route('mail',  $email->email ?? '')->notify(new DesignUpload($notify_admins_msg,$email->email)); 
+                        }
+                    }
                 }
                 if($tempworkdata->desinger_email_2)
                 {

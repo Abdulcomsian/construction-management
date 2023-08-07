@@ -653,7 +653,7 @@
                                     <!--end::Label-->
                                     <input type="email" class="blackBack form-control form-control-solid"
                                         placeholder="Designer Email Address" id="designer_company_email"
-                                        name="designer_company_email" value="{{old('designer_company_email')}}"
+                                        name="designer_company_email[]" value="{{old('designer_company_email')}}"
                                         required>
                                 </div>
                             </div>

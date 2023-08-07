@@ -44,6 +44,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Auth;
 use App\Mail\PermitUnloadMail;
+use App\Models\DesignerCompanyEmail;
 use App\Models\ProjectBlock;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
@@ -646,6 +647,7 @@ $notify_admins_msg = [
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
+            $all_inputs['designer_company_email'] = $request->designer_company_email[0];
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -718,7 +720,6 @@ $notify_admins_msg = [
                         $image_links[] = $imagename;
                     }
                 }
-
                 //work for pdf
                 $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                 $path = public_path('pdf');
@@ -785,21 +786,25 @@ $notify_admins_msg = [
 
                     //designer
                     if ($request->designer_company_email) {
-                        $notify_admins_msg['body']['designer'] = 'designer1';
-                         //changing email history
-                        // $cmh= new ChangeEmailHistory();
-                        // $cmh->email=$request->designer_company_email;
-                        // $cmh->type ='Designer Company';
-                        // $cmh->foreign_idd=$temporary_work->id;
-                        // $cmh->message='Email sent to Designer Company';
-                        // $cmh->save();
-                        HelperFunctions::EmailHistory(
-                            $request->designer_company_email,
-                            'Design Company',
-                            $temporary_work->id,
-                            'Email sent to Designer Company'
-                        );
-                        Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->designer_company_email));
+                        foreach($request->designer_company_email as $email){
+
+                            $notify_admins_msg['body']['designer'] = 'designer1';
+                            //changing email history
+                            // $cmh= new ChangeEmailHistory();
+                            // $cmh->email=$request->designer_company_email;
+                            // $cmh->type ='Designer Company';
+                            // $cmh->foreign_idd=$temporary_work->id;
+                            // $cmh->message='Email sent to Designer Company';
+                            // $cmh->save();
+                            HelperFunctions::EmailHistory(
+                                $email,
+                                'Design Company',
+                                $temporary_work->id,
+                                'Email sent to Designer Company'
+                            );
+                            Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $email));
+                        }
+                   
                     }
 
                     //designer email second
@@ -821,14 +826,23 @@ $notify_admins_msg = [
                     }
                 }
             }
+            if($temporary_work){
+                foreach($request->designer_company_email as $email){
+                    $company_email = new DesignerCompanyEmail();
+                    $company_email->temporary_work_id = $temporary_work->id;
+                    $company_email->email = $email;
+                    $company_email->save();
+                }
+            }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            // dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
     }
+
     public function show(TemporaryWork $temporaryWork)
     {
         try {

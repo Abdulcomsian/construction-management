@@ -454,6 +454,21 @@
             margin: auto;
         }
     }
+    .email-plus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background:#07d564;
+        border-radius:8px;
+        border:none;
+        cursor: pointer;
+    }
+    /* #additional-emails{
+        margin-top:26px;
+    } */
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -628,7 +643,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="d-flex inputDiv d-block m-0" id="designerEmail">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -642,8 +657,15 @@
                                         required>
                                 </div>
                             </div>
+                            <div class="col-md-1">
+                                <div class="email-plus" id="email-button"> + </div>
+                            </div>
                         </div>
-
+                                <div class="row" id="additional-emails">
+                                    
+                            
+                                    </div>
+                                
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
@@ -1416,6 +1438,51 @@ $(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)")
 })
 });
 </script>
+
+
+<!-- <script>
+    $(document).ready(function() {
+        $("#email-button").on("click", function() {
+            var clonedDiv = $("#designerEmail").clone();
+            clonedDiv.find("input").val("");
+            var newContainerDiv = $("<div>").append(clonedDiv).css("margin-top", "26px");
+            $("#additional-emails").append(newContainerDiv);
+        });
+    });
+</script> -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("email-button").addEventListener("click", function() {
+        var designerEmailDiv = document.getElementById("designerEmail");
+        var clonedDiv = designerEmailDiv.cloneNode(true);
+        clonedDiv.querySelector("input").value = "";
+        var newContainerDiv = document.createElement("div");
+        newContainerDiv.setAttribute("class", "col-md-6");
+        newContainerDiv.style.marginTop = "26px";
+        newContainerDiv.appendChild(clonedDiv);
+        document.getElementById("additional-emails").appendChild(newContainerDiv);
+    });
+});
+</script>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("email-button").addEventListener("click", function() {
+        var designerEmailDiv = document.getElementById("designerEmail");
+        var clonedDiv = designerEmailDiv.cloneNode(true);
+        clonedDiv.querySelector("input").value = "";
+        var newContainerDiv = document.createElement("div");
+        newContainerDiv.style.marginTop = "26px";
+        newContainerDiv.style.display = "inline-block"; // Set the display property to "inline-block"
+        newContainerDiv.style.width = "45%"; // Adjust the width as needed to fit side by side
+        newContainerDiv.appendChild(clonedDiv);
+        document.getElementById("additional-emails").appendChild(newContainerDiv);
+    });
+});
+</script> -->
+
+
 
 
 

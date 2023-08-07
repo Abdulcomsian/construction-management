@@ -252,6 +252,11 @@
             margin: auto;
             width: 100%;
         }
+        .set{
+            display:flex;
+            justify-content:start;
+            width:100%;
+        }
     }
 
     @media screen and (max-width: 670px) {
@@ -283,9 +288,9 @@
         font-family: 'Inter', sans-serif;
         font-weight: 600;
         font-size: 18px;
-        background: #07d564;
-        border-radius: 8px;
-        border: none;
+        background:#07d564;
+        border-radius:8px;
+        border:none;
         cursor: pointer;
     }
 </style>
@@ -451,7 +456,11 @@
                             </div>
                         </div>
 
-                        <div class="row">
+
+
+
+
+                        <div class="row ">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block">
                                     <!--begin::Label-->
@@ -466,12 +475,14 @@
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-5 mt-md-4">
-                                <div class="d-flex inputDiv d-block m-0" id="designerEmail">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Designer Email Address:</span>
 
+
+
+                            <div class="col-md-5">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Designer Email Address:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="email"
@@ -483,9 +494,14 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-1 mt-md-4">
-                                <div class="email-plus" id="email-button"> + </div>
+                            
+                            <div class="col-md-1 set">
+                                <div class="d-flex justify-content-end  inputDiv">
+                                    <div class="email-plus" id="email-button"> + </div>
+                                </div>
                             </div>
+
+
                         </div>
                         <div class="row" id="additional-emails">
                             @foreach($temporaryWork->designerCompanyEmails as $email)

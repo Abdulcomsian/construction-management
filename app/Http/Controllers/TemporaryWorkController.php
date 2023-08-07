@@ -826,8 +826,13 @@ $notify_admins_msg = [
                     }
                 }
             }
-            if($temporary_work){
-                foreach($request->designer_company_email as $email){
+            if ($temporary_work && is_array($request->designer_company_email)) {
+                $emails = $request->designer_company_email;
+            
+                // Remove the first email from the array
+                array_shift($emails);
+            
+                foreach ($emails as $email) {
                     $company_email = new DesignerCompanyEmail();
                     $company_email->temporary_work_id = $temporary_work->id;
                     $company_email->email = $email;
@@ -874,7 +879,7 @@ $notify_admins_msg = [
 
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
-            $temporaryWork = TemporaryWork::with('scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id', $temporaryWork->id)->first();
+            $temporaryWork = TemporaryWork::with('designerCompanyEmails','scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id', $temporaryWork->id)->first();
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
             return view('dashboard.temporary_works.edit', compact('temporaryWork', 'projects', 'selectedproject'));
         } catch (\Exception $exception) {
@@ -885,7 +890,6 @@ $notify_admins_msg = [
     //update design brief
     public function update(Request $request, TemporaryWork $temporaryWork)
     {
-
         Validations::storeTemporaryWork($request);
         try {
             $scope_of_design = [];
@@ -941,7 +945,7 @@ $notify_admins_msg = [
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval');
-            //upload signature here
+            $all_inputs['designer_company_email'] = $request->designer_company_email[0];
             //upload signature here
             $image_name = '';
             if ($request->signtype == 1) {
@@ -1073,8 +1077,12 @@ $notify_admins_msg = [
                     Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
                     //designer
                     if ($request->designer_company_email) {
-                        $notify_admins_msg['body']['designer'] = 'designer1';
-                        Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $request->designer_company_email));
+                        foreach($request->designer_company_email as $email){
+                            if ($request->designer_company_email) {
+                                $notify_admins_msg['body']['designer'] = 'designer1';
+                                Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $email));
+                            }
+                        }
                     }
 
                     //designer email second
@@ -1084,10 +1092,31 @@ $notify_admins_msg = [
                     }
                 }
             }
+            if ($temporary_work && is_array($request->designer_company_email)) {
+                $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $temporaryWork->id)->get();
+
+                if ($designerCompanyEmails->count() > 0) {
+                    $designerCompanyEmails->each(function ($companyEmail) {
+                        $companyEmail->delete();
+                    });
+                }
+
+                $emails = $request->designer_company_email;
+            
+                // Remove the first email from the array
+                array_shift($emails);
+            
+                foreach ($emails as $email) {
+                    $company_email = new DesignerCompanyEmail();
+                    $company_email->temporary_work_id = $temporaryWork->id;
+                    $company_email->email = $email;
+                    $company_email->save();
+                }
+            }
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            // dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

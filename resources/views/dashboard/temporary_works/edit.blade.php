@@ -276,6 +276,18 @@
         border-radius: 5px;
 
     }
+    .email-plus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background: #07d564;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -454,8 +466,8 @@
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block">
+                            <div class="col-md-5 mt-md-4">
+                                <div class="d-flex inputDiv d-block m-0" id="designerEmail">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="required">Designer Email Address:</span>
@@ -465,13 +477,34 @@
                                     <input type="email"
                                         class="form-control @if(!$temporaryWork->designer_company_email) form-control-solid @endif"
                                         placeholder="Designer Email Address" id="designer_company_email"
-                                        name="designer_company_email"
+                                        name="designer_company_email[]"
                                         value="{{old('designer_company_email',$temporaryWork->designer_company_email)}}"
                                         required>
                                 </div>
                             </div>
-                        </div>
 
+                            <div class="col-md-1 mt-md-4">
+                                <div class="email-plus" id="email-button"> + </div>
+                            </div>
+                        </div>
+                        <div class="row" id="additional-emails">
+                            @foreach($temporaryWork->designerCompanyEmails as $email)
+                                <div class="col-md-6" style="margin-top: 26px;">
+                                    <div class="d-flex inputDiv d-block m-0" id="designerEmail">
+                                        <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="required">Designer Email Address:</span>
+    
+                                        </label>
+                                            <input type="email"
+                                                class="form-control @if(!$email->email) form-control-solid @endif"
+                                                placeholder="Designer Email Address" id="designer_company_email"
+                                                name="designer_company_email[]" value="{{$email->email}}"
+                                                required>      
+                                    </div>                
+                                </div>
+                            @endforeach   
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
@@ -1233,7 +1266,20 @@
    
             
 </script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("email-button").addEventListener("click", function() {
+        var designerEmailDiv = document.getElementById("designerEmail");
+        var clonedDiv = designerEmailDiv.cloneNode(true);
+        clonedDiv.querySelector("input").value = "";
+        var newContainerDiv = document.createElement("div");
+        newContainerDiv.setAttribute("class", "col-md-6");
+        newContainerDiv.style.marginTop = "26px";
+        newContainerDiv.appendChild(clonedDiv);
+        document.getElementById("additional-emails").appendChild(newContainerDiv);
+    });
+});
+</script>
 
 
 @endsection

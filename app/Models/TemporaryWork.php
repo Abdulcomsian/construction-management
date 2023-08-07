@@ -149,4 +149,9 @@ class TemporaryWork extends Model
     {
         return $this->hasOne(DesignerCertificate::class,'temporary_work_id');
     }
+
+    public function designerCompanyEmails()
+    {
+        return $this->hasMany(DesignerCompanyEmail::class,'temporary_work_id');
+    }
 }

@@ -1855,8 +1855,20 @@ $notify_admins_msg = [
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing');
+
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload');            
             $all_inputs['created_by'] = auth()->user()->id;
+            $all_inputs['custom_drawing'] = '';
+            $all_inputs['design_upload'] = '';
+            if($request->drawing_option == 'drawing')
+            {
+                $all_inputs['design_upload'] = $request->design_upload;
+            } else{
+                $file = $request->file('custom_drawing');
+                $filePath  = 'design_uploads/';
+                $desing_path = HelperFunctions::saveFile(null, $file, $filePath);
+                $all_inputs['custom_drawing'] = $desing_path;
+            }
             //first person signature and name
            
             $image_name1 = '';

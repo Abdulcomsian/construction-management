@@ -143,9 +143,9 @@
     color: white;
   }
 
-  canvas {
+  /* canvas {
     background: lightgray;
-  }
+  } */
 
   .uploaded {
     padding: 40px 0 !important;
@@ -505,14 +505,14 @@
                   </label>
                   <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
                     <option value="">Select PDF</option>
-                    {{-- @foreach($temporary_work_files as $files) --}}
-                    {{-- <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
+                    <!-- {{-- @foreach($temporary_work_files as $files) --}} -->
+                    <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
                     <option value="http://127.0.0.1:8000/pdf/test2.pdf">Test PDF 2</option>
-                    <option value="http://127.0.0.1:8000/pdf/test3.pdf">Test PDF 2</option> --}}
-                    @foreach($temporary_work_files as $upload)
+                    <option value="http://127.0.0.1:8000/pdf/test3.pdf">Test PDF 2</option>
+                    <!-- @foreach($temporary_work_files as $upload)
                     <option value="{{env('APP_URL').'/'.$upload->file_name}}">{{$upload->drawing_number}}
                     <option>
-                      @endforeach
+                      @endforeach -->
                   </select>
                   <input type="hidden" value="" id='design_upload' name="design_upload" />
                 </div>
@@ -832,107 +832,96 @@
 
               <!--end::Option-->
 
-                            <div class="row ">
-                                <div class="col-md-6">
-                                    <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2" style="width:fit-content; bottom: 25px">
-                                            <span>Approval via Email Required by the PCTWC</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <input type="checkbox" name="approval" id="approval"
-                                            style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
-                                        <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
-                                            approval is required.</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-none inputDiv pc-twc mb-0 mt-6" style="margin-top:10px !important;">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                            style="width:fit-content% !important">
-                                            <span>PC TWC Email:</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <input type="email" class="form-control form-control-solid" name="pc_twc_email"
-                                            id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top:30px;">
-                                <div class="col-md-6">
-                                    <div class=" inputDiv upload_signature_div mt-0">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                            style="width: fit-content; bottom:124px;">
-                                            Photo Upload
-                                        </label>
-                                        <!-- <div class="principleno"  style=""> -->
-                                        <div class="" style="">
-                                            <!-- <div class="uploadingDiv"> -->
-                                            <div class="">
-                                                <!-- <div class="uploadDiv"> -->
-                                                <div class="">
-                                                    <!-- <div class="input-images"></div> -->
-                                                    <div class="input-images"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 inputDiv requiredDiv mt-0 otherApproval" style="margin-left:7px; ">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
-                                        <span class="required">Other approval required?</span>
-                                    </label>
-                                    <!--begin::Radio group-->
-                                    <div class=" justify-content-end otherApprovals"
-                                        style="position:relative; left:64%; background: white; height: 32px; padding:0;width : fit-content">
-                                        <!--begin::Option-->
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label style="position: initial; flex-grow: 0; background: white">
-                                            @if(isset($old))
-                                            <input type="radio" class="btn-check" name="principle_contractor" value="1"
-                                                {{ old('principle_contractor')=='1' ? 'checked' : '' }} />
-                                            @else
-                                            <input type="radio" class="btn-check" name="principle_contractor"
-                                                value="1" />
-                                            @endif
-                                            <span
-                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label style="position: initial; flex-grow: 0; background: white">
-                                            @if(isset($old))
-                                            <input type="radio" class="btn-check" name="principle_contractor" value="2"
-                                                {{ old('principle_contractor')=='2' ? 'checked' : '' }} />
-                                            @else
-                                            <input type="radio" class="btn-check" name="principle_contractor" value="2"
-                                                checked />
-                                            @endif
-                                            <span
-                                                class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <!--end::Option-->
-                                    </div>
-                                    <!--end::Radio group-->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6   mt-0">
-                                    <div class="d-flex inputDiv mt-0">
-                                        <label class="fs-6 fw-bold mb-2" style="">
-                                            <span>Comments:</span>
-                                        </label>
-                                        <textarea name="comments" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                            </div>
+              <div class="row ">
+                <div class="col-md-6">
+                  <div class="d-flex inputDiv mt-7" style="min-height:40px; align-items: center">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-bold mb-2" style="width:fit-content; bottom: 25px">
+                      <span>Approval via Email Required by the PCTWC</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="checkbox" name="approval" id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                    <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
+                      approval is required.</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-none inputDiv pc-twc mb-0 mt-6" style="margin-top:10px !important;">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:fit-content% !important">
+                      <span>PC TWC Email:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top:30px;">
+                <div class="col-md-6">
+                  <div class=" inputDiv upload_signature_div mt-0">
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: fit-content; bottom:124px;">
+                      Photo Upload
+                    </label>
+                    <!-- <div class="principleno"  style=""> -->
+                    <div class="" style="">
+                      <!-- <div class="uploadingDiv"> -->
+                      <div class="">
+                        <!-- <div class="uploadDiv"> -->
+                        <div class="">
+                          <!-- <div class="input-images"></div> -->
+                          <div class="input-images"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 inputDiv requiredDiv mt-0 otherApproval" style="margin-left:7px; ">
+                  <!--begin::Label-->
+                  <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
+                    <span class="required">Other approval required?</span>
+                  </label>
+                  <!--begin::Radio group-->
+                  <div class=" justify-content-end otherApprovals" style="position:relative; left:64%; background: white; height: 32px; padding:0;width : fit-content">
+                    <!--begin::Option-->
+                    <!--end::Option-->
+                    <!--begin::Option-->
+                    <label style="position: initial; flex-grow: 0; background: white">
+                      @if(isset($old))
+                      <input type="radio" class="btn-check" name="principle_contractor" value="1" {{ old('principle_contractor')=='1' ? 'checked' : '' }} />
+                      @else
+                      <input type="radio" class="btn-check" name="principle_contractor" value="1" />
+                      @endif
+                      <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                    </label>
+                    <!--end::Option-->
+                    <!--begin::Option-->
+                    <label style="position: initial; flex-grow: 0; background: white">
+                      @if(isset($old))
+                      <input type="radio" class="btn-check" name="principle_contractor" value="2" {{ old('principle_contractor')=='2' ? 'checked' : '' }} />
+                      @else
+                      <input type="radio" class="btn-check" name="principle_contractor" value="2" checked />
+                      @endif
+                      <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                    </label>
+                    <!--end::Option-->
+                    <!--begin::Option-->
+                    <!--end::Option-->
+                  </div>
+                  <!--end::Radio group-->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6   mt-0">
+                  <div class="d-flex inputDiv mt-0">
+                    <label class="fs-6 fw-bold mb-2" style="">
+                      <span>Comments:</span>
+                    </label>
+                    <textarea name="comments" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
 
 
 
@@ -1162,7 +1151,7 @@
                                                 <span class="required">Signature:</span>
                                             </label> --}}
                       {{-- <br /> --}}
-                      <canvas id="sig1" style="border-radius: 9px"></canvas>
+                      <canvas id="sig1" style="border-radius: 9px; background: lightgray;"></canvas>
                       <span id="clear1" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
                     </div>
                     <span id="sigimage1" class="text-danger" style="font-size: 15px">Signature Not
@@ -1193,12 +1182,12 @@
 {{-- this is newly added code for edit pdf modal --}}
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="close()"></button>
+        <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div id="outerContainer">
@@ -1405,7 +1394,7 @@
             </div>
             <!-- secondaryToolbar -->
 
-            <div class="toolbar">
+            <div class="secondary-toolbar">
               <div id="toolbarContainer">
                 <div id="toolbarViewer">
                   <div id="toolbarViewerLeft">

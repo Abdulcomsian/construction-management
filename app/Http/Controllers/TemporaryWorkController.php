@@ -1854,7 +1854,8 @@ $notify_admins_msg = [
             }
             $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
             $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
-            return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile'));
+            $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
+            return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile', 'temporary_work_files'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1897,8 +1898,20 @@ $notify_admins_msg = [
     {
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
+
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload');            
             $all_inputs['created_by'] = auth()->user()->id;
+            $all_inputs['custom_drawing'] = '';
+            $all_inputs['design_upload'] = '';
+            if($request->drawing_option == 'drawing')
+            {
+                $all_inputs['design_upload'] = $request->design_upload;
+            } else{
+                $file = $request->file('custom_drawing');
+                $filePath  = 'design_uploads/';
+                $desing_path = HelperFunctions::saveFile(null, $file, $filePath);
+                $all_inputs['custom_drawing'] = $desing_path;
+            }
             //first person signature and name
            
             $image_name1 = '';

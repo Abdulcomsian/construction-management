@@ -2995,4 +2995,36 @@ class DesignerController extends Controller
         ]);
     }
 
+    public function editPdf()
+    {
+        return view('edit_pdf');
+    }
+
+    public function getEditPdfModal()
+    {
+        return view('pdf_modal');
+    }
+
+    public function getPdfCode()
+    {
+        $pdf = 'http://127.0.0.1:8000/pdf/test.pdf';
+        return view('pdf_code',['pdf' => $pdf]);
+    }
+
+    public function getPdfDropdown()
+    {
+        return view('pdf_dropdown');
+    }
+
+    public function saveUpdatedPdf(Request $request)
+    {
+        $uploadedFile = $request->file('pdfFile');
+        if ($uploadedFile) {
+            $filePath  = 'design_uploads/';
+            $file = $uploadedFile;
+            $file_name = HelperFunctions::saveFile(null, $file, $filePath);            
+        }
+        return response()->json(['file_name' => $file_name]);
+    }
+
 }

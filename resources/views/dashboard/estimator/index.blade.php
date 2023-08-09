@@ -857,10 +857,10 @@
                                                       class="fa fa-edit" style="margin-left:10px"></i></a>
                                                 @endif
                                                 @if(auth()->user()->hasRole('user'))
-                                                @if($item->estimatorApprove)
+                                                <!-- @if($item->estimatorApprove) -->
                                                 <a href="{{route('estimator.edit',$item->id)}}"><i
                                                       class="fa fa-edit"></i></a>
-                                                @endif
+                                                <!-- @endif -->
                                                 @endif
                                                 <a href="{{route('estimator.show',$item->id)}}"
                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">

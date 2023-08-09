@@ -466,6 +466,31 @@
         border:none;
         cursor: pointer;
     }
+    .email-minus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background:red;
+        border-radius:8px;
+        border:none;
+        cursor: pointer;
+    }
+    .col-md-11{
+        position: relative;
+    width: 100%;
+    padding-right: 20px !important;
+     padding-left: 0px !important;
+    }
+    .col-md-1{
+    padding-left: 13px !important;
+
+  }
+
+
+
     /* #additional-emails{
         margin-top:26px;
     } */
@@ -629,7 +654,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block m-0" id="designerCompanyName">
                                     <!--begin::Label-->
@@ -643,7 +668,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-5 ">
                                 <div class="d-flex inputDiv d-block m-0" id="designerEmail">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -653,18 +678,22 @@
                                     <!--end::Label-->
                                     <input type="email" class="blackBack form-control form-control-solid"
                                         placeholder="Designer Email Address" id="designer_company_email"
-                                        name="designer_company_email[]" value="{{old('designer_company_email')}}"
+                                        name="designer_company_email" value="{{old('designer_company_email')}}"
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-1">
-                                <div class="email-plus" id="email-button"> + </div>
+                            <div class="col-md-1 email-plus" id="email-button">
+                                 + 
                             </div>
+                            <!-- <div class="col-md-1">
+                                <div class="email-minus" id="email-minus"> - </div>
+                            </div> -->
                         </div>
-                                <div class="row" id="additional-emails">
+                                <div class="row" id="additional-emails"  >
                                     
                             
                                     </div>
+                                   
                                 
                         <div class="row">
                             <div class="col-md-6">
@@ -1440,47 +1469,57 @@ $(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)")
 </script>
 
 
-<!-- <script>
-    $(document).ready(function() {
-        $("#email-button").on("click", function() {
-            var clonedDiv = $("#designerEmail").clone();
-            clonedDiv.find("input").val("");
-            var newContainerDiv = $("<div>").append(clonedDiv).css("margin-top", "26px");
-            $("#additional-emails").append(newContainerDiv);
-        });
-    });
-</script> -->
+
+
+
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
+    var clonedElements = []; // Array to keep track of cloned elements
+    var minusButtons = [];   // Array to keep track of minus buttons
+
     document.getElementById("email-button").addEventListener("click", function() {
         var designerEmailDiv = document.getElementById("designerEmail");
         var clonedDiv = designerEmailDiv.cloneNode(true);
         clonedDiv.querySelector("input").value = "";
-        var newContainerDiv = document.createElement("div");
-        newContainerDiv.setAttribute("class", "col-md-6");
-        newContainerDiv.style.marginTop = "26px";
-        newContainerDiv.appendChild(clonedDiv);
-        document.getElementById("additional-emails").appendChild(newContainerDiv);
+
+        var emailFieldDiv = document.createElement("div");
+        emailFieldDiv.setAttribute("class", "col-md-5");
+        emailFieldDiv.style.marginTop="26px";
+        emailFieldDiv.appendChild(clonedDiv);
+
+        clonedElements.push(emailFieldDiv); // Add cloned element to the array
+
+        var minusButtonDiv = document.createElement("div");
+        minusButtonDiv.setAttribute("class", "col-md-1 email-minus");
+        minusButtonDiv.textContent = " - ";
+        minusButtonDiv.style.marginTop = "26px"; // Adjust the margin as needed
+        minusButtonDiv.addEventListener("click", function() {
+            if (clonedElements.length > 0) {
+                var lastClonedElement = clonedElements.pop();
+                var lastMinusButton = minusButtons.pop();
+                lastClonedElement.remove();
+                lastMinusButton.remove();
+            }
+        });
+
+        minusButtons.push(minusButtonDiv); // Add minus button to the array
+
+        document.getElementById("additional-emails").appendChild(emailFieldDiv);
+        document.getElementById("additional-emails").appendChild(minusButtonDiv);
     });
 });
 </script>
 
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("email-button").addEventListener("click", function() {
-        var designerEmailDiv = document.getElementById("designerEmail");
-        var clonedDiv = designerEmailDiv.cloneNode(true);
-        clonedDiv.querySelector("input").value = "";
-        var newContainerDiv = document.createElement("div");
-        newContainerDiv.style.marginTop = "26px";
-        newContainerDiv.style.display = "inline-block"; // Set the display property to "inline-block"
-        newContainerDiv.style.width = "45%"; // Adjust the width as needed to fit side by side
-        newContainerDiv.appendChild(clonedDiv);
-        document.getElementById("additional-emails").appendChild(newContainerDiv);
-    });
-});
-</script> -->
+
+
+
+
+
+
+
+
+
 
 
 

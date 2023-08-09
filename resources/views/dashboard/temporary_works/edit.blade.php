@@ -293,6 +293,19 @@
         border:none;
         cursor: pointer;
     }
+    .email-minus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background:red;
+        border-radius:8px;
+        border:none;
+        cursor: pointer;
+        width:20%;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -501,11 +514,13 @@
                                 </div>
                             </div>
 
+                           
+
 
                         </div>
                         <div class="row" id="additional-emails">
                             @foreach($temporaryWork->designerCompanyEmails as $email)
-                                <div class="col-md-6" style="margin-top: 26px;">
+                                <div class="col-md-5" style="margin-top: 26px;">
                                     <div class="d-flex inputDiv d-block m-0" id="designerEmail">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold mb-2">
@@ -519,7 +534,16 @@
                                                 required>      
                                     </div>                
                                 </div>
-                            @endforeach   
+                                <!-- <div class="col-md-1 set">
+                                    <div class="d-flex justify-content-end  inputDiv">
+                                        <div class="email-minus" id="email-button"> - </div>
+                                    </div>
+                                </div> -->
+                            @endforeach 
+                            <div class="row" id="additional-emails"  >
+                                    
+                            
+                            </div>  
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -1282,7 +1306,7 @@
    
             
 </script>
-<script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("email-button").addEventListener("click", function() {
         var designerEmailDiv = document.getElementById("designerEmail");
@@ -1295,6 +1319,50 @@
         document.getElementById("additional-emails").appendChild(newContainerDiv);
     });
 });
+</script> -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var clonedElements = []; // Array to keep track of cloned elements
+    var minusButtons = [];   // Array to keep track of minus buttons
+
+    document.getElementById("email-button").addEventListener("click", function() {
+        var designerEmailDiv = document.getElementById("designerEmail");
+        var clonedDiv = designerEmailDiv.cloneNode(true);
+        clonedDiv.querySelector("input").value = "";
+
+        var emailFieldDiv = document.createElement("div");
+        emailFieldDiv.setAttribute("class", "col-md-5");
+        emailFieldDiv.style.marginTop="26px";
+        emailFieldDiv.appendChild(clonedDiv);
+
+        clonedElements.push(emailFieldDiv);
+
+        var minusButtonDiv = document.createElement("div");
+        minusButtonDiv.setAttribute("class", "col-md-1 email-minus");
+        minusButtonDiv.textContent = " - ";
+        minusButtonDiv.style.marginTop = "26px"; 
+        minusButtonDiv.addEventListener("click", function() {
+            if (clonedElements.length > 0) {
+                var lastClonedElement = clonedElements.pop();
+                var lastMinusButton = minusButtons.pop();
+                lastClonedElement.remove();
+                lastMinusButton.remove();
+            }
+        });
+
+        minusButtons.push(minusButtonDiv); // Add minus button to the array
+
+        document.getElementById("additional-emails").appendChild(emailFieldDiv);
+        document.getElementById("additional-emails").appendChild(minusButtonDiv);
+    });
+});
+
+// $('.email-minus').click(function(){
+//     alert("13");
+//     $(this).parent().parent().prev().remove();
+//     $(this).remove();
+
+// })
 </script>
 
 

@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Select Role</label>
-                                    <select name="role" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
+                                    <select name="role" class="form-select form-select-lg form-select-solid role-dropdown" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
                                         <option value="">Select Role</option>
                                         <option value="user" @if($user->hasRole('user')==true){{"selected"}}@endif>Temporary works co-ordinator</option>
                                         <option value="supervisor" @if($user->hasRole('supervisor')==true){{"selected"}}@endif>Temporary works supervisor</option>
@@ -149,6 +149,16 @@
                                         @endforelse
                                     </select>
                                     <div class="fv-plugins-message-container invalid-feedback"></div> -->
+                                </div>
+                                @if($user->hasRole('user')==true)
+                                <div class="col-md-12 my-2 check-estimator">
+                                @else
+                                <div class="col-md-12 my-2 check-estimator d-none">
+                                @endif
+                               
+                                <input type="checkbox" name="allow_estimator">
+                                    <label class="fs-6 fw-bold mb-2">Allow this TWC to have role of Estimator as well ?</label>
+                                    
                                 </div>
                                 <!--begin::Col-->
                                  <!-- <div class="col-md-6">
@@ -321,5 +331,14 @@
 
 
     });
+
+    $(document).on("change" , ".role-dropdown" , function(e){
+        let role = e.target.value;
+        if(role == "user"){
+            document.querySelector(".check-estimator").classList.remove("d-none");
+        }else{
+            document.querySelector(".check-estimator").classList.add("d-none");
+        }
+    })
 </script>
 @endsection

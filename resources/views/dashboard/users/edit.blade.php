@@ -155,10 +155,15 @@
                                 @else
                                 <div class="col-md-12 my-2 check-estimator d-none">
                                 @endif
-                               
-                                <input type="checkbox" name="allow_estimator">
+                                @php
+                                    $checked = '';
+                                @endphp
+                                {{-- @dd($user->hasPermissionTo($permission)) --}}
+                                    @if($user->hasPermissionTo($permission))
+                                        @php $checked = 'checked'; @endphp
+                                    @endif
+                                <input type="checkbox" name="allow_estimator"  {{$checked}}>
                                     <label class="fs-6 fw-bold mb-2">Allow this TWC to have role of Estimator as well ?</label>
-                                    
                                 </div>
                                 <!--begin::Col-->
                                  <!-- <div class="col-md-6">

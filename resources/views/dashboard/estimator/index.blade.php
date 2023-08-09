@@ -852,16 +852,17 @@
                                              <span class="col-5 titleColumn text-start">Action</span>
                                              <div class="d-flex col-6 action"
                                                 style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; margin-left: 40px !important;">
-                                                @if(auth()->user()->hasRole('estimator'))
+                                                
                                                 <a href="{{route('estimator.edit',$item->id)}}"><i
                                                       class="fa fa-edit" style="margin-left:10px"></i></a>
-                                                @endif
-                                                @if(auth()->user()->hasRole('user'))
-                                                <!-- @if($item->estimatorApprove) -->
+                                                <!-- @if(auth()->user()->hasRole('estimator'))
+                                                @endif -->
+                                                <!-- @if(auth()->user()->hasRole('user'))
+                                                @if($item->estimatorApprove)
                                                 <a href="{{route('estimator.edit',$item->id)}}"><i
                                                       class="fa fa-edit"></i></a>
-                                                <!-- @endif -->
                                                 @endif
+                                                @endif -->
                                                 <a href="{{route('estimator.show',$item->id)}}"
                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
                                                    <i class="fa fa-eye @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif" style="margin-left:15px"></i>

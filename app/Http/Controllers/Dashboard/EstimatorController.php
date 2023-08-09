@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use App\Utils\Validations;
-use App\Models\{AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
+use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use Notification;

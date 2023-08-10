@@ -645,7 +645,7 @@
                                                 <select name="designers[]"
                                                     class="form-select form-select-lg form-select-solid"
                                                     data-control="select2" data-placeholder="Select an option"
-                                                    data-allow-clear="true" required multiple>
+                                                    data-allow-clear="true" multiple>
                                                     <option value="">Select Option</option>
                                                     <optgroup label="Designer List">
                                                         @foreach($designers as $desig)
@@ -856,62 +856,67 @@
 
                                         </div>
                                         <div class="col-md-6">
-                                            @if(auth()->user()->hasRole('user'))
-                                            <div class="d-flex inputDiv">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                    style="width:40% !important">
-                                                    <span>signature:</span>
+                                            <div class="form-group">
+                                                <label>Do you want to move this pre construction to Temporary work register ?
+                                                    <input type="checkbox" id="display_sign" name="display_sign" />
                                                 </label>
-                                                <!--end::Label-->
-                                                <input type="checkbox" class="" id="flexCheckChecked"
-                                                    style="width: 12px;margin-top:5px">
-                                                <input type="hidden" id="signtype" name="signtype"
-                                                    class="form-control form-control-solid" value="2">
-                                                <span
-                                                    style="padding-left:3px;color:#000;font-size:10px;line-height: 2">Do
-                                                    you want
-                                                    name signature?</span>
-                                                &nbsp;
-                                                <!--end::Label-->
-                                                <input type="checkbox" class="" id="pdfChecked"
-                                                    style="width: 12px;margin-top:5px">
-                                                <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                                    class="form-control form-control-solid" value="0">
-                                                <span
-                                                    style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf
-                                                    signature?</span>
+                                            </div>
+                                            <div id="display_sign_div" style="display:none">
+                                                @if(auth()->user()->hasRole('user'))
+                                                    <div class="d-flex inputDiv">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                                            style="width:40% !important">
+                                                            <span>signature:</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <input type="checkbox" class="" id="flexCheckChecked"
+                                                            style="width: 12px;margin-top:5px">
+                                                        <input type="hidden" id="signtype" name="signtype"
+                                                            class="form-control form-control-solid" value="2">
+                                                        <span
+                                                            style="padding-left:3px;color:#000;font-size:10px;line-height: 2">Do
+                                                            you want
+                                                            name signature?</span>
+                                                        &nbsp;
+                                                        <!--end::Label-->
+                                                        <input type="checkbox" class="" id="pdfChecked"
+                                                            style="width: 12px;margin-top:5px">
+                                                        <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                                            class="form-control form-control-solid" value="0">
+                                                        <span
+                                                            style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf
+                                                            signature?</span>
 
+                                                    </div>
+                                                    <div class="inputDiv d-none" id="pdfsign">
+                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                            <span class="required">Upload Signature:</span>
+                                                        </label>
+                                                        <input type="file" name="pdfphoto" class="form-control"
+                                                            accept="image/*">
+                                                    </div>
+                                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                            <span class="required">Name Signature:</span>
+                                                        </label>
+                                                        <input type="text" name="namesign"
+                                                            class="form-control form-control-solid">
+                                                    </div>
+                                                    <div class="d-flex inputDiv" id="sign" style="align-items: center;">
+                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                            <span class="required">Signature:</span>
+                                                        </label>
+                                                        <br />
+                                                        <canvas id="sig" style="background: lightgray"></canvas>
+                                                        <br />
+                                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                                            style="line-height: 6"></span>
+                                                    </div>
+                                                    <br>
+                                                @endif
                                             </div>
-                                            <div class="inputDiv d-none" id="pdfsign">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Upload Signature:</span>
-                                                </label>
-                                                <input type="file" name="pdfphoto" class="form-control"
-                                                    accept="image/*">
-                                            </div>
-                                            <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Name Signature:</span>
-                                                </label>
-                                                <input type="text" name="namesign"
-                                                    class="form-control form-control-solid">
-                                            </div>
-                                            <div class="d-flex inputDiv" id="sign" style="align-items: center;">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Signature:</span>
-                                                </label>
-                                                <br />
-                                                <canvas id="sig" style="background: lightgray"></canvas>
-                                                <br />
-                                                <textarea id="signature" name="signed" style="display: none"></textarea>
-                                                <span id="clear" class="fa fa-undo cursor-pointer"
-                                                    style="line-height: 6"></span>
-                                            </div>
-                                            <br>
-                                            @endif
-
-
                                         </div>
 
                                     </div>
@@ -1198,6 +1203,18 @@
     });
 </script>
 
+<script>
+    const checkbox = document.getElementById("display_sign");
+    const displayDiv = document.getElementById("display_sign_div");
+
+    checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+            displayDiv.style.display = "block";
+        } else {
+            displayDiv.style.display = "none";
+        }
+    });
+</script>
 
 
 @endsection

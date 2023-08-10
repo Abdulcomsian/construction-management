@@ -56,7 +56,7 @@
             <!--begin::Menu-->
 
             @if(auth()->user())
-            <!-- <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1"> -->
+             <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
             @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
                 <!-- <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1"> -->
                     <span class="menu-link userIconTask">
@@ -95,7 +95,7 @@
                 @if(\Auth::user()->hasAnyRole(['estimator','user']) || auth()->user()->hasPermissionTo('twc-estimator'))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('estimator.index') }}">
-                            <span class="menu-title">Estimator Register</span>
+                            <span class="menu-title">Pre-Con</span>
                         </a>
                     </div>
                 @endif

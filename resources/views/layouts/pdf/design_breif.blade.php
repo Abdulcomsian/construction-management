@@ -79,7 +79,12 @@
                         </td>
                         {{-- <td style="max-height:70px !important; font-size:12px;"> {{$data['designer_company_email'][0]}}</td> --}}
                         <td style="max-height:70px !important; font-size:12px;">
-                            @if(count($data['designer_company_email']) > 0)
+                            {{-- @if(count($data['designer_company_email']) > 0)
+                                @foreach($data['designer_company_email'] as $index => $email)
+                                    {{$email}}{{($index != count($data['designer_company_email']) - 1) ? ',' : ''}}
+                                @endforeach
+                            @endif --}}
+                            @if(is_array($data['designer_company_email']) && count($data['designer_company_email']) > 0)
                                 @foreach($data['designer_company_email'] as $index => $email)
                                     {{$email}}{{($index != count($data['designer_company_email']) - 1) ? ',' : ''}}
                                 @endforeach

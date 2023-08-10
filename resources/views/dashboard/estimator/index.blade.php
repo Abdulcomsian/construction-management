@@ -735,7 +735,7 @@
                                           </div>
                                        </td>
                                        <!-- <td style="width:15%"></td> -->
-                                       <td style="width:21%">
+                                       <!-- <td style="width:21%">
                                           <div class="d-flex" style="position: relative;">
                                              <span class="titleColumn">Date Design Returned:</span>
                                              <div
@@ -803,9 +803,9 @@
 
                                              </div>
                                           </div>
-                                       </td>
-                                       <td style="width:10%">
-                                          <div class="d-flex justify-content-between">
+                                       </td> -->
+                                       <td style="width:400px;">
+                                          <!-- <div class="d-flex justify-content-between">
                                              <span class="titleColumn mb-2">Designer:</span>
                                              <div
                                                 style="display: flex; justify-content:center; flex-grow: 1;  margin-left: 100px;">
@@ -814,27 +814,23 @@
                                                    data-tw="{{$item->tw_name ?? ''}}"><span
                                                       class="label label-lg font-weight-bold label-light-success label-inline px-5">View</span>
                                                 </span>
-                                                <!-- {{$item->tw_name ?: '-'}} -->
                                                 @if(!$item->tw_name)
-                                                <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
                                                 @endif
                                              </div>
-                                          </div>
-                                          <div class="d-flex justify-content-between">
+                                          </div> -->
+                                          <!-- <div class="d-flex justify-content-between">
                                              <span class="col-5 titleColumn">Drawings & Designs:</span>
                                              <div class="d-flex col-6"
                                                 style="display: flex; justify-content: space-evenly; align-items: center; flex-grow: 1;  margin-left: 26px;">
                                                 <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}"
                                                    data-type="1"
                                                    style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                                   <!-- View Drawings -->
                                                    <span style="font-size: 16px;opacity: 0.8;color:{{$dcolor}}"
                                                       class="fa fa-eye" title="View Drawings"></span>
                                                 </p>
                                                 <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}"
                                                    data-type="1"
                                                    style="margin-bottom:0px;font-weight: 400;font-size: 16px;opacity: 0.8;position: relative;top: 0px;">
-                                                   <!-- View Drawings -->
                                                    @php
                                                    $color="";
                                                    if(count($item->riskassesment)>0)
@@ -847,9 +843,9 @@
                                                 </p>
                                              </div>
 
-                                          </div>
+                                          </div> -->
                                           <div class="d-flex">
-                                             <span class="col-5 titleColumn text-start">Action</span>
+                                             <span class="col-5 titleColumn text-start" style="flex:0 0 0 !important;">Action</span>
                                              <div class="d-flex col-6 action"
                                                 style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; margin-left: 40px !important;">
                                                 

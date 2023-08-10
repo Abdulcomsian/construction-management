@@ -2,6 +2,8 @@
 
 @section('styles')
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+
     :root {
         --primary-border--radius: 5px;
     }
@@ -30,14 +32,10 @@
 
     }
 
-    . .card {
+    .card {
         margin: 30px 0px;
         border-radius: 10px !important;
         border: none !important;
-    }
-
-    table {
-        margin-top: 20px;
     }
 
     #kt_toolbar_container h1 {
@@ -55,29 +53,7 @@
         color: black;
     }
 
-    table tbody td {
-        text-align: center;
-    }
-
-    table thead {
-        background-color: #f5f8fa;
-    }
-
-    table thead th {
-        color: #000 !important;
-        text-align: center;
-        font-weight: 900 !important;
-    }
-
-    tbody tr:nth-child(odd) {
-        background-color: #fff;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .inputDiv input {
+    t .inputDiv input {
         width: 90%;
         background-color: White !important;
         border-color: #d9dfe3 !important;
@@ -159,18 +135,6 @@
 
     .queryButton {
         margin-top: 10px;
-    }
-
-    table {
-        overflow: hidden;
-    }
-
-    table thead {
-        background-color: #000;
-    }
-
-    table thead tr th {
-        color: #fff !important;
     }
 
     .query-table tbody tr {
@@ -307,7 +271,161 @@
     .rated>label:hover~input:checked~label {
         color: #c59b08;
     }
+
+    table thead {
+        background-color: #f5f8fa;
+        position: sticky;
+        top: 0px;
+        z-index: 99;
+    }
+
+    table thead th {
+        color: #000 !important;
+        text-align: center;
+        border-bottom: 0px !important;
+        vertical-align: middle;
+        font-size: 10px !important;
+        font-weight: 900 !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .table td {
+        font-size: 12px;
+        padding: 0px !important;
+    }
+
+    .table td p {
+        font-size: 12px !important;
+        margin: 0px !important;
+    }
+
+    .table th:first-child {
+        padding: .75rem .75rem !important;
+    }
+
+    .table td p {
+        position: initial !important;
+        top: initial !important
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+
+        margin-top: 18px;
+
+        font-family: "Inter";
+    }
+
+    tr {
+        height: 100px;
+        background-color: white !important;
+    }
+
+    th {
+        background-color: #D9D9D91F !important;
+
+
+    }
+
+    th,
+    td {
+        /* border: 1px solid black;
+       */
+        border: 1px solid #B4BBC580;
+        padding: 8px;
+        text-align: left;
+        font-family: "Inter";
+        font-size: 14px;
+        /* font-weight: 600 !important; */
+        line-height: 30px;
+        text-align: center;
+        padding-top: 10px !important;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td span {
+        font-weight: 600;
+    }
+
+    table tbody td {
+        /* text-align: center; */
+        padding: 5px !important;
+    }
+
+    table tbody td {
+        text-align: center;
+    }
+
+    table thead {
+        background-color: #f5f8fa;
+    }
+
+    table thead th {
+        color: #000 !important;
+        text-align: center;
+        font-weight: 900 !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table {
+        overflow: hidden;
+    }
+
+    table thead {
+        background-color: #000;
+    }
+
+    table thead tr th {
+        color: #fff !important;
+    }
+
+    .th-2 {
+        width: 7%;
+    }
+
+    .th-5 {
+        width: 11%;
+    }
+
+    .th-6 {
+        width: 10%;
+    }
+
+    .th-7 {
+        width: 10%;
+    }
+
+    .th-8 {
+        width: 10%;
+    }
+
+    .th-9 {
+        width: 7%;
+    }
+
+    .th-11 {
+        width: 8%;
+    }
 </style>
+
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -316,19 +434,216 @@
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
-            <div data-kt-place="true" data-kt-place-mode="prepend"
-                data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1"
-                style="width: 100%; text-align: center;">
+            <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="passionate text-dark fw-bolder my-1 fs-3"
-                    style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">
+                <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;  width: 100%; text-align: center; text-transform: uppercase;">
                     Temporary Works</h1>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
         </div>
         <!--end::Container-->
+    </div>
+
+    <div class="">
+        <table>
+            <tr class="row-1">
+                <th class="th-1">Project</th>
+                <th class="th-2">Client</th>
+                <th class="th-3">Job Title / Cost</th>
+                <th class="th-4">Design Req </th>
+                <th class="th-5">Description / Comment</th>
+                <th class="th-6">Timeline</th>
+                <th class="th-7">Allocated Designer</th>
+                <th class="th-8">Allocated Designer Checker</th>
+                <th class="th-9">Status</th>
+                <th class="th-10">Drawing</th>
+                <th class="th-11">Invoice</th>
+            </tr>
+            <!-- @php
+            $i=0;
+            @endphp
+            @forelse($AwardedEstimators as $item)
+
+            <tr class="row-2">
+                <td>
+                    @if($item->project_id)
+                    {{ $item->project->no ?? '' }} <br> {{ $item->project->name ?? '' }}
+                    @else
+                    {{ $item->projno ?? '' }} <br> {{ $item->projname ?? '' }}
+                    @endif
+                    <br>
+                    <a target="_blank" href="estimatorPdf/{{$item->ped_url ?? ''}}">Job PDF</a>
+                </td>
+                <td>{{$item->client_name ?? $item->creator->userCompany->name}}</td>
+                <td>{{$item->job_title ?? ''}}
+                    @if($item->designerQuote && auth()->user()->view_price)
+                    <br>
+                    <span>{{$item->designerQuote ? $item->designerQuote->sum('price') : '0'}}</span>
+                    @endif
+                </td>
+                <td>
+                    @php
+                    $req = explode('-', $item->design_requirement_text);
+
+                    @endphp
+                    <span> {{$req[0] ?? ''}}
+                    </span> <br> {{$req[1] ?? ''}}
+                </td>
+                <td>
+                    <div class="row d-flex flex-column">
+                        @php
+                        $drawingscount=0;
+                        $color="green";
+                        $class='';
+                        if(count($item->commentlist)>0)
+                        {
+                        $color="red";
+                        $class='redBgBlink';
+                        if(count($item->reply)== count($item->commentlist))
+                        {
+                        $color="blue";
+                        $class='';
+                        }
+                        }
+                        @endphp
+                        <div class="col d-flex justify-content-center">
+                            <div class="description desc cursor-pointer" data-toggle="tooltip" data-placement="top"> Description </div>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <div class="comment addcomment cursor-pointer mt-3" data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row d-flex flex-column">
+                        <div class="col">
+                            <div class="row d-flex justify-content-between ">
+                                <div class="col d-flex justify-content-start ms-2" id="time-estimator" data-rowid="{{$item->id}}">
+                                    <img class="img" style="cursor: pointer;" src="{{asset('images/time.png')}}">
+                                </div>
+                                <div class="col d-flex justify-content-end ms-4" id="allocated-designer" data-rowid="{{ $item->id }}">
+                                    @php $blink = '' @endphp
+                                    @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
+                                    @php $blink = 'blink' @endphp
+                                    @endif
+                                    <img class="img {{$blink}}" style="cursor: pointer;" src="{{asset('images/box.png')}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                @php
+                $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
+                ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
+                : '0';
+
+                $checker_task = isset($item->checkerAssign->estimatorDesignerListTasks)
+                ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->completed : '0')
+                : '0';
+
+                $designer_status = isset($item->designerAssign->estimatorDesignerListTasks)
+                ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->status : '-')
+                : '-';
+
+                $checker_status = isset($item->checkerAssign->estimatorDesignerListTasks)
+                ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->status : '-')
+                : '-';
+
+                $last_status =isset($item->design->estimatorDesignerListTasks)
+                ? ($item->design->estimatorDesignerListTasks->last() ? $item->design->estimatorDesignerListTasks->last()->status : '-')
+                : '-';
+                $status_badge = HelperFunctions::getDesignerStatusBadge($designer_status);
+
+                @endphp
+                <td>
+                    @if(isset($item->designerAssign->user->name))
+                    <div class="row d-flex flex-column">
+                        <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}} </div>
+                        <div class="col d-flex justify-content-center">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{$designer_task}}%;"></div>
+                                <span class="progress-text">{{$designer_task}}%</span>
+                            </div>
+                        </div>
+                        @endif
+                        @php
+                        $user = Auth::user();
+                        // dd($user);
+                        $is_admin = HelperFunctions::isAdminDesigner($user);
+                        $is_promoted_admin = HelperFunctions::isPromotedAdminDesigner($user);
+                        $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
+                        $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
+                        // dd($is_designer);
+
+                        @endphp
+                        @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id))
+                        <span class="btn p-2 m-1 designerchangeemail" style="border-radius: 21%;" title="Designer Change Email" data-id={{Crypt::encrypt($item->id)}}>
+                            <i style="padding:3px;" class="fa fa-exchange-alt"></i>
+                        </span>
+                </td>
+                @endif
+                <td>
+                    @if(isset($item->checkerAssign->user->name))
+                    <div class="row d-flex flex-column">
+                        <div class="col text-center"> {{$item->checkerAssign->user->name ?? ''}} </div>
+                        <div class="col d-flex justify-content-center">
+                            <div class="progress-bar">
+                                <div class="progress-2" style="width: {{$checker_task}}%;"></div>
+                                <span class="progress-text">{{$checker_task}}%</span>
+                            </div>
+                        </div>
+                        @endif
+                        @if($designer_status != NULL)
+                        @if($designer_status != "-" )
+                        <span class="badge {{$status_badge}} mt-2">
+                            {{$checker_status}}
+                        </span>
+                        @endif
+                        @endif
+                        @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id))
+                        <span class="btn p-2 m-1 checkerchangeemail" style="border-radius: 21%; z-index:1060" title="Change Email" data-id={{Crypt::encrypt($item->id)}}>
+                            <i style="padding:3px;" class="fa fa-exchange-alt"></i>
+                        </span>
+                        @endif
+                </td>
+                <td class="green"> {{$designer_status}} </td>
+                <td>
+                    <div class="center ">
+                        <div class="image d-flex gap-3">
+                            <div class="image-1">
+                                @php
+                                $userEmail = auth()->user()->email;
+                                $email = '';
+                                @endphp
+
+                                @if(isset($item->designerAssign) && $userEmail == $item->designerAssign->email)
+                                @php $userEmail = $item->designerAssign->email; @endphp
+                                @elseif(isset($item->checkerAssign) && $userEmail == $item->checkerAssign->email)
+                                @php $userEmail = $item->checkerAssign->email; @endphp
+                                @endif
+                                <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$userEmail.'&job=1') }}" target="_blank">
+                                    <img src="{{asset('images/add.png')}}" alt="" srcset="">
+                                    <a>
+                            </div>
+                            <div class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1"> <img src="../images/group.png" alt="" srcset=""></div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row d-flex flex-column">
+                        <div class="col d-flex justify-content-center">
+                            <div class="description"> Pending </div>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <div class="paid mt-3"> Paid </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            @empty
+            @endforelse -->
+        </table>
     </div>
     <!--end::Toolbar-->
     <!--begin::Post-->
@@ -339,25 +654,16 @@
                 <div class=' d-flex col-md-8'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100 active" id="" type="button" role="tab"
-                                data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false"
-                                tabindex="-1">Price & Quotation</button>
+                            <button class="nav-link tab btn btn_outline w-100 active" id="" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab1" aria-controls="signin" aria-selected="false" tabindex="-1">Price & Quotation</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" type="button" role="tab"
-                                data-bs-toggle="tab" data-bs-target="#tab2" aria-controls="signin" aria-selected="false"
-                                tabindex="-1">Question & Answers</button>
+                            <button class="nav-link tab btn btn_outline w-100" id="" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab2" aria-controls="signin" aria-selected="false" tabindex="-1">Question & Answers</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button
-                                class="@if($record->public_message) {{'redBgBlink'}} @endif nav-link tab btn btn_outline w-100"
-                                id="public_qa" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab3"
-                                aria-controls="signin" aria-selected="false" tabindex="-1">Public Q&A</button>
+                            <button class="@if($record->public_message) {{'redBgBlink'}} @endif nav-link tab btn btn_outline w-100" id="public_qa" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab3" aria-controls="signin" aria-selected="false" tabindex="-1">Public Q&A</button>
                         </li>
                         <li class="nav-item w-100" role="presentation">
-                            <button class="nav-link tab btn btn_outline w-100" id="" type="button" role="tab"
-                                data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false"
-                                tabindex="-1">Awarded Contracts</button>
+                            <button class="nav-link tab btn btn_outline w-100" id="" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false" tabindex="-1">Awarded Contracts</button>
                         </li>
                         <!-- <li class="nav-item w-100" role="presentation">
                             <button class="nav-link tab btn btn_outline w-100" id=""  type="button" role="tab" data-bs-toggle="tab" data-bs-target="#tab4" aria-controls="signin" aria-selected="false" tabindex="-1">Reviews</button>
@@ -403,8 +709,7 @@
                             <h2 style="display: inline-block;">Please Add price & quotaion</h2>
                         </div>
                     </div>
-                    <form class="form-inline" action="{{route('designer.quotation')}}" method="post"
-                        enctype="multipart/form-data">
+                    <form class="form-inline" action="{{route('designer.quotation')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="email" value="{{$mail}}" />
                         <input type="hidden" name="estimatorId" value="{{$id}}" />
@@ -416,8 +721,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>Price:</span>
                                         </label>
-                                        <input type="number" name="price[]" class="form-control"
-                                            placeholder="Enter Price" />
+                                        <input type="number" name="price[]" class="form-control" placeholder="Enter Price" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -425,8 +729,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>Description:</span>
                                         </label>
-                                        <input type="text" name="description[]" placeholder="Enter Description"
-                                            class="form-control">
+                                        <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -434,8 +737,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>Submittal Date:</span>
                                         </label>
-                                        <input type="date" name="date[]" class="form-control fileInput"
-                                            id="inputGroupFile02">
+                                        <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -443,8 +745,7 @@
                                         <label class="d-flex align-items-center fs-6 fw-bold mt-5">
                                             <span></span>
                                         </label>
-                                        <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i
-                                                class="fa fa-plus"></i>Add More</button>
+                                        <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i class="fa fa-plus"></i>Add More</button>
                                     </div>
 
                                 </div>
@@ -493,8 +794,7 @@
                             <h2 style="display: inline-block;">Question Answer</h2>
                         </div>
                     </div>
-                    <form class="form-inline" action="{{url('Estimator/estimator-designer/comments-save')}}"
-                        method="post" enctype="multipart/form-data">
+                    <form class="form-inline" action="{{url('Estimator/estimator-designer/comments-save')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="email" value="{{$mail}}" />
                         <input type="hidden" name="estimatorId" value="{{$id}}" />
@@ -613,12 +913,9 @@
                                                 <td>{{$loop->index+1}}</td>
                                                 <td>{{$est->estimator->project->name ?? $est->estimator->projname}}</td>
                                                 <td>{{$est->estimator->company}}</td>
-                                                <td><a
-                                                        href="{{asset('estimatorPdf/'.$est->estimator->ped_url)}}">PDF</a>
+                                                <td><a href="{{asset('estimatorPdf/'.$est->estimator->ped_url)}}">PDF</a>
                                                 </td>
-                                                <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}"
-                                                        target="_blank" title="View & Upload Design"><i
-                                                            class="fa fa-eye"></i></a></td>
+                                                <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank" title="View & Upload Design"><i class="fa fa-eye"></i></a></td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -638,7 +935,7 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    $(".add-more-price").on('click',function(){
+    $(".add-more-price").on('click', function() {
         $(".appendresult").append(`<div class="row"><div class="col-md-3">
                               <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -679,31 +976,30 @@
                             </div></div>`);
     })
 
-    $(document).on("click",".remove",function(){
+    $(document).on("click", ".remove", function() {
         $(this).parent().parent().parent().remove();
     })
 
-    $("#public_qa").on('click',function(){
-        if($(this).hasClass('redBgBlink'))
-        {
-            let id="{{$record->id}}";
+    $("#public_qa").on('click', function() {
+        if ($(this).hasClass('redBgBlink')) {
+            let id = "{{$record->id}}";
             $.ajax({
-                url:"{{url('Estimator/designer/read-message')}}",
-                method:"get",
-                data:{id:id},
-                success:function(res){
+                url: "{{url('Estimator/designer/read-message')}}",
+                method: "get",
+                data: {
+                    id: id
+                },
+                success: function(res) {
                     console.log(res);
-                  if(res=="success")
-                  {
-                    $("#public_qa").removeClass('redBgBlink');
-                  }
-                  else{
+                    if (res == "success") {
+                        $("#public_qa").removeClass('redBgBlink');
+                    } else {
 
-                  }
+                    }
                 }
-            }) 
+            })
         }
-        
+
     })
 </script>
 @endsection

@@ -272,8 +272,8 @@
    }
 
    .btn.btn-primary {
-      border-color: #07d564 !important;
-      background-color: #07d564 !important;
+      border-color: #07d564 ;
+      background-color: #07d564 ;
       border-radius: 8px;
    }
 
@@ -417,6 +417,7 @@
     .blinking-icon {
       animation: blink 1s infinite;
       color: red;
+      background-color:red !important;
     }
 
 
@@ -845,12 +846,16 @@
 
                                           </div> -->
                                           <div class="d-flex">
-                                             <span class="col-5 titleColumn text-start" style="flex:0 0 0 !important;">Action</span>
-                                             <div class="d-flex col-6 action"
+                                             <!-- <span class="col-5 titleColumn text-start" style="flex:0 0 0 !important;">Action</span> -->
+                                             <!-- action class removed from next line action -->
+                                             <div class="d-flex col-6 "
                                                 style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; margin-left: 40px !important;">
                                                 
-                                                <a href="{{route('estimator.edit',$item->id)}}"><i
-                                                      class="fa fa-edit" style="margin-left:10px"></i></a>
+                                                <a href="{{route('estimator.edit',$item->id)}}">
+                                                   <button class="btn btn-primary">Edit Design Brief</button>
+                                                   <!-- <i
+                                                      class="fa fa-edit" style="margin-left:10px"></i> -->
+                                                </a>
                                                 <!-- @if(auth()->user()->hasRole('estimator'))
                                                 @endif -->
                                                 <!-- @if(auth()->user()->hasRole('user'))
@@ -861,7 +866,8 @@
                                                 @endif -->
                                                 <a href="{{route('estimator.show',$item->id)}}"
                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
-                                                   <i class="fa fa-eye @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif" style="margin-left:15px"></i>
+                                                   <!-- <i class="fa fa-eye " style="margin-left:15px"></i> -->
+                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif">View Designers & Suppliers</button>
                                                 </a>
                                              </div>
 

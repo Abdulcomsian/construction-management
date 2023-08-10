@@ -922,9 +922,9 @@
                                     </div>
                                     @include('dashboard.modals.design-relief-modals-edit')
                                     <input type="submit" name="action" style="margin-left: 10px;"
-                                        class="btn btn-primary float-end submitbutton" value="Update & Email">
+                                        class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier">
                                     <input type="submit" name="action" style="margin-left: 10px;"
-                                        class="btn btn-primary float-end submitbutton" value="Update">
+                                        class="btn btn-primary float-end submitbutton" value="Update (Draft)">
                                     <!--  <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update & email</button>
                         <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update</button> -->
 

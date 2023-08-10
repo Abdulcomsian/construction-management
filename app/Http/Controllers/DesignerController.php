@@ -632,7 +632,7 @@ class DesignerController extends Controller
                             // dd($drawing_number,$uploads->drawing_number);
                             $is_permit=0;
                         }
-                        dd($originalNumber, $is_permit);
+                        // dd($originalNumber, $is_permit);
                         $drawing_number[] = $originalNumber;
                         $papproval = 'No';
                         $construction = 'No';
@@ -659,7 +659,7 @@ class DesignerController extends Controller
                             $construction = 'Yes';
                         }
                         if($is_permit==0){$background  = '#FF0A0B40';}
-                        $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                        $list .= $originalNumber . $is_permit . '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                         $list .= '<td style="text-align:Center; !important;">' . $i . '</td>';
                         $list .= '<td style="text-align:Center; !important;">' . $uploads->drawing_number . '</td>';
                         $list .= '<td style="text-align:Center; !important;">' . $uploads->comments . '</td>';

@@ -1344,7 +1344,7 @@ $tempWorkClass = "d-none";
                                                             <span class="col-5 titleColumn">Drawings &
                                                                 Designs:</span>
                                                             <div class="d-flex col-sm-6"
-                                                                style="column-gap:1rem;margin-left: 32px">
+                                                                style="column-gap:1rem;margin-left: 31px">
                                                                 <div
                                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                     <p class="uploaddrawing cursor-pointer"
@@ -1422,7 +1422,7 @@ $tempWorkClass = "d-none";
                                                                 @if(count($item->unloadpermits)>0 ||
                                                                 count($item->closedpermits)>0 || $drawingscount)
                                                                 <div
-                                                                    style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;margin-left:2px;">
+                                                                    style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
                                                                     <p class="cursor-pointer permit-to-load-btn"
                                                                         style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
                                                                         data-type="add"
@@ -1500,7 +1500,7 @@ $tempWorkClass = "d-none";
                                                                                 @if(!$drawingscount)
                                                                                 <span
                                                                                     class="label label-lg font-weight-bold label-inline"
-                                                                                    style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 15px;visibility:hidden;"></span>
+                                                                                    style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 16px;visibility:hidden;"></span>
                                                                                 @endif
                                                                                 <span
                                                                                     class="label label-lg font-weight-bold label-inline"
@@ -1556,13 +1556,13 @@ $tempWorkClass = "d-none";
 
 
                                                                     <div
-                                                                        style="padding: 4px; border-radius: 4px;width: 20px; height:20px;position:relative;bottom:5px;left:-6px;">
+                                                                        style="padding: 6px; border-radius: 4px;width: 20px; height:20px;position:relative;bottom:5px;left:-6px;">
                                                                         <span style="width: 108px;">
                                                                             @if(count($item->unloadpermits)>0)
                                                                             <span
                                                                                 class="permit-to-unload cursor-pointer label label-lg font-weight-bold label-inline"  data-id="{{Crypt::encrypt($item->id)}}"
                                                                             data-desc="{{$item->design_requirement_text}}"
-                                                                                style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
+                                                                                style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 26px;">{{count($item->unloadpermits)}}</span>
                                                                             @else
                                                                             <span
                                                                                 class="label label-lg font-weight-bold label-inline"
@@ -2323,7 +2323,7 @@ $tempWorkClass = "d-none";
                                                                 <div class="d-flex col-6" id="ptu"
                                                                     style="column-gap: 1rem;">
                                                                     <div
-                                                                        style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                                        style="background: #07D56426;padding: 6px; border-radius: 4px;width: 20px; height:20px;">
                                                                         <p class="permit-to-unload cursor-pointer"
                                                                             style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
                                                                             data-id="{{Crypt::encrypt($item->id)}}"

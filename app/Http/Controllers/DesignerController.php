@@ -812,7 +812,7 @@ class DesignerController extends Controller
                         }
                         if($is_permit==1){$background  = '#FF0A0B40';}
 
-                    $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= $is_permit . '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';

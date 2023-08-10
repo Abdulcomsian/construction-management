@@ -1015,7 +1015,7 @@ const PDFViewerApplication = {
         ) {
             try {
                 // Trigger saving, to prevent data loss in forms; see issue 12257.
-                await this.save();
+                // await this.save();
             } catch {
                 // Ignoring errors, to ensure that document closing won't break.
             }

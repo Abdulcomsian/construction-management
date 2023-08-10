@@ -626,11 +626,13 @@ class DesignerController extends Controller
                         $is_permit = 1;
                         $parts = explode('-', $uploads->drawing_number);
                         $originalNumber = $parts[0];
+                        
                         if(in_array($originalNumber, $drawing_number) )
                         {
                             // dd($drawing_number,$uploads->drawing_number);
                             $is_permit=0;
                         }
+                        dd($originalNumber, $is_permit);
                         $drawing_number[] = $originalNumber;
                         $papproval = 'No';
                         $construction = 'No';

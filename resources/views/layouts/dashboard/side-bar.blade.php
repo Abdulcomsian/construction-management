@@ -49,16 +49,16 @@
     <!--begin::Aside menu-->
     <div class="aside-menu flex-column-fluid">
         <!--begin::Aside Menu-->
-        <div class="hover-scroll-overlay-y my-2 py-5 py-lg-8" id="kt_aside_menu_wrapper" data-kt-scroll="true"
+        <div class="hover-scroll-overlay-y my-2 py-5 py-lg-8 menu" data-kt-menu="true" id="kt_aside_menu_wrapper" data-kt-scroll="true"
             data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto"
             data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu"
-            data-kt-scroll-offset="0">
+            data-kt-scroll-offset="0" >
             <!--begin::Menu-->
 
             @if(auth()->user())
-             <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
+            <div  class="menu-item here show menu-accordion mb-1">
             @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
-                <!-- <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1"> -->
+                <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">
                         <span class="menu-icon userTask">
                             <img src="{{asset('assets/media/images/12.png')}}">
@@ -101,6 +101,7 @@
                 @endif
                 @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
                 </div></div>
+                <div data-kt-menu-trigger="click" class="menu-item here menu-accordion mb-1">
                 @endif
                 @if(\Auth::user()->hasRole([['admin', 'company']]))
                 <span class="menu-link userIconLink">
@@ -166,6 +167,8 @@
                     @endif
                    
                 </div>
+</div>
+<div data-kt-menu-trigger="click" class="menu-item here menu-accordion mb-1">
                 @if(\Auth::user()->hasRole([['admin', 'company']]))
                 <span class="menu-link userIconLink">
                     <span class="menu-icon userIcon">
@@ -196,7 +199,8 @@
                     </div>
                     @endif
                 </div>
-
+</div>
+<div data-kt-menu-trigger="click" class="menu-item here menu-accordion mb-1">
                 @if(\Auth::user()->hasRole([['admin', 'company']]))
                 <span class="menu-link userIconLink">
                     <span class="menu-icon userIcon">
@@ -229,7 +233,7 @@
                     </div>
                     @endif
                 </div>
-
+</div>
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">

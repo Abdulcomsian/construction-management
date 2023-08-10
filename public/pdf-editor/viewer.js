@@ -214,24 +214,19 @@ function webViewerLoad() {
 document.blockUnblockOnload?.(true);
 
 // if (
-//   document.readyState === "interactive" ||
-//   document.readyState === "complete"
+//     document.readyState === "interactive" ||
+//     document.readyState === "complete"
 // ) {
-
-//   console.log("1111111");
-//   webViewerLoad();
+//     webViewerLoad();
 // } else {
-//   console.log("2222222");
-//   document.addEventListener("DOMContentLoaded", webViewerLoad, true);
+//     document.addEventListener("DOMContentLoaded", webViewerLoad, true);
+//     document.removeEventListener
 // }
 
 document.addEventListener("DOMContentLoaded", function () {
-    let modal;
-
     function openModalOnDropdownChange() {
         const dropdown = document.getElementById("drawingDropDown");
 
-        localStorage.clear();
         // Your code here to handle the change event
         const selectedOption = dropdown.value;
         if (selectedOption) {
@@ -247,12 +242,24 @@ document.addEventListener("DOMContentLoaded", function () {
             "Modal title for " + (savedSelectedOption || "Default");
 
         // Open the modal programmatically
-        $("#exampleModal").modal("show");
-        webViewerLoad();
+        if (selectedOption) {
+            $("#exampleModal").modal("show");
+            PDFViewerApplication.pdfViewer?.refresh(true)
+            webViewerLoad();
+        }
     }
 
     const dropdown = document.getElementById("drawingDropDown");
     dropdown.addEventListener("change", openModalOnDropdownChange);
+
+    const closeModal = document.getElementById("closeModal");
+    closeModal.addEventListener("click", async function () {
+        await PDFViewerApplication.close();
+        await PDFViewerApplication._cleanup();
+        localStorage.removeItem("selectedPDFPath");
+        localStorage.removeItem("pdfjs.history");
+        $("#exampleModal").modal("hide");
+    })
 });
 
 export {

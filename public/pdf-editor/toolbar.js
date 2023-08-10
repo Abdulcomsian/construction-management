@@ -158,13 +158,15 @@ class Toolbar {
   #bindListeners(options) {
     const { pageNumber, scaleSelect } = this.items;
     const self = this;
-
     // The buttons within the toolbar.
     for (const { element, eventName, eventDetails } of this.buttons) {
       element.addEventListener("click", evt => {
         if (eventName !== null) {
           this.eventBus.dispatch(eventName, { source: this, ...eventDetails });
         }
+        evt.stopImmediatePropagation()
+      }, {
+        capture: true
       });
     }
     // The non-button elements within the toolbar.

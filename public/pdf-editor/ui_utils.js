@@ -680,8 +680,8 @@ const animationStarted = new Promise(function (resolve) {
 
 const docStyle =
   typeof PDFJSDev !== "undefined" &&
-  PDFJSDev.test("LIB") &&
-  typeof document === "undefined"
+    PDFJSDev.test("LIB") &&
+    typeof document === "undefined"
     ? null
     : document.documentElement.style;
 

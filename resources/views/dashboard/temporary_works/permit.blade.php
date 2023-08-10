@@ -528,7 +528,7 @@
                   <select name="drawing" id="drawingDropDown" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
                     <option value="">Select PDF</option>
                       @foreach($temporary_work_files as $upload)
-                              <option value="{{ env('APP_URL').'/'.$upload->file_name }}">{{ $upload->drawing_number }}</option>
+                              <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
                       @endforeach
                   </select>
                 </div> --}}
@@ -540,7 +540,7 @@
                         <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
                             <option value="">Select PDF</option>
                             @foreach($temporary_work_files as $upload)
-                            <option value="{{ env('APP_URL').'/'.$upload->file_name }}">{{ $upload->drawing_number }}</option>
+                            <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
                             @endforeach
                         </select>
                         <input type="hidden" value="" id="design_upload" name="design_upload" />

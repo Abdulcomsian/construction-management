@@ -259,6 +259,17 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container" style="padding-top: 80px">
             <div class="row">
+                <div class="col-md-12">
+                <label class="align-items-center fs-6 fw-bold mb-2"
+                                                style="display:inline;">
+                                                <span class="">Design Brief Title: 
+</span>
+
+                                            </label>
+                                            <label class="form-check-label" for="exampleRadios1">
+                                            {{$tempdata->design_requirement_text}}. To Download Design Brief <a href="pdf/{{$tempdata->ped_url}}">Click here</a>
+                                                </label>
+                </div>
                 <div class=' d-flex col-md-6'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
 

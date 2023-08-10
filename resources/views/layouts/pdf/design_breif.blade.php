@@ -77,7 +77,14 @@
                         <td style="width: 150px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Designer Company<br>Email</b></label>
                         </td>
-                        <td style="max-height:70px !important; font-size:12px;"> {{$data['designer_company_email']}}</td>
+                        {{-- <td style="max-height:70px !important; font-size:12px;"> {{$data['designer_company_email'][0]}}</td> --}}
+                        <td style="max-height:70px !important; font-size:12px;">
+                            @if(count($data['designer_company_email']) > 0)
+                                @foreach($data['designer_company_email'] as $index => $email)
+                                    {{$email}}{{($index != count($data['designer_company_email']) - 1) ? ',' : ''}}
+                                @endforeach
+                            @endif
+                        </td>
                     </tr>
                     @if(isset($data['desinger_email_2']))
                     <tr style="height: 150px;">

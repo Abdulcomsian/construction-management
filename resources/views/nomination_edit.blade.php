@@ -331,7 +331,7 @@
                                         }
                                         @endphp
                                         <input type="text" name="nominated_role" value="{{ $role ?? '' }}" required>
-                                        <p>*Temporary Works Coordinator</p>
+                                        <!-- <p>*Temporary Works Coordinator</p> -->
                                     </td>
                                 </tr>
                                 <tr>

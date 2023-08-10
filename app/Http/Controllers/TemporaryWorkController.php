@@ -1906,6 +1906,7 @@ $notify_admins_msg = [
             if($request->drawing_option == 'drawing')
             {
                 $all_inputs['design_upload'] = $request->design_upload;
+
             } else{
                 $file = $request->file('custom_drawing');
                 $filePath  = 'design_uploads/';
@@ -2027,7 +2028,9 @@ $notify_admins_msg = [
                 toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
-        } catch (\Exception $exception) {dd($exception->getMessage());
+        } catch (\Exception $exception) {
+                        dd($exception->getMessage(), $exception->getLine());
+
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

@@ -270,6 +270,10 @@ class EstimatorController extends Controller
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
+            if($request->action == 'publish')
+            {
+                $all_inputs['estimator']=0;
+            }
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -291,6 +295,7 @@ class EstimatorController extends Controller
                 }
                 //work for pdf
                 $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                
                 $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
@@ -313,24 +318,46 @@ class EstimatorController extends Controller
                     'action_url' => '',
                 ];
 
+                $notify_admins_msg = [
+                    'greeting' => 'Temporary Work Pdf',
+                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                    'body' => [
+                        'company' => $request->company,
+                        'filename' => $filename,
+                        'links' => '',
+                        'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                        'designer' => '',
+                        'pc_twc' => '',
+
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                if($request->action == 'Publish')
+                {
+                    $notify_admins_msg['body']['designer'] = '';
+                    $notify_msg = $notify_admins_msg;
+                }
 
                 //work for designer email list==============  
                 $this->saveDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer');
                 //work for supplier email list=============
                 $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier');
+               
             }
             toastSuccess('Estimator Brief successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
+            dd($exception->getMessage(),$exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
     }
 
     //send email to desinger and save in database
-    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
+    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type,)
     {
-           
             $email_list1=[];
             $email_list2=[];
             if(!empty($emails))
@@ -359,6 +386,24 @@ class EstimatorController extends Controller
                 }
                 
             }
+
+            foreach($finalList as $key=>$list)
+            {
+                $list=explode('-',$list);
+                $code=random_int(100000, 999999);
+                EstimatorDesignerList::create([
+                    'email'=>$list[0],
+                    'temporary_work_id'=>$temporary_work_id,
+                    'code'=>$code,
+                    'type'=>$type,
+                    'user_id'=>$list[1] ?? NULL,
+                ]);
+
+                if ($action=='Publish') {
+                    Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporary_work_id, $list, 1));
+                // }
+                }   
+            }                
     }
 
     //unset keys

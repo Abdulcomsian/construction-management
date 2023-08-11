@@ -545,8 +545,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-3 mx-5">
+                                            <div class="d-flex justify-content-end pe-5">
+                                                <div>
                                                     <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
                                                 </div>
                                             </div>

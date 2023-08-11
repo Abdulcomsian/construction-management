@@ -164,7 +164,11 @@
       width: 200px;
     }
   }
-
+  @media only screen and (max-width: 650px) {
+  #first_member{
+    margin-top:30px;
+  }
+}
   .inputDiv {
     margin: 30px 0px;
     border: 1px solid #D2D5DA;

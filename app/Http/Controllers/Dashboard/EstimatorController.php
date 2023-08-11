@@ -380,12 +380,21 @@ class EstimatorController extends Controller
     {
         if(Auth::user()->hasRole(['estimator','user']))
         {
-            $listOfDesigners=EstimatorDesignerList::with('Estimator.project')
-                                                    ->with('quotationSum','checkCommentReply')
-                                                    ->where(['temporary_work_id'=>$id])
-                                                    ->whereHas('user' , function($query){
-                                                        $query->whereNull('di_designer_id');
-                                                    })->get();
+            // $listOfDesigners=EstimatorDesignerList::with('Estimator.project')
+            //                                         ->with('quotationSum','checkCommentReply')
+            //                                         ->where(['temporary_work_id'=>$id])
+            //                                         ->whereHas('user' , function($query){
+            //                                             $query->whereNull('di_designer_id');
+            //                                         })->get();
+            $listOfDesigners = EstimatorDesignerList::with('Estimator.project')
+            ->with('quotationSum', 'checkCommentReply')
+            ->where(['temporary_work_id' => $id])
+            ->where(function ($query) {
+                $query->whereHas('user', function ($subQuery) {
+                    $subQuery->whereNull('di_designer_id');
+                })->orWhereNull('user_id');
+            })
+            ->get();
             $temporaryWork=TemporaryWork::find($id);
             return view('dashboard.estimator.view',compact('listOfDesigners','id','temporaryWork'));
         }

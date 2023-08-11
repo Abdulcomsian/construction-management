@@ -2,6 +2,11 @@
 
 @section('styles')
 <style>
+        /* ::placeholder {
+
+        color: black !important;
+        opacity: 1;
+    } */
     .customDate::-webkit-calendar-picker-indicator {
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
     }
@@ -130,10 +135,12 @@
     }
 
     .inputDiv label {
+        color: #000;
         position: absolute;
-        top: -11px;
+        bottom: 25px;
         background: white;
-        width: fit-content;
+        font-family: 'Inter', sans-serif;
+        z-index: 1;
     }
 
     .card-title {
@@ -230,6 +237,40 @@
         padding: 0 !important;
         flex-grow: 1;
     }
+
+
+
+    .whiteBack {
+    background-color: #f5f8fa !important;
+    color: #000 !important;
+}
+
+
+input {
+        /* custom */
+        caret-color: gray;
+    }
+
+
+.form-select::-ms-expand {
+    display: none;
+}
+.form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    background-color: transparent;
+    padding-right: 24px; 
+}
+.form-control.form-control-solid {
+    background: white !important;
+}
+
+.temporary_work_create .inputDiv input {
+    width: 100% !important;
+    border: none !important;
+}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -261,7 +302,8 @@
                         <div class="row">
                             <div class="col">
                                 <div class="d-flex inputDiv d-block mb-0">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2"> -->
+                                    <label class=" fs-6 fw-bold mb-2" style="bottom: 38px;">
                                         <span class="required">Select Project:</span>
                                     </label>
                                     <select name="project_id" id="projects"
@@ -287,7 +329,7 @@
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                    <input readonly type="text" class="whiteBack form-control form-control-solid"
                                         placeholder="000" id="no" name="projno"
                                         value="{{old('projno',$selectedproject->no)}}">
                                 </div>
@@ -300,7 +342,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                    <input readonly type="text" class="whiteBack form-control form-control-solid"
                                         placeholder="Project Name" id="name" name="projname"
                                         value="{{old('projname',$selectedproject->name)}}">
                                 </div>
@@ -328,7 +370,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input readonly type="text" class="blackBack form-control form-control-solid"
+                                    <input readonly type="text" class="whiteBack form-control form-control-solid"
                                         placeholder="Project Address" id="address" name="projaddress"
                                         value="{{old('projaddress',$selectedproject->address ?? '')}}">
                                 </div>
@@ -338,16 +380,18 @@
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2"> -->
+                                    <label class=" fs-6 fw-bold mb-2">
                                         <span class="">TWC Name:</span>
 
                                     </label>
                                     <!--end::Label-->
                                     <input type="text"
-                                        class="blackBack form-control {{ !auth()->user()->hasRole('user') ? 'form-control-solid' : '' }}"
+                                        class="whiteBack form-control form-control-solid {{ !auth()->user()->hasRole('user') ? 'form-control-solid' : '' }}"
                                         placeholder="TWC Name" id="twc_name" name="twc_name"
                                         value="{{old('twc_name',auth()->user()->hasRole('user') ? auth()->user()->name :$temporaryWork->twc_name)}}">
                                 </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
@@ -367,7 +411,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
-                                    <!--begin::Label-->
+                                
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="">Design Required by Date:</span>
                                     </label>
@@ -379,30 +423,33 @@
                                         value="{{old('design_required_by_date',$temporaryWork->design_required_by_date)}}">
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv" data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
-                                        <!--begin::Label-->
-                                        <label style="" class=" d-flex align-items-center fs-6 fw-bold mb-2">
+                                  
+                                          <label style="bottom: 41px" class="  fs-6 fw-bold mb-2">
                                             Design Requirement:
                                         </label>
+                    
                                         <br>
                                         <input type="text" class="blackBack" style="width: 50%;"
                                             id="design_requirement_text" placeholder="Design requirement" readonly
                                             name="design_requirement_text"
                                             value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
-                                        <!--end::Label-->
+                               
                                     </div>
                                 </div>
                             </div>
+                    
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-bold mb-2">
+                                        <label class="required fs-6 fw-bold mb-2" style="bottom: 41px">
                                             Description:
                                         </label>
                                         <textarea class="blackBack form-control"
@@ -600,7 +647,7 @@
                                                 <div class="d-flex modalDiv d-block" data-bs-toggle="modal"
                                                     data-bs-target="#scope-of-design">
                                                     <!--begin::Label-->
-                                                    <label class="fs-6 fw-bold mb-2">
+                                                    <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
                                                         Scope of Design:
                                                     </label>
                                                     <textarea class="blackBack form-control" id="scopofdesign" rows="2"
@@ -613,7 +660,7 @@
                                             <div class="d-flex inputDiv d-block mb-0">
                                                 <div style="position:relative;" class="d-flex modalDiv d-block"
                                                     data-bs-toggle="modal" data-bs-target="#attachment-of-design">
-                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <label class=" fs-6 fw-bold mb-2"   style="bottom: 0; top: -17px; height: fit-content;">
                                                         Attachments / Spec:
                                                         <span style="margin-left: 10px;">
                                                             <a href="{{asset('uploads/checklist.pdf')}}"
@@ -636,12 +683,12 @@
                                             {{-- @if(auth()->user()->hasRole('estimator') &&
                                             $temporaryWork->estimatorApprove==0)
                                             --}}
-
-                                            <h6 style="margin-top: 10px">And/Or</h6>
+                                            <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                             <div class="d-flex inputDiv d-block">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Select company approved designer</span>
-                                                </label>
+
+                                                    <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
+                                                    Select company approved designer
+                                                    </label>
                                                 <select name="designers[]"
                                                     class="form-select form-select-lg form-select-solid"
                                                     data-control="select2" data-placeholder="Select an option"
@@ -656,10 +703,10 @@
                                                     </optgroup>
                                                 </select>
                                             </div>
-                                            <h6>And/Or</h6>
+                                            <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                             <div class="d-flex inputDiv d-block mb-0">
                                                 <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                   <label class=" fs-6 fw-bold mb-2" style="bottom: 27px">
                                                     <span class="">Designer Email Address:</span>
 
                                                 </label>
@@ -676,10 +723,10 @@
                                             {{-- @if(auth()->user()->hasRole('estimator') &&
                                             $temporaryWork->estimatorApprove==0)
                                             --}}
-                                            <h6 style="margin-top: 10px">And/Or</h6>
+                                            <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                             <div class="d-flex inputDiv d-block">
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Select company approved supplier</span>
+                                            <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
+                                                    <span>Select company approved supplier</span>
                                                 </label>
                                                 <select name="suppliers[]" id="desingers"
                                                     class="form-select form-select-lg form-select-solid"
@@ -696,10 +743,10 @@
 
                                                 </select>
                                             </div>
-                                            <h6>And/Or</h6>
+                                            <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                             <div class="d-flex inputDiv d-block mb-0">
                                                 <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <label class=" fs-6 fw-bold mb-2" style="bottom: 27px">
                                                     <span class="">Supplier Email Address:</span>
 
                                                 </label>
@@ -797,15 +844,15 @@
 
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
 
                                             @if(auth()->user()->hasRole('user'))
                                             <div class="d-flex inputDiv d-block">
-                                                <!--begin::Label-->
+                                               
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="">Designer Company Name:</span>
                                                 </label>
-                                                <!--end::Label-->
+                                                
                                                 <input type="text" class="form-control form-control-solid"
                                                     placeholder="Designer Company Name" id="designer_company_name"
                                                     name="designer_company_name"
@@ -813,12 +860,12 @@
                                                     style="background-color:#f5f8fa">
                                             </div>
                                             <div class="d-flex inputDiv d-block">
-                                                <!--begin::Label-->
+                                              
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="">Designer Email Address:</span>
 
                                                 </label>
-                                                <!--end::Label-->
+                                               
                                                 <input type="text" class="form-control"
                                                     placeholder="Enter Comma Seperated" id="designer_company_emails"
                                                     name="designer_company_email"
@@ -828,23 +875,23 @@
                                             @if(auth()->user()->hasRole('estimator') &&
                                             $temporaryWork->estimatorApprove)
                                             <div class="d-flex inputDiv d-block">
-                                                <!--begin::Label-->
+                                          
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="">Designer Company Name:</span>
                                                 </label>
-                                                <!--end::Label-->
+                                       
                                                 <input type="text" class="form-control"
                                                     placeholder="Designer Company Name" id="designer_company_name"
                                                     name="designer_company_name" style="background-color:#f5f8fa"
                                                     value="{{old('designer_company_name',$temporaryWork->company)}}">
                                             </div>
                                             <div class="d-flex inputDiv d-block">
-                                                <!--begin::Label-->
+                                     
                                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="">Designer Email Address:</span>
 
                                                 </label>
-                                                <!--end::Label-->
+                                         
                                                 <input type="text" class="form-control"
                                                     placeholder="Enter Comma Seperated" id="designer_company_emails"
                                                     name="designer_company_email"
@@ -854,7 +901,14 @@
 
 
 
-                                        </div>
+                                        </div> -->
+
+
+
+
+
+
+<!--                                         
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Do you want to move this pre construction to Temporary work register ?
@@ -864,12 +918,19 @@
                                             <div id="display_sign_div" style="display:none">
                                                 @if(auth()->user()->hasRole('user'))
                                                     <div class="d-flex inputDiv">
-                                                        <!--begin::Label-->
+                                                    
                                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2"
                                                             style="width:40% !important">
                                                             <span>signature:</span>
                                                         </label>
-                                                        <!--end::Label-->
+                                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                                style="width: 12px;">
+                                            <input type="hidden" id="Drawtype" name=""
+                                                class="form-control form-control-solid" value="1">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
                                                         <input type="checkbox" class="" id="flexCheckChecked"
                                                             style="width: 12px;margin-top:5px">
                                                         <input type="hidden" id="signtype" name="signtype"
@@ -879,7 +940,7 @@
                                                             you want
                                                             name signature?</span>
                                                         &nbsp;
-                                                        <!--end::Label-->
+                                                   
                                                         <input type="checkbox" class="" id="pdfChecked"
                                                             style="width: 12px;margin-top:5px">
                                                         <input type="hidden" id="pdfsign" name="pdfsigntype"
@@ -914,12 +975,106 @@
                                                         <span id="clear" class="fa fa-undo cursor-pointer"
                                                             style="line-height: 6"></span>
                                                     </div>
+                                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                        Added</span>
                                                     <br>
                                                 @endif
                                             </div>
+                                        </div>  -->
+
+                                    </div>
+
+
+
+
+
+
+<br>
+<br>
+
+                            <div class="row">
+                 
+                                <div class="col-md-6">
+                                @if(auth()->user()->hasRole('user'))
+                                    <div class="d-flex inputDiv mb-1" style="border: none">
+                   
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
+                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                            <span class="signatureTitle">Signature Type:</span>
+                                        </label>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                                style="width: 12px;">
+                                            <input type="hidden" id="Drawtype" name=""
+                                                class="form-control form-control-solid" value="1">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype"
+                                                class="form-control form-control-solid" value="2">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                        </div>
+                                        &nbsp;
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                            <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                                class="form-control form-control-solid" value="0">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                                Upload </span>
                                         </div>
 
                                     </div>
+                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                        <canvas id="sig" onblure="draw()"
+                                            style="background: lightgray; border-radius:10px"></canvas>
+                                        <br />
+                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                            style="line-height: 6; position:relative; top:42px; right:26px"></span>
+                                    </div>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                        Added</span>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                        <label class="fs-6 fw-bold mb-2" style="width: fit-content">
+                                            <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                    </div>
+
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign" class="form-control form-control-solid">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+
+
+                                    <!-- <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            
+                                            </label> -->
+                                    <!-- <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button> -->
+                                    <!-- </div> -->
+                                    <!-- work for approval -->
+                                    @include('dashboard.modals.design-relief-modals')
+                                    <button id="submitbutton" type="submit"
+                                        class="btn btn-secondary float-end submitbutton" disabled
+                                        style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                                        @endif
+                                </div>
+
+                            </div>
+
+
+
+
+                                    
                                     @include('dashboard.modals.design-relief-modals-edit')
                                     <input type="submit" name="action" style="margin-left: 10px;"
                                         class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier">
@@ -933,6 +1088,7 @@
                 <!--end::Card body-->
             </div>
             <!--end::Card-->
+ 
         </div>
         <!--end::Container-->
     </div>
@@ -1216,5 +1372,208 @@
     });
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $("#DrawCheck").change(function(){
+        if($(this).is(':checked'))
+        {
+            $('#submitbutton').prop('disabled', true);
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+            $("#sigimage").show();
+            $("#pdfChecked").prop('checked',false);
+            $("#flexCheckChecked").prop('checked',false);
+            $("#signtype").val(0);
+             $("#pdfsign").val(0);
+             $("#Drawtype").val(1);
+            $("#clear").show();
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#namesign").removeClass('d-flex').addClass("d-none");
+            $("#sign").css('display','flex');
+           
+        }
+
+    })
+    $("#flexCheckChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
+            $("#pdfChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
+            $("#signtype").val(1);
+             $("#pdfsign").val(0);
+             $("#Drawtype").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+             $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required','required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
+    })
+
+    $("#pdfChecked").change(function(){
+        if($(this).is(':checked'))
+        {
+            $("#sigimage").hide();
+            $("#submitbutton").css("cursor", "pointer");
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#flexCheckChecked").prop('checked',false);
+            $("#DrawCheck").prop('checked',false);
+            $("#pdfsign").val(1);
+            $("#signtype").val(0);
+            $("#Drawtype").val(0);
+            $("input[name='pdfsign']").attr('required','required');
+            $("div#pdfsign").removeClass('d-none').addClass('d-flex');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").hide();
+            $("#sign").removeClass('d-flex').hide();
+           
+        }
+        else{
+            $("#pdfsign").val(0);
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("input[name='pdfsign']").removeAttr('required');
+            $("#clear").show();
+             
+        }
+    })
+    
+
+
+
+var canvas = document.getElementById("sig");
+var signaturePad = new SignaturePad(canvas);
+signaturePad.addEventListener("endStroke", () => {
+console.log("hello");
+$("#signature").val(signaturePad.toDataURL('image/png'));
+$("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+$("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+// $('#submitbutton')
+});
+$('#clear').click(function(e) {
+       e.preventDefault();
+       signaturePad.clear();
+       $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+        $('#submitbutton').prop('disabled', true);
+
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+   });
+// $("#submitbutton").on('click',function(e){
+// if ( $("#desingform-form").valid() ) {
+
+// $("#signature").val(signaturePad.toDataURL('image/png'));
+// $("#desingform").submit();
+// } else {
+// console.log('form invalid');
+// }
+
+
+// })
+
+$("#submitbutton").on('click', function () {
+    if (signaturePad) {
+        $("#signature").val(signaturePad.toDataURL('image/png'));
+    }
+    // if (signaturePad1) {
+    //     $("#signature1").val(signaturePad1.toDataURL('image/png'));
+    // }
+    $('#submitbutton').prop('disabled', true);
+    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.prop("disabled", true);
+    $("#desingform").submit();
+});
+
+
+
+
+
+$(function() {
+var email= $("#twc_email").val();
+if(email.length>0){
+$("#twc_email").removeClass("blackBack")
+} else{
+$("#twc_email").addClass("blackBack")
+}
+$("input").on("change paste keyup cut select", function() {
+if($(this).val() !== "") {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+}
+});
+$("textarea").on("change", function() {
+if($(this).val() !== "") {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+}
+});
+
+$("#design_requirement_text").on("click", function() {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+
+});
+$("#scope-of-design #submit-requirment button").on("click", function() {
+console.log("here");
+$("#scopofdesign").removeClass("blackBack")
+$("#scopofdesign").addClass("whiteBack")
+
+});
+$("#attachment-of-design #submit-requirment button").on("click", function() {
+$(this).removeClass("blackBack")
+$(this).addClass("whiteBack")
+
+});
+
+$("#projects").change(function(){
+console.log("hello")
+$(this).removeClass("blackBack")
+$("#projects span.form-select").removeClass("blackBack")
+// $(".form-control[readonly]").removeClass("blackBack")
+$("#no").removeClass("blackBack").addClass("whiteBack");
+$("#name").removeClass("blackBack").addClass("whiteBack");
+$("#design_issued_date").removeClass("blackBack").addClass("whiteBack");
+$("#address").removeClass("blackBack").addClass("whiteBack");
+$("#job_title").removeClass("blackBack").addClass("whiteBack");
+$("#admin_name").removeClass("blackBack").addClass("whiteBack");
+$("#companyadmin").removeClass("blackBack").addClass("whiteBack");
+$(".form-select.form-select-solid").css("background-color","#f5f8fa")
+$("#companyadmin").removeClass("blackBack").addClass("whiteBack");
+$("#twc_name").removeClass("blackBack").addClass("whiteBack");
+// $("#scopofdesign").addClass("blackBack")
+})
+
+$(".customDate").click(function(){
+$(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)")
+})
+});
+</script>
 
 @endsection

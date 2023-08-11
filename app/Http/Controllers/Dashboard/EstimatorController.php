@@ -882,10 +882,16 @@ class EstimatorController extends Controller
             if($res)
             { 
                  Notification::route('mail', $email)->notify(new DesignerAwarded($temporary_work_id,$email,$code));
-                 toastSuccess('Designer Approved successfully!');
-                 return redirect()->back();
+
             }
-           
+            $estimatorDesigners = EstimatorDesignerList::where('temporary_work_id', $temporary_work_id)->get();
+            foreach($estimatorDesigners as $designer){
+                if($designer->id != $estimatorDesigner->id){
+                     Notification::route('mail', $designer->email)->notify(new DesignerAwarded($temporary_work_id,$designer->email,$code, 'rejected'));
+                }
+            }
+            toastSuccess('Designer Approved successfully!');
+            return redirect()->back();
         }catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

@@ -25,14 +25,21 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello</h1>
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                        Welcome to the Temporary Works Portal.  <br><br>
-                                                                        Congratulation you have Awarded for the estimaotr having company is {{$details['company']}}<br><br>
+                                                                        Welcome to the Temporary Works Portal.  </p><br><br>
+                                                                    @if($status)
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        Sorry! Design brief has been awarded to another designer.<br><br>
+                                                                       </p>
+                                                                    @else
+                                                                        <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                    Congratulation you have Awarded for the estimaotr having company is {{$details['company']}}<br><br>
                                                                    </p>
                                                                    <p>
                                                                        <a href="{{route('estimator.designer',$id.'/?mail='.$email.'&code='.Crypt::encrypt($code))}}">View Awarded Estimate Design Brief</a>
                                                                    </p>
-                                                                  
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Review Design Brief If you have any questions about this Estimate brief, please refer to {{$details['company']}} Ltd. <br><br>
+                                                                  @endif
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Review Design Brief If you have any questions about this Estimate brief, please refer to {{$details['company']}} Ltd. <p><br><br>
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                     Regards, The Temporary Works Portal Team <br><br>
                                                                     <span style="font-size: 10px">P.S. If you have any problems with the portal, don't hesitate to get in touch with us at info@ctworks.co.uk </span>
                                                                    </p>

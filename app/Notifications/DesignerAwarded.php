@@ -15,11 +15,13 @@ class DesignerAwarded extends Notification
     public $tempid;
     public $email;
     public $code;
-    public function __construct($tempid,$email,$code)
+    public $status;
+    public function __construct($tempid,$email,$code,$status=null)
     {
         $this->tempid=$tempid;
         $this->email=$email;
         $this->code=$code;
+        $this->status=$status;
     }
 
     /**
@@ -41,13 +43,18 @@ class DesignerAwarded extends Notification
      */
     public function toMail($notifiable)
     {
+        if($this->status){
+            $msg = 'Rejected';
+        } else{
+            $msg = 'Awarded';
+        }
         $data=TemporaryWork::with('project')->find($this->tempid);
         $proj_name = $data->project->name ?? $data->projname;
         $proj_no = $data->project->no ?? $data->projno;
         return (new MailMessage)
-            ->greeting('Design Brief Awarded')
-            ->subject('Design Brief Awarded -'.$proj_name. '-' .$proj_no)
-            ->view('mail.designerAwarded', ['details' => $data,'id'=>$this->tempid,'email'=>$this->email,'code'=>$this->code]);
+            ->greeting('Design Brief '.$msg)
+            ->subject('Design Brief '.$msg .'-'.$proj_name. '-' .$proj_no)
+            ->view('mail.designerAwarded', ['details' => $data,'id'=>$this->tempid,'email'=>$this->email,'code'=>$this->code, 'status'=>$this->status]);
     }
 
     /**

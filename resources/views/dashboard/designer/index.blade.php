@@ -267,7 +267,7 @@
 
                                             </label>
                                             <label class="form-check-label" for="exampleRadios1">
-                                            {{$tempdata->design_requirement_text}}. To Download Design Brief <a href="pdf/{{$tempdata->ped_url}}">Click here</a>
+                                            {{$tempdata->design_requirement_text}}. To Download Design Brief <<a href="{{asset('pdf/'.$tempdata->ped_url)}}">Click here</a>
                                                 </label>
                 </div>
                 <div class=' d-flex col-md-6'>

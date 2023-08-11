@@ -163,7 +163,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         Validations::storeUser($request);
       //  try {
             $userprojectdata=[];
@@ -183,13 +182,13 @@ class UserController extends Controller
             $all_inputs['email_verified_at'] = now();
             $user = User::create($all_inputs);
 
-        if($request->role == "user"){
-            if($request->allow_estimator == "on")
-            {
-                $permission = Permission::where("name", "twc-estimator")->first();
-                $user->givePermissionTo($permission);
+            if($request->role == "user"){
+                if($request->allow_estimator == "on")
+                {
+                    $permission = Permission::where("name", "twc-estimator")->first();
+                    $user->givePermissionTo($permission);
+                }
             }
-        }
             
             if($user->userCompany->nomination==1 && $request->nomination==1)
             {
@@ -260,11 +259,11 @@ class UserController extends Controller
                 ->with(['userProjects', 'userCompany'])
                 ->where('id', $id)
                 ->first();
-            
             $company_projects = $user->userCompany->companyProjects ?? [];
             $user_projects = $user->userProjects->pluck('id')->toarray();
             $companies = User::role('company')->latest()->get();
-            return view('dashboard.users.edit', compact('user_projects', 'user', 'companies', 'company_projects'));
+            $permission = Permission::where("name", "twc-estimator")->first();
+            return view('dashboard.users.edit', compact('user_projects', 'user', 'companies', 'company_projects','permission'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return back();
@@ -295,6 +294,7 @@ class UserController extends Controller
                 'email' => $all_inputs['email'],
                 'company_policy'=>$all_inputs['company_policy'],
             ]);
+            
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();
         } catch (\Exception $exception) {
@@ -332,6 +332,21 @@ class UserController extends Controller
                 'job_title'=>$request->job_title,
             ]);
             $user->syncRoles($request->role);
+            if ($request->role == "user") {
+                if ($request->allow_estimator == "on") {
+                    $permission = Permission::where("name", "twc-estimator")->first();
+            
+                    if (!$user->hasPermissionTo($permission)) {
+                        $user->givePermissionTo($permission);
+                    }
+                } else {
+                    // If allow_estimator is not checked, remove the permission if it exists
+                    $permission = Permission::where("name", "twc-estimator")->first();
+                    if ($user->hasPermissionTo($permission)) {
+                        $user->revokePermissionTo($permission);
+                    }
+                }
+            }
             //$user->userProjects()->syncWithPivotValues($all_inputs['projects'],['description_of_role' => $request->description_of_role,'Description_limits_authority'=>$request->Description_limits_authority,'authority_issue_permit'=>$request->authority_issue_permit]);
             toastSuccess('Profile Updated Successfully');
             return Redirect::back();

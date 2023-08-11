@@ -214,24 +214,19 @@ function webViewerLoad() {
 document.blockUnblockOnload?.(true);
 
 // if (
-//   document.readyState === "interactive" ||
-//   document.readyState === "complete"
+//     document.readyState === "interactive" ||
+//     document.readyState === "complete"
 // ) {
-
-//   console.log("1111111");
-//   webViewerLoad();
+//     webViewerLoad();
 // } else {
-//   console.log("2222222");
-//   document.addEventListener("DOMContentLoaded", webViewerLoad, true);
+//     document.addEventListener("DOMContentLoaded", webViewerLoad, true);
+//     document.removeEventListener
 // }
 
 document.addEventListener("DOMContentLoaded", function () {
-    let modal;
-
     function openModalOnDropdownChange() {
         const dropdown = document.getElementById("drawingDropDown");
 
-        localStorage.clear();
         // Your code here to handle the change event
         const selectedOption = dropdown.value;
         if (selectedOption) {
@@ -239,20 +234,43 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("selectedPDFPath", selectedOption);
         }
 
-        // Retrieve the selected option from local storage
-        const savedSelectedOption = localStorage.getItem("selectedPDFPath");
-
-        // Set the modal title based on the selected option
-        document.querySelector("#exampleModalLabel").textContent =
-            "Modal title for " + (savedSelectedOption || "Default");
+        // // Set the modal title based on the selected option
+        // document.querySelector("#exampleModalLabel").textContent =
+        //     "Modal title for " + (selectedOption || "Default");
 
         // Open the modal programmatically
-        $("#exampleModal").modal("show");
-        webViewerLoad();
+        if (selectedOption) {
+            $("#exampleModal").modal("show");
+            PDFViewerApplication.pdfViewer?.refresh(true)
+            webViewerLoad();
+        }
+    }
+
+    function onFileInputChange(event) {
+        const file = event.target.files[0]
+        if (file) {
+            // Save the selected option to local storage
+            localStorage.setItem("selectedPDFPath", URL.createObjectURL(file));
+
+            $("#exampleModal").modal("show");
+            PDFViewerApplication.pdfViewer?.refresh(true)
+            webViewerLoad();
+        }
     }
 
     const dropdown = document.getElementById("drawingDropDown");
+    const fileInput = document.getElementById("custom_drawing");
     dropdown.addEventListener("change", openModalOnDropdownChange);
+    fileInput.addEventListener("change", onFileInputChange);
+
+    const closeModal = document.getElementById("closeModal");
+    closeModal.addEventListener("click", async function () {
+        await PDFViewerApplication.close();
+        await PDFViewerApplication._cleanup();
+        localStorage.removeItem("selectedPDFPath");
+        localStorage.removeItem("pdfjs.history");
+        $("#exampleModal").modal("hide");
+    })
 });
 
 export {

@@ -163,7 +163,7 @@ background-color: #07d564 !important;
                                         <option value="user">Temporary works co-ordinator</option>
                                         <option value="supervisor">Temporary works supervisor</option>
                                         <option value="scaffolder">Scaffolder</option>
-                                        <option value="estimator">Estimator</option>
+                                        <option value="estimator">Estimator / Pre-Con</option>
                                     </select>
                                 </div>
                             </div>

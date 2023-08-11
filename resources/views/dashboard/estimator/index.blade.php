@@ -272,8 +272,8 @@
    }
 
    .btn.btn-primary {
-      border-color: #07d564 !important;
-      background-color: #07d564 !important;
+      border-color: #07d564 ;
+      background-color: #07d564 ;
       border-radius: 8px;
    }
 
@@ -417,6 +417,7 @@
     .blinking-icon {
       animation: blink 1s infinite;
       color: red;
+      background-color:red !important;
     }
 
 
@@ -735,7 +736,7 @@
                                           </div>
                                        </td>
                                        <!-- <td style="width:15%"></td> -->
-                                       <td style="width:21%">
+                                       <!-- <td style="width:21%">
                                           <div class="d-flex" style="position: relative;">
                                              <span class="titleColumn">Date Design Returned:</span>
                                              <div
@@ -803,9 +804,9 @@
 
                                              </div>
                                           </div>
-                                       </td>
-                                       <td style="width:10%">
-                                          <div class="d-flex justify-content-between">
+                                       </td> -->
+                                       <td style="width:400px;">
+                                          <!-- <div class="d-flex justify-content-between">
                                              <span class="titleColumn mb-2">Designer:</span>
                                              <div
                                                 style="display: flex; justify-content:center; flex-grow: 1;  margin-left: 100px;">
@@ -814,27 +815,23 @@
                                                    data-tw="{{$item->tw_name ?? ''}}"><span
                                                       class="label label-lg font-weight-bold label-light-success label-inline px-5">View</span>
                                                 </span>
-                                                <!-- {{$item->tw_name ?: '-'}} -->
                                                 @if(!$item->tw_name)
-                                                <!-- <p class="addtwname cursor-pointer" style="margin-bottom:2px;font-weight: 400;font-size: 12px;"  data-id="{{$item->id}}"><span class="fa fa-plus"></span> Add TWD Name</p> -->
                                                 @endif
                                              </div>
-                                          </div>
-                                          <div class="d-flex justify-content-between">
+                                          </div> -->
+                                          <!-- <div class="d-flex justify-content-between">
                                              <span class="col-5 titleColumn">Drawings & Designs:</span>
                                              <div class="d-flex col-6"
                                                 style="display: flex; justify-content: space-evenly; align-items: center; flex-grow: 1;  margin-left: 26px;">
                                                 <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}"
                                                    data-type="1"
                                                    style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                                   <!-- View Drawings -->
                                                    <span style="font-size: 16px;opacity: 0.8;color:{{$dcolor}}"
                                                       class="fa fa-eye" title="View Drawings"></span>
                                                 </p>
                                                 <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}"
                                                    data-type="1"
                                                    style="margin-bottom:0px;font-weight: 400;font-size: 16px;opacity: 0.8;position: relative;top: 0px;">
-                                                   <!-- View Drawings -->
                                                    @php
                                                    $color="";
                                                    if(count($item->riskassesment)>0)
@@ -847,24 +844,30 @@
                                                 </p>
                                              </div>
 
-                                          </div>
+                                          </div> -->
                                           <div class="d-flex">
-                                             <span class="col-5 titleColumn text-start">Action</span>
-                                             <div class="d-flex col-6 action"
+                                             <!-- <span class="col-5 titleColumn text-start" style="flex:0 0 0 !important;">Action</span> -->
+                                             <!-- action class removed from next line action -->
+                                             <div class="d-flex col-6 "
                                                 style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; margin-left: 40px !important;">
-                                                @if(auth()->user()->hasRole('estimator'))
-                                                <a href="{{route('estimator.edit',$item->id)}}"><i
-                                                      class="fa fa-edit" style="margin-left:10px"></i></a>
-                                                @endif
-                                                @if(auth()->user()->hasRole('user'))
+                                                
+                                                <a href="{{route('estimator.edit',$item->id)}}">
+                                                   <button class="btn btn-primary">Edit Design Brief</button>
+                                                   <!-- <i
+                                                      class="fa fa-edit" style="margin-left:10px"></i> -->
+                                                </a>
+                                                <!-- @if(auth()->user()->hasRole('estimator'))
+                                                @endif -->
+                                                <!-- @if(auth()->user()->hasRole('user'))
                                                 @if($item->estimatorApprove)
                                                 <a href="{{route('estimator.edit',$item->id)}}"><i
                                                       class="fa fa-edit"></i></a>
                                                 @endif
-                                                @endif
+                                                @endif -->
                                                 <a href="{{route('estimator.show',$item->id)}}"
                                                    class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
-                                                   <i class="fa fa-eye @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif" style="margin-left:15px"></i>
+                                                   <!-- <i class="fa fa-eye " style="margin-left:15px"></i> -->
+                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif">View Designers & Suppliers</button>
                                                 </a>
                                              </div>
 

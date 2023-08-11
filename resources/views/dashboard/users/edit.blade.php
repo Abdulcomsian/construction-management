@@ -109,7 +109,7 @@
                                         <option value="user" @if($user->hasRole('user')==true){{"selected"}}@endif>Temporary works co-ordinator</option>
                                         <option value="supervisor" @if($user->hasRole('supervisor')==true){{"selected"}}@endif>Temporary works supervisor</option>
                                         <option value="scaffolder" @if($user->hasRole('scaffolder')==true){{"selected"}}@endif>Scaffolder</option>
-                                        <option value="estimator" @if($user->hasRole('estimator')==true){{"selected"}}@endif>Estimator</option>
+                                        <option value="estimator" @if($user->hasRole('estimator')==true){{"selected"}}@endif>Estimator / Pre-Con</option>
                                     </select>
                                 </div>
 
@@ -155,10 +155,15 @@
                                 @else
                                 <div class="col-md-12 my-2 check-estimator d-none">
                                 @endif
-                               
-                                <input type="checkbox" name="allow_estimator">
+                                @php
+                                    $checked = '';
+                                @endphp
+                                {{-- @dd($user->hasPermissionTo($permission)) --}}
+                                    @if($user->hasPermissionTo($permission))
+                                        @php $checked = 'checked'; @endphp
+                                    @endif
+                                <input type="checkbox" name="allow_estimator"  {{$checked}}>
                                     <label class="fs-6 fw-bold mb-2">Allow this TWC to have role of Estimator as well ?</label>
-                                    
                                 </div>
                                 <!--begin::Col-->
                                  <!-- <div class="col-md-6">

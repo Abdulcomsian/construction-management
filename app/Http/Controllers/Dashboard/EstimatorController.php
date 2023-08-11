@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use App\Utils\Validations;
-use App\Models\{AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
+use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use Notification;
@@ -417,7 +417,8 @@ class EstimatorController extends Controller
         $model->estimator_designer_list_id=$request->estimator_designer_id;
         $model->temporary_work_id=$request->estimatorId;
         $model->save();
-        $estimatorUser=User::find($request->estimatorId);
+        $temporary_work = TemporaryWork::findorfail($request->estimatorId);
+        $estimatorUser=User::find($temporary_work->created_by);
         $type='estimator';
         Notification::route('mail',$estimatorUser->email)->notify(new DesignerEstimatComment($request->email,$type));
         toastSuccess('Comment submitted successfully!');
@@ -560,7 +561,7 @@ class EstimatorController extends Controller
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action');
             $image_name = '';
-            if(Auth::user()->hasRole('user'))
+            if(Auth::user()->hasRole('user') && $request->display_sign)
             {
                 if ($request->signtype == 1) {
                 $image_name = $request->namesign;
@@ -624,7 +625,7 @@ class EstimatorController extends Controller
                     }
                 }
                 //work for pdf
-                if(Auth::user()->hasRole('user'))
+                if(Auth::user()->hasRole('user') && $request->display_sign)
                 {
                     $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
                     $path = public_path('pdf');
@@ -641,7 +642,7 @@ class EstimatorController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 //send mail to admin
-                if(Auth::user()->hasRole('user'))
+                if(Auth::user()->hasRole('user') && $request->display_sign)
                 {
                     //check if temporaywork file upload is constuction
                     $checkfileconstruction=TempWorkUploadFiles::where(['temporary_work_id'=>$temporaryWork,'file_type'=>1,'construction'=>1])->count();

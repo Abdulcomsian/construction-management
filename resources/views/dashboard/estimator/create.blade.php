@@ -319,6 +319,10 @@
     textarea.select2-search__field::placeholder {
         color: rgb(138, 136, 136) !important;
     }
+
+    .form-check-input:checked[type=radio]{
+        background-color:green !important;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -629,30 +633,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Select Online Designers</span>
-                                    </label>
-                                    <select name="designers[]"
-                                        class="form-select form-select-lg form-select-solid adminDesigners"
-                                        data-control="select2" data-placeholder="Select an option"
-                                        data-allow-clear="true" multiple>
-                                        <option value="">Select Option</option>
-
-                                        @foreach($adminDesigners as $desig)
-                                        <optgroup label="Designer List">
-                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
-                                            Checker']))
-                                            <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
-                                                {{$desig->email}}</option>
-                                            @endif
-                                        </optgroup>
-                                        @endforeach
-
-                                    </select>
-                                </div>
+                               
                                 <div>
-                                    <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                     <div class="d-flex inputDiv d-block mb-0">
                                         <label class=" fs-6 fw-bold mb-2">
                                             <span class="">Select company approved designer</span>
@@ -686,29 +668,34 @@
                                             name="designer_company_emails" value="{{old('designer_company_emails')}}">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
+                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Select Online Supplier</span>
+                                        <span class="">Select Online Designers</span>
                                     </label>
-                                    <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
+                                    <select name="designers[]"
+                                        class="form-select form-select-lg form-select-solid adminDesigners"
                                         data-control="select2" data-placeholder="Select an option"
                                         data-allow-clear="true" multiple>
                                         <option value="">Select Option</option>
 
-                                        @foreach($adminSuppliers as $supp)
-                                        <optgroup label="Supplier List">
-                                            @if($supp->hasRole('supplier'))
-                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
+                                        @foreach($adminDesigners as $desig)
+                                        <optgroup label="Designer List">
+                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                            Checker']))
+                                            <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
+                                                {{$desig->email}}</option>
                                             @endif
                                         </optgroup>
                                         @endforeach
 
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                             
                                 <div class="">
-                                    <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                     <div class="d-flex inputDiv d-block mb-0">
 
                                         <label class=" fs-6 fw-bold mb-2">
@@ -740,6 +727,28 @@
                                             placeholder="Enter Comma Seperated" id="supplier_company_emails"
                                             name="supplier_company_emails" value="{{old('supplier_company_emails')}}">
                                     </div>
+                                </div>
+
+                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="">Select Online Supplier</span>
+                                    </label>
+                                    <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
+                                        data-control="select2" data-placeholder="Select an option"
+                                        data-allow-clear="true" multiple>
+                                        <option value="">Select Option</option>
+
+                                        @foreach($adminSuppliers as $supp)
+                                        <optgroup label="Supplier List">
+                                            @if($supp->hasRole('supplier'))
+                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
+                                            @endif
+                                        </optgroup>
+                                        @endforeach
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -817,10 +826,10 @@
                             <div class="col-md-6">
                                 <input type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Save & Email">
+                                    class="btn btn-primary float-end submitbutton" value="Email Designers & Suppliers">
                                 <input type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Save">
+                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">
                             </div>
                         </div>
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->

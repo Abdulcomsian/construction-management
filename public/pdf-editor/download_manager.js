@@ -61,7 +61,7 @@ function savePdfToDatabase(blobUrl, filename) {
             formData.append("pdfFile", blob, filename);
             
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "save-updated-pdf", true);
+            xhr.open("POST", baseUrl + "save-updated-pdf", true);
             xhr.setRequestHeader('X-CSRF-TOKEN', CSRF_TOKEN);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {

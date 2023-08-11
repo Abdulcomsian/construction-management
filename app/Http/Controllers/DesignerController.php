@@ -626,11 +626,13 @@ class DesignerController extends Controller
                         $is_permit = 1;
                         $parts = explode('-', $uploads->drawing_number);
                         $originalNumber = $parts[0];
+                        
                         if(in_array($originalNumber, $drawing_number) )
                         {
                             // dd($drawing_number,$uploads->drawing_number);
                             $is_permit=0;
                         }
+                        // dd($originalNumber, $is_permit);
                         $drawing_number[] = $originalNumber;
                         $papproval = 'No';
                         $construction = 'No';
@@ -656,7 +658,7 @@ class DesignerController extends Controller
                         } elseif ($uploads->construction == 1) {
                             $construction = 'Yes';
                         }
-                        if($is_permit){$background  = '#FF0A0B40';}
+                        if($is_permit==0){$background  = '#FF0A0B40';}
                         $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                         $list .= '<td style="text-align:Center; !important;">' . $i . '</td>';
                         $list .= '<td style="text-align:Center; !important;">' . $uploads->drawing_number . '</td>';
@@ -774,9 +776,13 @@ class DesignerController extends Controller
                     $is_permit = 1;
                     $parts = explode('-', $uploads->drawing_number);
                     $originalNumber = $parts[0];
-                    if(in_array($originalNumber, $drawing_number) ){
+                    
+                    if(in_array($originalNumber, $drawing_number) )
+                    {
+                        // dd($drawing_number,$uploads->drawing_number);
                         $is_permit=0;
                     }
+
                     $drawing_number[] = $originalNumber;
 
                     $papproval = 'No';
@@ -804,9 +810,9 @@ class DesignerController extends Controller
                         } elseif ($uploads->construction == 1) {
                             $construction = 'Yes';
                         }
-                        if($is_permit){$background  = 'FF0A0B40';}
+                        if($is_permit==0){$background  = '#FF0A0B40';}
 
-                    $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= $is_permit . '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';

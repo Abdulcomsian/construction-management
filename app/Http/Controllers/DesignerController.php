@@ -895,25 +895,25 @@ class DesignerController extends Controller
             }
  
         }
-        //Extra designer code begin here 
+        //Extra designer code begin here
+
         for($j=0;$j<count($ramsno->designerCompanyEmails);$j++)
         {
-            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$ramsno->designerCompanyEmails[$j]->email])->orderBy('id','desc')->get();            
-            $i = 1;
-
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$ramsno->designerCompanyEmails[$j]->email])->orderBy('id','desc')->get();           
+            // $i = 1;
             if($DesignerUploads)
             {
-               
-                    $list.="<h3>Designer Company </h3>";
                 
-                $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564 !important">';
-                $list .= '<th style="color: white !important;">No</th>';
+                $list.="<h3>Designer Company </h3>";
+                // $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead>';
+                $list .= '<tr style="background: #07D564 !important"><th style="color: white !important;">No</th>';
                 $list .= '<th style="color: white !important;">Drawing No</th>';
                 $list .= '<th style="color: white !important;">Comments</th>';
                 $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th><th></th>';
                     $list .= '</tr></thead><tbody>';
-                $list .= '</tr></thead><tbody>';
+                // $list .= '</tr></thead><tbody>';
+
                 $background='';
                 $drawing_number = [];
                 $userList=[];
@@ -957,7 +957,7 @@ class DesignerController extends Controller
                         }
                         if($is_permit==0){$background  = '#FF0A0B40';}
 
-                    $list .= $is_permit . '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';
@@ -1038,10 +1038,9 @@ class DesignerController extends Controller
                       
                 $list .= '</tbody></table>';
             }
-
-
-            
+ 
         }
+       
         $calc = route('riskassesment.store');
         $list.=' <h3 style="margin-top:50px;">Upload Documents </h3>
         <form class="form-group" action="'.$calc.'" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto 0;">

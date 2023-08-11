@@ -380,7 +380,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id="designReq">
                                     <div class="d-flex modalDiv" data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
                                         <!--begin::Label-->

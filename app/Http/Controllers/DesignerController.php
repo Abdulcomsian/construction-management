@@ -893,17 +893,14 @@ class DesignerController extends Controller
                       
                 $list .= '</tbody></table>';
             }
-
-
-            
+ 
         }
         //Extra designer code begin here 
         for($j=0;$j<count($ramsno->designerCompanyEmails);$j++)
         {
             $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$ramsno->designerCompanyEmails[$j]->email])->orderBy('id','desc')->get();            
             $i = 1;
-            if($j==2){
-                dd("here"); };
+
             if($DesignerUploads)
             {
                
@@ -1045,8 +1042,6 @@ class DesignerController extends Controller
 
             
         }
-
-        
         $calc = route('riskassesment.store');
         $list.=' <h3 style="margin-top:50px;">Upload Documents </h3>
         <form class="form-group" action="'.$calc.'" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto 0;">

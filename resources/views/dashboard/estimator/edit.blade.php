@@ -249,7 +249,7 @@
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
-                        <h2 class="db_mr" style="display: inline-block;width:30%">Estimate Design Brief</h2>
+                        <h2 class="db_mr" style="display: inline-block;">Estimate Design Brief  <a target="_blank" href="estimatorPdf/{{$temporaryWork->ped_url}}">Design Brief</a></h2>
                     </div>
                 </div>
                 <div class="card-body pt-0">

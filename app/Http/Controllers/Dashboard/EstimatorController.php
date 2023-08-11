@@ -353,7 +353,7 @@ class EstimatorController extends Controller
                     'type'=>$type,
                     'user_id'=>$list[1] ?? NULL,
                 ]);
-                if($action=="Save & Email")
+                if($action=="Email Designers & Suppliers")
                 {
                     Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
                 }

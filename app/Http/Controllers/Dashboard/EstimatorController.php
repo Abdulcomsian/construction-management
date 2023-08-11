@@ -563,7 +563,7 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action');
+            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign');
             $image_name = '';
             if(Auth::user()->hasRole('user') && $request->display_sign)
             {
@@ -709,6 +709,7 @@ class EstimatorController extends Controller
             toastSuccess('Estimator Brief successfully Updated!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

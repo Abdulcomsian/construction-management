@@ -683,7 +683,7 @@ input {
                                             {{-- @if(auth()->user()->hasRole('estimator') &&
                                             $temporaryWork->estimatorApprove==0)
                                             --}}
-                                            <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                         
                                             <div class="d-flex inputDiv d-block">
 
                                                     <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
@@ -723,7 +723,6 @@ input {
                                             {{-- @if(auth()->user()->hasRole('estimator') &&
                                             $temporaryWork->estimatorApprove==0)
                                             --}}
-                                            <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                             <div class="d-flex inputDiv d-block">
                                             <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
                                                     <span>Select company approved supplier</span>
@@ -758,7 +757,38 @@ input {
                                                     value="{{implode(',',$inputDesignersList)}}">
                                             </div>
                                             {{-- @endif --}}
+                                            
 
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                        
+                                                <div class="d-flex inputDiv d-block mb-0">
+                                                <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
+                                                        <span class="">Select Online Designers</span>
+                                                    </label>
+                                                    <select  class="form-select form-select-lg form-select-solid"
+                                                        data-control="select2" data-placeholder="Select an option"
+                                                        data-allow-clear="true" multiple>
+                                                        <option value="">Select Option</option>
+                                                    </select>
+                                                </div>
+                                             </div>
+                                        <div class="col-md-6">
+                                             <h6 style="margin-top: 17px; margin-left:20px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                        
+                                                <div class="d-flex inputDiv d-block mb-0">
+                                                <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
+                                                        <span class="">Select Online Supplier</span>
+                                                    </label>
+                                                    <select  class="form-select form-select-lg form-select-solid"
+                                                        data-control="select2" data-placeholder="Select an option"
+                                                        data-allow-clear="true" multiple>
+                                                        <option value="">Select Option</option>
+                                                    </select>
+                                                </div>
+                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -908,7 +938,7 @@ input {
 
 
 
-<!--                                         
+                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Do you want to move this pre construction to Temporary work register ?
@@ -917,12 +947,10 @@ input {
                                             </div>
                                             <div id="display_sign_div" style="display:none">
                                                 @if(auth()->user()->hasRole('user'))
+                                                <h5>Signature Type:</h5>
                                                     <div class="d-flex inputDiv">
                                                     
-                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                                            style="width:40% !important">
-                                                            <span>signature:</span>
-                                                        </label>
+                                      
                                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
                                                 style="width: 12px;">
@@ -931,23 +959,30 @@ input {
                                             <span
                                                 style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
-                                                        <input type="checkbox" class="" id="flexCheckChecked"
-                                                            style="width: 12px;margin-top:5px">
-                                                        <input type="hidden" id="signtype" name="signtype"
-                                                            class="form-control form-control-solid" value="2">
-                                                        <span
-                                                            style="padding-left:3px;color:#000;font-size:10px;line-height: 2">Do
-                                                            you want
-                                                            name signature?</span>
-                                                        &nbsp;
-                                                   
-                                                        <input type="checkbox" class="" id="pdfChecked"
-                                                            style="width: 12px;margin-top:5px">
-                                                        <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                                            class="form-control form-control-solid" value="0">
-                                                        <span
-                                                            style="padding-left:3px;color:#000;font-size:10px;line-height: 2;">Pdf
-                                                            signature?</span>
+
+
+
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="flexCheckChecked" 
+                                                style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype"
+                                                class="form-control form-control-solid" value="2">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                        </div>
+
+
+
+
+                                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="pdfChecked" 
+                                                style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="pdfsigntype"
+                                                class="form-control form-control-solid" value="0">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Pdf</span>
+                                        </div>
+
 
                                                     </div>
                                                     <div class="inputDiv d-none" id="pdfsign">
@@ -964,9 +999,9 @@ input {
                                                         <input type="text" name="namesign"
                                                             class="form-control form-control-solid">
                                                     </div>
-                                                    <div class="d-flex inputDiv" id="sign" style="align-items: center;">
+                                                    <div class="d-flex inputDiv" id="sign" style="align-items: center; border:none">
                                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Signature:</span>
+                                                            <!-- <span class="required">Signature:</span> -->
                                                         </label>
                                                         <br />
                                                         <canvas id="sig" style="background: lightgray"></canvas>
@@ -980,7 +1015,9 @@ input {
                                                     <br>
                                                 @endif
                                             </div>
-                                        </div>  -->
+                                        </div> 
+
+                                        
 
                                     </div>
 
@@ -992,7 +1029,7 @@ input {
 <br>
 <br>
 
-                            <div class="row">
+                            <!-- <div class="row">
                  
                                 <div class="col-md-6">
                                 @if(auth()->user()->hasRole('user'))
@@ -1054,22 +1091,14 @@ input {
                                 </div>
                                 <div class="col-md-4">
 
-
-                                    <!-- <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            
-                                            </label> -->
-                                    <!-- <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button> -->
-                                    <!-- </div> -->
-                                    <!-- work for approval -->
                                     @include('dashboard.modals.design-relief-modals')
                                     <button id="submitbutton" type="submit"
                                         class="btn btn-secondary float-end submitbutton" disabled
-                                        style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
+                                        style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit check</button>
                                         @endif
                                 </div>
 
-                            </div>
+                            </div> -->
 
 
 

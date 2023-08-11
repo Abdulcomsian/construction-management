@@ -271,6 +271,23 @@ input {
     width: 100% !important;
     border: none !important;
 }
+#clear{
+    margin-left:-25px;
+    margin-top:60px;
+}
+#sig{
+    border-radius:5px;
+    margin-top:-50px;
+}
+canvas {
+    width: 296px;
+    height: 152px;
+}
+#sigimage{
+    position: absolute;
+    margin-top:-55px;
+    margin-left:6px;
+}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -760,7 +777,7 @@ input {
                                             
 
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row"> -->
                                             <div class="col-md-6">
                                                 <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                         
@@ -790,7 +807,7 @@ input {
                                                 </div>
                                              </div>
                                         </div>
-                                    </div>
+                                    <!-- </div> -->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="d-flex inputDiv d-block mb-0">
@@ -948,7 +965,7 @@ input {
                                             <div id="display_sign_div" style="display:none">
                                                 @if(auth()->user()->hasRole('user'))
                                                 <h5>Signature Type:</h5>
-                                                    <div class="d-flex inputDiv">
+                                                    <div class="d-flex ">
                                                     
                                       
                                                         <div style="display:flex; align-items: center; padding-left:10px">
@@ -980,7 +997,7 @@ input {
                                             <input type="hidden" id="signtype" name="pdfsigntype"
                                                 class="form-control form-control-solid" value="0">
                                             <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Pdf</span>
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
                                         </div>
 
 
@@ -1006,6 +1023,7 @@ input {
                                                         <br />
                                                         <canvas id="sig" style="background: lightgray"></canvas>
                                                         <br />
+                                                        
                                                         <textarea id="signature" name="signed" style="display: none"></textarea>
                                                         <span id="clear" class="fa fa-undo cursor-pointer"
                                                             style="line-height: 6"></span>
@@ -1029,76 +1047,7 @@ input {
 <br>
 <br>
 
-                            <!-- <div class="row">
-                 
-                                <div class="col-md-6">
-                                @if(auth()->user()->hasRole('user'))
-                                    <div class="d-flex inputDiv mb-1" style="border: none">
-                   
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
-                                            <span class="signatureTitle">Signature Type:</span>
-                                        </label>
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
-                                                style="width: 12px;">
-                                            <input type="hidden" id="Drawtype" name=""
-                                                class="form-control form-control-solid" value="1">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
-                                        </div>
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="signtype"
-                                                class="form-control form-control-solid" value="2">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
-                                        </div>
-                                        &nbsp;
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
-                                            <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                                class="form-control form-control-solid" value="0">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
-                                                Upload </span>
-                                        </div>
 
-                                    </div>
-                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
-                                        <canvas id="sig" onblure="draw()"
-                                            style="background: lightgray; border-radius:10px"></canvas>
-                                        <br />
-                                        <textarea id="signature" name="signed" style="display: none"></textarea>
-                                        <span id="clear" class="fa fa-undo cursor-pointer"
-                                            style="line-height: 6; position:relative; top:42px; right:26px"></span>
-                                    </div>
-                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
-                                        Added</span>
-                                    <div class="inputDiv d-none" id="pdfsign">
-                                        <label class="fs-6 fw-bold mb-2" style="width: fit-content">
-                                            <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
-                                        </label>
-                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
-                                    </div>
-
-                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Name Signature:</span>
-                                        </label>
-                                        <input type="text" name="namesign" class="form-control form-control-solid">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-
-                                    @include('dashboard.modals.design-relief-modals')
-                                    <button id="submitbutton" type="submit"
-                                        class="btn btn-secondary float-end submitbutton" disabled
-                                        style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit check</button>
-                                        @endif
-                                </div>
-
-                            </div> -->
 
 
 

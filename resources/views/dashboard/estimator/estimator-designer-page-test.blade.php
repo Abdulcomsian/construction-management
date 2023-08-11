@@ -123,7 +123,6 @@
 
     input,
     button,
-    table,
     select,
     textarea {
         border-radius: var(--primary-border--radius) !important;
@@ -282,10 +281,10 @@
     table thead th {
         color: #000 !important;
         text-align: center;
-        border-bottom: 0px !important;
         vertical-align: middle;
-        font-size: 10px !important;
+        font-size: 15px !important;
         font-weight: 900 !important;
+        border: 1px solid #000000 !important;
     }
 
     tbody tr:nth-child(odd) {
@@ -299,6 +298,7 @@
     .table td {
         font-size: 12px;
         padding: 0px !important;
+        border: 1px solid #000000;
     }
 
     .table td p {
@@ -331,15 +331,10 @@
 
     th {
         background-color: #D9D9D91F !important;
-
-
     }
 
     th,
     td {
-        /* border: 1px solid black;
-       */
-        border: 1px solid #B4BBC580;
         padding: 8px;
         text-align: left;
         font-family: "Inter";
@@ -348,10 +343,7 @@
         line-height: 30px;
         text-align: center;
         padding-top: 10px !important;
-    }
-
-    th {
-        background-color: #f2f2f2;
+        border: 1px solid #B4BBC580;
     }
 
     td span {
@@ -374,7 +366,7 @@
     table thead th {
         color: #000 !important;
         text-align: center;
-        font-weight: 900 !important;
+        font-weight: 600 !important;
     }
 
     tbody tr:nth-child(odd) {
@@ -394,7 +386,7 @@
     }
 
     table thead tr th {
-        color: #fff !important;
+        color: #000000 !important;
     }
 
     .th-2 {
@@ -460,189 +452,309 @@
                 <th class="th-10">Drawing</th>
                 <th class="th-11">Invoice</th>
             </tr>
-            <!-- @php
-            $i=0;
-            @endphp
-            @forelse($AwardedEstimators as $item)
-
-            <tr class="row-2">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>
-                    @if($item->project_id)
-                    {{ $item->project->no ?? '' }} <br> {{ $item->project->name ?? '' }}
-                    @else
-                    {{ $item->projno ?? '' }} <br> {{ $item->projname ?? '' }}
-                    @endif
-                    <br>
-                    <a target="_blank" href="estimatorPdf/{{$item->ped_url ?? ''}}">Job PDF</a>
-                </td>
-                <td>{{$item->client_name ?? $item->creator->userCompany->name}}</td>
-                <td>{{$item->job_title ?? ''}}
-                    @if($item->designerQuote && auth()->user()->view_price)
-                    <br>
-                    <span>{{$item->designerQuote ? $item->designerQuote->sum('price') : '0'}}</span>
-                    @endif
-                </td>
-                <td>
-                    @php
-                    $req = explode('-', $item->design_requirement_text);
-
-                    @endphp
-                    <span> {{$req[0] ?? ''}}
-                    </span> <br> {{$req[1] ?? ''}}
-                </td>
-                <td>
-                    <div class="row d-flex flex-column">
-                        @php
-                        $drawingscount=0;
-                        $color="green";
-                        $class='';
-                        if(count($item->commentlist)>0)
-                        {
-                        $color="red";
-                        $class='redBgBlink';
-                        if(count($item->reply)== count($item->commentlist))
-                        {
-                        $color="blue";
-                        $class='';
-                        }
-                        }
-                        @endphp
-                        <div class="col d-flex justify-content-center">
-                            <div class="description desc cursor-pointer" data-toggle="tooltip" data-placement="top"> Description </div>
-                        </div>
-                        <div class="col d-flex justify-content-center">
-                            <div class="comment addcomment cursor-pointer mt-3" data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="row d-flex flex-column">
-                        <div class="col">
-                            <div class="row d-flex justify-content-between ">
-                                <div class="col d-flex justify-content-start ms-2" id="time-estimator" data-rowid="{{$item->id}}">
-                                    <img class="img" style="cursor: pointer;" src="{{asset('images/time.png')}}">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pricing">
+                        Pricing
+                    </button>
+                    <div class="modal fade" id="pricing" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Price & Quotation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="col d-flex justify-content-end ms-4" id="allocated-designer" data-rowid="{{ $item->id }}">
-                                    @php $blink = '' @endphp
-                                    @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
-                                    @php $blink = 'blink' @endphp
-                                    @endif
-                                    <img class="img {{$blink}}" style="cursor: pointer;" src="{{asset('images/box.png')}}" alt="">
+                                <div class="modal-body">
+                                    <div>
+                                        <div class="card-title list_top" style="width:98%">
+                                            <h2 style="display: inline-block;">Estimator Design Brief</h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table query-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Project</th>
+                                                            <th>Company</th>
+                                                            <th>Attachment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$estimatorWork->project->name ?? ''}}</td>
+                                                            <td>{{$estimatorWork->company}}</td>
+                                                            <td><a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">PDF</a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="card-title list_top" style="width:98%">
+                                            <h2 style="display: inline-block;">Please Add price & quotaion</h2>
+                                        </div>
+                                        <form class="form-inline" action="{{route('designer.quotation')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="email" value="{{$mail}}" />
+                                            <input type="hidden" name="estimatorId" value="{{$id}}" />
+                                            <input type="hidden" name="estimator_designer_id" value="{{$esitmator_designer_id}}" />
+                                            <div class="appendresult" style="background:white;margin: 0 4px;">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Price:</span>
+                                                            </label>
+                                                            <input type="number" name="price[]" class="form-control" placeholder="Enter Price" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Description:</span>
+                                                            </label>
+                                                            <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group mb-3 row">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Submittal Date:</span>
+                                                            </label>
+                                                            <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 d-flex">
+                                                        <div class="input-group row">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mt-5">
+                                                                <span></span>
+                                                            </label>
+                                                            <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i class="fa fa-plus"></i>Add More</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 mx-5">
+                                                    <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div>
+                                        <div class="card-title list_top" style="width:98%">
+                                            <h2 style="display: inline-block;">Your Submitted Quotation</h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table query-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Price</th>
+                                                            <th>Description</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($designerquotation as $quotaion)
+                                                        <tr>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td>${{$quotaion->price}}</td>
+                                                            <td>{{$quotaion->description}}</td>
+                                                            <td>{{$quotaion->date}}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </td>
-                @php
-                $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
-                ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
-                : '0';
-
-                $checker_task = isset($item->checkerAssign->estimatorDesignerListTasks)
-                ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->completed : '0')
-                : '0';
-
-                $designer_status = isset($item->designerAssign->estimatorDesignerListTasks)
-                ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->status : '-')
-                : '-';
-
-                $checker_status = isset($item->checkerAssign->estimatorDesignerListTasks)
-                ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->status : '-')
-                : '-';
-
-                $last_status =isset($item->design->estimatorDesignerListTasks)
-                ? ($item->design->estimatorDesignerListTasks->last() ? $item->design->estimatorDesignerListTasks->last()->status : '-')
-                : '-';
-                $status_badge = HelperFunctions::getDesignerStatusBadge($designer_status);
-
-                @endphp
                 <td>
-                    @if(isset($item->designerAssign->user->name))
-                    <div class="row d-flex flex-column">
-                        <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}} </div>
-                        <div class="col d-flex justify-content-center">
-                            <div class="progress-bar">
-                                <div class="progress" style="width: {{$designer_task}}%;"></div>
-                                <span class="progress-text">{{$designer_task}}%</span>
-                            </div>
-                        </div>
-                        @endif
-                        @php
-                        $user = Auth::user();
-                        // dd($user);
-                        $is_admin = HelperFunctions::isAdminDesigner($user);
-                        $is_promoted_admin = HelperFunctions::isPromotedAdminDesigner($user);
-                        $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
-                        $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
-                        // dd($is_designer);
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#questions">
+                        Question
+                    </button>
+                    <div class="modal fade" id="questions" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Question And Answers</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <form class="form-inline" action="{{url('Estimator/estimator-designer/comments-save')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="email" value="{{$mail}}" />
+                                            <input type="hidden" name="estimatorId" value="{{$id}}" />
+                                            <input type="hidden" name="estimator_designer_id" value="{{$esitmator_designer_id}}" />
+                                            <div style="background:white;margin: 0 4px;">
+                                                <div class="row">
 
-                        @endphp
-                        @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id))
-                        <span class="btn p-2 m-1 designerchangeemail" style="border-radius: 21%;" title="Designer Change Email" data-id={{Crypt::encrypt($item->id)}}>
-                            <i style="padding:3px;" class="fa fa-exchange-alt"></i>
-                        </span>
-                </td>
-                @endif
-                <td>
-                    @if(isset($item->checkerAssign->user->name))
-                    <div class="row d-flex flex-column">
-                        <div class="col text-center"> {{$item->checkerAssign->user->name ?? ''}} </div>
-                        <div class="col d-flex justify-content-center">
-                            <div class="progress-bar">
-                                <div class="progress-2" style="width: {{$checker_task}}%;"></div>
-                                <span class="progress-text">{{$checker_task}}%</span>
-                            </div>
-                        </div>
-                        @endif
-                        @if($designer_status != NULL)
-                        @if($designer_status != "-" )
-                        <span class="badge {{$status_badge}} mt-2">
-                            {{$checker_status}}
-                        </span>
-                        @endif
-                        @endif
-                        @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id))
-                        <span class="btn p-2 m-1 checkerchangeemail" style="border-radius: 21%; z-index:1060" title="Change Email" data-id={{Crypt::encrypt($item->id)}}>
-                            <i style="padding:3px;" class="fa fa-exchange-alt"></i>
-                        </span>
-                        @endif
-                </td>
-                <td class="green"> {{$designer_status}} </td>
-                <td>
-                    <div class="center ">
-                        <div class="image d-flex gap-3">
-                            <div class="image-1">
-                                @php
-                                $userEmail = auth()->user()->email;
-                                $email = '';
-                                @endphp
+                                                    <div class="col-md-8">
+                                                        <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Question:</span>
+                                                            </label>
+                                                            <textarea class="form-control" name="comment"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group mt-5">
+                                                            <button type="submit" class="btn btn-primary mx-5 queryButton">Submit</button>
+                                                        </div>
+                                                    </div>
 
-                                @if(isset($item->designerAssign) && $userEmail == $item->designerAssign->email)
-                                @php $userEmail = $item->designerAssign->email; @endphp
-                                @elseif(isset($item->checkerAssign) && $userEmail == $item->checkerAssign->email)
-                                @php $userEmail = $item->checkerAssign->email; @endphp
-                                @endif
-                                <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$userEmail.'&job=1') }}" target="_blank">
-                                    <img src="{{asset('images/add.png')}}" alt="" srcset="">
-                                    <a>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div>
+                                        <table class="table query-table" style="border: 1px solid #000;">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Designer's Comments</th>
+                                                    <th>Estimator Reply</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($comments as $cmt)
+                                                <tr>
+                                                    <td>{{$loop->index+1}}</td>
+                                                    <td style="width: 45%">
+                                                        <b>{{$cmt->comment_email}}</b><br>
+                                                        <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+
+                                                    </td>
+                                                    <td style="width: 45%">
+                                                        <b>{{$cmt->reply_email}}</b><br>
+                                                        <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
+                                                    </td>
+                                                </tr>
+
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
                             </div>
-                            <div class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1"> <img src="../images/group.png" alt="" srcset=""></div>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="row d-flex flex-column">
-                        <div class="col d-flex justify-content-center">
-                            <div class="description"> Pending </div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pulicQA">
+                        Public Q&A
+                    </button>
+                    <div class="modal fade" id="pulicQA" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Public Q&A</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table query-table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Designer's Comments</th>
+                                                <th>Estimator Reply</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($public_comments as $cmt)
+                                            <tr>
+                                                <td>{{$loop->index+1}}</td>
+                                                <td style="width: 45%">
+                                                    <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+
+                                                </td>
+                                                <td style="width: 45%">
+                                                    <b>{{$cmt->reply_email}}</b><br>
+                                                    <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
+                                                </td>
+                                            </tr>
+
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col d-flex justify-content-center">
-                            <div class="paid mt-3"> Paid </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#awardedContracts">
+                        Awarded Contracts
+                    </button>
+                    <div class="modal fade" id="awardedContracts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Awarded Contracts</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table query-table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Project</th>
+                                                <th>Company</th>
+                                                <th>Attachment</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($AwardedEstimators as $est)
+                                            <tr>
+                                                <td>{{$loop->index+1}}</td>
+                                                <td>{{$est->estimator->project->name ?? $est->estimator->projname}}</td>
+                                                <td>{{$est->estimator->company}}</td>
+                                                <td><a href="{{asset('estimatorPdf/'.$est->estimator->ped_url)}}">PDF</a>
+                                                </td>
+                                                <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank" title="View & Upload Design"><i class="fa fa-eye"></i></a></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </td>
             </tr>
-            @empty
-            @endforelse -->
         </table>
     </div>
     <!--end::Toolbar-->
@@ -965,8 +1077,8 @@
                                 </div>
                                 
                             </div>
-                            <div class="col-md-2">
-                                <div class="input-group mb-3 row">
+                            <div class="col-md-2 d-flex">
+                                <div class="input-group row">
                                     <label class="d-flex align-items-center fs-6 fw-bold mt-5">
                                     <span></span>
                                     </label>

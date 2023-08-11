@@ -336,10 +336,9 @@ class EstimatorController extends Controller
                 ];
                 if($request->action == 'Publish')
                 {
-                    $notify_admins_msg['body']['designer'] = '';
+                    $notify_admins_msg['body']['designer'] = 'designer1';
                     $notify_msg = $notify_admins_msg;
                 }
-
                 //work for designer email list==============  
                 $this->saveDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer');
                 //work for supplier email list=============
@@ -368,42 +367,54 @@ class EstimatorController extends Controller
             {
                 $email_list2=$designers_or_suppliers;
             }
+
             $finalList=array_merge($email_list1,$email_list2);
-            foreach($finalList as $list)
+            if($action=="Email Designers & Suppliers")
             {
-                $list=explode('-',$list);
-                $code=random_int(100000, 999999);
-                EstimatorDesignerList::create([
-                    'email'=>$list[0],
-                    'temporary_work_id'=>$temporary_work_id,
-                    'code'=>$code,
-                    'type'=>$type,
-                    'user_id'=>$list[1] ?? NULL,
-                ]);
-                if($action=="Email Designers & Suppliers")
+                foreach($finalList as $list)
                 {
-                    Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
+                    $list=explode('-',$list);
+                    $code=random_int(100000, 999999);
+                    EstimatorDesignerList::create([
+                        'email'=>$list[0],
+                        'temporary_work_id'=>$temporary_work_id,
+                        'code'=>$code,
+                        'type'=>$type,
+                        'user_id'=>$list[1] ?? NULL,
+                    ]);
+                    if($action=="Email Designers & Suppliers")
+                    {
+                        Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
+                    }
+                    
                 }
-                
             }
+            if($action=='Publish') {
+                foreach($finalList as $key=>$list)
+                {
+                    // if($key == 0){
+                    //     dd("ssss");
+                    // }
+                    // if($key == 1){
+                    //     dd($list);
+                    // }
+                    
+                    $list=explode('-',$list);
+                    $code=random_int(100000, 999999);
+                    EstimatorDesignerList::create([
+                        'email'=>$list[0],
+                        'temporary_work_id'=>$temporary_work_id,
+                        'code'=>$code,
+                        'type'=>$type,
+                        'user_id'=>$list[1] ?? NULL,
+                    ]);
 
-            foreach($finalList as $key=>$list)
-            {
-                $list=explode('-',$list);
-                $code=random_int(100000, 999999);
-                EstimatorDesignerList::create([
-                    'email'=>$list[0],
-                    'temporary_work_id'=>$temporary_work_id,
-                    'code'=>$code,
-                    'type'=>$type,
-                    'user_id'=>$list[1] ?? NULL,
-                ]);
-
-                if ($action=='Publish') {
-                    Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporary_work_id, $list, 1));
-                // }
-                }   
-            }                
+                    if ($action=='Publish') {
+                        Notification::route('mail', $list[0])->notify(new TemporaryWorkNotification($notify_msg, $temporary_work_id, $list[0], 1));
+                    // }
+                    }   
+                }       
+            }         
     }
 
     //unset keys

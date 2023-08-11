@@ -304,7 +304,6 @@
         border-radius:8px;
         border:none;
         cursor: pointer;
-        width:20%;
     }
 </style>
 
@@ -1321,48 +1320,49 @@
 });
 </script> -->
 <script>
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    var clonedElements = []; // Array to keep track of cloned elements
-    var minusButtons = [];   // Array to keep track of minus buttons
+    var emailContainer = document.getElementById("additional-emails");
 
     document.getElementById("email-button").addEventListener("click", function() {
+        var emailFieldDiv = document.createElement("div");
+        emailFieldDiv.setAttribute("class", "col-md-5");
+        emailFieldDiv.style.marginTop = "26px";
+
         var designerEmailDiv = document.getElementById("designerEmail");
         var clonedDiv = designerEmailDiv.cloneNode(true);
         clonedDiv.querySelector("input").value = "";
 
-        var emailFieldDiv = document.createElement("div");
-        emailFieldDiv.setAttribute("class", "col-md-5");
-        emailFieldDiv.style.marginTop="26px";
         emailFieldDiv.appendChild(clonedDiv);
+        emailContainer.appendChild(emailFieldDiv);
 
-        clonedElements.push(emailFieldDiv);
+        var colDiv = document.createElement("div");
+        colDiv.setAttribute("class", "col-md-1");
 
-        var minusButtonDiv = document.createElement("div");
-        minusButtonDiv.setAttribute("class", "col-md-1 email-minus");
-        minusButtonDiv.textContent = " - ";
-        minusButtonDiv.style.marginTop = "26px"; 
-        minusButtonDiv.addEventListener("click", function() {
-            if (clonedElements.length > 0) {
-                var lastClonedElement = clonedElements.pop();
-                var lastMinusButton = minusButtons.pop();
-                lastClonedElement.remove();
-                lastMinusButton.remove();
-            }
+        var inputDiv = document.createElement("div");
+        inputDiv.setAttribute("class", "d-flex justify-content-end inputDiv");
+
+        var emailMinusDiv = document.createElement("div");
+        emailMinusDiv.setAttribute("class", "email-minus");
+        emailMinusDiv.textContent = " - ";
+
+        emailMinusDiv.addEventListener("click", function() {
+            emailContainer.removeChild(emailFieldDiv);
+            emailContainer.removeChild(colDiv);
         });
 
-        minusButtons.push(minusButtonDiv); // Add minus button to the array
-
-        document.getElementById("additional-emails").appendChild(emailFieldDiv);
-        document.getElementById("additional-emails").appendChild(minusButtonDiv);
+        inputDiv.appendChild(emailMinusDiv);
+        colDiv.appendChild(inputDiv);
+        emailContainer.appendChild(colDiv);
     });
 });
+
 
 // $('.email-minus').click(function(){
 //     alert("13");
 //     $(this).parent().parent().prev().remove();
 //     $(this).remove();
-
-// })
 </script>
 
 

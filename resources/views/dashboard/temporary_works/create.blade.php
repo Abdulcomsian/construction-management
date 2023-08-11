@@ -678,16 +678,14 @@
                                     <!--end::Label-->
                                     <input type="email" class="blackBack form-control form-control-solid"
                                         placeholder="Designer Email Address" id="designer_company_email"
-                                        name="designer_company_email[]" value="{{old('designer_company_email')}}"
+                                        name="designer_company_email{}" value="{{old('designer_company_email')}}"
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-1 email-plus" id="email-button">
-                                 + 
+
+                            <div class="col-md-1">
+                               <div class="email-plus"  id="email-button"> +  </div> 
                             </div>
-                            <!-- <div class="col-md-1">
-                                <div class="email-minus" id="email-minus"> - </div>
-                            </div> -->
                         </div>
                                 <div class="row" id="additional-emails"  >
                                     
@@ -1469,50 +1467,42 @@ $(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)")
 </script>
 
 
-
-
-
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var clonedElements = []; // Array to keep track of cloned elements
-    var minusButtons = [];   // Array to keep track of minus buttons
+    var emailContainer = document.getElementById("additional-emails");
 
     document.getElementById("email-button").addEventListener("click", function() {
+        var emailFieldDiv = document.createElement("div");
+        emailFieldDiv.setAttribute("class", "col-md-5");
+        emailFieldDiv.style.marginTop = "26px";
+
         var designerEmailDiv = document.getElementById("designerEmail");
         var clonedDiv = designerEmailDiv.cloneNode(true);
         clonedDiv.querySelector("input").value = "";
 
-        var emailFieldDiv = document.createElement("div");
-        emailFieldDiv.setAttribute("class", "col-md-5");
-        emailFieldDiv.style.marginTop="26px";
         emailFieldDiv.appendChild(clonedDiv);
 
-        clonedElements.push(emailFieldDiv); // Add cloned element to the array
+        var colDiv = document.createElement("div");
+        colDiv.setAttribute("class", "col-md-1");
 
-        var minusButtonDiv = document.createElement("div");
-        minusButtonDiv.setAttribute("class", "col-md-1 email-minus");
-        minusButtonDiv.textContent = " - ";
-        minusButtonDiv.style.marginTop = "26px"; // Adjust the margin as needed
-        minusButtonDiv.addEventListener("click", function() {
-            if (clonedElements.length > 0) {
-                var lastClonedElement = clonedElements.pop();
-                var lastMinusButton = minusButtons.pop();
-                lastClonedElement.remove();
-                lastMinusButton.remove();
-            }
+        var emailMinusDiv = document.createElement("div");
+        emailMinusDiv.setAttribute("class", "email-minus");
+        emailMinusDiv.style.marginTop = "26px"; 
+        emailMinusDiv.textContent = " - ";
+
+        emailMinusDiv.addEventListener("click", function() {
+            emailContainer.removeChild(emailFieldDiv);
+            emailContainer.removeChild(colDiv);
         });
 
-        minusButtons.push(minusButtonDiv); // Add minus button to the array
+        colDiv.appendChild(emailMinusDiv);
 
-        document.getElementById("additional-emails").appendChild(emailFieldDiv);
-        document.getElementById("additional-emails").appendChild(minusButtonDiv);
+        emailContainer.appendChild(emailFieldDiv);
+        emailContainer.appendChild(colDiv);
     });
 });
+
 </script>
-
-
-
 
 
 

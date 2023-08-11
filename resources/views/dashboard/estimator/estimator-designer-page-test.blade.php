@@ -136,10 +136,6 @@
         margin-top: 10px;
     }
 
-    .query-table tbody tr {
-        background: #f6f6f6 !important;
-    }
-
     .designer-comment {
         background-color: #d7f7e6 !important;
         color: green !important;
@@ -284,11 +280,11 @@
         vertical-align: middle;
         font-size: 15px !important;
         font-weight: 900 !important;
-        border: 1px solid #000000 !important;
+        border: 1px solid #b9b9b9 !important;
     }
 
     tbody tr:nth-child(odd) {
-        background-color: #fff;
+        background-color: #f6f6f6;
     }
 
     tbody tr:nth-child(even) {
@@ -298,7 +294,14 @@
     .table td {
         font-size: 12px;
         padding: 0px !important;
-        border: 1px solid #000000;
+        border: 1px solid #b9b9b9;
+    }
+
+    .table tbody tr:last-child td,
+    .table tbody tr:last-child th,
+    .table tfoot tr:last-child td,
+    .table tfoot tr:last-child th {
+        border-bottom: 1px solid #b9b9b9;
     }
 
     .table td p {
@@ -367,10 +370,6 @@
         color: #000 !important;
         text-align: center;
         font-weight: 600 !important;
-    }
-
-    tbody tr:nth-child(odd) {
-        background-color: #fff;
     }
 
     tbody tr:nth-child(even) {
@@ -628,7 +627,7 @@
                                         </form>
                                     </div>
                                     <div>
-                                        <table class="table query-table" style="border: 1px solid #000;">
+                                        <table class="table query-table">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>

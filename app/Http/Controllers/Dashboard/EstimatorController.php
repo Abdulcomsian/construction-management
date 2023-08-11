@@ -476,8 +476,10 @@ class EstimatorController extends Controller
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }elseif($user->hasRole('user'))
             {
-                $userr=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
+                // $userr=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
+                $userr=User::where(['company_id'=>$user->userCompany->id])->first();
                 $project_idds = DB::table('users_has_projects')->where('user_id', $userr->id)->get();
+
 
                 $ids = [];
                 foreach ($project_idds as $id) {
@@ -493,6 +495,8 @@ class EstimatorController extends Controller
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
             return view('dashboard.estimator.edit',compact('temporaryWork', 'projects', 'selectedproject','designers','suppliers','selectedDesignersList','inputDesignersList'));
         } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
+
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

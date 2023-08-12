@@ -544,6 +544,7 @@ class EstimatorController extends Controller
                 // $userr=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
                 $userr=User::where(['company_id'=>$user->userCompany->id])->first();
                 $project_idds = DB::table('users_has_projects')->where('user_id', $userr->id)->get();
+               
 
 
                 $ids = [];
@@ -552,7 +553,8 @@ class EstimatorController extends Controller
                 }
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
-                $projects = Project::with('company')->whereIn('id', $ids)->get();
+                // $projects = Project::with('company')->whereIn('id', $ids)->get(); //commented by abdul to make project same as create estimator page
+                $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
             }
             $selectedDesignersList=EstimatorDesignerList::select('email')->where('user_id','!=',NULL)->where(['temporary_work_id'=>$estimatorId])->pluck('email')->toArray();
             $inputDesignersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId,'user_id'=>NULL])->pluck('email')->toArray();

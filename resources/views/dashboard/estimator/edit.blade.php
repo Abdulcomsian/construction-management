@@ -704,21 +704,21 @@ canvas {
                                             <div class="d-flex inputDiv d-block">
 
                                                     <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
-                                                    Select company approved designer
+                                                    Select company Approved Designers
                                                     </label>
-                                                <select name="designers[]"
-                                                    class="form-select form-select-lg form-select-solid"
-                                                    data-control="select2" data-placeholder="Select an option"
-                                                    data-allow-clear="true" multiple>
-                                                    <option value="">Select Option</option>
-                                                    <optgroup label="Designer List">
-                                                        @foreach($designers as $desig)
-                                                        <option value="{{$desig->email}}" {{in_array($desig->email,
-                                                            $selectedDesignersList) ? 'selected':''}}>{{$desig->email}}
-                                                        </option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
+                                                    <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2"
+                                                        data-placeholder="Select an option" data-allow-clear="true" multiple>
+                                                        <option value="">Select Option</option>
+                                                        <!-- <optgroup label="Designer List"> -->
+                                                            @foreach($designers as $desig)
+                                                            @if($desig->hasRole('designer'))
+                                                            <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
+                                                            $selectedDesignersList) ? 'selected' : ''}}>{{$desig->email}}
+                                                            </option>
+                                                            @endif
+                                                            @endforeach
+                                                        <!-- </optgroup> -->
+                                                    </select>
                                             </div>
                                             <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                             <div class="d-flex inputDiv d-block mb-0">
@@ -744,14 +744,14 @@ canvas {
                                             <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
                                                     <span>Select company approved supplier</span>
                                                 </label>
-                                                <select name="suppliers[]" id="desingers"
+                                                <select name="suppliers[]" id="suppliers"
                                                     class="form-select form-select-lg form-select-solid"
                                                     data-control="select2" data-placeholder="Select an option"
                                                     data-allow-clear="true" multiple>
                                                     <option value="">Select Option</option>
                                                     <optgroup label="Suppliers List">
                                                         @foreach($suppliers as $supp)
-                                                        <option value="{{$supp->email}}" {{in_array($desig->email,
+                                                        <option value="{{$supp->email}}-{{$supp->id}}" {{in_array($desig->email,
                                                             $selectedDesignersList) ? 'selected':''}}>{{$supp->email}}
                                                         </option>
                                                         @endforeach
@@ -785,10 +785,20 @@ canvas {
                                                 <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
                                                         <span class="">Select Online Designers</span>
                                                     </label>
-                                                    <select  class="form-select form-select-lg form-select-solid"
+                                                    <select name="online_designers[]" class="form-select form-select-lg form-select-solid"
                                                         data-control="select2" data-placeholder="Select an option"
                                                         data-allow-clear="true" multiple>
                                                         <option value="">Select Option</option>
+                                                        @foreach($adminDesigners as $desig)
+                                                        <!-- <optgroup label="Designer List"> -->
+                                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                                            Checker']))
+                                                            <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
+                                                            $selectedDesignersList) ? 'selected':''}}>{{$desig->name}} |
+                                                                {{$desig->email}}</option>
+                                                            @endif
+                                                        <!-- </optgroup> -->
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                              </div>
@@ -799,10 +809,20 @@ canvas {
                                                 <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
                                                         <span class="">Select Online Supplier</span>
                                                     </label>
-                                                    <select  class="form-select form-select-lg form-select-solid"
+                                                    <select name="online_suppliers[]"  class="form-select form-select-lg form-select-solid"
                                                         data-control="select2" data-placeholder="Select an option"
                                                         data-allow-clear="true" multiple>
                                                         <option value="">Select Option</option>
+                                                        @foreach($adminSuppliers as $desig)
+                                                        <optgroup label="Designer List">
+                                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                                            Checker']))
+                                                            <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
+                                                            $selectedDesignersList) ? 'selected':''}}>{{$desig->name}} |
+                                                                {{$desig->email}}</option>
+                                                            @endif
+                                                        </optgroup>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                              </div>
@@ -956,51 +976,36 @@ canvas {
 
 
                                         
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Do you want to move this pre construction to Temporary work register ?
-                                                    <input type="checkbox" id="display_sign" name="display_sign" />
-                                                </label>
+                                        <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
+                                                <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Do you want to move this pre construction to Temporary work register ?</span>
                                             </div>
-                                            <div id="display_sign_div" style="display:none">
+                                            <div  class="col-md-12" id="display_sign_div" style="display:none">
                                                 @if(auth()->user()->hasRole('user'))
-                                                <h5>Signature Type:</h5>
+                                                    <h5>Signature Type:</h5>
                                                     <div class="d-flex ">
-                                                    
-                                      
                                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
-                                                style="width: 12px;">
-                                            <input type="hidden" id="Drawtype" name=""
-                                                class="form-control form-control-solid" value="1">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
-                                        </div>
-
-
-
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="flexCheckChecked" 
-                                                style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="signtype"
-                                                class="form-control form-control-solid" value="2">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
-                                        </div>
-
-
-
-
-                                                            <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="pdfChecked" 
-                                                style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="pdfsigntype"
-                                                class="form-control form-control-solid" value="0">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
-                                        </div>
-
-
+                                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
+                                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
+                                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                                        </div>
+                                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                                            <input type="radio" class="checkbox-field" id="flexCheckChecked" 
+                                                                style="width: 12px;">
+                                                            <input type="hidden" id="signtype" name="signtype"
+                                                                class="form-control form-control-solid" value="2">
+                                                            <span
+                                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                                        </div>
+                                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                                            <input type="radio" class="checkbox-field" id="pdfChecked" 
+                                                                style="width: 12px;">
+                                                            <input type="hidden" id="signtype" name="pdfsigntype"
+                                                                class="form-control form-control-solid" value="0">
+                                                            <span
+                                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
+                                                        </div>
                                                     </div>
                                                     <div class="inputDiv d-none" id="pdfsign">
                                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1028,36 +1033,29 @@ canvas {
                                                         <span id="clear" class="fa fa-undo cursor-pointer"
                                                             style="line-height: 6"></span>
                                                     </div>
-                                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
-                                        Added</span>
+                                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
                                                     <br>
                                                 @endif
                                             </div>
                                         </div> 
-
-                                        
-
-                                    </div>
-
-
-
-
-
-
-<br>
-<br>
-
-
-
-
-
-
-                                    
+                                        <div class="row mt-5">
+                                            <div class="col-md-6"> 
+                                            </div>
+                                            <div class="col-md-1 published" style="display:none;">
+                                                <input type="submit" name="action"
+                                                    style="margin-left: 10px; background: #07d564 !important"
+                                                    class="btn btn-primary float-end submitbutton" value="Publish">
+                                            </div>
+                                            <div class="col-md-4 notpublished">
+                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier">
+                                            </div>
+                                            <div class="col-md-2 notpublished">
+                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">
+                                            </div>
+                                    </div>                                    
                                     @include('dashboard.modals.design-relief-modals-edit')
-                                    <input type="submit" name="action" style="margin-left: 10px;"
-                                        class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier">
-                                    <input type="submit" name="action" style="margin-left: 10px;"
-                                        class="btn btn-primary float-end submitbutton" value="Update (Draft)">
+                                    
+                                   
                                     <!--  <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update & email</button>
                         <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update</button> -->
 
@@ -1343,8 +1341,12 @@ canvas {
 
     checkbox.addEventListener("change", function () {
         if (checkbox.checked) {
+            $(".published").show();
+            $(".notpublished").hide();
             displayDiv.style.display = "block";
         } else {
+            $(".published").hide();
+            $(".notpublished").show();
             displayDiv.style.display = "none";
         }
     });

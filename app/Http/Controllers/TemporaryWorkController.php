@@ -2772,6 +2772,9 @@ $notify_admins_msg = [
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
                 }
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+                $tot_emails = [];
+                $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
+                
                 $nominations=[];
                 $users=[];
             } elseif ($user->hasRole('company')) {
@@ -2790,6 +2793,9 @@ $notify_admins_msg = [
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
                 }
+                $tot_emails = [];
+                $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
+                
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
             } else {
@@ -2819,10 +2825,13 @@ $notify_admins_msg = [
                     }
                      $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                 }
+                $tot_emails = [];
+                $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
+                
             }
             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works','projects','scantempwork','assignedBlocks'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works','projects','scantempwork','assignedBlocks', 'tot_emails'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

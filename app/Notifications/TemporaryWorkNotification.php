@@ -48,11 +48,11 @@ class TemporaryWorkNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        if($this->is_check){
-            $path = public_path('estimatorPdf/' . $this->offerData['body']['filename']);
-        } else{
+        // if($this->is_check){
+        //     $path = public_path('estimatorPdf/' . $this->offerData['body']['filename']);
+        // } else{
             $path = public_path('pdf/' . $this->offerData['body']['filename']);
-        }
+        // }
         
         return (new MailMessage)
             ->greeting($this->offerData['greeting'])

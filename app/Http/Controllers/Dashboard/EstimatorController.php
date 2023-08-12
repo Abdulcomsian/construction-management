@@ -12,6 +12,7 @@ use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use Notification;
+use App\Models\DesignerCompanyEmail;
 use DB;
 use PDF;
 use Auth;
@@ -175,7 +176,7 @@ class EstimatorController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $designers=User::role(['designer'])->get();
                 $suppliers=User::role(['supplier'])->get();
-                $adminSuppliers=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
                 $adminDesigners=User::role('supplier')->where(['added_by'=>1])->get();
             }else {
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
@@ -253,7 +254,7 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails', 'online_designers', 'online_suppliers','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -270,10 +271,92 @@ class EstimatorController extends Controller
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
-            if($request->action == 'publish')
+            if($request->action == 'Publish')
             {
                 $all_inputs['estimator']=0;
+
+                $j = HelperFunctions::generatetempid($request->project_id);
+                $all_inputs['tempid'] = $j;
+                $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
+                $all_inputs['twc_id_no'] = $twc_id_no;
             }
+
+            $image_name = '';
+            if(Auth::user()->hasRole('user') && $request->display_sign){
+                if ($request->signtype == 1) {
+                    $image_name = $request->namesign;
+                } elseif ($request->pdfsigntype == 1) {
+                    $folderPath = public_path('temporary/signature/');
+                    $file = $request->file('pdfphoto');
+                    $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                    $file->move($folderPath, $filename);
+                    $image_name = $filename;
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name;
+                    file_put_contents($file, $image_base64);
+                }
+            }
+            $all_inputs['signature'] = $image_name;
+            if($request->action == 'Publish'){
+                $data = $request->except('designer_company_emails');
+                $designer_company_emails = str_replace(' ', '', $request->designer_company_emails);
+                $designer_company_emails=explode(",",$designer_company_emails);
+
+                $supplier_company_emails = str_replace(' ', '', $request->supplier_company_emails);
+                $supplier_company_emails=explode(",",$supplier_company_emails);
+
+                if($request->designers==NULL){
+                    $local_designers = Array($request->designers);
+                }else{
+                    $local_designers = $request->designers;
+                }
+
+                if($request->online_designers==NULL){
+                    $online_designers = Array($request->online_designers);
+                }else{
+                    $online_designers = $request->online_designers;
+                }
+
+                if($request->suppliers==NULL){
+                    $local_suppliers = Array($request->suppliers);
+                }else{
+                    $local_suppliers = $request->suppliers;
+                }
+
+                if($request->online_suppliers==NULL){
+                    $online_suppliers = Array($request->online_suppliers);
+                }else{
+                    $online_suppliers = $request->online_suppliers;
+                }
+                //clean arraya, remove any null values
+                $designer_company_emails  = array_filter($designer_company_emails);
+                $supplier_company_emails  = array_filter($supplier_company_emails);
+                $local_designers  = array_filter($local_designers);
+                $local_suppliers  = array_filter($local_suppliers);
+                $online_designers  = array_filter($online_designers);
+                $online_suppliers  = array_filter($online_suppliers);
+                
+                // dd($designer_company_emails, $supplier_company_emails, $local_designers , $local_suppliers,$online_designers, $online_suppliers );
+
+                $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers); 
+                //Removing -52 for creating emails in proper format
+                foreach($merged_emails as $email)
+                {
+                    $parts = explode('-', $email);
+                    $last = array_pop($parts);
+                    $cleaned_email[] = array(implode('-', $parts), $last)[0];
+                    
+                }
+                $data['designer_company_email'] = array_merge($cleaned_email, $designer_company_emails, $supplier_company_emails);
+                $all_inputs['designer_company_email'] = $data['designer_company_email'][0];
+            }
+           
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
@@ -293,60 +376,100 @@ class EstimatorController extends Controller
                         $image_links[] = $imagename;
                     }
                 }
+
+// dd( $data['designer_company_email'] );
                 //work for pdf
-                $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                if($request->action == 'Publish'){
+                    // $data['designer_company_email']=$request->designer_company_emails;
+                    $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $data, 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                    $path = public_path('pdf');
+                    $filename = rand() . '.pdf';
+                    $pdf->save($path . '/' . $filename);
+                    $model = TemporaryWork::find($temporary_work->id);
+                    $model->ped_url = $filename;
+                    $model->save();
+
+                    // foreach($data['designer_company_email'] as $key=>$list){
+                        // Remove the first email from the array
+                        $emails = $data['designer_company_email'];
+                        $notify_admins_msg = [
+                            'greeting' => 'Temporary Work PDF',
+                            'subject' => 'TWP – Design Brief -'.$request->projname . '-' .$request->projno,
+                            'body' => [
+                                'company' => $request->company,
+                                'filename' => $filename,
+                                'links' => '',
+                                'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                                'designer' => '',
+                                'pc_twc' => '',
+        
+                            ],
+                            'thanks_text' => 'Thanks For Using our site',
+                            'action_text' => '',
+                            'action_url' => '',
+                        ];
+                        
+                        $notify_admins_msg['body']['designer'] = 'designer1';
+                        $notify_msg = $notify_admins_msg;
+
+                        //sending email to zero index here, because it will be remove from array on next line
+                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $emails[0], 1));
+
+                        array_shift($emails);
+                        
+                        foreach ($emails as $email) {
+                            $company_email = new DesignerCompanyEmail();
+                            $company_email->temporary_work_id = $temporary_work->id;
+                            $company_email->email = $email;
+                            $company_email->save();
+
+                            Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $email, 1));
+                        }
+                     
+                        
+                    // }       
+                    
+                    toastSuccess('Pre Con Published successfully!');
+                    return redirect()->route('temporary_works.index');
+
+                }else{
+                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
                 
-                $path = public_path('estimatorPdf');
-                $filename = rand() . '.pdf';
-                $pdf->save($path . '/' . $filename);
-                $model = TemporaryWork::find($temporary_work->id);
-                $model->ped_url = $filename;
-                $model->save();
-                //send mail to admin
-                $notify_msg = [
-                    'greeting' => 'Estimator Work Pdf',
-                    'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
-                    'body' => [
-                        'company' => $request->company,
-                        'filename' => $filename,
-                        'links' => '',
-                        'name' =>  $request->projname . '-' . $request->projno,
+                    $path = public_path('estimatorPdf');
+                    $filename = rand() . '.pdf';
+                    $pdf->save($path . '/' . $filename);
+                    $model = TemporaryWork::find($temporary_work->id);
+                    $model->ped_url = $filename;
+                    $model->save();
+                
+                    //send mail to admin
+                    $notify_msg = [
+                        'greeting' => 'Estimator Work Pdf',
+                        'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
+                        'body' => [
+                            'company' => $request->company,
+                            'filename' => $filename,
+                            'links' => '',
+                            'name' =>  $request->projname . '-' . $request->projno,
 
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
-                ];
+                        ],
+                        'thanks_text' => 'Thanks For Using our site',
+                        'action_text' => '',
+                        'action_url' => '',
+                    ];
 
-                $notify_admins_msg = [
-                    'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
-                    'body' => [
-                        'company' => $request->company,
-                        'filename' => $filename,
-                        'links' => '',
-                        'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
-                        'designer' => '',
-                        'pc_twc' => '',
-
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
-                ];
-                if($request->action == 'Publish')
-                {
-                    $notify_admins_msg['body']['designer'] = 'designer1';
-                    $notify_msg = $notify_admins_msg;
+               
+                
+                    //work for designer email list==============  
+                    $this->saveDesignerSupplier( $request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer', $request->online_designers); 
+                    //work for supplier email list=============
+                    $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier', $request->online_suppliers);
                 }
-                //work for designer email list==============  
-                $this->saveDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer');
-                //work for supplier email list=============
-                $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier');
+                toastSuccess('Estimator Brief successfully added!');
+                return redirect()->route('estimator.index');
                
             }
-            toastSuccess('Estimator Brief successfully added!');
-            return redirect()->route('temporary_works.index');
+            
         } catch (\Exception $exception) {
             dd($exception->getMessage(),$exception->getLine());
             toastError('Something went wrong, try again!');
@@ -355,10 +478,11 @@ class EstimatorController extends Controller
     }
 
     //send email to desinger and save in database
-    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type,)
+    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type,$online_designers)
     {
             $email_list1=[];
             $email_list2=[];
+            $email_list3=[];
             if(!empty($emails))
             {
                 $email_list1=explode(",",$emails);
@@ -367,13 +491,17 @@ class EstimatorController extends Controller
             {
                 $email_list2=$designers_or_suppliers;
             }
-
-            $finalList=array_merge($email_list1,$email_list2);
-            if($action=="Email Designers & Suppliers")
+            if($online_designers)
             {
+                $email_list3=$online_designers;
+            }
+            $finalList=array_merge($email_list1,$email_list2, $email_list3);
+            // if($action=="Email Designers & Suppliers")
+            // {
                 foreach($finalList as $list)
                 {
                     $list=explode('-',$list);
+                    $list[0] = ltrim($list[0]);
                     $code=random_int(100000, 999999);
                     EstimatorDesignerList::create([
                         'email'=>$list[0],
@@ -388,33 +516,8 @@ class EstimatorController extends Controller
                     }
                     
                 }
-            }
-            if($action=='Publish') {
-                foreach($finalList as $key=>$list)
-                {
-                    // if($key == 0){
-                    //     dd("ssss");
-                    // }
-                    // if($key == 1){
-                    //     dd($list);
-                    // }
-                    
-                    $list=explode('-',$list);
-                    $code=random_int(100000, 999999);
-                    EstimatorDesignerList::create([
-                        'email'=>$list[0],
-                        'temporary_work_id'=>$temporary_work_id,
-                        'code'=>$code,
-                        'type'=>$type,
-                        'user_id'=>$list[1] ?? NULL,
-                    ]);
-
-                    if ($action=='Publish') {
-                        Notification::route('mail', $list[0])->notify(new TemporaryWorkNotification($notify_msg, $temporary_work_id, $list[0], 1));
-                    // }
-                    }   
-                }       
-            }         
+            // }
+               
     }
 
     //unset keys
@@ -527,8 +630,11 @@ class EstimatorController extends Controller
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
-                $designers=User::role(['designer'])->get();
-                $suppliers=User::role(['supplier'])->get();
+                $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
+                $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
+                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                //dd($adminDesigners);
+                $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
             }elseif($user->hasRole(['estimator'])) {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
 
@@ -538,6 +644,9 @@ class EstimatorController extends Controller
                 }
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
+                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                //dd($adminDesigners);
+                $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }elseif($user->hasRole('user'))
             {
@@ -553,14 +662,18 @@ class EstimatorController extends Controller
                 }
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
+                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->where('designer_company','!=',NULL)->whereNotNull('designer_company')->get();
+                //dd($adminDesigners);
+                $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
                 // $projects = Project::with('company')->whereIn('id', $ids)->get(); //commented by abdul to make project same as create estimator page
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
             }
             $selectedDesignersList=EstimatorDesignerList::select('email')->where('user_id','!=',NULL)->where(['temporary_work_id'=>$estimatorId])->pluck('email')->toArray();
-            $inputDesignersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId,'user_id'=>NULL])->pluck('email')->toArray();
+            $inputDesignersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId, 'type'=>'Designer', 'user_id'=>NULL])->pluck('email')->toArray();
+            $inputSuppliersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId,'type'=>'Supplier','user_id'=>NULL])->pluck('email')->toArray();
             $temporaryWork = TemporaryWork::with('scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id',$estimatorId)->first();
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
-            return view('dashboard.estimator.edit',compact('temporaryWork', 'projects', 'selectedproject','designers','suppliers','selectedDesignersList','inputDesignersList'));
+            return view('dashboard.estimator.edit',compact('temporaryWork', 'projects', 'selectedproject','designers','suppliers', 'adminSuppliers', 'adminDesigners', 'selectedDesignersList','inputDesignersList', 'inputSuppliersList'));
         } catch (\Exception $exception) {
             dd($exception->getMessage(), $exception->getLine());
 
@@ -630,12 +743,12 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign');
+            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
             $image_name = '';
             if(Auth::user()->hasRole('user') && $request->display_sign)
             {
                 if ($request->signtype == 1) {
-                $image_name = $request->namesign;
+                    $image_name = $request->namesign;
                 } elseif ($request->pdfsigntype == 1) {
                     $folderPath = public_path('temporary/signature/');
                     $file = $request->file('pdfphoto');
@@ -666,6 +779,60 @@ class EstimatorController extends Controller
             $all_inputs['created_by'] = auth()->user()->id;
             //work for qrcode
             $all_inputs['status'] = '1';
+
+            if($request->action == 'Publish'){ 
+                $data = $request->except('designer_company_emails');
+                $designer_company_emails = str_replace(' ', '', $request->designer_company_emails);
+                $designer_company_emails=explode(",",$designer_company_emails);
+
+                $supplier_company_emails = str_replace(' ', '', $request->supplier_company_emails);
+                $supplier_company_emails=explode(",",$supplier_company_emails);
+
+                if($request->designers==NULL){
+                    $local_designers = Array($request->designers);
+                }else{
+                    $local_designers = $request->designers;
+                }
+
+                if($request->online_designers==NULL){
+                    $online_designers = Array($request->online_designers);
+                }else{
+                    $online_designers = $request->online_designers;
+                }
+                if($request->suppliers==NULL){ 
+                    $local_suppliers = Array($request->suppliers);
+                }else{
+                    $local_suppliers = $request->suppliers;
+                }
+
+                if($request->online_suppliers==NULL){
+                    $online_suppliers = Array($request->online_suppliers);
+                }else{
+                    $online_suppliers = $request->online_suppliers;
+                }
+                //clean arraya, remove any null values
+                $designer_company_emails  = array_filter($designer_company_emails);
+                $supplier_company_emails  = array_filter($supplier_company_emails);
+                $local_designers  = array_filter($local_designers);
+                $local_suppliers  = array_filter($local_suppliers);
+                $online_designers  = array_filter($online_designers);
+                $online_suppliers  = array_filter($online_suppliers);
+
+                // dd($designer_company_emails, $supplier_company_emails, $local_designers , $local_suppliers,$online_designers, $online_suppliers );
+
+                $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers); 
+                //Removing -52 for creating emails in proper format
+                foreach($merged_emails as $email)
+                {
+                    $parts = explode('-', $email);
+                    $last = array_pop($parts);
+                    $cleaned_email[] = array(implode('-', $parts), $last)[0];
+                    
+                }
+               
+                $data['designer_company_email'] = array_merge($cleaned_email, $designer_company_emails, $supplier_company_emails);
+                $all_inputs['designer_company_email'] = $data['designer_company_email'][0];
+            }
             //photo work here
             if ($request->photo) {
                 $filePath = HelperFunctions::designbriefphotopath();
@@ -696,15 +863,63 @@ class EstimatorController extends Controller
                     }
                 }
                 //work for pdf
-                if(Auth::user()->hasRole('user') && $request->display_sign)
-                {
-                    $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                if($request->action == 'Publish'){
+                    // $data['designer_company_email']=$request->designer_company_emails;
+                    $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $data, 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                     $path = public_path('pdf');
-                }
-                else{
+                    $filename = rand() . '.pdf';
+                    $pdf->save($path . '/' . $filename);
+                    $model = TemporaryWork::find($temporaryWork);
+                    $model->ped_url = $filename;
+                    $model->save();
+
+                    // foreach($data['designer_company_email'] as $key=>$list){
+                        // Remove the first email from the array
+                        $emails = $data['designer_company_email'];
+                        $notify_admins_msg = [
+                            'greeting' => 'Temporary Work PDF',
+                            'subject' => 'TWP – Design Brief -'.$request->projname . '-' .$request->projno,
+                            'body' => [
+                                'company' => $request->company,
+                                'filename' => $filename,
+                                'links' => '',
+                                'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                                'designer' => '',
+                                'pc_twc' => '',
+        
+                            ],
+                            'thanks_text' => 'Thanks For Using our site',
+                            'action_text' => '',
+                            'action_url' => '',
+                        ];
+                        
+                        $notify_admins_msg['body']['designer'] = 'designer1';
+                        $notify_msg = $notify_admins_msg;
+
+                        //sending email to zero index here, because it will be remove from array on next line
+                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $emails[0], 1));
+
+                        array_shift($emails);
+                        
+                        foreach ($emails as $email) {
+                            $company_email = new DesignerCompanyEmail();
+                            $company_email->temporary_work_id = $temporaryWork;
+                            $company_email->email = $email;
+                            $company_email->save();
+
+                            Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $email, 1));
+                        }
+                     
+                        
+                    // }       
+                    
+                    toastSuccess('Pre Con Published successfully!');
+                    return redirect()->route('temporary_works.index');
+
+                }else{
                     $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
                      $path = public_path('estimatorPdf');
-                }
+               
                 
                 $filename = rand() . '.pdf';
                 @unlink($temporaryWorkData->ped_url);
@@ -713,68 +928,34 @@ class EstimatorController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 //send mail to admin
-                if(Auth::user()->hasRole('user') && $request->display_sign)
-                {
-                    //check if temporaywork file upload is constuction
-                    $checkfileconstruction=TempWorkUploadFiles::where(['temporary_work_id'=>$temporaryWork,'file_type'=>1,'construction'=>1])->count();
-                    if($checkfileconstruction<=0)
-                    {
-                         $notify_admins_msg = [
-                            'greeting' => 'Temporary Work Pdf',
-                            'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
-                            'body' => [
-                                'company' => $request->company,
-                                'filename' => $filename,
-                                'links' => '',
-                                'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
-                                'designer' => '',
-                                'pc_twc' => '',
-                            ],
-                            'thanks_text' => 'Thanks For Using our site',
-                            'action_text' => '',
-                            'action_url' => '',
-                        ];
+                
+                $notify_msg = [
+                    'greeting' => 'Estimator Work Pdf',
+                    'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
+                    'body' => [
+                        'company' => $request->company,
+                        'filename' => $filename,
+                        'links' => '',
+                        'name' =>  $request->projname . '-' . $request->projno,
 
-                        if($request->action="Update & Email")
-                        {
-                            // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
-                            Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork));
-                            //designer
-                            if ($request->designer_company_email) {
-                                $notify_admins_msg['body']['designer'] = 'designer1';
-                                Notification::route('mail', $request->designer_company_email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork, $request->designer_company_email));
-                            }
-                        }
-                        
-                    }
-                }
-                elseif(Auth::user()->hasRole('estimator') && $temporaryWorkData->estimatorApprove==0)
-                {
-                    $notify_msg = [
-                        'greeting' => 'Estimator Work Pdf',
-                        'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
-                        'body' => [
-                            'company' => $request->company,
-                            'filename' => $filename,
-                            'links' => '',
-                            'name' =>  $request->projname . '-' . $request->projno,
-
-                        ],
-                        'thanks_text' => 'Thanks For Using our site',
-                        'action_text' => '',
-                        'action_url' => '',
-                    ]; 
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
+                
 
                      //work for designer email list==============  
-                    $this->updateDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporaryWork,'Designer');
+                    $this->updateDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporaryWork,'Designer', $request->online_designers);
                     //work for supplier email list=============
-                    $this->updateDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporaryWork,'Supplier');
+                    $this->updateDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporaryWork,'Supplier', $request->online_suppliers);
                     
                 }
-                
             }
+                
+            
             toastSuccess('Estimator Brief successfully Updated!');
-            return redirect()->route('temporary_works.index');
+            return redirect()->route('estimator.index');
         } catch (\Exception $exception) {
             dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
@@ -783,11 +964,12 @@ class EstimatorController extends Controller
     }
 
      //send email to desinger and save in database
-    public function updateDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type)
+    public function updateDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type, $online_designers)
     {
            
             $email_list1=[];
             $email_list2=[];
+            $email_list3=[];
             if(!empty($emails))
             {
                 $email_list1=explode(",",$emails);
@@ -796,8 +978,11 @@ class EstimatorController extends Controller
             {
                 $email_list2=$designers_or_suppliers;
             }
-           
-            $finalList=array_merge($email_list1,$email_list2);
+            if($online_designers)
+            {
+                $email_list3=$online_designers;
+            }
+            $finalList=array_merge($email_list1,$email_list2, $email_list3);
             foreach($finalList as $list)
             {
                 $list=explode('-',$list);

@@ -607,6 +607,7 @@
                                        <th class="">Design<br> Check<br> CERT</th>
                                        <th class="">Status</th>
                                        <th class="">Actions</th>
+                                       <th class=""></th>
                                     </tr>
                                     <!--end::Table row-->
                                  </thead> --}}
@@ -887,7 +888,18 @@
 
                                           </div>
                                        </td>
-
+                                       <td style="width:50px;">
+                                       <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} "
+                                          id="{{'form_' . $item->id}}">
+                                          @method('Delete')
+                                          @csrf
+                                          <button type="submit" id="{{$item->id}}"
+                                                class="confirm1 btn p-0 m-1 ">
+                                                <i style="padding:3px;"
+                                                   class="fa fa-trash-alt"></i>
+                                          </button>
+                                       </form>
+                                       </td>
                                        {{-- <td style="">{{ $item->tw_category }}</td> --}}
                                        {{-- <td style="">{{ $item->tw_risk_class ?: '-' }}</td> --}}
                                        {{-- <td style="min-width: 100px; max-width: 80px;">{{
@@ -1043,9 +1055,14 @@
                                              <i class="fa fa-eye"></i>
                                           </a>
                                        </td> --}}
+                                       
                                     </tr>
+                                   
+                                       
+                                    
                                     @empty
                                     @endforelse
+                                    
                                  </tbody>
                                  <!--end::Table body-->
                               </table>
@@ -1072,6 +1089,8 @@
 @include('dashboard.modals.risk_assessment')
 @endsection
 @section('scripts')
+@include('layouts.sweetalert.sweetalert_js')
+
 <script type="text/javascript">
    var role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
      $(".addcomment").on('click', function() {

@@ -323,6 +323,24 @@
     .form-check-input:checked[type=radio]{
         background-color:green !important;
     }
+
+    #clear{
+    margin-left:-25px;
+    margin-top:60px;
+}
+#sig{
+    border-radius:5px;
+    margin-top:-50px;
+}
+canvas {
+    width: 296px;
+    height: 152px;
+}
+#sigimage{
+    position: absolute;
+    margin-top:-55px;
+    margin-left:6px;
+}
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -674,20 +692,20 @@
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Designers</span>
                                     </label>
-                                    <select name="designers[]"
+                                    <select name="online_designers[]"
                                         class="form-select form-select-lg form-select-solid adminDesigners"
                                         data-control="select2" data-placeholder="Select an option"
                                         data-allow-clear="true" multiple>
                                         <option value="">Select Option</option>
 
                                         @foreach($adminDesigners as $desig)
-                                        <optgroup label="Designer List">
+                                        <!-- <optgroup label="Designer List"> -->
                                             @if($desig->hasRole(['designer','Design Checker','Designer and Design
                                             Checker']))
                                             <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
                                                 {{$desig->email}}</option>
                                             @endif
-                                        </optgroup>
+                                        <!-- </optgroup> -->
                                         @endforeach
 
                                     </select>
@@ -705,11 +723,11 @@
                                             data-control="select2" data-placeholder="Select an option"
                                             data-allow-clear="true" multiple>
                                             <option value="">Select Option</option>
-                                            <optgroup label="Suppliers List">
+                                            <!-- <optgroup label="Suppliers List"> -->
                                                 @foreach($suppliers as $supp)
                                                 <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
                                                 @endforeach
-                                            </optgroup>
+                                            <!-- </optgroup> -->
 
                                         </select>
                                     </div>
@@ -735,17 +753,17 @@
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Supplier</span>
                                     </label>
-                                    <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
+                                    <select name="online_suppliers[]" class="form-select form-select-lg form-select-solid"
                                         data-control="select2" data-placeholder="Select an option"
                                         data-allow-clear="true" multiple>
                                         <option value="">Select Option</option>
 
                                         @foreach($adminSuppliers as $supp)
-                                        <optgroup label="Supplier List">
+                                        <!-- <optgroup label="Supplier List"> -->
                                             @if($supp->hasRole('supplier'))
                                             <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
                                             @endif
-                                        </optgroup>
+                                        <!-- </optgroup> -->
                                         @endforeach
 
                                     </select>
@@ -819,26 +837,94 @@
                                 </div>
                             </div>
                         </div>
-
-                        @include('dashboard.modals.design-relief-modals')
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-md-12">
+                            <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
+                            <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Do you want to move this pre construction to Temporary work register ?</span>
+                            </div>
+                            <div class="col-md-12" id="display_sign_div" style="display:none">
+                                @if(auth()->user()->hasRole('user'))
+                                    <h5>Signature Type:</h5>
+                                    <div class="d-flex ">
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
+                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="flexCheckChecked" 
+                                                style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype"
+                                                class="form-control form-control-solid" value="2">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                        </div>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="pdfChecked" 
+                                                style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="pdfsigntype"
+                                                class="form-control form-control-solid" value="0">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
+                                        </div>
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Upload Signature:</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto" class="form-control"
+                                            accept="image/*">
+                                    </div>
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign"
+                                            class="form-control form-control-solid">
+                                    </div>
+                                    <div class="d-flex inputDiv" id="sign" style="align-items: center; border:none">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <!-- <span class="required">Signature:</span> -->
+                                        </label>
+                                        <br />
+                                        <canvas id="sig" style="background: lightgray"></canvas>
+                                        <br />
+                                        
+                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                            style="line-height: 6"></span>
+                                    </div>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
+                                    <br>
+                                @endif
+                            </div>
+                        </div>
+                        
+                       
                         <div class="row mt-5">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <input type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Email Designers & Suppliers">
-                                <input type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">
+                            <div class="col-md-6"> 
+                            </div>
+                            <div class="col-md-1 published" style="display:none;">
                                 <input type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important"
                                     class="btn btn-primary float-end submitbutton" value="Publish">
                             </div>
+                            <div class="col-md-4 notpublished"> 
+                                <input type="submit" name="action"
+                                    style="margin-left: 10px; background: #07d564 !important"
+                                    class="btn btn-primary float-end submitbutton" value="Email Designers & Suppliers">
+                            </div>
+                            <div class="col-md-2 notpublished">
+                                <input type="submit" name="action"
+                                    style="margin-left: 10px; background: #07d564 !important"
+                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">
+                            </div>
+                            
                         </div>
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save</button> -->
 
-
+                        @include('dashboard.modals.design-relief-modals')
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -1054,6 +1140,39 @@
         }
         
     })
+
+    var canvas = document.getElementById("sig");
+    var signaturePad = new SignaturePad(canvas);
+    signaturePad.addEventListener("endStroke", () => {
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+    });
+    
+     $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+        $('#submitbutton').prop('disabled', true);
+
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+    });
+
+    const checkbox = document.getElementById("display_sign");
+    const displayDiv = document.getElementById("display_sign_div");
+
+    checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+            $(".published").show();
+            $(".notpublished").hide();
+            displayDiv.style.display = "block";
+        } else {
+            $(".published").hide();
+            $(".notpublished").show();
+            displayDiv.style.display = "none";
+        }
+    });
 </script>
 
 

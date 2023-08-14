@@ -1290,7 +1290,7 @@ $tempWorkClass = "d-none";
                                                                     Emails 
                                                                     <!-- ({{$tot}})  -->
                                                                     @php
-                                                                    ({{$tot_emails[$count]}})
+                                                                    <!-- ({{$tot_emails[$count]}}) -->
                                                                     @php
                                                                 </p>
                                                             </div>

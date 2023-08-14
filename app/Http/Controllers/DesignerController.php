@@ -626,7 +626,7 @@ class DesignerController extends Controller
                         $is_permit = 1;
                         $parts = explode('-', $uploads->drawing_number);
                         $originalNumber = $parts[0];
-                        
+                        $originalNumber = $uploads->drawing_number;
                         if(in_array($originalNumber, $drawing_number) )
                         {
                             // dd($drawing_number,$uploads->drawing_number);
@@ -776,7 +776,7 @@ class DesignerController extends Controller
                     $is_permit = 1;
                     $parts = explode('-', $uploads->drawing_number);
                     $originalNumber = $parts[0];
-                    
+                    $originalNumber = $uploads->drawing_number;
                     if(in_array($originalNumber, $drawing_number) )
                     {
                         // dd($drawing_number,$uploads->drawing_number);
@@ -921,7 +921,7 @@ class DesignerController extends Controller
                     $is_permit = 1;
                     $parts = explode('-', $uploads->drawing_number);
                     $originalNumber = $parts[0];
-                    
+                    $originalNumber = $uploads->drawing_number;
                     if(in_array($originalNumber, $drawing_number) )
                     {
                         // dd($drawing_number,$uploads->drawing_number);

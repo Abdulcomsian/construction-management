@@ -1289,9 +1289,7 @@ $tempWorkClass = "d-none";
                                                                     <!-- <span class="fa fa-plus"></span> -->
                                                                     Emails 
                                                                     <!-- ({{$tot}})  -->
-                                                                    @php
-                                                                    <!-- ({{$tot_emails[$count]}}) -->
-                                                                    @php
+                                                                   
                                                                 </p>
                                                             </div>
                                                             <span class="desc cursor-pointer"

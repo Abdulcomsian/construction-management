@@ -342,7 +342,7 @@ class TemporaryWorkController extends Controller
                     $users[] = $u->user_id;
                 }
                 $temporary_works = TemporaryWork::with('tempshare', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('id', $ids)->latest()->where(['estimator'=>0])->paginate(20);
-                $projects_id = Tempworkshare::select('project_id')->where('user_id', $user->id)->groupBy('project_id')->get();
+                $projects_id = Tempworkshare::select('project_id')->where('user_id', Auth::user()->id)->groupBy('project_id')->get(); //remove $user->id
                 $projects = Project::with('company')->whereIn('id', $projects_id)->get();
             } else {
                 $tempidds = DB::table('tempworkshares')->where('user_id', $user->id)->get();

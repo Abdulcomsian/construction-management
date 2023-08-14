@@ -288,6 +288,14 @@ canvas {
     margin-top:-55px;
     margin-left:6px;
 }
+
+.majorList {
+        border: 1px solid lightgrey;
+        height: auto !important;
+        font-size: 16px;
+        font-weight: 400;
+        color:
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -1238,11 +1246,7 @@ canvas {
                 $("#scopofdesign").addClass("whiteBack")
     
         });
-        $("#attachment-of-design  #submit-requirment button").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-    
-        });
+        
 
         $("#projects").change(function(){
             console.log("hello")

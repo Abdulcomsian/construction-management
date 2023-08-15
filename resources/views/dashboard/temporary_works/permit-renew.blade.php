@@ -251,7 +251,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form id="permitrenew" class="from-prevent-multiple-submits" action="{{route('permit.save')}}"
+                <form id="permitrenew" class="from-prevent-multiple-submits" enctype="multipart/form-data" action="{{route('permit.save')}}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />

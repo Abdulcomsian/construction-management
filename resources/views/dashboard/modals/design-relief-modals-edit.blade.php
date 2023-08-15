@@ -127,6 +127,16 @@
     .invisible {
         visibility: hidden;
     }
+
+
+    .form-check-input:checked[type=radio] {
+    background-color: green !important;
+}
+.list-div ul li, .list-check-div ul li {
+    height: 72px;
+    overflow: visible;
+    border-radius: 5px;
+}
 </style>
 <!------ Design Requiremnts Modal ---->
 
@@ -545,17 +555,18 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <div class="list">
-                                    <li data-id="List-Attachment" class="majorList">Attachments (sketches / photos /
+                                <div class="list {{$temporaryWork->folder->list_of_attachments ? 'borderActive' : ''}}">
+                                    <li data-id="List-Attachment" class="majorList {{$temporaryWork->folder->list_of_attachments ? 'active' : ''}}">Attachments (sketches / photos /
                                         specifications / drawings, etc)
                                     </li>
-                                    <ul class="listAttachment--desc d-none">
-                                        <li class="invisible List-Attachment d-flex  my-0"
+
+                                    <ul class="listAttachment--desc {{$temporaryWork->folder->list_of_attachments ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->list_of_attachments ? '' : 'invisible'}} List-Attachment d-flex  my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="list_of_attachments_folder" id="" value="yes" />
+                                                        name="list_of_attachments_folder" id="" value="yes" {{$temporaryWork->folder->list_of_attachments=='yes' ? 'checked':''}} />
                                                     <input class="form-check-input" type="hidden"
                                                         name="list_of_attachments"
                                                         value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
@@ -564,34 +575,33 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="list_of_attachments_folder" id="" value="no" />
+                                                        name="list_of_attachments_folder" id="" value="no"  {{$temporaryWork->folder->list_of_attachments=='no' ? 'checked':''}} />
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="list_of_attach_comment d-none">
-                                                <textarea type="text"
-                                                    style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
-                                                    name="list_of_attachments_comment" cols="80" rows="2"
-                                                    placeholder="Enter Comment"></textarea>
+                                            <div class="list_of_attach_comment {{$temporaryWork->attachspeccomment->list_of_attachments_comment ? '':'d-none'}}">
+                                                    <textarea type="text" 
+                                                    style="background: white;color:black;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" 
+                                                    name="list_of_attachments_comment" cols="80" rows="2" 
+                                                    placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->list_of_attachments_comment ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>
 
                                 </div>
-                                <div class="list">
-                                    <li data-id="Report-Site" class="majorList">Reports Including Site Investigations
+                                <div class="list {{$temporaryWork->folder->reports_including_site_investigations ? 'borderActive':''}} ">
+                                    <li data-id="Report-Site" class="majorList {{$temporaryWork->folder->reports_including_site_investigations ? 'active ':''}}">Reports Including Site Investigations
                                         (relevant boreholes / trial pits / site investigation / any existing or proposed
                                         services above or below the ground where appropriate minimum clearances and
                                         protection are required to be maintained)
                                     </li>
-                                    <ul class="report-site--desc d-none">
-                                        <li class="invisible Report-Site d-flex my-0"
+                                    <ul class="report-site--desc {{$temporaryWork->folder->reports_including_site_investigations ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->reports_including_site_investigations ? '':'invisible'}} Report-Site d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="reports_including_site_investigations_folder" id=""
-                                                        value="yes" />
+                                                        name="reports_including_site_investigations_folder" id="" value="yes" {{$temporaryWork->folder->reports_including_site_investigations=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="reports_including_site_investigations"
                                                         value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
@@ -600,29 +610,31 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="reports_including_site_investigations_folder" id=""
-                                                        value="no" />
+                                                   
+                                                    name="reports_including_site_investigations_folder" id="" value="no"      {{$temporaryWork->folder->reports_including_site_investigations=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="reports_including_site_investigations_comment d-none">
+                                            <div class="reports_including_site_investigations_comment {{$temporaryWork->attachspeccomment->reports_including_site_investigations_comment ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="reports_including_site_investigations_comment"
-                                                    cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    cols="80" rows="2" placeholder="Enter 
+                                                    Comment">{{$temporaryWork->attachspeccomment->reports_including_site_investigations_comment ?? ''}} </textarea>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="list">
-                                    <li data-id="Exsisting-Ground" class="majorList">Existing Ground conditions</li>
-                                    <ul class="existing-ground--desc d-none">
-                                        <li class="invisible Exsisting-Ground d-flex my-0"
+                              
+                                <div class="list {{$temporaryWork->folder->existing_ground_conditions ? 'borderActive':''}}">
+                                    <li data-id="Exsisting-Ground" class="majorList {{$temporaryWork->folder->existing_ground_conditions ? 'active':''}}">Existing Ground conditions</li>
+                                    <ul class="existing-ground--desc {{$temporaryWork->folder->existing_ground_conditions ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->existing_ground_conditions ? '':'invisible'}} Exsisting-Ground d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="existing_ground_conditions_folder" id="" value="yes" />
+                                                        name="existing_ground_conditions_folder" id="" value="yes" {{$temporaryWork->folder->existing_ground_conditions=='yes' ? 'checked':''}} />
                                                     <input class="form-check-input" type="hidden"
                                                         name="existing_ground_conditions"
                                                         value="Existing Ground conditions:" />
@@ -631,15 +643,15 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="existing_ground_conditions_folder" id="" value="no" />
+                                                        name="existing_ground_conditions_folder" id="" value="no" {{$temporaryWork->folder->existing_ground_conditions=='no' ? 'checked':''}} />
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="existing_ground_conditions_comment d-none">
+                                            <div class="existing_ground_conditions_comment {{$temporaryWork->attachspeccomment->existing_ground_conditions_comment ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="existing_ground_conditions_comment" cols="80"
-                                                    rows="2" placeholder="Enter Comment"></textarea>
+                                                    rows="2" placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->existing_ground_conditions_comment ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -648,19 +660,19 @@
                                 </div>
 
                                 <!-- Prefered/Non prefered container  -->
-                                <div class="list">
-                                    <li data-id="System-Type" class="majorList">Preferred/non-preferred methods, systems
+                                <div class="list {{$temporaryWork->folder->preferred_non_preferred_methods ? 'borderActive':''}}">
+                                    <li data-id="System-Type" class="majorList {{$temporaryWork->folder->preferred_non_preferred_methods ? 'active':''}}">Preferred/non-preferred methods, systems
                                         or types of
                                         equipment:
                                     </li>
-                                    <ul class="perferred-NonPrefered--desc d-none">
-                                        <li class="invisible System-Type d-flex my-0"
+                                    <ul class="perferred-NonPrefered--desc {{$temporaryWork->folder->preferred_non_preferred_methods ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->preferred_non_preferred_methods ? '':'invisible'}} System-Type d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="preferred_non_preferred_methods_folder" id=""
-                                                        value="yes" />
+                                                        value="yes" {{$temporaryWork->folder->preferred_non_preferred_methods=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="preferred_non_preferred_methods"
                                                         value="Preferred/non-preferred methods, systems or types of equipment:" />
@@ -670,15 +682,15 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="preferred_non_preferred_methods_folder" id=""
-                                                        value="no" />
+                                                        value="no" {{$temporaryWork->folder->preferred_non_preferred_methods=='no' ? 'checked':''}} />
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="preferred_non_preferred_methods_comment d-none">
+                                            <div class="preferred_non_preferred_methods_comment {{$temporaryWork->folder->preferred_non_preferred_methods=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="preferred_non_preferred_methods_comment" cols="80"
-                                                    rows="2" placeholder="Enter Comment"></textarea>
+                                                    rows="2" placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->preferred_non_preferred_methods_comment ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -693,16 +705,16 @@
 
                                 <!-- Access Limitations start -->
 
-                                <div class="list">
-                                    <li data-id="Limitations" class="majorList">Access Limitations (or edge protection
+                                <div class="list {{$temporaryWork->folder->access_limitations ? 'borderActive':''}}">
+                                    <li data-id="Limitations" class="majorList {{$temporaryWork->folder->access_limitations ? 'active':''}}">Access Limitations (or edge protection
                                         requirements)</li>
-                                    <ul class="access-limitation--desc d-none">
-                                        <li class="invisible Limitations d-flex my-0"
+                                    <ul class="access-limitation--desc {{$temporaryWork->folder->access_limitations ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->access_limitations ? '':'invisible'}} Limitations d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="access_limitations_folder" id="" value="yes" />
+                                                        name="access_limitations_folder" id="" value="yes" {{$temporaryWork->folder->access_limitations=='yes' ? 'checked':''}} />
                                                     <input class="form-check-input" type="hidden"
                                                         name="access_limitations"
                                                         value="Access Limitations (or edge protection requirements)" />
@@ -711,15 +723,15 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="access_limitations_folder" id="" value="no" />
+                                                        name="access_limitations_folder" id="" value="no" {{$temporaryWork->folder->access_limitations=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="access_limitations_comment d-none">
+                                            <div class="access_limitations_comment {{$temporaryWork->folder->access_limitations=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="access_limitations_comment" cols="80" rows="2"
-                                                    placeholder="Enter Comment"></textarea>
+                                                    placeholder="Enter Comment"> {{$temporaryWork->attachspeccomment->access_limitations_comment ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -733,16 +745,16 @@
 
                                 <!-- Back propping start -->
 
-                                <div class="list">
-                                    <li data-id="Back-Propping" class="majorList">Back Propping / Re-Propping Sequence
+                                <div class="list {{$temporaryWork->folder->back_propping ? 'borderActive':''}}" >
+                                    <li data-id="Back-Propping" class="majorList {{$temporaryWork->folder->back_propping ? 'active':''}}">Back Propping / Re-Propping Sequence
                                     </li>
-                                    <ul class="back-propping--desc d-none">
-                                        <li class="invisible Back-Propping d-flex"
+                                    <ul class="back-propping--desc {{$temporaryWork->folder->back_propping ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->back_propping ? '':'invisible'}} Back-Propping d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="back_propping_folder" id="" value="yes" />
+                                                        name="back_propping_folder" id="" value="yes" {{$temporaryWork->folder->back_propping=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden" name="back_propping"
                                                         value="Back Propping  / Re-Propping Sequence" />
                                                     <label class="form-check-label" for=""> YES </label>
@@ -750,15 +762,15 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="back_propping_folder" id="" value="no" />
+                                                        name="back_propping_folder" id="" value="no" {{$temporaryWork->folder->back_propping=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="back_propping_comment d-none">
+                                            <div class="back_propping_comment {{$temporaryWork->folder->back_propping=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="back_propping_comment" cols="80" rows="2"
-                                                    placeholder="Enter Comment"></textarea>
+                                                    placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->back_propping_comment ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -770,17 +782,17 @@
 
                                 <!-- Limitation on Temporary work start  -->
 
-                                <div class="list">
-                                    <li data-id="Temporary-Work" class="majorList">Limitations on Temporary Works
+                                <div class="list {{$temporaryWork->folder->limitations_on_temporary_works_design ? 'borderActive':''}}">
+                                    <li data-id="Temporary-Work" class="majorList  {{$temporaryWork->folder->limitations_on_temporary_works_design ? 'active':''}}">Limitations on Temporary Works
                                         Design:</li>
-                                    <ul class="temporary-work--desc d-none">
-                                        <li class="invisible Temporary-Work d-flex"
+                                    <ul class="temporary-work--desc {{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'invisible'}} Temporary-Work d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="limitations_on_temporary_works_design_folder" id=""
-                                                        value="yes" />
+                                                        value="yes" {{$temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="limitations_on_temporary_works_design"
                                                         value="Limitations on Temporary Works Design:" />
@@ -790,15 +802,15 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="limitations_on_temporary_works_design_folder" id=""
-                                                        value="no" />
+                                                        value="no" {{$temporaryWork->folder->limitations_on_temporary_works_design=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="limitations_on_temporary_works_design_comment d-none">
+                                            <div class="limitations_on_temporary_works_design_comment {{$temporaryWork->attachspeccomment->limitations_on_temporary_works_design_comment ?'':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="limitations_on_temporary_works_design_comment"
-                                                    cols="80" rows="2" placeholder="Enter Comment"></textarea>
+                                                    cols="80" rows="2" placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->limitations_on_temporary_works_design_comment ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -811,19 +823,19 @@
 
                                 <!-- Hazard identification start  -->
 
-                                <div class="list">
-                                    <li data-id="Hazard-Risk" class="majorList">Details of any hazards identified during
+                                <div class="list {{$temporaryWork->folder->details_of_any_hazards ? 'borderActive':''}}">
+                                    <li data-id="Hazard-Risk" class="majorList {{$temporaryWork->folder->details_of_any_hazards ? 'active':''}}">Details of any hazards identified during
                                         the risk or hazard
                                         assessment that require action by the Temporary Works Designer to eliminate or
                                         control all risks or hazard
                                     </li>
-                                    <ul class="hazard-risk--desc d-none">
-                                        <li class="invisible Hazard-Risk d-flex"
+                                    <ul class="hazard-risk--desc {{$temporaryWork->folder->details_of_any_hazards ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->details_of_any_hazards ? '':'invisible'}} Hazard-Risk d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="details_of_any_hazards_folder" id="" value="yes" />
+                                                        name="details_of_any_hazards_folder" id="" value="yes" {{$temporaryWork->folder->details_of_any_hazards=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="details_of_any_hazards"
                                                         value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
@@ -832,15 +844,15 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="details_of_any_hazards_folder" id="" value="no" />
+                                                        name="details_of_any_hazards_folder" id="" value="no" {{$temporaryWork->folder->details_of_any_hazards=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="details_of_any_hazards_comment d-none">
+                                            <div class="details_of_any_hazards_comment {{$temporaryWork->attachspeccomment->details_of_any_hazards_comment ?'':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="details_of_any_hazards_comment" cols="80" rows="2"
-                                                    placeholder="Enter Comment"></textarea>
+                                                    placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->details_of_any_hazards_comment ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -854,15 +866,15 @@
 
                                 <!-- 3rd part Requirements start  -->
 
-                                <div class="list">
-                                    <li data-id="Party-Requirements" class="majorList">3rd Party Requirements:</li>
-                                    <ul class="partyRequirment--desc d-none">
-                                        <li class="invisible Party-Requirements d-flex"
+                                <div class="list {{$temporaryWork->folder->toArray()['3rd_party_requirements'] ? 'borderActive':''}}">
+                                    <li data-id="Party-Requirements" class="majorList {{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? 'active':''}}">3rd Party Requirements:</li>
+                                    <ul class="partyRequirment--desc {{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'invisible'}}">
+                                        <li class="{{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'invisible'}} Party-Requirements d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="3rd_party_requirements_folder" id="" value="yes" />
+                                                        name="3rd_party_requirements_folder" id="" value="yes" {{$temporaryWork->folder->toArray()['3rd_party_requirements'] =='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="3rd_party_requirements" value="3rd Party Requirements:" />
                                                     <label class="form-check-label" for=""> YES </label>
@@ -870,15 +882,15 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="3rd_party_requirements_folder" id="" value="no" />
+                                                        name="3rd_party_requirements_folder" id="" value="no" {{$temporaryWork->folder->toArray()['3rd_party_requirements'] =='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="3rd_party_requirements_comment d-none">
+                                            <div class="3rd_party_requirements_comment {{$temporaryWork->attachspeccomment->toArray()['3rd_party_requirements_comment'] ?'':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="3rd_party_requirements_comment" cols="80" rows="2"
-                                                    placeholder="Enter Comment"></textarea>
+                                                    placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->toArray()['3rd_party_requirements_comment'] ?? ''}}</textarea>
                                             </div>
                                         </li>
                                     </ul>

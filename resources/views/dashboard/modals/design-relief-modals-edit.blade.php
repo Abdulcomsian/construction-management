@@ -125,7 +125,8 @@
     }
 
     .invisible {
-        visibility: hidden;
+        /* visibility: hidden; */
+        display:none;
     }
 
 
@@ -137,6 +138,7 @@
     overflow: visible;
     border-radius: 5px;
 }
+
 </style>
 <!------ Design Requiremnts Modal ---->
 
@@ -435,7 +437,7 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul >
-                                <li data-id="Preliminary-Sketches">Preliminary Sketches (prior to full TW design for
+                                <li  data-id="Preliminary-Sketches">Preliminary Sketches (prior to full TW design for
                                     discussion with site team)
                                 </li>
                                 
@@ -468,8 +470,8 @@
                         <input type="text" value="" class="requirment-second-value">
                         <div class="list-div">
 
-                            <ul >
-                            <li class="{{$temporaryWork->scopdesign->preliminary_sketches_date ? '':'show'}} Preliminary-Sketches">
+                            <ul>
+                            <li class="{{$temporaryWork->scopdesign->preliminary_sketches_date ? '':'invisible'}} Preliminary-Sketches">
                                     <input type="date" name="preliminary_sketches_date_sod" value="{{$temporaryWork->scopdesign->preliminary_sketches_date ?? ''}}">
                                 </li>
                                 <li class="{{$temporaryWork->scopdesign->construction_rawings_date ? '':'invisible'}} Construction-Drawings">
@@ -943,3 +945,34 @@
     <!--end::Modal dialog-->
 </div>
 <!--end::Modal - Attachment of Design -->
+
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const listItems = document.querySelectorAll(".common-requirment li[data-id]");
+
+        listItems.forEach(item => {
+            item.addEventListener("click", function () {
+                const itemId = item.getAttribute("data-id");
+                const allDateSections = document.querySelectorAll(".common-requirment.requirment-second li");
+                const selectedDateSection = document.querySelector(`.common-requirment.requirment-second li.${itemId}`);
+                
+                allDateSections.forEach(dateSection => {
+                    dateSection.classList.add("invisible");
+                });
+                
+                selectedDateSection.classList.remove("invisible");
+            });
+        });
+    });
+</script>
+
+
+
+
+
+

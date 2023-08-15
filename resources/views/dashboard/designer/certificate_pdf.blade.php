@@ -203,14 +203,15 @@
             <div class="b" style="margin-left:7%; margin-top:-22px; font-weight:bold;" >{{$temporary_work->design_requirement_text}}  </div>
             <!-- <p>{{$temporary_work->design_requirement_text}}</p> -->
             <p> (c) Has been designed in accordance with the following standards and reference</p> <br>
+            {{-- @dd($temporary_work->designerCertificates) --}}
             <table style="width:100%">
-            @foreach($temporary_work->designerCertificates as $certificate)
-                @foreach(optional($certificate)->tags ?? [] as $tag)
+            @foreach($temporary_work->designerCertificates->tags as $tag)
+                {{-- @foreach($certificate->tags as $tag) --}}
                     <tr>
                         <td style="width:30%">{{$tag->title}} </td>
                         <td> {{$tag->description}}</td>
                     </tr>
-                @endforeach
+                {{-- @endforeach --}}
                 <hr>
             @endforeach
             

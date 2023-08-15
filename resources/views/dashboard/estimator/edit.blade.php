@@ -759,7 +759,7 @@ canvas {
                                                     <option value="">Select Option</option>
                                                     <optgroup label="Suppliers List">
                                                         @foreach($suppliers as $supp)
-                                                        <option value="{{$supp->email}}-{{$supp->id}}" {{in_array($desig->email,
+                                                        <option value="{{$supp->email}}-{{$supp->id}}" {{in_array($supp->email,
                                                             $selectedDesignersList) ? 'selected':''}}>{{$supp->email}}
                                                         </option>
                                                         @endforeach
@@ -776,10 +776,10 @@ canvas {
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text"
-                                                    class="form-control  @if(!$inputDesignersList) form-control-solid @endif"
+                                                    class="form-control  @if(!$inputSuppliersList) form-control-solid @endif"
                                                     style="border: none" placeholder="Enter Comma Seperated"
                                                     id="supplier_company_emails" name="supplier_company_emails"
-                                                    value="{{implode(',',$inputDesignersList)}}">
+                                                    value="{{implode(',',$inputSuppliersList)}}">
                                             </div>
                                             {{-- @endif --}}
                                             
@@ -987,7 +987,7 @@ canvas {
                                         <div class="col-md-12">
                                             <div class="col-md-12">
                                                 <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
-                                                <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Do you want to move this pre construction to Temporary work register ?</span>
+                                                <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
                                             </div>
                                             <div  class="col-md-12" id="display_sign_div" style="display:none">
                                                 @if(auth()->user()->hasRole('user'))
@@ -1055,7 +1055,7 @@ canvas {
                                                     class="btn btn-primary float-end submitbutton" value="Publish">
                                             </div>
                                             <div class="col-md-4 notpublished">
-                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier">
+                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
                                             </div>
                                             <div class="col-md-2 notpublished">
                                             <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">

@@ -125,7 +125,8 @@
     }
 
     .invisible {
-        visibility: hidden;
+        /* visibility: hidden; */
+        display:none;
     }
 
 
@@ -137,6 +138,7 @@
     overflow: visible;
     border-radius: 5px;
 }
+
 </style>
 <!------ Design Requiremnts Modal ---->
 
@@ -392,6 +394,11 @@
 </div>
 <!--end::Modal - Design Requirement -->
 
+
+
+
+
+
 <!--begin::Modal - Scope of Design -->
 <div class="modal fade" id="scope-of-design" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
@@ -429,10 +436,11 @@
                     <div class="common-requirment requirment-first">
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
-                            <ul>
-                                <li data-id="Preliminary-Sketches">Preliminary Sketches (prior to full TW design for
+                            <ul >
+                                <li  data-id="Preliminary-Sketches">Preliminary Sketches (prior to full TW design for
                                     discussion with site team)
                                 </li>
+                                
                                 <li data-id="Construction-Drawings">Construction Drawings (with notes on loadings,
                                     restrictions, critical components, etc)
                                 </li>
@@ -459,39 +467,42 @@
                         </div>
                     </div>
                     <div class="common-requirment requirment-second">
-                        <input type="text" vlaue="" class="requirment-second-value">
+                        <input type="text" value="" class="requirment-second-value">
                         <div class="list-div">
 
                             <ul>
-                                <li class="invisible Preliminary-Sketches">
-                                    <input type="date" name="preliminary_sketches_date_sod">
+                            <li class="{{$temporaryWork->scopdesign->preliminary_sketches_date ? '':'invisible'}} Preliminary-Sketches">
+                                    <input type="date" name="preliminary_sketches_date_sod" value="{{$temporaryWork->scopdesign->preliminary_sketches_date ?? ''}}">
                                 </li>
-                                <li class="invisible Construction-Drawings">
-                                    <input type="date" name="construction_rawings_date_sod">
+                                <li class="{{$temporaryWork->scopdesign->construction_rawings_date ? '':'invisible'}} Construction-Drawings">
+                                    <input type="date" name="construction_rawings_date_sod" value="{{$temporaryWork->scopdesign->construction_rawings_date ?? ''}}">
                                 </li>
-                                <li class="invisible Design-Calculations">
-                                    <input type="date" name="design_calculations_date_sod">
+                                                  
+                                <li class="{{$temporaryWork->scopdesign->design_calculations_date ? '':'invisible'}} Design-Calculations">
+                                <input type="date" name="design_calculations_date_sod" value="{{$temporaryWork->scopdesign->design_calculations_date ?? ''}}">
                                 </li>
-                                <li class="invisible Check-Certificate">
-                                    <input type="date" name="design_check_certificate_date_sod">
+                                <li class="{{$temporaryWork->scopdesign->design_check_certificate_date ? '':'invisible'}} Check-Certificate">
+                                    <input type="date" name="design_check_certificate_date_sod" value="{{$temporaryWork->scopdesign->design_check_certificate_date ?? ''}}">
                                 </li>
-                                <li class="invisible Loading-Criteria">
-                                    <input type="date" name="loading_criteria_date_sod">
+                                <li class="{{$temporaryWork->scopdesign->loading_criteria_date ? '':'invisible'}} Loading-Criteria">
+                                    <input type="date" name="loading_criteria_date_sod" value="{{$temporaryWork->scopdesign->loading_criteria_date ?? '' }}">
                                 </li>
-                                <li class="invisible Construction-Erection">
-                                    <input type="date" name="construction_erection_sequence_information_date_sod">
+                                <li class="{{$temporaryWork->scopdesign->construction_erection_sequence_information_date ? '':'invisible'}} Construction-Erection">
+                                    <input type="date" name="construction_erection_sequence_information_date_sod" value="{{$temporaryWork->scopdesign->construction_erection_sequence_information_date ?? '' }}">
                                 </li>
-                                <li class="invisible Inspection-Checklist">
-                                    <input type="date" name="inspection_checklist_date_sod">
+                                <li class="{{$temporaryWork->scopdesign->inspection_checklist_date ? '':'invisible'}} Inspection-Checklist">
+                                    <input type="date" name="inspection_checklist_date_sod" value="{{$temporaryWork->scopdesign->inspection_checklist_date ?? '' }}">
                                 </li>
-                                <li class="invisible Monitoring-Requirements">
-                                    <input type="date" name="monitoring_requirements_date_sod">
+                                <li class="{{$temporaryWork->scopdesign->monitoring_requirements_date ? '':'invisible'}} Monitoring-Requirements">
+                                    <input type="date" name="monitoring_requirements_date_sod" value="{{$temporaryWork->scopdesign->monitoring_requirements_date ?? '' }}">
                                 </li>
-                                <li class="invisible Specifications">
-                                    <input type="date" name="specifications_date_sod">
+
+
+                                <li class="{{$temporaryWork->scopdesign->specifications_date ? '':'invisible'}} Specifications">
+                                    <input type="date" name="specifications_date_sod" value="{{$temporaryWork->scopdesign->specifications_date ?? '' }}">
                                 </li>
-                                <li class="invisible Design-Inspection">
-                                    <input type="date" name="design_inspection_test_plans_date_sod">
+                                <li class="{{$temporaryWork->scopdesign->design_inspection_test_plans_date ? '':'invisible'}} Design-Inspection">
+                                    <input type="date" name="design_inspection_test_plans_date_sod" value="{{$temporaryWork->scopdesign->design_inspection_test_plans_date ?? '' }}">
                                 </li>
 
                             </ul>
@@ -510,6 +521,11 @@
     <!--end::Modal dialog-->
 </div>
 <!--end::Modal - Scope of Design -->
+
+
+
+
+
 
 <!--begin::Modal - Attachment of Design -->
 <div class="modal fade" id="attachment-of-design" tabindex="-1" aria-hidden="true">
@@ -559,6 +575,9 @@
                                     <li data-id="List-Attachment" class="majorList {{$temporaryWork->folder->list_of_attachments ? 'active' : ''}}">Attachments (sketches / photos /
                                         specifications / drawings, etc)
                                     </li>
+
+
+
 
                                     <ul class="listAttachment--desc {{$temporaryWork->folder->list_of_attachments ? '':'invisible'}}">
                                         <li class="{{$temporaryWork->folder->list_of_attachments ? '' : 'invisible'}} List-Attachment d-flex  my-0"
@@ -926,3 +945,34 @@
     <!--end::Modal dialog-->
 </div>
 <!--end::Modal - Attachment of Design -->
+
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const listItems = document.querySelectorAll(".common-requirment li[data-id]");
+
+        listItems.forEach(item => {
+            item.addEventListener("click", function () {
+                const itemId = item.getAttribute("data-id");
+                const allDateSections = document.querySelectorAll(".common-requirment.requirment-second li");
+                const selectedDateSection = document.querySelector(`.common-requirment.requirment-second li.${itemId}`);
+                
+                allDateSections.forEach(dateSection => {
+                    dateSection.classList.add("invisible");
+                });
+                
+                selectedDateSection.classList.remove("invisible");
+            });
+        });
+    });
+</script>
+
+
+
+
+
+

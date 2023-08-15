@@ -2760,10 +2760,36 @@ $notify_admins_msg = [
     {
         $user = auth()->user();
         $tot_emails = [];
+        $assignedBlocks = [];
+        $block = '';
+        if(isset($_GET['block']))
+        {
+            $block = $_GET['block'];
+        }
+        if(auth::user()->hasRole('estimator'))
+        {
+            return redirect('Estimator/estimator');
+        }
+        if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']))
+        {
+            return redirect('designer/designer');
+        }
+        $user = User::with('userCompany')->find(Auth::user()->id);
+        $status=[0,1,2,3];
+        if(isset($_GET['status']))
+        {
+            if($_GET['status']=="pending")
+            {
+                $status=[1];
+            }
+            if($_GET['status']=="completed")
+            {
+                $status=[3];
+            }
+        }
         try {
-            $assignedBlocks = [];
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                 foreach ($temporary_works as $temporary_work) {
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')
@@ -2786,7 +2812,7 @@ $notify_admins_msg = [
                     $ids[] = $u->id;
                 }
                 $ids[] = $user->id;
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('created_by', $ids)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('created_by', $ids)->whereIn('status',$status)->latest()->paginate(20);
                 foreach ($temporary_works as $temporary_work) {
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')
@@ -2807,7 +2833,9 @@ $notify_admins_msg = [
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
                 }
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                    $q->whereIn('project_id', $ids);
+                })->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                 foreach ($temporary_works as $temporary_work) {
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')

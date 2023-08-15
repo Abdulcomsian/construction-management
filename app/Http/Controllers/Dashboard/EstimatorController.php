@@ -779,8 +779,10 @@ class EstimatorController extends Controller
             $all_inputs['created_by'] = auth()->user()->id;
             //work for qrcode
             $all_inputs['status'] = '1';
-
-            if($request->action == 'Publish'){ 
+            if($request->action == 'Publish' && $temporaryWorkData->estimatorApprove == 1){ 
+                $data = $request->except('');
+                $data['designer_company_email'] = Array($temporaryWorkData->designer_company_email);
+            } elseif($request->action == 'Publish'){ 
                 $data = $request->except('designer_company_emails');
                 $designer_company_emails = str_replace(' ', '', $request->designer_company_emails);
                 $designer_company_emails=explode(",",$designer_company_emails);
@@ -863,8 +865,9 @@ class EstimatorController extends Controller
                     }
                 }
                 //work for pdf
-                if($request->action == 'Publish'){
+                if($request->action == 'Publish' && $temporaryWorkData->estimatorApprove == 1){
                     // $data['designer_company_email']=$request->designer_company_emails;
+                    // dd($data);
                     $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $data, 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                     $path = public_path('pdf');
                     $filename = rand() . '.pdf';
@@ -916,7 +919,45 @@ class EstimatorController extends Controller
                     toastSuccess('Pre Con Published successfully!');
                     return redirect()->route('temporary_works.index');
 
-                }else{
+                } elseif($request->action == 'Publish'){
+                    // $data['designer_company_email']=$request->designer_company_emails;
+                    $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $data, 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                    $path = public_path('pdf');
+                    $filename = rand() . '.pdf';
+                    $pdf->save($path . '/' . $filename);
+                    $model = TemporaryWork::find($temporaryWork);
+                    $model->ped_url = $filename;
+                    $model->save();
+
+                    // foreach($data['designer_company_email'] as $key=>$list){
+                        // Remove the first email from the array
+                        $emails = $data['designer_company_email'];
+                        dd($emails);
+                        $notify_admins_msg = [
+                            'greeting' => 'Temporary Work PDF',
+                            'subject' => 'TWP – Design Brief -'.$request->projname . '-' .$request->projno,
+                            'body' => [
+                                'company' => $request->company,
+                                'filename' => $filename,
+                                'links' => '',
+                                'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                                'designer' => '',
+                                'pc_twc' => '',
+        
+                            ],
+                            'thanks_text' => 'Thanks For Using our site',
+                            'action_text' => '',
+                            'action_url' => '',
+                        ];
+                        
+                        $notify_admins_msg['body']['designer'] = 'designer1';
+                        $notify_msg = $notify_admins_msg;
+
+                        //sending email to zero index here, because it will be remove from array on next line
+                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $emails[0], 1));
+                        toastSuccess('Pre Con Published successfully!');
+                        return redirect()->route('temporary_works.index');
+                } else{
                     $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
                      $path = public_path('estimatorPdf');
                

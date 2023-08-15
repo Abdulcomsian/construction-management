@@ -1187,6 +1187,7 @@ class AdminDesignerController extends Controller
             'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
             ->whereIn('id', $awarded)
             ->where('work_status', 'publish')
+            ->latest()
             ->get();
 
             // dd($AwardedEstimators);
@@ -1217,6 +1218,7 @@ class AdminDesignerController extends Controller
                     ->whereIn('created_by', $all_admin)
                     ->orWhere('created_by',$parent_id)
                     // ->where('created_by', Auth::user()->id)
+                    ->latest()
                     ->get();
 
                 // dd($adminDesignerEstimators);

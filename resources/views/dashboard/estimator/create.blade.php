@@ -840,7 +840,7 @@ canvas {
                         <div class="row" style="margin-top:20px;">
                             <div class="col-md-12">
                             <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
-                            <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Do you want to move this pre construction to Temporary work register ?</span>
+                            <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
                             </div>
                             <div class="col-md-12" id="display_sign_div" style="display:none">
                                 @if(auth()->user()->hasRole('user'))
@@ -912,7 +912,7 @@ canvas {
                             <div class="col-md-4 notpublished"> 
                                 <input type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Email Designers & Suppliers">
+                                    class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
                             </div>
                             <div class="col-md-2 notpublished">
                                 <input type="submit" name="action"

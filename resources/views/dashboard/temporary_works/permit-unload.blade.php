@@ -585,6 +585,17 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
+                            <div class="d-flex inputDiv">
+                                <label class="fs-6 fw-bold mb-2" style="">
+                                    <span >Comments:</span>
+                                </label>
+                                <textarea  name="comments" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                         <div class="d-flex inputDiv">
                                 <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
@@ -606,17 +617,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
-                            <div class="d-flex inputDiv">
-                                <label class="fs-6 fw-bold mb-2" style="">
-                                    <span >Comments:</span>
-                                </label>
-                                <textarea  name="comments" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
+                    
                     <div class="row">
                         <div class="col-md-6" id="second_member">
 

@@ -789,6 +789,16 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6   mt-0">
+                        <div class="d-flex inputDiv mt-0">
+                            <label class="fs-6 fw-bold mb-2" style="">
+                            <span>Comments:</span>
+                            </label>
+                            <textarea name="comments" class="form-control"></textarea>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 inputDiv requiredDiv mt-0 otherApproval" style="margin-left:7px; ">
                             <!-- <div class="d-flex justify-content-between align-items-center"> -->
                                 <!--begin::Label-->

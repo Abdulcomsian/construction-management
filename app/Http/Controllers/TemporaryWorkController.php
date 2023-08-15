@@ -1909,9 +1909,11 @@ $notify_admins_msg = [
 
             } else if($request->drawing_option == 'custom_file'){
                 $file = $request->file('custom_drawing');
-                $filePath  = 'design_uploads/';
-                $desing_path = HelperFunctions::saveFile(null, $file, $filePath);
-                $all_inputs['custom_drawing'] = $desing_path;
+                if($file){
+                    $filePath  = 'design_uploads/';
+                    $desing_path = HelperFunctions::saveFile(null, $file, $filePath);
+                    $all_inputs['custom_drawing'] = $desing_path;
+                }   
             }
             //first person signature and name
            

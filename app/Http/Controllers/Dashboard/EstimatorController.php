@@ -932,7 +932,6 @@ class EstimatorController extends Controller
                     // foreach($data['designer_company_email'] as $key=>$list){
                         // Remove the first email from the array
                         $emails = $data['designer_company_email'];
-                        dd($emails);
                         $notify_admins_msg = [
                             'greeting' => 'Temporary Work PDF',
                             'subject' => 'TWP – Design Brief -'.$request->projname . '-' .$request->projno,

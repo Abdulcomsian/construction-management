@@ -957,7 +957,7 @@ class EstimatorController extends Controller
                             $company_email->temporary_work_id = $temporaryWork;
                             $company_email->email = $list;
                             $company_email->save();
-                            Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $list, 1));                            
+                            Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $list));                            
                         }
 
                         toastSuccess('Pre Con Published successfully!');

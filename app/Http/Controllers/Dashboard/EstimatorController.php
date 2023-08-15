@@ -1030,32 +1030,33 @@ class EstimatorController extends Controller
                 $email_list3=$online_designers;
             }
             $finalList=array_merge($email_list1,$email_list2, $email_list3);
-            // EstimatorDesignerList::where('temporary_work_id', $temporary_work_id)->delete();
-            foreach($finalList as $list)
-            {
-                $list=explode('-',$list);
-                // $checkDesignerexist=EstimatorDesignerList::where(['temporary_work_id'=>$temporary_work_id,'email'=>$list[0]])->first();
-                $code=random_int(100000, 999999);
-
-               
-                //  if($checkDesignerexist==NULL)
-                //  {
-                 EstimatorDesignerList::create([
-                        'email'=>$list[0],
-                        'temporary_work_id'=>$temporary_work_id,
-                        'code'=>$code,
-                        'type'=>$type,
-                        'user_id'=>$list[1] ?? NULL,
-                    ]);
-                //  }
-                //  else{
-                //     $code=$checkDesignerexist->code;
-                //  }
-                if($action="Email Designer & Supplier (For Pricing)")
+            if(count($finalList>0)){
+                // EstimatorDesignerList::where('temporary_work_id', $temporary_work_id)->delete();
+                foreach($finalList as $list)
                 {
-                   Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
-                }
+                    $list=explode('-',$list);
+                    // $checkDesignerexist=EstimatorDesignerList::where(['temporary_work_id'=>$temporary_work_id,'email'=>$list[0]])->first();
+                    $code=random_int(100000, 999999);
+
                 
+                    //  if($checkDesignerexist==NULL)
+                    //  {
+                    EstimatorDesignerList::create([
+                            'email'=>$list[0],
+                            'temporary_work_id'=>$temporary_work_id,
+                            'code'=>$code,
+                            'type'=>$type,
+                            'user_id'=>$list[1] ?? NULL,
+                        ]);
+                    //  }
+                    //  else{
+                    //     $code=$checkDesignerexist->code;
+                    //  }
+                    if($action="Email Designer & Supplier (For Pricing)")
+                    {
+                    Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
+                    }
+                }
             }
     }
 

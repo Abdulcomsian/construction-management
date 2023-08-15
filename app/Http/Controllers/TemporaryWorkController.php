@@ -1907,7 +1907,7 @@ $notify_admins_msg = [
             {
                 $all_inputs['design_upload'] = $request->design_upload;
 
-            } else{
+            } else if($request->drawing_option == 'custom_file'){
                 $file = $request->file('custom_drawing');
                 $filePath  = 'design_uploads/';
                 $desing_path = HelperFunctions::saveFile(null, $file, $filePath);

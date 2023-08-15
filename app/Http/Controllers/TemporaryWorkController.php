@@ -2759,6 +2759,7 @@ $notify_admins_msg = [
     public function tempwork_project_search(Request $request)
     {
         $user = auth()->user();
+        $tot_emails = [];
         try {
             $assignedBlocks = [];
             if ($user->hasRole('admin')) {
@@ -2770,6 +2771,7 @@ $notify_admins_msg = [
 
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                    $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $tot_emails = [];
@@ -2792,6 +2794,7 @@ $notify_admins_msg = [
 
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                    $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 $tot_emails = [];
                 $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
@@ -2812,6 +2815,7 @@ $notify_admins_msg = [
 
                     $blocks = ProjectBlock::whereIn('id', $permit_loads)->get();
                     $assignedBlocks = array_merge($assignedBlocks, $blocks->toArray());
+                    $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
                 $nominations=[];
@@ -2825,9 +2829,7 @@ $notify_admins_msg = [
                     }
                      $nominations=Nomination::with('user')->whereIn('user_id',$ids)->get();
                 }
-                $tot_emails = [];
-                $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
-                
+
             }
             $scantempwork = '';
             //work for datatable

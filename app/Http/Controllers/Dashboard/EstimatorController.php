@@ -915,7 +915,6 @@ class EstimatorController extends Controller
                      
                         
                     // }       
-                    
                     toastSuccess('Pre Con Published successfully!');
                     return redirect()->route('temporary_works.index');
 
@@ -952,8 +951,11 @@ class EstimatorController extends Controller
                         $notify_admins_msg['body']['designer'] = 'designer1';
                         $notify_msg = $notify_admins_msg;
 
-                        //sending email to zero index here, because it will be remove from array on next line
-                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $emails[0], 1));
+                        
+                        foreach($emails as $list){
+                            Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $list, 1));                            
+                        }
+
                         toastSuccess('Pre Con Published successfully!');
                         return redirect()->route('temporary_works.index');
                 } else{
@@ -990,7 +992,9 @@ class EstimatorController extends Controller
                     //work for supplier email list=============
                     $this->updateDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporaryWork,'Supplier', $request->online_suppliers);
                     
+                dd("last else");
                 }
+                dd("dd if");
             }
                 
             

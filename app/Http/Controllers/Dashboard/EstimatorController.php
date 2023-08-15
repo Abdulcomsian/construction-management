@@ -990,12 +990,14 @@ class EstimatorController extends Controller
                     'action_url' => '',
                 ];
                 
-
+                if($request->action="Email Designer & Supplier (For Pricing)")
+                {
                      //work for designer email list==============  
                     //  dd($request->designer_company_emails, $request->designers, $request->online_designers);
                     $this->updateDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporaryWork,'Designer', $request->online_designers);
                     //work for supplier email list=============
                     $this->updateDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporaryWork,'Supplier', $request->online_suppliers);
+                }
                     
                 }
             }

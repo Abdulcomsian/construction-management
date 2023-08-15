@@ -992,9 +992,7 @@ class EstimatorController extends Controller
                     //work for supplier email list=============
                     $this->updateDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporaryWork,'Supplier', $request->online_suppliers);
                     
-                dd("last else");
                 }
-                dd("dd if");
             }
                 
             

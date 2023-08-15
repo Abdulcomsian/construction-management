@@ -458,7 +458,7 @@ canvas {
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="TWC Name" id="twc_name" name="twc_name" value="">
+                                        placeholder="TWC Name" id="twc_name" name="twc_name" value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->name : ''}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -470,7 +470,7 @@ canvas {
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="TWC Email Address" id="twc_email" name="twc_email" value=""
+                                        placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->email : ''}}"
                                         style="background: #f5f8fa">
                                 </div>
                             </div>

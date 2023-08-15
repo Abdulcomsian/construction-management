@@ -123,7 +123,6 @@
 
     input,
     button,
-    table,
     select,
     textarea {
         border-radius: var(--primary-border--radius) !important;
@@ -135,10 +134,6 @@
 
     .queryButton {
         margin-top: 10px;
-    }
-
-    .query-table tbody tr {
-        background: #f6f6f6 !important;
     }
 
     .designer-comment {
@@ -282,14 +277,14 @@
     table thead th {
         color: #000 !important;
         text-align: center;
-        border-bottom: 0px !important;
         vertical-align: middle;
-        font-size: 10px !important;
+        font-size: 15px !important;
         font-weight: 900 !important;
+        border: 1px solid #b9b9b9 !important;
     }
 
     tbody tr:nth-child(odd) {
-        background-color: #fff;
+        background-color: #f6f6f6;
     }
 
     tbody tr:nth-child(even) {
@@ -299,6 +294,14 @@
     .table td {
         font-size: 12px;
         padding: 0px !important;
+        border: 1px solid #b9b9b9;
+    }
+
+    .table tbody tr:last-child td,
+    .table tbody tr:last-child th,
+    .table tfoot tr:last-child td,
+    .table tfoot tr:last-child th {
+        border-bottom: 1px solid #b9b9b9;
     }
 
     .table td p {
@@ -331,15 +334,10 @@
 
     th {
         background-color: #D9D9D91F !important;
-
-
     }
 
     th,
     td {
-        /* border: 1px solid black;
-       */
-        border: 1px solid #B4BBC580;
         padding: 8px;
         text-align: left;
         font-family: "Inter";
@@ -348,10 +346,7 @@
         line-height: 30px;
         text-align: center;
         padding-top: 10px !important;
-    }
-
-    th {
-        background-color: #f2f2f2;
+        border: 1px solid #B4BBC580;
     }
 
     td span {
@@ -374,11 +369,7 @@
     table thead th {
         color: #000 !important;
         text-align: center;
-        font-weight: 900 !important;
-    }
-
-    tbody tr:nth-child(odd) {
-        background-color: #fff;
+        font-weight: 600 !important;
     }
 
     tbody tr:nth-child(even) {
@@ -394,7 +385,7 @@
     }
 
     table thead tr th {
-        color: #fff !important;
+        color: #000000 !important;
     }
 
     .th-2 {
@@ -448,19 +439,309 @@
     <div class="">
         <table>
             <tr class="row-1">
-                <th class="th-1">Project</th>
-                <th class="th-2">Client</th>
-                <th class="th-3">Job Title / Cost</th>
-                <th class="th-4">Design Req </th>
-                <th class="th-5">Description / Comment</th>
-                <th class="th-6">Timeline</th>
-                <th class="th-7">Allocated Designer</th>
-                <th class="th-8">Allocated Designer Checker</th>
-                <th class="th-9">Status</th>
-                <th class="th-10">Drawing</th>
-                <th class="th-11">Invoice</th>
+                
+                <th class="col-md-2 th-8">Pricing</th>
+                <th class="col-md-2 th-9">QA</th>
+                <th class="col-md-2  th-10">Public QA</th>
+                <th class="col-md-2  th-11">Awarded Contracts</th>
             </tr>
-           
+            <tr>
+               
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pricing">
+                        Pricing
+                    </button>
+                    <div class="modal fade" id="pricing" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Price & Quotation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <div class="card-title list_top" style="width:98%">
+                                            <h2 style="display: inline-block;">Estimator Design Brief</h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table query-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Project</th>
+                                                            <th>Company</th>
+                                                            <th>Attachment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$estimatorWork->project->name ?? ''}}</td>
+                                                            <td>{{$estimatorWork->company}}</td>
+                                                            <td><a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">PDF</a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="card-title list_top" style="width:98%">
+                                            <h2 style="display: inline-block;">Please Add price & quotaion</h2>
+                                        </div>
+                                        <form class="form-inline" action="{{route('designer.quotation')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="email" value="{{$mail}}" />
+                                            <input type="hidden" name="estimatorId" value="{{$id}}" />
+                                            <input type="hidden" name="estimator_designer_id" value="{{$esitmator_designer_id}}" />
+                                            <div class="appendresult" style="background:white;margin: 0 4px;">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Price:</span>
+                                                            </label>
+                                                            <input type="number" name="price[]" class="form-control" placeholder="Enter Price" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Description:</span>
+                                                            </label>
+                                                            <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group mb-3 row">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Submittal Date:</span>
+                                                            </label>
+                                                            <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 d-flex">
+                                                        <div class="input-group row">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mt-5">
+                                                                <span></span>
+                                                            </label>
+                                                            <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i class="fa fa-plus"></i>Add More</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-end pe-5">
+                                                <div>
+                                                    <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div>
+                                        <div class="card-title list_top" style="width:98%">
+                                            <h2 style="display: inline-block;">Your Submitted Quotation</h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table query-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Price</th>
+                                                            <th>Description</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($designerquotation as $quotaion)
+                                                        <tr>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td>${{$quotaion->price}}</td>
+                                                            <td>{{$quotaion->description}}</td>
+                                                            <td>{{$quotaion->date}}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#questions">
+                        Question
+                    </button>
+                    <div class="modal fade" id="questions" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Question And Answers</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <form class="form-inline" action="{{url('Estimator/estimator-designer/comments-save')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="email" value="{{$mail}}" />
+                                            <input type="hidden" name="estimatorId" value="{{$id}}" />
+                                            <input type="hidden" name="estimator_designer_id" value="{{$esitmator_designer_id}}" />
+                                            <div style="background:white;margin: 0 4px;">
+                                                <div class="row">
+
+                                                    <div class="col-md-8">
+                                                        <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span>Question:</span>
+                                                            </label>
+                                                            <textarea class="form-control" name="comment"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group mt-5">
+                                                            <button type="submit" class="btn btn-primary mx-5 queryButton">Submit</button>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div>
+                                        <table class="table query-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Designer's Comments</th>
+                                                    <th>Estimator Reply</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($comments as $cmt)
+                                                <tr>
+                                                    <td>{{$loop->index+1}}</td>
+                                                    <td style="width: 45%">
+                                                        <b>{{$cmt->comment_email}}</b><br>
+                                                        <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+
+                                                    </td>
+                                                    <td style="width: 45%">
+                                                        <b>{{$cmt->reply_email}}</b><br>
+                                                        <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
+                                                    </td>
+                                                </tr>
+
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pulicQA">
+                        Public Q&A
+                    </button>
+                    <div class="modal fade" id="pulicQA" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Public Q&A</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table query-table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Designer's Comments</th>
+                                                <th>Estimator Reply</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($public_comments as $cmt)
+                                            <tr>
+                                                <td>{{$loop->index+1}}</td>
+                                                <td style="width: 45%">
+                                                    <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+
+                                                </td>
+                                                <td style="width: 45%">
+                                                    <b>{{$cmt->reply_email}}</b><br>
+                                                    <p>{{$cmt->reply}}<br>{{$cmt->reply_date}}</p>
+                                                </td>
+                                            </tr>
+
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#awardedContracts">
+                        Awarded Contracts
+                    </button>
+                    <div class="modal fade" id="awardedContracts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Awarded Contracts</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table query-table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Project</th>
+                                                <th>Company</th>
+                                                <th>Attachment</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($AwardedEstimators as $est)
+                                            <tr>
+                                                <td>{{$loop->index+1}}</td>
+                                                <td>{{$est->estimator->project->name ?? $est->estimator->projname}}</td>
+                                                <td>{{$est->estimator->company}}</td>
+                                                <td><a href="{{asset('estimatorPdf/'.$est->estimator->ped_url)}}">PDF</a>
+                                                </td>
+                                                <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank" title="View & Upload Design"><i class="fa fa-eye"></i></a></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
         </table>
     </div>
     <!--end::Toolbar-->
@@ -783,8 +1064,8 @@
                                 </div>
                                 
                             </div>
-                            <div class="col-md-2">
-                                <div class="input-group mb-3 row">
+                            <div class="col-md-2 d-flex">
+                                <div class="input-group row">
                                     <label class="d-flex align-items-center fs-6 fw-bold mt-5">
                                     <span></span>
                                     </label>

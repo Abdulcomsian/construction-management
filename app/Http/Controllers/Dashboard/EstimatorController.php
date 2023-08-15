@@ -953,6 +953,10 @@ class EstimatorController extends Controller
 
                         
                         foreach($emails as $list){
+                            $company_email = new DesignerCompanyEmail();
+                            $company_email->temporary_work_id = $temporaryWork;
+                            $company_email->email = $list;
+                            $company_email->save();
                             Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $list, 1));                            
                         }
 

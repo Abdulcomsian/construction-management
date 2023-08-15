@@ -3059,7 +3059,7 @@ class DesignerController extends Controller
                 
 
                 $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
-                $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work, 'user' => $user]);
+                $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work, 'user' => $user, 'designer_image_name' => $designer_image_name, 'checker_image_name' => $checker_image_name]);
                 $path = public_path('certificate');
                 $filename =rand().'pdf.pdf';
                 $pdf->save($path . '/' . $filename);

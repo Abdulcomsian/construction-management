@@ -990,14 +990,14 @@ class EstimatorController extends Controller
                     'action_url' => '',
                 ];
                 
-                if($request->action="Email Designer & Supplier (For Pricing)")
-                {
+                // if($request->action="Email Designer & Supplier (For Pricing)")
+                // {
                      //work for designer email list==============  
                     //  dd($request->designer_company_emails, $request->designers, $request->online_designers);
                     $this->updateDesignerSupplier($request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporaryWork,'Designer', $request->online_designers);
                     //work for supplier email list=============
                     $this->updateDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporaryWork,'Supplier', $request->online_suppliers);
-                }
+                // }
                     
                 }
             }
@@ -1015,6 +1015,7 @@ class EstimatorController extends Controller
      //send email to desinger and save in database
     public function updateDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type, $online_designers)
     {
+        // dd($action);
            
             $email_list1=[];
             $email_list2=[];
@@ -1053,7 +1054,7 @@ class EstimatorController extends Controller
                 //  else{
                 //     $code=$checkDesignerexist->code;
                 //  }
-                if($action="Email Designer & Supplier (For Pricing)")
+                if($action=="Email Designer & Supplier (For Pricing)")
                 {
                    Notification::route('mail', $list[0])->notify(new EstimatorNotification($notify_msg, $temporary_work_id,$list[0],$code));
                 }

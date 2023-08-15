@@ -594,7 +594,7 @@
                                     @foreach($designerquotation as $quotaion)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>${{$quotaion->price}}</td>
+                                        <td>£{{$quotaion->price}}</td>
                                         <td>{{$quotaion->description}}</td>
                                         <td>{{$quotaion->date}}</td>
                                     </tr>

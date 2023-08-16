@@ -306,6 +306,24 @@
       width: 100%;
     }
   }
+
+
+
+
+
+  .set-button{
+        /* position: absolute !important; */
+        font-size:20px !important;
+        font-weight:bold !important;
+        border-radius:5px;
+        margin-top:-160px;
+    }
+
+
+
+    @media only screen and (max-width: 775px) {
+
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 
@@ -365,7 +383,7 @@
       <div class="card-header border-0 pt-6">
         <!--begin::Card title-->
         <div class="card-title">
-          <h2>Permit to Load</h2>
+          <h2>Permit to Load </h2>
 
         </div>
         <!--begin::Card toolbar-->
@@ -1208,8 +1226,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col">
-              <button id="submitbutton" type="button" disabled class="btn btn-secondary " disabled>Submit</button>
+           <div class="col-md-1"></div>
+            <div class="col-md-6 ">
+              <button id="submitbutton" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
               <!-- <div class="d-flex inputDiv principleno" style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                             </div> -->

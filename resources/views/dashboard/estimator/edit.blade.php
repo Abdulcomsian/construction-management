@@ -1026,9 +1026,10 @@ canvas {
                                             <div class="col-md-2 notpublished">
                                             <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">
                                             </div> -->
-                                    </div>  
-                                    <div class="row mt-5">
-                                            <div class="col-md-6"> 
+                                    </div> 
+                                     
+                                    <div class="row mt-5 justify-content-between">
+                                            <div class="col-md-4"> 
                                             </div>
                                             <div class="col-md-1 published button-set" style="display:none;">
                                                 <input type="submit" name="action"
@@ -1036,11 +1037,16 @@ canvas {
                                                     class="btn btn-primary float-end submitbutton" value="Publish">
                                             </div>
                                             <div class="col-md-4 notpublished">
-                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
+                                                <input type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
+                                                class="btn btn-primary float-end submitbutton" 
+                                                value="Email Designer & Supplier (For Pricing)">
                                             </div>
                                             <div class="col-md-2 notpublished">
-                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">
-                                            </div>                                  
+                                                <input type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
+                                                class="btn btn-primary float-end submitbutton" 
+                                                value="Update (Draft)">
+                                            </div> 
+                                     </div>                                        
                                     @include('dashboard.modals.design-relief-modals-edit')
                                     
                                    

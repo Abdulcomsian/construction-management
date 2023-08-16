@@ -251,7 +251,7 @@ class EstimatorController extends Controller
                 $desing_req_details=[];
                 foreach($request->req_name as $key => $req)
                 {
-                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$req]) ? 'Y':'N','note'=>$request->req_notes[$key]];
                 }
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
             }
@@ -749,7 +749,7 @@ class EstimatorController extends Controller
                 $desing_req_details=[];
                 foreach($request->req_name as $key => $req)
                 {
-                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$req]) ? 'Y':'N','note'=>$request->req_notes[$key]];
                 }
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
             }

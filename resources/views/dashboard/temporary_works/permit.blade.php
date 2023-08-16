@@ -880,13 +880,13 @@
                       <span>Approval via Email Required by the PCTWC</span>
                     </label>
                     <!--end::Label-->
-                    <input type="checkbox" name="approval" id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                    <input type="checkbox" name="approval" checked id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
                     <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
                       approval is required.</span>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="d-none inputDiv pc-twc mb-0 mt-6" style="margin-top:10px !important;">
+                  <div class=" inputDiv pc-twc mb-0 mt-6" style="margin-top:10px !important;">
                     <!--begin::Label-->
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:fit-content% !important">
                       <span>PC TWC Email:</span>

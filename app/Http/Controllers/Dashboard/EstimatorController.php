@@ -11,6 +11,7 @@ use App\Utils\Validations;
 use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
+use App\Models\ChangeEmailHistory;
 use Notification;
 use App\Models\DesignerCompanyEmail;
 use DB;
@@ -415,20 +416,29 @@ class EstimatorController extends Controller
                         //sending email to zero index here, because it will be remove from array on next line
                         Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $emails[0], 1));
 
-                        array_shift($emails);
+                        // array_shift($emails);
                         
-                        foreach ($emails as $email) {
-                            $company_email = new DesignerCompanyEmail();
-                            $company_email->temporary_work_id = $temporary_work->id;
-                            $company_email->email = $email;
-                            $company_email->save();
-
+                        foreach ($emails as $key=>$email) {
+                            if($key!=0){ // zero index is already saved in temporary work register
+                                $company_email = new DesignerCompanyEmail();
+                                $company_email->temporary_work_id = $temporary_work->id;
+                                $company_email->email = $email;
+                                $company_email->save();
+                            }
                             Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $email, 1));
                         }
                      
                         
                     // }       
-                    
+                    $chm= new ChangeEmailHistory();
+                    $chm->email='';
+                    $chm->type ='Pre-Conn Published';
+                    $chm->foreign_idd=$temporary_work->id;
+                    $chm->message='Pre-Conn Published to Temporary work register';
+                    $chm->user_type = '';
+                    $chm->status = 2;
+                    $chm->save();
+
                     toastSuccess('Pre Con Published successfully!');
                     return redirect()->route('temporary_works.index');
 
@@ -950,16 +960,25 @@ class EstimatorController extends Controller
                         
                         $notify_admins_msg['body']['designer'] = 'designer1';
                         $notify_msg = $notify_admins_msg;
-
+                        // array_shift($emails);
                         
-                        foreach($emails as $list){
-                            $company_email = new DesignerCompanyEmail();
-                            $company_email->temporary_work_id = $temporaryWork;
-                            $company_email->email = $list;
-                            $company_email->save();
+                        foreach($emails as $key => $list){
+                            if($key!=0){ // zero index is already saved in temporary work register
+                                $company_email = new DesignerCompanyEmail();
+                                $company_email->temporary_work_id = $temporaryWork;
+                                $company_email->email = $list;
+                                $company_email->save();
+                            }
                             Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $list));                            
                         }
-
+                        $chm= new ChangeEmailHistory();
+                        $chm->email='';
+                        $chm->type ='Pre-Conn Published';
+                        $chm->foreign_idd=$temporaryWork;
+                        $chm->message='Pre-Conn Published to Temporary work register';
+                        $chm->user_type = '';
+                        $chm->status = 2;
+                        $chm->save();
                         toastSuccess('Pre Con Published successfully!');
                         return redirect()->route('temporary_works.index');
                 } else{

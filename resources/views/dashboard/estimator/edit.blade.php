@@ -701,12 +701,13 @@ canvas {
                                                     </label>
                                                     <textarea class="blackBack form-control" id="scopofdesign" rows="2"
                                                         cols="50"
-                                                        placeholder="Scope of Design Output Required From TW Engineer"></textarea>
+                                                        placeholder="Scope of Design Output Required From TW Engineer">
+                                                    </textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="d-flex inputDiv d-block mb-0">
+                                            <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
                                                 <div style="position:relative;" class="d-flex modalDiv d-block"
                                                     data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                                     <label class=" fs-6 fw-bold mb-2"   style="bottom: 0; top: -17px; height: fit-content;">

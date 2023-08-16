@@ -576,10 +576,7 @@
                                         specifications / drawings, etc)
                                     </li>
 
-
-
-
-                                    <ul class="listAttachment--desc {{$temporaryWork->folder->list_of_attachments ? '':'invisible'}}">
+                                    <ul class="listAttachment--desc {{$temporaryWork->folder->list_of_attachments ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->list_of_attachments ? '' : 'invisible'}} List-Attachment d-flex  my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -598,7 +595,9 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="list_of_attach_comment {{$temporaryWork->attachspeccomment->list_of_attachments_comment ? '':'d-none'}}">
+                                            <!-- <div class="list_of_attach_comment {{$temporaryWork->attachspeccomment->list_of_attachments_comment ? '':'d-none'}}"> -->
+                                            <div class="list_of_attach_comment
+                                            {{ $temporaryWork->folder->list_of_attachments == 'yes' ? '' : 'd-none' }}">
                                                     <textarea type="text" 
                                                     style="background: white;color:black;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" 
                                                     name="list_of_attachments_comment" cols="80" rows="2" 
@@ -614,7 +613,7 @@
                                         services above or below the ground where appropriate minimum clearances and
                                         protection are required to be maintained)
                                     </li>
-                                    <ul class="report-site--desc {{$temporaryWork->folder->reports_including_site_investigations ? '':'invisible'}}">
+                                    <ul class="report-site--desc {{$temporaryWork->folder->reports_including_site_investigations ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->reports_including_site_investigations ? '':'invisible'}} Report-Site d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -634,7 +633,9 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="reports_including_site_investigations_comment {{$temporaryWork->attachspeccomment->reports_including_site_investigations_comment ? '':'d-none'}}">
+                                            <!-- <div class="reports_including_site_investigations_comment {{$temporaryWork->attachspeccomment->reports_including_site_investigations_comment ? '':'d-none'}}"> -->
+                                            <div class="reports_including_site_investigations_comment
+                                            {{ $temporaryWork->folder->reports_including_site_investigations == 'yes' ? '' : 'd-none' }}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="reports_including_site_investigations_comment"
@@ -647,7 +648,7 @@
                               
                                 <div class="list {{$temporaryWork->folder->existing_ground_conditions ? 'borderActive':''}}">
                                     <li data-id="Exsisting-Ground" class="majorList {{$temporaryWork->folder->existing_ground_conditions ? 'active':''}}">Existing Ground conditions</li>
-                                    <ul class="existing-ground--desc {{$temporaryWork->folder->existing_ground_conditions ? '':'invisible'}}">
+                                    <ul class="existing-ground--desc {{$temporaryWork->folder->existing_ground_conditions ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->existing_ground_conditions ? '':'invisible'}} Exsisting-Ground d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -666,7 +667,9 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="existing_ground_conditions_comment {{$temporaryWork->attachspeccomment->existing_ground_conditions_comment ? '':'d-none'}}">
+                                            <!-- <div class="existing_ground_conditions_comment {{$temporaryWork->attachspeccomment->existing_ground_conditions_comment ? '':'d-none'}}"> -->
+                                            <div class="existing_ground_conditions_comment 
+                                            {{ $temporaryWork->folder->existing_ground_conditions == 'yes' ? '' : 'd-none' }}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="existing_ground_conditions_comment" cols="80"
@@ -684,7 +687,7 @@
                                         or types of
                                         equipment:
                                     </li>
-                                    <ul class="perferred-NonPrefered--desc {{$temporaryWork->folder->preferred_non_preferred_methods ? '':'invisible'}}">
+                                    <ul class="perferred-NonPrefered--desc {{$temporaryWork->folder->preferred_non_preferred_methods ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->preferred_non_preferred_methods ? '':'invisible'}} System-Type d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -727,7 +730,7 @@
                                 <div class="list {{$temporaryWork->folder->access_limitations ? 'borderActive':''}}">
                                     <li data-id="Limitations" class="majorList {{$temporaryWork->folder->access_limitations ? 'active':''}}">Access Limitations (or edge protection
                                         requirements)</li>
-                                    <ul class="access-limitation--desc {{$temporaryWork->folder->access_limitations ? '':'invisible'}}">
+                                    <ul class="access-limitation--desc {{$temporaryWork->folder->access_limitations ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->access_limitations ? '':'invisible'}} Limitations d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -767,7 +770,7 @@
                                 <div class="list {{$temporaryWork->folder->back_propping ? 'borderActive':''}}" >
                                     <li data-id="Back-Propping" class="majorList {{$temporaryWork->folder->back_propping ? 'active':''}}">Back Propping / Re-Propping Sequence
                                     </li>
-                                    <ul class="back-propping--desc {{$temporaryWork->folder->back_propping ? '':'invisible'}}">
+                                    <ul class="back-propping--desc {{$temporaryWork->folder->back_propping ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->back_propping ? '':'invisible'}} Back-Propping d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -804,7 +807,7 @@
                                 <div class="list {{$temporaryWork->folder->limitations_on_temporary_works_design ? 'borderActive':''}}">
                                     <li data-id="Temporary-Work" class="majorList  {{$temporaryWork->folder->limitations_on_temporary_works_design ? 'active':''}}">Limitations on Temporary Works
                                         Design:</li>
-                                    <ul class="temporary-work--desc {{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'invisible'}}">
+                                    <ul class="temporary-work--desc {{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'invisible'}} Temporary-Work d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -825,7 +828,8 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="limitations_on_temporary_works_design_comment {{$temporaryWork->attachspeccomment->limitations_on_temporary_works_design_comment ?'':'d-none'}}">
+                                            <!-- <div class="limitations_on_temporary_works_design_comment {{$temporaryWork->attachspeccomment->limitations_on_temporary_works_design_comment ?'':'d-none'}}"> -->
+                                            <div class="limitations_on_temporary_works_design_comment {{$temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="limitations_on_temporary_works_design_comment"
@@ -848,7 +852,7 @@
                                         assessment that require action by the Temporary Works Designer to eliminate or
                                         control all risks or hazard
                                     </li>
-                                    <ul class="hazard-risk--desc {{$temporaryWork->folder->details_of_any_hazards ? '':'invisible'}}">
+                                    <ul class="hazard-risk--desc {{$temporaryWork->folder->details_of_any_hazards ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->details_of_any_hazards ? '':'invisible'}} Hazard-Risk d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -867,7 +871,8 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="details_of_any_hazards_comment {{$temporaryWork->attachspeccomment->details_of_any_hazards_comment ?'':'d-none'}}">
+                                            <!-- <div class="details_of_any_hazards_comment {{$temporaryWork->attachspeccomment->details_of_any_hazards_comment ?'':'d-none'}}"> -->
+                                            <div class="details_of_any_hazards_comment {{$temporaryWork->folder->details_of_any_hazards=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="details_of_any_hazards_comment" cols="80" rows="2"
@@ -887,7 +892,7 @@
 
                                 <div class="list {{$temporaryWork->folder->toArray()['3rd_party_requirements'] ? 'borderActive':''}}">
                                     <li data-id="Party-Requirements" class="majorList {{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? 'active':''}}">3rd Party Requirements:</li>
-                                    <ul class="partyRequirment--desc {{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'invisible'}}">
+                                    <ul class="partyRequirment--desc {{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'d-none'}}">
                                         <li class="{{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'invisible'}} Party-Requirements d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
@@ -905,7 +910,12 @@
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="3rd_party_requirements_comment {{$temporaryWork->attachspeccomment->toArray()['3rd_party_requirements_comment'] ?'':'d-none'}}">
+                                            @php
+                                            $val = $temporaryWork->folder->toArray()['3rd_party_requirements'];
+                                            @endphp
+                                            <div class="3rd_party_requirements_comment @if($val=='yes') @else 'd-none' @endif">
+
+                                           
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="3rd_party_requirements_comment" cols="80" rows="2"

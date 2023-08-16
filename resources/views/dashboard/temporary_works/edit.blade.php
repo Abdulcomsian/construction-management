@@ -762,6 +762,18 @@
                                     </div>
                                 </div>
                             </div>
+                            @php 
+                            $preliminary_sketches_date = $temporaryWork->scopdesign->preliminary_sketches_date ? 'preliminary_sketches_date_sod '.$temporaryWork->scopdesign->preliminary_sketches_date : '';
+                            $construction_rawings_date = $temporaryWork->scopdesign->construction_rawings_date ? 'construction_rawings_date_sod '.$temporaryWork->scopdesign->construction_rawings_date: '';
+                            $design_calculations_date = $temporaryWork->scopdesign->design_calculations_date ? 'design_calculations_date '.$temporaryWork->scopdesign->design_calculations_date: '';
+                            $design_check_certificate_date = $temporaryWork->scopdesign->design_check_certificate_date ? 'design_check_certificate_date '.$temporaryWork->scopdesign->design_check_certificate_date: '';
+                            $loading_criteria_date = $temporaryWork->scopdesign->loading_criteria_date ? 'loading_criteria_date '.$temporaryWork->scopdesign->loading_criteria_date: '';
+                            $construction_erection_sequence_information_date = $temporaryWork->scopdesign->construction_erection_sequence_information_date ? 'construction_erection_sequence_information_date '.$temporaryWork->scopdesign->construction_erection_sequence_information_date: '';
+                            $inspection_checklist_date = $temporaryWork->scopdesign->inspection_checklist_date ? 'inspection_checklist_date '.$temporaryWork->scopdesign->inspection_checklist_date: '';
+                            $monitoring_requirements_date = $temporaryWork->scopdesign->monitoring_requirements_date ? 'monitoring_requirements_date '.$temporaryWork->scopdesign->monitoring_requirements_date: '';
+                            $design_inspection_test_plans_date = $temporaryWork->scopdesign->design_inspection_test_plans_date ? 'design_inspection_test_plans_date '.$temporaryWork->scopdesign->design_inspection_test_plans_date: '';
+                            $scope_of_design = $preliminary_sketches_date." <br> ".$construction_rawings_date;
+                            @endphp
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block" data-bs-toggle="modal"

@@ -537,7 +537,7 @@ canvas {
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                        <label class="required  fs-6 fw-bold mb-2"
+                                        <label class="  fs-6 fw-bold mb-2"
                                             style="bottom: 0; top: -13px; height: fit-content;">
                                             Description:
                                         </label>
@@ -553,7 +553,7 @@ canvas {
                                     <div class="d-flex flex-column mb-0">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold mb-2">
-                                            <span class="required">TW Category</span>
+                                            <span class="">TW Category</span>
                                         </label>
                                         <!--begin::Radio group-->
                                         <div class="d-flex twLayout">
@@ -597,7 +597,7 @@ canvas {
                                     <div class="d-flex flex-column  ">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold mb-2">
-                                            <span class="required">TW Risk Class</span>
+                                            <span class="">TW Risk Class</span>
                                         </label>
                                         <!--begin::Radio group-->
                                         <div class="d-flex twLayout">
@@ -931,19 +931,19 @@ canvas {
                             <div class="col-md-5"> 
                             </div>
                             <div class="col-md-1 published button-set" style="display:none;">
-                                <input type="submit" name="action"
+                                <button  type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important; color:white !important;"
-                                    class="btn btn-primary float-end submitbutton" value="Publish">
+                                    class="btn btn-primary float-end submitbutton" value="Publish">Publish</button>
                             </div>
                             <div class="col-md-4 notpublished"> 
-                                <input type="submit" name="action"
+                                <button type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
-                                    class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
+                                    class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier (For Pricing)</button>
                             </div>
                             <div class="col-md-2 notpublished">
-                                <input type="submit" name="action"
+                                <button type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
-                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">
+                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as Draft</button>
                             </div>
                             
                         </div>
@@ -1199,6 +1199,18 @@ canvas {
             displayDiv.style.display = "none";
         }
     });
+
+//disable button on submit
+$('#desingform').submit(function(e) {
+    var form = $( "#desingform" );
+    form.validate();
+    valid = $("#desingform").valid();
+    if (!$('#desingform').valid())  e.preventDefault(); 
+
+    $('#desingform input[type=submit]').attr("disabled", "disabled");  
+    e.currentTarget.submit();
+    return true;
+});
 </script>
 
 

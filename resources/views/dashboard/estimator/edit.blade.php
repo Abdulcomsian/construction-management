@@ -498,7 +498,7 @@ canvas {
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-bold mb-2" style="bottom: 41px">
+                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 41px">
                                             Description:
                                         </label>
                                         <textarea class="blackBack form-control"
@@ -574,7 +574,7 @@ canvas {
                                                 <div class="d-flex flex-column mb-0 flex-grow-1">
                                                     <!--begin::Label-->
                                                     <label class=" fs-6 fw-bold mb-2">
-                                                        <span class="required">TW Category</span>
+                                                        <span class="">TW Category</span>
                                                     </label>
                                                     <!--begin::Radio group-->
                                                     <div class="d-flex twLayout">
@@ -635,7 +635,7 @@ canvas {
                                                 <div class="d-flex mb-0 flex-grow-1" style="flex-direction: column">
                                                     <!--begin::Label-->
                                                     <label class="fs-6 fw-bold mb-2">
-                                                        <span class="required">TW Risk Class</span>
+                                                        <span class="">TW Risk Class</span>
                                                     </label>
                                                     <!--begin::Radio group-->
                                                     <div class="d-flex twLayout">
@@ -1049,19 +1049,19 @@ canvas {
                                             <div class="col-md-4"> 
                                             </div>
                                             <div class="col-md-1 published button-set" style="display:none;">
-                                                <input type="submit" name="action"
+                                                <button type="submit" name="action"
                                                     style="margin-left: 10px; background: #07d564 !important"
-                                                    class="btn btn-primary float-end submitbutton" value="Publish">
+                                                    class="btn btn-primary float-end submitbutton" value="Publish">Publish</button>
                                             </div>
                                             <div class="col-md-4 notpublished">
-                                                <input type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
+                                                <button type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
                                                 class="btn btn-primary float-end submitbutton" 
-                                                value="Email Designer & Supplier (For Pricing)">
+                                                value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier (For Pricing)</button>
                                             </div>
                                             <div class="col-md-2 notpublished">
-                                                <input type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
+                                                <button type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
                                                 class="btn btn-primary float-end submitbutton" 
-                                                value="Update (Draft)">
+                                                value="Update (Draft)">Update (Draft)</button>
                                             </div> 
                                      </div>                                        
                                     @include('dashboard.modals.design-relief-modals-edit')
@@ -1560,6 +1560,18 @@ $("#twc_name").removeClass("blackBack").addClass("whiteBack");
 $(".customDate").click(function(){
 $(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)")
 })
+});
+
+//disable button on submit
+$('#desingform').submit(function(e) {
+    var form = $( "#desingform" );
+    form.validate();
+    valid = $("#desingform").valid();
+    if (!$('#desingform').valid())  e.preventDefault(); 
+
+    $('#desingform input[type=submit]').attr("disabled", "disabled");  
+    e.currentTarget.submit();
+    return true;
 });
 </script>
 

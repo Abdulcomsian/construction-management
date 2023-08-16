@@ -414,7 +414,7 @@ class EstimatorController extends Controller
                         $notify_msg = $notify_admins_msg;
 
                         //sending email to zero index here, because it will be remove from array on next line
-                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $emails[0], 1));
+                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $emails[0]));
 
                         // array_shift($emails);
                         

@@ -466,7 +466,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="common-requirment requirment-second">
+                    <div class="common-requirment requirment-second" style="display:block;">
                         <input type="text" value="" class="requirment-second-value">
                         <div class="list-div">
 
@@ -961,7 +961,7 @@
 
 
 
-<script>
+<!-- <script>
     document.addEventListener("DOMContentLoaded", function () {
         const listItems = document.querySelectorAll(".common-requirment li[data-id]");
 
@@ -979,7 +979,7 @@
             });
         });
     });
-</script>
+</script> -->
 
 
 

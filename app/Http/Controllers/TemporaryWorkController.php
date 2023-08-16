@@ -156,8 +156,8 @@ class TemporaryWorkController extends Controller
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                
                 
-                // $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
-                $projects = Project::with('company')->latest()->get();
+                $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
+                // $projects = Project::with('company')->latest()->get();
                 $nominations=[];
                 $users=[];
                 $tot_emails = [];

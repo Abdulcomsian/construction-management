@@ -341,6 +341,32 @@ canvas {
     margin-top:-55px;
     margin-left:6px;
 }
+
+
+.button-set{
+        position: absolute !important;
+    margin-top: -160px !important;
+    margin-left: 585px;
+    }
+    .button-set > input{
+        font-size:20px;
+        font-weight:bold;
+        padding:10px 50px !important;
+    }
+
+
+    @media only screen and (max-width: 775px) {
+        .button-set{
+        position: absolute relative;
+    margin-top: -10px !important;
+    margin-left: -20px;
+    }
+    .button-set > input{
+        font-size:15px;
+        font-weight:bold;
+        padding:5px 15px !important;
+    }
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -901,22 +927,22 @@ canvas {
                         </div>
                         
                        
-                        <div class="row mt-5">
-                            <div class="col-md-6"> 
+                        <div class="row mt-5 justify-content-between">
+                            <div class="col-md-5"> 
                             </div>
-                            <div class="col-md-1 published" style="display:none;">
+                            <div class="col-md-1 published button-set" style="display:none;">
                                 <input type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important;"
                                     class="btn btn-primary float-end submitbutton" value="Publish">
                             </div>
                             <div class="col-md-4 notpublished"> 
                                 <input type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
                                     class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
                             </div>
                             <div class="col-md-2 notpublished">
                                 <input type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
                                     class="btn btn-primary float-end submitbutton" value="Save as Draft">
                             </div>
                             

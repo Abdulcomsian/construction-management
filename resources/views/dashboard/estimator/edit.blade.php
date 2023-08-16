@@ -690,6 +690,19 @@ canvas {
                                                 </div>
                                             </div>
                                     </div>
+                                    @php 
+                                    $preliminary_sketches_date = $temporaryWork->scopdesign->preliminary_sketches_date ? 'preliminary_sketches_date_sod '.$temporaryWork->scopdesign->preliminary_sketches_date : '';
+                                    $construction_rawings_date = $temporaryWork->scopdesign->construction_rawings_date ? 'construction_rawings_date_sod '.$temporaryWork->scopdesign->construction_rawings_date: '';
+                                    $design_calculations_date = $temporaryWork->scopdesign->design_calculations_date ? 'design_calculations_date '.$temporaryWork->scopdesign->design_calculations_date: '';
+                                    $design_check_certificate_date = $temporaryWork->scopdesign->design_check_certificate_date ? 'design_check_certificate_date '.$temporaryWork->scopdesign->design_check_certificate_date: '';
+                                    $loading_criteria_date = $temporaryWork->scopdesign->loading_criteria_date ? 'loading_criteria_date '.$temporaryWork->scopdesign->loading_criteria_date: '';
+                                    $construction_erection_sequence_information_date = $temporaryWork->scopdesign->construction_erection_sequence_information_date ? 'construction_erection_sequence_information_date '.$temporaryWork->scopdesign->construction_erection_sequence_information_date: '';
+                                    $inspection_checklist_date = $temporaryWork->scopdesign->inspection_checklist_date ? 'inspection_checklist_date '.$temporaryWork->scopdesign->inspection_checklist_date: '';
+                                    $monitoring_requirements_date = $temporaryWork->scopdesign->monitoring_requirements_date ? 'monitoring_requirements_date '.$temporaryWork->scopdesign->monitoring_requirements_date: '';
+                                    $specifications_date = $temporaryWork->scopdesign->specifications_date ? 'specifications_date '.$temporaryWork->scopdesign->design_inspection_test_plans_date: '';
+                                    $design_inspection_test_plans_date = $temporaryWork->scopdesign->design_inspection_test_plans_date ? 'design_inspection_test_plans_date '.$temporaryWork->scopdesign->design_inspection_test_plans_date: '';
+                                    $scope_of_design = $preliminary_sketches_date." \n ".$construction_rawings_date." \n ".$design_calculations_date." \n ".$design_check_certificate_date." \n ".$loading_criteria_date." \n ".$construction_erection_sequence_information_date." \n ".$inspection_checklist_date." \n ".$monitoring_requirements_date." \n ".$specifications_date." \n ".$design_inspection_test_plans_date;
+                                    @endphp
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="d-flex inputDiv d-block mb-0">
@@ -699,10 +712,13 @@ canvas {
                                                     <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
                                                         Scope of Design:
                                                     </label>
-                                                    <textarea class="blackBack form-control" id="scopofdesign" rows="2"
+                                                    <input id="scopofdesign" value="{{$scope_of_design}}" class="blackBack" type="text"
+                                                    placeholder="Scope of Design Output Required From TW Engineer"
+                                                    readonly>
+                                                    {{-- <textarea class="blackBack form-control" id="scopofdesign" rows="2"
                                                         cols="50"
                                                         placeholder="Scope of Design Output Required From TW Engineer">
-                                                    </textarea>
+                                                    </textarea> --}}
                                                 </div>
                                             </div>
                                         </div>

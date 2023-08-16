@@ -1,4 +1,3 @@
-var scope_array = [];
 $(document).ready(function () {
     var val, date, otherVal;
     $(".modalDiv input").on("click", function () {
@@ -120,10 +119,6 @@ $(document).ready(function () {
         //val.val(full_val);
         $(".requirment-first-value").val(null);
         $(".requirment-second-value").val(null);
-        const lastIndex = scope_array.length - 1;
-        // console.log(scope_array[lastIndex])
-        $("#scopofdesign").val(scope_array[lastIndex]);
-        $("#scopeOfDesignArea").val(scope_array[lastIndex]);
     });
     $("#scope-of-design .requirment-second ul li input").change(function () {
         date = new Date($(this).val());
@@ -134,26 +129,16 @@ $(document).ready(function () {
             "/" +
             date.getDate();
         $("#scope-of-design .requirment-second-value").val(date);
-        show_val += $(this).attr("name") + " " + date + "\n";
-        const scope_length = scope_array.length;
-        if(scope_length > 0){
-            // Fetch all the keys(variables) from the object
-            let keys = Object.keys(scope_array) + 1;
-            console.log("keys", keys) // [id, age, title]
+        // show_val += $(this).attr("name") + " " + date + "\n";
+        var show_val = $(this).attr("name") + " " + date + "\n";
+        var old_val = $("#scopofdesign").val();
+        console.log(old_val);
+        new_val = old_val + ' ' + show_val;
+        // $("#scopofdesign").val(show_val);
+        // $("#scopeOfDesignArea").val(show_val);
 
-            // Iterate over each key
-            keys.forEach(element => {
-
-                // If the element is title update its value
-                if (element == "title") {
-                    scope_array[element] = "A new title";
-                }
-            });
-            scope_array.push(show_val);
-
-        } else{
-            scope_array.push(show_val);
-        }
+        $("#scopofdesign").val(new_val);
+        $("#scopeOfDesignArea").val(new_val);
     });
 
     // $("#attachment-of-design .requirment-first ul li").click(function (event) {

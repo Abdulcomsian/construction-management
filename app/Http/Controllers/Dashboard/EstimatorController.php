@@ -242,7 +242,9 @@ class EstimatorController extends Controller
                     unset($request[$key]);
                 }
             }
-
+            //unset all keys 
+            $request = $this->Unset($request);
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails', 'online_designers', 'online_suppliers','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign');
             //if design req details is exist
             if(isset($request->req_name))
             {
@@ -253,9 +255,6 @@ class EstimatorController extends Controller
                 }
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
             }
-            //unset all keys 
-            $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails', 'online_designers', 'online_suppliers','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign');
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -741,6 +740,9 @@ class EstimatorController extends Controller
                 }
             }
 
+            //unset all keys 
+            $request = $this->Unset($request);
+            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
             //if design req details is exist
             if(isset($request->req_name))
             {
@@ -751,9 +753,6 @@ class EstimatorController extends Controller
                 }
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
             }
-            //unset all keys 
-            $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
             $image_name = '';
             if(Auth::user()->hasRole('user') && $request->display_sign)
             {

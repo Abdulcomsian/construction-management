@@ -631,7 +631,10 @@ $notify_admins_msg = [
                     unset($request[$key]);
                 }
             }
-
+            //unset all keys 
+            $request = $this->Unset($request);
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
+            
             //if design req details is exist
             
             if(isset($request->req_name))
@@ -643,11 +646,8 @@ $notify_admins_msg = [
                 }
 
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
-            }
 
-            //unset all keys 
-            $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
+            }
             $all_inputs['designer_company_email'] = $request->designer_company_email[0];
             //upload signature here
             $image_name = '';

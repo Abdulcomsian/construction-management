@@ -296,6 +296,30 @@ canvas {
         font-weight: 400;
         color:
     }
+    .button-set{
+        position: absolute !important;
+    margin-top: -160px !important;
+    margin-left: 585px;
+    }
+    .button-set > input{
+        font-size:20px;
+        font-weight:bold;
+        padding:10px 50px !important;
+    }
+
+
+    @media only screen and (max-width: 775px) {
+        .button-set{
+        position: absolute relative;
+    margin-top: -10px !important;
+    margin-left: -20px;
+    }
+    .button-set > input{
+        font-size:15px;
+        font-weight:bold;
+        padding:5px 15px !important;
+    }
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -919,64 +943,6 @@ canvas {
 
 
                                     <div class="row">
-                                        <!-- <div class="col-md-6">
-
-                                            @if(auth()->user()->hasRole('user'))
-                                            <div class="d-flex inputDiv d-block">
-                                               
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="">Designer Company Name:</span>
-                                                </label>
-                                                
-                                                <input type="text" class="form-control form-control-solid"
-                                                    placeholder="Designer Company Name" id="designer_company_name"
-                                                    name="designer_company_name"
-                                                    value="{{old('designer_company_name',$temporaryWork->company)}}"
-                                                    style="background-color:#f5f8fa">
-                                            </div>
-                                            <div class="d-flex inputDiv d-block">
-                                              
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="">Designer Email Address:</span>
-
-                                                </label>
-                                               
-                                                <input type="text" class="form-control"
-                                                    placeholder="Enter Comma Seperated" id="designer_company_emails"
-                                                    name="designer_company_email"
-                                                    value="{{old('designer_company_email',$temporaryWork->designer_company_email ?? '')}}">
-                                            </div>
-                                            @endif
-                                            @if(auth()->user()->hasRole('estimator') &&
-                                            $temporaryWork->estimatorApprove)
-                                            <div class="d-flex inputDiv d-block">
-                                          
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="">Designer Company Name:</span>
-                                                </label>
-                                       
-                                                <input type="text" class="form-control"
-                                                    placeholder="Designer Company Name" id="designer_company_name"
-                                                    name="designer_company_name" style="background-color:#f5f8fa"
-                                                    value="{{old('designer_company_name',$temporaryWork->company)}}">
-                                            </div>
-                                            <div class="d-flex inputDiv d-block">
-                                     
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="">Designer Email Address:</span>
-
-                                                </label>
-                                         
-                                                <input type="text" class="form-control"
-                                                    placeholder="Enter Comma Seperated" id="designer_company_emails"
-                                                    name="designer_company_email"
-                                                    value="{{old('designer_company_email',$temporaryWork->designer_company_email ?? '')}}">
-                                            </div>
-                                            @endif
-
-
-
-                                        </div> -->
 
 
 
@@ -1046,7 +1012,7 @@ canvas {
                                                 @endif
                                             </div>
                                         </div> 
-                                        <div class="row mt-5">
+                                        <!-- <div class="row mt-5">
                                             <div class="col-md-6"> 
                                             </div>
                                             <div class="col-md-1 published" style="display:none;">
@@ -1059,8 +1025,22 @@ canvas {
                                             </div>
                                             <div class="col-md-2 notpublished">
                                             <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">
+                                            </div> -->
+                                    </div>  
+                                    <div class="row mt-5">
+                                            <div class="col-md-6"> 
                                             </div>
-                                    </div>                                    
+                                            <div class="col-md-1 published button-set" style="display:none;">
+                                                <input type="submit" name="action"
+                                                    style="margin-left: 10px; background: #07d564 !important"
+                                                    class="btn btn-primary float-end submitbutton" value="Publish">
+                                            </div>
+                                            <div class="col-md-4 notpublished">
+                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
+                                            </div>
+                                            <div class="col-md-2 notpublished">
+                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">
+                                            </div>                                  
                                     @include('dashboard.modals.design-relief-modals-edit')
                                     
                                    

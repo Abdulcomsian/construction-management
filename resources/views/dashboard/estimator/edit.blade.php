@@ -1064,7 +1064,7 @@ canvas {
                                                 value="Update (Draft)">Update (Draft)</button>
                                             </div> 
                                      </div>                                        
-                                    @include('dashboard.modals.design-relief-modals-edit')
+                                    @include('dashboard.modals.design-relief-modals-edit',['design_check' => $temporaryWork->desing_req_details])
                                     
                                    
                                     <!--  <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update & email</button>

@@ -562,6 +562,34 @@
             <!--begin::Modal body-->
             <div class="modal-body py-lg-10 px-lg-10">
                 <div id="req_details_data">
+                    @php
+                        $designCheck = json_decode($design_check);
+                    @endphp
+
+                    <table class="table">
+                        <tbody>
+                            @foreach ($designCheck as $index => $item)
+                                @php
+                                    $name = $item->name;
+                                    $check = $item->check;
+                                    $note = $item->note ?? "";
+                                    
+                                @endphp
+                                <tr>
+                                    <td>
+                                        <input style="position: relative; top: 5px" type="checkbox" name="req_check[{{ $name }}]" value="2" {{$check == 'Y' ? 'checked' : ''}} />
+                                    </td>
+                                    <td style="text-align: start; font-weight: 400; font-size: 16px; width: 40%">
+                                        <input type="hidden" name="req_name[]" value="{{ $name }}"/> 
+                                        {{ $name }}
+                                    </td>
+                                    <td style="width: 55%">
+                                        <input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px" value="{{ $note }}"/>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
                 </div>
                 <br>

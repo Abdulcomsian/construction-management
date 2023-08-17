@@ -72,6 +72,8 @@ const AnnotationEditorType = {
   FREETEXT: 3,
   STAMP: 13,
   INK: 15,
+  INK2: 16,
+  RECT: 5,
 };
 
 const AnnotationEditorParamsType = {
@@ -81,6 +83,12 @@ const AnnotationEditorParamsType = {
   INK_COLOR: 11,
   INK_THICKNESS: 12,
   INK_OPACITY: 13,
+  INK2_COLOR: 11,
+  INK2_THICKNESS: 12,
+  INK2_OPACITY: 13,
+  RECT_COLOR: 11,
+  RECT_THICKNESS: 12,
+  RECT_OPACITY: 13,
 };
 
 // Permission flags from Table 22, Section 7.6.3.2 of the PDF specification.
@@ -417,7 +425,7 @@ function createValidAbsoluteUrl(url, baseUrl = null, options = null) {
       if (options.tryConvertEncoding) {
         try {
           url = stringToUTF8String(url);
-        } catch {}
+        } catch { }
       }
     }
 

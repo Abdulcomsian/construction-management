@@ -217,8 +217,8 @@ const defaultOptions = {
       typeof PDFJSDev === "undefined"
         ? "../external/bcmaps/"
         : PDFJSDev.test("MOZCENTRAL")
-        ? "resource://pdf.js/web/cmaps/"
-        : "../web/cmaps/",
+          ? "resource://pdf.js/web/cmaps/"
+          : "../web/cmaps/",
     kind: OptionKind.API,
   },
   disableAutoFetch: {
@@ -283,8 +283,8 @@ const defaultOptions = {
       typeof PDFJSDev === "undefined"
         ? "../external/standard_fonts/"
         : PDFJSDev.test("MOZCENTRAL")
-        ? "resource://pdf.js/web/standard_fonts/"
-        : "../web/standard_fonts/",
+          ? "resource://pdf.js/web/standard_fonts/"
+          : "../web/standard_fonts/",
     kind: OptionKind.API,
   },
   verbosity: {
@@ -303,18 +303,17 @@ const defaultOptions = {
     value:
       // eslint-disable-next-line no-nested-ternary
       typeof PDFJSDev === "undefined"
-        // ? "http://127.0.0.1:8000/pdf-editor/src/pdf.worker.js"
-        ? baseUrl+"pdf-editor/src/pdf.worker.js"
+        ? "http://127.0.0.1:8000/pdf-editor/src/pdf.worker.js"
+        // ? baseUrl+"pdf-editor/src/pdf.worker.js"
         // ? "http://127.0.0.1:8000/pdf-editor/src/pdf.worker.js"
         : PDFJSDev.test("MOZCENTRAL")
-        ? "resource://pdf.js/build/pdf.worker.js"
-        : "../build/pdf.worker.js",
+          ? "resource://pdf.js/build/pdf.worker.js"
+          : "../build/pdf.worker.js",
     kind: OptionKind.WORKER,
   },
 };
 var savedSelectedOption = localStorage.getItem("selectedPDFPath");
-console.log("path", savedSelectedOption)
-  
+
 // $(document).ready(function() {
 //   // Your code that uses jq instead of $
 //   $("#myDropdown").on("change", function(){
@@ -324,10 +323,10 @@ console.log("path", savedSelectedOption)
 //       kind: OptionKind.VIEWER,
 //     };
 //   });
-  // ...
+// ...
 // });
 if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
- 
+
   defaultOptions.defaultUrl = {
     /** @type {string} */
     value: savedSelectedOption,

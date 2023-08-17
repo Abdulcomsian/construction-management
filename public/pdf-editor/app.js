@@ -1114,8 +1114,6 @@ const PDFViewerApplication = {
             ...args,
         };
 
-        console.log(params);
-
         if (typeof PDFJSDev === "undefined") {
             params.docBaseUrl ||= document.URL.split("#")[0];
         } else if (PDFJSDev.test("MOZCENTRAL || CHROME")) {

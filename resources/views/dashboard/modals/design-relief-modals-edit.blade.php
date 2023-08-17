@@ -568,6 +568,7 @@
 
                     <table class="table">
                         <tbody>
+                            @isset($designCheck)
                             @foreach ($designCheck as $index => $item)
                                 @php
                                     $name = $item->name;
@@ -588,6 +589,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @endif
                         </tbody>
                     </table>
 

@@ -2372,7 +2372,29 @@
       customFieldDiv.style.display = 'block';
     }
   });
+</script>
+<script>
+  const drawingField = document.getElementById('drawing_field');
+  const customField = document.getElementById('custom_field');
+  const drawingFieldDiv = document.getElementById('drawingFieldDiv');
+  const customFieldDiv = document.getElementById('customFieldDiv');
+
+  drawingField.addEventListener('change', function() {
+    if (this.checked) {
+      drawingFieldDiv.style.display = 'block';
+      customFieldDiv.style.display = 'none';
+    }
+  });
+
+  customField.addEventListener('change', function() {
+    if (this.checked) {
+      drawingFieldDiv.style.display = 'none';
+      customFieldDiv.style.display = 'block';
+    }
+  });
 </script> --}}
+
+
 <script>
   const drawingField = document.getElementById('drawing_field');
   const customField = document.getElementById('custom_field');

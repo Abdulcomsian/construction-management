@@ -2353,7 +2353,7 @@
     alert("here");
   })
 </script>
-<script>
+{{-- <script>
   const drawingField = document.getElementById('drawing_field');
   const customField = document.getElementById('custom_field');
   const drawingFieldDiv = document.getElementById('drawingFieldDiv');
@@ -2372,7 +2372,7 @@
       customFieldDiv.style.display = 'block';
     }
   });
-</script>
+</script> --}}
 <script>
   const drawingField = document.getElementById('drawing_field');
   const customField = document.getElementById('custom_field');

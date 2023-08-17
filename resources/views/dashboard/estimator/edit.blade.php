@@ -797,7 +797,7 @@ canvas {
                                                     class="form-select form-select-lg form-select-solid"
                                                     data-control="select2" data-placeholder="Select an option"
                                                     data-allow-clear="true" multiple>
-                                                    <option value="">Select Option</option>
+                                                    {{-- <option value="">Select Option</option> --}}
                                                     <optgroup label="Suppliers List">
                                                         @foreach($suppliers as $supp)
                                                         <option value="{{$supp->email}}-{{$supp->id}}" {{in_array($supp->email,
@@ -837,7 +837,7 @@ canvas {
                                                     <select name="online_designers[]" class="form-select form-select-lg form-select-solid"
                                                         data-control="select2" data-placeholder="Select an option"
                                                         data-allow-clear="true" multiple>
-                                                        <option value="">Select Option</option>
+                                                        {{-- <option value="">Select Option</option> --}}
                                                         @foreach($adminDesigners as $desig)
                                                         <!-- <optgroup label="Designer List"> -->
                                                             @if($desig->hasRole(['designer','Design Checker','Designer and Design
@@ -861,7 +861,7 @@ canvas {
                                                     <select name="online_suppliers[]"  class="form-select form-select-lg form-select-solid"
                                                         data-control="select2" data-placeholder="Select an option"
                                                         data-allow-clear="true" multiple>
-                                                        <option value="">Select Option</option>
+                                                        {{-- <option value="">Select Option</option> --}}
                                                         @foreach($adminSuppliers as $desig)
                                                         <optgroup label="Designer List">
                                                             @if($desig->hasRole(['designer','Design Checker','Designer and Design

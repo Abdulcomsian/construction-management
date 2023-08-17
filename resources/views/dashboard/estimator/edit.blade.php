@@ -966,12 +966,13 @@ canvas {
 
 
 
-                                        @if(auth()->user()->hasRole('user'))
+                                        
                                         <div class="col-md-12">
                                             <div class="col-md-12">
                                                 <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
                                                 <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
                                             </div>
+                                            @if(auth()->user()->hasRole('user'))
                                             <div  class="col-md-12" id="display_sign_div" style="display:none">
                                                
                                                     <h5>Signature Type:</h5>
@@ -1028,8 +1029,9 @@ canvas {
                                                     <br>
                                                
                                             </div>
+                                            @endif
                                         </div> 
-                                        @endif
+                                        
                                         <!-- <div class="row mt-5">
                                             <div class="col-md-6"> 
                                             </div>

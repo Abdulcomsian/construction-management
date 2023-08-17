@@ -656,7 +656,7 @@ canvas {
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
                                     <div style="position:relative;" class="d-flex modalDiv d-block"
                                         data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <label class=" fs-6 fw-bold mb-2" style="bottom: 32px">
@@ -686,7 +686,7 @@ canvas {
                                         <select name="designers[]" id="desingers"
                                             class="form-select form-select-lg form-select-solid" data-control="select2"
                                             data-placeholder="Select an option" data-allow-clear="true" multiple>
-                                            <option value="">Select Option</option>
+                                            {{-- <option value="">Select Option</option> --}}
                                             <optgroup label="Designer List">
                                                 @foreach($designers as $desig)
                                                 @if($desig->hasRole('designer'))
@@ -722,7 +722,7 @@ canvas {
                                         class="form-select form-select-lg form-select-solid adminDesigners"
                                         data-control="select2" data-placeholder="Select an option"
                                         data-allow-clear="true" multiple>
-                                        <option value="">Select Option</option>
+                                        {{-- <option value="">Select Option</option> --}}
 
                                         @foreach($adminDesigners as $desig)
                                         <!-- <optgroup label="Designer List"> -->
@@ -748,7 +748,7 @@ canvas {
                                         <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
                                             data-control="select2" data-placeholder="Select an option"
                                             data-allow-clear="true" multiple>
-                                            <option value="">Select Option</option>
+                                            {{-- <option value="">Select Option</option> --}}
                                             <!-- <optgroup label="Suppliers List"> -->
                                                 @foreach($suppliers as $supp)
                                                 <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
@@ -782,7 +782,7 @@ canvas {
                                     <select name="online_suppliers[]" class="form-select form-select-lg form-select-solid"
                                         data-control="select2" data-placeholder="Select an option"
                                         data-allow-clear="true" multiple>
-                                        <option value="">Select Option</option>
+                                        {{-- <option value="">Select Option</option> --}}
 
                                         @foreach($adminSuppliers as $supp)
                                         <!-- <optgroup label="Supplier List"> -->
@@ -1201,16 +1201,17 @@ canvas {
     });
 
 //disable button on submit
-$('#desingform').submit(function(e) {
-    var form = $( "#desingform" );
-    form.validate();
-    valid = $("#desingform").valid();
-    if (!$('#desingform').valid())  e.preventDefault(); 
+// $('#desingform').submit(function(e) {
+//     e.preventDefault();
+//     var form = $( "#desingform" );
+//     form.validate();
+//     valid = $("#desingform").valid();
+//     if (!$('#desingform').valid())  e.preventDefault(); return false
 
-    $('#desingform input[type=submit]').attr("disabled", "disabled");  
-    e.currentTarget.submit();
-    return true;
-});
+//     $('#desingform input[type=submit]').attr("disabled", "disabled");  
+//     e.currentTarget.submit();
+//     return true;
+// });
 </script>
 
 

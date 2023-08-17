@@ -1155,17 +1155,17 @@ canvas {
     });
 
 
-    $(".adminDesigners").on('change',function(){
-        let data=$(this).val();
-        var baseUrl = "<?php echo e(env('APP_URL')); ?>";
-        if(data.length>0)
-        {
-            parts = data[0].split('-');
-            loc = parts.pop();
-            window.open(baseUrl+'company-profile/'+loc+'', '_blank');
-        }
+    // $(".adminDesigners").on('change',function(){
+    //     let data=$(this).val();
+    //     var baseUrl = "<?php echo e(env('APP_URL')); ?>";
+    //     if(data.length>0)
+    //     {
+    //         parts = data[0].split('-');
+    //         loc = parts.pop();
+    //         window.open(baseUrl+'company-profile/'+loc+'', '_blank');
+    //     }
         
-    })
+    // })
 
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);

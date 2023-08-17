@@ -251,7 +251,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form id="permitrenew" class="from-prevent-multiple-submits" action="{{route('permit.save')}}"
+                <form id="permitrenew" class="from-prevent-multiple-submits" enctype="multipart/form-data" action="{{route('permit.save')}}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -786,6 +786,16 @@
                                 <input type="email" class="form-control form-control-solid" name="pc_twc_email"
                                     id="pc-twc-email" placeholder="PC TWC Email" value="{{old('pc-twc-email')}}">
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6   mt-0">
+                        <div class="d-flex inputDiv mt-0">
+                            <label class="fs-6 fw-bold mb-2" style="">
+                            <span>Comments:</span>
+                            </label>
+                            <textarea name="comments" class="form-control"></textarea>
+                        </div>
                         </div>
                     </div>
                     <div class="row">

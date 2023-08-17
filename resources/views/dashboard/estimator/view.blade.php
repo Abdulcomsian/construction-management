@@ -207,11 +207,11 @@
                                     </td>
                                     <td>
                                         @if(auth()->user()->hasRole('estimator') || auth()->user()->hasPermissionTo('twc-estimator') ) 
-                                        <span>Total ${{$designer->quotationSum->sum('price') ?? 0}} </span>
+                                        <span>Total £{{$designer->quotationSum->sum('price') ?? 0}} </span>
                                         <br>
                                         @if(count($designer->quotationSum)>0)
                                         @foreach($designer->quotationSum as $qt)
-                                        <span>(M{{$loop->index+1}})&nbsp;</span> <strong>${{$qt->price}}</strong><br>
+                                        <span>(M{{$loop->index+1}})&nbsp;</span> <strong>£{{$qt->price}}</strong><br>
                                         @endforeach
                                         @endif
                                         <a href="{{url('Estimator/estimator-designer/details',$designer->id).'?estid='.$id}}"><i class="fa fa-eye"></i>

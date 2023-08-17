@@ -167,7 +167,7 @@ class HelperFunctions
 
     public static function generatetwcid($projecno, $company, $project_id)
     {
-        $count = TemporaryWork::withTrashed()->where(['project_id'=>$project_id,'estimator'=>0])->count();
+        $count = TemporaryWork::withTrashed()->where(['project_id'=>$project_id, 'estimator'=>0])->count(); //,'estimator'=>0 Abdul remove this from where condition because it was repeating twc id no when we were moving it from pre con to temporary work register
         $count = $count + 1;
         $twc_id_no = $projecno . '-' . strtoupper(substr($company, 0, 2)) . '-00' . $count;
         return $twc_id_no;

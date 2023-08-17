@@ -414,13 +414,13 @@
     }
 
     /* Apply the animation to the Font Awesome icon */
-    .blinking-icon {
+    .blinking-icon, .redBgBlink {
       animation: blink 1s infinite;
       color: red;
       background-color:red !important;
     }
 
-
+    /* .redBgBlink{color: #fff !important;background-color:red !important;} */
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -607,6 +607,7 @@
                                        <th class="">Design<br> Check<br> CERT</th>
                                        <th class="">Status</th>
                                        <th class="">Actions</th>
+                                       <th class=""></th>
                                     </tr>
                                     <!--end::Table row-->
                                  </thead> --}}
@@ -864,10 +865,17 @@
                                                       class="fa fa-edit"></i></a>
                                                 @endif
                                                 @endif -->
-                                                <a href="{{route('estimator.show',$item->id)}}"
-                                                   class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
+                                                <style>
+                                                 .redBgBlink {
+                                                   animation: blink 1s infinite;
+                                                   color: red;
+                                                   background-color:red !important;
+                                                 }
+                                                </style>
+                                                 <a href="{{route('estimator.show',$item->id)}}"
+                                                   class="">
                                                    <!-- <i class="fa fa-eye " style="margin-left:15px"></i> -->
-                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif">View Designers & Suppliers</button>
+                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif  {{$item->unreadQuestions->count() > 0 ? 'redBgBlink' : '' }} {{ count($item->checkQuestion) > 0 ? 'redBgBlink' : ''}}">View Designers & Suppliers</button>
                                                 </a>
                                              </div>
 
@@ -887,7 +895,18 @@
 
                                           </div>
                                        </td>
-
+                                       <td style="width:50px;">
+                                       <form method="POST" action="{{route('temporary_works.destroy',$item->id)}} "
+                                          id="{{'form_' . $item->id}}">
+                                          @method('Delete')
+                                          @csrf
+                                          <button type="submit" id="{{$item->id}}"
+                                                class="confirm1 btn p-0 m-1 ">
+                                                <i style="padding:3px;"
+                                                   class="fa fa-trash-alt"></i>
+                                          </button>
+                                       </form>
+                                       </td>
                                        {{-- <td style="">{{ $item->tw_category }}</td> --}}
                                        {{-- <td style="">{{ $item->tw_risk_class ?: '-' }}</td> --}}
                                        {{-- <td style="min-width: 100px; max-width: 80px;">{{
@@ -1043,9 +1062,14 @@
                                              <i class="fa fa-eye"></i>
                                           </a>
                                        </td> --}}
+                                       
                                     </tr>
+                                   
+                                       
+                                    
                                     @empty
                                     @endforelse
+                                    
                                  </tbody>
                                  <!--end::Table body-->
                               </table>
@@ -1072,6 +1096,8 @@
 @include('dashboard.modals.risk_assessment')
 @endsection
 @section('scripts')
+@include('layouts.sweetalert.sweetalert_js')
+
 <script type="text/javascript">
    var role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
      $(".addcomment").on('click', function() {

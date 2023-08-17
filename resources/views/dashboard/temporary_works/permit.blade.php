@@ -165,6 +165,12 @@
     }
   }
 
+  @media only screen and (max-width: 650px) {
+    #first_member {
+      margin-top: 30px;
+    }
+  }
+
   .inputDiv {
     margin: 30px 0px;
     border: 1px solid #D2D5DA;
@@ -302,6 +308,22 @@
       width: 100%;
     }
   }
+
+
+
+
+
+  .set-button {
+    /* position: absolute !important; */
+    font-size: 20px !important;
+    font-weight: bold !important;
+    border-radius: 5px;
+    margin-top: -160px;
+  }
+
+
+
+  @media only screen and (max-width: 775px) {}
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 
@@ -361,7 +383,7 @@
       <div class="card-header border-0 pt-6">
         <!--begin::Card title-->
         <div class="card-title">
-          <h2>Permit to Load</h2>
+          <h2>Permit to Load </h2>
 
         </div>
         <!--begin::Card toolbar-->
@@ -538,14 +560,10 @@
                 <span class="required">Select Drawing :</span>
               </label>
               <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
-                <!-- <option value="">Select PDF</option>
-                            @foreach($temporary_work_files as $upload)
-                            <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
-                            @endforeach -->
                 <option value="">Select PDF</option>
-                <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
-                <option value="http://127.0.0.1:8000/pdf/test2.pdf">Test PDF 2</option>
-                <option value="http://127.0.0.1:8000/pdf/test3.pdf">Test PDF 2</option>
+                @foreach($temporary_work_files as $upload)
+                <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
+                @endforeach
               </select>
               <input type="hidden" value="" id="design_upload" name="design_upload" />
             </div>
@@ -880,7 +898,7 @@
                   <span>Approval via Email Required by the PCTWC</span>
                 </label>
                 <!--end::Label-->
-                <input type="checkbox" name="approval" id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                <input type="checkbox" name="approval" checked id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
                 <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
                   approval is required.</span>
               </div>
@@ -913,6 +931,16 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6   mt-0">
+              <div class="d-flex inputDiv mt-0">
+                <label class="fs-6 fw-bold mb-2" style="">
+                  <span>Comments:</span>
+                </label>
+                <textarea name="comments" class="form-control"></textarea>
               </div>
             </div>
           </div>
@@ -952,16 +980,7 @@
               <!--end::Radio group-->
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6   mt-0">
-              <div class="d-flex inputDiv mt-0">
-                <label class="fs-6 fw-bold mb-2" style="">
-                  <span>Comments:</span>
-                </label>
-                <textarea name="comments" class="form-control"></textarea>
-              </div>
-            </div>
-          </div>
+
 
 
 
@@ -1207,8 +1226,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
-          <button id="submitbutton" type="button" disabled class="btn btn-secondary " disabled>Submit</button>
+        <div class="col-md-1"></div>
+        <div class="col-md-6 ">
+          <button id="submitbutton" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
           <!-- <div class="d-flex inputDiv principleno" style="display: none !important">
                                 <textarea id="signature" name="signed" style="opacity: 0"></textarea>
                             </div> -->

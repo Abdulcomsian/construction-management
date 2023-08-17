@@ -48,6 +48,7 @@ class TemporaryWorkNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        //for admin designers pdf's are saved in estimatorPdf folder and for twc pdf are save in pdf folder.
         if($this->is_check){
             $path = public_path('estimatorPdf/' . $this->offerData['body']['filename']);
         } else{

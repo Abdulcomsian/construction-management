@@ -323,6 +323,50 @@
     .form-check-input:checked[type=radio]{
         background-color:green !important;
     }
+
+    #clear{
+    margin-left:-25px;
+    margin-top:60px;
+}
+#sig{
+    border-radius:5px;
+    margin-top:-50px;
+}
+canvas {
+    width: 296px;
+    height: 152px;
+}
+#sigimage{
+    position: absolute;
+    margin-top:-55px;
+    margin-left:6px;
+}
+
+
+.button-set{
+        position: absolute !important;
+    margin-top: -160px !important;
+    margin-left: 585px;
+    }
+    .button-set > input{
+        font-size:20px;
+        font-weight:bold;
+        padding:10px 50px !important;
+    }
+
+
+    @media only screen and (max-width: 775px) {
+        .button-set{
+        position: absolute relative;
+    margin-top: -10px !important;
+    margin-left: -20px;
+    }
+    .button-set > input{
+        font-size:15px;
+        font-weight:bold;
+        padding:5px 15px !important;
+    }
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -440,7 +484,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="TWC Name" id="twc_name" name="twc_name" value="">
+                                        placeholder="TWC Name" id="twc_name" name="twc_name" value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->name : ''}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -452,7 +496,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="TWC Email Address" id="twc_email" name="twc_email" value=""
+                                        placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->email : ''}}"
                                         style="background: #f5f8fa">
                                 </div>
                             </div>
@@ -472,7 +516,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id="designReq">
                                     <div class="d-flex modalDiv" data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
                                         <!--begin::Label-->
@@ -493,7 +537,7 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
-                                        <label class="required  fs-6 fw-bold mb-2"
+                                        <label class="  fs-6 fw-bold mb-2"
                                             style="bottom: 0; top: -13px; height: fit-content;">
                                             Description:
                                         </label>
@@ -509,7 +553,7 @@
                                     <div class="d-flex flex-column mb-0">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold mb-2">
-                                            <span class="required">TW Category</span>
+                                            <span class="">TW Category</span>
                                         </label>
                                         <!--begin::Radio group-->
                                         <div class="d-flex twLayout">
@@ -553,7 +597,7 @@
                                     <div class="d-flex flex-column  ">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold mb-2">
-                                            <span class="required">TW Risk Class</span>
+                                            <span class="">TW Risk Class</span>
                                         </label>
                                         <!--begin::Radio group-->
                                         <div class="d-flex twLayout">
@@ -612,7 +656,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
                                     <div style="position:relative;" class="d-flex modalDiv d-block"
                                         data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <label class=" fs-6 fw-bold mb-2" style="bottom: 32px">
@@ -642,7 +686,7 @@
                                         <select name="designers[]" id="desingers"
                                             class="form-select form-select-lg form-select-solid" data-control="select2"
                                             data-placeholder="Select an option" data-allow-clear="true" multiple>
-                                            <option value="">Select Option</option>
+                                            {{-- <option value="">Select Option</option> --}}
                                             <optgroup label="Designer List">
                                                 @foreach($designers as $desig)
                                                 @if($desig->hasRole('designer'))
@@ -674,20 +718,20 @@
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Designers</span>
                                     </label>
-                                    <select name="designers[]"
+                                    <select name="online_designers[]"
                                         class="form-select form-select-lg form-select-solid adminDesigners"
                                         data-control="select2" data-placeholder="Select an option"
                                         data-allow-clear="true" multiple>
-                                        <option value="">Select Option</option>
+                                        {{-- <option value="">Select Option</option> --}}
 
                                         @foreach($adminDesigners as $desig)
-                                        <optgroup label="Designer List">
+                                        <!-- <optgroup label="Designer List"> -->
                                             @if($desig->hasRole(['designer','Design Checker','Designer and Design
                                             Checker']))
                                             <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
                                                 {{$desig->email}}</option>
                                             @endif
-                                        </optgroup>
+                                        <!-- </optgroup> -->
                                         @endforeach
 
                                     </select>
@@ -704,12 +748,12 @@
                                         <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
                                             data-control="select2" data-placeholder="Select an option"
                                             data-allow-clear="true" multiple>
-                                            <option value="">Select Option</option>
-                                            <optgroup label="Suppliers List">
+                                            {{-- <option value="">Select Option</option> --}}
+                                            <!-- <optgroup label="Suppliers List"> -->
                                                 @foreach($suppliers as $supp)
                                                 <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
                                                 @endforeach
-                                            </optgroup>
+                                            <!-- </optgroup> -->
 
                                         </select>
                                     </div>
@@ -735,17 +779,17 @@
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Supplier</span>
                                     </label>
-                                    <select name="suppliers[]" class="form-select form-select-lg form-select-solid"
+                                    <select name="online_suppliers[]" class="form-select form-select-lg form-select-solid"
                                         data-control="select2" data-placeholder="Select an option"
                                         data-allow-clear="true" multiple>
-                                        <option value="">Select Option</option>
+                                        {{-- <option value="">Select Option</option> --}}
 
                                         @foreach($adminSuppliers as $supp)
-                                        <optgroup label="Supplier List">
+                                        <!-- <optgroup label="Supplier List"> -->
                                             @if($supp->hasRole('supplier'))
                                             <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
                                             @endif
-                                        </optgroup>
+                                        <!-- </optgroup> -->
                                         @endforeach
 
                                     </select>
@@ -819,23 +863,96 @@
                                 </div>
                             </div>
                         </div>
-
-                        @include('dashboard.modals.design-relief-modals')
-                        <div class="row mt-5">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <input type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Email Designers & Suppliers">
-                                <input type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">
+                        @if(auth()->user()->hasRole('user'))
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-md-12">
+                            <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
+                            <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
                             </div>
+                            <div class="col-md-12" id="display_sign_div" style="display:none">
+                                
+                                    <h5>Signature Type:</h5>
+                                    <div class="d-flex ">
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
+                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="flexCheckChecked" 
+                                                style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype"
+                                                class="form-control form-control-solid" value="2">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                        </div>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="pdfChecked" 
+                                                style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="pdfsigntype"
+                                                class="form-control form-control-solid" value="0">
+                                            <span
+                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
+                                        </div>
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Upload Signature:</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto" class="form-control"
+                                            accept="image/*">
+                                    </div>
+                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign"
+                                            class="form-control form-control-solid">
+                                    </div>
+                                    <div class="d-flex inputDiv" id="sign" style="align-items: center; border:none">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <!-- <span class="required">Signature:</span> -->
+                                        </label>
+                                        <br />
+                                        <canvas id="sig" style="background: lightgray"></canvas>
+                                        <br />
+                                        
+                                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                                        <span id="clear" class="fa fa-undo cursor-pointer"
+                                            style="line-height: 6"></span>
+                                    </div>
+                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
+                                    <br>
+                               
+                            </div>
+                        </div>
+                        @endif
+                        
+                       
+                        <div class="row mt-5 justify-content-between">
+                            <div class="col-md-5"> 
+                            </div>
+                            <div class="col-md-1 published button-set" style="display:none;">
+                                <button  type="submit" name="action"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important;"
+                                    class="btn btn-primary float-end submitbutton" value="Publish">Publish</button>
+                            </div>
+                            <div class="col-md-4 notpublished"> 
+                                <button type="submit" name="action"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
+                                    class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier (For Pricing)</button>
+                            </div>
+                            <div class="col-md-2 notpublished">
+                                <button type="submit" name="action"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
+                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as Draft</button>
+                            </div>
+                            
                         </div>
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save</button> -->
 
-
+                        @include('dashboard.modals.design-relief-modals')
                     </form>
                 </div>
                 <!--end::Card body-->
@@ -1040,16 +1157,63 @@
     });
 
 
-    $(".adminDesigners").on('change',function(){
-        let data=$(this).val();
-        if(data.length>0)
-        {
-            parts = data[0].split('-');
-            loc = parts.pop();
-            window.open('company-profile/'+loc+'', '_blank');
-        }
+    // $(".adminDesigners").on('change',function(){
+    //     let data=$(this).val();
+    //     var baseUrl = "<?php echo e(env('APP_URL')); ?>";
+    //     if(data.length>0)
+    //     {
+    //         parts = data[0].split('-');
+    //         loc = parts.pop();
+    //         window.open(baseUrl+'company-profile/'+loc+'', '_blank');
+    //     }
         
-    })
+    // })
+
+    var canvas = document.getElementById("sig");
+    var signaturePad = new SignaturePad(canvas);
+    signaturePad.addEventListener("endStroke", () => {
+              $("#signature").val(signaturePad.toDataURL('image/png'));
+              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+    });
+    
+     $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+        $('#submitbutton').prop('disabled', true);
+
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+    });
+
+    const checkbox = document.getElementById("display_sign");
+    const displayDiv = document.getElementById("display_sign_div");
+
+    checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+            $(".published").show();
+            $(".notpublished").hide();
+            displayDiv.style.display = "block";
+        } else {
+            $(".published").hide();
+            $(".notpublished").show();
+            displayDiv.style.display = "none";
+        }
+    });
+
+//disable button on submit
+// $('#desingform').submit(function(e) {
+//     e.preventDefault();
+//     var form = $( "#desingform" );
+//     form.validate();
+//     valid = $("#desingform").valid();
+//     if (!$('#desingform').valid())  e.preventDefault(); return false
+
+//     $('#desingform input[type=submit]').attr("disabled", "disabled");  
+//     e.currentTarget.submit();
+//     return true;
+// });
 </script>
 
 

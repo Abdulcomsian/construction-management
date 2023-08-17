@@ -129,9 +129,16 @@ $(document).ready(function () {
             "/" +
             date.getDate();
         $("#scope-of-design .requirment-second-value").val(date);
-        show_val += $(this).attr("name") + " " + date + "\n";
-        $("#scopofdesign").val(show_val);
-        $("#scopeOfDesignArea").val(show_val);
+        // show_val += $(this).attr("name") + " " + date + "\n";
+        var show_val = $(this).attr("name") + " " + date + "\n";
+        var old_val = $("#scopofdesign").val();
+        console.log(old_val);
+        new_val = old_val + ' ' + show_val;
+        // $("#scopofdesign").val(show_val);
+        // $("#scopeOfDesignArea").val(show_val);
+
+        $("#scopofdesign").val(new_val);
+        $("#scopeOfDesignArea").val(new_val);
     });
 
     // $("#attachment-of-design .requirment-first ul li").click(function (event) {

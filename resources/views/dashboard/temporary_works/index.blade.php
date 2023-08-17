@@ -1288,8 +1288,8 @@ $tempWorkClass = "d-none";
                                                                     data-id="{{$item->id}}" data-type="4">
                                                                     <!-- <span class="fa fa-plus"></span> -->
                                                                     Emails 
-                                                                    <!-- ({{$tot}}) -->
-                                                                    ({{$tot_emails[$count]}})
+                                                                    <!-- ({{$tot}})  -->
+                                                                   
                                                                 </p>
                                                             </div>
                                                             <span class="desc cursor-pointer"

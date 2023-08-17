@@ -154,4 +154,8 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(DesignerCompanyEmail::class,'temporary_work_id');
     }
+
+    public function unreadQuestions(){
+        return $this->hasMany(EstimatorDesignerComment::class,'temporary_work_id')->whereNull('reply'); 
+    }
 }

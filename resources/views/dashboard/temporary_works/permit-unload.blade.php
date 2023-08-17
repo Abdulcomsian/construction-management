@@ -541,7 +541,7 @@
                                     <span>Approval via Email Required by the PCTWC</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="checkbox" name="principle_contractor" value="1" id="approval"
+                                <input type="checkbox" checked name="principle_contractor" value="1" id="approval"
                                     style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
                                 <input type="hidden" name="approavalEmailReq" value="0">
                                 <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
@@ -585,6 +585,17 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
+                            <div class="d-flex inputDiv">
+                                <label class="fs-6 fw-bold mb-2" style="">
+                                    <span >Comments:</span>
+                                </label>
+                                <textarea  name="comments" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                         <div class="d-flex inputDiv">
                                 <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
@@ -606,17 +617,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
-                            <div class="d-flex inputDiv">
-                                <label class="fs-6 fw-bold mb-2" style="">
-                                    <span >Comments:</span>
-                                </label>
-                                <textarea  name="comments" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
+                    
                     <div class="row">
                         <div class="col-md-6" id="second_member">
 
@@ -984,7 +985,7 @@ signaturePad.addEventListener('endStroke', function(){
         })
 
 
-    document.getElementById("twc-email-box").classList.add("d-none");
+    // document.getElementById("twc-email-box").classList.add("d-none");
      $("#approval").change(function () {
         if ($(this).is(':checked')) {
             document.getElementById("twc-email-box").classList.remove("d-none")

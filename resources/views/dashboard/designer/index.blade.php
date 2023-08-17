@@ -954,17 +954,6 @@
                         <input type="hidden" name="designermail" value="{{$mail}}">
                         
                         <div class="row" style="background:white;margin: 0 4px;">
-                            <!-- <div class="col-md-4">
-                                    <div class="form-group mx-sm-1 mb-2"    style="margin-top: 15px;">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Designer's Company Name:</span>
-                                        </label>
-                                        <div class="d-flex" >
-                                        <input type="text" class="form-control" readonly value="{{$tempdata->designer_company_name}}"> -->
-                            <!-- name="designer_company_name" -->
-                            <!-- </div>
-                                    </div>
-                                </div> -->
                             <div class="col-md-4">
                                 <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">

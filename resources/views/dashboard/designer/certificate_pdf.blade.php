@@ -52,61 +52,7 @@
     }
 </style>
     
-    <page pageset="old">
-    
-
-
-    <!-- <table style="width:100%">
-    <tr>
-        <td style="border-right:1px solid black; padding:0px 15px;"> 
-      
-            <div class="company-name font-3"> Consulting Temporary Works Engineers</div>
-            <div class="address font-2">85 Great Portland Street <br> London, United Kingdom, W1W 7LT</div>
-            <div class="email">
-                <span class="font">Email:</span>
-                
-            </div>
-            <p></p>
-        </td>
-        <td style="width:50%; ">
-
-            <div class="form-group font p" >
-                <label for="title">Title:</label>
-            </div>
-            <hr>
-            <div class="form-group font">
-                <label for="project" >Project: {{$temporary_work->project->name ?? $temporary_work->projname}}</label>
-            </div>
-            <hr>
-            <table style="width: 100%; border:none !important;  ">
-
-                <tr>
-                    <td  class="font" style="border:none ">
-                        <label for="designer">Designer:</label>
-                        {{$temporary_work->client_email == null ? $temporary_work->designer->user->name : $temporary_work->creator->name }}
-                    </td>
-                    <td  class="font" style="border:none !important; text-align: right;">
-                        <label for="date">Date:</label>
-                        {{$temporary_work->design_issued_date}}
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-     <td style="height:30px; border-right:none !important">
-
-     </td>
-     <td style="border-left:none !important">
-
-     </td>
-    </tr>
-
-
-</table> -->
-
-
-
+<page pageset="old">
 <table style="width:100%">
     <tr>
         <td style="border-right:1px solid black; padding:0px 15px;" rowspan="3"> 
@@ -203,14 +149,15 @@
             <div class="b" style="margin-left:7%; margin-top:-22px; font-weight:bold;" >{{$temporary_work->design_requirement_text}}  </div>
             <!-- <p>{{$temporary_work->design_requirement_text}}</p> -->
             <p> (c) Has been designed in accordance with the following standards and reference</p> <br>
+            {{-- @dd($temporary_work->designerCertificates) --}}
             <table style="width:100%">
-            @foreach($temporary_work->designerCertificates as $certificate)
-                @foreach(optional($certificate)->tags ?? [] as $tag)
+            @foreach($temporary_work->designerCertificates->tags as $tag)
+                {{-- @foreach($certificate->tags as $tag) --}}
                     <tr>
                         <td style="width:30%">{{$tag->title}} </td>
                         <td> {{$tag->description}}</td>
                     </tr>
-                @endforeach
+                {{-- @endforeach --}}
                 <hr>
             @endforeach
             
@@ -262,7 +209,13 @@
         </tr>
         <tr >
             <td > sign:</td>
-            <td></td>
+            <td>
+                @if(isset($designer_image_name) && $designer_image_name!='')
+                <img src="temporary/signature/{{$designer_image_name}}"  width="auto" height="50px"/>
+                {{-- @else
+                {{ $data['namesign1'] ?? ''}} --}}
+                @endif
+            </td>
         </tr>
     
     </table>
@@ -301,7 +254,18 @@
         </tr>
         <tr >
             <td> sign:</td>
-            <td></td>
+            <td>
+                @if(isset($checker_image_name) && $checker_image_name!='')
+                <img src="temporary/signature/{{$checker_image_name}}"  width="auto" height="50px"/>
+                {{-- @else
+                {{ $data['namesign1'] ?? ''}} --}}
+                @endif
+                {{-- @if(isset($image_name1) && $image_name1!='')
+                <img src="temporary/signature/{{$image_name1}}"  width="auto" height="50px"/>
+                @else
+                {{ $data['namesign1'] ?? ''}}
+                @endif --}}
+            </td>
         </tr>
     
     </table>

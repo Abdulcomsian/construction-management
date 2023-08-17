@@ -5,6 +5,7 @@
 <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
 <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
 <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
+<script src="{{ asset('css/jquery.validate.js') }}"></script>
 <script>
     function sendMarkRequest(id = null) {
         return $.ajax("{{ route('company.markNotification') }}", {

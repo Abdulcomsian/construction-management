@@ -439,26 +439,14 @@
     <div class="">
         <table>
             <tr class="row-1">
-                <th class="th-1">Project</th>
-                <th class="th-2">Client</th>
-                <th class="th-3">Job Title / Cost</th>
-                <th class="th-4">Design Req </th>
-                <th class="th-5">Description / Comment</th>
-                <th class="th-6">Timeline</th>
-                <th class="th-7">Allocated Designer</th>
-                <th class="th-8">Allocated Designer Checker</th>
-                <th class="th-9">Status</th>
-                <th class="th-10">Drawing</th>
-                <th class="th-11">Invoice</th>
+                
+                <th class="col-md-2 th-8">Pricing</th>
+                <th class="col-md-2 th-9">QA</th>
+                <th class="col-md-2  th-10">Public QA</th>
+                <th class="col-md-2  th-11">Awarded Contracts</th>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+               
                 <td>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pricing">
                         Pricing
@@ -887,7 +875,7 @@
                                     @foreach($designerquotation as $quotaion)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>${{$quotaion->price}}</td>
+                                        <td>£{{$quotaion->price}}</td>
                                         <td>{{$quotaion->description}}</td>
                                         <td>{{$quotaion->date}}</td>
                                     </tr>

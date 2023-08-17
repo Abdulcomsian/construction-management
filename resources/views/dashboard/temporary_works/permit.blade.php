@@ -555,6 +555,7 @@
               </select>
             </div> --}}
             {{-- <div class="d-flex inputDiv mb-0"> --}}
+              @dd(env('APP_URL'));
             <div class="modalDiv d-block mt-md-5">
               <label class="fs-6 fw-bold mb-2">
                 <span class="required">Select Drawing :</span>

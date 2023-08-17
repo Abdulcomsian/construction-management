@@ -50,7 +50,7 @@ class EstimatorController extends Controller
         }
 
         
-        $estimator_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits','rejecteddesign','checkQuestion','designerQuote')->whereHas('project', function ($q) use ($ids) {
+        $estimator_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits','rejecteddesign','checkQuestion','designerQuote', 'unreadQuestions')->whereHas('project', function ($q) use ($ids) {
             $q->whereIn('project_id', $ids);
         })->where(['estimator'=>1])->latest()->paginate(20);
         // dd($estimator_works);
@@ -914,10 +914,15 @@ class EstimatorController extends Controller
                         array_shift($emails);
                         
                         foreach ($emails as $email) {
-                            $company_email = new DesignerCompanyEmail();
-                            $company_email->temporary_work_id = $temporaryWork;
-                            $company_email->email = $email;
-                            $company_email->save();
+                            // $company_email = new DesignerCompanyEmail();
+                            // $company_email->temporary_work_id = $temporaryWork;
+                            // $company_email->email = $email;
+                            // $company_email->save();
+
+                            DesignerCompanyEmail::updateOrCreate(
+                                ['email' => $email , 'temporary_work_id' => $temporaryWork],
+                                ['email' => $email , 'temporary_work_id' => $temporaryWork]
+                            );
 
                             Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $email, 1));
                         }
@@ -963,10 +968,15 @@ class EstimatorController extends Controller
                         
                         foreach($emails as $key => $list){
                             if($key!=0){ // zero index is already saved in temporary work register
-                                $company_email = new DesignerCompanyEmail();
-                                $company_email->temporary_work_id = $temporaryWork;
-                                $company_email->email = $list;
-                                $company_email->save();
+                                // $company_email = new DesignerCompanyEmail();
+                                // $company_email->temporary_work_id = $temporaryWork;
+                                // $company_email->email = $list;
+                                // $company_email->save();
+
+                                DesignerCompanyEmail::updateOrCreate(
+                                    ['email' => $email , 'temporary_work_id' => $temporaryWork],
+                                    ['email' => $email , 'temporary_work_id' => $temporaryWork]
+                                );
                             }
                             Notification::route('mail', $list)->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $list));                            
                         }
@@ -1055,19 +1065,24 @@ class EstimatorController extends Controller
             foreach($finalList as $list)
             {
                 $list=explode('-',$list);
-                // $checkDesignerexist=EstimatorDesignerList::where(['temporary_work_id'=>$temporary_work_id,'email'=>$list[0]])->first();
+                // $checkDesignerexist=v->first();
                 $code=random_int(100000, 999999);
 
                
                 //  if($checkDesignerexist==NULL)
                 //  {
-                 EstimatorDesignerList::create([
-                        'email'=>$list[0],
-                        'temporary_work_id'=>$temporary_work_id,
-                        'code'=>$code,
-                        'type'=>$type,
-                        'user_id'=>$list[1] ?? NULL,
-                    ]);
+                //  EstimatorDesignerList::create([
+                //         'email'=>$list[0],
+                //         'temporary_work_id'=>$temporary_work_id,
+                //         'code'=>$code,
+                //         'type'=>$type,
+                //         'user_id'=>$list[1] ?? NULL,
+                //     ]);
+                
+                    EstimatorDesignerList::updateOrCreate(
+                        ['email' => trim($list[0]) , 'temporary_work_id' => $temporary_work_id],
+                        ['email' => trim($list[0]) , 'temporary_work_id' => $temporary_work_id, 'user_id'=>$list[1] ?? NULL, 'code'=>$code, 'type'=>$type]
+                    );
                 //  }
                 //  else{
                 //     $code=$checkDesignerexist->code;

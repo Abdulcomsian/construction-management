@@ -418,9 +418,9 @@
       animation: blink 1s infinite;
       color: red;
       background-color:red !important;
-    }
+    }$item->unreadQuestions->count() > 0 ? 'redBgBlink' : ''
 
-
+    .redBgBlink{color: red !important;background-color:red !important;}
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -866,9 +866,9 @@
                                                 @endif
                                                 @endif -->
                                                 <a href="{{route('estimator.show',$item->id)}}"
-                                                   class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':''}}">
+                                                   class="{{count($item->checkQuestion) > 0 ? 'redBgBlink':'2234'}}">
                                                    <!-- <i class="fa fa-eye " style="margin-left:15px"></i> -->
-                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif">View Designers & Suppliers</button>
+                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif  {{$item->unreadQuestions->count() > 0 ? 'redBgBlink' : ''}}">View Designers & Suppliers</button>
                                                 </a>
                                              </div>
 

@@ -343,6 +343,7 @@ class PDFPageView {
     try {
       await this.annotationEditorLayer.render(this.viewport, "display");
     } catch (ex) {
+      throw ex
       console.error(`#renderAnnotationEditorLayer: "${ex}".`);
       error = ex;
     } finally {

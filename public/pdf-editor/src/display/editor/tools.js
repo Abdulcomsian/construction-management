@@ -620,9 +620,9 @@ class AnnotationEditorUIManager {
       "hcmFilter",
       this.#pageColors
         ? this.#filterFactory.addHCMFilter(
-            this.#pageColors.foreground,
-            this.#pageColors.background
-          )
+          this.#pageColors.foreground,
+          this.#pageColors.background
+        )
         : "none"
     );
   }

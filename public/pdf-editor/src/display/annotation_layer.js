@@ -813,7 +813,7 @@ class LinkAnnotationElement extends AnnotationElement {
     if (!this._fieldObjects) {
       warn(
         `_bindResetFormAction - "resetForm" action not supported, ` +
-          "ensure that the `fieldObjects` parameter is provided."
+        "ensure that the `fieldObjects` parameter is provided."
       );
       if (!otherClickAction) {
         link.onclick = () => false;
@@ -2778,9 +2778,8 @@ class FileAttachmentAnnotationElement extends AnnotationElement {
       //   least the following standard names: GraphPushPin, PaperclipTag.
       //   Additional names may be supported as well. Default value: PushPin.
       trigger = document.createElement("img");
-      trigger.src = `${this.imageResourcesPath}annotation-${
-        /paperclip/i.test(this.data.name) ? "paperclip" : "pushpin"
-      }.svg`;
+      trigger.src = `${this.imageResourcesPath}annotation-${/paperclip/i.test(this.data.name) ? "paperclip" : "pushpin"
+        }.svg`;
     }
     trigger.classList.add("popupTriggerArea");
     trigger.addEventListener("dblclick", this._download.bind(this));
@@ -3037,4 +3036,5 @@ export {
   FreeTextAnnotationElement,
   InkAnnotationElement,
   StampAnnotationElement,
+  SquareAnnotationElement
 };

@@ -31,6 +31,11 @@ class AnnotationEditorParams {
     editorInkColor,
     editorInkThickness,
     editorInkOpacity,
+    editorInk2Color,
+    editorInk2Thickness,
+    editorRectColor,
+    editorRectOpacity,
+    editorRectThickness,
   }) {
     const dispatchEvent = (typeStr, value) => {
       this.eventBus.dispatch("switchannotationeditorparams", {
@@ -54,6 +59,21 @@ class AnnotationEditorParams {
     editorInkOpacity.addEventListener("input", function () {
       dispatchEvent("INK_OPACITY", this.valueAsNumber);
     });
+    editorInk2Color.addEventListener("input", function () {
+      dispatchEvent("INK2_COLOR", this.value);
+    });
+    editorInk2Thickness.addEventListener("input", function () {
+      dispatchEvent("INK2_THICKNESS", this.valueAsNumber);
+    });
+    editorRectColor.addEventListener("input", function () {
+      dispatchEvent("RECT_COLOR", this.value);
+    });
+    editorRectThickness.addEventListener("input", function () {
+      dispatchEvent("RECT_THICKNESS", this.valueAsNumber);
+    });
+    editorRectOpacity.addEventListener("input", function () {
+      dispatchEvent("RECT_OPACITY", this.valueAsNumber);
+    });
 
     this.eventBus._on("annotationeditorparamschanged", evt => {
       for (const [type, value] of evt.details) {
@@ -72,6 +92,21 @@ class AnnotationEditorParams {
             break;
           case AnnotationEditorParamsType.INK_OPACITY:
             editorInkOpacity.value = value;
+            break;
+          case AnnotationEditorParamsType.INK2_COLOR:
+            editorInk2Color.value = value;
+            break;
+          case AnnotationEditorParamsType.INK2_THICKNESS:
+            editorInk2Thickness.value = value;
+            break;
+          case AnnotationEditorParamsType.RECT_COLOR:
+            editorRectColor.value = value;
+            break;
+          case AnnotationEditorParamsType.RECT_THICKNESS:
+            editorRectThickness.value = value;
+            break;
+          case AnnotationEditorParamsType.RECT_OPACITY:
+            editorRectOpacity.value = value;
             break;
         }
       }

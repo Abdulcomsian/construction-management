@@ -91,6 +91,30 @@ class Toolbar {
         },
       },
       {
+        element: options.editorInkButton2,
+        eventName: "switchannotationeditormode",
+        eventDetails: {
+          get mode() {
+            const { classList } = options.editorInkButton2;
+            return classList.contains("toggled")
+              ? AnnotationEditorType.NONE
+              : AnnotationEditorType.INK2;
+          },
+        },
+      },
+      {
+        element: options.editorRectButton,
+        eventName: "switchannotationeditormode",
+        eventDetails: {
+          get mode() {
+            const { classList } = options.editorRectButton;
+            return classList.contains("toggled")
+              ? AnnotationEditorType.NONE
+              : AnnotationEditorType.RECT;
+          },
+        },
+      },
+      {
         element: options.editorStampButton,
         eventName: "switchannotationeditormode",
         eventDetails: {
@@ -160,14 +184,20 @@ class Toolbar {
     const self = this;
     // The buttons within the toolbar.
     for (const { element, eventName, eventDetails } of this.buttons) {
-      element.addEventListener("click", evt => {
-        if (eventName !== null) {
-          this.eventBus.dispatch(eventName, { source: this, ...eventDetails });
-        }
-        evt.stopImmediatePropagation()
-      }, {
-        capture: true
-      });
+      try {
+        // alert(element)
+        element.addEventListener("click", evt => {
+          if (eventName !== null) {
+            this.eventBus.dispatch(eventName, { source: this, ...eventDetails });
+          }
+          evt.stopImmediatePropagation()
+        }, {
+          capture: true
+        });
+      } catch (error) {
+        console.log("element", eventName);
+        throw error
+      }
     }
     // The non-button elements within the toolbar.
     pageNumber.addEventListener("click", function () {
@@ -219,6 +249,10 @@ class Toolbar {
     editorFreeTextParamsToolbar,
     editorInkButton,
     editorInkParamsToolbar,
+    editorInkButton2,
+    editorInkParamsToolbar2,
+    editorRectButton,
+    editorRectParamsToolbar,
     editorStampButton,
   }) {
     const editorModeChanged = ({ mode }) => {
@@ -232,12 +266,24 @@ class Toolbar {
         mode === AnnotationEditorType.INK,
         editorInkParamsToolbar
       );
+      toggleCheckedBtn(
+        editorInkButton2,
+        mode === AnnotationEditorType.INK2,
+        editorInkParamsToolbar2
+      );
+      toggleCheckedBtn(
+        editorRectButton,
+        mode === AnnotationEditorType.RECT,
+        editorRectParamsToolbar
+      );
       toggleCheckedBtn(editorStampButton, mode === AnnotationEditorType.STAMP);
 
       const isDisable = mode === AnnotationEditorType.DISABLE;
       editorFreeTextButton.disabled = isDisable;
       editorInkButton.disabled = isDisable;
+      editorInkButton2.disabled = isDisable;
       editorStampButton.disabled = isDisable;
+      editorRectButton.disabled = isDisable;
     };
     this.eventBus._on("annotationeditormodechanged", editorModeChanged);
 

@@ -678,8 +678,9 @@
                                     <!--end::Label-->
                                     <input type="email" class="blackBack form-control form-control-solid"
                                         placeholder="Designer Email Address" id="designer_company_email"
-                                        name="designer_company_email[]" value="{{old('designer_company_email')}}"
-                                        required>
+                                        name="designer_company_email[]" value=""
+                                        required> 
+                                        {{-- {{old('designer_company_email')}} --}}
                                 </div>
                             </div>
 
@@ -1501,21 +1502,6 @@ document.addEventListener('DOMContentLoaded', function() {
         emailContainer.appendChild(colDiv);
     });
 });
-
-
-//disable button on submit
-// $('#desingform').submit(function(e) {
-//     e.preventDefault(); 
-//     var form = $( "#desingform" );
-//     valid2 =  form.validate();
-//     console.log(valid2);e.preventDefault(); return false;
-//     valid = $("#desingform").valid(); 
-//     if (!$('#desingform').valid())  e.preventDefault(); return false;
-
-//     $('#desingform input[type=submit]').attr("disabled", "disabled");  
-//     e.currentTarget.submit();
-//     return true;
-// });
 
 </script>
 

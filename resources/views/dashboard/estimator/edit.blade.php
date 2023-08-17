@@ -757,7 +757,7 @@ canvas {
                                                     </label>
                                                     <select name="designers[]" id="desingers" class="form-select form-select-lg form-select-solid" data-control="select2"
                                                         data-placeholder="Select an option" data-allow-clear="true" multiple>
-                                                        <option value="">Select Option</option>
+                                                        {{-- <option value="">Select Option</option> --}}
                                                         <!-- <optgroup label="Designer List"> -->
                                                             @foreach($designers as $desig)
                                                             @if($desig->hasRole('designer'))

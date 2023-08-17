@@ -863,13 +863,14 @@ canvas {
                                 </div>
                             </div>
                         </div>
+                        @if(auth()->user()->hasRole('user'))
                         <div class="row" style="margin-top:20px;">
                             <div class="col-md-12">
                             <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
                             <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
                             </div>
                             <div class="col-md-12" id="display_sign_div" style="display:none">
-                                @if(auth()->user()->hasRole('user'))
+                                
                                     <h5>Signature Type:</h5>
                                     <div class="d-flex ">
                                         <div style="display:flex; align-items: center; padding-left:10px">
@@ -922,9 +923,10 @@ canvas {
                                     </div>
                                     <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
                                     <br>
-                                @endif
+                               
                             </div>
                         </div>
+                        @endif
                         
                        
                         <div class="row mt-5 justify-content-between">

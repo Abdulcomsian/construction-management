@@ -1502,6 +1502,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+//disable button on submit
+// $('#desingform').submit(function(e) {
+//     e.preventDefault(); 
+//     var form = $( "#desingform" );
+//     valid2 =  form.validate();
+//     console.log(valid2);e.preventDefault(); return false;
+//     valid = $("#desingform").valid(); 
+//     if (!$('#desingform').valid())  e.preventDefault(); return false;
+
+//     $('#desingform input[type=submit]').attr("disabled", "disabled");  
+//     e.currentTarget.submit();
+//     return true;
+// });
+
 </script>
 
 

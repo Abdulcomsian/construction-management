@@ -565,7 +565,9 @@
                     @php
                         $designCheck = json_decode($design_check);
                     @endphp
-
+                     @isset($designCheck)
+                    <p style="font-weight: 400; font-size: 16px">Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p>
+                    @endif
                     <table class="table">
                         <tbody>
                             @isset($designCheck)

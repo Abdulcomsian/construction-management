@@ -414,13 +414,13 @@
     }
 
     /* Apply the animation to the Font Awesome icon */
-    .blinking-icon {
+    .blinking-icon, .redBgBlink {
       animation: blink 1s infinite;
       color: red;
       background-color:red !important;
     }
 
-    .redBgBlink{color: #fff !important;background-color:red !important;}
+    /* .redBgBlink{color: #fff !important;background-color:red !important;} */
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />

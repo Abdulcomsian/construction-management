@@ -166,6 +166,7 @@ class Validations
     {
         $request->validate([
             'project_id' => ['required', 'max:255', 'exists:projects,id'],
+            'design_requirement_text' => ['required'],
         ]);
     }
 

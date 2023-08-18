@@ -491,7 +491,7 @@ $tempWorkClass = "d-none";
                 <div class="card-header border-0">
                         <div class="card-title">
                             <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hide1()">Menu</a>
-                            <h3 class="card-label pt-5" style="font-size:1.6rem;">Shared Temporary Works
+                            <h3 class="card-label pt-5" style="font-size:1.6rem;">Shared Temporary Works 
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
                         </div>
@@ -911,7 +911,7 @@ $tempWorkClass = "d-none";
                                                                 @if(count($item->unloadpermits)>0 ||
                                                                 count($item->closedpermits)>0 || $drawingscount)
                                                                 <div
-                                                                    style="padding: 4px; border-radius: 4px; width: 20px; height:20px;">
+                                                                    style="padding: 9px; border-radius: 4px; width: 20px; height:20px;">
                                                                     <!-- background: #07D56426; <p class="cursor-pointer permit-to-load-btn"
                                                                         style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
                                                                         data-type="add"
@@ -930,7 +930,7 @@ $tempWorkClass = "d-none";
                                                                 </div>
                                                                 @endif
                                                                 <div
-                                                                    style="border-radius: 4px; max-width: 65px;  width: 20px; height: 20px; margin-right:4px">
+                                                                    style="border-radius: 4px; max-width: 65px;  width: 56px; height: 20px; margin-right:4px">
                                                                     @if($drawingscount)
                                                                     <!-- <p class="cursor-pointer permit-to-load-btn" style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;" data-id="{{Crypt::encrypt($item->id)}}" data-desc="{{$item->design_requirement_text}}">Permit to<br> load</p> -->
                                                                     @endif

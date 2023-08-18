@@ -968,6 +968,12 @@
                     </div>
 
                 </div>
+                <div>
+                    @foreach($images as $image)
+                        <a target="_blank" href="{{asset($image->image)}}">Attachment {{$loop->iteration}} </a>
+                        <div><a href="{{route('delete.temporaryworkimage',$image->id)}}" class="btn btn-danger">-</a></div>
+                    @endforeach
+                </div>
                 <div class="uploadDiv" style="margin-top:20px">
                     <div class="input-images"></div>
                     <!-- <input type="file" multiple name="file[]">

@@ -859,8 +859,12 @@ class EstimatorController extends Controller
                 ScopeOfDesign::where(['temporary_work_id'=>$temporaryWork])->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork]));
                 Folder::where(['temporary_work_id'=>$temporaryWork])->update(array_merge($folder_attachements, ['temporary_work_id' => $temporaryWork]));
                 AttachSpeComment::where(['temporary_work_id'=>$temporaryWork])->update(array_merge($attachcomments, ['temporary_work_id' => $temporaryWork]));
-                //work for upload images here
+                //fetching previously stored attachments
                 $image_links = [];
+                foreach($temporaryWorkData->temp_work_images as $image){
+                    $image_links[]=$image->image;
+                }
+                //fetching new uploaded attachments
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -1388,5 +1392,12 @@ class EstimatorController extends Controller
         {
             return response()->json(["success" => false ,"msg"=> "Something Went Wrong" , 'error' => $e->getMessage()]);
         }
+   }
+
+   public function deleteTemporaryWorkImage($id){
+    $temporary_work_image = TemporayWorkImage::findorfail($id);
+    $temporary_work_image->delete();
+    toastSuccess('Temporary Work Image Deleted Successfully!');
+    return redirect()->back();
    }
 }

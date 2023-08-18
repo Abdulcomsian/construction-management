@@ -560,10 +560,16 @@
                             <span class="required">Select Drawing :</span>
                         </label>
                         <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
-                            <option value="">Select PDF</option>
+                            <!-- <option value="">Select PDF</option>
                             @foreach($temporary_work_files as $upload)
                             <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
-                            @endforeach
+                            @endforeach -->
+                            <option value="">Select PDF</option>
+                <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
+                <option value="http://127.0.0.1:8000/pdf/test2.pdf">Test PDF 2</option>
+                <option value="http://127.0.0.1:8000/pdf/test3.pdf">Test PDF 2</option>
+                <option value="http://127.0.0.1:8000/pdf/169218560265234.pdf">169218560265234</option>
+                <option value="http://127.0.0.1:8000/pdf/169065041586249.pdf">169065041586249</option>
                         </select>
                         <input type="hidden" value="" id="design_upload" name="design_upload" />
                     </div>
@@ -1361,7 +1367,7 @@
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorInk2Thickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
-                  <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="105" />
+                  <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="500" step="15" tabindex="105" />
                 </div>
               </div>
             </div>

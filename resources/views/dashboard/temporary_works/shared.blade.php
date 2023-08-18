@@ -835,7 +835,7 @@ $tempWorkClass = "d-none";
                                                             <div class="d-flex col-sm-6"
                                                                 style="column-gap:1rem;margin-left: 39px">
                                                                 <div
-                                                                    style="padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                                    style="padding: 4px; border-radius: 4px;width: 10px; height:20px;">
                                                                     <!-- background: #07D56426; <p class="uploaddrawing cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
                                                                         style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">

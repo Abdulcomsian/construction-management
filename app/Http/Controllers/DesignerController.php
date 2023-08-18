@@ -577,10 +577,10 @@ class DesignerController extends Controller
     public function get_desings(Request $request)
     {
         $tempworkid = $request->tempworkid;
+        $is_shared = $request->shared;
     
         $designearray=[];
-        $ramsno=TemporaryWork::with('designerCompanyEmails')->find($tempworkid);
-        // dd($ramsno->designerCompanyEmails[]->email);
+        $ramsno=TemporaryWork::with('designerCompanyEmails','creator')->find($tempworkid);
         $designearray[0]=$ramsno->designer_company_email;
         if($ramsno->desinger_email_2)
         {
@@ -596,9 +596,20 @@ class DesignerController extends Controller
                 $company=Project::find($ramsno->project_id);
                 $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
-                       $query->whereIn('created_by',$coordinators)
-                       ->orWhere('created_by',auth()->user()->email);
-                      })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+                    $query->whereIn('created_by',$coordinators)
+                    ->orWhere('created_by',auth()->user()->email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+               }
+               elseif($is_shared){
+                $twc_email =$ramsno->creator->email;
+                $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                $di_designer_email = $user->email ?? ''; 
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($twc_email,$di_designer_email){
+                    $query->where(['created_by'=>auth()->user()->email])
+                    ->orWhere('created_by','hani.thaher@gmail.com')
+                    ->orWhere('created_by',$twc_email)
+                    ->orWhere('created_by',$di_designer_email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }
                else{
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){

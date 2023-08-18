@@ -1808,7 +1808,8 @@ $(".designer-company").on('click', function() {
            url: "{{route('get-designs')}}",
            method: "get",
            data: {
-               tempworkid: tempworkid
+               tempworkid: tempworkid,
+               shared: 1
            },
            success: function(res) {
                $("#drawingdesigntable").html(res);

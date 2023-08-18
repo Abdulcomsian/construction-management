@@ -361,7 +361,7 @@
       }
     }
 </script>
-<script src="{{ asset('pdf-editor/viewer.js') }}" type="module-shim"></script>
+<script src="{{ asset('pdf-editor/viewer.js?v=1') }}" type="module-shim"></script>
 <style>
   .modal-content {
     height: 90vh;

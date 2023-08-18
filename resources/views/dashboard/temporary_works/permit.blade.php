@@ -583,7 +583,7 @@
             {{-- <div class="modalDiv d-block">
                         <label class="fs-6 fw-bold mb-2">
                             <span class="required">Upload Custom Drawing:</span>
-                        </label>
+                        </label>t
                         <input type="file" class="form-control" name="custom_drawing" id="custom_drawing" />
                     </div>
                 </div> --}}
@@ -2353,48 +2353,6 @@
     alert("here");
   })
 </script>
-{{-- <script>
-  const drawingField = document.getElementById('drawing_field');
-  const customField = document.getElementById('custom_field');
-  const drawingFieldDiv = document.getElementById('drawingFieldDiv');
-  const customFieldDiv = document.getElementById('customFieldDiv');
-
-  drawingField.addEventListener('change', function() {
-    if (this.checked) {
-      drawingFieldDiv.style.display = 'block';
-      customFieldDiv.style.display = 'none';
-    }
-  });
-
-  customField.addEventListener('change', function() {
-    if (this.checked) {
-      drawingFieldDiv.style.display = 'none';
-      customFieldDiv.style.display = 'block';
-    }
-  });
-</script>
-<script>
-  const drawingField = document.getElementById('drawing_field');
-  const customField = document.getElementById('custom_field');
-  const drawingFieldDiv = document.getElementById('drawingFieldDiv');
-  const customFieldDiv = document.getElementById('customFieldDiv');
-
-  drawingField.addEventListener('change', function() {
-    if (this.checked) {
-      drawingFieldDiv.style.display = 'block';
-      customFieldDiv.style.display = 'none';
-    }
-  });
-
-  customField.addEventListener('change', function() {
-    if (this.checked) {
-      drawingFieldDiv.style.display = 'none';
-      customFieldDiv.style.display = 'block';
-    }
-  });
-</script> --}}
-
-
 <script>
   const drawingField = document.getElementById('drawing_field');
   const customField = document.getElementById('custom_field');
@@ -2415,4 +2373,5 @@
     }
   });
 </script>
+
 @endsection

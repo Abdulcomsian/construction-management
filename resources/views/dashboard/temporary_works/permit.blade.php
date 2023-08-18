@@ -2343,12 +2343,12 @@
   })
 </script>
 
-<script>
+{{-- <script>
   document.querySelector("button[type='submit']").addEventListener("click", function(e) {
     e.preventDefault();
     alert("here");
   })
-</script>
+</script> --}}
 {{-- <script>
   const drawingField = document.getElementById('drawing_field');
   const customField = document.getElementById('custom_field');

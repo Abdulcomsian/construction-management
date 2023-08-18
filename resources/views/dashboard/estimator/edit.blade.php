@@ -958,95 +958,87 @@ canvas {
 
 
 
-
-                                    <div class="row">
-
-
-
-
-
-
-                                        
-                                        <div class="col-md-12">
+                                    @if(auth()->user()->hasRole('user'))                                  
+                                        <div class="row">
                                             <div class="col-md-12">
-                                                <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
-                                                <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
-                                            </div>
-                                            @if(auth()->user()->hasRole('user'))
-                                            <div  class="col-md-12" id="display_sign_div" style="display:none">
-                                               
-                                                    <h5>Signature Type:</h5>
-                                                    <div class="d-flex ">
-                                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
-                                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
-                                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                                <div class="col-md-12">
+                                                    <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
+                                                    <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
+                                                </div>
+                                                <div  class="col-md-12" id="display_sign_div" style="display:none">
+                                                
+                                                        <h5>Signature Type:</h5>
+                                                        <div class="d-flex ">
+                                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                                <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
+                                                                <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
+                                                                <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                                            </div>
+                                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                                <input type="radio" class="checkbox-field" id="flexCheckChecked" 
+                                                                    style="width: 12px;">
+                                                                <input type="hidden" id="signtype" name="signtype"
+                                                                    class="form-control form-control-solid" value="2">
+                                                                <span
+                                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                                            </div>
+                                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                                <input type="radio" class="checkbox-field" id="pdfChecked" 
+                                                                    style="width: 12px;">
+                                                                <input type="hidden" id="signtype" name="pdfsigntype"
+                                                                    class="form-control form-control-solid" value="0">
+                                                                <span
+                                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
+                                                            </div>
                                                         </div>
-                                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                                            <input type="radio" class="checkbox-field" id="flexCheckChecked" 
-                                                                style="width: 12px;">
-                                                            <input type="hidden" id="signtype" name="signtype"
-                                                                class="form-control form-control-solid" value="2">
-                                                            <span
-                                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                                        <div class="inputDiv d-none" id="pdfsign">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span class="required">Upload Signature:</span>
+                                                            </label>
+                                                            <input type="file" name="pdfphoto" class="form-control"
+                                                                accept="image/*">
                                                         </div>
-                                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                                            <input type="radio" class="checkbox-field" id="pdfChecked" 
-                                                                style="width: 12px;">
-                                                            <input type="hidden" id="signtype" name="pdfsigntype"
-                                                                class="form-control form-control-solid" value="0">
-                                                            <span
-                                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
+                                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span class="required">Name Signature:</span>
+                                                            </label>
+                                                            <input type="text" name="namesign"
+                                                                class="form-control form-control-solid">
                                                         </div>
-                                                    </div>
-                                                    <div class="inputDiv d-none" id="pdfsign">
-                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Upload Signature:</span>
-                                                        </label>
-                                                        <input type="file" name="pdfphoto" class="form-control"
-                                                            accept="image/*">
-                                                    </div>
-                                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Name Signature:</span>
-                                                        </label>
-                                                        <input type="text" name="namesign"
-                                                            class="form-control form-control-solid">
-                                                    </div>
-                                                    <div class="d-flex inputDiv" id="sign" style="align-items: center; border:none">
-                                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <!-- <span class="required">Signature:</span> -->
-                                                        </label>
-                                                        <br />
-                                                        <canvas id="sig" style="background: lightgray"></canvas>
-                                                        <br />
-                                                        
-                                                        <textarea id="signature" name="signed" style="display: none"></textarea>
-                                                        <span id="clear" class="fa fa-undo cursor-pointer"
-                                                            style="line-height: 6"></span>
-                                                    </div>
-                                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
-                                                    <br>
-                                               
-                                            </div>
-                                            @endif
+                                                        <div class="d-flex inputDiv" id="sign" style="align-items: center; border:none">
+                                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <!-- <span class="required">Signature:</span> -->
+                                                            </label>
+                                                            <br />
+                                                            <canvas id="sig" style="background: lightgray"></canvas>
+                                                            <br />
+                                                            
+                                                            <textarea id="signature" name="signed" style="display: none"></textarea>
+                                                            <span id="clear" class="fa fa-undo cursor-pointer"
+                                                                style="line-height: 6"></span>
+                                                        </div>
+                                                        <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
+                                                        <br>
+                                                
+                                                </div>
+                                            </div> 
+                                            
+                                            <!-- <div class="row mt-5">
+                                                <div class="col-md-6"> 
+                                                </div>
+                                                <div class="col-md-1 published" style="display:none;">
+                                                    <input type="submit" name="action"
+                                                        style="margin-left: 10px; background: #07d564 !important"
+                                                        class="btn btn-primary float-end submitbutton" value="Publish">
+                                                </div>
+                                                <div class="col-md-4 notpublished">
+                                                <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
+                                                </div>
+                                                <div class="col-md-2 notpublished">
+                                                <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">
+                                                </div> -->
                                         </div> 
-                                        
-                                        <!-- <div class="row mt-5">
-                                            <div class="col-md-6"> 
-                                            </div>
-                                            <div class="col-md-1 published" style="display:none;">
-                                                <input type="submit" name="action"
-                                                    style="margin-left: 10px; background: #07d564 !important"
-                                                    class="btn btn-primary float-end submitbutton" value="Publish">
-                                            </div>
-                                            <div class="col-md-4 notpublished">
-                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">
-                                            </div>
-                                            <div class="col-md-2 notpublished">
-                                            <input type="submit" name="action" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton" value="Update (Draft)">
-                                            </div> -->
-                                    </div> 
+                                    @endif
                                      
                                     <div class="row mt-5 justify-content-between">
                                             <div class="col-md-4"> 

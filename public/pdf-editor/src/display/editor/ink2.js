@@ -60,7 +60,7 @@ class InkEditor2 extends AnnotationEditor {
 
     static _defaultOpacity = 0.25;
 
-    static _defaultThickness = 25;
+    static _defaultThickness = 50;
 
     static _l10nPromise;
 

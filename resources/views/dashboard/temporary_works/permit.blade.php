@@ -1345,7 +1345,7 @@
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorInkThickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
-                  <input type="range" id="editorInkThickness" class="editorParamsSlider" value="1" min="1" max="50" step="1" tabindex="102" />
+                  <input type="range" id="editorInkThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="102" />
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorInkOpacity" class="editorParamsLabel" data-l10n-id="editor_ink_opacity">Opacity</label>
@@ -1361,7 +1361,7 @@
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorInk2Thickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
-                  <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="50" step="1" tabindex="105" />
+                  <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="105" />
                 </div>
               </div>
             </div>
@@ -1373,7 +1373,7 @@
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorRectThickness" class="editorParamsLabel" data-l10n-id="editor_rect_thickness">Thickness</label>
-                  <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="50" step="1" tabindex="107" />
+                  <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorRectOpacity" class="editorParamsLabel" data-l10n-id="editor_rect_opacity">Opacity</label>

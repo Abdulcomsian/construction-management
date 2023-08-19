@@ -356,7 +356,7 @@
                                         @if($cments->type=='normal')
                                         <!-- added by Abdul to show only designers comment -->
                                         <td class="designer-comment">
-                                            {{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
+                                            {{$mail}}<br><b style="white-space; pre-wrap;background: yellow  !important"">{{$cments->comment}}</b><br><b>{{date('H:i
                                                 d-m-Y',strtotime($cments->created_at))}}</b>
                                             <br><br>
                                             @php
@@ -382,7 +382,7 @@
                                             @endif
                                             @if($cments->type=='twctodesigner')
                                         <td class="designer-comment"></td>
-                                        <td class="twc-reply">{{$mail}}<br><b>{{$cments->comment}}</b><br><b>{{date('H:i
+                                        <td class="twc-reply">{{$mail}}<br><b style="white-space: pre-wrap;">{{$cments->comment}}</b><br><b>{{date('H:i
                                                 d-m-Y',strtotime($cments->created_at))}}</b>
                                             <br><br>
                                             @php
@@ -691,7 +691,7 @@
                                         @php $style='';@endphp
                                         @if($mail==$cments->sender_email)
                                         <td colspan="2" style="max-width: 30px;{{$style}}" class="border-bottom">
-                                            <b>{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i
+                                            <b style="white-space: pre-wrap;">{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i
                                             d-m-Y',strtotime($cments->created_at))}}
                                         </td>
                                         @else

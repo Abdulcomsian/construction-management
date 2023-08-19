@@ -158,4 +158,8 @@ class TemporaryWork extends Model
     public function unreadQuestions(){
         return $this->hasMany(EstimatorDesignerComment::class,'temporary_work_id')->whereNull('reply'); 
     }
+
+    public function designbrief_history(){
+        return $this->hasMany(PdfFilesHistory::class,'tempwork_id'); 
+    }
 }

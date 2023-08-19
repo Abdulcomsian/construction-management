@@ -1450,7 +1450,7 @@ $notify_admins_msg = [
             $i = 1;
             foreach ($twccommetns as $comment) { 
                  $tabletwc .= '<tr style="background:white">
-                               <td style="padding-right: 35px !important; padding-top: 12px !important;">' . $i . '</td><td style="padding: 11px !important;text-align:start !important; ">' . $comment->comment . '</td>
+                               <td style="padding-right: 35px !important; padding-top: 12px !important;">' . $i . '</td><td style="padding: 11px !important;text-align:start !important; white-space: pre-wrap;">' . $comment->comment . '</td>
                                <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                            </tr>';
                 $i++;
@@ -1463,7 +1463,7 @@ $notify_admins_msg = [
             $i = 1;
             foreach ($twcdesigncommetns as $comment) { 
                  $tabletwcdesigner .= '<tr style="background:white">
-                               <td style="padding: 11px !important">' . $i . '</td><td style="padding: 11px !important">' . $comment->comment . '</td>
+                               <td style="padding: 11px !important">' . $i . '</td><td style="padding: 11px !important;white-space: pre-wrap;">' . $comment->comment . '</td>
                                <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                            </tr>';
                 $i++;

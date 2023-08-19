@@ -340,6 +340,7 @@ canvas {
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:98%">
                         <h2 class="db_mr" style="display: inline-block;">Estimate Design Brief  <a target="_blank" href="estimatorPdf/{{$temporaryWork->ped_url}}">View Design Brief</a></h2>
+                        <button class="btn btn-primary" id="view_designbrief" style="top: -5px;position: relative;left: 10px;">View Design Brief History</button>
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -1060,6 +1061,7 @@ canvas {
                                             </div> 
                                      </div>       
                                     @include('dashboard.modals.design-relief-modals-edit',['design_check' => $temporaryWork->desing_req_details,'images'=>$temporaryWork->temp_work_images])
+                                    @include('dashboard.modals.view-designbriefhistory-modal',['designbriefs' => $temporaryWork->designbrief_history])
                                     
                                    
                                     <!--  <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Update & email</button>
@@ -1212,6 +1214,9 @@ canvas {
         $("#hazard_modal_id").modal('show');
     })
             
+    $("#view_designbrief").on('click',function(){
+        $("#view_designbriefs").modal('show');
+    })
 
     $(function() {
        var email= $("#twc_email").val();

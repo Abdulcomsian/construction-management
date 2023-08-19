@@ -12,6 +12,7 @@ use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use App\Models\ChangeEmailHistory;
+use App\Models\PdfFilesHistory;
 use Notification;
 use App\Models\DesignerCompanyEmail;
 use DB;
@@ -345,6 +346,7 @@ class EstimatorController extends Controller
                 // dd($designer_company_emails, $supplier_company_emails, $local_designers , $local_suppliers,$online_designers, $online_suppliers );
 
                 $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers); 
+                $cleaned_email = [];
                 //Removing -52 for creating emails in proper format
                 foreach($merged_emails as $email)
                 {
@@ -387,6 +389,12 @@ class EstimatorController extends Controller
                     $pdf->save($path . '/' . $filename);
                     $model = TemporaryWork::find($temporary_work->id);
                     $model->ped_url = $filename;
+                    $model->save();
+
+                    //now saving tempwork in pdf history table
+                    $model = new PdfFilesHistory();
+                    $model->pdf_name = $filename;
+                    $model->tempwork_id = $temporary_work->id;
                     $model->save();
 
                     // foreach($data['designer_company_email'] as $key=>$list){
@@ -450,8 +458,14 @@ class EstimatorController extends Controller
                     $model = TemporaryWork::find($temporary_work->id);
                     $model->ped_url = $filename;
                     $model->save();
-                
-                    //send mail to admin
+
+                    //now saving tempwork in pdf history table
+                    $model = new PdfFilesHistory();
+                    $model->pdf_name = $filename;
+                    $model->tempwork_id = $temporary_work->id;
+                    $model->save();
+                    //send mail to admi
+
                     $notify_msg = [
                         'greeting' => 'Estimator Work Pdf',
                         'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
@@ -680,7 +694,7 @@ class EstimatorController extends Controller
             $selectedDesignersList=EstimatorDesignerList::select('email')->where('user_id','!=',NULL)->where(['temporary_work_id'=>$estimatorId])->pluck('email')->toArray();
             $inputDesignersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId, 'type'=>'Designer', 'user_id'=>NULL])->pluck('email')->toArray();
             $inputSuppliersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId,'type'=>'Supplier','user_id'=>NULL])->pluck('email')->toArray();
-            $temporaryWork = TemporaryWork::with('scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id',$estimatorId)->first();
+            $temporaryWork = TemporaryWork::with('designbrief_history', 'scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id',$estimatorId)->first();
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
             return view('dashboard.estimator.edit',compact('temporaryWork', 'projects', 'selectedproject','designers','suppliers', 'adminSuppliers', 'adminDesigners', 'selectedDesignersList','inputDesignersList', 'inputSuppliersList'));
         } catch (\Exception $exception) {
@@ -1005,6 +1019,12 @@ class EstimatorController extends Controller
                 $model = TemporaryWork::find($temporaryWork);
                 $model->ped_url = $filename;
                 $model->save();
+
+                $model = new PdfFilesHistory();
+                $model->pdf_name = $filename;
+                $model->tempwork_id = $temporaryWork;
+                $model->save();
+
                 //send mail to admin
                 
                 $notify_msg = [

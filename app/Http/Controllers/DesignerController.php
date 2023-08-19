@@ -743,8 +743,8 @@ class DesignerController extends Controller
                                 $list .='<tr>';
                                 $list .='<td>'.$i.'-'.$j.'</td>';
                                 $list .='<td>Comment/Reply</td>';
-                                $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
-                                $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                                $list .='<td colspan="5" style="white-space: pre-wrap;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                                $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                                 $list .='</tr>';
                                 $j++;
 
@@ -890,8 +890,8 @@ class DesignerController extends Controller
                             $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
                             $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
                             $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
-                            $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
-                            $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                         //     $delete = route('designer.delete',$uploads->id);
                         // $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                             $k++;
@@ -1035,8 +1035,8 @@ class DesignerController extends Controller
                             $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
                             $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
                             $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
-                            $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
-                            $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                         //     $delete = route('designer.delete',$uploads->id);
                         // $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                             $k++;
@@ -1799,7 +1799,7 @@ class DesignerController extends Controller
                 {
                     $none='display:none;';
                 }
-            $list.='<tr style="padding:5px"><td>'.$i.'</td><td style="max-width:300px;overflow-x:scroll">'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td>'. $replyemail.'<br>'.$reply.'<br>'. $image.'<form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
+            $list.='<tr style="padding:5px"><td>'.$i.'</td><td style="max-width:300px;overflow-x:scroll;white-space: pre-wrap;">'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td style="white-space: pre-wrap;">'. $replyemail.'<br>'.$reply.'<br>'. $image.'<form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="id" value="' . $comment->id . '"/>
                                    <input type="hidden" name="drawingid" value="'.$id.'" />

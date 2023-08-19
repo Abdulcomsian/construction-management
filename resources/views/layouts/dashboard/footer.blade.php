@@ -48,5 +48,5 @@
 </style>
 
 <a  class="whats-app my-float" href="https://wa.me/447888119977" target="_blank">
-    <img src="{{asset('uploads/support/whatsapp.png')}}" width="60" alt="support"/>
+    <img src="{{asset('uploads/support/whatsapp.png')}}" width="40" alt="support"/>
 </a>

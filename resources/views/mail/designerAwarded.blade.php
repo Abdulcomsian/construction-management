@@ -36,7 +36,8 @@
                                                                    </p>
                                                                    <p>
                                                                         <a href="{{route('designer.uploaddesign',Crypt::encrypt($id).'/?mail='.$email)}}">Upload Drawing</a>
-
+                                                                    </p>
+                                                                    <p>
                                                                        <a href="{{route('estimator.designer',$id.'/?mail='.$email.'&code='.Crypt::encrypt($code))}}">View Awarded Estimate Design Brief</a>
                                                                    </p>
                                                                   @endif

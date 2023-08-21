@@ -1019,11 +1019,9 @@ class EstimatorController extends Controller
                 $model = TemporaryWork::find($temporaryWork);
                 $model->ped_url = $filename;
                 $model->save();
+                
+                HelperFunctions::PdfFilesHistory($filename, $temporaryWork, 'pre_con');
 
-                $model = new PdfFilesHistory();
-                $model->pdf_name = $filename;
-                $model->tempwork_id = $temporaryWork;
-                $model->save();
 
                 //send mail to admin
                 

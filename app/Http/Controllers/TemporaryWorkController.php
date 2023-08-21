@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\File;
 use Auth;
 use App\Mail\PermitUnloadMail;
 use App\Models\DesignerCompanyEmail;
+use App\Models\PdfFilesHistory;
 use App\Models\ProjectBlock;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
@@ -729,6 +730,9 @@ $notify_admins_msg = [
                 $model = TemporaryWork::find($temporary_work->id);
                 $model->ped_url = $filename;
                 $model->save();
+                if(!$request->approval){
+                    HelperFunctions::PdfFilesHistory($filename, $temporary_work->id, 'design_brief', $twc_id_no);
+                }
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporary_work->id,
@@ -790,13 +794,7 @@ $notify_admins_msg = [
                         foreach($request->designer_company_email as $email){
 
                             $notify_admins_msg['body']['designer'] = 'designer1';
-                            //changing email history
-                            // $cmh= new ChangeEmailHistory();
-                            // $cmh->email=$request->designer_company_email;
-                            // $cmh->type ='Designer Company';
-                            // $cmh->foreign_idd=$temporary_work->id;
-                            // $cmh->message='Email sent to Designer Company';
-                            // $cmh->save();
+                            
                             HelperFunctions::EmailHistory(
                                 $email,
                                 'Design Company',
@@ -811,12 +809,7 @@ $notify_admins_msg = [
                     //designer email second
                     if ($request->desinger_email_2) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
-                        // $cmh= new ChangeEmailHistory();
-                        // $cmh->email=$request->desinger_email_2;
-                        // $cmh->type ='Designer Checker';
-                        // $cmh->foreign_idd=$temporary_work->id;
-                        // $cmh->message='Email sent to Design Checker';
-                        // $cmh->save();
+                        
                         HelperFunctions::EmailHistory(
                             $request->desinger_email_2,
                             'Design Checker',
@@ -893,6 +886,13 @@ $notify_admins_msg = [
     {
         Validations::storeTemporaryWork($request);
         try {
+            if(!$request->approval || !$temporaryWork->status == 2){
+                $pdf_history = PdfFilesHistory::where('tempwork_id', $temporaryWork->id)->count();
+                if($pdf_history == 0){
+                    HelperFunctions::PdfFilesHistory($temporaryWork->ped_url, $temporaryWork->id, 'design_brief', $temporaryWork->twc_id_no);
+                }
+            }
+            
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -1024,12 +1024,19 @@ $notify_admins_msg = [
 
                 $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $request->twc_id_no, 'comments' => $attachcomments]);
                 $path = public_path('pdf');
-                @unlink($path . '/' . $temporaryWork->ped_url);
+                if (isset($request->approval)) {
+                    @unlink($path . '/' . $temporaryWork->ped_url);
+                }
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
                 $model = TemporaryWork::find($temporaryWork->id);
                 $model->ped_url = $filename;
                 $model->save();
+                if(!$request->approval || !$temporaryWork->status == 2){
+                $count = $model->designbrief_history->count();
+                $twc_id_no = $request->twc_id_no.'-'.$count++;
+                HelperFunctions::PdfFilesHistory($filename, $temporaryWork->id, 'design_brief', $twc_id_no);
+                }
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporaryWork->id,
@@ -1038,13 +1045,6 @@ $notify_admins_msg = [
                         'email' => Auth::user()->email,
                     ]);
 
-                     //changing email history
-                    // $cmh= new ChangeEmailHistory();
-                    // $cmh->email=$request->pc_twc_email;
-                    // $cmh->type ='Design Brief';
-                    // $cmh->message='Design Brief sent for approval';
-                    // $cmh->foreign_idd=$temporaryWork->id;
-                    // $cmh->save();
                     HelperFunctions::EmailHistory(
                         $request->pc_twc_email,
                         'Design Brief',
@@ -1117,7 +1117,7 @@ $notify_admins_msg = [
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
-            // dd($exception->getMessage(), $exception->getLine());
+            dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

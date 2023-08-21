@@ -1012,6 +1012,7 @@
                                                 <th>No</th>
                                                 <th>Project</th>
                                                 <th>Company</th>
+                                                <th>Title</th>
                                                 <th>Attachment</th>
                                                 <th>Actions</th>
                                             </tr>

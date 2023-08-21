@@ -316,7 +316,7 @@
         font-size:20px !important;
         font-weight:bold !important;
         border-radius:5px;
-        margin-top:-160px;
+        /* margin-top:-160px; */
     }
 
 

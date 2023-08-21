@@ -819,14 +819,14 @@
                                                 @endforeach
                                              </div>
                                           </div>
-                                          {{-- <div class="d-flex mt-2" style="position: relative;">
-                                             <span class="titleColumn">Date DCC Returned:</span>
+                                          <div class="d-flex mt-2" style="visibility:hidden; position: relative;">
+                                             <span class="titleColumn"></span>
                                              <div
                                                 style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
-                                               
+                                               asd
 
                                              </div>
-                                          </div> --}}
+                                          </div>
                                        </td> 
                                        <td style="width:400px;">
                                         

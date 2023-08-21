@@ -162,4 +162,15 @@ class TemporaryWork extends Model
     public function designbrief_history(){
         return $this->hasMany(PdfFilesHistory::class,'tempwork_id'); 
     }
+
+    public function pdfFilesPreCon()
+    {
+        return $this->hasMany(PdfFilesHistory::class , 'tempwork_id' )->where('type','=','pre_con');
+    }
+
+    public function pdfFilesDesignBrief()
+    {
+        return $this->hasMany(PdfFilesHistory::class, 'tempwork_id')->where('type', '=', 'design_brief');
+    }
+
 }

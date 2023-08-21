@@ -48,7 +48,7 @@
 
                             <div class="col-md-12 fv-row">
                                 <label class="fs-6 fw-bold mb-2">{{$index + 1}}</label>
-                                <label class="fs-6 fw-bold mb-2"><a target="_blank" href="estimatorpdf/{{$designbrief->pdf_name}}">View Design Brief</a></label>
+                                <label class="fs-6 fw-bold mb-2"><a target="_blank" href="estimatorPdf/{{$designbrief->pdf_name}}">View Design Brief</a></label>
                                 <label class="fs-6 fw-bold mb-2">{{$date}}</label>
                             </div>
                         @endforeach

@@ -886,8 +886,8 @@ $notify_admins_msg = [
     {
         Validations::storeTemporaryWork($request);
         try {
-            if(!$request->approval || !$temporaryWork->status == 2){
-                $pdf_history = PdfFilesHistory::where('tempwork_id', $temporaryWork->id)->count();
+            if(!$request->approval){
+                $pdf_history = PdfFilesHistory::where([['tempwork_id', $temporaryWork->id],['type','design_brief']])->count();
                 if($pdf_history == 0){
                     HelperFunctions::PdfFilesHistory($temporaryWork->ped_url, $temporaryWork->id, 'design_brief', $temporaryWork->twc_id_no);
                 }
@@ -1033,7 +1033,7 @@ $notify_admins_msg = [
                 $model->ped_url = $filename;
                 $model->save();
                 if(!$request->approval || !$temporaryWork->status == 2){
-                $count = $model->designbrief_history->count();
+                $count = $model->pdfFilesDesignBrief->count();
                 $twc_id_no = $request->twc_id_no.'-'.$count++;
                 HelperFunctions::PdfFilesHistory($filename, $temporaryWork->id, 'design_brief', $twc_id_no);
                 }

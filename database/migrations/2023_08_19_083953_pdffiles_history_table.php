@@ -18,9 +18,9 @@ class PdffilesHistoryTable extends Migration
             $table->id();
             $table->string('pdf_name')->nulable();;
             $table->bigInteger('tempwork_id')->unsigned()->nulable();
-            $table->foreign('tempwork_id')
-            ->references('id')
-            ->on('temporary_works');
+            $table->foreign('tempwork_id')->references('id')->on('temporary_works');
+            $table->string('twc_id_no')->nullable();
+            $table->enum('type', ['pre_con', 'design_brief']);
             $table->timestamps();
            
           
@@ -35,6 +35,6 @@ class PdffilesHistoryTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('pdffiles_history');
+        Schema::dropIfExists('pdf_files_history');
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PdfFilesHistory extends Model
 {
     use HasFactory;
-    public $table = 'pdffiles_history';
+    public $table = 'pdf_files_history';
 
     public function pdffiles_history()
     {

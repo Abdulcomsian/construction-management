@@ -913,15 +913,15 @@ $tempWorkClass = "d-none";
                                                     </a>
                                                 </li>
                                                 @if(!empty($assignedBlocks))
-                                                @foreach($assignedBlocks as $block)
-                                                <li class="navi-item">
-                                                    <a href="{{url('/temporary_works?block='.$block['id'])}}"
-                                                        class="navi-link">
+                                                    @foreach($assignedBlocks as $block)
+                                                    <li class="navi-item">
+                                                        <a href="{{url('/temporary_works?block='.$block['id'])}}"
+                                                            class="navi-link">
 
-                                                        <span class="navi-text">{{$block['title']}}</span>
-                                                    </a>
-                                                </li>
-                                                @endforeach
+                                                            <span class="navi-text">{{$block['title']}}</span>
+                                                        </a>
+                                                    </li>
+                                                    @endforeach
                                                 @endisset
                                             </ul>
                                         </div>
@@ -1188,11 +1188,13 @@ $tempWorkClass = "d-none";
                                                                 @php
                                                                     $edit_class = '';
                                                                     $edit_red_blink = '';
+                                                                    $label_class = 'label-light-success';
                                                                 @endphp
                                                                 @if($item->status==2)
                                                                     @php
                                                                         $edit_class = 'rejecteddesign';
-                                                                        $edit_red_blink = 'redBgBlink'
+                                                                        $edit_red_blink = 'redBgBlink';
+                                                                        $label_class='label-light-danger';
                                                                     @endphp
                                                                 @endif
                                                                 <a href="{{route('temporary_works.edit',$item->id)}}">
@@ -1200,7 +1202,7 @@ $tempWorkClass = "d-none";
                                                                         style="width: 108px;"
                                                                         data-id="{{Crypt::encrypt($item->id)}}">
                                                                         <span
-                                                                            class="{{$edit_red_blink}} label label-lg font-weight-bold label-light-danger label-inline"><i
+                                                                            class="{{$edit_red_blink}} label label-lg font-weight-bold {{$label_class}} label-inline"><i
                                                                                 class="fa fa-edit text-white"
                                                                                 style="font-size:10px; position:relative; bottom:0.5px;"></i>
                                                                         </span>

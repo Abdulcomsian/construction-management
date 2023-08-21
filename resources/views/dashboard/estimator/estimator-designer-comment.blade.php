@@ -196,7 +196,7 @@
                                     <td>{{$loop->index+1}}</td>
                                     <td style="width:{{$first_td_width}}">
                                         <b>{{$cmt->comment_email}}</b><br>
-                                        <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+                                        <p style="white-space: pre-wrap;">{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
                                     </td>
                                     <td style="width:{{$second_td_width}}">
                                         @if($cmt->reply==NULL)

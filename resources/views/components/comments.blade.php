@@ -67,7 +67,7 @@
         foreach ($twcdesigncomments as $comment) {
             $tabletwcdesigner .= '<tr style="background: white">
                                     <td style="padding: 11px !important">' . $i . '</td>
-                                    <td style="padding: 11px !important">' . $comment->comment . '</td>
+                                    <td style="padding: 11px !important; white-space: pre-wrap;">' . $comment->comment . '</td>
                                     <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                                 </tr>';
             $i++;

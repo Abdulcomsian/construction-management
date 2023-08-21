@@ -751,11 +751,11 @@
         <div id="kt_content_container" class="container" style="padding-top: 80px">
             <div class="row">
                 <div class="col-md-12">
-                    <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
+                    {{-- <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
                         <span class="">Pre Conn Design Brief Details: </span>
-                    </label>
+                    </label> --}}
                     <label class="form-check-label" for="exampleRadios1">
-                       <b>Project:</b> {{$estimatorWork->project->name ?? ''}}, <b>Company:</b> {{$estimatorWork->company}} <a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">Design Brief</a>
+                        <b>Title:</b> {{$estimatorWork->design_requirement_text}} <b>Project:</b> {{$estimatorWork->project->name ?? ''}}, <b>Company:</b> {{$estimatorWork->company}} <a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">Design Brief</a>
                     </label>
                     </div>
             </div>
@@ -1022,6 +1022,7 @@
                                                 <td>{{$loop->index+1}}</td>
                                                 <td>{{$est->estimator->project->name ?? $est->estimator->projname}}</td>
                                                 <td>{{$est->estimator->company}}</td>
+                                                <td>{{$est->estimator->design_requirement_text}} </td>
                                                 <td><a href="{{asset('estimatorPdf/'.$est->estimator->ped_url)}}">PDF</a>
                                                 </td>
                                                 <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank" title="View & Upload Design"><i class="fa fa-eye"></i></a></td>

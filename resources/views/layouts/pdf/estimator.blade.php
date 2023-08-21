@@ -18,8 +18,8 @@
     <div style="padding: 10px; width: 100%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText" style="float:left;width:70%">
-                <h3>Estimate Brief:</h3>
-                
+                <h3>Estimate Brief: {{$twc_id_no}}</h3>
+                <p style="width:200px !important">{{$twc_id_no}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
             </div>
             <div class="logo" style="float:right;width:20%;">
                 

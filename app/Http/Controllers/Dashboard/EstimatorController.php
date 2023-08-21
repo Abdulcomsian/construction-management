@@ -280,8 +280,9 @@ class EstimatorController extends Controller
                 $all_inputs['tempid'] = $j;
                 $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
                 $all_inputs['twc_id_no'] = $twc_id_no;
+            }else{
+                $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
             }
-
             $image_name = '';
             if(Auth::user()->hasRole('user') && $request->display_sign){
                 if ($request->signtype == 1) {
@@ -450,8 +451,7 @@ class EstimatorController extends Controller
                     return redirect()->route('temporary_works.index');
 
                 }else{
-                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
-                
+                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                     $path = public_path('estimatorPdf');
                     $filename = rand() . '.pdf';
                     $pdf->save($path . '/' . $filename);
@@ -797,6 +797,9 @@ class EstimatorController extends Controller
 
                 //make estimator as temporary work
                 $all_inputs['estimator']=0;
+            }else{
+                $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
+                $all_inputs['twc_id_no'] = $twc_id_no;
             }
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -1009,7 +1012,7 @@ class EstimatorController extends Controller
                         toastSuccess('Pre Con Published successfully!');
                         return redirect()->route('temporary_works.index');
                 } else{
-                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                      $path = public_path('estimatorPdf');
                
                 

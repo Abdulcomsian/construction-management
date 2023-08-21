@@ -1226,7 +1226,12 @@ $tempWorkClass = "d-none";
                                                                     width="70px" height="70px">
                                                             </a>
                                                             @endif
-                                                            @if($item->status==2 || $item->status == 0) 
+                                                            @if($item->designbrief_history->count() == 0)
+                                                                <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
+                                                                    target="_blank"
+                                                                    href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                </a>
+                                                            @elseif($item->status==2 || $item->status == 0) 
                                                                 <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
                                                                     target="_blank"
                                                                     href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}

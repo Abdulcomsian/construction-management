@@ -1453,6 +1453,8 @@ class DesignerController extends Controller
                     $chm->message='Design Breif Approved by PC TWC';
                     $chm->status=2;
                     $chm->save();
+
+                    HelperFunctions::PdfFilesHistory($tempworkdata->ped_url, $tempworkdata->id, 'design_brief', $tempworkdata->twc_id_no);
                 }
                 $subject = 'TWP – Design Brief Accepted - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
                 $text = "We have attached the accepted PDF design brief for  ". $tempworkdata->company .". The design brief includes relevant documents as links.";

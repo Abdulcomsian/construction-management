@@ -1151,7 +1151,7 @@ $tempWorkClass = "d-none";
                                             id="kt_table_users">
 
                                             <tbody class="text-gray-600 fw-bold taable">
-@php $count =-1; @endphp
+                                                @php $count =-1; @endphp
                                                 @forelse($temporary_works as $item)
                                                 @php $count++; @endphp
                                                 <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
@@ -1185,19 +1185,27 @@ $tempWorkClass = "d-none";
                                                                 <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                                                                              </a> -->
                                                                 <!-- <br> -->
+                                                                @php
+                                                                    $edit_class = '';
+                                                                    $edit_red_blink = '';
+                                                                @endphp
                                                                 @if($item->status==2)
+                                                                    @php
+                                                                        $edit_class = 'rejecteddesign';
+                                                                        $edit_red_blink = 'redBgBlink'
+                                                                    @endphp
+                                                                @endif
                                                                 <a href="{{route('temporary_works.edit',$item->id)}}">
-                                                                    <span class="rejecteddesign cursor-pointer"
+                                                                    <span class="{{$edit_class}} cursor-pointer"
                                                                         style="width: 108px;"
                                                                         data-id="{{Crypt::encrypt($item->id)}}">
                                                                         <span
-                                                                            class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i
+                                                                            class="{{$edit_red_blink}} label label-lg font-weight-bold label-light-danger label-inline"><i
                                                                                 class="fa fa-edit text-white"
                                                                                 style="font-size:10px; position:relative; bottom:0.5px;"></i>
                                                                         </span>
                                                                     </span>
                                                                 </a>
-                                                                @endif
                                                             </div>
                                                             <span class="fa fa-plus addphoto cursor-pointer"
                                                                 data-id="{{$item->id}}"></span>
@@ -1218,12 +1226,19 @@ $tempWorkClass = "d-none";
                                                                     width="70px" height="70px">
                                                             </a>
                                                             @endif
-                                                            <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
-                                                                target="_blank"
-                                                                href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                                            </a>
-
-
+                                                            @if($item->status==2 || $item->status == 0) 
+                                                                <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
+                                                                    target="_blank"
+                                                                    href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                </a>
+                                                            @else
+                                                                @foreach($item->designbrief_history as $row)
+                                                                    <a style=""
+                                                                        target="_blank"
+                                                                        href="{{asset('pdf'.'/'.$row->pdf_name)}}">{{$row->twc_id_no}}
+                                                                    </a>
+                                                                @endforeach
+                                                            @endif
                                                         </div>
                                                     </td>
                                                     <td style="max-width: 191px;min-width: 191px;">

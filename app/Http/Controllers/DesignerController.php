@@ -2635,7 +2635,6 @@ class DesignerController extends Controller
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
-            // dd($all_inputs);
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -2665,6 +2664,10 @@ class DesignerController extends Controller
             for($i=0;$i<count($request->price);$i++)
             {
                 if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
+                if(!isset($request->description[$i]) || is_null($request->description[$i]) )
                 {
                     continue;
                 }

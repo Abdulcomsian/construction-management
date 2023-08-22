@@ -883,7 +883,7 @@
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Price:</span>
                                   </label>
-                                   <input type="number" name="price[]" class="form-control"/>
+                                   <input type="number" name="price[]" class="form-control" required/>
                 
                               </div>
                                 
@@ -893,7 +893,7 @@
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Description:</span>
                                   </label>
-                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
+                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control" required />
                 
                               </div>
                                 
@@ -903,7 +903,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span>Date:</span>
                                     </label>
-                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
+                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02" required />
                                 </div>
                                 
                             </div>

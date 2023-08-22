@@ -2224,6 +2224,13 @@ class DesignerController extends Controller
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $all_inputs['photo'] = $imagename;
             }
+            if($request->existing_design_brief){
+                $old_path = public_path($temporary_work->existing_design_brief);
+                $file = $request->file('existing_design_brief');
+                $filePath = 'uploads/existing_designs/';
+                $imagename = HelperFunctions::saveFile($old_path, $file, $filePath);
+                $all_inputs['existing_design_brief'] = $imagename;
+            }
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
@@ -2239,6 +2246,10 @@ class DesignerController extends Controller
              $designerQuotes = [];
              for ($i = 0; $i < count($request->price); $i++) {
                 if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
+                if(!isset($request->description[$i]) || is_null($request->description[$i]) )
                 {
                     continue;
                 }
@@ -2675,7 +2686,6 @@ class DesignerController extends Controller
                 $model->price=$request->price[$i];
                 $model->description=$request->description[$i];
                 $model->date=$request->date[$i];
-                // $model->estimator_designer_list_id=$request->estimator_designer_id;
                 $model->email=$request->client_email;
                 $model->temporary_work_id=$temporary_work->id;
                 $model->save();

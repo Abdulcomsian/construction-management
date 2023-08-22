@@ -324,6 +324,32 @@
     @media only screen and (max-width: 775px) {
 
     }
+
+    .email-plus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background:#07d564;
+        border-radius:8px;
+        border:none;
+        cursor: pointer;
+        margin-top:38px;
+    }
+    .email-minus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background:red;
+        border-radius:8px;
+        border:none;
+        cursor: pointer;
+    }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 
@@ -542,10 +568,10 @@
                 </label>
               </div>
             </div>
-            <div class="col-md-6" id="drawingFieldDiv">
-                <div class="modalDiv d-block mt-md-5">
+            <div class="col-md-5" >
+                <div class="modalDiv d-block mt-md-5" id="drawingFieldDiv"> 
                         <label class="fs-6 fw-bold mb-2">
-                            <span class="required">Select Drawing :</span>
+                            <span class="required">Select Drawing : </span>
                         </label>
                         <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
                             <option value="">Select PDF</option>
@@ -556,7 +582,13 @@
                         <input type="hidden" value="" id="design_upload" name="design_upload" />
                     </div>
             </div>
-            
+            <div class="col-md-1">
+                               <div class="email-plus"  id="email-button"> +  </div> 
+                            </div>
+             <div class="row" id="additional-emails"  >
+                                    
+                            
+            </div>
             <div class="col-md-6" id="customFieldDiv" style="display: none;">
               <div class="d-flex inputDiv d-block my-0 mt-md-5" id="photoDesign">
                 <!--begin::Label-->
@@ -2376,4 +2408,52 @@
       }
   });
 </script>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var emailContainer = document.getElementById("additional-emails");
+
+    document.getElementById("email-button").addEventListener("click", function() {
+        var emailFieldDiv = document.createElement("div");
+        emailFieldDiv.setAttribute("class", "col-md-5");
+        emailFieldDiv.style.marginTop = "2px";
+
+        var designerEmailDiv = document.getElementById("drawingFieldDiv");
+        var clonedDiv = designerEmailDiv.cloneNode(true);
+        clonedDiv.querySelector("input").value = "";
+
+        emailFieldDiv.appendChild(clonedDiv);
+
+        var colDiv = document.createElement("div");
+        colDiv.setAttribute("class", "col-md-1");
+
+        var emailMinusDiv = document.createElement("div");
+        emailMinusDiv.setAttribute("class", "email-minus");
+        emailMinusDiv.style.marginTop = "41px"; 
+        emailMinusDiv.textContent = " - ";
+
+        emailMinusDiv.addEventListener("click", function() {
+            emailContainer.removeChild(emailFieldDiv);
+            emailContainer.removeChild(colDiv);
+        });
+
+        colDiv.appendChild(emailMinusDiv);
+
+        emailContainer.appendChild(emailFieldDiv);
+        emailContainer.appendChild(colDiv);
+    });
+});
+
+</script>
+
+
+
+
+
+
+
+
 @endsection

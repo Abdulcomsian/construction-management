@@ -152,7 +152,7 @@
                                     <td style="text-align:center;">1</td>
                                     <td>{{$companyProfile->company_name}}</td>
                                     <td>{{$companyProfile->comapny_email}}</td>
-                                    <td>{{$companyProfile->company_address}}</td>
+                                    <td style="white-space: pre-wrap;">{{$companyProfile->company_address}}</td>
                                     <td style="max-height: 200px;
                                         min-height: 200px;
                                         height: 200px;

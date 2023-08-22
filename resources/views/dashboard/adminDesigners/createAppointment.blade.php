@@ -1,4 +1,5 @@
-@extends('layouts.dashboard.master',['title' => 'Appointment'])
+{{-- @extends('layouts.dashboard.master',['title' => 'Appointment']) --}}
+@extends('layouts.nomination',['title' => 'Appointment'])
 @section('styles')
 <style>
    
@@ -178,7 +179,7 @@
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
-    <div class="toolbar" id="kt_toolbar">
+    {{-- <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
@@ -219,7 +220,7 @@
 
         </div>
         <!--end::Container-->
-    </div>
+    </div> --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">

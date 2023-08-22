@@ -41,16 +41,16 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-         $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->latest()->get();
+         $data = User::role(['user', 'supervisor', 'visitor', 'scaffolder','estimator'])->latest()->get();
         $user = auth()->user();
         abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
         try {
         
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
-                    $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->with('usernomination')->latest()->get();
+                    $data = User::role(['user', 'supervisor', 'visitor', 'scaffolder','estimator'])->with('usernomination')->latest()->get();
                 } elseif ($user->hasRole('company')) {
-                    $data = User::role(['user', 'supervisor', 'scaffolder','estimator'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
+                    $data = User::role(['user', 'supervisor', 'visitor', 'scaffolder','estimator'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')
@@ -259,7 +259,7 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::role(['company', 'user', 'supervisor', 'scaffolder','estimator'])
+            $user = User::role(['company', 'user', 'supervisor', 'visitor', 'scaffolder','estimator'])
                 ->with(['userProjects', 'userCompany'])
                 ->where('id', $id)
                 ->first();

@@ -30,6 +30,7 @@ use App\Notifications\PasswordResetNotification;
 use Crypt;
 use App\Notifications\CreateNomination;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -163,8 +164,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        DB::beginTransaction();
         Validations::storeUser($request);
-      //  try {
+       try {
             $userprojectdata=[];
             $all_inputs = $request->except('_token', 'role','description_of_role','Description_limits_authority','authority_issue_permit');
             if ($request->file('image')) {
@@ -224,13 +226,15 @@ class UserController extends Controller
               'token' => $token, 
               'created_at' => Carbon::now()
             ]);
+            DB::commit();
             Notification::route('mail', $request->email)->notify(new PasswordResetNotification($token,$request->email));
             toastSuccess('User successfully added!');
             return redirect()->route('users.index');
-       // } catch (\Exception $exception) {
-      //      toastError('Something went wrong, try again');
-      //      return Redirect::back();
-       // }
+       } catch (\Exception $exception) {
+            DB::rollback();
+           toastError('Something went wrong, try again');
+           return Redirect::back();
+       }
     }
 
     /**

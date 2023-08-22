@@ -1144,7 +1144,7 @@ hr{
 <script type="text/javascript">
     let role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
    $(".addcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }

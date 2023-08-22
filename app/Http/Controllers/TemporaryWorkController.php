@@ -369,7 +369,7 @@ class TemporaryWorkController extends Controller
     }
     public function create()
     {
-        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+        if (auth()->user()->hasRole([['supervisor','visitor','scaffolder']])) {
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
@@ -381,7 +381,7 @@ class TemporaryWorkController extends Controller
         //           return Redirect::back();
         //     }
         // }
-        //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        //abort_if(auth()->user()->hasRole(['supervisor', 'visitor', 'scaffolder']), 403);
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -413,7 +413,7 @@ class TemporaryWorkController extends Controller
 
     public function create2()
     {
-        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+        if (auth()->user()->hasRole([['supervisor', 'visitor', 'scaffolder']])) {
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
@@ -425,7 +425,7 @@ class TemporaryWorkController extends Controller
         //           return Redirect::back();
         //     }
         // }
-        //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        //abort_if(auth()->user()->hasRole(['supervisor', 'visitor', 'scaffolder']), 403);
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -457,7 +457,7 @@ class TemporaryWorkController extends Controller
     //manually desing breif form for old data
     public function create1()
     {
-        abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        abort_if(auth()->user()->hasRole(['supervisor', 'visitor', 'scaffolder']), 403);
         // if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
         //    if(Auth::user()->nomination == 1 && Auth::user()->nomination_status != 1)
         //     {
@@ -528,22 +528,22 @@ class TemporaryWorkController extends Controller
                     $model->drawing_title=$request->drawing_title;
                     $model->save();
                 }
-$notify_admins_msg = [
-                'greeting' => 'Temporary Work Pdf',
-                'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
-                'body' => [
-                    'company' => $request->company,
-                    'filename' => $filename,
-                    'links' => '',
-                    'name' =>  $request->design_requirement_text . '-' . $request->twc_id_no,
-                    'designer' => '',
-                    'pc_twc' => '',
+                $notify_admins_msg = [
+                    'greeting' => 'Temporary Work Pdf',
+                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                    'body' => [
+                        'company' => $request->company,
+                        'filename' => $filename,
+                        'links' => '',
+                        'name' =>  $request->design_requirement_text . '-' . $request->twc_id_no,
+                        'designer' => '',
+                        'pc_twc' => '',
 
-                ],
-                'thanks_text' => 'Thanks For Using our site',
-                'action_text' => '',
-                'action_url' => '',
-            ];
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
                 #uploading DCC
                 if ($request->file('dcc')) {
                     $file = $request->file('dcc');
@@ -559,12 +559,7 @@ $notify_admins_msg = [
 
             if ($request->desinger_email_2) {
                 $notify_admins_msg['body']['designer'] = 'designer1';
-                // $cmh= new ChangeEmailHistory();
-                // $cmh->email=$request->desinger_email_2;
-                // $cmh->type ='Design Checker';
-                // $cmh->foreign_idd=$temporary_work->id;
-                // $cmh->message='Email sent to Design Checker';
-                // $cmh->save();
+                
                 HelperFunctions::EmailHistory(
                     $request->desinger_email_2,
                     'Design Checker',
@@ -852,7 +847,7 @@ $notify_admins_msg = [
     }
     public function edit(TemporaryWork $temporaryWork)
     {
-        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+        if (auth()->user()->hasRole([['supervisor', 'visitor', 'scaffolder']])) {
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }

@@ -2567,7 +2567,7 @@ class DesignerController extends Controller
 
    public function storeEstimation(Request $request)
    {
-    // Validations::storeEstimatorWork($request);
+    Validations::storeEstimatorWork($request);
     try {
             $informationRequired = $request->information_required;
             if($informationRequired == "on")

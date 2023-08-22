@@ -698,7 +698,7 @@
                                         <span>Client Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" name="client_email" class="form-control form-control-slid" value="{{$temporary_work->designerQuote ? $temporary_work->designerQuote[0]->email : "" }}" placeholder="Enter Client Email" />
+                                    <input type="email" name="client_email" class="form-control form-control-slid" value="{{$temporary_work->designerQuote ? ($temporary_work->designerQuote[0]->email ?? '') : '' }}" placeholder="Enter Client Email" />
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -11,8 +11,8 @@
                <span class="required">Select Designer</span>
             </label>
             <!--end::Label-->
-            <select name="designer" class="form-select" id="designer-select" aria-label="Default select example"
-               style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
+            <select name="designer" class="form-select form-control" id="designer-select" aria-label="Default select example"
+               style=" padding: 0 10px; color: #666; font-weight: 300;">
                <option disabled selected>Open this select menu</option>
                @isset($users)
                   @foreach($users as $user)
@@ -52,8 +52,8 @@
                <span class="required">Select Checker</span>
             </label>
             <!--end::Label-->
-            <select name="checker" class="form-select" id="checker-select" aria-label="Default select example"
-               style="border:none; padding: 0 10px; color: #666; font-weight: 300;">
+            <select name="checker" class="form-select form-control" id="checker-select" aria-label="Default select example"
+               style=" padding: 0 10px; color: #666; font-weight: 300;">
                <option disabled selected>Open this select menu</option>
                @isset($users)
                   @foreach($users as $user)
@@ -104,7 +104,7 @@
          </label>
          <input type="date" class="form-control" name="checker_end_date" value="{{ $estimatorDesigner->checkerAssign->start_date ?? '' }}"/>
       </div>
-      <div class="col-md-12 mt-4">
+      <div class="col-md-2 mt-4">
          <button class="btn btn-primary w-100" type="submit">Submit</button>
       </div>
    </div>

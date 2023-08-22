@@ -167,9 +167,9 @@
                                     <td> 
                                         <img src="{{asset($companyProfile->logo)}}" width="100px" height="100px">
                                     </td>
-                                    <td><a href="{{$companyProfile->company_cv}}" target="_blank">View cv</a> </td>
+                                    <td><a href="{{asset($companyProfile->company_cv)}}" target="_blank">View cv</a> </td>
                                     <td>
-                                        <a href="{{$companyProfile->indemnity_insurance}}" target="_blank">View Indemnity Insurance</a> 
+                                        <a href="{{asset($companyProfile->indemnity_insurance)}}" target="_blank">View Indemnity Insurance</a> 
                                     </td>
                                     <td><a href="{{url('adminDesigner/edit-profile',$companyProfile->id)}}"><i class="fa fa-edit"></i></a></td>
                                 </tr>

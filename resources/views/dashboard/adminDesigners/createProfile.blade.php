@@ -152,7 +152,7 @@
                                     <td style="text-align:center;">1</td>
                                     <td>{{$companyProfile->company_name}}</td>
                                     <td>{{$companyProfile->comapny_email}}</td>
-                                    <td>{{$companyProfile->company_address}}</td>
+                                    <td style="white-space: pre-wrap;">{{$companyProfile->company_address}}</td>
                                     <td style="max-height: 200px;
                                         min-height: 200px;
                                         height: 200px;
@@ -167,9 +167,9 @@
                                     <td> 
                                         <img src="{{asset($companyProfile->logo)}}" width="100px" height="100px">
                                     </td>
-                                    <td><a href="{{$companyProfile->company_cv}}" target="_blank">View cv</a> </td>
+                                    <td><a href="{{asset($companyProfile->company_cv)}}" target="_blank">View cv</a> </td>
                                     <td>
-                                        <a href="{{$companyProfile->indemnity_insurance}}" target="_blank">View Indemnity Insurance</a> 
+                                        <a href="{{asset($companyProfile->indemnity_insurance)}}" target="_blank">View Indemnity Insurance</a> 
                                     </td>
                                     <td><a href="{{url('adminDesigner/edit-profile',$companyProfile->id)}}"><i class="fa fa-edit"></i></a></td>
                                 </tr>

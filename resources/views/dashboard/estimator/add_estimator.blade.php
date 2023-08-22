@@ -739,6 +739,16 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span>Existing Design Brief:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="file" class="form-control" name="existing_design_brief" />
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
 

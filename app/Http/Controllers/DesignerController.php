@@ -430,7 +430,12 @@ class DesignerController extends Controller
                 $model->comments = 2;
             }
             $model->twd_name = $request->checkeremail;
-
+            if($request->existing_design_brief){
+                $file = $request->file('existing_design_brief');
+                $filePath = 'uploads/existing_designs/';
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model->existing_design_brief = $imagename;
+            }
             if (isset($request->designcheckfile)) {
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
@@ -2642,6 +2647,12 @@ class DesignerController extends Controller
                 $file = $request->file('photo');
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $all_inputs['photo'] = $imagename;
+            }
+            if($request->existing_design_brief){
+                $file = $request->file('existing_design_brief');
+                $filePath = 'uploads/existing_designs/';
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $all_inputs['existing_design_brief'] = $imagename;
             }
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];

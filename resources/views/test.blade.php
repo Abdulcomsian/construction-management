@@ -1927,7 +1927,7 @@
 </script>
 <script>
    $(".uploadfile").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add File");
            return false;
        }
@@ -1951,7 +1951,7 @@
    })
    
    $(".addcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -1980,7 +1980,7 @@
    
    //show reject comment
    $(".rejectcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -2008,7 +2008,7 @@
 </script>
 <script type="text/javascript">
    $(".dateclick").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -2131,7 +2131,7 @@
    
    //Add documents
    $(".adddocument").on('click', function(e) {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add Documents");
            return false;
        }

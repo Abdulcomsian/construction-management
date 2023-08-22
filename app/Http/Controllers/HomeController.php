@@ -843,7 +843,7 @@ class HomeController extends Controller
         if($user->roles->pluck('name')[0]=='user')
         {
            $pdf = PDF::loadView('layouts.pdf.appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]); 
-        }elseif($user->roles->pluck('name')[0]=='supervisor')
+        }elseif($user->roles->pluck('name')[0]=='supervisor' || $user->roles->pluck('name')[0]=='visitor')
         {
             $pdf = PDF::loadView('layouts.pdf.tws-appointment',['user'=>$user,'signature'=>$image_name,'nomination'=>$nomination,'data'=>$request->all()]);
         }

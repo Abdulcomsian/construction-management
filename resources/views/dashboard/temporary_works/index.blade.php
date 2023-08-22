@@ -4533,7 +4533,7 @@ $tempWorkClass = "d-none";
 </script>
 <script>
     $(".uploadfile").on('click', function() { 
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add File");
            return false;
        }
@@ -4571,7 +4571,7 @@ $tempWorkClass = "d-none";
    })
    
    $(".addcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -4603,7 +4603,7 @@ $tempWorkClass = "d-none";
    
    //show reject comment
    $(".rejectcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -4631,7 +4631,7 @@ $tempWorkClass = "d-none";
 </script>
 <script type="text/javascript">
     $(".dateclick").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -4655,6 +4655,10 @@ $tempWorkClass = "d-none";
    
    //upload drawing and design
    $(".uploaddrawing").on('click', function() {
+        if (role == "visitor") {
+           alert("You are not allowed to add drawings");
+           return false;
+       }
        var tempworkid = $(this).attr('data-id');
        $("#desing_tempworkid").val(tempworkid);
        $("#drawinganddesign").modal('show');
@@ -4721,6 +4725,10 @@ $tempWorkClass = "d-none";
    
    })
    $(".permit-to-load-btn").on('click', function() {
+        if (role == "visitor") {
+            alert("You are not allowed to add permit to load");
+            return false;
+        }
        id = $(this).attr('data-id');
        desc = $(this).attr('data-desc');
        type = $(this).attr('data-type');
@@ -4746,6 +4754,10 @@ $tempWorkClass = "d-none";
    
    //permit to unload
    $(".permit-to-unload").on('click', function() {
+        if (role == "visitor") {
+            alert("You are not allowed to add permit to unload");
+            return false;
+        }
        id = $(this).attr('data-id');
        desc = $(this).attr('data-desc');
        $.ajax({
@@ -4776,7 +4788,7 @@ $tempWorkClass = "d-none";
    
    //Add documents
    $(".adddocument").on('click', function(e) {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add Documents");
            return false;
        }

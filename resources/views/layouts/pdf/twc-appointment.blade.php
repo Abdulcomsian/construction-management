@@ -82,6 +82,9 @@
                          }elseif($user->roles->pluck('name')[0]=='supervisor')
                          {
                              $role="Temporary works supervisor (TWS)";
+                         }elseif($user->roles->pluck('name')[0]=='visitor')
+                         {
+                             $role="Temporary works visitor (TWS)";
                          }
                          elseif($user->roles->pluck('name')[0]=='scaffolder')
                          {

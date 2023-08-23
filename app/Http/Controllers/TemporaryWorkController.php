@@ -1901,7 +1901,8 @@ class TemporaryWorkController extends Controller
             $all_inputs['design_upload'] = '';
             if($request->drawing_option == 'drawing')
             {
-                $all_inputs['design_upload'] = $request->design_upload;
+                $designUpload = implode(', ', $request->design_upload);
+                $all_inputs['design_upload'] = $designUpload;
 
             } else if($request->drawing_option == 'custom_file'){
                 $file = $request->file('custom_drawing');

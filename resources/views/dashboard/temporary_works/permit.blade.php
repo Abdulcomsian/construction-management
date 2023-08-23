@@ -313,13 +313,15 @@
 
 
 
-  .set-button {
-    /* position: absolute !important; */
-    font-size: 20px !important;
-    font-weight: bold !important;
-    border-radius: 5px;
-    margin-top: -160px;
-  }
+  .set-button{
+        /* position: absolute !important; */
+        font-size:20px !important;
+        font-weight:bold !important;
+        border-radius:5px;
+        /* margin-top:-160px; */
+    }
+
+
 
     @media only screen and (max-width: 775px) {
 
@@ -591,16 +593,18 @@
                             <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
                             @endforeach
                         </select>
-                        <input type="hidden" value="" id="design_upload" name="design_upload" />
+                        {{-- <input type="hidden" value="" id="design_upload" name="design_upload" /> --}}
                     </div>
             </div>
-            <div class="col-md-1">
+            <div id="files_div">
+            </div>
+            {{-- <div class="col-md-1">
                                <div class="drawing-plus"  id="drawing-button"> +  </div> 
                             </div>
              <div class="row " id="additional-drawing"  >
                                     
                             
-            </div>
+            </div> --}}
             <div class="col-md-6" id="customFieldDiv" style="display: none;">
               <div class="d-flex inputDiv d-block my-0 mt-md-5" id="photoDesign">
                 <!--begin::Label-->

@@ -810,7 +810,7 @@ canvas {
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="label-1">Select Online Designers</span>
                                     </label>
-                                    <select id="mySelect" multiple="multiple"  name="online_designers[]">
+                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="online_designers[]">
    
                                     @foreach($adminDesigners as $desig)
                                      
@@ -869,9 +869,7 @@ canvas {
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Supplier</span>
                                     </label>
-                                    <select name="online_suppliers[]" class="form-select form-select-lg form-select-solid"
-                                        data-control="select2" data-placeholder="Select an option"
-                                        data-allow-clear="true" multiple>
+                                    <select name="online_suppliers[]"  id="mySelect" class="mySelect"  multiple>
                                         {{-- <option value="">Select Option</option> --}}
 
                                         @foreach($adminSuppliers as $supp)
@@ -1341,7 +1339,7 @@ canvas {
 
 <script>
         $(document).ready(function() {
-            $('#mySelect').multiselect({
+            $('.mySelect').multiselect({
                 buttonText: function(options, select) {
                     if (options.length === 0) {
                         return 'Select options';
@@ -1358,7 +1356,7 @@ canvas {
             });
 
             // Prevent checkbox selection when clicking on option text
-            $('#mySelect + .btn-group ul li a label').click(function(e) {
+            $('.mySelect + .btn-group ul li a label').click(function(e) {
                 e.preventDefault();
 
                 var optionValue = $(this).closest('li').find('input[type="checkbox"]').val();
@@ -1373,7 +1371,7 @@ canvas {
             });
 
             // Toggle checkboxes only when checkboxes are clicked
-            $('#mySelect + .btn-group ul li a input[type="checkbox"]').click(function(e) {
+            $('.mySelect + .btn-group ul li a input[type="checkbox"]').click(function(e) {
                 e.stopPropagation(); 
             });
         });

@@ -327,6 +327,18 @@ canvas {
         padding:5px 15px !important;
     }
     }
+
+    
+    .multiselect-selected-text{
+        color:gray;
+        font-weight: 400;
+    font-size: 14px;
+    }
+
+    .multiselect-container>li {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -842,9 +854,7 @@ canvas {
                                                 <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
                                                         <span class="">Select Online Designers</span>
                                                     </label>
-                                                    <select name="online_designers[]" class="form-select form-select-lg form-select-solid"
-                                                        data-control="select2" data-placeholder="Select an option"
-                                                        data-allow-clear="true" multiple>
+                                                    <select name="online_designers[]"   id="mySelect" class="mySelect" multiple="multiple" multiple>
                                                         {{-- <option value="">Select Option</option> --}}
                                                         @foreach($adminDesigners as $desig)
                                                         <!-- <optgroup label="Designer List"> -->
@@ -866,19 +876,14 @@ canvas {
                                                 <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
                                                         <span class="">Select Online Supplier</span>
                                                     </label>
-                                                    <select name="online_suppliers[]"  class="form-select form-select-lg form-select-solid"
-                                                        data-control="select2" data-placeholder="Select an option"
-                                                        data-allow-clear="true" multiple>
+                                                    <select name="online_suppliers[]" id="mySelect" class="mySelect" multiple>
                                                         {{-- <option value="">Select Option</option> --}}
-                                                        @foreach($adminSuppliers as $desig)
-                                                        <optgroup label="Designer List">
-                                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                                        @foreach($adminSuppliers as $desig)                                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
                                                             Checker']))
                                                             <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
                                                             $selectedDesignersList) ? 'selected':''}}>{{$desig->name}} |
                                                                 {{$desig->email}}</option>
                                                             @endif
-                                                        </optgroup>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -1581,5 +1586,43 @@ $('#desingform').submit(function(e) {
     return true;
 });
 </script>
+<script>
+    $(document).ready(function() {
+        $('.mySelect').multiselect({
+            buttonText: function(options, select) {
+                if (options.length === 0) {
+                    return 'Select options';
+                } else if (options.length > 2) {
+                    return options.length + ' selected';
+                } else {
+                    var labels = [];
+                    options.each(function() {
+                        labels.push($(this).text());
+                    });
+                    return labels.join(', ');
+                }
+            }
+        });
 
+        // Prevent checkbox selection when clicking on option text
+        $('.mySelect + .btn-group ul li a label').click(function(e) {
+            e.preventDefault();
+
+            var optionValue = $(this).closest('li').find('input[type="checkbox"]').val();
+
+            // Perform navigation only for "Option one" when clicking on the option text
+            if (optionValue === "Option one") {
+                window.location.href = 'sdsd.html';
+            }
+            if (optionValue === "Option two") {
+                window.location.href = 'adad.html';
+            }
+        });
+
+        // Toggle checkboxes only when checkboxes are clicked
+        $('.mySelect + .btn-group ul li a input[type="checkbox"]').click(function(e) {
+            e.stopPropagation(); 
+        });
+    });
+</script>
 @endsection

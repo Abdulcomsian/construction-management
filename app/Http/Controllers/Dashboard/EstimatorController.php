@@ -179,7 +179,7 @@ class EstimatorController extends Controller
                 $designers=User::role(['designer'])->get();
                 $suppliers=User::role(['supplier'])->get();
                 $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNull('di_designer_id ')->get();
-                $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->whereNull('di_designer_id ')->get();
+                $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
             }else {
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();

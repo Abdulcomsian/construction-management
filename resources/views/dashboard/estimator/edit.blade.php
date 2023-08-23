@@ -5,10 +5,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
 @endsection
 @section('styles')
- <!-- Bootstrap CSS -->
- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
 <style>
+        .dropdown-menu.show{width:400px !important;}
+
         /* ::placeholder {
 
         color: black !important;
@@ -338,6 +340,36 @@ canvas {
     .multiselect-container>li {
         padding: 5px 0;
         border-bottom: 1px solid #eee;
+    }
+
+    .inputDiv-1 {
+        margin: 30px 0px;
+        border: 1px solid #D2D5DA;
+        border-radius: 8px;
+        position: relative;
+        padding: 0px 5px;
+    }
+    .inputDiv-1 select {
+        width: 100%;
+        color: #000 !important;
+    }
+    .inputDiv-1 input {
+        min-width: 40px;
+        color: #000;
+    }
+    .inputDiv-1 input{
+        border-radius: 0.25rem !important;
+    }
+
+    .label-1 {
+         width: 50%;
+        color: #000;
+        position: absolute;
+        bottom: 34px;
+        background: white;
+        font-family: 'Inter', sans-serif;
+        z-index: 1;
+        text-align:center;
     }
 </style>
 
@@ -850,22 +882,23 @@ canvas {
                                             <div class="col-md-6">
                                                 <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                         
-                                                <div class="d-flex inputDiv d-block mb-0">
-                                                <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
-                                                        <span class="">Select Online Designers</span>
+                                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                                    <label class=" fs-6 fw-bold mb-2">
+                                                        <span class="label-1">Select Online Designers</span>
                                                     </label>
-                                                    <select name="online_designers[]"   id="mySelect" class="mySelect" multiple="multiple" multiple>
-                                                        {{-- <option value="">Select Option</option> --}}
-                                                        @foreach($adminDesigners as $desig)
-                                                        <!-- <optgroup label="Designer List"> -->
-                                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
-                                                            Checker']))
-                                                            <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
-                                                            $selectedDesignersList) ? 'selected':''}}>{{$desig->name}} |
-                                                                {{$desig->email}}</option>
-                                                            @endif
-                                                        <!-- </optgroup> -->
-                                                        @endforeach
+                                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="online_designers[]">
+                   
+                                                    @foreach($adminDesigners as $desig)
+                                                     
+                                                     @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                                     Checker']))
+                                                     <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
+                                                        $selectedDesignersList) ? 'selected':''}}>{{$desig->name}} |
+                                                         {{$desig->email}}</option>
+                                                     @endif
+                                          
+                                                 @endforeach
+                
                                                     </select>
                                                 </div>
                                              </div>

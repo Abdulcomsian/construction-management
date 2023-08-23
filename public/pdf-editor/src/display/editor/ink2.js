@@ -60,7 +60,7 @@ class InkEditor2 extends AnnotationEditor {
 
     static _defaultOpacity = 0.25;
 
-    static _defaultThickness = 50;
+    static _defaultThickness = 500;
 
     static _l10nPromise;
 
@@ -94,13 +94,13 @@ class InkEditor2 extends AnnotationEditor {
     /** @inheritdoc */
     static updateDefaultParams(type, value) {
         switch (type) {
-            case AnnotationEditorParamsType.INK_THICKNESS:
+            case AnnotationEditorParamsType.INK2_THICKNESS:
                 InkEditor2._defaultThickness = value;
                 break;
-            case AnnotationEditorParamsType.INK_COLOR:
+            case AnnotationEditorParamsType.INK2_COLOR:
                 InkEditor2._defaultColor = value;
                 break;
-            case AnnotationEditorParamsType.INK_OPACITY:
+            case AnnotationEditorParamsType.INK2_OPACITY:
                 InkEditor2._defaultOpacity = value / 100;
                 break;
         }
@@ -109,13 +109,13 @@ class InkEditor2 extends AnnotationEditor {
     /** @inheritdoc */
     updateParams(type, value) {
         switch (type) {
-            case AnnotationEditorParamsType.INK_THICKNESS:
+            case AnnotationEditorParamsType.INK2_THICKNESS:
                 this.#updateThickness(value);
                 break;
-            case AnnotationEditorParamsType.INK_COLOR:
+            case AnnotationEditorParamsType.INK2_COLOR:
                 this.#updateColor(value);
                 break;
-            case AnnotationEditorParamsType.INK_OPACITY:
+            case AnnotationEditorParamsType.INK2_OPACITY:
                 this.#updateOpacity(value);
                 break;
         }
@@ -124,13 +124,13 @@ class InkEditor2 extends AnnotationEditor {
     /** @inheritdoc */
     static get defaultPropertiesToUpdate() {
         return [
-            [AnnotationEditorParamsType.INK_THICKNESS, InkEditor2._defaultThickness],
+            [AnnotationEditorParamsType.INK2_THICKNESS, InkEditor2._defaultThickness],
             [
-                AnnotationEditorParamsType.INK_COLOR,
+                AnnotationEditorParamsType.INK2_COLOR,
                 InkEditor2._defaultColor || AnnotationEditor._defaultLineColor,
             ],
             [
-                AnnotationEditorParamsType.INK_OPACITY,
+                AnnotationEditorParamsType.INK2_OPACITY,
                 Math.round(InkEditor2._defaultOpacity * 100),
             ],
         ];
@@ -140,17 +140,17 @@ class InkEditor2 extends AnnotationEditor {
     get propertiesToUpdate() {
         return [
             [
-                AnnotationEditorParamsType.INK_THICKNESS,
+                AnnotationEditorParamsType.INK2_THICKNESS,
                 this.thickness || InkEditor2._defaultThickness,
             ],
             [
-                AnnotationEditorParamsType.INK_COLOR,
+                AnnotationEditorParamsType.INK2_COLOR,
                 this.color ||
                 InkEditor2._defaultColor ||
                 AnnotationEditor._defaultLineColor,
             ],
             [
-                AnnotationEditorParamsType.INK_OPACITY,
+                AnnotationEditorParamsType.INK2_OPACITY,
                 Math.round(100 * (this.opacity ?? InkEditor2._defaultOpacity)),
             ],
         ];
@@ -172,7 +172,7 @@ class InkEditor2 extends AnnotationEditor {
                 this.#fitToContent();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.INK_THICKNESS,
+            type: AnnotationEditorParamsType.INK2_THICKNESS,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -194,7 +194,7 @@ class InkEditor2 extends AnnotationEditor {
                 this.#redraw();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.INK_COLOR,
+            type: AnnotationEditorParamsType.INK2_COLOR,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -217,7 +217,7 @@ class InkEditor2 extends AnnotationEditor {
                 this.#redraw();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.INK_OPACITY,
+            type: AnnotationEditorParamsType.INK2_OPACITY,
             overwriteIfSameType: true,
             keepUndo: true,
         });

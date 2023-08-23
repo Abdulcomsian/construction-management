@@ -116,8 +116,11 @@
                         @php
                          $design_upload = $data['design_upload'] ?? ''
                         @endphp
-                        <td colspan="3"><span style="font-size: 12px;"><a href="{{asset($design_upload)}}">{{asset($design_upload)}}</a></span></td>
-
+                        <td colspan="3">
+                            @foreach($design_upload as $row)
+                            <span style="font-size: 12px;"><a href="{{asset($row)}}">{{asset($row)}}</a></span>
+                            @endforeach
+                        </td>
                     </tr>
                 </tbody>
             </table>

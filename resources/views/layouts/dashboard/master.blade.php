@@ -22,6 +22,13 @@ License: -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
+
+    
+
+
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
     @include('layouts.dashboard.styles')
     @toastr_css
     @yield('styles')
@@ -87,9 +94,19 @@ License: -->
     <!--  <script src="{{ asset('js/signature.js')}}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
-    <script type="text/javascript">
+
+
+
+
+
+   
+   
+   
+   
+   <script type="text/javascript">
         $('.input-images').imageUploader();
     </script>
+    
     @include('layouts.dashboard.scripts')
     @toastr_js
     @toastr_render

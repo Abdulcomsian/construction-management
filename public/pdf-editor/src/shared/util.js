@@ -83,12 +83,12 @@ const AnnotationEditorParamsType = {
   INK_COLOR: 11,
   INK_THICKNESS: 12,
   INK_OPACITY: 13,
-  INK2_COLOR: 11,
-  INK2_THICKNESS: 12,
-  INK2_OPACITY: 13,
-  RECT_COLOR: 11,
-  RECT_THICKNESS: 12,
-  RECT_OPACITY: 13,
+  INK2_COLOR: 21,
+  INK2_THICKNESS: 22,
+  INK2_OPACITY: 23,
+  RECT_COLOR: 31,
+  RECT_THICKNESS: 32,
+  RECT_OPACITY: 33,
 };
 
 // Permission flags from Table 22, Section 7.6.3.2 of the PDF specification.

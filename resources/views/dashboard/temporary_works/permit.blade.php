@@ -164,11 +164,13 @@
       width: 200px;
     }
   }
+
   @media only screen and (max-width: 650px) {
-  #first_member{
-    margin-top:30px;
+    #first_member {
+      margin-top: 30px;
+    }
   }
-}
+
   .inputDiv {
     margin: 30px 0px;
     border: 1px solid #D2D5DA;
@@ -324,6 +326,43 @@
     @media only screen and (max-width: 775px) {
 
     }
+
+    .drawing-plus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background:#07d564;
+        border-radius:8px;
+        border:none;
+        cursor: pointer;
+        margin-top:38px;
+    }
+    .drawing-minus{
+        text-align: center;
+        color: #fff;
+        padding: 8px 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        background:red;
+        border-radius:8px;
+        border:none;
+        cursor: pointer;
+    }
+    select#drawingDropDown {
+    border-radius: 9px;
+}
+.set{
+  position: absolute;
+    background-color: white;
+    bottom: 35px;
+    width: 35%;
+    left: 15px;
+}
+
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 
@@ -542,10 +581,11 @@
                 </label>
               </div>
             </div>
-            <div class="col-md-6" id="drawingFieldDiv">
-                <div class="modalDiv d-block mt-md-5">
-                        <label class="fs-6 fw-bold mb-2">
-                            <span class="required">Select Drawing :</span>
+
+            <div class="col-md-5" >
+                <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
+                        <label class="fs-6 fw-bold set">
+                            <span class="required">Select Drawing : </span>
                         </label>
                         <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
                             <option value="">Select PDF</option>
@@ -557,19 +597,25 @@
                     </div>
             </div>
             <div id="files_div">
-
             </div>
+            {{-- <div class="col-md-1">
+                               <div class="drawing-plus"  id="drawing-button"> +  </div> 
+                            </div>
+             <div class="row " id="additional-drawing"  >
+                                    
+                            
+            </div> --}}
             <div class="col-md-6" id="customFieldDiv" style="display: none;">
               <div class="d-flex inputDiv d-block my-0 mt-md-5" id="photoDesign">
                 <!--begin::Label-->
                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                    <span>Photo or Document:</span>
+                  <span>Photo or Document:</span>
                 </label>
                 <!--end::Label-->
                 <input type="file" class="form-control" id="custom_drawing" name="custom_drawing" value="" accept="image/*;capture=camera">
               </div>
               {{-- <div class="d-flex inputDiv mb-0"> --}}
-                    {{-- <div class="modalDiv d-block">
+              {{-- <div class="modalDiv d-block">
                         <label class="fs-6 fw-bold mb-2">
                             <span class="required">Upload Custom Drawing:</span>
                         </label>
@@ -969,7 +1015,7 @@
                   <!--end::Radio group-->
                 </div>
               </div>
-              
+
 
 
 
@@ -1215,7 +1261,7 @@
             </div>
           </div>
           <div class="row">
-           <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
             <div class="col-md-6 ">
               <button id="submitbutton" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
               <!-- <div class="d-flex inputDiv principleno" style="display: none !important">
@@ -1350,7 +1396,7 @@
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorInk2Thickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
-                  <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="105" />
+                  <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="500" step="15" tabindex="105" />
                 </div>
               </div>
             </div>
@@ -2364,18 +2410,56 @@
   const drawingFieldDiv = document.getElementById('drawingFieldDiv');
   const customFieldDiv = document.getElementById('customFieldDiv');
 
-  drawingField.addEventListener('change', function () {
-      if (this.checked) {
-          drawingFieldDiv.style.display = 'block';
-          customFieldDiv.style.display = 'none';
-      }
+  drawingField.addEventListener('change', function() {
+    if (this.checked) {
+      drawingFieldDiv.style.display = 'block';
+      customFieldDiv.style.display = 'none';
+    }
   });
 
-  customField.addEventListener('change', function () {
-      if (this.checked) {
-          drawingFieldDiv.style.display = 'none';
-          customFieldDiv.style.display = 'block';
-      }
+  customField.addEventListener('change', function() {
+    if (this.checked) {
+      drawingFieldDiv.style.display = 'none';
+      customFieldDiv.style.display = 'block';
+    }
   });
+</script>
+
+
+<script>
+    var drawingContainer = document.getElementById("additional-drawing");
+
+    document.getElementById("drawing-button").addEventListener("click", function() {
+      console.log("Plus button clicked");
+        var drawingDiv = document.createElement("div");
+        drawingDiv.setAttribute("class", "col-md-5");
+        drawingDiv.style.marginTop = "2px";
+
+        var designerEmailDiv = document.getElementById("drawingFieldDiv");
+        var clonedDiv2 = designerEmailDiv.cloneNode(true);
+        clonedDiv2.querySelector("input").value = "";
+
+        drawingDiv.appendChild(clonedDiv2);
+
+        var colDiv = document.createElement("div");
+        colDiv.setAttribute("class", "col-md-1");
+
+        var drawingMinusDiv = document.createElement("div");
+        drawingMinusDiv.setAttribute("class", "drawing-minus");
+        drawingMinusDiv.style.marginTop = "41px"; 
+        drawingMinusDiv.textContent = " - ";
+
+        drawingMinusDiv.addEventListener("click", function() {
+          drawingContainer.removeChild(drawingDiv);
+            drawingContainer.removeChild(colDiv);
+        });
+
+        colDiv.appendChild(drawingMinusDiv);
+
+        drawingContainer.appendChild(drawingDiv);
+        drawingContainer.appendChild(colDiv);
+    });
+
+
 </script>
 @endsection

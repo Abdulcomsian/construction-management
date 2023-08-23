@@ -633,7 +633,7 @@
                                 </div>
                             </div>
                             <!--  -->
-                            <h5 style="color: #000">Permit to Load / Use</h5>
+                            <h5 style="color: #000">Permit to Load / Use check</h5>
                             <br>
                             <p style="color: #000;">
 

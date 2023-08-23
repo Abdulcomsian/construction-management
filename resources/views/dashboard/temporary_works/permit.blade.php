@@ -571,7 +571,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <div class=" form-group mt-md-5">
                 <label>Drawings
                   <input name="drawing_option" id="drawing_field" type="radio" value="drawing" checked />
@@ -580,9 +580,9 @@
                   <input name="drawing_option" id="custom_field" type="radio" value="custom_file" />
                 </label>
               </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-5" >
+            <div class="col-md-6" >
                 <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
                         <label class="fs-6 fw-bold set">
                             <span class="required">Select Drawing : </span>
@@ -593,23 +593,13 @@
                             <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
                             @endforeach
                         </select>
-                        {{-- <input type="hidden" value="" id="design_upload" name="design_upload" /> --}}
                     </div>
             </div>
-            <div id="files_div">
-            </div>
-            {{-- <div class="col-md-1">
-                               <div class="drawing-plus"  id="drawing-button"> +  </div> 
-                            </div>
-             <div class="row " id="additional-drawing"  >
-                                    
-                            
-            </div> --}}
-            <div class="col-md-6" id="customFieldDiv" style="display: none;">
-              <div class="d-flex inputDiv d-block my-0 mt-md-5" id="photoDesign">
+            <div class="col-md-6" id="customFieldDiv">
+              <div class="d-flex inputDiv d-block mb-0">
                 <!--begin::Label-->
-                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                  <span>Photo or Document:</span>
+                <label class="d-flex align-items-center fs-6 fw-bold">
+                  <span>Upload Custom Drawing:</span>
                 </label>
                 <!--end::Label-->
                 <input type="file" class="form-control" id="custom_drawing" name="custom_drawing" value="" accept="image/*;capture=camera">
@@ -623,6 +613,9 @@
                     </div>
                 </div> --}}
             </div>
+
+          </div>
+          <div id="files_div">
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -2404,7 +2397,7 @@
       }
   });
 </script> --}}
-<script>
+{{-- <script>
   const drawingField = document.getElementById('drawing_field');
   const customField = document.getElementById('custom_field');
   const drawingFieldDiv = document.getElementById('drawingFieldDiv');
@@ -2423,7 +2416,7 @@
       customFieldDiv.style.display = 'block';
     }
   });
-</script>
+</script> --}}
 
 
 <script>

@@ -336,6 +336,8 @@ Route::post('save-updated-pdf',[DesignerController::class,'saveUpdatedPdf'])->na
 Route::get('/get-edit-pdf',[DesignerController::class,'getEditPdfModal'])->name('get_edit_pdf');
 Route::get('/pdf-dropdown',[DesignerController::class,'getPdfDropdown'])->name('get_pdf_dropdown');
 Route::get('/get-pdf-code',[DesignerController::class,'getPdfCode'])->name('get_pdf_code');
+Route::post('/delete-drawing-file', [TemporaryWorkController::class,'deleteDrawingFile'])->name('delete_drawing_file');
+
 require __DIR__ . '/auth.php';
 
 //For local, not for production

@@ -584,16 +584,16 @@
 
             <div class="col-md-6" >
                 <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
-                        <label class="fs-6 fw-bold set">
-                            <span class="required">Select Drawing : </span>
-                        </label>
-                        <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
-                            <option value="">Select PDF</option>
-                            @foreach($temporary_work_files as $upload)
-                            <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label class="fs-6 fw-bold set">
+                        <span class="required">Select Drawing : </span>
+                    </label>
+                    <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
+                        <option value="">Select PDF</option>
+                        @foreach($temporary_work_files as $upload)
+                        <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="col-md-6" id="customFieldDiv">
               <div class="d-flex inputDiv d-block mb-0">
@@ -615,7 +615,13 @@
             </div>
 
           </div>
-          <div id="files_div">
+          <div class="row">
+            <div class="col-md-12">
+              <div id="files_div">
+              </div>
+              <div id="new_div" class="m-md-2">
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -2454,5 +2460,48 @@
     });
 
 
+</script>
+<script>
+function deleteFile(id) {
+  console.log("id", id);
+    // Remove the corresponding file container (the parent div) by its id
+    const fileContainer = document.getElementById(id);
+
+    if (fileContainer) {
+        fileContainer.remove();
+
+        // Get the filename from the id (assuming your id is in the format "filename")
+        const filename = id.split('_').pop();
+
+         // Find all hidden inputs with the "design_upload[]" name attribute
+         const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
+
+        // Loop through hidden inputs to find the one with the matching value
+        hiddenInputs.forEach(input => {
+            if (input.value == id) {
+                input.remove();
+            }
+        });
+
+        if(hiddenInputs){
+          // Make an AJAX request to delete the file on the server
+          fetch('{{ route("delete_drawing_file") }}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+              },
+              body: JSON.stringify({ filename: filename })
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log(data.message); // Log the server's response
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      }
+    }
+}
 </script>
 @endsection

@@ -66,11 +66,6 @@ function savePdfToDatabase(blobUrl, filename) {
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        // console.log("PDF saved in database successfully.");
-                        // const designUploadElement = document.getElementById("design_upload");
-                        // const responseJSON = JSON.parse(xhr.responseText);
-                        // const cleanedFileName = responseJSON.file_name.trim(); // Clean up file name
-                        // designUploadElement.value = cleanedFileName; // Set the cleaned file name
                         console.log("PDF saved in database successfully.");
                         const responseJSON = JSON.parse(xhr.responseText);
                         const cleanedFileName = responseJSON.file_name.trim(); // Clean up file name
@@ -80,12 +75,26 @@ function savePdfToDatabase(blobUrl, filename) {
                         newHiddenInput.type = "hidden";
                         newHiddenInput.name = "design_upload[]";
                         newHiddenInput.value = cleanedFileName;
+                        newHiddenInput.className = cleanedFileName;
 
                         // Get a reference to the div where you want to append the new input
                         const containerDiv = document.getElementById("files_div");
 
                         // Append the new hidden input to the container div
                         containerDiv.appendChild(newHiddenInput);
+
+                        const newContainerDiv = document.getElementById("new_div");
+                        console.log("filename", cleanedFileName)
+                        // const divString = '<div>' + baseUrl + cleanedFileName + '</div>';
+                        const divString ='<span id="'+cleanedFileName+'" ><atarget="_blank" href="' + baseUrl + cleanedFileName + '">'
+                        +'<span class="badge badge-success badge-sm">File Uploaded</span>'
+                        +'</a>'
+                        +'<button type="button" onclick="deleteFile(\'' + cleanedFileName + '\')" class="remove-file btn btn-danger btn-sm" data-filename="' + cleanedFileName + '">&times;</button>'
+                        +'</span>';
+                        // Use insertAdjacentHTML to add the divString as HTML content inside the newContainerDiv
+                        newContainerDiv.insertAdjacentHTML("beforeend", divString);
+
+
                     } else {
                         console.error("Error saving PDF in database:", xhr.statusText);
                     }

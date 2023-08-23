@@ -316,7 +316,7 @@
         font-size:20px !important;
         font-weight:bold !important;
         border-radius:5px;
-        margin-top:-160px;
+        /* margin-top:-160px; */
     }
 
 
@@ -553,10 +553,12 @@
                             <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
                             @endforeach
                         </select>
-                        <input type="hidden" value="" id="design_upload" name="design_upload" />
+                        {{-- <input type="hidden" value="" id="design_upload" name="design_upload" /> --}}
                     </div>
             </div>
-            
+            <div id="files_div">
+
+            </div>
             <div class="col-md-6" id="customFieldDiv" style="display: none;">
               <div class="d-flex inputDiv d-block my-0 mt-md-5" id="photoDesign">
                 <!--begin::Label-->

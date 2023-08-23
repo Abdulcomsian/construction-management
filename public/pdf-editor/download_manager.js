@@ -66,11 +66,26 @@ function savePdfToDatabase(blobUrl, filename) {
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
+                        // console.log("PDF saved in database successfully.");
+                        // const designUploadElement = document.getElementById("design_upload");
+                        // const responseJSON = JSON.parse(xhr.responseText);
+                        // const cleanedFileName = responseJSON.file_name.trim(); // Clean up file name
+                        // designUploadElement.value = cleanedFileName; // Set the cleaned file name
                         console.log("PDF saved in database successfully.");
-                        const designUploadElement = document.getElementById("design_upload");
                         const responseJSON = JSON.parse(xhr.responseText);
                         const cleanedFileName = responseJSON.file_name.trim(); // Clean up file name
-                        designUploadElement.value = cleanedFileName; // Set the cleaned file name
+
+                        // Create a new hidden input element
+                        const newHiddenInput = document.createElement("input");
+                        newHiddenInput.type = "hidden";
+                        newHiddenInput.name = "design_upload[]";
+                        newHiddenInput.value = cleanedFileName;
+
+                        // Get a reference to the div where you want to append the new input
+                        const containerDiv = document.getElementById("files_div");
+
+                        // Append the new hidden input to the container div
+                        containerDiv.appendChild(newHiddenInput);
                     } else {
                         console.error("Error saving PDF in database:", xhr.statusText);
                     }

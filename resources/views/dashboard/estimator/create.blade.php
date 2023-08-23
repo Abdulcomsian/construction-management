@@ -21,6 +21,10 @@
         border-radius: 0.25rem !important;
     }
 
+    .inputDiv-1 input{
+        border-radius: 0.25rem !important;
+    }
+
     .form-control[readonly] {
         background-color: #000;
     }
@@ -162,6 +166,11 @@
         width: 50%;
         color: #000;
     }
+    
+    .inputDiv-1 input {
+        min-width: 40px;
+        color: #000;
+    }
 
     .hideBtn {
         display: none !important;
@@ -175,6 +184,10 @@
         width: 100%;
         color: #000 !important;
     }
+    .inputDiv-1 select {
+        width: 100%;
+        color: #000 !important;
+    }
 
     .inputDiv label {
         /* width: 40%; */
@@ -185,6 +198,23 @@
         font-family: 'Inter', sans-serif;
         z-index: 1;
     }
+    .label-1 {
+         width: 34%;
+        color: #000;
+        position: absolute;
+        bottom: 34px;
+        background: white;
+        font-family: 'Inter', sans-serif;
+        z-index: 1;
+        text-align:center;
+    }
+    .btn-group {
+    position: relative;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    vertical-align: middle;
+    margin-top: -5px !important;
+}
 
     input {
         background-color: #fff !important;
@@ -202,6 +232,13 @@
         border-radius: 8px;
         position: relative;
         padding: 5px 5px;
+    }
+    .inputDiv-1 {
+        margin: 30px 0px;
+        border: 1px solid #D2D5DA;
+        border-radius: 8px;
+        position: relative;
+        padding: 0px 5px;
     }
 
     .card-title {
@@ -367,6 +404,18 @@ canvas {
         padding:5px 15px !important;
     }
     }
+
+
+
+
+    .multiselect-selected-text{
+        color:gray;
+        font-weight: 400;
+    font-size: 14px;
+    }
+
+
+    
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -706,6 +755,7 @@ canvas {
                                             <span class="">Designer Email Address:</span>
 
                                         </label>
+
                                         <!--end::Label-->
                                         <input type="text" class="blackBack form-control form-control-solid"
                                             placeholder="Enter Comma Seperated" id="designer_company_emails"
@@ -714,7 +764,7 @@ canvas {
                                 </div>
                                 <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
 
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <!-- <div class="d-flex inputDiv d-block mb-0">
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Designers</span>
                                     </label>
@@ -725,17 +775,47 @@ canvas {
                                         {{-- <option value="">Select Option</option> --}}
 
                                         @foreach($adminDesigners as $desig)
-                                        <!-- <optgroup label="Designer List"> -->
+                                     
                                             @if($desig->hasRole(['designer','Design Checker','Designer and Design
                                             Checker']))
                                             <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
                                                 {{$desig->email}}</option>
                                             @endif
-                                        <!-- </optgroup> -->
+                                 
                                         @endforeach
 
                                     </select>
+                                </div> -->
+
+                                <!--
+                                    <option value="Option one">  Option one</option>
+                                     <option value="Option two">Option two</option>
+        <option value="Option three">Option three</option>
+        <option value="Option four">Option four</option>
+        <option value="Option five">Option five</option>
+        <option value="Option six">Option six</option> -->
+
+
+                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="label-1">Select Online Designers</span>
+                                    </label>
+                                    <select id="mySelect" multiple="multiple"  name="online_designers[]">
+   
+                                    @foreach($adminDesigners as $desig)
+                                     
+                                     @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                     Checker']))
+                                     <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
+                                         {{$desig->email}}</option>
+                                     @endif
+                          
+                                 @endforeach
+
+                                    </select>
                                 </div>
+                                
+
                             </div>
                             <div class="col-md-6">
                              
@@ -794,6 +874,9 @@ canvas {
 
                                     </select>
                                 </div>
+
+                                
+                                
                             </div>
                         </div>
 
@@ -923,7 +1006,8 @@ canvas {
                                     </div>
                                     <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
                                     <br>
-                               
+    
+                                    
                             </div>
                         </div>
                         @endif
@@ -947,6 +1031,7 @@ canvas {
                                     style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
                                     class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as Draft</button>
                             </div>
+
                             
                         </div>
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->
@@ -1215,6 +1300,74 @@ canvas {
 //     return true;
 // });
 </script>
+
+
+<!-- multiselect -->
+
+<!-- <script>
+    
+
+    jQuery(document).ready(function() {
+        $(document).ready(function() {
+        jQuery('#mySelect').multiselect({
+            buttonText: function(options, select) {
+                if (options.length === 0) {
+                    return 'Select options';
+                } else if (options.length > 4) {
+                    return options.length + ' selected';
+                } else {
+                    var labels = [];
+                    options.each(function() {
+                        labels.push($(this).text());
+                    });
+                    return labels.join(', ');
+                }
+            }
+        });
+    });
+});
+</script> -->
+
+
+<script>
+        $(document).ready(function() {
+            $('#mySelect').multiselect({
+                buttonText: function(options, select) {
+                    if (options.length === 0) {
+                        return 'Select options';
+                    } else if (options.length > 2) {
+                        return options.length + ' selected';
+                    } else {
+                        var labels = [];
+                        options.each(function() {
+                            labels.push($(this).text());
+                        });
+                        return labels.join(', ');
+                    }
+                }
+            });
+
+            // Prevent checkbox selection when clicking on option text
+            $('#mySelect + .btn-group ul li a label').click(function(e) {
+                e.preventDefault();
+
+                var optionValue = $(this).closest('li').find('input[type="checkbox"]').val();
+
+                // Perform navigation only for "Option one" when clicking on the option text
+                if (optionValue === "Option one") {
+                    window.location.href = 'sdsd.html';
+                }
+                if (optionValue === "Option two") {
+                    window.location.href = 'adad.html';
+                }
+            });
+
+            // Toggle checkboxes only when checkboxes are clicked
+            $('#mySelect + .btn-group ul li a input[type="checkbox"]').click(function(e) {
+                e.stopPropagation(); 
+            });
+        });
+    </script>
 
 
 

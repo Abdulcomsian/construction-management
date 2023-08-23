@@ -1793,12 +1793,12 @@ body {
 }
 
 #editorInkParamsToolbar {
-  inset-inline-end: 96px;
+  inset-inline-end: 67px;
   background-color: var(--toolbar-bg-color);
 }
 
 #editorInkParamsToolbar2 {
-  inset-inline-end: 68px;
+  inset-inline-end: 40px;
   background-color: var(--toolbar-bg-color);
 }
 
@@ -1808,7 +1808,7 @@ body {
 }
 
 #editorFreeTextParamsToolbar {
-  inset-inline-end: 124px;
+  inset-inline-end: 95px;
   background-color: var(--toolbar-bg-color);
 }
 

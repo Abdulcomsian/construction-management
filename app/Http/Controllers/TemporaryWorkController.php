@@ -3224,4 +3224,22 @@ class TemporaryWorkController extends Controller
             return response()->json(['message' => 'Something Went Wrong!'], 500); 
          }
     }
+
+    public function deleteDrawingFile(Request $request)
+    {
+        $filename = $request->input('filename');
+        $filePath = public_path($filename);
+
+        // Check if the file exists
+        if (file_exists($filePath)) {
+            // Delete the file
+            unlink($filePath);
+            // You can also delete the file from the database if necessary
+            // Example: YourFileModel::where('filename', $filename)->delete();
+            
+            return response()->json(['message' => 'File deleted successfully']);
+        }
+
+        return response()->json(['message' => 'File not found'], 404);
+    }
 }

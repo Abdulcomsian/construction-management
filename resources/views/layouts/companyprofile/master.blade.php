@@ -38,7 +38,7 @@ License: -->
             <!--begin::Side bar-->
             <!--end::Side bar-->
             <!--begin::Wrapper-->
-            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper" style="padding:0px !important">
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                 <!--begin::Header-->
                 <!--end::Header-->
                 <!--begin::Content-->

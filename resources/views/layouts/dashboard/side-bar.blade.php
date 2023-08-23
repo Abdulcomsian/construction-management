@@ -243,7 +243,7 @@
                         <span class="menu-icon userHoverTask">
                             <img src="{{asset('assets/media/images/23.png')}}">
                         </span>
-                        <span class="menu-title">Temporary Work Designer</span>
+                        <span class="menu-title">Online Designer</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">

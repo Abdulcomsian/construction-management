@@ -52,7 +52,7 @@
     }
 
     .header-fixed.toolbar-fixed .wrapper {
-        padding-top: 60px !important;
+        /* padding-top: 60px !important; */
     }
 
     .content {

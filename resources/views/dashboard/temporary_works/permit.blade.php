@@ -325,7 +325,7 @@
 
     }
 
-    .email-plus{
+    .drawing-plus{
         text-align: center;
         color: #fff;
         padding: 8px 12px;
@@ -338,7 +338,7 @@
         cursor: pointer;
         margin-top:38px;
     }
-    .email-minus{
+    .drawing-minus{
         text-align: center;
         color: #fff;
         padding: 8px 12px;
@@ -350,6 +350,17 @@
         border:none;
         cursor: pointer;
     }
+    select#drawingDropDown {
+    border-radius: 9px;
+}
+.set{
+  position: absolute;
+    background-color: white;
+    bottom: 35px;
+    width: 35%;
+    left: 15px;
+}
+
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 
@@ -568,24 +579,10 @@
                 </label>
               </div>
             </div>
-            <div class="col-md-6" id="drawingFieldDiv">
-              <div class="modalDiv d-block mt-md-5">
-                <label class="fs-6 fw-bold mb-2">
-                  <span class="required">Select Drawing :</span>
-                </label>
-                <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
-                  <option value="">Select PDF</option>
-                  @foreach($temporary_work_files as $upload)
-                  <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
-                  @endforeach
-                </select>
-                <input type="hidden" value="" id="design_upload" name="design_upload" />
-              </div>
-            </div>
 
             <div class="col-md-5" >
-                <div class="modalDiv d-block mt-md-5" id="drawingFieldDiv"> 
-                        <label class="fs-6 fw-bold mb-2">
+                <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
+                        <label class="fs-6 fw-bold set">
                             <span class="required">Select Drawing : </span>
                         </label>
                         <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
@@ -598,9 +595,9 @@
                     </div>
             </div>
             <div class="col-md-1">
-                               <div class="email-plus"  id="email-button"> +  </div> 
+                               <div class="drawing-plus"  id="drawing-button"> +  </div> 
                             </div>
-             <div class="row" id="additional-emails"  >
+             <div class="row " id="additional-drawing"  >
                                     
                             
             </div>
@@ -2423,52 +2420,42 @@
     }
   });
 </script>
-@endsection
-
-
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var emailContainer = document.getElementById("additional-emails");
+    var drawingContainer = document.getElementById("additional-drawing");
 
-    document.getElementById("email-button").addEventListener("click", function() {
-        var emailFieldDiv = document.createElement("div");
-        emailFieldDiv.setAttribute("class", "col-md-5");
-        emailFieldDiv.style.marginTop = "2px";
+    document.getElementById("drawing-button").addEventListener("click", function() {
+      console.log("Plus button clicked");
+        var drawingDiv = document.createElement("div");
+        drawingDiv.setAttribute("class", "col-md-5");
+        drawingDiv.style.marginTop = "2px";
 
         var designerEmailDiv = document.getElementById("drawingFieldDiv");
-        var clonedDiv = designerEmailDiv.cloneNode(true);
-        clonedDiv.querySelector("input").value = "";
+        var clonedDiv2 = designerEmailDiv.cloneNode(true);
+        clonedDiv2.querySelector("input").value = "";
 
-        emailFieldDiv.appendChild(clonedDiv);
+        drawingDiv.appendChild(clonedDiv2);
 
         var colDiv = document.createElement("div");
         colDiv.setAttribute("class", "col-md-1");
 
-        var emailMinusDiv = document.createElement("div");
-        emailMinusDiv.setAttribute("class", "email-minus");
-        emailMinusDiv.style.marginTop = "41px"; 
-        emailMinusDiv.textContent = " - ";
+        var drawingMinusDiv = document.createElement("div");
+        drawingMinusDiv.setAttribute("class", "drawing-minus");
+        drawingMinusDiv.style.marginTop = "41px"; 
+        drawingMinusDiv.textContent = " - ";
 
-        emailMinusDiv.addEventListener("click", function() {
-            emailContainer.removeChild(emailFieldDiv);
-            emailContainer.removeChild(colDiv);
+        drawingMinusDiv.addEventListener("click", function() {
+          drawingContainer.removeChild(drawingDiv);
+            drawingContainer.removeChild(colDiv);
         });
 
-        colDiv.appendChild(emailMinusDiv);
+        colDiv.appendChild(drawingMinusDiv);
 
-        emailContainer.appendChild(emailFieldDiv);
-        emailContainer.appendChild(colDiv);
+        drawingContainer.appendChild(drawingDiv);
+        drawingContainer.appendChild(colDiv);
     });
-});
+
 
 </script>
-
-
-
-
-
-
-
-
+@endsection

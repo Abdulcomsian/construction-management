@@ -30,7 +30,7 @@ if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
   const isIOS =
     /\b(iPad|iPhone|iPod)(?=;)/.test(userAgent) ||
     (platform === "MacIntel" && maxTouchPoints > 1);
-
+    console.log('baseurl', baseUrl);
   // Limit canvas size to 5 mega-pixels on mobile.
   // Support: Android, iOS
   (function checkCanvasSizeLimitation() {

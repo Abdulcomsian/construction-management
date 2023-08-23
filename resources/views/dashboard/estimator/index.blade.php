@@ -737,43 +737,73 @@
                                           </div>
                                        </td>
                                        <!-- <td style="width:15%"></td> -->
-                                       <!-- <td style="width:21%">
+                                       <td style="width:21%">
                                           <div class="d-flex" style="position: relative;">
-                                             <span class="titleColumn">Date Design Returned:</span>
-                                             <div
-                                                style="display: flex; justify-content: flex-start; flex-grow: 1; max-width:80px;align-items: end;margin-left:6px ">
-                                                @php
-                                                $date='';
-                                                $dcolor='';
-                                                $drawingscount=0;
-                                                @endphp
-                                                @foreach($item->uploadfile as $file)
-                                                @php
-                                                if($file->file_type==1 && $file->construction==1)
-                                                {
-                                                $dcolor='green';
-                                                $drawingscount=1;
-                                                $date=$file->created_at->todatestring();
-                                                }
-                                                elseif($file->file_type==1 &&
-                                                $file->preliminary_approval==1)
-                                                {
-                                                $dcolor='orange';
-                                                $date=$file->created_at->todatestring();
-                                                }
-                                                @endphp
-                                                @endforeach
-                                                @if($date)
+                                             <span class="titleColumn">Drawings & Designs:</span>
+                                             <div class="d-flex col-sm-6"
+                                                                style="column-gap:1rem;margin-left: 31px">
+                                                                <div
+                                                                    style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                                    <p class="uploaddrawing cursor-pointer"
+                                                                        data-id="{{$item->id}}" data-type="1"
+                                                                        style="margin-bottom:0px;font-weight: 400;bottom:3px !important; left: 1px">
+                                                                        <span style="font-size: 14px; color: #07D564;"
+                                                                            class="fa fa-plus"
+                                                                            title="Upload Drawings"></span>
+                                                                    </p>
+                                                                </div>
+                                                                @php
+                                                                $date='';
+                                                                $dcolor='#919191ba';
+                                                                $drawingscount=0;
+                                                                @endphp
+                                                                @foreach($item->uploadfile as $file)
+                                                                @php
+                                                                if($file->file_type==1 && $file->construction==1)
+                                                                {
+                                                                $dcolor='green';
+                                                                $drawingscount=1;
 
-                                                <p class="dateclick cursor-pointer"
-                                                   style="color:{{$dcolor ?? ''}};background: #f2f2f2;"
-                                                   data-id="{{$item->id}}" data-type="1">
-                                                   {{date('d-m-Y',
-                                                   strtotime($date))}}
-                                                </p>
-                                                @endif
-                                             </div>
+                                                                }
+                                                                elseif($file->file_type==1 &&
+                                                                $file->preliminary_approval==1)
+                                                                {
+                                                                $dcolor='orange';
 
+                                                                }
+                                                                @endphp
+                                                                @endforeach
+                                                                <div
+                                                                    style="background: {{$dcolor}};padding: 4px; border-radius: 4px;width: 20px; height:20px;">
+                                                                    <p class="uploaddrawinglist cursor-pointer"
+                                                                        data-id="{{$item->id}}" data-type="1"
+                                                                        style="position: relative!important;margin-bottom:0px;font-weight: 400;bottom:3px !important; ">
+                                                                        <span style="font-size: 10px; color: #fff;"
+                                                                            class="fa fa-eye"
+                                                                            title="Upload Drawings"></span>
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    style="background: #07D56426;padding: 2px 4px; border-radius: 4px; margin-right: 12px;width: 20px; height:20px;">
+                                                                    <p class="assessmentlist cursor-pointer"
+                                                                        data-id="{{$item->id}}" data-type="1"
+                                                                        style="margin-bottom:0px;font-weight: 400;font-size:  13px !important;position: relative;top: 0px;">
+                                                                        <!-- View Drawings -->
+                                                                        @php
+                                                                        $color="";
+                                                                        if(count($item->riskassesment)>0)
+                                                                        {
+                                                                        $color="green";
+                                                                        }
+                                                                        @endphp
+                                                                        <span
+                                                                            style="font-size: 13px; color:{{$color}};position: relative; top: 1px; left:1px"
+                                                                            class="fa fa-file"
+                                                                            title="View Calculation/Risk Assessment"></span>
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
                                           </div>
                                           <div class="d-flex mt-2" style="position: relative;top: 0px;">
                                              <span class="titleColumn">Design Check CERT:</span>
@@ -789,70 +819,24 @@
                                                 @endforeach
                                              </div>
                                           </div>
-                                          <div class="d-flex mt-2" style="position: relative;">
-                                             <span class="titleColumn">Date DCC Returned:</span>
+                                          <div class="d-flex mt-2" style="visibility:hidden; position: relative;">
+                                             <span class="titleColumn"></span>
                                              <div
                                                 style="display: flex; justify-content: flex-start; flex-grow: 0.5; max-width:80px; margin-left:20px">
-                                                @foreach($item->uploadfile as $file)
-                                                @if($file->file_type==2)
-                                                <p class="dateclick cursor-pointer" data-id="{{$item->id}}"
-                                                   data-type="2">
-                                                   {{date('d-m-Y',
-                                                   strtotime($file->created_at->todatestring()))}}</p>
-                                                @break
-                                                @endif
-                                                @endforeach
+                                               asd
 
                                              </div>
                                           </div>
-                                       </td> -->
+                                       </td> 
                                        <td style="width:400px;">
-                                          <!-- <div class="d-flex justify-content-between">
-                                             <span class="titleColumn mb-2">Designer:</span>
-                                             <div
-                                                style="display: flex; justify-content:center; flex-grow: 1;  margin-left: 100px;">
-                                                <span class="designer-company cursor-pointer" 
-                                                   data-desing="{{$item->designer_company_name.'-'.$item->desinger_company_name2 ?? ''}}"
-                                                   data-tw="{{$item->tw_name ?? ''}}"><span
-                                                      class="label label-lg font-weight-bold label-light-success label-inline px-5">View</span>
-                                                </span>
-                                                @if(!$item->tw_name)
-                                                @endif
-                                             </div>
-                                          </div> -->
-                                          <!-- <div class="d-flex justify-content-between">
-                                             <span class="col-5 titleColumn">Drawings & Designs:</span>
-                                             <div class="d-flex col-6"
-                                                style="display: flex; justify-content: space-evenly; align-items: center; flex-grow: 1;  margin-left: 26px;">
-                                                <p class="uploaddrawinglist cursor-pointer" data-id="{{$item->id}}"
-                                                   data-type="1"
-                                                   style="margin-bottom:0px;font-weight: 400;font-size:  18px !important;position: relative;top: 0px;">
-                                                   <span style="font-size: 16px;opacity: 0.8;color:{{$dcolor}}"
-                                                      class="fa fa-eye" title="View Drawings"></span>
-                                                </p>
-                                                <p class="assessmentlist cursor-pointer" data-id="{{$item->id}}"
-                                                   data-type="1"
-                                                   style="margin-bottom:0px;font-weight: 400;font-size: 16px;opacity: 0.8;position: relative;top: 0px;">
-                                                   @php
-                                                   $color="";
-                                                   if(count($item->riskassesment)>0)
-                                                   {
-                                                   $color="green";
-                                                   }
-                                                   @endphp
-                                                   <span style="font-size: 14px; color:{{$color}}" class="fa fa-file"
-                                                      title="View Calculation/Risk Assessment"></span>
-                                                </p>
-                                             </div>
-
-                                          </div> -->
+                                        
                                           <div class="d-flex">
                                              <!-- <span class="col-5 titleColumn text-start" style="flex:0 0 0 !important;">Action</span> -->
                                              <!-- action class removed from next line action -->
                                              <div class="d-flex col-6 "
                                                 style="display: flex; justify-content: flex-end; gap: 15px; flex-grow: 1; margin-left: 40px !important;">
                                                 
-                                                <a href="{{route('estimator.edit',$item->id)}}">
+                                                <a href="{{route('estimator.edit',$item->id)}}" style="width:170px;">
                                                    <button class="btn btn-primary">Edit Design Brief</button>
                                                    <!-- <i
                                                       class="fa fa-edit" style="margin-left:10px"></i> -->
@@ -875,7 +859,7 @@
                                                  <a href="{{route('estimator.show',$item->id)}}"
                                                    class="">
                                                    <!-- <i class="fa fa-eye " style="margin-left:15px"></i> -->
-                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif  {{$item->unreadQuestions->count() > 0 ? 'redBgBlink' : '' }} {{ count($item->checkQuestion) > 0 ? 'redBgBlink' : ''}}">View Designers & Suppliers</button>
+                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif  {{$item->unreadQuestions->count() > 0 ? 'redBgBlink' : '' }} {{ count($item->checkQuestion) > 0 ? 'redBgBlink' : ''}}">View Quotations</button>
                                                 </a>
                                              </div>
 

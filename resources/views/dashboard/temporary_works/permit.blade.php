@@ -361,7 +361,7 @@
       }
     }
 </script>
-<script src="{{ asset('pdf-editor/viewer.js') }}" type="module-shim"></script>
+<script src="{{ asset('pdf-editor/viewer.js?v=1') }}" type="module-shim"></script>
 <style>
   .modal-content {
     height: 90vh;
@@ -543,19 +543,7 @@
               </div>
             </div>
             <div class="col-md-6" id="drawingFieldDiv">
-              {{-- <div class=" inputDiv d-block mb-0s">
-                  <label class="fs-6 fw-bold mb-2" style="bottom: 26px">
-                    <span class="required">Select Drawing:</span>
-                  </label>
-                  <select name="drawing" id="drawingDropDown" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
-                    <option value="">Select PDF</option>
-                      @foreach($temporary_work_files as $upload)
-                              <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
-              @endforeach
-              </select>
-            </div> --}}
-            {{-- <div class="d-flex inputDiv mb-0"> --}}
-            <div class="modalDiv d-block mt-md-5">
+                <div class="modalDiv d-block mt-md-5">
               <label class="fs-6 fw-bold mb-2">
                 <span class="required">Select Drawing :</span>
               </label>
@@ -567,7 +555,6 @@
               </select>
               <input type="hidden" value="" id="design_upload" name="design_upload" />
             </div>
-            {{-- </div> --}}
           </div>
 
           <div class="col-md-6" id="customFieldDiv" style="display: none;">
@@ -1373,7 +1360,7 @@
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorRectThickness" class="editorParamsLabel" data-l10n-id="editor_rect_thickness">Thickness</label>
-                  <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="50" step="1" tabindex="107" />
+                  <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
                 </div>
                 <div class="editorParamsSetter">
                   <label for="editorRectOpacity" class="editorParamsLabel" data-l10n-id="editor_rect_opacity">Opacity</label>
@@ -2343,12 +2330,12 @@
   })
 </script>
 
-<script>
+{{-- <script>
   document.querySelector("button[type='submit']").addEventListener("click", function(e) {
     e.preventDefault();
     alert("here");
   })
-</script>
+</script> --}}
 {{-- <script>
   const drawingField = document.getElementById('drawing_field');
   const customField = document.getElementById('custom_field');

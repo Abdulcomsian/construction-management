@@ -162,6 +162,7 @@ background-color: #07d564 !important;
                                         <option value="">Select Role</option>
                                         <option value="user">Temporary works co-ordinator</option>
                                         <option value="supervisor">Temporary works supervisor</option>
+                                        <option value="visitor">Temporary works visitor</option>
                                         <option value="scaffolder">Scaffolder</option>
                                         <option value="estimator">Estimator / Pre-Con</option>
                                     </select>

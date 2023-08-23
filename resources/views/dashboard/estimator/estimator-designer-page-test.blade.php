@@ -436,7 +436,7 @@
         <!--end::Container-->
     </div>
 
-    <div class="">
+    {{-- <div class="">
         <table>
             <tr class="row-1">
                 
@@ -743,12 +743,22 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </div> --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container" style="padding-top: 80px">
+            <div class="row">
+                <div class="col-md-12">
+                    {{-- <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
+                        <span class="">Pre Conn Design Brief Details: </span>
+                    </label> --}}
+                    <label class="form-check-label" for="exampleRadios1">
+                        <b>Title:</b> {{$estimatorWork->design_requirement_text}} <b>Project:</b> {{$estimatorWork->project->name ?? ''}}, <b>Company:</b> {{$estimatorWork->company}} <a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">Design Brief</a>
+                    </label>
+                    </div>
+            </div>
             <div class="row">
                 <div class=' d-flex col-md-8'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">
@@ -776,32 +786,32 @@
                     <div class="card-header border-0 pt-2">
                         <!-- Estimator Work Table -->
                         <!--begin::Card title-->
-                        <div class="card-title list_top" style="width:98%">
+                        {{-- <div class="card-title list_top" style="width:98%">
                             <h2 style="display: inline-block;">Estimator Design Brief</h2>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <table class="table query-table">
+                                <table class="table query-table w-auto">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Project</th>
-                                            <th>Company</th>
-                                            <th>Attachment</th>
+                                            <th style="padding: 0 50px;" class="">No</th>
+                                            <th style="padding: 0 50px;" class="">Project</th>
+                                            <th style="padding: 0 50px;" class="">Company</th>
+                                            <th style="padding: 0 50px;" class="">Attachment</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>{{$estimatorWork->project->name ?? ''}}</td>
-                                            <td>{{$estimatorWork->company}}</td>
-                                            <td><a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">PDF</a>
+                                            <td class="" style="padding: 0 50px;">{{$estimatorWork->project->name ?? ''}}</td>
+                                            <td class="" style="padding: 0 50px;">{{$estimatorWork->company}}</td>
+                                            <td class="" style="padding: 0 50px;">
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> --}}
                         <br>
                         <!--begin::Card title-->
                         <div class="card-title list_top" style="width:98%">
@@ -815,7 +825,7 @@
                         <input type="hidden" name="estimator_designer_id" value="{{$esitmator_designer_id}}" />
                         <div class="appendresult" style="background:white;margin: 0 4px;">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>Price:</span>
@@ -831,7 +841,7 @@
                                         <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="input-group mb-3 row">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                             <span>Submittal Date:</span>
@@ -839,12 +849,12 @@
                                         <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="input-group mb-3 row">
                                         <label class="d-flex align-items-center fs-6 fw-bold mt-5">
                                             <span></span>
                                         </label>
-                                        <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i class="fa fa-plus"></i>Add More</button>
+                                        <button type="button" class="btn btn-primary mb-2 queryButton add-more-price"><i class="fa fa-plus"></i></button>
                                     </div>
 
                                 </div>
@@ -937,7 +947,7 @@
                                         <td>{{$loop->index+1}}</td>
                                         <td style="width: 45%">
                                             <b>{{$cmt->comment_email}}</b><br>
-                                            <p>{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
+                                            <p style="white-space: pre-wrap;">{{$cmt->comment}}<br>{{$cmt->comment_date}}</p>
 
                                         </td>
                                         <td style="width: 45%">
@@ -1002,6 +1012,7 @@
                                                 <th>No</th>
                                                 <th>Project</th>
                                                 <th>Company</th>
+                                                <th>Title</th>
                                                 <th>Attachment</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -1012,6 +1023,7 @@
                                                 <td>{{$loop->index+1}}</td>
                                                 <td>{{$est->estimator->project->name ?? $est->estimator->projname}}</td>
                                                 <td>{{$est->estimator->company}}</td>
+                                                <td>{{$est->estimator->design_requirement_text}} </td>
                                                 <td><a href="{{asset('estimatorPdf/'.$est->estimator->ped_url)}}">PDF</a>
                                                 </td>
                                                 <td><a href="{{route('designer.uploaddesign',Crypt::encrypt($est->temporary_work_id).'/?mail='.$est->email)}}" target="_blank" title="View & Upload Design"><i class="fa fa-eye"></i></a></td>
@@ -1035,7 +1047,7 @@
 @section('scripts')
 <script type="text/javascript">
     $(".add-more-price").on('click', function() {
-        $(".appendresult").append(`<div class="row"><div class="col-md-3">
+        $(".appendresult").append(`<div class="row"><div class="col-md-2">
                               <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Price:</span>
@@ -1055,7 +1067,7 @@
                               </div>
                                 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="input-group mb-3 row">
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span>Date:</span>
@@ -1064,12 +1076,12 @@
                                 </div>
                                 
                             </div>
-                            <div class="col-md-2 d-flex">
+                            <div class="col-md-1 d-flex">
                                 <div class="input-group row">
                                     <label class="d-flex align-items-center fs-6 fw-bold mt-5">
                                     <span></span>
                                     </label>
-                                    <button type="submit" class="btn btn-danger mb-2 queryButton remove"><i class="fa fa-minus"></i>Remove</button>
+                                    <button type="submit" class="btn btn-danger mb-2 queryButton remove"><i class="fa fa-minus"></i></button>
                                 </div>
                                 
                             </div></div>`);

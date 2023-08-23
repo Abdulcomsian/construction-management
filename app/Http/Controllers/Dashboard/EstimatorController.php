@@ -12,6 +12,7 @@ use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use App\Models\ChangeEmailHistory;
+use App\Models\PdfFilesHistory;
 use Notification;
 use App\Models\DesignerCompanyEmail;
 use DB;
@@ -279,8 +280,9 @@ class EstimatorController extends Controller
                 $all_inputs['tempid'] = $j;
                 $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
                 $all_inputs['twc_id_no'] = $twc_id_no;
+            }else{
+                $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
             }
-
             $image_name = '';
             if(Auth::user()->hasRole('user') && $request->display_sign){
                 if ($request->signtype == 1) {
@@ -345,6 +347,7 @@ class EstimatorController extends Controller
                 // dd($designer_company_emails, $supplier_company_emails, $local_designers , $local_suppliers,$online_designers, $online_suppliers );
 
                 $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers); 
+                $cleaned_email = [];
                 //Removing -52 for creating emails in proper format
                 foreach($merged_emails as $email)
                 {
@@ -387,6 +390,12 @@ class EstimatorController extends Controller
                     $pdf->save($path . '/' . $filename);
                     $model = TemporaryWork::find($temporary_work->id);
                     $model->ped_url = $filename;
+                    $model->save();
+
+                    //now saving tempwork in pdf history table
+                    $model = new PdfFilesHistory();
+                    $model->pdf_name = $filename;
+                    $model->tempwork_id = $temporary_work->id;
                     $model->save();
 
                     // foreach($data['designer_company_email'] as $key=>$list){
@@ -442,16 +451,21 @@ class EstimatorController extends Controller
                     return redirect()->route('temporary_works.index');
 
                 }else{
-                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
-                
+                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                     $path = public_path('estimatorPdf');
                     $filename = rand() . '.pdf';
                     $pdf->save($path . '/' . $filename);
                     $model = TemporaryWork::find($temporary_work->id);
                     $model->ped_url = $filename;
                     $model->save();
-                
-                    //send mail to admin
+
+                    //now saving tempwork in pdf history table
+                    $model = new PdfFilesHistory();
+                    $model->pdf_name = $filename;
+                    $model->tempwork_id = $temporary_work->id;
+                    $model->save();
+                    //send mail to admi
+
                     $notify_msg = [
                         'greeting' => 'Estimator Work Pdf',
                         'subject' => 'Estimator Work -'.$request->projname . '-' .$request->projno,
@@ -680,7 +694,7 @@ class EstimatorController extends Controller
             $selectedDesignersList=EstimatorDesignerList::select('email')->where('user_id','!=',NULL)->where(['temporary_work_id'=>$estimatorId])->pluck('email')->toArray();
             $inputDesignersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId, 'type'=>'Designer', 'user_id'=>NULL])->pluck('email')->toArray();
             $inputSuppliersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId,'type'=>'Supplier','user_id'=>NULL])->pluck('email')->toArray();
-            $temporaryWork = TemporaryWork::with('scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id',$estimatorId)->first();
+            $temporaryWork = TemporaryWork::with('designbrief_history', 'scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id',$estimatorId)->first();
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
             return view('dashboard.estimator.edit',compact('temporaryWork', 'projects', 'selectedproject','designers','suppliers', 'adminSuppliers', 'adminDesigners', 'selectedDesignersList','inputDesignersList', 'inputSuppliersList'));
         } catch (\Exception $exception) {
@@ -783,6 +797,9 @@ class EstimatorController extends Controller
 
                 //make estimator as temporary work
                 $all_inputs['estimator']=0;
+            }else{
+                $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
+                $all_inputs['twc_id_no'] = $twc_id_no;
             }
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -859,8 +876,12 @@ class EstimatorController extends Controller
                 ScopeOfDesign::where(['temporary_work_id'=>$temporaryWork])->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork]));
                 Folder::where(['temporary_work_id'=>$temporaryWork])->update(array_merge($folder_attachements, ['temporary_work_id' => $temporaryWork]));
                 AttachSpeComment::where(['temporary_work_id'=>$temporaryWork])->update(array_merge($attachcomments, ['temporary_work_id' => $temporaryWork]));
-                //work for upload images here
+                //fetching previously stored attachments
                 $image_links = [];
+                foreach($temporaryWorkData->temp_work_images as $image){
+                    $image_links[]=$image->image;
+                }
+                //fetching new uploaded attachments
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -909,7 +930,7 @@ class EstimatorController extends Controller
                         $notify_msg = $notify_admins_msg;
 
                         //sending email to zero index here, because it will be remove from array on next line
-                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $emails[0], 1));
+                        Notification::route('mail', $emails[0])->notify(new TemporaryWorkNotification($notify_msg, $temporaryWork, $emails[0]));
 
                         array_shift($emails);
                         
@@ -991,7 +1012,7 @@ class EstimatorController extends Controller
                         toastSuccess('Pre Con Published successfully!');
                         return redirect()->route('temporary_works.index');
                 } else{
-                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                      $path = public_path('estimatorPdf');
                
                 
@@ -1001,6 +1022,10 @@ class EstimatorController extends Controller
                 $model = TemporaryWork::find($temporaryWork);
                 $model->ped_url = $filename;
                 $model->save();
+                
+                HelperFunctions::PdfFilesHistory($filename, $temporaryWork, 'pre_con');
+
+
                 //send mail to admin
                 
                 $notify_msg = [
@@ -1388,5 +1413,12 @@ class EstimatorController extends Controller
         {
             return response()->json(["success" => false ,"msg"=> "Something Went Wrong" , 'error' => $e->getMessage()]);
         }
+   }
+
+   public function deleteTemporaryWorkImage($id){
+    $temporary_work_image = TemporayWorkImage::findorfail($id);
+    $temporary_work_image->delete();
+    toastSuccess('Temporary Work Image Deleted Successfully!');
+    return redirect()->back();
    }
 }

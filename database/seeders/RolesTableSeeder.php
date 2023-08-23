@@ -37,6 +37,9 @@ class RolesTableSeeder extends Seeder
             ],
             [
                 'name'=>'Designer and Design Checker',
+            ],
+            [
+                'name'=>'visitor',
             ]
         ];
 

@@ -913,15 +913,15 @@ $tempWorkClass = "d-none";
                                                     </a>
                                                 </li>
                                                 @if(!empty($assignedBlocks))
-                                                @foreach($assignedBlocks as $block)
-                                                <li class="navi-item">
-                                                    <a href="{{url('/temporary_works?block='.$block['id'])}}"
-                                                        class="navi-link">
+                                                    @foreach($assignedBlocks as $block)
+                                                    <li class="navi-item">
+                                                        <a href="{{url('/temporary_works?block='.$block['id'])}}"
+                                                            class="navi-link">
 
-                                                        <span class="navi-text">{{$block['title']}}</span>
-                                                    </a>
-                                                </li>
-                                                @endforeach
+                                                            <span class="navi-text">{{$block['title']}}</span>
+                                                        </a>
+                                                    </li>
+                                                    @endforeach
                                                 @endisset
                                             </ul>
                                         </div>
@@ -1151,7 +1151,7 @@ $tempWorkClass = "d-none";
                                             id="kt_table_users">
 
                                             <tbody class="text-gray-600 fw-bold taable">
-@php $count =-1; @endphp
+                                                @php $count =-1; @endphp
                                                 @forelse($temporary_works as $item)
                                                 @php $count++; @endphp
                                                 <tr class="{{$item->status==3 ? 'rowcolor ':''}}"
@@ -1185,19 +1185,29 @@ $tempWorkClass = "d-none";
                                                                 <!-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}" target="_blank" href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                                                                              </a> -->
                                                                 <!-- <br> -->
+                                                                @php
+                                                                    $edit_class = '';
+                                                                    $edit_red_blink = '';
+                                                                    $label_class = 'label-light-success';
+                                                                @endphp
                                                                 @if($item->status==2)
+                                                                    @php
+                                                                        $edit_class = 'rejecteddesign';
+                                                                        $edit_red_blink = 'redBgBlink';
+                                                                        $label_class='label-light-danger';
+                                                                    @endphp
+                                                                @endif
                                                                 <a href="{{route('temporary_works.edit',$item->id)}}">
-                                                                    <span class="rejecteddesign cursor-pointer"
+                                                                    <span class="{{$edit_class}} cursor-pointer"
                                                                         style="width: 108px;"
                                                                         data-id="{{Crypt::encrypt($item->id)}}">
                                                                         <span
-                                                                            class="redBgBlink label label-lg font-weight-bold label-light-danger label-inline"><i
+                                                                            class="{{$edit_red_blink}} label label-lg font-weight-bold {{$label_class}} label-inline"><i
                                                                                 class="fa fa-edit text-white"
                                                                                 style="font-size:10px; position:relative; bottom:0.5px;"></i>
                                                                         </span>
                                                                     </span>
                                                                 </a>
-                                                                @endif
                                                             </div>
                                                             <span class="fa fa-plus addphoto cursor-pointer"
                                                                 data-id="{{$item->id}}"></span>
@@ -1218,12 +1228,24 @@ $tempWorkClass = "d-none";
                                                                     width="70px" height="70px">
                                                             </a>
                                                             @endif
-                                                            <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
-                                                                target="_blank"
-                                                                href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                                            </a>
-
-
+                                                            @if($item->pdfFilesDesignBrief->count() == 0)
+                                                                <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
+                                                                    target="_blank"
+                                                                    href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                </a>
+                                                            @elseif($item->status==2 || $item->status == 0) 
+                                                                <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
+                                                                    target="_blank"
+                                                                    href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                </a>
+                                                            @else
+                                                                @foreach($item->designbrief_history as $row)
+                                                                    <a style=""
+                                                                        target="_blank"
+                                                                        href="{{asset('pdf'.'/'.$row->pdf_name)}}">{{$row->twc_id_no}}
+                                                                    </a>
+                                                                @endforeach
+                                                            @endif
                                                         </div>
                                                     </td>
                                                     <td style="max-width: 191px;min-width: 191px;">
@@ -4511,7 +4533,7 @@ $tempWorkClass = "d-none";
 </script>
 <script>
     $(".uploadfile").on('click', function() { 
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add File");
            return false;
        }
@@ -4549,7 +4571,7 @@ $tempWorkClass = "d-none";
    })
    
    $(".addcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -4581,7 +4603,7 @@ $tempWorkClass = "d-none";
    
    //show reject comment
    $(".rejectcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -4609,7 +4631,7 @@ $tempWorkClass = "d-none";
 </script>
 <script type="text/javascript">
     $(".dateclick").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }
@@ -4633,6 +4655,10 @@ $tempWorkClass = "d-none";
    
    //upload drawing and design
    $(".uploaddrawing").on('click', function() {
+        if (role == "visitor") {
+           alert("You are not allowed to add drawings");
+           return false;
+       }
        var tempworkid = $(this).attr('data-id');
        $("#desing_tempworkid").val(tempworkid);
        $("#drawinganddesign").modal('show');
@@ -4699,6 +4725,10 @@ $tempWorkClass = "d-none";
    
    })
    $(".permit-to-load-btn").on('click', function() {
+        if (role == "visitor") {
+            alert("You are not allowed to add permit to load");
+            return false;
+        }
        id = $(this).attr('data-id');
        desc = $(this).attr('data-desc');
        type = $(this).attr('data-type');
@@ -4724,6 +4754,10 @@ $tempWorkClass = "d-none";
    
    //permit to unload
    $(".permit-to-unload").on('click', function() {
+        if (role == "visitor") {
+            alert("You are not allowed to add permit to unload");
+            return false;
+        }
        id = $(this).attr('data-id');
        desc = $(this).attr('data-desc');
        $.ajax({
@@ -4754,7 +4788,7 @@ $tempWorkClass = "d-none";
    
    //Add documents
    $(".adddocument").on('click', function(e) {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add Documents");
            return false;
        }

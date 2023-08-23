@@ -562,10 +562,10 @@
             <!--begin::Modal body-->
             <div class="modal-body py-lg-10 px-lg-10">
                 <div id="req_details_data">
-                    @php
-                        $designCheck = json_decode($design_check);
-                    @endphp
-                     @isset($designCheck)
+                    @isset($design_check)   
+                        $designCheck = json_decode($design_check) ?? '';
+                    @endisset
+                    @isset($designCheck)
                     <p style="font-weight: 400; font-size: 16px">Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p>
                     @endif
                     <table class="table">
@@ -967,6 +967,14 @@
                         </div>
                     </div>
 
+                </div>
+                <div>
+                    @isset($images)
+                        @foreach($images as $image)
+                            <a target="_blank" href="{{asset($image->image)}}">Attachment {{$loop->iteration}} </a>
+                            <div><a href="{{route('delete.temporaryworkimage',$image->id)}}" class="btn btn-danger">-</a></div>
+                        @endforeach
+                    @endisset
                 </div>
                 <div class="uploadDiv" style="margin-top:20px">
                     <div class="input-images"></div>

@@ -52,7 +52,7 @@
     }
 
     .header-fixed.toolbar-fixed .wrapper {
-        padding-top: 60px !important;
+        /* padding-top: 60px !important; */
     }
 
     .content {
@@ -698,7 +698,7 @@
                                         <span>Client Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" name="client_email" class="form-control form-control-slid" value="{{$temporary_work->designerQuote ? $temporary_work->designerQuote[0]->email : "" }}" placeholder="Enter Client Email" />
+                                    <input type="email" name="client_email" class="form-control form-control-slid" value="{{$temporary_work->designerQuote ? ($temporary_work->designerQuote[0]->email ?? '') : '' }}" placeholder="Enter Client Email" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -713,6 +713,16 @@
                                         <option value="draft" @if($temporary_work->work_status == "draft") selected @endif >Draft</option>
                                         <option value="publish" @if($temporary_work->work_status == "publish") selected @endif >Publish</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span>Existing Design Brief:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="file" class="form-control" name="existing_design_brief" />
                                 </div>
                             </div>
                         </div>
@@ -883,7 +893,7 @@
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Price:</span>
                                   </label>
-                                   <input type="number" name="price[]" class="form-control"/>
+                                   <input type="number" name="price[]" class="form-control" required/>
                 
                               </div>
                                 
@@ -893,7 +903,7 @@
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Description:</span>
                                   </label>
-                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
+                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control" required />
                 
                               </div>
                                 
@@ -903,7 +913,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span>Date:</span>
                                     </label>
-                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
+                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02" required />
                                 </div>
                                 
                             </div>

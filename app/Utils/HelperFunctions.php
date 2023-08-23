@@ -10,6 +10,7 @@ use App\Models\Tempworkshare;
 use App\Models\User;
 use App\Models\ChangeEmailHistory;
 use App\Models\EstimatorDesignerList;
+use App\Models\PdfFilesHistory;
 use App\Notifications\TempworkshareNotify;
 use Notification;
 
@@ -374,5 +375,15 @@ class HelperFunctions
         $chm->message = $message;
         $chm->user_type = $userType;
         $chm->save();
+    }
+
+    public static function PdfFilesHistory($filename, $temporary_work_id, $type, $twc_id_no=null)
+    {
+        $pdf_history = new PdfFilesHistory();
+        $pdf_history->pdf_name = $filename;
+        $pdf_history->tempwork_id = $temporary_work_id;
+        $pdf_history->type = $type;
+        $pdf_history->twc_id_no = $twc_id_no;
+        $pdf_history->save();
     }
 }

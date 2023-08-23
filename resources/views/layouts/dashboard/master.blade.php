@@ -34,7 +34,7 @@ License: -->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
         <!--begin::Page-->
-        <div class="page d-flex flex-row flex-column-fluid">
+        <div class="page d-flex flex-row flex-column-fluid" style="flex:0 !important;">
             <!--begin::Side bar-->
             @include('layouts.dashboard.side-bar')
             <!--end::Side bar-->

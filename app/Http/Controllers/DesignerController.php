@@ -17,7 +17,7 @@ use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
-use App\Models\{Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag};
+use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag};
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
@@ -430,7 +430,12 @@ class DesignerController extends Controller
                 $model->comments = 2;
             }
             $model->twd_name = $request->checkeremail;
-
+            if($request->existing_design_brief){
+                $file = $request->file('existing_design_brief');
+                $filePath = 'uploads/existing_designs/';
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $model->existing_design_brief = $imagename;
+            }
             if (isset($request->designcheckfile)) {
                 $file = $request->file('designcheckfile');
                 $ext = $request->file('designcheckfile')->extension();
@@ -743,8 +748,8 @@ class DesignerController extends Controller
                                 $list .='<tr>';
                                 $list .='<td>'.$i.'-'.$j.'</td>';
                                 $list .='<td>Comment/Reply</td>';
-                                $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
-                                $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                                $list .='<td colspan="5" style="white-space: pre-wrap;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                                $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                                 $list .='</tr>';
                                 $j++;
 
@@ -890,8 +895,8 @@ class DesignerController extends Controller
                             $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
                             $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
                             $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
-                            $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
-                            $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b style="white-space:pre-wrap;">'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                         //     $delete = route('designer.delete',$uploads->id);
                         // $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                             $k++;
@@ -1035,8 +1040,8 @@ class DesignerController extends Controller
                             $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
                             $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
                             $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
-                            $list .='<td colspan="5" style="max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
-                            $list .='<td colspan="5">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b style="white-space:pre-wrap;">'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
                         //     $delete = route('designer.delete',$uploads->id);
                         // $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
                             $k++;
@@ -1453,6 +1458,8 @@ class DesignerController extends Controller
                     $chm->message='Design Breif Approved by PC TWC';
                     $chm->status=2;
                     $chm->save();
+
+                    HelperFunctions::PdfFilesHistory($tempworkdata->ped_url, $tempworkdata->id, 'design_brief', $tempworkdata->twc_id_no);
                 }
                 $subject = 'TWP – Design Brief Accepted - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
                 $text = "We have attached the accepted PDF design brief for  ". $tempworkdata->company .". The design brief includes relevant documents as links.";
@@ -1799,7 +1806,7 @@ class DesignerController extends Controller
                 {
                     $none='display:none;';
                 }
-            $list.='<tr style="padding:5px"><td>'.$i.'</td><td style="max-width:300px;overflow-x:scroll">'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td>'. $replyemail.'<br>'.$reply.'<br>'. $image.'<form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
+            $list.='<tr style="padding:5px"><td>'.$i.'</td><td style="max-width:300px;overflow-x:scroll;white-space: pre-wrap;">'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td style="white-space: pre-wrap;">'. $replyemail.'<br>'.$reply.'<br>'. $image.'<form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="id" value="' . $comment->id . '"/>
                                    <input type="hidden" name="drawingid" value="'.$id.'" />
@@ -2217,6 +2224,13 @@ class DesignerController extends Controller
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $all_inputs['photo'] = $imagename;
             }
+            if($request->existing_design_brief){
+                $old_path = public_path($temporary_work->existing_design_brief);
+                $file = $request->file('existing_design_brief');
+                $filePath = 'uploads/existing_designs/';
+                $imagename = HelperFunctions::saveFile($old_path, $file, $filePath);
+                $all_inputs['existing_design_brief'] = $imagename;
+            }
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
@@ -2232,6 +2246,10 @@ class DesignerController extends Controller
              $designerQuotes = [];
              for ($i = 0; $i < count($request->price); $i++) {
                 if(!isset($request->price[$i]) || is_null($request->price[$i]) )
+                {
+                    continue;
+                }
+                if(!isset($request->description[$i]) || is_null($request->description[$i]) )
                 {
                     continue;
                 }
@@ -2560,7 +2578,7 @@ class DesignerController extends Controller
 
    public function storeEstimation(Request $request)
    {
-    // Validations::storeEstimatorWork($request);
+    Validations::storeEstimatorWork($request);
     try {
             $informationRequired = $request->information_required;
             if($informationRequired == "on")
@@ -2628,7 +2646,6 @@ class DesignerController extends Controller
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
-            // dd($all_inputs);
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -2640,6 +2657,12 @@ class DesignerController extends Controller
                 $file = $request->file('photo');
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $all_inputs['photo'] = $imagename;
+            }
+            if($request->existing_design_brief){
+                $file = $request->file('existing_design_brief');
+                $filePath = 'uploads/existing_designs/';
+                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                $all_inputs['existing_design_brief'] = $imagename;
             }
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
@@ -2655,11 +2678,14 @@ class DesignerController extends Controller
                 {
                     continue;
                 }
+                if(!isset($request->description[$i]) || is_null($request->description[$i]) )
+                {
+                    continue;
+                }
                 $model=new DesignerQuotation;
                 $model->price=$request->price[$i];
                 $model->description=$request->description[$i];
                 $model->date=$request->date[$i];
-                // $model->estimator_designer_list_id=$request->estimator_designer_id;
                 $model->email=$request->client_email;
                 $model->temporary_work_id=$temporary_work->id;
                 $model->save();

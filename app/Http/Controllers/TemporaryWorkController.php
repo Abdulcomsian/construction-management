@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\File;
 use Auth;
 use App\Mail\PermitUnloadMail;
 use App\Models\DesignerCompanyEmail;
+use App\Models\PdfFilesHistory;
 use App\Models\ProjectBlock;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
@@ -153,7 +154,7 @@ class TemporaryWorkController extends Controller
         }
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                
                 
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
@@ -368,7 +369,7 @@ class TemporaryWorkController extends Controller
     }
     public function create()
     {
-        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+        if (auth()->user()->hasRole([['supervisor','visitor','scaffolder']])) {
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
@@ -380,7 +381,7 @@ class TemporaryWorkController extends Controller
         //           return Redirect::back();
         //     }
         // }
-        //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        //abort_if(auth()->user()->hasRole(['supervisor', 'visitor', 'scaffolder']), 403);
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -412,7 +413,7 @@ class TemporaryWorkController extends Controller
 
     public function create2()
     {
-        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+        if (auth()->user()->hasRole([['supervisor', 'visitor', 'scaffolder']])) {
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
@@ -424,7 +425,7 @@ class TemporaryWorkController extends Controller
         //           return Redirect::back();
         //     }
         // }
-        //abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        //abort_if(auth()->user()->hasRole(['supervisor', 'visitor', 'scaffolder']), 403);
         try {
             $user = auth()->user();
             if ($user->hasRole(['admin'])) {
@@ -456,7 +457,7 @@ class TemporaryWorkController extends Controller
     //manually desing breif form for old data
     public function create1()
     {
-        abort_if(auth()->user()->hasRole(['supervisor', 'scaffolder']), 403);
+        abort_if(auth()->user()->hasRole(['supervisor', 'visitor', 'scaffolder']), 403);
         // if (auth()->user()->hasRole([['user']]) && Auth::user()->userCompany->nomination == 1) {
         //    if(Auth::user()->nomination == 1 && Auth::user()->nomination_status != 1)
         //     {
@@ -527,22 +528,22 @@ class TemporaryWorkController extends Controller
                     $model->drawing_title=$request->drawing_title;
                     $model->save();
                 }
-$notify_admins_msg = [
-                'greeting' => 'Temporary Work Pdf',
-                'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
-                'body' => [
-                    'company' => $request->company,
-                    'filename' => $filename,
-                    'links' => '',
-                    'name' =>  $request->design_requirement_text . '-' . $request->twc_id_no,
-                    'designer' => '',
-                    'pc_twc' => '',
+                $notify_admins_msg = [
+                    'greeting' => 'Temporary Work Pdf',
+                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                    'body' => [
+                        'company' => $request->company,
+                        'filename' => $filename,
+                        'links' => '',
+                        'name' =>  $request->design_requirement_text . '-' . $request->twc_id_no,
+                        'designer' => '',
+                        'pc_twc' => '',
 
-                ],
-                'thanks_text' => 'Thanks For Using our site',
-                'action_text' => '',
-                'action_url' => '',
-            ];
+                    ],
+                    'thanks_text' => 'Thanks For Using our site',
+                    'action_text' => '',
+                    'action_url' => '',
+                ];
                 #uploading DCC
                 if ($request->file('dcc')) {
                     $file = $request->file('dcc');
@@ -558,12 +559,7 @@ $notify_admins_msg = [
 
             if ($request->desinger_email_2) {
                 $notify_admins_msg['body']['designer'] = 'designer1';
-                // $cmh= new ChangeEmailHistory();
-                // $cmh->email=$request->desinger_email_2;
-                // $cmh->type ='Design Checker';
-                // $cmh->foreign_idd=$temporary_work->id;
-                // $cmh->message='Email sent to Design Checker';
-                // $cmh->save();
+                
                 HelperFunctions::EmailHistory(
                     $request->desinger_email_2,
                     'Design Checker',
@@ -729,6 +725,9 @@ $notify_admins_msg = [
                 $model = TemporaryWork::find($temporary_work->id);
                 $model->ped_url = $filename;
                 $model->save();
+                if(!$request->approval){
+                    HelperFunctions::PdfFilesHistory($filename, $temporary_work->id, 'design_brief', $twc_id_no);
+                }
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporary_work->id,
@@ -790,13 +789,7 @@ $notify_admins_msg = [
                         foreach($request->designer_company_email as $email){
 
                             $notify_admins_msg['body']['designer'] = 'designer1';
-                            //changing email history
-                            // $cmh= new ChangeEmailHistory();
-                            // $cmh->email=$request->designer_company_email;
-                            // $cmh->type ='Designer Company';
-                            // $cmh->foreign_idd=$temporary_work->id;
-                            // $cmh->message='Email sent to Designer Company';
-                            // $cmh->save();
+                            
                             HelperFunctions::EmailHistory(
                                 $email,
                                 'Design Company',
@@ -811,12 +804,7 @@ $notify_admins_msg = [
                     //designer email second
                     if ($request->desinger_email_2) {
                         $notify_admins_msg['body']['designer'] = 'designer1';
-                        // $cmh= new ChangeEmailHistory();
-                        // $cmh->email=$request->desinger_email_2;
-                        // $cmh->type ='Designer Checker';
-                        // $cmh->foreign_idd=$temporary_work->id;
-                        // $cmh->message='Email sent to Design Checker';
-                        // $cmh->save();
+                        
                         HelperFunctions::EmailHistory(
                             $request->desinger_email_2,
                             'Design Checker',
@@ -859,7 +847,7 @@ $notify_admins_msg = [
     }
     public function edit(TemporaryWork $temporaryWork)
     {
-        if (auth()->user()->hasRole([['supervisor', 'scaffolder']])) {
+        if (auth()->user()->hasRole([['supervisor', 'visitor', 'scaffolder']])) {
             toastError('the temporary works coordinator is the only appointed person who can create a design brief. If you require access, please contact your management team to request access for you');
             return Redirect::back();
         }
@@ -893,6 +881,13 @@ $notify_admins_msg = [
     {
         Validations::storeTemporaryWork($request);
         try {
+            if(!$request->approval){
+                $pdf_history = PdfFilesHistory::where([['tempwork_id', $temporaryWork->id],['type','design_brief']])->count();
+                if($pdf_history == 0){
+                    HelperFunctions::PdfFilesHistory($temporaryWork->ped_url, $temporaryWork->id, 'design_brief', $temporaryWork->twc_id_no);
+                }
+            }
+            
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -1024,12 +1019,19 @@ $notify_admins_msg = [
 
                 $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $request->twc_id_no, 'comments' => $attachcomments]);
                 $path = public_path('pdf');
-                @unlink($path . '/' . $temporaryWork->ped_url);
+                if (isset($request->approval)) {
+                    @unlink($path . '/' . $temporaryWork->ped_url);
+                }
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
                 $model = TemporaryWork::find($temporaryWork->id);
                 $model->ped_url = $filename;
                 $model->save();
+                if(!$request->approval || !$temporaryWork->status == 2){
+                $count = $model->pdfFilesDesignBrief->count();
+                $twc_id_no = $request->twc_id_no.'-'.$count++;
+                HelperFunctions::PdfFilesHistory($filename, $temporaryWork->id, 'design_brief', $twc_id_no);
+                }
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporaryWork->id,
@@ -1038,13 +1040,6 @@ $notify_admins_msg = [
                         'email' => Auth::user()->email,
                     ]);
 
-                     //changing email history
-                    // $cmh= new ChangeEmailHistory();
-                    // $cmh->email=$request->pc_twc_email;
-                    // $cmh->type ='Design Brief';
-                    // $cmh->message='Design Brief sent for approval';
-                    // $cmh->foreign_idd=$temporaryWork->id;
-                    // $cmh->save();
                     HelperFunctions::EmailHistory(
                         $request->pc_twc_email,
                         'Design Brief',
@@ -1117,7 +1112,7 @@ $notify_admins_msg = [
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
-            // dd($exception->getMessage(), $exception->getLine());
+            dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -1450,7 +1445,7 @@ $notify_admins_msg = [
             $i = 1;
             foreach ($twccommetns as $comment) { 
                  $tabletwc .= '<tr style="background:white">
-                               <td style="padding-right: 35px !important; padding-top: 12px !important;">' . $i . '</td><td style="padding: 11px !important;text-align:start !important; ">' . $comment->comment . '</td>
+                               <td style="padding-right: 35px !important; padding-top: 12px !important;">' . $i . '</td><td style="padding: 11px !important;text-align:start !important; white-space: pre-wrap;">' . $comment->comment . '</td>
                                <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                            </tr>';
                 $i++;
@@ -1463,7 +1458,7 @@ $notify_admins_msg = [
             $i = 1;
             foreach ($twcdesigncommetns as $comment) { 
                  $tabletwcdesigner .= '<tr style="background:white">
-                               <td style="padding: 11px !important">' . $i . '</td><td style="padding: 11px !important">' . $comment->comment . '</td>
+                               <td style="padding: 11px !important">' . $i . '</td><td style="padding: 11px !important;white-space: pre-wrap;">' . $comment->comment . '</td>
                                <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
                            </tr>';
                 $i++;
@@ -1555,8 +1550,8 @@ $notify_admins_msg = [
                     $table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
 
-                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
-                               <td style=" flex-direction: column;  padding-left: 15px !important;">
+                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
+                               <td style=" flex-direction: column;  padding-left: 15px !important;white-space:pre-wrap;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
@@ -1576,7 +1571,7 @@ $notify_admins_msg = [
                 } else {
                     
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td>' . $comment->comment . '</td>
+                               <td style="white-space:pre-wrap;">' . $i . '</td><td>' . $comment->comment . '</td>
                                <td>' . $a . '</td>
                                <td>' . $date_comment  . '</td>
                            </tr>' . $list . '';
@@ -1752,7 +1747,7 @@ $notify_admins_msg = [
                     $client_table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
 
-                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
+                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
                                <td style=" flex-direction: column;">
                                '.$formorreply.'
                                </td>

@@ -140,7 +140,7 @@
                     @endif
 
                 </div>
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">
                         <span class="menu-icon userTask">

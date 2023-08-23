@@ -686,7 +686,7 @@ hr{
                                <br>
                                <a target="_blank" href="estimatorPdf/{{$item->ped_url ?? ''}}">Job PDF</a>
                             </td>
-                            <td>{{$item->client_name ?? $item->creator->userCompany->name}}</td>
+                            <td>{{$item->client_name ?? ($item->creator->userCompany->name ?? '') }}</td>
                             <td>{{$item->job_title ?? ''}}  
                                     @if($item->designerQuote && auth()->user()->view_price)
                                     <br>
@@ -1131,7 +1131,7 @@ hr{
     </div>
  </div>
 <div class="modal fade" id="allocationDesignerModal">
-   <div class="modal-dialog modal-dialog-centered">
+   <div class="modal-dialog modal-dialog-centered" style="min-width:700px;">
       <div class="modal-content">
          <div class="modal-body">
            
@@ -1144,7 +1144,7 @@ hr{
 <script type="text/javascript">
     let role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
    $(".addcomment").on('click', function() {
-       if (role == 'supervisor' || role == "scaffolder") {
+       if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {
            alert("You are not allowed to add comment");
            return false;
        }

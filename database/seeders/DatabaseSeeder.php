@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(ProjectTableSeeder::class);
         $this->call(DesignRequirementTableSeeder::class);
+        $this->call(SetPermissionSeeder::class);
+        $this->call(TagTableSeeder::class);
 //         \App\Models\User::factory(10)->create();
     }
 }

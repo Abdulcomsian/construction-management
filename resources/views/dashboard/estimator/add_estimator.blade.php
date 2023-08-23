@@ -380,7 +380,7 @@
                                         <span class="required">Project No.:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="number" class="blackBack form-control form-control-solid"
+                                    <input type="text" class="blackBack form-control form-control-solid"
                                         placeholder="Enter Project number" id="no" name="projno">
                                 </div>
                             </div>
@@ -739,6 +739,16 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span>Existing Design Brief:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="file" class="form-control" name="existing_design_brief" />
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
 
@@ -821,7 +831,7 @@
                                             <span>Price:</span>
                                         </label>
                                         <input type="number" name="price[]" class="form-control"
-                                            placeholder="Enter Price" />
+                                            placeholder="Enter Price"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -836,10 +846,10 @@
                                 <div class="col-md-3">
                                     <div class="inputDiv input-group mt-0 ">
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span>Submittal Date:</span>
+                                            <span>Payment Date:</span>
                                         </label>
                                         <input type="date" name="date[]" class="form-control fileInput"
-                                            id="inputGroupFile02">
+                                            id="payment_date">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -907,7 +917,7 @@
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Price:</span>
                                   </label>
-                                   <input type="number" name="price[]" class="form-control"/>
+                                   <input type="number" name="price[]" class="form-control" required />
                 
                               </div>
                                 
@@ -917,7 +927,7 @@
                                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                    <span >Description:</span>
                                   </label>
-                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control">
+                                   <input type="text" name="description[]" placeholder="Enter Description" class="form-control" required />
                 
                               </div>
                                 
@@ -927,7 +937,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span>Date:</span>
                                     </label>
-                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02">
+                                    <input type="date" name="date[]" class="form-control fileInput" id="inputGroupFile02" required />
                                 </div>
                                 
                             </div>
@@ -953,5 +963,18 @@
             document.querySelector(".additional_information_photo").classList.add("d-none");
         }
     })
+</script>
+<script>
+    // Get a reference to the date input element
+    var dateInput = document.getElementById("payment_date");
+
+    // Create a new Date object to get the current date
+    var currentDate = new Date();
+
+    // Format the current date as "YYYY-MM-DD"
+    var formattedDate = currentDate.toISOString().split('T')[0];
+
+    // Set the value of the input field to the current date
+    dateInput.value = formattedDate;
 </script>
 @endsection

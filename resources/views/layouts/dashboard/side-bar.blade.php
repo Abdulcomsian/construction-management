@@ -57,7 +57,7 @@
 
             @if(auth()->user())
             <div  class="menu-item here show menu-accordion mb-1">
-            @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+            @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">
                         <span class="menu-icon userTask">
@@ -71,21 +71,21 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('temporary_works.index') }}">
                         <span class="menu-title">Temporary Works Register</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+                @if(\Auth::user()->hasAnyRole(['company','admin','user','scaffolder']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('temporary_works.shared') }}">
                         <span class="menu-title">Shared Temporary Works</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('temporary_works.create') }}">
                         <span class="menu-title">New Design Brief</span>
@@ -99,7 +99,7 @@
                         </a>
                     </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','scaffolder']))
+                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 </div></div>
                 <div data-kt-menu-trigger="click" class="menu-item here menu-accordion mb-1">
                 @endif
@@ -243,7 +243,7 @@
                         <span class="menu-icon userHoverTask">
                             <img src="{{asset('assets/media/images/23.png')}}">
                         </span>
-                        <span class="menu-title">Temporary Work Designer</span>
+                        <span class="menu-title">Online Designer</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">

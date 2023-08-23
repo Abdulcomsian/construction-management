@@ -108,6 +108,7 @@
                                         <option value="">Select Role</option>
                                         <option value="user" @if($user->hasRole('user')==true){{"selected"}}@endif>Temporary works co-ordinator</option>
                                         <option value="supervisor" @if($user->hasRole('supervisor')==true){{"selected"}}@endif>Temporary works supervisor</option>
+                                        <option value="visitor" @if($user->hasRole('visitor')==true){{"selected"}}@endif>Temporary works visitor</option>
                                         <option value="scaffolder" @if($user->hasRole('scaffolder')==true){{"selected"}}@endif>Scaffolder</option>
                                         <option value="estimator" @if($user->hasRole('estimator')==true){{"selected"}}@endif>Estimator / Pre-Con</option>
                                     </select>

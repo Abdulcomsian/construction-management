@@ -321,6 +321,10 @@
                                         {
                                         $role="Temporary works supervisor";
                                         }
+                                        elseif($user->roles->pluck('name')[0]=='visitor')
+                                        {
+                                        $role="Temporary works visitor";
+                                        }
                                         elseif($user->roles->pluck('name')[0]=='scaffolder')
                                         {
                                         $role="Scaffolder";

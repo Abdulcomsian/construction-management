@@ -178,13 +178,13 @@ class EstimatorController extends Controller
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $designers=User::role(['designer'])->get();
                 $suppliers=User::role(['supplier'])->get();
-                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
-                $adminDesigners=User::role('supplier')->where(['added_by'=>1])->get();
+                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNull('di_designer_id ')->get();
+                $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->whereNull('di_designer_id ')->get();
             }else {
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
                 $suppliers=User::role(['supplier'])->where(['company_id'=>$user->userCompany->id])->get();
-                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
+                $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNull('di_designer_id')->get();
                 //dd($adminDesigners);
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
             }

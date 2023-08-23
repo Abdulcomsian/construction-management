@@ -1,5 +1,9 @@
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
-
+@section('multiselectscripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+@endsection
 @section('styles')
 <style>
     ::placeholder {
@@ -199,7 +203,7 @@
         z-index: 1;
     }
     .label-1 {
-         width: 34%;
+         width: 50%;
         color: #000;
         position: absolute;
         bottom: 34px;
@@ -414,7 +418,10 @@ canvas {
     font-size: 14px;
     }
 
-
+    .multiselect-container>li {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+    }
     
 </style>
 

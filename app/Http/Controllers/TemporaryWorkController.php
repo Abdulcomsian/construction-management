@@ -3228,7 +3228,7 @@ class TemporaryWorkController extends Controller
     public function deleteDrawingFile(Request $request)
     {
         $filename = $request->input('filename');
-        $filePath = public_path('design_uploads/' . $filename);
+        $filePath = public_path($filename);
 
         // Check if the file exists
         if (file_exists($filePath)) {

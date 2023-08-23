@@ -2491,7 +2491,7 @@ function deleteFile(id) {
                   'Content-Type': 'application/json',
                   'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
               },
-              body: JSON.stringify({ filename: filename })
+              body: JSON.stringify({ filename: id })
           })
           .then(response => response.json())
           .then(data => {

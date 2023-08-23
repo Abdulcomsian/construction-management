@@ -580,9 +580,8 @@
               </div>
             </div>
 
-
             <div class="col-md-5" >
-                <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
+                <div class=" modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
                         <label class="fs-6 fw-bold set">
                             <span class="required">Select Drawing : </span>
                         </label>
@@ -596,12 +595,17 @@
                     </div>
             </div>
             <div class="col-md-1">
-                               <div class="drawing-plus"  id="drawing-button"> +  </div> 
-                            </div>
-             <div class="row " id="additional-drawing"  >
-                                    
-                            
+                              <div class="drawing-plus"  id="drawing-button"> +  </div> 
             </div>
+
+          </div>
+             <div class="row " id="additional-drawing"  >
+
+            </div>
+            
+
+<div class="row">
+            <div class="row"> 
             <div class="col-md-6" id="customFieldDiv" style="display: none;">
               <div class="d-flex inputDiv d-block my-0 mt-md-5" id="photoDesign">
                 <!--begin::Label-->
@@ -620,6 +624,7 @@
                     </div>
                 </div> --}}
             </div>
+          </div>
           </div>
           <div class="row">
             <div class="col-md-12">

@@ -1899,19 +1899,10 @@ class TemporaryWorkController extends Controller
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
-            if($request->drawing_option == 'drawing')
-            {
-                $designUpload = implode(', ', $request->design_upload);
-                $all_inputs['design_upload'] = $designUpload;
+            $designUpload = implode(', ', $request->design_upload);
+            $all_inputs['design_upload'] = $designUpload;
 
-            } else if($request->drawing_option == 'custom_file'){
-                $file = $request->file('custom_drawing');
-                if($file){
-                    $filePath  = 'design_uploads/';
-                    $desing_path = HelperFunctions::saveFile(null, $file, $filePath);
-                    $all_inputs['custom_drawing'] = $desing_path;
-                }   
-            }
+           
             //first person signature and name
            
             $image_name1 = '';

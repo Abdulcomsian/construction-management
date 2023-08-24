@@ -73,7 +73,7 @@ const AnnotationEditorType = {
   STAMP: 13,
   INK: 15,
   INK2: 16,
-  RECT: 5,
+  LINE: 5,
 };
 
 const AnnotationEditorParamsType = {
@@ -86,9 +86,9 @@ const AnnotationEditorParamsType = {
   INK2_COLOR: 21,
   INK2_THICKNESS: 22,
   INK2_OPACITY: 23,
-  RECT_COLOR: 31,
-  RECT_THICKNESS: 32,
-  RECT_OPACITY: 33,
+  LINE_COLOR: 31,
+  LINE_THICKNESS: 32,
+  LINE_OPACITY: 33,
 };
 
 // Permission flags from Table 22, Section 7.6.3.2 of the PDF specification.

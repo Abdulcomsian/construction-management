@@ -33,9 +33,9 @@ class AnnotationEditorParams {
     editorInkOpacity,
     editorInk2Color,
     editorInk2Thickness,
-    editorRectColor,
-    editorRectOpacity,
-    editorRectThickness,
+    editorLineColor,
+    editorLineOpacity,
+    editorLineThickness,
   }) {
     const dispatchEvent = (typeStr, value) => {
       this.eventBus.dispatch("switchannotationeditorparams", {
@@ -65,14 +65,14 @@ class AnnotationEditorParams {
     editorInk2Thickness.addEventListener("input", function () {
       dispatchEvent("INK2_THICKNESS", this.valueAsNumber);
     });
-    editorRectColor.addEventListener("input", function () {
-      dispatchEvent("RECT_COLOR", this.value);
+    editorLineColor.addEventListener("input", function () {
+      dispatchEvent("LINE_COLOR", this.value);
     });
-    editorRectThickness.addEventListener("input", function () {
-      dispatchEvent("RECT_THICKNESS", this.valueAsNumber);
+    editorLineThickness.addEventListener("input", function () {
+      dispatchEvent("LINE_THICKNESS", this.valueAsNumber);
     });
-    editorRectOpacity.addEventListener("input", function () {
-      dispatchEvent("RECT_OPACITY", this.valueAsNumber);
+    editorLineOpacity.addEventListener("input", function () {
+      dispatchEvent("LINE_OPACITY", this.valueAsNumber);
     });
 
     this.eventBus._on("annotationeditorparamschanged", evt => {
@@ -99,14 +99,14 @@ class AnnotationEditorParams {
           case AnnotationEditorParamsType.INK2_THICKNESS:
             editorInk2Thickness.value = value;
             break;
-          case AnnotationEditorParamsType.RECT_COLOR:
-            editorRectColor.value = value;
+          case AnnotationEditorParamsType.LINE_COLOR:
+            editorLineColor.value = value;
             break;
-          case AnnotationEditorParamsType.RECT_THICKNESS:
-            editorRectThickness.value = value;
+          case AnnotationEditorParamsType.LINE_THICKNESS:
+            editorLineThickness.value = value;
             break;
-          case AnnotationEditorParamsType.RECT_OPACITY:
-            editorRectOpacity.value = value;
+          case AnnotationEditorParamsType.LINE_OPACITY:
+            editorLineOpacity.value = value;
             break;
         }
       }

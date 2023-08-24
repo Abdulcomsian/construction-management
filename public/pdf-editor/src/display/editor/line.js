@@ -19,13 +19,13 @@ import {
     Util,
 } from "../../shared/util.js";
 import { AnnotationEditor } from "./editor.js";
-import { SquareAnnotationElement } from "../annotation_layer.js";
+import { InkAnnotationElement } from "../annotation_layer.js";
 import { opacityToHex } from "./tools.js";
 
 /**
  * Basic draw editor in order to generate an Ink annotation.
  */
-class RectEditor extends AnnotationEditor {
+class LineEditor extends AnnotationEditor {
     #baseHeight = 0;
 
     #baseWidth = 0;
@@ -64,16 +64,10 @@ class RectEditor extends AnnotationEditor {
 
     static _l10nPromise;
 
-    static _type = "rect";
-
-    startX = 0;
-    startY = 0;
-    endX = 0;
-    endY = 0;
-    highlightAreas = []
+    static _type = "ink";
 
     constructor(params) {
-        super({ ...params, name: "rectEditor" });
+        super({ ...params, name: "lineEditor" });
         this.color = params.color || null;
         this.thickness = params.thickness || null;
         this.opacity = params.opacity || null;
@@ -100,14 +94,14 @@ class RectEditor extends AnnotationEditor {
     /** @inheritdoc */
     static updateDefaultParams(type, value) {
         switch (type) {
-            case AnnotationEditorParamsType.RECT_THICKNESS:
-                RectEditor._defaultThickness = value;
+            case AnnotationEditorParamsType.LINE_THICKNESS:
+                LineEditor._defaultThickness = value;
                 break;
-            case AnnotationEditorParamsType.RECT_COLOR:
-                RectEditor._defaultColor = value;
+            case AnnotationEditorParamsType.LINE_COLOR:
+                LineEditor._defaultColor = value;
                 break;
-            case AnnotationEditorParamsType.RECT_THICKNESS:
-                RectEditor._defaultOpacity = value / 100;
+            case AnnotationEditorParamsType.LINE_OPACITY:
+                LineEditor._defaultOpacity = value / 100;
                 break;
         }
     }
@@ -115,13 +109,13 @@ class RectEditor extends AnnotationEditor {
     /** @inheritdoc */
     updateParams(type, value) {
         switch (type) {
-            case AnnotationEditorParamsType.RECT_THICKNESS:
+            case AnnotationEditorParamsType.LINE_THICKNESS:
                 this.#updateThickness(value);
                 break;
-            case AnnotationEditorParamsType.RECT_COLOR:
+            case AnnotationEditorParamsType.LINE_COLOR:
                 this.#updateColor(value);
                 break;
-            case AnnotationEditorParamsType.RECT_OPACITY:
+            case AnnotationEditorParamsType.LINE_OPACITY:
                 this.#updateOpacity(value);
                 break;
         }
@@ -130,14 +124,14 @@ class RectEditor extends AnnotationEditor {
     /** @inheritdoc */
     static get defaultPropertiesToUpdate() {
         return [
-            [AnnotationEditorParamsType.RECT_THICKNESS, RectEditor._defaultThickness],
+            [AnnotationEditorParamsType.LINE_THICKNESS, LineEditor._defaultThickness],
             [
-                AnnotationEditorParamsType.RECT_COLOR,
-                RectEditor._defaultColor || AnnotationEditor._defaultLineColor,
+                AnnotationEditorParamsType.LINE_COLOR,
+                LineEditor._defaultColor || AnnotationEditor._defaultLineColor,
             ],
             [
-                AnnotationEditorParamsType.RECT_OPACITY,
-                Math.round(RectEditor._defaultOpacity * 100),
+                AnnotationEditorParamsType.LINE_OPACITY,
+                Math.round(LineEditor._defaultOpacity * 100),
             ],
         ];
     }
@@ -146,18 +140,18 @@ class RectEditor extends AnnotationEditor {
     get propertiesToUpdate() {
         return [
             [
-                AnnotationEditorParamsType.RECT_THICKNESS,
-                this.thickness || RectEditor._defaultThickness,
+                AnnotationEditorParamsType.LINE_THICKNESS,
+                this.thickness || LineEditor._defaultThickness,
             ],
             [
-                AnnotationEditorParamsType.RECT_COLOR,
+                AnnotationEditorParamsType.LINE_COLOR,
                 this.color ||
-                RectEditor._defaultColor ||
+                LineEditor._defaultColor ||
                 AnnotationEditor._defaultLineColor,
             ],
             [
-                AnnotationEditorParamsType.RECT_OPACITY,
-                Math.round(100 * (this.opacity ?? RectEditor._defaultOpacity)),
+                AnnotationEditorParamsType.LINE_OPACITY,
+                Math.round(100 * (this.opacity ?? LineEditor._defaultOpacity)),
             ],
         ];
     }
@@ -178,7 +172,7 @@ class RectEditor extends AnnotationEditor {
                 this.#fitToContent();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.RECT_THICKNESS,
+            type: AnnotationEditorParamsType.LINE_THICKNESS,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -200,7 +194,7 @@ class RectEditor extends AnnotationEditor {
                 this.#redraw();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.RECT_COLOR,
+            type: AnnotationEditorParamsType.LINE_COLOR,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -223,7 +217,7 @@ class RectEditor extends AnnotationEditor {
                 this.#redraw();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.RECT_OPACITY,
+            type: AnnotationEditorParamsType.LINE_OPACITY,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -377,30 +371,25 @@ class RectEditor extends AnnotationEditor {
         );
 
         this.isEditing = true;
-
-        this.startX = x
-        this.startY = y
         if (!this.#isCanvasInitialized) {
             this.#isCanvasInitialized = true;
             this.#setCanvasDims();
-            this.thickness ||= RectEditor._defaultThickness;
+            this.thickness ||= LineEditor._defaultThickness;
             this.color ||=
-                RectEditor._defaultColor || AnnotationEditor._defaultLineColor;
-            this.opacity ??= RectEditor._defaultOpacity;
+                LineEditor._defaultColor || AnnotationEditor._defaultLineColor;
+            this.opacity ??= LineEditor._defaultOpacity;
         }
         this.currentPath.push([x, y]);
         this.#hasSomethingToDraw = false;
         this.#setStroke();
 
-        this.#drawPoints();
-
-        // this.#requestFrameCallback = () => {
-        //     this.#drawPoints();
-        //     if (this.#requestFrameCallback) {
-        //         window.requestAnimationFrame(this.#requestFrameCallback);
-        //     }
-        // };
-        // window.requestAnimationFrame(this.#requestFrameCallback);
+        this.#requestFrameCallback = () => {
+            this.#drawPoints();
+            if (this.#requestFrameCallback) {
+                window.requestAnimationFrame(this.#requestFrameCallback);
+            }
+        };
+        window.requestAnimationFrame(this.#requestFrameCallback);
     }
 
     /**
@@ -408,43 +397,43 @@ class RectEditor extends AnnotationEditor {
      * @param {number} x
      * @param {number} y
      */
-    // #draw(x, y) {
-    //     const [lastX, lastY] = this.currentPath.at(-1);
-    //     if (this.currentPath.length > 1 && x === lastX && y === lastY) {
-    //         return;
-    //     }
-    //     const currentPath = this.currentPath;
-    //     let path2D = this.#currentPath2D;
-    //     currentPath.push([x, y]);
-    //     this.#hasSomethingToDraw = true;
+    #draw(x, y) {
+        const [lastX, lastY] = this.currentPath.at(-1);
+        if (this.currentPath.length > 1 && x === lastX && y === lastY) {
+            return;
+        }
+        const currentPath = this.currentPath;
+        let path2D = this.#currentPath2D;
+        currentPath.push([x, y]);
+        this.#hasSomethingToDraw = true;
 
-    //     if (currentPath.length <= 2) {
-    //         path2D.moveTo(...currentPath[0]);
-    //         path2D.lineTo(x, y);
-    //         return;
-    //     }
+        if (currentPath.length <= 2) {
+            path2D.moveTo(...currentPath[0]);
+            path2D.lineTo(x, y);
+            return;
+        }
 
-    //     if (currentPath.length === 3) {
-    //         this.#currentPath2D = path2D = new Path2D();
-    //         path2D.moveTo(...currentPath[0]);
-    //     }
+        if (currentPath.length === 3) {
+            this.#currentPath2D = path2D = new Path2D();
+            path2D.moveTo(...currentPath[0]);
+        }
 
-    //     this.#makeBezierCurve(
-    //         path2D,
-    //         ...currentPath.at(-3),
-    //         ...currentPath.at(-2),
-    //         x,
-    //         y
-    //     );
-    // }
+        this.#makeBezierCurve(
+            path2D,
+            ...currentPath.at(-3),
+            ...currentPath.at(-2),
+            x,
+            y
+        );
+    }
 
-    // #endPath() {
-    //     if (this.currentPath.length === 0) {
-    //         return;
-    //     }
-    //     const lastPoint = this.currentPath.at(-1);
-    //     this.#currentPath2D.lineTo(...lastPoint);
-    // }
+    #endPath() {
+        if (this.currentPath.length === 0) {
+            return;
+        }
+        const lastPoint = this.currentPath.at(-1);
+        this.#currentPath2D.lineTo(...lastPoint);
+    }
 
     /**
      * Stop to draw on the canvas.
@@ -457,29 +446,29 @@ class RectEditor extends AnnotationEditor {
         x = Math.min(Math.max(x, 0), this.canvas.width);
         y = Math.min(Math.max(y, 0), this.canvas.height);
 
-        // this.#draw(x, y);
-        // this.#endPath();
+        this.#draw(x, y);
+        this.#endPath();
 
         // Interpolate the path entered by the user with some
         // Bezier's curves in order to have a smoother path and
         // to reduce the data size used to draw it in the PDF.
-        // let bezier;
-        // if (this.currentPath.length !== 1) {
-        //     bezier = this.#generateBezierPoints();
-        // } else {
-        //     // We have only one point finally.
-        //     const xy = [x, y];
-        //     bezier = [[xy, xy.slice(), xy.slice(), xy]];
-        // }
-        // const path2D = this.#currentPath2D;
-        // const currentPath = this.currentPath;
-        // this.currentPath = [];
-        // this.#currentPath2D = new Path2D();
+        let bezier;
+        if (this.currentPath.length !== 1) {
+            bezier = this.#generateBezierPoints();
+        } else {
+            // We have only one point finally.
+            const xy = [x, y];
+            bezier = [[xy, xy.slice(), xy.slice(), xy]];
+        }
+        const path2D = this.#currentPath2D;
+        const currentPath = this.currentPath;
+        this.currentPath = [];
+        this.#currentPath2D = new Path2D();
 
         const cmd = () => {
-            this.allRawPaths.push(...this.highlightAreas);
-            this.paths.push(...this.highlightAreas);
-            this.bezierPath2D.push(...this.highlightAreas);
+            this.allRawPaths.push(currentPath);
+            this.paths.push(bezier);
+            this.bezierPath2D.push(path2D);
             this.rebuild();
         };
 
@@ -501,141 +490,100 @@ class RectEditor extends AnnotationEditor {
         this.addCommands({ cmd, undo, mustExec: true });
     }
 
-    // #drawRectangle(x, y) {
-    //     const width = x - 100;
-    //     const height = y - 200;
-
-    //     // this.ctx.strokeStyle = this.color;
-    //     // this.ctx.lineWidth = this.thickness;
-    //     // this.ctx.globalAlpha = this.opacity;
-
-    //     this.ctx.beginPath();
-    //     this.ctx.rect(x, y, width, height);
-    //     this.ctx.stroke();
-    // }
-
-    #redrawHighlightArea() {
-        // Clear the highlight canvas before redrawing
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.#setStroke()
-
-        // Draw existing highlight rectangles
-        for (const area of this.highlightAreas) {
-            this.ctx.strokeRect(area.x, area.y, area.width, area.height);
-        }
-
-        // Draw the current highlight rectangle (during drawing)
-        if (this.isEditing) {
-            this.ctx.strokeRect(
-                Math.min(this.startX, this.endX),
-                Math.min(this.startY, this.endY),
-                Math.abs(this.endX - this.startX),
-                Math.abs(this.endY - this.startY)
-            );
-        }
-    }
-
-
     #drawPoints() {
         if (!this.#hasSomethingToDraw) {
             return;
         }
         this.#hasSomethingToDraw = false;
 
-        // const thickness = Math.ceil(this.thickness * this.parentScale);
-        // const lastPoints = this.currentPath.slice(-3);
-        // const x = lastPoints.map(xy => xy[0]);
-        // const y = lastPoints.map(xy => xy[1]);
-        // const xMin = Math.min(...x) - thickness;
-        // const xMax = Math.max(...x) + thickness;
-        // const yMin = Math.min(...y) - thickness;
-        // const yMax = Math.max(...y) + thickness;
+        const thickness = Math.ceil(this.thickness * this.parentScale);
+        const lastPoints = this.currentPath.slice(-3);
+        const x = lastPoints.map(xy => xy[0]);
+        const y = lastPoints.map(xy => xy[1]);
+        const xMin = Math.min(...x) - thickness;
+        const xMax = Math.max(...x) + thickness;
+        const yMin = Math.min(...y) - thickness;
+        const yMax = Math.max(...y) + thickness;
 
         const { ctx } = this;
         ctx.save();
 
-        // if (typeof PDFJSDev !== "undefined" && PDFJSDev.test("MOZCENTRAL")) {
-        //     // In Chrome, the clip() method doesn't work as expected.
-        //     ctx.clearRect(xMin, yMin, xMax - xMin, yMax - yMin);
-        //     ctx.beginPath();
-        //     ctx.rect(xMin, yMin, xMax - xMin, yMax - yMin);
-        //     ctx.clip();
-        // } else {
-        //     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        // }
+        if (typeof PDFJSDev !== "undefined" && PDFJSDev.test("MOZCENTRAL")) {
+            // In Chrome, the clip() method doesn't work as expected.
+            ctx.clearRect(xMin, yMin, xMax - xMin, yMax - yMin);
+            ctx.beginPath();
+            ctx.rect(xMin, yMin, xMax - xMin, yMax - yMin);
+            ctx.clip();
+        } else {
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
 
-        // for (const path of this.bezierPath2D) {
-        //     ctx.stroke(path);
-        // }
-        // ctx.stroke(this.#currentPath2D);
-
-        ctx.strokeRect(this.startX, this.startY, this.endX, this.endY);
-
-        // this.#drawRectangle(x, y)
+        for (const path of this.bezierPath2D) {
+            ctx.stroke(path);
+        }
+        ctx.stroke(this.#currentPath2D);
 
         ctx.restore();
     }
 
-    // #makeBezierCurve(path2D, x0, y0, x1, y1, x2, y2) {
-    //     const prevX = (x0 + x1) / 2;
-    //     const prevY = (y0 + y1) / 2;
-    //     const x3 = (x1 + x2) / 2;
-    //     const y3 = (y1 + y2) / 2;
+    #makeBezierCurve(path2D, x0, y0, x1, y1, x2, y2) {
+        const prevX = (x0 + x1) / 2;
+        const prevY = (y0 + y1) / 2;
+        const x3 = (x1 + x2) / 2;
+        const y3 = (y1 + y2) / 2;
 
-    //     path2D.bezierCurveTo(
-    //         prevX + (2 * (x1 - prevX)) / 3,
-    //         prevY + (2 * (y1 - prevY)) / 3,
-    //         x3 + (2 * (x1 - x3)) / 3,
-    //         y3 + (2 * (y1 - y3)) / 3,
-    //         x3,
-    //         y3
-    //     );
-    // }
+        path2D.bezierCurveTo(
+            prevX + (2 * (x1 - prevX)) / 3,
+            prevY + (2 * (y1 - prevY)) / 3,
+            x3 + (2 * (x1 - x3)) / 3,
+            y3 + (2 * (y1 - y3)) / 3,
+            x3,
+            y3
+        );
+    }
 
-    // #generateBezierPoints() {
-    //     const path = this.currentPath;
-    //     if (path.length <= 2) {
-    //         return [[path[0], path[0], path.at(-1), path.at(-1)]];
-    //     }
+    #generateBezierPoints() {
+        const path = this.currentPath;
+        if (path.length <= 2) {
+            return [[path[0], path[0], path.at(-1), path.at(-1)]];
+        }
 
-    //     const bezierPoints = [];
-    //     let i;
-    //     let [x0, y0] = path[0];
-    //     for (i = 1; i < path.length - 2; i++) {
-    //         const [x1, y1] = path[i];
-    //         const [x2, y2] = path[i + 1];
-    //         const x3 = (x1 + x2) / 2;
-    //         const y3 = (y1 + y2) / 2;
+        const bezierPoints = [];
+        let i;
+        let [x0, y0] = path[0];
+        for (i = 1; i < path.length - 2; i++) {
+            const [x1, y1] = path[i];
+            const [x2, y2] = path[i + 1];
+            const x3 = (x1 + x2) / 2;
+            const y3 = (y1 + y2) / 2;
 
-    //         // The quadratic is: [[x0, y0], [x1, y1], [x3, y3]].
-    //         // Convert the quadratic to a cubic
-    //         // (see https://fontforge.org/docs/techref/bezier.html#converting-truetype-to-postscript)
-    //         const control1 = [x0 + (2 * (x1 - x0)) / 3, y0 + (2 * (y1 - y0)) / 3];
-    //         const control2 = [x3 + (2 * (x1 - x3)) / 3, y3 + (2 * (y1 - y3)) / 3];
+            // The quadratic is: [[x0, y0], [x1, y1], [x3, y3]].
+            // Convert the quadratic to a cubic
+            // (see https://fontforge.org/docs/techref/bezier.html#converting-truetype-to-postscript)
+            const control1 = [x0 + (2 * (x1 - x0)) / 3, y0 + (2 * (y1 - y0)) / 3];
+            const control2 = [x3 + (2 * (x1 - x3)) / 3, y3 + (2 * (y1 - y3)) / 3];
 
-    //         bezierPoints.push([[x0, y0], control1, control2, [x3, y3]]);
+            bezierPoints.push([[x0, y0], control1, control2, [x3, y3]]);
 
-    //         [x0, y0] = [x3, y3];
-    //     }
+            [x0, y0] = [x3, y3];
+        }
 
-    //     const [x1, y1] = path[i];
-    //     const [x2, y2] = path[i + 1];
+        const [x1, y1] = path[i];
+        const [x2, y2] = path[i + 1];
 
-    //     // The quadratic is: [[x0, y0], [x1, y1], [x2, y2]].
-    //     const control1 = [x0 + (2 * (x1 - x0)) / 3, y0 + (2 * (y1 - y0)) / 3];
-    //     const control2 = [x2 + (2 * (x1 - x2)) / 3, y2 + (2 * (y1 - y2)) / 3];
+        // The quadratic is: [[x0, y0], [x1, y1], [x2, y2]].
+        const control1 = [x0 + (2 * (x1 - x0)) / 3, y0 + (2 * (y1 - y0)) / 3];
+        const control2 = [x2 + (2 * (x1 - x2)) / 3, y2 + (2 * (y1 - y2)) / 3];
 
-    //     bezierPoints.push([[x0, y0], control1, control2, [x2, y2]]);
-    //     return bezierPoints;
-    // }
+        bezierPoints.push([[x0, y0], control1, control2, [x2, y2]]);
+        return bezierPoints;
+    }
 
     /**
      * Redraw all the paths.
      */
     #redraw() {
         if (this.isEmpty()) {
-            // alert('here')
             this.#updateTransform();
             return;
         }
@@ -647,11 +595,7 @@ class RectEditor extends AnnotationEditor {
         this.#updateTransform();
 
         for (const path of this.bezierPath2D) {
-            // ctx.stroke(path);
-
-            const { x, y, width, height } = path
-
-            ctx.strokeRect(x, y, width, height)
+            ctx.stroke(path);
         }
     }
 
@@ -700,10 +644,13 @@ class RectEditor extends AnnotationEditor {
         if (event.button !== 0 || !this.isInEditMode() || this.#disableEditing) {
             return;
         }
+
         // We want to draw on top of any other editors.
         // Since it's the last child, there's no need to give it a higher z-index.
         this.setInForeground();
+
         event.preventDefault();
+
         if (event.type !== "mouse") {
             this.div.focus();
         }
@@ -725,9 +672,8 @@ class RectEditor extends AnnotationEditor {
      */
     canvasPointermove(event) {
         event.preventDefault();
-        this.endX = event.offsetX;
-        this.endY = event.offsetY;
-        // this.#draw(event.offsetX, event.offsetY);
+        // this.#draw(event.offsetX, event.offsetY); 
+        // this.#draw(event.clientX - this.canvas.offsetLeft, event.clientY - this.canvas.offsetTop);
     }
 
     /**
@@ -736,15 +682,6 @@ class RectEditor extends AnnotationEditor {
      */
     canvasPointerup(event) {
         event.preventDefault();
-        this.isEditing = false
-        this.highlightAreas.push({
-            x: Math.min(this.startX, this.endX),
-            y: Math.min(this.startY, this.endY),
-            width: Math.abs(this.endX - this.startX),
-            height: Math.abs(this.endY - this.startY)
-        });
-        this.#redrawHighlightArea();
-
         this.#endDrawing(event);
     }
 
@@ -753,9 +690,7 @@ class RectEditor extends AnnotationEditor {
      * @param {PointerEvent} event
      */
     canvasPointerleave(event) {
-        this.isEditing = false
-        this.#redrawHighlightArea();
-        // this.#endDrawing(event);
+        this.#endDrawing(event);
     }
 
     /**
@@ -798,9 +733,9 @@ class RectEditor extends AnnotationEditor {
     #createCanvas() {
         this.canvas = document.createElement("canvas");
         this.canvas.width = this.canvas.height = 0;
-        this.canvas.className = "rectEditorCanvas";
+        this.canvas.className = "lineEditorCanvas";
 
-        RectEditor._l10nPromise
+        LineEditor._l10nPromise
             .get("editor_ink_canvas_aria_label")
             .then(msg => this.canvas?.setAttribute("aria-label", msg));
         this.div.append(this.canvas);
@@ -834,7 +769,7 @@ class RectEditor extends AnnotationEditor {
 
         super.render();
 
-        RectEditor._l10nPromise
+        LineEditor._l10nPromise
             .get("editor_ink2_aria_label")
             .then(msg => this.div?.setAttribute("aria-label", msg));
 
@@ -998,7 +933,6 @@ class RectEditor extends AnnotationEditor {
             default:
                 throw new Error("Invalid rotation");
         }
-
         return points;
     }
 
@@ -1075,8 +1009,8 @@ class RectEditor extends AnnotationEditor {
                 }
             }
             paths.push({
-                bezier: RectEditor.#toPDFCoordinates(buffer, rect, this.rotation),
-                points: RectEditor.#toPDFCoordinates(points, rect, this.rotation),
+                bezier: LineEditor.#toPDFCoordinates(buffer, rect, this.rotation),
+                points: LineEditor.#toPDFCoordinates(points, rect, this.rotation),
             });
         }
 
@@ -1088,101 +1022,27 @@ class RectEditor extends AnnotationEditor {
      * @returns {Array<number>}
      */
     #getBbox() {
-        let xMin = [];
-        let xMax = [];
-        let yMin = [];
-        let yMax = [];
+        let xMin = Infinity;
+        let xMax = -Infinity;
+        let yMin = Infinity;
+        let yMax = -Infinity;
 
-        for (const { x, y, width, height } of this.paths) {
-            // for (const [first, control1, control2, second] of path) {
-            //     const bbox = Util.bezierBoundingBox(
-            //         ...first,
-            //         ...control1,
-            //         ...control2,
-            //         ...second
-            //     );
-            //     xMin = Math.min(xMin, bbox[0]);
-            //     yMin = Math.min(yMin, bbox[1]);
-            //     xMax = Math.max(xMax, bbox[2]);
-            //     yMax = Math.max(yMax, bbox[3]);
-            // }
-            // const arr = []
-            // Loop through the rows and columns to draw the dots
-            // for (var row = y; row < y + height; row++) {
-            //     for (var col = x; col < x + width; col++) {
-            //         //   ctx.fillRect(col, row, 1, 1); // Draw a dot at (col, row)
-            //         // arr.push(col)
-            //         xMin = [row]
-            //         yMin = [col]
-            //         xMax = 200
-            //         yMax = 150
-            //     }
-            // }
-
-            xMin = x
-            yMin = y
-            xMax = x + width
-            yMax = y + height
-
-            // for (var col = x; col < x + width; col++) {
-            //     xMin.push([col, y]);
-            //     xMax.push([col, y + height - 1]);
-            // }
-            // // Draw the side border points
-            // for (var row = y + 1; row < y + height - 1; row++) {
-            //     yMin.push([x, row]);
-            //     yMax.push([x + width - 1, row]);
-            // }
-
-            return [xMin, yMin, xMax, yMax];
-            // return [Math.min(xMin), Math.min(yMin), Math.max(xMax), Math.max(xMax)];
-
-            // const arr1 = []
-            // arr.push(arr)
-
-            // // Bezier control points
-            // const topLeft = { x: x, y: y };
-            // const topRight = { x: x + width, y: y };
-            // const bottomLeft = { x: x, y: y + height };
-            // const bottomRight = { x: x + width, y: y + height };
-
-            // // Calculate control points
-            // const topMidControl = { x: (topLeft.x + topRight.x) / 2, y: topLeft.y };
-            // const bottomMidControl = { x: (bottomLeft.x + bottomRight.x) / 2, y: bottomLeft.y };
-            // const leftMidControl = { x: topLeft.x, y: (topLeft.y + bottomLeft.y) / 2 };
-            // const rightMidControl = { x: topRight.x, y: (topRight.y + bottomRight.y) / 2 };
-
-            // function getPointsAlongBezier(p1, p2, control1, control2, numPoints) {
-            //     const points = [];
-            //     for (let t = 0; t <= 1; t += 1 / numPoints) {
-            //         const x = Math.pow(1 - t, 3) * p1.x +
-            //             3 * Math.pow(1 - t, 2) * t * control1.x +
-            //             3 * (1 - t) * Math.pow(t, 2) * control2.x +
-            //             Math.pow(t, 3) * p2.x;
-
-            //         const y = Math.pow(1 - t, 3) * p1.y +
-            //             3 * Math.pow(1 - t, 2) * t * control1.y +
-            //             3 * (1 - t) * Math.pow(t, 2) * control2.y +
-            //             Math.pow(t, 3) * p2.y;
-
-            //         points.push({ x, y });
-            //     }
-            //     return points;
-            // }
-
-            // // Get points along each edge
-            // const numPoints = 10; // You can adjust this for more or fewer points
-            // const topEdgePoints = getPointsAlongBezier(topLeft, topRight, topMidControl, topMidControl, numPoints);
-            // const bottomEdgePoints = getPointsAlongBezier(bottomLeft, bottomRight, bottomMidControl, bottomMidControl, numPoints);
-            // const leftEdgePoints = getPointsAlongBezier(topLeft, bottomLeft, leftMidControl, leftMidControl, numPoints);
-            // const rightEdgePoints = getPointsAlongBezier(topRight, bottomRight, rightMidControl, rightMidControl, numPoints);
-
-            // const allEdgePoints = [...topEdgePoints, ...bottomEdgePoints, ...leftEdgePoints, ...rightEdgePoints];
-            // // return allEdgePoints
+        for (const path of this.paths) {
+            for (const [first, control1, control2, second] of path) {
+                const bbox = Util.bezierBoundingBox(
+                    ...first,
+                    ...control1,
+                    ...control2,
+                    ...second
+                );
+                xMin = Math.min(xMin, bbox[0]);
+                yMin = Math.min(yMin, bbox[1]);
+                xMax = Math.max(xMax, bbox[2]);
+                yMax = Math.max(yMax, bbox[3]);
+            }
         }
 
-        // return [xMin, yMin, xMax, yMax];
-        // return [0, 0, this.canvas.width, this.canvas.height];
+        return [xMin, yMin, xMax, yMax];
     }
 
     /**
@@ -1248,7 +1108,7 @@ class RectEditor extends AnnotationEditor {
 
     /** @inheritdoc */
     static deserialize(data, parent, uiManager) {
-        if (data instanceof SquareAnnotationElement) {
+        if (data instanceof InkAnnotationElement) {
             return null;
         }
         const editor = super.deserialize(data, parent, uiManager);
@@ -1270,7 +1130,7 @@ class RectEditor extends AnnotationEditor {
         const { paths, rect, rotation } = data;
 
         for (let { bezier } of paths) {
-            bezier = RectEditor.#fromPDFCoordinates(bezier, rect, rotation);
+            bezier = LineEditor.#fromPDFCoordinates(bezier, rect, rotation);
             const path = [];
             editor.paths.push(path);
             let p0 = scaleFactor * (bezier[0] - padding);
@@ -1313,7 +1173,7 @@ class RectEditor extends AnnotationEditor {
         const color = AnnotationEditor._colorManager.convert(this.ctx.strokeStyle);
 
         return {
-            annotationType: AnnotationEditorType.RECT,
+            annotationType: AnnotationEditorType.INK,
             color,
             thickness: this.thickness,
             opacity: this.opacity,
@@ -1330,4 +1190,4 @@ class RectEditor extends AnnotationEditor {
     }
 }
 
-export { RectEditor };
+export { LineEditor };

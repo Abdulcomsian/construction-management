@@ -114,12 +114,14 @@
                                     Design Upload</b> </label>
                         </td>
                         @php
-                         $design_upload = $data['design_upload'] ?? ''
+                         $design_upload = $data['design_upload'] ?? [];
                         @endphp
                         <td colspan="3">
-                            @foreach($design_upload as $row)
-                            <span style="font-size: 12px;"><a href="{{asset($row)}}">{{asset($row)}}</a></span>
-                            @endforeach
+                            @isset($design_upload)
+                                @foreach($design_upload as $row)
+                                <span style="font-size: 12px;"><a href="{{asset($row)}}">{{asset($row)}}</a></span>
+                                @endforeach
+                            @endisset
                         </td>
                     </tr>
                 </tbody>

@@ -584,7 +584,7 @@
 
             <div class="col-md-6" >
                 <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
-                    <label class="fs-6 fw-bold set">
+                    <label class="fs-6 fw-bold">
                         <span class="required">Select Drawing : </span>
                     </label>
                     <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
@@ -2463,7 +2463,6 @@
 </script>
 <script>
 function deleteFile(id) {
-  console.log("id", id);
     // Remove the corresponding file container (the parent div) by its id
     const fileContainer = document.getElementById(id);
 

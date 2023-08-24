@@ -1899,8 +1899,10 @@ class TemporaryWorkController extends Controller
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
-            $designUpload = implode(', ', $request->design_upload);
-            $all_inputs['design_upload'] = $designUpload;
+            if($request->design_upload){
+                $designUpload = implode(', ', $request->design_upload);
+                $all_inputs['design_upload'] = $designUpload;
+            }
 
            
             //first person signature and name
@@ -2166,12 +2168,17 @@ class TemporaryWorkController extends Controller
     //permit update
     public function permit_update(Request $request)
     {
+        dd("sss");
         Validations::storepermitload($request);
         $permitdata = PermitLoad::find($request->permitid);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'design_upload');
 
             $all_inputs['created_by'] = auth()->user()->id;
+            $all_inputs['design_upload'] = '';
+            $all_inputs['custom_drawing'] = '';
+            $designUpload = implode(', ', $request->design_upload);
+            $all_inputs['design_upload'] = $designUpload;
             //first person signature and name
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
@@ -2256,7 +2263,7 @@ class TemporaryWorkController extends Controller
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
-            dd($exception->getMessage()); 
+            dd($exception->getMessage(), $exception->getLine()); 
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -2313,7 +2320,8 @@ class TemporaryWorkController extends Controller
             $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
             $twc_id_no = $permitdata->permit_no;
             $project = Project::with('company')->where('id', $permitdata->project_id)->first();
-            return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata'));
+            $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
+            return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata', 'temporary_work_files'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -2339,8 +2347,15 @@ class TemporaryWorkController extends Controller
     {
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload');
             $all_inputs['created_by'] = auth()->user()->id;
+            $all_inputs['custom_drawing'] = '';
+            $all_inputs['design_upload'] = '';
+            if($request->design_upload){
+                $designUpload = implode(', ', $request->design_upload);
+                $all_inputs['design_upload'] = $designUpload;
+            }
+            
             $image_name1 = '';
             
             

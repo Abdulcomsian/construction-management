@@ -107,7 +107,22 @@
                         <td colspan="3"><span style="font-size: 12px;">{{$data['ms_ra_no']}}</span></td>
 
                     </tr>
-
+                    <tr>
+                        <td style="width: 150px;background:gray;color:white;">
+                            <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">
+                                    Design Upload</b> </label>
+                        </td>
+                        @php
+                         $design_upload = $data['design_upload'] ?? [];
+                        @endphp
+                        <td colspan="3">
+                            @isset($design_upload)
+                                @foreach($design_upload as $row)
+                                <span style="font-size: 12px;"><a href="{{asset($row)}}">{{asset($row)}}</a></span>
+                                @endforeach
+                            @endisset
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -1278,6 +1278,7 @@
   --treeitem-collapsed-icon: url(images/treeitem-collapsed.svg);
   --toolbarButton-editorFreeText-icon: url(images/toolbarButton-editorFreeText.svg);
   --toolbarButton-editorInk-icon: url(images/toolbarButton-editorInk.svg);
+  --toolbarButton-editorLine-icon: url(images/horizontal-line-svgrepo-com.svg);
   --toolbarButton-editorStamp-icon: url(images/toolbarButton-editorStamp.svg);
   --toolbarButton-menuArrow-icon: url(images/toolbarButton-menuArrow.svg);
   --toolbarButton-sidebarToggle-icon: url(images/toolbarButton-sidebarToggle.svg);
@@ -1793,22 +1794,22 @@ body {
 }
 
 #editorInkParamsToolbar {
-  inset-inline-end: 67px;
+  inset-inline-end: 96px;
   background-color: var(--toolbar-bg-color);
 }
 
 #editorInkParamsToolbar2 {
-  inset-inline-end: 40px;
+  inset-inline-end: 68px;
   background-color: var(--toolbar-bg-color);
 }
 
-#editorRectParamsToolbar {
+#editorLineParamsToolbar {
   inset-inline-end: 40px;
   background-color: var(--toolbar-bg-color);
 }
 
 #editorFreeTextParamsToolbar {
-  inset-inline-end: 95px;
+  inset-inline-end: 124px;
   background-color: var(--toolbar-bg-color);
 }
 
@@ -2164,6 +2165,11 @@ body {
   mask-image: var(--toolbarButton-editorInk-icon); */
 
   border-radius: 50%;
+}
+
+#editorLine::before {
+  -webkit-mask-image: var(--toolbarButton-editorLine-icon);
+  mask-image: var(--toolbarButton-editorLine-icon);
 }
 
 #editorStamp::before {

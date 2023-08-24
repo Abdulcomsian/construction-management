@@ -25,7 +25,7 @@ import { opacityToHex } from "./tools.js";
 /**
  * Basic draw editor in order to generate an Ink annotation.
  */
-class RectEditor extends AnnotationEditor {
+class LineEditor extends AnnotationEditor {
     #baseHeight = 0;
 
     #baseWidth = 0;
@@ -67,7 +67,7 @@ class RectEditor extends AnnotationEditor {
     static _type = "ink";
 
     constructor(params) {
-        super({ ...params, name: "rectEditor" });
+        super({ ...params, name: "lineEditor" });
         this.color = params.color || null;
         this.thickness = params.thickness || null;
         this.opacity = params.opacity || null;
@@ -94,14 +94,14 @@ class RectEditor extends AnnotationEditor {
     /** @inheritdoc */
     static updateDefaultParams(type, value) {
         switch (type) {
-            case AnnotationEditorParamsType.RECT_THICKNESS:
-                RectEditor._defaultThickness = value;
+            case AnnotationEditorParamsType.LINE_THICKNESS:
+                LineEditor._defaultThickness = value;
                 break;
-            case AnnotationEditorParamsType.RECT_COLOR:
-                RectEditor._defaultColor = value;
+            case AnnotationEditorParamsType.LINE_COLOR:
+                LineEditor._defaultColor = value;
                 break;
-            case AnnotationEditorParamsType.RECT_OPACITY:
-                RectEditor._defaultOpacity = value / 100;
+            case AnnotationEditorParamsType.LINE_OPACITY:
+                LineEditor._defaultOpacity = value / 100;
                 break;
         }
     }
@@ -109,13 +109,13 @@ class RectEditor extends AnnotationEditor {
     /** @inheritdoc */
     updateParams(type, value) {
         switch (type) {
-            case AnnotationEditorParamsType.RECT_THICKNESS:
+            case AnnotationEditorParamsType.LINE_THICKNESS:
                 this.#updateThickness(value);
                 break;
-            case AnnotationEditorParamsType.RECT_COLOR:
+            case AnnotationEditorParamsType.LINE_COLOR:
                 this.#updateColor(value);
                 break;
-            case AnnotationEditorParamsType.RECT_OPACITY:
+            case AnnotationEditorParamsType.LINE_OPACITY:
                 this.#updateOpacity(value);
                 break;
         }
@@ -124,14 +124,14 @@ class RectEditor extends AnnotationEditor {
     /** @inheritdoc */
     static get defaultPropertiesToUpdate() {
         return [
-            [AnnotationEditorParamsType.RECT_THICKNESS, RectEditor._defaultThickness],
+            [AnnotationEditorParamsType.LINE_THICKNESS, LineEditor._defaultThickness],
             [
-                AnnotationEditorParamsType.RECT_COLOR,
-                RectEditor._defaultColor || AnnotationEditor._defaultLineColor,
+                AnnotationEditorParamsType.LINE_COLOR,
+                LineEditor._defaultColor || AnnotationEditor._defaultLineColor,
             ],
             [
-                AnnotationEditorParamsType.RECT_OPACITY,
-                Math.round(RectEditor._defaultOpacity * 100),
+                AnnotationEditorParamsType.LINE_OPACITY,
+                Math.round(LineEditor._defaultOpacity * 100),
             ],
         ];
     }
@@ -140,18 +140,18 @@ class RectEditor extends AnnotationEditor {
     get propertiesToUpdate() {
         return [
             [
-                AnnotationEditorParamsType.RECT_THICKNESS,
-                this.thickness || RectEditor._defaultThickness,
+                AnnotationEditorParamsType.LINE_THICKNESS,
+                this.thickness || LineEditor._defaultThickness,
             ],
             [
-                AnnotationEditorParamsType.RECT_COLOR,
+                AnnotationEditorParamsType.LINE_COLOR,
                 this.color ||
-                RectEditor._defaultColor ||
+                LineEditor._defaultColor ||
                 AnnotationEditor._defaultLineColor,
             ],
             [
-                AnnotationEditorParamsType.RECT_OPACITY,
-                Math.round(100 * (this.opacity ?? RectEditor._defaultOpacity)),
+                AnnotationEditorParamsType.LINE_OPACITY,
+                Math.round(100 * (this.opacity ?? LineEditor._defaultOpacity)),
             ],
         ];
     }
@@ -172,7 +172,7 @@ class RectEditor extends AnnotationEditor {
                 this.#fitToContent();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.RECT_THICKNESS,
+            type: AnnotationEditorParamsType.LINE_THICKNESS,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -194,7 +194,7 @@ class RectEditor extends AnnotationEditor {
                 this.#redraw();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.RECT_COLOR,
+            type: AnnotationEditorParamsType.LINE_COLOR,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -217,7 +217,7 @@ class RectEditor extends AnnotationEditor {
                 this.#redraw();
             },
             mustExec: true,
-            type: AnnotationEditorParamsType.RECT_OPACITY,
+            type: AnnotationEditorParamsType.LINE_OPACITY,
             overwriteIfSameType: true,
             keepUndo: true,
         });
@@ -374,10 +374,10 @@ class RectEditor extends AnnotationEditor {
         if (!this.#isCanvasInitialized) {
             this.#isCanvasInitialized = true;
             this.#setCanvasDims();
-            this.thickness ||= RectEditor._defaultThickness;
+            this.thickness ||= LineEditor._defaultThickness;
             this.color ||=
-                RectEditor._defaultColor || AnnotationEditor._defaultLineColor;
-            this.opacity ??= RectEditor._defaultOpacity;
+                LineEditor._defaultColor || AnnotationEditor._defaultLineColor;
+            this.opacity ??= LineEditor._defaultOpacity;
         }
         this.currentPath.push([x, y]);
         this.#hasSomethingToDraw = false;
@@ -407,19 +407,13 @@ class RectEditor extends AnnotationEditor {
         currentPath.push([x, y]);
         this.#hasSomethingToDraw = true;
 
-        console.log("currentPath", currentPath);
-
         if (currentPath.length <= 2) {
-
-            console.log("here 1111111111111111111111111111",);
             path2D.moveTo(...currentPath[0]);
             path2D.lineTo(x, y);
             return;
         }
 
         if (currentPath.length === 3) {
-
-            console.log("here 22222222222222222222222222222",);
             this.#currentPath2D = path2D = new Path2D();
             path2D.moveTo(...currentPath[0]);
         }
@@ -739,9 +733,9 @@ class RectEditor extends AnnotationEditor {
     #createCanvas() {
         this.canvas = document.createElement("canvas");
         this.canvas.width = this.canvas.height = 0;
-        this.canvas.className = "rectEditorCanvas";
+        this.canvas.className = "lineEditorCanvas";
 
-        RectEditor._l10nPromise
+        LineEditor._l10nPromise
             .get("editor_ink_canvas_aria_label")
             .then(msg => this.canvas?.setAttribute("aria-label", msg));
         this.div.append(this.canvas);
@@ -775,7 +769,7 @@ class RectEditor extends AnnotationEditor {
 
         super.render();
 
-        RectEditor._l10nPromise
+        LineEditor._l10nPromise
             .get("editor_ink2_aria_label")
             .then(msg => this.div?.setAttribute("aria-label", msg));
 
@@ -1015,8 +1009,8 @@ class RectEditor extends AnnotationEditor {
                 }
             }
             paths.push({
-                bezier: RectEditor.#toPDFCoordinates(buffer, rect, this.rotation),
-                points: RectEditor.#toPDFCoordinates(points, rect, this.rotation),
+                bezier: LineEditor.#toPDFCoordinates(buffer, rect, this.rotation),
+                points: LineEditor.#toPDFCoordinates(points, rect, this.rotation),
             });
         }
 
@@ -1136,7 +1130,7 @@ class RectEditor extends AnnotationEditor {
         const { paths, rect, rotation } = data;
 
         for (let { bezier } of paths) {
-            bezier = RectEditor.#fromPDFCoordinates(bezier, rect, rotation);
+            bezier = LineEditor.#fromPDFCoordinates(bezier, rect, rotation);
             const path = [];
             editor.paths.push(path);
             let p0 = scaleFactor * (bezier[0] - padding);
@@ -1196,4 +1190,4 @@ class RectEditor extends AnnotationEditor {
     }
 }
 
-export { RectEditor };
+export { LineEditor };

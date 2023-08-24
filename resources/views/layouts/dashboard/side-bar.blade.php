@@ -314,20 +314,20 @@
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && \Auth::user()->company_id)
+                {{-- @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !\Auth::user()->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/designer')}}">
                         <span class="menu-title">Estimator's Bid</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && \Auth::user()->company_id)
+                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !\Auth::user()->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
                         <span class="menu-title">Awarded Estimator</span>
                     </a>
                 </div>
-                @endif
+                @endif --}}
                 @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                     </div>
                 </div>

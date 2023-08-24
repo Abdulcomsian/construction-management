@@ -206,7 +206,7 @@ class DesignerController extends Controller
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->addColumn('company', function ($data) {
-                        return $data->userCompany->name;
+                        return $data->userCompany->name ?? '';
                     })
                     ->addColumn('action', function ($data) use ($user) {
                          $btn ='';
@@ -594,7 +594,7 @@ class DesignerController extends Controller
         $list='';
         $path = config('app.url');
         
-        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user') || auth()->user()->hasRole('visitor') || auth()->user()->hasRole('designer')) {
                
                if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') )
                {
@@ -604,8 +604,21 @@ class DesignerController extends Controller
                     $query->whereIn('created_by',$coordinators)
                     ->orWhere('created_by',auth()->user()->email);
                     })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
-               }
-               elseif($is_shared){
+               }elseif(auth()->user()->hasRole('designer'))
+               {
+                $twc_email =$ramsno->creator->email;
+                $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                $di_designer_email = $user->email ?? ''; 
+                $company=Project::find($ramsno->project_id);
+                $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators, $twc_email,$di_designer_email){
+                    $query->whereIn('created_by',$coordinators)
+                    ->orWhere('created_by','hani.thaher@gmail.com')
+                    ->orWhere('created_by',$twc_email)
+                    ->orWhere('created_by',$di_designer_email)
+                    ->orWhere('created_by',auth()->user()->email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+               }elseif($is_shared){
                 $twc_email =$ramsno->creator->email;
                 $user = User::where('di_designer_id', $ramsno->creator->id)->first();
                 $di_designer_email = $user->email ?? ''; 
@@ -617,9 +630,14 @@ class DesignerController extends Controller
                     })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }
                else{
-                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
+                $twc_email =$ramsno->creator->email;
+                $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                $di_designer_email = $user->email ?? ''; 
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($twc_email,$di_designer_email){
                        $query->where(['created_by'=>auth()->user()->email])
-                       ->orWhere('created_by','hani.thaher@gmail.com');
+                            ->orWhere('created_by','hani.thaher@gmail.com')
+							   ->orWhere('created_by',$twc_email)
+							   ->orWhere('created_by',$di_designer_email);
                        })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }
                

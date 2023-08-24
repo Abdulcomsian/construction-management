@@ -77,7 +77,9 @@
       
             dropdown.addEventListener('change', function() {
                var selectedValue = dropdown.value;
-               var link = window.location.origin + '/designer/calendar?user_id=' + selectedValue;
+               var link = "{{ route('calendar', ['user_id' => ':user_id']) }}";
+               link = link.replace(':user_id', selectedValue);
+               // var link = window.location.origin + '/designer/calendar?user_id=' + selectedValue;
                linkPlaceholder.innerHTML = '<a target="_blank" href="' + link + '">' + link + '</a>';
             });
          </script>

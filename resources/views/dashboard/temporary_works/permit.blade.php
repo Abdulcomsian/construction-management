@@ -588,16 +588,10 @@
                         <span class="required">Select Drawing : </span>
                     </label>
                     <select id="drawingDropDown" class="form-select form-select-lg" name="drawing">
-                    <option value="">Select PDF</option>
-                <option value="http://127.0.0.1:8000/pdf/test.pdf">Test PDF 1</option>
-                <option value="http://127.0.0.1:8000/pdf/test2.pdf">Test PDF 2</option>
-                <option value="http://127.0.0.1:8000/pdf/test3.pdf">Test PDF 2</option>
-                <option value="http://127.0.0.1:8000/pdf/169218560265234.pdf">169218560265234</option>
-                <option value="http://127.0.0.1:8000/pdf/169065041586249.pdf">169065041586249</option>
-                        <!-- <option value="">Select PDF</option>
+                        <option value="">Select PDF</option>
                         @foreach($temporary_work_files as $upload)
                         <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
-                        @endforeach -->
+                        @endforeach
                     </select>
                 </div>
             </div>

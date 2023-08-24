@@ -2760,7 +2760,7 @@ class TemporaryWorkController extends Controller
         {
             return redirect('Estimator/estimator');
         }
-        if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']))
+        if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
         {
             return redirect('designer/designer');
         }

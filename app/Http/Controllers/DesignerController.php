@@ -606,11 +606,16 @@ class DesignerController extends Controller
                     })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }elseif(auth()->user()->hasRole('designer'))
                {
-				 
+                $twc_email =$ramsno->creator->email;
+                $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                $di_designer_email = $user->email ?? ''; 
                 $company=Project::find($ramsno->project_id);
                 $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
-                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators, $twc_email,$di_designer_email){
                     $query->whereIn('created_by',$coordinators)
+                    ->orWhere('created_by','hani.thaher@gmail.com')
+                    ->orWhere('created_by',$twc_email)
+                    ->orWhere('created_by',$di_designer_email)
                     ->orWhere('created_by',auth()->user()->email);
                     })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }elseif($is_shared){

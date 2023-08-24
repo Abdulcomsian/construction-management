@@ -433,7 +433,7 @@ class EstimatorController extends Controller
                                 $company_email->email = $email;
                                 $company_email->save();
                             }
-                            Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $email, 1));
+                            Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_msg, $temporary_work->id, $email));
                         }
                      
                         

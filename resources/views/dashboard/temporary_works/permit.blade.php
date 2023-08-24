@@ -1399,19 +1399,19 @@
                 </div>
               </div>
             </div>
-            <div class="editorParamsToolbar hidden doorHangerRight" id="editorRectParamsToolbar">
+            <div class="editorParamsToolbar hidden doorHangerRight" id="editorLineParamsToolbar">
               <div class="editorParamsToolbarContainer">
                 <div class="editorParamsSetter">
-                  <label for="editorRectColor" class="editorParamsLabel" data-l10n-id="editor_rect_color">Color</label>
-                  <input type="color" id="editorRectColor" class="editorParamsColor" tabindex="106" />
+                  <label for="editorLineColor" class="editorParamsLabel" data-l10n-id="editor_line_color">Color</label>
+                  <input type="color" id="editorLineColor" class="editorParamsColor" tabindex="106" />
                 </div>
                 <div class="editorParamsSetter">
-                  <label for="editorRectThickness" class="editorParamsLabel" data-l10n-id="editor_rect_thickness">Thickness</label>
-                  <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
+                  <label for="editorLineThickness" class="editorParamsLabel" data-l10n-id="editor_Line_thickness">Thickness</label>
+                  <input type="range" id="editorLineThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
                 </div>
                 <div class="editorParamsSetter">
-                  <label for="editorRectOpacity" class="editorParamsLabel" data-l10n-id="editor_rect_opacity">Opacity</label>
-                  <input type="range" id="editorRectOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
+                  <label for="editorLineOpacity" class="editorParamsLabel" data-l10n-id="editor_Line_opacity">Opacity</label>
+                  <input type="range" id="editorLineOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
                 </div>
               </div>
             </div>
@@ -1567,7 +1567,7 @@
                       <button id="editorInk2" class="toolbarButton" disabled="disabled" title="Highlight" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar2" tabindex="37" data-l10n-id="editor_ink22">
                         <span data-l10n-id="editor_ink2_label">Draw</span>
                       </button>
-                      <button id="editorRect" class="toolbarButton d-none" disabled="disabled" title="Rect" role="radio" aria-checked="false" aria-controls="editorRectParamsToolbar" tabindex="38" data-l10n-id="editor_Rect2">
+                      <button id="editorLine" class="toolbarButton" disabled="disabled" title="Line" role="radio" aria-checked="false" aria-controls="editorLineParamsToolbar" tabindex="38" data-l10n-id="editor_Line2">
                         <span data-l10n-id="editor_ink2_label">Draw</span>
                       </button>
                     </div>

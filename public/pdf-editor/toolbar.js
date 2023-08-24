@@ -103,14 +103,14 @@ class Toolbar {
         },
       },
       {
-        element: options.editorRectButton,
+        element: options.editorLineButton,
         eventName: "switchannotationeditormode",
         eventDetails: {
           get mode() {
-            const { classList } = options.editorRectButton;
+            const { classList } = options.editorLineButton;
             return classList.contains("toggled")
               ? AnnotationEditorType.NONE
-              : AnnotationEditorType.RECT;
+              : AnnotationEditorType.LINE;
           },
         },
       },
@@ -188,6 +188,8 @@ class Toolbar {
         // alert(element)
         element.addEventListener("click", evt => {
           if (eventName !== null) {
+
+            console.log(eventName);
             this.eventBus.dispatch(eventName, { source: this, ...eventDetails });
           }
           evt.stopImmediatePropagation()
@@ -251,8 +253,8 @@ class Toolbar {
     editorInkParamsToolbar,
     editorInkButton2,
     editorInkParamsToolbar2,
-    editorRectButton,
-    editorRectParamsToolbar,
+    editorLineButton,
+    editorLineParamsToolbar,
     editorStampButton,
   }) {
     const editorModeChanged = ({ mode }) => {
@@ -272,9 +274,9 @@ class Toolbar {
         editorInkParamsToolbar2
       );
       toggleCheckedBtn(
-        editorRectButton,
-        mode === AnnotationEditorType.RECT,
-        editorRectParamsToolbar
+        editorLineButton,
+        mode === AnnotationEditorType.LINE,
+        editorLineParamsToolbar
       );
       toggleCheckedBtn(editorStampButton, mode === AnnotationEditorType.STAMP);
 
@@ -283,7 +285,7 @@ class Toolbar {
       editorInkButton.disabled = isDisable;
       editorInkButton2.disabled = isDisable;
       editorStampButton.disabled = isDisable;
-      editorRectButton.disabled = isDisable;
+      editorLineButton.disabled = isDisable;
     };
     this.eventBus._on("annotationeditormodechanged", editorModeChanged);
 

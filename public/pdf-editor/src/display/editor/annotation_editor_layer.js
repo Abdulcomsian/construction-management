@@ -28,7 +28,7 @@ import { AnnotationEditor } from "./editor.js";
 import { FreeTextEditor } from "./freetext.js";
 import { InkEditor } from "./ink.js";
 import { InkEditor2 } from "./ink2.js";
-import { RectEditor } from "./rect.js";
+import { LineEditor } from "./line.js";
 import { StampEditor } from "./stamp.js";
 import { bindEvents } from "./tools.js";
 
@@ -88,7 +88,7 @@ class AnnotationEditorLayer {
     viewport,
     l10n,
   }) {
-    const editorTypes = [FreeTextEditor, InkEditor, InkEditor2, StampEditor, RectEditor];
+    const editorTypes = [FreeTextEditor, InkEditor, InkEditor2, StampEditor, LineEditor];
     if (!AnnotationEditorLayer._initialized) {
       AnnotationEditorLayer._initialized = true;
       for (const editorType of editorTypes) {
@@ -125,7 +125,7 @@ class AnnotationEditorLayer {
    */
   updateMode(mode = this.#uiManager.getMode()) {
     this.#cleanup();
-    if (mode === AnnotationEditorType.INK || mode === AnnotationEditorType.RECT || mode === AnnotationEditorType.INK2) {
+    if (mode === AnnotationEditorType.INK || mode === AnnotationEditorType.LINE || mode === AnnotationEditorType.INK2) {
       // We always want to an ink editor ready to draw in.
       this.addInkEditorIfNeeded(false);
       this.disableClick();
@@ -152,8 +152,8 @@ class AnnotationEditorLayer {
         mode === AnnotationEditorType.STAMP
       );
       this.div.classList.toggle(
-        "rectEditing",
-        mode === AnnotationEditorType.RECT
+        "lineEditing",
+        mode === AnnotationEditorType.LINE
       );
       this.div.hidden = false;
     }
@@ -162,7 +162,7 @@ class AnnotationEditorLayer {
   addInkEditorIfNeeded(isCommitting) {
     if (
       !isCommitting &&
-      this.#uiManager.getMode() !== AnnotationEditorType.INK && this.#uiManager.getMode() !== AnnotationEditorType.INK2 && this.#uiManager.getMode() !== AnnotationEditorType.RECT
+      this.#uiManager.getMode() !== AnnotationEditorType.INK && this.#uiManager.getMode() !== AnnotationEditorType.INK2 && this.#uiManager.getMode() !== AnnotationEditorType.LINE
     ) {
       return;
     }
@@ -453,8 +453,8 @@ class AnnotationEditorLayer {
         return new InkEditor2(params);
       case AnnotationEditorType.STAMP:
         return new StampEditor(params);
-      case AnnotationEditorType.RECT:
-        return new RectEditor(params);
+      case AnnotationEditorType.LINE:
+        return new LineEditor(params);
     }
     return null;
   }
@@ -472,8 +472,8 @@ class AnnotationEditorLayer {
         return InkEditor.deserialize(data, this, this.#uiManager);
       case AnnotationEditorType.INK2:
         return InkEditor2.deserialize(data, this, this.#uiManager);
-      case AnnotationEditorType.RECT:
-        return RectEditor.deserialize(data, this, this.#uiManager);
+      case AnnotationEditorType.LINE:
+        return LineEditor.deserialize(data, this, this.#uiManager);
       case AnnotationEditorType.STAMP:
         return StampEditor.deserialize(data, this, this.#uiManager);
     }

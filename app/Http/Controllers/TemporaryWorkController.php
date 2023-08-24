@@ -2823,9 +2823,10 @@ class TemporaryWorkController extends Controller
                 foreach ($project_idds as $id) {
                     $ids[] = $id->project_id;
                 }
-                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
-                })->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                //     $q->whereIn('project_id', $ids);
+                // })->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('status',$status)->latest()->paginate(20);
                 foreach ($temporary_works as $temporary_work) {
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')

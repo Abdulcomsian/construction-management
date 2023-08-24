@@ -199,9 +199,9 @@ class DesignerController extends Controller
         try {
             if ($request->ajax()) {
                 if ($user->hasRole('admin')) {
-                    $data = User::role(['designer'])->latest()->get();
+                    $data = User::role(['designer'])->whereNotNull('company_id')->whereNull('di_designer_id')->latest()->get();
                 } elseif ($user->hasRole('company')) {
-                    $data = User::role(['designer'])->with('usernomination')->where('company_id', auth()->user()->id)->get();
+                    $data = User::role(['designer'])->with('usernomination')->whereNull('di_designer_id')->where('company_id', auth()->user()->id)->get();
                 }
                 return Datatables::of($data)
                     ->removeColumn('id')

@@ -594,7 +594,7 @@ class DesignerController extends Controller
         $list='';
         $path = config('app.url');
         
-        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user') || auth()->user()->hasRole('visitor') || auth()->user()->hasRole('designer')) {{
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user') || auth()->user()->hasRole('visitor') || auth()->user()->hasRole('designer')) {
                
                if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') )
                {

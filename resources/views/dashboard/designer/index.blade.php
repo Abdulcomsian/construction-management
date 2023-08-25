@@ -266,11 +266,13 @@
                         <label class="form-check-label" for="exampleRadios1">
                         {{$tempdata->design_requirement_text}}. To Download Design Brief <<a href="{{asset('pdf/'.$tempdata->ped_url)}}">Click here</a>
                     </label>
-                    <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
-                        <span class="">View Pricing:  </span>
-                        </label>
-                        <label class="form-check-label" for="exampleRadios1">To View Pricing <<a href="{{route('estimator.designer',$id.'/?mail='.$mail.'&code='.Crypt::encrypt($estimato_designer->code ?? ''))}}">Click here</a>
-                    </label>                                
+                    @if($tempdata->estimatorApprove)
+                        <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
+                            <span class="">View Pricing:  </span>
+                            </label>
+                            <label class="form-check-label" for="exampleRadios1">To View Pricing <<a href="{{route('estimator.designer',$id.'/?mail='.$mail.'&code='.Crypt::encrypt($estimato_designer->code ?? ''))}}">Click here</a>
+                        </label>                         
+                    @endif       
                 </div>
                 <div class=' d-flex col-md-6'>
                     <ul class="nav nav-tabs w-100 d-flex pt-0 flex-nowrap" id="myTab" role="tablist">

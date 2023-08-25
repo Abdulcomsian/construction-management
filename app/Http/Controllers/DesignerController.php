@@ -550,7 +550,11 @@ class DesignerController extends Controller
                         'action_text' => '',
                         'action_url' => '',
                     ];
-                    Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                    $is_check = false;
+                    if($tempworkdata->status == 0 && $tempworkdata->estimatorApprove == 1){
+                        $is_check=true;
+                    }
+                    Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg, null, $is_check));
                 } else{
                     // dd("Ttt");
                     $is_check = true;

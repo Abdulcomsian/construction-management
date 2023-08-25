@@ -127,13 +127,23 @@
                      <label for="" style="width: 200px;border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
                            Location of the temporary works</b> </label>
                   </td>
-                  <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
+                  <td colspan="3"><span style="font-size: 12px;">
+                     {{-- {{$data['location_temp_work']}} --}}
+                     @php
+                        echo nl2br($data['location_temp_work']);
+                     @endphp
+                  </span></td>
                </tr>
                <tr>
                   <td style="width: 180px;background:gray;color:white;">
                      <label for="" style="width: 400px; border: 1px solid black; font-size: 14px; padding: 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black; margin: 0px;"><b style="font-size: 12px;">Description of structure</label>
                   </td>
-                  <td colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
+                  <td colspan="3"><span style="font-size: 12px;">
+                     {{-- {{$data['description_structure']}} --}}
+                     @php
+                        echo nl2br($data['description_structure']);
+                     @endphp
+                  </span></td>
                </tr>
             </tbody>
          </table>
@@ -264,7 +274,11 @@
                   <td>
                     @if($check_radios['even_stable_radio']=="2")
                      <span style="font-size: 12px;">
-                       {{ $check_comments['even_stable_comment'] ?? ''}}</span>
+                       {{-- {{ $check_comments['even_stable_comment'] ?? ''}} --}}
+                       @php
+                              echo nl2br($check_comments['even_stable_comment'] ?? '');
+                        @endphp
+                     </span>
                     @endif
                   </td>
                   <td>
@@ -292,7 +306,10 @@
                   <td>
                     @if($check_radios['base_Plates_radio']=="2")
                      <span style="font-size: 12px;">
-                       {{ $check_comments['base_Plates_comment'] ?? ''}}
+                       {{-- {{ $check_comments['base_Plates_comment'] ?? ''}} --}}
+                       @php
+                              echo nl2br($check_comments['base_Plates_comment'] ?? '');
+                        @endphp  
                     </span>
                     @endif
                   </td>
@@ -321,7 +338,12 @@
                   </td>
                   <td>
                     @if($check_radios['sole_boards_radio']=="2")
-                     <span style="font-size: 12px;">{{$check_comments['sole_boards_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['sole_boards_comment'] ?? ''}} --}}
+                        @php
+                              echo nl2br($check_comments['sole_boards_comment'] ?? '');
+                        @endphp  
+                     </span>
                      @endif
                   </td>
                   <td>
@@ -350,7 +372,12 @@
                   </td>
                   <td>
                      @if($check_radios['undermined_radio']=="2")
-                     <span style="font-size: 12px;">{{$check_comments['undermined_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['undermined_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['undermined_comment'] ?? '');
+                        @endphp 
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -380,7 +407,12 @@
                   </td>
                   <td>
                      @if($check_radios['Plumb_radio']=="2")
-                     <span style="font-size: 12px;">{{$check_comments['Plumb_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['Plumb_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['Plumb_comment'] ?? '');
+                        @endphp
+                     </span>
                      @endif
                   </td>
                   <td>
@@ -409,7 +441,12 @@
                   </td>
                   <td>
                      @if($check_radios['staggered_joints_radio']=="2")
-                     <span style="font-size: 12px;">{{$check_comments['staggered_joints_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['staggered_joints_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['staggered_joints_comment'] ?? '');
+                        @endphp
+                     </span>
                      @endif
                   </td>
                   <td>
@@ -438,7 +475,12 @@
                   </td>
                   <td>
                      @if($check_radios['wrong_spacing_radio']=="2")
-                     <span style="font-size: 12px;">{{$check_comments['wrong_spacing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['wrong_spacing_comment'] ?? ''}} --}}
+                        @php
+                        echo nl2br($check_comments['wrong_spacing_comment'] ?? '');
+                     @endphp
+                     </span>
                      @endif
                   </td>
                   <td>
@@ -467,7 +509,12 @@
                   </td>
                   <td>
                   @if($check_radios['damaged_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['damaged_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">
+                     @php
+                     echo nl2br($check_comments['damaged_comment'] ?? '');
+                  @endphp
+                     {{-- {{$check_comments['damaged_comment'] ?? ''}} --}}
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -497,7 +544,12 @@
                   </td> -->
                   <!-- <td>
                   @if($check_radios['trap_boards_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['trap_boards_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">
+                     {{-- {{$check_comments['trap_boards_comment'] ?? ''}} --}}
+                     @php
+                     echo nl2br($check_comments['trap_boards_comment'] ?? '');
+                  @endphp
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -525,7 +577,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['trap_boards_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['trap_boards_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['trap_boards_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['trap_boards_image'] ?? '')
@@ -552,7 +609,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['incomplete_boarding_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['incomplete_boarding_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['incomplete_boarding_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['incomplete_boarding_image'] ?? '')
@@ -579,7 +641,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['supports_ties_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['supports_ties_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['supports_ties_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['supports_ties_image'] ?? '')
@@ -607,7 +674,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['insufficient_length_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['insufficient_length_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['insufficient_length_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['insufficient_length_image'] ?? '')
@@ -635,7 +707,12 @@
                   </td>
                   <td>
                   @if($check_radios['missing_loose_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['missing_loose_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">
+                     {{-- {{$check_comments['missing_loose_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['missing_loose_comment'] ?? '');
+                        @endphp
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -663,7 +740,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['wrong_fittings_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['wrong_fittings_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['wrong_fittings_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['wrong_fittings_image'] ?? '')
@@ -691,7 +773,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['not_level_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['not_level_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['not_level_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['not_level_image'] ?? '')
@@ -718,7 +805,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['joined_same_bays_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['joined_same_bays_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['joined_same_bays_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['joined_same_bays_image'] ?? '')
@@ -745,7 +837,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['loose_damaged_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['loose_damaged_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['loose_damaged_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['loose_damaged_image'] ?? '')  
@@ -774,7 +871,12 @@
                   </td>
                   <td>
                   @if($check_radios['wrong_height_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['wrong_height_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">
+                     {{-- {{$check_comments['wrong_height_comment'] ?? ''}} --}}
+                     @php
+                        echo nl2br($check_comments['wrong_height_comment'] ?? '');
+                     @endphp
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -802,7 +904,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['some_missing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['some_missing_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['some_missing_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['some_missing_image'] ?? '')
@@ -829,7 +936,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['GuardRails_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['GuardRails_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['GuardRails_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['GuardRails_image'] ?? '')
@@ -860,7 +972,12 @@
                   </td>
                   <td>
                   @if($check_radios['coupling_wrongfitting_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['coupling_wrongfitting_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">
+                     {{-- {{$check_comments['coupling_wrongfitting_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['coupling_wrongfitting_comment'] ?? '');
+                        @endphp
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -888,7 +1005,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['coupling_somemissing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['coupling_somemissing_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['coupling_somemissing_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if( $check_images['coupling_somemissing_image'] ?? '')
@@ -915,7 +1037,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['coupling_loosedamaged_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['coupling_loosedamaged_comment'] ?? ''}} --}}
+                        @php
+                           echo nl2br($check_comments['coupling_loosedamaged_comment'] ?? '');
+                        @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['coupling_loosedamaged_image'] ?? '')
@@ -946,7 +1073,12 @@
                   </td>
                   <td>
                   @if($check_radios['bracing_wrongfitting_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['bracing_wrongfitting_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">
+                     {{-- {{$check_comments['bracing_wrongfitting_comment'] ?? ''}} --}}
+                     @php
+                     echo nl2br($check_comments['bracing_wrongfitting_comment'] ?? '');
+                 @endphp
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -974,7 +1106,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['bracing_somemissing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['bracing_somemissing_comment'] ?? ''}} --}}
+                        @php
+                        echo nl2br($check_comments['bracing_somemissing_comment'] ?? '');
+                    @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['bracing_somemissing_image'] ?? '')
@@ -1001,7 +1138,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['bracing_loosedamaged_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['bracing_loosedamaged_comment'] ?? ''}} --}}
+                        @php
+                        echo nl2br($check_comments['bracing_loosedamaged_comment'] ?? '');
+                    @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['bracing_loosedamaged_image'] ?? '')
@@ -1031,7 +1173,12 @@
                   </td>
                   <td>
                   @if($check_radios['partially_removed_radio']=="2")
-                  <span style="font-size: 12px;">{{$check_comments['partially_removed_comment'] ?? ''}}</span>
+                  <span style="font-size: 12px;">
+                     {{-- {{$check_comments['partially_removed_comment'] ?? ''}} --}}
+                     @php
+                        echo nl2br($check_comments['partially_removed_comment'] ?? '');
+                    @endphp
+                  </span>
                      @endif
                   </td>
                   <td>
@@ -1059,7 +1206,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['debrings_somemissing_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['debrings_somemissing_comment'] ?? ''}} --}}
+                        @php
+                        echo nl2br($check_comments['debrings_somemissing_comment'] ?? '');
+                    @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['debrings_somemissing_image'] ?? '')
@@ -1086,7 +1238,12 @@
                      </span>
                   </td>
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['loose_damaged_broken_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['loose_damaged_broken_comment'] ?? ''}} --}}
+                        @php
+                                echo nl2br($check_comments['loose_damaged_broken_comment'] ?? '');
+                            @endphp
+                     </span>
                   </td>
                   <td>
                      @if($check_images['loose_damaged_broken_image'] ?? '')
@@ -1117,7 +1274,12 @@
                   </td>
                   
                   <td>
-                      <span style="font-size: 12px;">{{$check_comments['loose_damaged_broken_comment'] ?? ''}}</span>
+                      <span style="font-size: 12px;">
+                        {{-- {{$check_comments['loose_damaged_broken_comment'] ?? ''}} --}}
+                           @php
+                                echo nl2br($check_comments['loose_damaged_broken_comment'] ?? '');
+                            @endphp
+                     </span>
                   </td>
                   </tr>
                   -->
@@ -1143,7 +1305,12 @@
                   </td>
 
                   <td>
-                     <span style="font-size: 12px;">{{$check_comments['other_comment'] ?? ''}}</span>
+                     <span style="font-size: 12px;">
+                        {{-- {{$check_comments['other_comment'] ?? ''}} --}}
+                        @php
+                              echo nl2br($check_comments['other_comment'] ?? '');
+                        @endphp                     
+                     </span>
                   </td>
                   <!-- <td>
                      @if($check_images['other_image'] ?? '')

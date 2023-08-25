@@ -89,14 +89,24 @@
                             <label for="" style="width: 350px; border: 1px solid black; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf;color: black; margin: 0px;"><b style="font-size: 12px;">
                                     Location of the temporary works</b> </label>
                         </td>
-                        <td colspan="3"><span style="font-size: 12px;">{{$data['location_temp_work']}}</span></td>
+                        <td colspan="3"><span style="font-size: 12px;">
+                            {{-- {{$data['location_temp_work']}} --}}
+                            @php
+                                echo nl2br($data['location_temp_work']);
+                            @endphp
+                        </span></td>
 
                     </tr>
                     <tr>
                         <td style="width: 150px;background:gray;color:white;">
                         <label for="" style="width: 400px;border: 1px solid black; height: 70px; font-size: 12px; padding: 5px 10px; display: grid; align-items: center; background-color: #bfbfbf; color: black;  margin: 0px;"><b style="font-size: 12px;">Description of structure </label>
                         </td>
-                        <td  colspan="3"><span style="font-size: 12px;">{{$data['description_structure']}}</span></td>
+                        <td  colspan="3"><span style="font-size: 12px;">
+                            {{-- {{$data['description_structure']}} --}}
+                            @php
+                                echo nl2br($data['description_structure']);
+                            @endphp
+                        </span></td>
 
                     </tr>
                     <tr>
@@ -225,7 +235,12 @@
                 <tbody>
                     <tr>
                             <td style="font-size:12px;">Comments</td>
-                            <td style="font-size:12px;"> {{$data['comments']}}</td>
+                            <td style="font-size:12px;"> 
+                                {{-- {{$data['comments']}} --}}
+                                @php
+                                echo nl2br($data['comments']);
+                            @endphp
+                            </td>
                     </tr>
                 </tbody>
             </table>

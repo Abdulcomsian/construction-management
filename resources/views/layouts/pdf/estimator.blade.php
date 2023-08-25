@@ -86,7 +86,11 @@
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works Required</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:14px; font-weight:bold;">{{$data['description_temporary_work_required']}}</td>
+                        <td colspan="3" style="width: 300px; font-size:14px; font-weight:bold;">
+                            @php
+                                echo nl2br($data['description_temporary_work_required']);
+                            @endphp
+                        </td>
                     </tr>
                 </tbody>
             </table>

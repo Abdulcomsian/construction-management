@@ -940,7 +940,21 @@ class TemporaryWorkController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval');
+            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval', 'req_type', 'req_name', 'req_check', 'req_notes');
+
+            //if design req details is exist
+            
+            if(isset($request->req_name))
+            {
+                $desing_req_details=[];
+                foreach($request->req_name as $key => $req)
+                {
+                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                }
+
+                $all_inputs['desing_req_details']=json_encode($desing_req_details);
+
+            }
             $all_inputs['designer_company_email'] = $request->designer_company_email[0];
             //upload signature here
             $image_name = '';
@@ -992,7 +1006,13 @@ class TemporaryWorkController extends Controller
                         @unlink($oldimg->image);
                     }
                 }
-                TemporayWorkImage::where('temporary_work_id', $temporaryWork->id)->delete();
+                // TemporayWorkImage::where('temporary_work_id', $temporaryWork->id)->delete();
+                 //fetching previously stored attachments
+                 $image_links = [];
+                 foreach($temporaryWork->temp_work_images as $image){
+                     $image_links[]=$image->image;
+                 }
+                 //fetching new uploaded attachments
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');

@@ -563,7 +563,9 @@
             <div class="modal-body py-lg-10 px-lg-10">
                 <div id="req_details_data">
                     @isset($design_check)   
-                        $designCheck = json_decode($design_check) ?? '';
+                        @php
+                         $designCheck = json_decode($design_check) ?? '';
+                        @endphp
                     @endisset
                     @isset($designCheck)
                     <p style="font-weight: 400; font-size: 16px">Reminder of checklist suggested which you should provide for the designer to speed the process and results in accurate designs.</p>

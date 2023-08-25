@@ -1026,7 +1026,7 @@
                             </div>
                         </div>
                         <br>
-                        @include('dashboard.modals.design-relief-modals-edit')
+                        @include('dashboard.modals.design-relief-modals-edit',['design_check' => $temporaryWork->desing_req_details,'images'=>$temporaryWork->temp_work_images])
 
 
                     </form>

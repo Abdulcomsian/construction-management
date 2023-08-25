@@ -5,7 +5,9 @@
 
 
 </style>
-
+@php
+$user = auth()->user();
+@endphp
 
 <div id="check2">
 <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside"
@@ -55,9 +57,9 @@
             data-kt-scroll-offset="0" >
             <!--begin::Menu-->
 
-            @if(auth()->user())
+            @if($user)
             <div  class="menu-item here show menu-accordion mb-1">
-            @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
+            @if($user->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">
                         <span class="menu-icon userTask">
@@ -71,39 +73,39 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
+                @if($user->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('temporary_works.index') }}">
                         <span class="menu-title">Temporary Works Register</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','scaffolder']))
+                @if($user->hasAnyRole(['company','admin','user','scaffolder']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('temporary_works.shared') }}">
                         <span class="menu-title">Shared Temporary Works</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
+                @if($user->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('temporary_works.create') }}">
                         <span class="menu-title">New Design Brief</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['estimator','user']) || auth()->user()->hasPermissionTo('twc-estimator'))
+                @if($user->hasAnyRole(['estimator','user']) || $user->hasPermissionTo('twc-estimator'))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('estimator.index') }}">
                             <span class="menu-title">Pre-Con</span>
                         </a>
                     </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
+                @if($user->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))
                 </div></div>
                 <div data-kt-menu-trigger="click" class="menu-item here menu-accordion mb-1">
                 @endif
-                @if(\Auth::user()->hasRole([['admin', 'company']]))
+                @if($user->hasRole([['admin', 'company']]))
                 <span class="menu-link userIconLink">
                     <span class="menu-icon userIcon">
                         <!-- <i class="fas fa-user fs-3"></i> -->
@@ -119,21 +121,21 @@
                 @endif
                 <div class="menu-sub menu-sub-accordion">
                    
-                    @if(\Auth::user()->hasRole([['user', 'company']]))
+                    @if($user->hasRole([['user', 'company']]))
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('projects.backup')}}">
                             <span class="menu-title">Backup</span>
                         </a>
                     </div>
                     @endif
-                    @if(\Auth::user()->hasRole([['admin', 'company']]))
+                    @if($user->hasRole([['admin', 'company']]))
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('projects.index')}}">
                             <span class="menu-title">Projects</span>
                         </a>
                     </div>
                     @endif
-                    @if(\Auth::user()->hasRole([['admin', 'company']]))
+                    @if($user->hasRole([['admin', 'company']]))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('companies.index') }}">
                             <!-- <span class="menu-bullet">
@@ -143,7 +145,7 @@
                         </a>
                     </div>
                     @endif
-                    @if(\Auth::user()->hasRole([['admin', 'company']]))
+                    @if($user->hasRole([['admin', 'company']]))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('users.index') }}">
                             <span class="menu-title">Users</span>
@@ -151,14 +153,14 @@
                     </div>
                     @endif
                    
-                    @if(\Auth::user()->hasRole([['admin', 'company']]))
+                    @if($user->hasRole([['admin', 'company']]))
                     <div class="menu-item">
                         <a class="menu-link" href="{{route('dashboard')}}">
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
                     @endif
-                    @if(\Auth::user()->hasAnyRole(['company']))
+                    @if($user->hasAnyRole(['company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('users.assign.project') }}">
                             <span class="menu-title">Project Nomination</span>
@@ -168,9 +170,9 @@
                    
                 </div>
 </div>
-@if(!auth()->user()->company_id)
+@if(!$user->company_id)
 <div data-kt-menu-trigger="click" class="menu-item here menu-accordion mb-1">
-                @if(\Auth::user()->hasRole([['admin', 'company']]))
+                @if($user->hasRole([['admin', 'company']]))
                 <span class="menu-link userIconLink">
                     <span class="menu-icon userIcon">
                         <!-- <i class="fas fa-user fs-3"></i> -->
@@ -185,14 +187,14 @@
                 </span>
                 @endif
                 <div class="menu-sub menu-sub-accordion">
-                @if(\Auth::user()->hasRole(['admin','company']))
+                @if($user->hasRole(['admin','company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{url('adminDesigner')}}">
                             <span class="menu-title">Online Designers</span>
                         </a>
                     </div>
                     @endif
-                    @if(\Auth::user()->hasRole(['admin','company']))
+                    @if($user->hasRole(['admin','company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('designer.list')}}">
                             <span class="menu-title">Company Designers</span>
@@ -203,7 +205,7 @@
 </div>
 @endif
 <div data-kt-menu-trigger="click" class="menu-item here menu-accordion mb-1">
-                @if(\Auth::user()->hasRole([['admin', 'company']]))
+                @if($user->hasRole([['admin', 'company']]))
                 <span class="menu-link userIconLink">
                     <span class="menu-icon userIcon">
                         <!-- <i class="fas fa-user fs-3"></i> -->
@@ -218,7 +220,7 @@
                 </span>
                 @endif
                 <div class="menu-sub menu-sub-accordion">
-                    @if(\Auth::user()->hasRole(['admin','company']))
+                    @if($user->hasRole(['admin','company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{url('adminSupplier')}}">
                             <span class="menu-title">Online Suppliers</span>
@@ -227,7 +229,7 @@
                     @endif
                   
                     
-                    @if(\Auth::user()->hasRole(['admin','company']))
+                    @if($user->hasRole(['admin','company']))
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('suppliers.index')}}">
                             <span class="menu-title">Company Suppliers</span>
@@ -236,7 +238,7 @@
                     @endif
                 </div>
 </div>
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                     <span class="menu-link userIconTask">
                         <span class="menu-icon userTask">
@@ -250,28 +252,28 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && \Auth::user()->di_designer_id==NULL && \Auth::user()->company_id==NULL )
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && $user->di_designer_id==NULL && $user->company_id==NULL )
                 <div class="menu-item">
-                    <a class="menu-link" href="{{url('adminDesigner/create-profile',auth()->user()->id)}}">
+                    <a class="menu-link" href="{{url('adminDesigner/create-profile',$user->id)}}">
                         <span class="menu-title">Create Company Profile</span>
                     </a>
                 </div>
                 @endif
-                @if((\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && auth()->user()->company_id))
+                @if(($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && $user->company_id))
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('temporary_works.index') }}">
                         <span class="menu-title">Temporary Works Register</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !auth()->user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
                         <span class="menu-title">Designer List</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !auth()->user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{route('estimator_list')}}">
                         <span class="menu-title">Manage Jobs</span>
@@ -279,56 +281,56 @@
                 </div>
                 @endif
 
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !auth()->user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/designer')}}">
                         <span class="menu-title">Bidding Requests</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !auth()->user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{route('awarded_jobs')}}">
                         <span class="menu-title">Awarded Jobs</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !auth()->user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{route('calendar')}}">
                         <span class="menu-title">Calendar</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !auth()->user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{route('filter')}}">
                         <span class="menu-title">Filter</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !auth()->user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{route('manage_invoice')}}">
                         <span class="menu-title">Manage Invoice</span>
                     </a>
                 </div>
                 @endif
-                {{-- @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !\Auth::user()->company_id)
+                {{-- @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/designer')}}">
                         <span class="menu-title">Estimator's Bid</span>
                     </a>
                 </div>
                 @endif
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !\Auth::user()->company_id)
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && !$user->company_id)
                 <div class="menu-item">
                     <a class="menu-link" href="{{url('designer/awarded-estimator')}}">
                         <span class="menu-title">Awarded Estimator</span>
                     </a>
                 </div>
                 @endif --}}
-                @if(\Auth::user()->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
+                @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                     </div>
                 </div>
                 @endif

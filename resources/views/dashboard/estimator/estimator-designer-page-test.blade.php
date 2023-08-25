@@ -757,7 +757,12 @@
                     <label class="form-check-label" for="exampleRadios1">
                         <b>Title:</b> {{$estimatorWork->design_requirement_text}} <b>Project:</b> {{$estimatorWork->project->name ?? ''}}, <b>Company:</b> {{$estimatorWork->company}} <a href="{{asset('estimatorPdf').'/'.$estimatorWork->ped_url}}">Design Brief</a>
                     </label>
-                    </div>
+                    <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
+                        <span class="">View Upload Drawing: </span>
+                        </label>
+                        <label class="form-check-label" for="exampleRadios1">To View Upload Drawing <a href="{{route('designer.uploaddesign',Crypt::encrypt($id).'/?mail='.$mail)}}">Click here</a>
+                    </label>    
+                </div>
             </div>
             <div class="row">
                 <div class=' d-flex col-md-8'>

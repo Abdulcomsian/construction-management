@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DesignerCompanyEmail extends Model
 {
+    protected $fillable = [
+        'temporary_work_id',
+        'email',
+    ];
     use HasFactory;
 }

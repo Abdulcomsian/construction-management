@@ -24,7 +24,18 @@ License: -->
     <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
 
     
-
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px); /* Adjust the blur value as needed */
+            z-index: 9999; /* Ensure it's above other content */
+            display: none; /* Initially hidden */
+        }
+    </style>
 
     @include('layouts.dashboard.styles')
     @toastr_css
@@ -34,6 +45,7 @@ License: -->
 <body id="kt_body"
     class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed"
     style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+    <div class="overlay" id="overlay"></div> <!-- Transparent overlay -->
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -95,7 +107,24 @@ License: -->
    <script type="text/javascript">
         $('.input-images').imageUploader();
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <script>
+        // Target the loader element
+        var target = document.getElementById("kt_body");
     
+        // Create a new Spinner instance
+        var spinner = new Spinner().spin(target);
+    
+        // Show the overlay while the loader is active
+        document.getElementById("overlay").style.display = "block";
+    
+        // Hide the loader and overlay when the DOM content is loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            spinner.stop();
+            // Hide the overlay
+            document.getElementById("overlay").style.display = "none";
+        });
+    </script>
     @include('layouts.dashboard.scripts')
     @toastr_js
     @toastr_render

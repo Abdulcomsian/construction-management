@@ -12,21 +12,70 @@ use App\Models\TemporaryWork;
 use App\Models\PermitLoad;
 use App\Models\TemporaryWorkComment;
 use App\Models\Scaffolding;
+use App\Models\User;
+use Auth;
+use DB;
 
 class TemporyWorkExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithStyles
 {
     public function collection()
     {
-        return TemporaryWork::select(
-            'id',
-            'twc_id_no',
-            'description_temporary_work_required',
-            'tw_category',
-            'tw_risk_class',
-            'design_issued_date',
-            'design_required_by_date',
-            'designer_company_name'
-        )->get();
+        $status=[0,1,2,3];
+        $user = User::with('userCompany')->find(Auth::user()->id);
+        if($user->hasRole('admin'))
+        {
+            return TemporaryWork::select(
+                'id',
+                'twc_id_no',
+                'description_temporary_work_required',
+                'tw_category',
+                'tw_risk_class',
+                'design_issued_date',
+                'design_required_by_date',
+                'designer_company_name'
+            )->get();
+        } elseif($user->hasRole('company'))
+        {
+            $users = User::select(['id','name'])->where('company_id', $user->id)->get();
+            $ids = [];
+            $tot_emails = [];
+            foreach ($users as $u) {
+                $ids[] = $u->id;
+            }
+            $ids[] = $user->id;
+            
+            return TemporaryWork::select(
+                'id',
+                'twc_id_no',
+                'description_temporary_work_required',
+                'tw_category',
+                'tw_risk_class',
+                'design_issued_date',
+                'design_required_by_date',
+                'designer_company_name'
+            )->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest()->get();
+        } elseif($user->hasRole('user'))
+        {
+            $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+            $ids = [];
+            foreach ($project_idds as $id) {
+                $ids[] = $id->project_id;
+            }
+            
+            return TemporaryWork::select(
+                'id',
+                'twc_id_no',
+                'description_temporary_work_required',
+                'tw_category',
+                'tw_risk_class',
+                'design_issued_date',
+                'design_required_by_date',
+                'designer_company_name'
+            )->whereHas('project', function ($q) use ($ids) {
+                $q->whereIn('project_id', $ids);
+            })->whereIn('status',$status)->where(['estimator'=>0])->latest()->get();
+        }
+                
     }
 
     public function headings(): array

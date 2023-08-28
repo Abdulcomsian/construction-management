@@ -32,19 +32,29 @@ License: -->
 
     <!-- work for signature -->
     
-    
-{{--    begin::Global style files--}}
+<style>
+     .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px); /* Adjust the blur value as needed */
+            z-index: 9999; /* Ensure it's above other content */
+            display: none; /* Initially hidden */
+        }
+</style>
     @include('layouts.dashboard.styles')
     @toastr_css
-{{--    end::Global style files--}}
     @yield('styles')
 </head>
 <!--end::Head-->
 <!--begin::Body-->
 <body id="kt_body"
-      class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed"
+      class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed loader-container"
       style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-<!--begin::Main-->
+      <div class="overlay" id="overlay"></div> <!-- Transparent overlay -->
+      <!--begin::Main-->
 <!--begin::Root-->
 <div class="d-flex flex-column flex-root">
     <!--begin::Page-->
@@ -113,28 +123,6 @@ License: -->
 
     </script>
     <script type="text/javascript">
-        // var sig1 = $('#sig1').signature({
-        //     syncField: '#signature1',
-        //     syncFormat: 'PNG'
-        // });
-        // $('#clear').click(function(e) {
-        //     e.preventDefault();
-        //     sig.signature('clear');
-        //     $("#signature").val('');
-        // });
-    </script>
-     <script type="text/javascript">
-        // var sig = $('#sig').signature({
-        //     syncField: '#signature',
-        //     syncFormat: 'PNG'
-        // });
-        // $('#clear').click(function(e) {
-        //     e.preventDefault();
-        //     sig.signature('clear');
-        //     $("#signature").val('');
-        // });
-    </script>
-    <script type="text/javascript">
          $('.menuBtn').click(function(){
              if($('.mobileView').css("display")=='block'){
                 $('.mobileView').css("display", 'none')
@@ -144,13 +132,42 @@ License: -->
          })
     </script>
 
-    
+    <!-- Using a CDN link for Spin.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script>
+    // Target the loader element
+    var target = document.getElementById("kt_body");
+
+    // Create a new Spinner instance
+    var spinner = new Spinner().spin(target);
+
+    // Show the overlay while the loader is active
+    document.getElementById("overlay").style.display = "block";
+
+    // Hide the loader and overlay when the DOM content is loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        spinner.stop();
+        // Hide the overlay
+        document.getElementById("overlay").style.display = "none";
+    });
+</script>
+
 @include('layouts.dashboard.scripts')
 @toastr_js
 @toastr_render
 
 @yield('scripts')
+{{-- <script>
+    // Show the loader when data loading starts
+    $(".loader-container").show();
 
+    // Listen for the complete page load event
+    $(window).on("load", function() {
+        // Hide the loader when the complete page is loaded
+        $(".loader-container").hide();
+    });
+
+</script> --}}
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->
 </body>

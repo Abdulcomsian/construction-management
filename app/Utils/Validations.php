@@ -159,6 +159,7 @@ class Validations
             'signed' => 'required_if:signtype,2',
             'namesign' => 'required_if:signtype,1',
             'pdfphoto'=>'required_if:pdfsigntype,1',
+            // 'design_description' => 'required'
         ]);
     }
 

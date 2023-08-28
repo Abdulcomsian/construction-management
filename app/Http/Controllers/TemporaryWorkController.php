@@ -583,7 +583,7 @@ class TemporaryWorkController extends Controller
     public function store(Request $request)
     {
         Validations::storeTemporaryWork($request);
-        try {
+        // try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -629,7 +629,7 @@ class TemporaryWorkController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
+            $all_inputs  = $request->except('_token','files' ,'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
             
             //if design req details is exist
             
@@ -666,9 +666,42 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
             }
 
+            //design description starts here
+            // dd($request->all());
+            $designDocument = $request->description_temporary_work_required;
+            $dom = new \DOMDocument();
+            $dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $images = $dom->getElementsByTagName('img');
+
+            foreach($images as $item => $image){
+                $data = $image->getAttribute("src");
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $imgeData = base64_decode($data);
+                $image_name= time().$item.'.png';
+                $path = public_path().'/temporary/signature/' . $image_name;
+                file_put_contents($path, $imgeData);
+                $image->removeAttribute('src');
+                $image->setAttribute('src', $image_name);
+                $image->setAttribute('width' , "120");
+                $image->setAttribute('height' , "120");
+            }
+            $content = $dom->saveHTML();
+
+
+            //design description ends here
+
             // $image_name = HelperFunctions::savesignature($request);
+            
+
+
+            // $all_inputs['description_temporary_work_required'] = $content;
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
+            $all_inputs['description_temporary_work_required'] = $content;
+            // $request->description = $content;
+            // dd($request->all());
+            // dd($request->all());
             if (auth()->user()->hasRole('admin')) {
                 $all_inputs['created_by'] = $request->company_id;
             }
@@ -718,7 +751,13 @@ class TemporaryWorkController extends Controller
                     }
                 }
                 //work for pdf
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                // dd($content);
+                // dd($request->all());
+                // dd($content);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), "description" => $content , 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                
+                dd("here");
+                // dd("now here");
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
@@ -830,11 +869,11 @@ class TemporaryWorkController extends Controller
             }
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
-        } catch (\Exception $exception) {
-            // dd($exception->getMessage(), $exception->getLine());
-            toastError('Something went wrong, try again!');
-            return Redirect::back();
-        }
+        // } catch (\Exception $exception) {
+        //     // dd($exception->getMessage(), $exception->getLine());
+        //     toastError('Something went wrong, try again!');
+        //     return Redirect::back();
+        // }
     }
 
     public function show(TemporaryWork $temporaryWork)

@@ -14,6 +14,7 @@ use App\Models\TemporaryWorkComment;
 use App\Models\Scaffolding;
 use App\Models\User;
 use Auth;
+use DB;
 
 class TemporyWorkExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithStyles
 {

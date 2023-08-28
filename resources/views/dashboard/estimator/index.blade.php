@@ -420,6 +420,9 @@
       background-color:red !important;
     }
 
+    .flex-column-fluid {
+      flex: 0;
+    }
     /* .redBgBlink{color: #fff !important;background-color:red !important;} */
 </style>
 @include('layouts.sweetalert.sweetalert_css')

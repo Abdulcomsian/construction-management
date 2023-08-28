@@ -763,7 +763,6 @@ class TemporaryWorkController extends Controller
                 // dd($content);
                 $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), "description" => $content , 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                 
-                dd("here");
                 // dd("now here");
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';

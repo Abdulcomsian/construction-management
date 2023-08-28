@@ -149,20 +149,16 @@
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works Required</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:14px;white-space:pre-wrap;">
-                            <b>
-                                {{-- <p>lorem ipsum</p>
-                                <img src="temporary/signature/61d2dda15fc08.png" width="auto" height="120"> --}}
-                                {{-- <img src="{{asset('temporary/signature/61d2dda15fc08.png')}}" /> --}}
-                                @php
-                                    echo $description;
+                        <td colspan="3" style="width: 300px; font-size:14px;white-space:pre-wrap;"><b>
+                            
+                            @php
+                                // echo nl2br($data['description_temporary_work_required']);
+                                echo $description;
                                 @endphp
-                                {{-- <p>hi man is this working as expected
-                                    <img data-filename="js1.jfif" src="http://127.0.0.1:8000/uploads/16932239300.png" width="120" height="120">
-                                </p> --}}
                                
-                            </b>
-                        </td>
+                           
+                        </b>
+                    </td>
                     </tr>
                 </tbody>
             </table>
@@ -458,8 +454,6 @@
         </div>
 
 
-      
-
 
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
@@ -489,7 +483,8 @@
                         <td style="font-size:12px;"> @if($data['signtype']=='1')
                            <i> {{ucwords($data['namesign'])}}</i>
                             @else
-                            @php $sign=\App\Models\TemporaryWork::find($image_name);@endphp
+                            @php 
+                            $sign=\App\Models\TemporaryWork::find($image_name);@endphp
                             <img src="temporary/signature/{{$sign->signature}}" width="auto" height="120">
                             @endif
                         </td>

@@ -673,6 +673,16 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
             }
 
+            
+
+            // $image_name = HelperFunctions::savesignature($request);
+            
+
+
+            // $all_inputs['description_temporary_work_required'] = $content;
+            $all_inputs['signature'] = $image_name;
+            $all_inputs['created_by'] = auth()->user()->id;
+
             //design description starts here
             // dd($request->all());
             $designDocument = $request->description_temporary_work_required;
@@ -689,23 +699,20 @@ class TemporaryWorkController extends Controller
                 $path = public_path().'/temporary/signature/' . $image_name;
                 file_put_contents($path, $imgeData);
                 $image->removeAttribute('src');
-                $image->setAttribute('src', $image_name);
+                $image->setAttribute('src', 'temporary/signature/'.$image_name);
                 $image->setAttribute('width' , "120");
                 $image->setAttribute('height' , "120");
+                $image->removeAttribute("style");
             }
             $content = $dom->saveHTML();
+            $all_inputs['description_temporary_work_required'] = $content;
 
 
             //design description ends here
 
-            // $image_name = HelperFunctions::savesignature($request);
-            
 
 
-            // $all_inputs['description_temporary_work_required'] = $content;
-            $all_inputs['signature'] = $image_name;
-            $all_inputs['created_by'] = auth()->user()->id;
-            $all_inputs['description_temporary_work_required'] = $content;
+
             // $request->description = $content;
             // dd($request->all());
             // dd($request->all());
@@ -761,7 +768,7 @@ class TemporaryWorkController extends Controller
                 // dd($content);
                 // dd($request->all());
                 // dd($content);
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), "description" => $content , 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(),  'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments , "description" => $content]);
                 
                 // dd("now here");
                 $path = public_path('pdf');

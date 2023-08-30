@@ -983,6 +983,35 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
+
+               //design description starts here
+            // dd($request->all());
+            $designDocument = $request->description_temporary_work_required;
+            $dom = new \DOMDocument();
+            $dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $images = $dom->getElementsByTagName('img');
+
+            foreach($images as $item => $image){
+                $data = $image->getAttribute("src");
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $imgeData = base64_decode($data);
+                $image_name= time().$item.'.png';
+                $path = public_path().'/temporary/signature/' . $image_name;
+                file_put_contents($path, $imgeData);
+                $image->removeAttribute('src');
+                $image->setAttribute('src', 'temporary/signature/'.$image_name);
+                $image->setAttribute('width' , "120");
+                $image->setAttribute('height' , "120");
+                $image->removeAttribute("style");
+            }
+            $content = $dom->saveHTML();
+            $all_inputs['description_temporary_work_required'] = $content;
+
+
+            //design description ends here
+
+
             //photo work here
             if ($request->photo) {
                 $filePath = HelperFunctions::designbriefphotopath();
@@ -992,7 +1021,7 @@ class TemporaryWorkController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval', 'req_type', 'req_name', 'req_check', 'req_notes');
+            $all_inputs  = $request->except('_token', 'files', 'date', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval', 'req_type', 'req_name', 'req_check', 'req_notes');
 
             //if design req details is exist
             
@@ -1089,7 +1118,7 @@ class TemporaryWorkController extends Controller
                 
                 //work for pdf
 
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $request->twc_id_no, 'comments' => $attachcomments]);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $request->twc_id_no, 'comments' => $attachcomments, "description" => $content]);
                 $path = public_path('pdf');
                 if (isset($request->approval)) {
                     @unlink($path . '/' . $temporaryWork->ped_url);

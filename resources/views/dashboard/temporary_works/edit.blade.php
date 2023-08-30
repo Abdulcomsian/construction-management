@@ -305,6 +305,9 @@
         border:none;
         cursor: pointer;
     }
+    .note-editor.note-frame.card {
+        border: 1px solid grey!important;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -312,6 +315,7 @@
 <link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}" />
 <link rel="stylesheet" href="{{asset('css/signature.css')}}" />
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.css')}}">
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content" style="background-color: #fff !important">
@@ -728,7 +732,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-12">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
@@ -743,7 +747,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="row">
                             <div class="col-md-6">
@@ -874,6 +878,16 @@
                                     <input type="file" class="form-control" id="photo" name="photo"
                                         value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
+                            </div>
+                            <div class="col-12">
+                                {{-- <div class="d-flex inputDiv d-block">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span>Description:</span>
+                                </label>
+                            </div> --}}
+                                {{-- description code starts here --}}
+                                <textarea id="description" name="description_temporary_work_required" >{{$temporaryWork->description_temporary_work_required}}</textarea>
+                                {{-- description code ends here --}}
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-1" style="border: none">
@@ -1041,6 +1055,8 @@
 </div>
 @endsection
 @section('scripts')
+<script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
+
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
 <script type="text/javascript">
@@ -1370,6 +1386,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+$(document).ready(function(){
+
+$("#description").summernote({
+    placeholder: 'Design Description',
+    tabsize: 2,
+    height: 300
+});
+
+})
 
 // $('.email-minus').click(function(){
 //     alert("13");

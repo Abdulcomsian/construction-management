@@ -1010,10 +1010,16 @@
                                 </div>
                             </div>
                             <!-- </div> -->
-
-                            {{-- description code starts here --}}
-                            <textarea id="description" name="description_temporary_work_required"></textarea>
-                            {{-- description code ends here --}}
+                            <div class="col-12">
+                                {{-- <div class="d-flex inputDiv d-block">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span>Description:</span>
+                                </label>
+                            </div> --}}
+                                {{-- description code starts here --}}
+                                <textarea id="description" name="description_temporary_work_required"></textarea>
+                                {{-- description code ends here --}}
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="d-flex inputDiv mb-1" style="border: none">

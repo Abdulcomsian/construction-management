@@ -1,22 +1,34 @@
+<style>
+    #kt_aside{
+        display:none;
+    }
+    </style>
 @php
 $currentRouteUrl = request()->path();
 $tempWorkClass = "d-none";
 @endphp
-@if($currentRouteUrl == 'temporary_works_shared')
+@if($currentRouteUrl == 'temporary_works')
 @include('layouts.dashboard.side-bar')
 @endif
-@extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works Shared'])
+@extends('layouts.dashboard.master-index-tempory',['title' => 'Temporary Works'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
-   #kt_content_container .card-header .topRightMenu {
+    /* .indexTempory .test{
+        height:65px !important;
+        max-height:65px !important;
+        overflow:hidden !important;
+    } */
+
+    #kt_aside{
+        display:none;
+    }
+    #kt_content_container .card-header .topRightMenu {
         position: absolute;
         right: 15px;
         top: 10px;
     }
-    #kt_content_container .card{
-        background: #d5d8dc !important
-    }
+
     /* #kt_aside:hover {
         width: 265px;
     } */
@@ -84,6 +96,7 @@ $tempWorkClass = "d-none";
     .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg {
         padding: 0px 10px;
     }
+    .select2-selection { height: auto !important;}
 
     .aside-enabled.aside-fixed .wrapper {
         padding-left: 30px;
@@ -482,12 +495,12 @@ $tempWorkClass = "d-none";
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid temporary_blade" id="kt_content">
-<div class="topMenu" style="padding-top:0px;">
+<div class="topMenu" style="padding-top:0px;padding: 0px">
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
-            <div class="card">
+            <div class="" style="margin-top:0px;">
                 <div class="card-header border-0">
                         <div class="card-title">
                             <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hide1()">Menu</a>
@@ -588,13 +601,17 @@ $tempWorkClass = "d-none";
                         <!--end::Topbar-->
                     </div>
                 <!--begin::Card header-->
-                <div class="card-header border-0 pt-6">
+                <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">
                     <!--begin::Card title-->
                     <!-- <div class="card-title btns_resp" style="width: 100%"> 
                         <h1 class="passionate text-dark fw-bolder my-1 fs-3" style="margin-left:0px !important;     font-size: 22px !important; width: 100%; text-align: center;font-size:21px; text-transform: uppercase;">Shared Temporary Works</h1>
                     </div> -->
-                    <div class="form" style="float:left;width: 30% !important">
-                            <form class="form-inline d-flex" method="get" action="{{route('sharedtempwork.proj.search')}}" >
+                    <div class="my-4 test"  style="background: white;padding: 10px 22px;">
+                        <div class="row align-items-center" style="justify-content: flex-start;">
+                            <div class="col-md-6">
+                                <div class="row align-items-center" style="justify-content: flex-start;">
+                                    <div class="col-md-4 my-2 my-md-0" style="flex-grow: 1">
+                            <form class="form-inline d-flex m-0"  method="get" action="{{route('sharedtempwork.proj.search')}}" >
                                 <div class="col-10" >
                                 <select name="projects[]"  class="form-control form-select form-select-lg form-select-solid" multiple="multiple"data-control="select2" data-placeholder="Select a Project" data-allow-clear="true">
                                     <option value="">Select Projects</option>
@@ -608,7 +625,7 @@ $tempWorkClass = "d-none";
                                 </div>
                             </form>
                         </div>
-                        <div class="form" style="float:left;width: 30% !important">
+                        <div class="col-md-4 my-2 my-md-0" style="flex-grow: 1">
                             <form class="form-inline d-flex" method="get" action="{{route('sharedtempwork.proj.search')}}" >
                                 <div class="col-10" >
                                 <select name="company"  class="form-control form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select Company" data-allow-clear="true">
@@ -623,6 +640,8 @@ $tempWorkClass = "d-none";
                                 </div>
                             </form>
                         </div>
+                    </div>
+                </div>
                     
                         <!--begin::Card toolbar-->
                     
@@ -640,7 +659,7 @@ $tempWorkClass = "d-none";
                         </div>
                     </div>
                     <!--begin::Table-->
-                     <div class="table-responsive tableDiv " style="height: 1000px;">
+                     <div class="table-responsive tableDiv " style="float:left;width:100%;position:relative;top:-5px;height: 1000px;">
                      <table
                                             class="table datatable align-middle table-row-dashed fs-6 gy-5 table-responsive"
                                             id="kt_table_users">

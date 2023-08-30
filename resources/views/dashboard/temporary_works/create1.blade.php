@@ -341,6 +341,8 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- just used existing design brief column so that we can reuse this column on temporary work register page to hide edit button for existing design briefs --}}
+                        <input type="hidden" name="existing_Design_brief" value="1" /> 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0">

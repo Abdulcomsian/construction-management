@@ -1197,6 +1197,7 @@ $tempWorkClass = "d-none";
                                                                         $label_class='label-light-danger';
                                                                     @endphp
                                                                 @endif
+                                                                @if($item->existing_design_brief != 1)
                                                                 <a href="{{route('temporary_works.edit',$item->id)}}">
                                                                     <span class="{{$edit_class}} cursor-pointer"
                                                                         style="width: 108px;"
@@ -1208,6 +1209,7 @@ $tempWorkClass = "d-none";
                                                                         </span>
                                                                     </span>
                                                                 </a>
+                                                                @endif
                                                             </div>
                                                             <span class="fa fa-plus addphoto cursor-pointer"
                                                                 data-id="{{$item->id}}"></span>

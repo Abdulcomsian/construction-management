@@ -650,14 +650,14 @@ $tempWorkClass = "d-none";
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <div class="row"> 
+                    {{-- <div class="row"> 
 
                         <div class="col-md-6" >
                             @if(\Auth::user()->hasRole('company') && \auth()->user()->image!='')
                              <img class="img img-thumbnail profileimg" src="{{\auth()->user()->image}}" width="150px" height="150px">
                             @endif  
                         </div>
-                    </div>
+                    </div> --}}
                     <!--begin::Table-->
                      <div class="table-responsive tableDiv " style="float:left;width:100%;position:relative;top:-5px;height: 1000px;">
                      <table

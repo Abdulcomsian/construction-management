@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DesignerController;
 use App\Http\Controllers\AdminDesignerController;
 use App\Http\Controllers\AdminSupplierController;
+use App\Models\TemporaryWork;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
@@ -359,3 +360,4 @@ Route::get("/test" , function(){
 });
 
 
+Route::get('get-report' , [TemporaryWorkController::class , 'getReportsData'])->name('get-report');
